@@ -1,0 +1,39 @@
+"""Validated environment settings. No model is loaded during import."""
+import os
+from dataclasses import dataclass, field
+from dotenv import load_dotenv
+
+load_dotenv()
+
+
+@dataclass(frozen=True)
+class Settings:
+    provider: str = field(default_factory=lambda: os.getenv("AI_PROVIDER", "huggingface").lower())
+    model: str = field(default_factory=lambda: os.getenv("HF_MODEL", "Qwen/Qwen2.5-0.5B-Instruct"))
+    revision: str = field(default_factory=lambda: os.getenv("HF_REVISION", "main"))
+    adapter: str = field(default_factory=lambda: os.getenv("ZENITH_ADAPTER", ""))
+    device: str = field(default_factory=lambda: os.getenv("ZENITH_DEVICE", "auto"))
+    data_dir: str = field(default_factory=lambda: os.getenv("AGENT_DATA_DIR", "data"))
+    api_token: str = field(default_factory=lambda: os.getenv("ZENITH_API_TOKEN", ""))
+    ollama_url: str = field(default_factory=lambda: os.getenv("OLLAMA_BASE_URL", "http://localhost:11434").rstrip("/"))
+    ollama_model: str = field(default_factory=lambda: os.getenv("OLLAMA_MODEL", "qwen2.5-coder:7b"))
+    tiny_checkpoint: str = field(default_factory=lambda: os.getenv("ZENITH_TINY_CHECKPOINT", "artifacts/tiny/model.pt"))
+    max_new_tokens: int = field(default_factory=lambda: int(os.getenv("MAX_NEW_TOKENS", "256")))
+    context_tokens: int = field(default_factory=lambda: int(os.getenv("CONTEXT_TOKENS", "2048")))
+    temperature: float = field(default_factory=lambda: float(os.getenv("TEMPERATURE", "0.4")))
+
+    def __post_init__(self):
+        if self.provider not in {"huggingface", "ollama", "tiny"}:
+            raise ValueError("AI_PROVIDER must be huggingface, ollama, or tiny")
+        if not 1 <= self.max_new_tokens <= 4096:
+            raise ValueError("MAX_NEW_TOKENS must be between 1 and 4096")
+        if self.context_tokens < 128 or self.context_tokens > 32768:
+            raise ValueError("CONTEXT_TOKENS must be between 128 and 32768")
+        if not 0 <= self.temperature <= 2:
+            raise ValueError("TEMPERATURE must be between 0 and 2")
+        if self.device not in {"auto", "cpu", "cuda", "mps"}:
+            raise ValueError("ZENITH_DEVICE must be auto, cpu, cuda, or mps")
+
+    @property
+    def model_name(self):
+        return self.ollama_model if self.provider == "ollama" else self.tiny_checkpoint if self.provider == "tiny" else self.model

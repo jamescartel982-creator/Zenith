@@ -1,0 +1,29 @@
+name: Zenith checks
+on:
+  push:
+  pull_request:
+jobs:
+  chat:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ["3.10", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+      - run: pip install -e ".[test]"
+      - run: python -m unittest discover -s tests -v
+  transformer:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -e ".[test]"
+      - run: pip install 'torch>=2.6,<3' --index-url https://download.pytorch.org/whl/cpu
+      - run: OMP_NUM_THREADS=2 python -m unittest discover -s tests -v

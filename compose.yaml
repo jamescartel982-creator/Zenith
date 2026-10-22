@@ -1,0 +1,19 @@
+services:
+  zenith:
+    build: .
+    ports:
+      - "127.0.0.1:7860:7860"
+    environment:
+      ZENITH_API_TOKEN: ${ZENITH_API_TOKEN:?Set a random ZENITH_API_TOKEN of at least 32 characters in .env}
+      AI_PROVIDER: huggingface
+      HF_MODEL: ${HF_MODEL:-Qwen/Qwen2.5-0.5B-Instruct}
+      HF_REVISION: ${HF_REVISION:-main}
+      MAX_NEW_TOKENS: ${MAX_NEW_TOKENS:-256}
+      CONTEXT_TOKENS: ${CONTEXT_TOKENS:-2048}
+    volumes:
+      - zenith-data:/app/data
+      - zenith-models:/home/zenith/.cache/huggingface
+    restart: unless-stopped
+volumes:
+  zenith-data:
+  zenith-models:
