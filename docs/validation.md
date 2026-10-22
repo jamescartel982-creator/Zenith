@@ -9,7 +9,8 @@ Validated on 2026-10-22 in a Linux CPU environment. These are implementation che
 - The installed wheel ran from another working directory without activation: version, catalog validation, JSON diagnostics, and terminal exit all passed. The packaged catalog retained exactly 1,000 model and 200 dataset sources.
 - Real cached CPU inference through both `doctor --inference` and terminal chat returned “2 plus 2 equals 4.” A real localhost browser server passed health and UI checks.
 - Python compilation, Bash syntax checks, and Git whitespace checks passed.
-- CI now includes Python 3.10/3.12 tests on Windows/Linux and a full native installation/inference job on each platform. Hosted results are recorded separately once completed.
+- [Hosted Windows/Linux CI](https://github.com/jamescartel982-creator/Zenith/actions/runs/39775105965) passed all six jobs: Python 3.10/3.12 lightweight tests on each OS, plus a full native installation/inference job on each OS. Both native jobs installed in a path containing spaces, downloaded the pinned checkpoint, passed all 63 tests with CPU dependencies, generated a real answer, started the localhost server, and exercised the installed wheel from another working directory. Windows also exercised the PowerShell 5.1 wrappers.
+- A separate clean Ollama-mode Linux installation and repeat default-mode upgrade preserved its Ollama profile and omitted Torch/Transformers. Ollama server inference remains outside the checks performed.
 
 ## Automated checks
 

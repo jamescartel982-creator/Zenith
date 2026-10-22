@@ -88,6 +88,8 @@ The saved profile and conversations live in `%LOCALAPPDATA%\Zenith` on Windows a
 
 ## Choose more capability
 
+The advanced `python`/`pip` examples below assume the installed environment is activated: Linux `source .venv/bin/activate`; PowerShell `. .\.venv\Scripts\Activate.ps1` (subject to your local execution policy). You can instead use `.venv/bin/python` or `.venv/Scripts/python.exe` directly, and invoke pip with that interpreter's `-m pip`. Normal chat and browser commands above need no activation.
+
 | Option | Setting | Practical use |
 | --- | --- | --- |
 | Single-model CPU option | `AI_PROVIDER=huggingface`, `HF_MODEL=Qwen/Qwen2.5-0.5B-Instruct` | Basic chat and quick experiments |
@@ -171,7 +173,7 @@ python -m scripts.train_tiny --corpus path/to/your-text.txt --steps 1000 --outpu
 python -m scripts.sample_tiny --checkpoint artifacts/tiny/model.pt --prompt "User: Hello\nAssistant:"
 ```
 
-Supply a sufficiently large UTF-8 corpus you have rights to use. The trainer reserves the final 10% of bytes for evaluation before sampling windows and records loss before/after training. By default it needs over 5,200 bytes to fit a 512-byte evaluation window. For experiments on a smaller corpus, reduce `--context-length`. The same checkpoint can serve chat using `AI_PROVIDER=tiny`; chat needs training text in `System: …`, `User: …`, `Assistant: …` form and a large enough context window. Short training runs will produce poor or meaningless output.
+Supply a sufficiently large UTF-8 corpus you have rights to use. The trainer reserves the final 10% of bytes for evaluation before sampling windows and records loss before/after training. By default it needs over 5,200 bytes to fit a 512-byte evaluation window. For experiments on a smaller corpus, reduce `--context-length`. The same checkpoint can serve chat using `AI_PROVIDER=tiny`; for the explicit output path above, also set `ZENITH_TINY_CHECKPOINT` to the absolute path of `artifacts/tiny/model.pt`. Chat needs training text in `System: …`, `User: …`, `Assistant: …` form and a large enough context window. Short training runs will produce poor or meaningless output.
 
 For useful conversation today, use the pretrained open model and fine-tuning workflow above. Training a broadly capable LLM from scratch requires far more data, compute, and evaluation than this small project supplies.
 
