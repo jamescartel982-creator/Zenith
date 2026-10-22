@@ -2,6 +2,8 @@
 import argparse
 import json
 from pathlib import Path
+from agent.config import Settings
+from agent.paths import zenith_home
 from agent.learning import load_examples, prepare_chat_example, ChatCollator, file_sha256
 
 
@@ -9,9 +11,9 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--base-model', default='Qwen/Qwen2.5-0.5B-Instruct')
     parser.add_argument('--revision', default='main')
-    parser.add_argument('--train-data', default='data/training.jsonl')
-    parser.add_argument('--eval-data', default='data/eval.jsonl')
-    parser.add_argument('--output-dir', default='artifacts/zenith-lora')
+    parser.add_argument('--train-data', default=str(Path(Settings().data_dir) / 'training.jsonl'))
+    parser.add_argument('--eval-data', default=str(Path(Settings().data_dir) / 'eval.jsonl'))
+    parser.add_argument('--output-dir', default=str(zenith_home() / 'artifacts' / 'zenith-lora'))
     parser.add_argument('--epochs', type=float, default=1.0)
     parser.add_argument('--max-steps', type=int, default=-1, help='Optional bounded smoke run')
     parser.add_argument('--max-length', type=int, default=1024)

@@ -16,44 +16,81 @@ license: apache-2.0
 
 The original starter ZIP is preserved. Its Python project is now unpacked, extended, and runnable from this repository's root.
 
-## Start chatting
+## Install locally: Windows or Linux
 
-Requires Python 3.10+ and internet for the first model download. No paid AI API key is needed. The default team uses [Qwen2.5-0.5B-Instruct](https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct) and [SmolLM2-360M-Instruct](https://huggingface.co/HuggingFaceTB/SmolLM2-360M-Instruct) for drafting, cross-review, and final synthesis. Both are small CPU-capable models and have limited ability. Allow roughly 6–8 GB of available RAM, several GB for Python packages, and approximately 1.7 GB for these weights. For lower memory and latency, set `AI_PROVIDER=huggingface` to use Qwen alone (roughly 4–6 GB available RAM). First startup is slower while weights download.
+Python **3.10 or newer** is required; **Python 3.12 is recommended**. Internet is needed for package installation and the first model download. The installer creates a private `.venv`, installs CPU PyTorch when needed, saves user settings, and runs diagnostics. It preserves existing settings and conversations during upgrades.
 
-```bash
-git clone https://github.com/jamescartel982-creator/Zenith.git
+These commands target the current preview branch from [PR #1](https://github.com/jamescartel982-creator/Zenith/pull/1). After it is merged, you can clone `main` instead. You can also download this branch as a ZIP and extract it if Git is unavailable.
+
+### Windows — PowerShell
+
+Install Python from python.org or with `winget install -e --id Python.Python.3.12`, then reopen your terminal. From the folder where you want Zenith:
+
+```powershell
+git clone --branch codex/zenith-open-model-chat https://github.com/jamescartel982-creator/Zenith.git
 cd Zenith
-python -m venv .venv
+powershell -NoProfile -ExecutionPolicy Bypass -File .\install.ps1 --mode local
+powershell -NoProfile -ExecutionPolicy Bypass -File .\run.ps1 chat
 ```
 
-Activate the environment:
+For browser chat:
 
-- Windows PowerShell: `.\.venv\Scripts\Activate.ps1`
-- macOS / Linux: `source .venv/bin/activate`
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\run.ps1 serve
+```
 
-Then:
+`ExecutionPolicy Bypass` applies to that PowerShell process; the installer does not change your system policy. The installed command also works directly: `& ".\.venv\Scripts\zenith.exe" doctor`.
+
+### Linux — terminal
+
+Install Python and its venv support first if necessary (Debian/Ubuntu: `sudo apt install python3 python3-venv git`). Then:
 
 ```bash
-pip install -e ".[local]"
-python -m agent.server
+git clone --branch codex/zenith-open-model-chat https://github.com/jamescartel982-creator/Zenith.git
+cd Zenith
+bash install.sh --mode local
+./run.sh chat
 ```
 
-Open **http://127.0.0.1:7860**. Or run `python -m agent.cli` for terminal chat. The default server binds to your computer only. The configured models load on your first message. The default team makes up to four sequential model calls per answer, so it is slower than one model. Once its files are cached, Hugging Face inference can run offline (`HF_HUB_OFFLINE=1`).
-
-For a smaller CPU-only PyTorch installation on supported platforms, install PyTorch from its CPU index **before** the local dependencies:
+For browser chat:
 
 ```bash
-pip install 'torch>=2.6,<3' --index-url https://download.pytorch.org/whl/cpu
-pip install -e ".[local]"
+./run.sh serve
 ```
 
-Copy `.env.example` to `.env` to customize the provider, model, context length, or output length. Environment variables override `.env`. Keep tokens in the ignored `.env` file.
+Open **http://127.0.0.1:7860** after starting the server. The wrappers use the installed virtual environment without activation. You can also invoke `.venv/bin/zenith` on Linux or `.venv/Scripts/zenith.exe` on Windows directly from any working directory using its absolute path.
+
+### Select a mode
+
+| Installer flag | Behavior | Practical requirements |
+| --- | --- | --- |
+| `--mode local` | One Qwen2.5-0.5B instruction model; recommended first install | CPU; roughly 4–6 GB available RAM and ~1 GB weights |
+| `--mode ensemble` | Qwen + SmolLM2 drafts, cross-review, and synthesis | Roughly 6–8 GB available RAM and ~1.7 GB weights; slower answers |
+| `--mode ollama` | Lightweight Zenith client for an existing Ollama server | Install/start Ollama and pull its configured model separately |
+
+Append `--download` to a local/ensemble install to cache configured weights during setup. Otherwise, the first message downloads them. Re-running the installer upgrades the application while preserving your profile. Use `--overwrite-config` only when you intend to replace the saved profile; environment variables and a checkout `.env` still take precedence. See [local installation and upgrade instructions](docs/local-installation.md).
+
+### Useful terminal commands
+
+After installation, use the platform wrapper (or the installed `zenith` executable):
+
+```text
+zenith chat                    Terminal conversation
+zenith serve                   Browser chat on localhost
+zenith doctor                  Dependency, storage, and cache checks
+zenith models download         Cache configured HF model weights
+zenith doctor --inference      Test a real response using cached weights
+zenith catalog --validate      Check the 1,000-model / 200-dataset catalog
+zenith --help                  List all available commands
+```
+
+The saved profile and conversations live in `%LOCALAPPDATA%\Zenith` on Windows and `~/.local/share/zenith` on Linux (or `XDG_DATA_HOME/zenith`). `ZENITH_HOME` selects another absolute location. Existing checkout `data/zenith.sqlite3` databases are retained. No paid AI API key is needed; model downloads use open checkpoints. Once cached, `HF_HUB_OFFLINE=1` makes supported HF loads use local files only.
 
 ## Choose more capability
 
 | Option | Setting | Practical use |
 | --- | --- | --- |
-| Single-model CPU option | `HF_MODEL=Qwen/Qwen2.5-0.5B-Instruct` | Basic chat and quick experiments |
+| Single-model CPU option | `AI_PROVIDER=huggingface`, `HF_MODEL=Qwen/Qwen2.5-0.5B-Instruct` | Basic chat and quick experiments |
 | Larger local chat | `HF_MODEL=Qwen/Qwen2.5-1.5B-Instruct` | More capacity; more memory and latency |
 | Stronger open chat | `HF_MODEL=Qwen/Qwen2.5-7B-Instruct` | GPU recommended; ~14 GB weights at float16 before runtime overhead |
 | Quantized coding model | `AI_PROVIDER=ollama`, `OLLAMA_MODEL=qwen2.5-coder:7b` | Local code assistance through Ollama |
@@ -82,7 +119,7 @@ The bundled, source-backed catalog contains exactly:
 
 Open **Browse catalog** in the chat UI to search, filter, and follow source links. Records include observed popularity, task, license metadata, timestamps, and provenance. Hugging Face selection uses downloads/likes with explicit practical CPU additions; GitHub selection ranks relevant candidates by stars after filtering. These are popularity-based selections, not a measured ranking of answer quality. GitHub entries are model implementations or dataset-source repositories, not ready-to-call chat endpoints. Many catalog models serve vision, audio, embeddings, or other tasks.
 
-**Only the configured team runs.** The default two-model team shares its drafts, performs a cross-review, and synthesizes a final response. Each answer shows executed stages and any failure/fallback. To customize, copy `config/team.example.json` to an ignored local file and set `ZENITH_TEAM_CONFIG` to that path. Select up to three experts per request from a roster of at most 32, plus an optional reviewer and a synthesizer. The provider cache is bounded; the whole catalog is never loaded into memory.
+**Only the configured team runs.** Ensemble mode uses a two-model team that shares its drafts, performs a cross-review, and synthesizes a final response. Each answer shows executed stages and any failure/fallback. To customize, copy `config/team.example.json` to an ignored local file and set `ZENITH_TEAM_CONFIG` to that path. Select up to three experts per request from a roster of at most 32, plus an optional reviewer and a synthesizer. The provider cache is bounded; the whole catalog is never loaded into memory.
 
 Datasets are searchable source metadata until imported. Import selected text columns with `python -m scripts.import_dataset`; the local search index can then supply cited excerpts to all models participating in an answer. It does not train weights automatically or download all 200 datasets. See [team and dataset instructions](docs/model-team.md) for exact commands, limits, selection methods, and how to configure larger models.
 
@@ -115,8 +152,8 @@ The output contains an adapter, tokenizer, and `training_report.json` with basel
 Evaluate independently:
 
 ```bash
-python -m scripts.evaluate --data data/eval.jsonl
-python -m scripts.evaluate --data data/eval.jsonl --adapter artifacts/zenith-v1
+python -m scripts.evaluate
+python -m scripts.evaluate --adapter artifacts/zenith-v1
 ```
 
 To use your candidate, set `ZENITH_ADAPTER=artifacts/zenith-v1` in `.env`, keep `HF_MODEL` equal to its base model, and restart. To roll back, clear `ZENITH_ADAPTER`. Pin `HF_REVISION` to the base revision recorded in the training report for reproducibility.
@@ -148,6 +185,8 @@ docker compose up --build -d
 
 Open http://127.0.0.1:7860, expand **Server access**, and enter your token. Docker requires at least 32 characters. Its default network binding is local; use HTTPS and a persistent disk when deploying to a public host.
 
+The installed training/export utilities use the same configured data directory as chat. Default scratch checkpoints and adapters are saved under `ZENITH_HOME/artifacts`; explicit output paths continue to work.
+
 ## Project map
 
 - `agent/server.py`, `agent/web/`: browser UI and authenticated chat/review API.
@@ -165,7 +204,7 @@ pip install -e ".[test]"
 python -m unittest discover -s tests -v
 ```
 
-Torch-specific checks skip if the optional local dependencies are absent. GitHub Actions runs both lightweight checks and a CPU transformer test job. See [validation notes](docs/validation.md) for checks actually run during development.
+Torch-specific checks skip if the optional local dependencies are absent. GitHub Actions runs Python 3.10/3.12 tests on Windows and Linux, plus native installer, cached-model inference, and installed-command checks on both platforms. See [validation notes](docs/validation.md) for checks actually run during development.
 
 This is a single-owner assistant, not a multi-tenant service. The shared access token is not a user-account system. Database files contain conversation text. Model downloads follow the selected Hub revision, use safetensors, and disable remote custom code. Existing starter JSONL files are left untouched; import would need an explicit review because they have no isolated conversation IDs.
 

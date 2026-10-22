@@ -2,7 +2,7 @@
 
 ## Your computer
 
-Install `.[local]` and run `python -m agent.server`, then open http://127.0.0.1:7860. The default configuration needs no access token while bound to loopback. First inference downloads the selected model. `GET /healthz` reports process health and whether the model has loaded; process health does not claim inference readiness.
+Use the Windows/Linux installer in [local installation](local-installation.md), or install `.[local]` and run `python -m agent.server`, then open http://127.0.0.1:7860. The default configuration needs no access token while bound to loopback. First inference downloads the selected model. `GET /healthz` reports process health and whether the model has loaded; process health does not claim inference readiness.
 
 ## Docker / a server
 

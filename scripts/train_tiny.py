@@ -3,12 +3,13 @@ import argparse
 import json
 from dataclasses import asdict
 from pathlib import Path
+from agent.paths import zenith_home
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--corpus', required=True, help='UTF-8 text you have permission to train on')
-    parser.add_argument('--output-dir', default='artifacts/tiny')
+    parser.add_argument('--output-dir', default=str(zenith_home() / 'artifacts' / 'tiny'))
     parser.add_argument('--steps', type=int, default=1000)
     parser.add_argument('--context-length', type=int, default=512)
     parser.add_argument('--width', type=int, default=128)

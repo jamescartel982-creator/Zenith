@@ -14,7 +14,7 @@ Licenses are publisher-reported metadata, not a grant for every artifact in a re
 
 ## Real collaboration
 
-The default `AI_PROVIDER=ensemble` team runs:
+With `AI_PROVIDER=ensemble` (or installer `--mode ensemble`), the team runs:
 
 1. Qwen2.5-0.5B-Instruct drafts an answer.
 2. SmolLM2-360M-Instruct drafts independently.
@@ -77,7 +77,8 @@ Inspect `GET /api/knowledge` for counts. To remove an imported source locally:
 
 ```python
 from agent.storage import Store
-Store("data").delete_source("SOURCE_ID_PRINTED_BY_IMPORT")
+from agent.config import Settings
+Store(Settings().data_dir).delete_source("SOURCE_ID_PRINTED_BY_IMPORT")
 ```
 
 Deleting a conversation does not remove independently imported knowledge. Approved training exports contain the exact generation context, which may include retrieved excerpts and ensemble proposals; review the full example before training or publishing.

@@ -11,7 +11,10 @@ def main():
     args = parser.parse_args()
     if args.session:
         from uuid import UUID
-        session = str(UUID(args.session))
+        try:
+            session = str(UUID(args.session))
+        except ValueError:
+            parser.error("--session must be a valid conversation UUID")
     else:
         session = str(uuid4())
     agent = Agent(Settings())
@@ -41,7 +44,12 @@ def main():
                 if text == '/correct' and not correction:
                     print('No correction saved.')
                     continue
-                rating = 'bad' if text in {'/bad', '/correct'} else 'good'
+                previous = agent.store.history(session, limit=1)[-1]
+                if text == '/approve':
+                    rating = previous['rating'] or 'good'
+                    correction = previous['correction']
+                else:
+                    rating = 'bad' if text in {'/bad', '/correct'} else 'good'
                 agent.store.review(session, last_id, rating, text in {'/approve', '/correct'}, correction)
                 print('Review saved. Weights change only when you run training.')
                 continue

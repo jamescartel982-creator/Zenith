@@ -2,6 +2,15 @@
 
 Validated on 2026-10-22 in a Linux CPU environment. These are implementation checks, not a benchmark of general intelligence.
 
+## Local installation update (0.4)
+
+- **63 tests passed** with CPU model dependencies, including profile preservation, configuration precedence, stable user directories, command dispatch, model cache checks, installer failure handling, and corrected-answer approval.
+- A fresh Linux installation succeeded in a virtual-environment path containing spaces. Re-running the installer preserved the profile and passed dependency checks.
+- The installed wheel ran from another working directory without activation: version, catalog validation, JSON diagnostics, and terminal exit all passed. The packaged catalog retained exactly 1,000 model and 200 dataset sources.
+- Real cached CPU inference through both `doctor --inference` and terminal chat returned “2 plus 2 equals 4.” A real localhost browser server passed health and UI checks.
+- Python compilation, Bash syntax checks, and Git whitespace checks passed.
+- CI now includes Python 3.10/3.12 tests on Windows/Linux and a full native installation/inference job on each platform. Hosted results are recorded separately once completed.
+
 ## Automated checks
 
 `python -m unittest discover -s tests -v`: **19 tests passed** with local inference dependencies installed.

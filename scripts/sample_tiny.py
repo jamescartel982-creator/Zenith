@@ -1,10 +1,11 @@
 """Generate text from a Zenith Tiny checkpoint."""
 import argparse
+from agent.config import Settings
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--checkpoint', default='artifacts/tiny/model.pt')
+    parser.add_argument('--checkpoint', default=Settings().tiny_checkpoint)
     parser.add_argument('--prompt', default='User: Hello\nAssistant:')
     parser.add_argument('--max-new-tokens', type=int, default=128)
     parser.add_argument('--temperature', type=float, default=0.7)

@@ -1,6 +1,8 @@
 """Evaluate base or adapter loss using the same final-answer masking as training."""
 import argparse
 import json
+from pathlib import Path
+from agent.config import Settings
 from agent.learning import load_examples, prepare_chat_example, ChatCollator
 
 
@@ -9,7 +11,7 @@ def main():
     parser.add_argument('--base-model', default='Qwen/Qwen2.5-0.5B-Instruct')
     parser.add_argument('--revision', default='main')
     parser.add_argument('--adapter', default=None)
-    parser.add_argument('--data', default='data/eval.jsonl')
+    parser.add_argument('--data', default=str(Path(Settings().data_dir) / 'eval.jsonl'))
     parser.add_argument('--max-length', type=int, default=1024)
     args = parser.parse_args()
     import torch

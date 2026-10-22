@@ -44,19 +44,21 @@ class HuggingFaceProvider:
             raise RuntimeError('Install local inference: pip install -e ".[local]"') from exc
         settings = self.settings
         device = select_device(torch, settings.device)
+        if device == "cpu":
+            torch.set_num_threads(settings.cpu_threads)
         dtype = torch.float32 if device == "cpu" else torch.float16
-        tokenizer = AutoTokenizer.from_pretrained(settings.model, revision=settings.revision, trust_remote_code=False)
+        tokenizer = AutoTokenizer.from_pretrained(settings.model, revision=settings.revision, trust_remote_code=False, local_files_only=settings.offline)
         if not tokenizer.chat_template:
             raise ValueError("Choose an instruction/chat model with a chat template")
         model = AutoModelForCausalLM.from_pretrained(
             settings.model, revision=settings.revision, dtype=dtype,
-            trust_remote_code=False, use_safetensors=True).to(device)
+            trust_remote_code=False, use_safetensors=True, local_files_only=settings.offline).to(device)
         if settings.adapter:
             from peft import PeftModel, PeftConfig
-            adapter_config = PeftConfig.from_pretrained(settings.adapter)
+            adapter_config = PeftConfig.from_pretrained(settings.adapter, local_files_only=settings.offline)
             if adapter_config.base_model_name_or_path != settings.model:
                 raise ValueError("ZENITH_ADAPTER was trained on a different HF_MODEL")
-            model = PeftModel.from_pretrained(model, settings.adapter)
+            model = PeftModel.from_pretrained(model, settings.adapter, local_files_only=settings.offline)
         model.eval()
         self.tokenizer, self.model = tokenizer, model
 

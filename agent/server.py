@@ -35,7 +35,7 @@ class ReviewRequest(BaseModel):
 def create_app(settings=None, agent=None, catalog=None):
     settings = settings or Settings()
     agent = agent or Agent(settings)
-    app = FastAPI(title='Zenith', version='0.3.0', docs_url=None, redoc_url=None)
+    app = FastAPI(title='Zenith', version='0.4.0', docs_url=None, redoc_url=None)
     app.state.agent = agent
     app.state.catalog = catalog
 

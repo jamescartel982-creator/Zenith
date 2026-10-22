@@ -109,15 +109,15 @@ def fetch_pages(kind, sort, count):
 
 def read_sources(directory):
     directory = Path(directory)
-    model_pages = [json.loads(path.read_text()) for path in sorted(directory.glob('models_*.json'))]
-    dataset_pages = [json.loads(path.read_text()) for path in sorted(directory.glob('datasets_*.json'))]
-    practical = json.loads((directory / 'practical_models.json').read_text())
+    model_pages = [json.loads(path.read_text(encoding='utf-8')) for path in sorted(directory.glob('models_*.json'))]
+    dataset_pages = [json.loads(path.read_text(encoding='utf-8')) for path in sorted(directory.glob('datasets_*.json'))]
+    practical = json.loads((directory / 'practical_models.json').read_text(encoding='utf-8'))
     model_pages.append(practical)
     for page in model_pages + dataset_pages:
         page['via'] = 'Firecrawl Hugging Face provider'
     revisions = {}
     for path in directory.glob('*revision*.json'):
-        document = json.loads(path.read_text())
+        document = json.loads(path.read_text(encoding='utf-8'))
         for row in document['results']:
             revisions[row['id']] = (row.get('sha'), document['api_url'])
     for page in model_pages + dataset_pages:
@@ -274,7 +274,7 @@ def main():
     args = parser.parse_args()
     if args.validate_only:
         for filename, count, kind in [('huggingface_models.json', 500, 'model'), ('huggingface_datasets.json', 100, 'dataset')]:
-            validate_catalog(json.loads((args.output_dir / filename).read_text()), count, kind)
+            validate_catalog(json.loads((args.output_dir / filename).read_text(encoding='utf-8')), count, kind)
         print('Validated 500 unique Hugging Face models and 100 unique datasets.')
         return
     if args.source_dir:
