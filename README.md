@@ -98,6 +98,8 @@ The saved profile and conversations live in `%LOCALAPPDATA%\Zenith` on Windows a
 
 The listed Qwen Hugging Face checkpoints use Apache-2.0 licenses. Review the license for any replacement model. A larger model needs more compute; changing a name cannot make a laptop run a huge model cheaply. Direct Hugging Face inference uses float32 on CPU and float16 on accelerators. This implementation does not quantize direct HF loads. `ZENITH_DEVICE=auto` selects CUDA, Apple MPS, or CPU.
 
+When changing `HF_MODEL`, also set `HF_REVISION` to that model's commit or `main`; the installer's saved revision is pinned to the default small Qwen checkpoint.
+
 For [Ollama](https://github.com/ollama/ollama), install its runtime and pull your model:
 
 ```bash

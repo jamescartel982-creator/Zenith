@@ -37,10 +37,10 @@ class InstallationTests(unittest.TestCase):
     def test_user_paths_are_stable_and_existing_checkout_data_is_preserved(self):
         with tempfile.TemporaryDirectory() as folder, patch.dict(os.environ, {'ZENITH_HOME': folder}):
             self.assertEqual(zenith_home(), Path(folder).resolve())
-            self.assertEqual(config_file(), Path(folder) / 'config.env')
+            self.assertEqual(config_file(), Path(folder).resolve() / 'config.env')
             previous = Path.cwd()
             checkout = Path(folder) / 'checkout'; checkout.mkdir()
-            profile = Path(folder) / 'profile'
+            profile = Path(folder).resolve() / 'profile'
             os.environ['ZENITH_HOME'] = str(profile)
             try:
                 os.chdir(checkout)
@@ -60,7 +60,7 @@ class InstallationTests(unittest.TestCase):
             environment.update(ZENITH_HOME=folder, PYTHONPATH=str(ROOT))
             code = 'import json; from agent.config import Settings; s=Settings(); print(json.dumps([s.provider,s.data_dir]))'
             value = json.loads(subprocess.check_output([sys.executable, '-c', code], cwd=elsewhere, env=environment, text=True))
-            self.assertEqual(value, ['huggingface', str(Path(folder) / 'data')])
+            self.assertEqual(value, ['huggingface', str(Path(folder).resolve() / 'data')])
             environment['AI_PROVIDER'] = 'ollama'
             value = json.loads(subprocess.check_output([sys.executable, '-c', code], cwd=elsewhere, env=environment, text=True))
             self.assertEqual(value[0], 'ollama')
@@ -96,7 +96,7 @@ class InstallationTests(unittest.TestCase):
         spec = importlib.util.spec_from_file_location('zenith_bootstrap_test', ROOT / 'install.py')
         module = importlib.util.module_from_spec(spec); spec.loader.exec_module(module)
         with tempfile.TemporaryDirectory(prefix='zenith install spaces ') as folder:
-            target = Path(folder) / '.venv'
+            target = Path(folder).resolve() / '.venv'
             with patch.object(module.venv.EnvBuilder, 'create') as create, patch.object(module, 'run') as run, patch.object(module, 'configured_provider', return_value='ollama'), contextlib.redirect_stdout(io.StringIO()):
                 self.assertEqual(module.main(['--mode', 'ollama', '--venv', str(target)]), 0)
                 create.assert_called_once_with(target)
