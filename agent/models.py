@@ -44,6 +44,8 @@ def cache_status(spec):
 
 
 def download(spec, offline=False):
+    if spec['provider'] == 'localserver':
+        raise ValueError('Use zenith packs download, then start a compatible local model server')
     if spec['provider'] == 'huggingface':
         from huggingface_hub import snapshot_download
         snapshot_download(spec['model'], revision=spec['revision'], allow_patterns=WEIGHT_PATTERNS,

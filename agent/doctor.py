@@ -82,6 +82,16 @@ def inspect(settings=None, inference=False):
             add('ollama', 'ok' if present else 'warning', 'Model available' if present else 'Run ollama pull ' + settings.ollama_model)
         except Exception:
             add('ollama', 'warning', 'Start Ollama, then pull the configured model before chatting.')
+    if settings.provider == 'localserver':
+        try:
+            import requests
+            response = requests.get(settings.local_server_url + '/models', timeout=(2, 3))
+            response.raise_for_status()
+            available = {row['id'] for row in response.json().get('data', [])}
+            add('localserver', 'ok' if settings.local_server_model in available else 'warning',
+                'Model alias available' if settings.local_server_model in available else 'Start the local runtime with the configured model alias.')
+        except Exception:
+            add('localserver', 'warning', 'Start the compatible local model server before chatting; see docs/model-packs.md.')
     if inference:
         if not dependencies_ok or not cached:
             add('inference', 'error', 'Install dependencies and run zenith models download before this check.')

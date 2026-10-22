@@ -1,0 +1,689 @@
+{
+  "schema_version": 1,
+  "id": "zenith-vision",
+  "name": "Zenith Vision",
+  "source_repo": "N8STORM/DeepSeek-V4-Flash-Vision-Exp",
+  "revision": "aeb503a06a451511bbe64eb42c0cce0a0f63f214",
+  "observed_at": "2026-10-22T21:34:28.258380+00:00",
+  "license": "mit",
+  "source_url": "https://huggingface.co/N8STORM/DeepSeek-V4-Flash-Vision-Exp",
+  "recommended_file": null,
+  "runtime_requirements": "Specialized DeepSeek V4 Vision runtime and multi-GPU hardware; not the bundled Transformers 4 runtime",
+  "status": "integration_available_not_locally_benchmarked",
+  "file_count": 84,
+  "total_bytes": 167831848791,
+  "files": [
+    {
+      "path": ".eval_results/deep-swe.yaml",
+      "size": 178,
+      "git_blob_sha1": "85cfdcc937a3fb9289f007d20af55561c9661d6c",
+      "sha256": null,
+      "kind": "support",
+      "bundled": true
+    },
+    {
+      "path": ".eval_results/terminal-bench-2.1.yaml",
+      "size": 203,
+      "git_blob_sha1": "89383d0336ff6571cba31b5ca796dbee8df394e0",
+      "sha256": null,
+      "kind": "support",
+      "bundled": true
+    },
+    {
+      "path": ".gitattributes",
+      "size": 1594,
+      "git_blob_sha1": "a8a050df998304d9f6ab196df1d56a6a6b0cb438",
+      "sha256": null,
+      "kind": "support",
+      "bundled": true
+    },
+    {
+      "path": ".gitignore",
+      "size": 69,
+      "git_blob_sha1": "3d0a994f0e942fe4731a3097f15548ed4c7bbe8d",
+      "sha256": null,
+      "kind": "support",
+      "bundled": true
+    },
+    {
+      "path": "LICENSE",
+      "size": 1084,
+      "git_blob_sha1": "d62e3bef9f054f21b7fc616365850fbf879a99ff",
+      "sha256": null,
+      "kind": "support",
+      "bundled": true
+    },
+    {
+      "path": "README.md",
+      "size": 6592,
+      "git_blob_sha1": "e0a34a87964903d38a1263e870a2884fa58c865c",
+      "sha256": null,
+      "kind": "support",
+      "bundled": true
+    },
+    {
+      "path": "config.json",
+      "size": 2165,
+      "git_blob_sha1": "11823cdb9ef2911555e3a50832e26463ce8bce5d",
+      "sha256": null,
+      "kind": "support",
+      "bundled": true
+    },
+    {
+      "path": "encoding/README.md",
+      "size": 2517,
+      "git_blob_sha1": "d4ade1ba7d55827dda29d203f9b1ff2b40b5d3ff",
+      "sha256": null,
+      "kind": "support",
+      "bundled": true
+    },
+    {
+      "path": "encoding/encoding_dsv4.py",
+      "size": 36707,
+      "git_blob_sha1": "5853aef3ea50d41013bb196d9369c91c298d3782",
+      "sha256": null,
+      "kind": "support",
+      "bundled": true
+    },
+    {
+      "path": "encoding/test_encoding_dsv4.py",
+      "size": 6577,
+      "git_blob_sha1": "42a97757eb832b5ce258245211ea7f8f5b003a50",
+      "sha256": null,
+      "kind": "support",
+      "bundled": true
+    },
+    {
+      "path": "encoding/tests/test_input_1.json",
+      "size": 2748,
+      "git_blob_sha1": "d423b221fa88153a826f7724cc938e0703858c21",
+      "sha256": null,
+      "kind": "support",
+      "bundled": true
+    },
+    {
+      "path": "encoding/tests/test_input_2.json",
+      "size": 526,
+      "git_blob_sha1": "13b3454a902deecafe75644b41cd6b3e4a0e5354",
+      "sha256": null,
+      "kind": "support",
+      "bundled": true
+    },
+    {
+      "path": "encoding/tests/test_input_3.json",
+      "size": 4546,
+      "git_blob_sha1": "10034844edfc33b954ae530f35590132cdf4a342",
+      "sha256": null,
+      "kind": "support",
+      "bundled": true
+    },
+    {
+      "path": "encoding/tests/test_input_4.json",
+      "size": 2730,
+      "git_blob_sha1": "d5e0791dd6997a2007f3aa917919a680521bcd51",
+      "sha256": null,
+      "kind": "support",
+      "bundled": true
+    },
+    {
+      "path": "encoding/tests/test_output_1.txt",
+      "size": 2390,
+      "git_blob_sha1": "7e3c9bd5a394617f02d76384d613d991e60d48bd",
+      "sha256": null,
+      "kind": "support",
+      "bundled": true
+    },
+    {
+      "path": "encoding/tests/test_output_2.txt",
+      "size": 342,
+      "git_blob_sha1": "fc397ef549728ad6083a577010192e62f3edeee4",
+      "sha256": null,
+      "kind": "support",
+      "bundled": true
+    },
+    {
+      "path": "encoding/tests/test_output_3.txt",
+      "size": 3313,
+      "git_blob_sha1": "edee563300d49b0c46af1429a1e1b00b15610a72",
+      "sha256": null,
+      "kind": "support",
+      "bundled": true
+    },
+    {
+      "path": "encoding/tests/test_output_4.txt",
+      "size": 2552,
+      "git_blob_sha1": "d30bd5d06cf39fe110bc4406292fccde0444c120",
+      "sha256": null,
+      "kind": "support",
+      "bundled": true
+    },
+    {
+      "path": "generation_config.json",
+      "size": 170,
+      "git_blob_sha1": "c56a8c5bf06ff7740b6a33ee67b38b6237a230b1",
+      "sha256": null,
+      "kind": "support",
+      "bundled": true
+    },
+    {
+      "path": "inference/README.md",
+      "size": 1874,
+      "git_blob_sha1": "5818289cc1caba2b45842c25a670550332bd8abd",
+      "sha256": null,
+      "kind": "support",
+      "bundled": true
+    },
+    {
+      "path": "inference/config.json",
+      "size": 1449,
+      "git_blob_sha1": "9b4b1dee5a71e75eb4cdcc31090c0d74dc70aa7f",
+      "sha256": null,
+      "kind": "support",
+      "bundled": true
+    },
+    {
+      "path": "inference/convert.py",
+      "size": 7359,
+      "git_blob_sha1": "59a53f8874ca3f06590a3b4061811c5f3095606d",
+      "sha256": null,
+      "kind": "support",
+      "bundled": true
+    },
+    {
+      "path": "inference/examples/example_vl.txt",
+      "size": 234,
+      "git_blob_sha1": "1e6946f5ac3d5d8329f7783ad04912b4a2991f92",
+      "sha256": null,
+      "kind": "support",
+      "bundled": true
+    },
+    {
+      "path": "inference/examples/example_vl_harmony.json",
+      "size": 783,
+      "git_blob_sha1": "a065efb2bcbfe75331c4b7e16805c8a1944a2f80",
+      "sha256": null,
+      "kind": "support",
+      "bundled": true
+    },
+    {
+      "path": "inference/examples/images/carrots.jpeg",
+      "size": 212495,
+      "git_blob_sha1": "3b0226496452fe654ec305a3a42ef9a95cf47cfe",
+      "sha256": "5df896a4a07e127281c60fc957f8b3d73f4735b3258a0bf762b4383557f8fa9a",
+      "kind": "support",
+      "bundled": true
+    },
+    {
+      "path": "inference/examples/images/corn.jpeg",
+      "size": 56122,
+      "git_blob_sha1": "5777d198b83de15eb21243f8aac49074922053fb",
+      "sha256": null,
+      "kind": "support",
+      "bundled": true
+    },
+    {
+      "path": "inference/generate.py",
+      "size": 8809,
+      "git_blob_sha1": "b6cc3d50424565819cd9e4539e74f73933e5d9c6",
+      "sha256": null,
+      "kind": "support",
+      "bundled": true
+    },
+    {
+      "path": "inference/image_processor.py",
+      "size": 7696,
+      "git_blob_sha1": "156056823b46e65150ab8719c49fafa65bd42b9d",
+      "sha256": null,
+      "kind": "support",
+      "bundled": true
+    },
+    {
+      "path": "inference/kernel.py",
+      "size": 22191,
+      "git_blob_sha1": "515c4af22d8d2c9c7a1d0c78187cd74f480881b0",
+      "sha256": null,
+      "kind": "support",
+      "bundled": true
+    },
+    {
+      "path": "inference/model.py",
+      "size": 49541,
+      "git_blob_sha1": "acc03891c5c737786559cc316f852358d21eef66",
+      "sha256": null,
+      "kind": "support",
+      "bundled": true
+    },
+    {
+      "path": "inference/requirements.txt",
+      "size": 106,
+      "git_blob_sha1": "a3d2dd1792c623b9b693e95bb85b000112462c23",
+      "sha256": null,
+      "kind": "support",
+      "bundled": true
+    },
+    {
+      "path": "inference/run.sh",
+      "size": 382,
+      "git_blob_sha1": "7072867829c4151ae24f7d8824307fab4fe8a6c7",
+      "sha256": null,
+      "kind": "support",
+      "bundled": true
+    },
+    {
+      "path": "inference/vision.py",
+      "size": 4460,
+      "git_blob_sha1": "9da382a678e3fe73f027711467b2a397c7aae004",
+      "sha256": null,
+      "kind": "support",
+      "bundled": true
+    },
+    {
+      "path": "model-00001-of-00048.safetensors",
+      "size": 1991876272,
+      "git_blob_sha1": "bdf37139a958ede9f7575713e59f0b248f3c3a31",
+      "sha256": "367c971dc3cd6a042a9bec1caff508e77eabfaef1df2de3a827397ef8bbc6af3",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00002-of-00048.safetensors",
+      "size": 3566323424,
+      "git_blob_sha1": "0794d5841b6512058effcc8ef52c5dfb1b411290",
+      "sha256": "b7bca4e9f4ad1cbd7ae204ba8f452450473efe780ba5e539f9b478a7746ee913",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00003-of-00048.safetensors",
+      "size": 3566323424,
+      "git_blob_sha1": "08a6abd604d405ab54dc79ee57034522ca7b6a5d",
+      "sha256": "533065ef725b1b85ea6bea54a4b791caa7ea37ca8bf40edb892f1df53d922852",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00004-of-00048.safetensors",
+      "size": 3596231504,
+      "git_blob_sha1": "e637e82e1074533a4c6e068239044a8b530573e6",
+      "sha256": "f621de245e17c1205fa971a1717c6908caba74eec0f65a8a328731581b2b9870",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00005-of-00048.safetensors",
+      "size": 3568770088,
+      "git_blob_sha1": "b51757174ec7390584f6b24e6a04f2345cc4abe6",
+      "sha256": "5340e0f26d33480b6b05f030d67a36e812e3e02b60e4da50fc88b0de919775d7",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00006-of-00048.safetensors",
+      "size": 3590025888,
+      "git_blob_sha1": "42cc6e79895525fcdf13616aa9287fb4109bd96f",
+      "sha256": "fc738c546c382768ff054f8dc303579b47b69de4d38477df62f994881f34d672",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00007-of-00048.safetensors",
+      "size": 3568770088,
+      "git_blob_sha1": "68dc7ffcc78a7955dc30ee25d02c16f1a1756385",
+      "sha256": "4174ad0eeca4800800415ebc5dc1b023ae0a741b18348070f9e1d92b9bb9ceef",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00008-of-00048.safetensors",
+      "size": 3590025888,
+      "git_blob_sha1": "abc2514a4373813e9f3ded08abd682d0d1b39b30",
+      "sha256": "3bf01d8580f43cbfe0fbcb033bfb974fa10c214157578394499d3f79a19126c8",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00009-of-00048.safetensors",
+      "size": 3568770088,
+      "git_blob_sha1": "17393d5a0adaea2884ae4aff6ab41095b144b6ef",
+      "sha256": "b77733ec64677bbbb85be438d25bb7792f9c424df273293864b124d089c873a9",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00010-of-00048.safetensors",
+      "size": 3590025888,
+      "git_blob_sha1": "b973f86482152b33576a10942f03fcab9605428f",
+      "sha256": "a7467107509c559f1f65e1aa2fb1e3e97b37bf225dcea1734f4b4bbfa9bf2bdc",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00011-of-00048.safetensors",
+      "size": 3568770088,
+      "git_blob_sha1": "0188b1afeee324c1613d928aab7196481d0ea691",
+      "sha256": "ffd9e8592bfbe139541809a5364f2814dabb6f5a41f7a4c5bb24a08f279b3c32",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00012-of-00048.safetensors",
+      "size": 3590027464,
+      "git_blob_sha1": "5bb513e4cd3d930db9f66350534d4ce82cd653a3",
+      "sha256": "90addcbb6508a1cf44d448ea4a7f15cc5382d8e7f7424bb9e8f1f386d7872049",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00013-of-00048.safetensors",
+      "size": 3568771664,
+      "git_blob_sha1": "1c8bbc3a6c43f06d325e5b477adad9d4a3c1dfa5",
+      "sha256": "c6d119524ed0eaab993bf41b6291503c2fd8f2ad9a5523ea2c439cf4a920c4f1",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00014-of-00048.safetensors",
+      "size": 3590027464,
+      "git_blob_sha1": "dd7c4e6b7d723bb0ae0f3d9627dc6819c0aa2956",
+      "sha256": "b618871b69795bb7f3aede26e1b33689eb7d09793051021a608cfb336b23f689",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00015-of-00048.safetensors",
+      "size": 3568771664,
+      "git_blob_sha1": "54c2594d3cc4e0b085fa061bc5c6695318c232f3",
+      "sha256": "c7d7aaa0e8a3badeeb2f3fea217fd8344901f553b4c234db77318fd9705b7dd8",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00016-of-00048.safetensors",
+      "size": 3590027464,
+      "git_blob_sha1": "50716fe4d56b593361a39235942a105d980a5085",
+      "sha256": "2db0bdaee8f745830a96c1d496e89b5d840490b2831e74e14fb0fd643ef3cef9",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00017-of-00048.safetensors",
+      "size": 3568771664,
+      "git_blob_sha1": "a42fb5707e872c87fb99e402476ca58294bfeb5a",
+      "sha256": "58b4e24235faa2c13a01e0ae548618cec12e3ec04aed28137213362e5219094e",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00018-of-00048.safetensors",
+      "size": 3590027464,
+      "git_blob_sha1": "302a16dc1494c6e6cb1cff24aac27c6a2b2c6a5b",
+      "sha256": "ee28f2e7e481b13abe84a9926f9a99d0d6b35df6e8b8e72c2de43207d4decc05",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00019-of-00048.safetensors",
+      "size": 3568771664,
+      "git_blob_sha1": "1918d7936dfe6ff97bfa87444b31240579136d01",
+      "sha256": "a603ed81d386bf6682d59e73d46346c74d41c7ea14e58ecf2bf43ddb0294c77b",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00020-of-00048.safetensors",
+      "size": 3590027464,
+      "git_blob_sha1": "cdf0cd4b11b443859f6da112b026122aefa2df2a",
+      "sha256": "671de16be3cc7e1bbfd3f797909ae8082dfbf41879c403c43b7902f3a0272654",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00021-of-00048.safetensors",
+      "size": 3568771664,
+      "git_blob_sha1": "4d938d5b9890632beae30ae1961fae827dd4e31e",
+      "sha256": "d44b699da192c9edc87d87b493164cd0a2fbf69ceb707f4df78abec3408e28ee",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00022-of-00048.safetensors",
+      "size": 3590027464,
+      "git_blob_sha1": "b27329a6b06ba636e3bd6c17d6d6574c48b86523",
+      "sha256": "3bfe29b35b98799fcb04e682c0cc1b76f8669aa2840bdb5e19bdc1dca3c85600",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00023-of-00048.safetensors",
+      "size": 3568771664,
+      "git_blob_sha1": "2ea9d837d50c9f7fa26e4d20cfae3af4f6cc5636",
+      "sha256": "caef85afcfb7c1c7a8874083c3b7b32884edded84cc199c3b444ae71866317ea",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00024-of-00048.safetensors",
+      "size": 3590027464,
+      "git_blob_sha1": "36ccabde89810b63240fa89ad41702f152dc9304",
+      "sha256": "619de8deb0b5b01dd75b550a7dbe8a7c996fe6a4c6e64afb8dac1ed6d849707e",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00025-of-00048.safetensors",
+      "size": 3568771664,
+      "git_blob_sha1": "981ce2d60eea4174f7f8b3d0f89d9f1ae575fa7a",
+      "sha256": "2d1545d19ae70b18d9b1290331e5f33fd2b885bb02fa41765f42bb7b629a3ce9",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00026-of-00048.safetensors",
+      "size": 3590027464,
+      "git_blob_sha1": "58599d19324ac058dbe6ec77dfd82e587bfdc4b3",
+      "sha256": "1845b38ef927ec8880bf864bbdc5baa2318bae92e6b25ff913637d967568c56b",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00027-of-00048.safetensors",
+      "size": 3568771664,
+      "git_blob_sha1": "f9c45cac7eaf325ca382911411ea6f8e62120d3d",
+      "sha256": "9814213b6b99358460b97398a8eb6362fac7236ab19219a7bafeb364a4a2ad2f",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00028-of-00048.safetensors",
+      "size": 3590027464,
+      "git_blob_sha1": "bbe02cd40e54b7aadf87e00acd8116941cdfb65c",
+      "sha256": "d785e29f29610867caa246f1990540994e6dd75c9f788665852ea8ea538d7d07",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00029-of-00048.safetensors",
+      "size": 3568771664,
+      "git_blob_sha1": "63dcfd6c5cc4ed7c9b2521d9e1b5608bc4e66660",
+      "sha256": "69ea7b977f388a1bf6679970ef0f6549a13afe0dc32c59764e80cad25ae6c97d",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00030-of-00048.safetensors",
+      "size": 3590027464,
+      "git_blob_sha1": "68ed124847ac3e61dfe32490138524c7771838cb",
+      "sha256": "83898d2904c25671b73f04f15d30b2ab6c032a2b2b08703fae42dbd1a984795b",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00031-of-00048.safetensors",
+      "size": 3568771664,
+      "git_blob_sha1": "1a5fec5d1d38d9df7e9e78ac8ec767e2b4023875",
+      "sha256": "bb1c54ad7af49522f8bfe51ae2c089cabdd3bba41a5cace0c8d4481be6d67709",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00032-of-00048.safetensors",
+      "size": 3590027464,
+      "git_blob_sha1": "9cdf0e7ad31307ab16ec4f27a58f683ec7cf5af8",
+      "sha256": "9d3bfcee5dced6e40607ed89046d9ca9b00934e5dbbf262e11fd4f766bdf0eca",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00033-of-00048.safetensors",
+      "size": 3568771664,
+      "git_blob_sha1": "d90bd6120fed335071334312d51035fdcc673403",
+      "sha256": "745eae1e78dc9ea47ffcdb7d047a96641dbfa4733aa9db64024623bee4af6a83",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00034-of-00048.safetensors",
+      "size": 3590027464,
+      "git_blob_sha1": "fa84542541c7ede2035d0ad31bcccf03c7b6b705",
+      "sha256": "ba5cffb5c68e84162d51e624ef701c5d91974668be3211861ce02a693f1d583e",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00035-of-00048.safetensors",
+      "size": 3568771664,
+      "git_blob_sha1": "0905f8711f2b585f956442512a059e7375935d49",
+      "sha256": "94647b5fa0e9859825fa5ab6a4ba4f698f89c108f08f95bd6a71929406be72c1",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00036-of-00048.safetensors",
+      "size": 3590027464,
+      "git_blob_sha1": "0b38ff1f61e0d31faff07f84dd975021e3bf4a04",
+      "sha256": "273e2f1a733e561a7a4cb21775ed4d7d50f1852123b25872e5a1392f0365723e",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00037-of-00048.safetensors",
+      "size": 3568771664,
+      "git_blob_sha1": "42891bb52e37c1d2c83716b12927b05649899d08",
+      "sha256": "6267cf14f8986df5160245e13852ac8bcbc0d85e2c1cfb2afdb52cc115ad485b",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00038-of-00048.safetensors",
+      "size": 3590027464,
+      "git_blob_sha1": "f625d835660936f4380dc5bcc6ee48aee15c5733",
+      "sha256": "b8600761cfac596501d1d0c6a51f95366632698ec605cd180a9623c933e04b23",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00039-of-00048.safetensors",
+      "size": 3568771664,
+      "git_blob_sha1": "48db2e78e7e31d248904a29cd6673a2c61831733",
+      "sha256": "4363a1433b9d81d0450e536899f2ffb706681c4cb8d0089f33dda97b190d9d98",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00040-of-00048.safetensors",
+      "size": 3590027464,
+      "git_blob_sha1": "367e3d7b15c6f9bd9c0cb2d8356da2b00949c108",
+      "sha256": "bea63f7aa197a021d271179ef1008dd96c968de13662e6c2949c5766fc789bd2",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00041-of-00048.safetensors",
+      "size": 3568771664,
+      "git_blob_sha1": "c7cb7f8c2e8dc077a5afe6faa25db41df30b5db7",
+      "sha256": "901335d42b51f190ca22aab115fc45002892bbf8e9ec296a0f347c22dab3e692",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00042-of-00048.safetensors",
+      "size": 3590027464,
+      "git_blob_sha1": "23f194a89edab21f8ef60ea30b93b47eff0cee6b",
+      "sha256": "7b4479b2f628929319897e3a8a49ed4826d667abdb2232ba53b5a41a46220f56",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00043-of-00048.safetensors",
+      "size": 3568771664,
+      "git_blob_sha1": "253a2d5875ebee46ecc18c6b81c00497ffa347f4",
+      "sha256": "0f6f8e1a8d7dc35f17b61275b1d0b1c835ed0b62da30dea9146f2279643e5456",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00044-of-00048.safetensors",
+      "size": 3590027464,
+      "git_blob_sha1": "f3f72b34ccb57e90df87586d6457dfc286a10050",
+      "sha256": "55bca08c08ed3f5ed35ee57b1c306ca456beb2022b590494ca83c10adb514fdc",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00045-of-00048.safetensors",
+      "size": 1059332516,
+      "git_blob_sha1": "b943288bf1763a240dfc02dfe629b2adf36860a4",
+      "sha256": "45d433575e97eb60513d2b68402e972f1aa96380cb27e8f29e4e55afb6cb6e8b",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00046-of-00048.safetensors",
+      "size": 3610456288,
+      "git_blob_sha1": "a1d8e72adc106e62f1b01dd70b9eb870fc1aff57",
+      "sha256": "5259a8a51aad179d734aac1861f70a56fdbcf73f8a68a3362e6d25a875ce1b4e",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00047-of-00048.safetensors",
+      "size": 3560113064,
+      "git_blob_sha1": "3e7dc70c7c625b270f866e9736ae81d27adf3230",
+      "sha256": "7954737da5507ebe0f4161e13ec8e6ba0afe72fea454fd84273c1b30c9bf71a6",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model-00048-of-00048.safetensors",
+      "size": 3692776348,
+      "git_blob_sha1": "e5cb3dc8b7fa44d31132ae9713dbcf1221494ff1",
+      "sha256": "0de99b7dd23d964b0a631e9e6f14ea1751db6d14bf0f009c6a83b725ca5f909e",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "model.safetensors.index.json",
+      "size": 5625861,
+      "git_blob_sha1": "edf6b1260af1f6fa131f2580d826ff3e4938ef00",
+      "sha256": null,
+      "kind": "support",
+      "bundled": true
+    },
+    {
+      "path": "tokenizer.json",
+      "size": 6367257,
+      "git_blob_sha1": "6a15814dd25c934028034531da744c689f87ff21",
+      "sha256": null,
+      "kind": "support",
+      "bundled": true
+    },
+    {
+      "path": "tokenizer_config.json",
+      "size": 801,
+      "git_blob_sha1": "f3dad388a2bbfd6a8605bd02754acd86d9ca5112",
+      "sha256": null,
+      "kind": "support",
+      "bundled": true
+    }
+  ]
+}

@@ -10,6 +10,7 @@ COMMANDS = {
     'doctor': ('agent.doctor', 'Check installation and model readiness'),
     'configure': ('agent.setup', 'Save a local or Ollama configuration'),
     'models': ('agent.models', 'List, check, or download configured models'),
+    'packs': ('agent.packs', 'Inspect, verify, download or configure Zenith model packs'),
     'catalog': ('scripts.catalog', 'Search or validate the source catalog'),
     'import-data': ('scripts.import_dataset', 'Import selected dataset text'),
     'export-data': ('scripts.export_training_data', 'Export approved training examples'),

@@ -59,7 +59,7 @@ For a specific interpreter: `ZENITH_PYTHON=/path/to/python3.12 bash install.sh -
 
 ## Mode and runtime choices
 
-The default installer mode is `local`: a single small instruction model with CPU PyTorch. `--mode ensemble` enables the two-model draft/review/synthesis pipeline. `--mode ollama` installs the lightweight client without Torch/Transformers when that is the effective configured provider. Install/start Ollama separately and run `ollama pull qwen2.5-coder:7b` before chatting.
+The default installer mode is `local`: a single small instruction model with CPU PyTorch. `--mode ensemble` enables the two-model draft/review/synthesis pipeline. `--mode localserver` installs the key-free local llama.cpp/vLLM client; see [model packs](model-packs.md). `--mode ollama` installs the lightweight client without Torch/Transformers when that is the effective configured provider. Install/start Ollama separately and run `ollama pull qwen2.5-coder:7b` before chatting.
 
 `--runtime cpu` is the default and uses PyTorch's official CPU wheel index. For an accelerator build, use `--runtime auto` and follow PyTorch's current instructions for your hardware/driver; the ordinary distribution is not a guarantee that every GPU is supported. `ZENITH_DEVICE=auto` selects supported CUDA/MPS/CPU at runtime. `ZENITH_CPU_THREADS` bounds CPU inference threads (default at most four).
 

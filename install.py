@@ -30,7 +30,7 @@ def configured_provider(python):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--mode', choices=['local', 'ensemble', 'ollama'], default='local')
+    parser.add_argument('--mode', choices=['local', 'ensemble', 'ollama', 'localserver'], default='local')
     parser.add_argument('--venv', type=Path, default=ROOT / '.venv')
     parser.add_argument('--runtime', choices=['cpu', 'auto'], default='cpu', help='CPU wheels by default; auto uses the standard PyTorch distribution')
     parser.add_argument('--download', action='store_true', help='Also download the configured HF weights now')
@@ -56,7 +56,7 @@ def main(argv=None):
             configure.append('--overwrite')
         run(configure)
         provider = configured_provider(python)
-        if provider not in {'huggingface', 'ensemble', 'ollama', 'tiny'}:
+        if provider not in {'huggingface', 'ensemble', 'ollama', 'tiny', 'localserver'}:
             raise RuntimeError('Unexpected provider configuration')
         needs_hf = provider in {'huggingface', 'ensemble'}
         needs_torch = needs_hf or provider == 'tiny'

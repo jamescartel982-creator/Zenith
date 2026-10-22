@@ -23,6 +23,9 @@ class Settings:
     api_token: str = field(default_factory=lambda: os.getenv("ZENITH_API_TOKEN", ""))
     ollama_url: str = field(default_factory=lambda: os.getenv("OLLAMA_BASE_URL", "http://localhost:11434").rstrip("/"))
     ollama_model: str = field(default_factory=lambda: os.getenv("OLLAMA_MODEL", "qwen2.5-coder:7b"))
+    local_server_url: str = field(default_factory=lambda: os.getenv('ZENITH_LOCAL_SERVER_URL', 'http://127.0.0.1:8080/v1').rstrip('/'))
+    local_server_model: str = field(default_factory=lambda: os.getenv('ZENITH_LOCAL_SERVER_MODEL', 'zenith'))
+    display_name: str = field(default_factory=lambda: os.getenv('ZENITH_MODEL_LABEL', 'Zenith'))
     tiny_checkpoint: str = field(default_factory=lambda: os.getenv("ZENITH_TINY_CHECKPOINT", str(zenith_home() / "artifacts" / "tiny" / "model.pt")))
     max_new_tokens: int = field(default_factory=lambda: int(os.getenv("MAX_NEW_TOKENS", "256")))
     context_tokens: int = field(default_factory=lambda: int(os.getenv("CONTEXT_TOKENS", "2048")))
@@ -33,8 +36,12 @@ class Settings:
     def __post_init__(self):
         if not 1 <= self.cpu_threads <= 64:
             raise ValueError("ZENITH_CPU_THREADS must be between 1 and 64")
-        if self.provider not in {"ensemble", "huggingface", "ollama", "tiny"}:
-            raise ValueError("AI_PROVIDER must be ensemble, huggingface, ollama, or tiny")
+        if self.provider not in {"ensemble", "huggingface", "ollama", "tiny", "localserver"}:
+            raise ValueError("AI_PROVIDER must be ensemble, huggingface, ollama, tiny, or localserver")
+        from urllib.parse import urlparse
+        endpoint = urlparse(self.local_server_url)
+        if endpoint.scheme not in {'http', 'https'} or endpoint.hostname not in {'localhost', '127.0.0.1', '::1'} or endpoint.username or endpoint.password or endpoint.query or endpoint.fragment or any(c.isspace() for c in self.local_server_url):
+            raise ValueError('ZENITH_LOCAL_SERVER_URL must be a loopback HTTP(S) URL without credentials')
         if not 0 <= self.knowledge_limit <= 5:
             raise ValueError("ZENITH_KNOWLEDGE_LIMIT must be between 0 and 5")
         if not 1 <= self.max_new_tokens <= 4096:
@@ -48,6 +55,8 @@ class Settings:
 
     @property
     def model_name(self):
+        if self.provider == 'localserver':
+            return self.local_server_model
         if self.provider == "ensemble":
             return "Zenith model team"
         return self.ollama_model if self.provider == "ollama" else self.tiny_checkpoint if self.provider == "tiny" else self.model

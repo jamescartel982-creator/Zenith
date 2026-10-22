@@ -4,6 +4,9 @@ let session = sessionStorage.getItem('zenith_session') || crypto.randomUUID();
 sessionStorage.setItem('zenith_session', session);
 $('token').value = sessionStorage.getItem('zenith_token') || '';
 let busy = false;
+let activeUser = null;
+let registering = false;
+const welcomeTemplate = $('welcome').cloneNode(true);
 let configuredTeam = null;
 let knowledgeStatus = null;
 let catalogPage = 1;
@@ -21,7 +24,7 @@ async function api(path, options = {}) {
   const response = await fetch(path, {...options, headers});
   const data = await response.json();
   if (!response.ok) {
-    if (response.status === 401) $('access').open = true;
+    if (response.status === 401 && data.detail?.includes('server access token')) $('access').open = true;
     throw new Error(typeof data.detail === 'string' ? data.detail : 'Request rejected. Check your input.');
   }
   return data;
@@ -152,7 +155,7 @@ function addMessage(role, text, turn = null) {
   $('welcome')?.remove();
   const article = element('article', `message ${role}`);
   article.append(element('div', 'who', role === 'user' ? 'YOU' : 'ZENITH'));
-  article.append(element('pre', 'content', text));
+  article.append(role === 'assistant' ? renderMarkdown(text) : element('pre', 'content', text));
   if (turn) {
     const deliberation = renderDeliberation(turn);
     if (deliberation) article.append(deliberation);
@@ -286,14 +289,15 @@ async function connect() {
   showError('');
   try {
     const health = await api('/healthz');
-    $('model').textContent = health.model;
-    $('provider').textContent = health.provider === 'huggingface' ? 'Hugging Face · local inference' : health.provider === 'tiny' ? 'Zenith Tiny · experimental' : health.provider === 'ensemble' ? 'Model team · combined answers' : 'Ollama · local inference';
-    $('status').textContent = health.model_loaded ? '● Model loaded' : '● Ready · loads on first message';
+    $('model').textContent = health.display_name || 'Zenith';
+    $('provider').textContent = health.provider === 'huggingface' ? 'Hugging Face · local inference' : health.provider === 'tiny' ? 'Zenith Tiny · experimental' : health.provider === 'ensemble' ? 'Model team · combined answers' : health.provider === 'localserver' ? 'Local model server · no API key' : 'Ollama · local inference';
+    $('status').textContent = health.provider === 'localserver' ? '● Local runtime · check with doctor' : health.model_loaded ? '● Model loaded' : '● Ready · loads on first message';
     if (health.counts) renderCatalogCounts(health.counts);
     if (health.authentication_required && !sessionStorage.getItem('zenith_token')) {
       $('access').open = true; $('status').textContent = 'Access token required'; return;
     }
-    await Promise.all([loadHistory(), loadTeam()]);
+    await loadAccount();
+    await Promise.all([loadHistory(), loadTeam(), loadConversations()]);
     $('access').open = false;
     catalogLoaded = false;
   } catch (error) { showError(error.message); $('status').textContent = 'Connection needs attention'; }
@@ -301,8 +305,7 @@ async function connect() {
 $('connect').addEventListener('click', () => {sessionStorage.setItem('zenith_token', $('token').value.trim()); connect();});
 $('new-chat').addEventListener('click', () => {
   if (busy) return;
-  sessionStorage.setItem('zenith_session', crypto.randomUUID());
-  location.reload();
+  switchConversation(crypto.randomUUID());
 });
 $('open-catalog').addEventListener('click', () => openCatalog());
 $('open-team').addEventListener('click', () => openCatalog('team'));
@@ -326,7 +329,7 @@ $('delete-chat').addEventListener('click', async () => {
   try {await api(`/api/history/${session}`, {method: 'DELETE'}); $('new-chat').click();}
   catch (error) {showError(error.message);}
 });
-document.querySelectorAll('[data-prompt]').forEach(button => button.addEventListener('click', () => {$('prompt').value = button.dataset.prompt; $('prompt').focus();}));
+$('messages').addEventListener('click', event => {const button = event.target.closest('[data-prompt]'); if (button) {$('prompt').value = button.dataset.prompt; $('prompt').focus();}});
 $('prompt').addEventListener('keydown', event => {
   if (event.key === 'Enter' && !event.shiftKey && !event.isComposing) {event.preventDefault(); $('composer').requestSubmit();}
 });
@@ -341,12 +344,162 @@ $('composer').addEventListener('submit', async event => {
   $('messages').append(pending); $('messages').scrollTop = $('messages').scrollHeight;
   try {
     const result = await api('/api/chat', {method: 'POST', body: JSON.stringify({session_id: session, message: text})});
-    pending.remove(); addMessage('assistant', result.response, result); $('prompt').value = ''; $('status').textContent = '● Connected';
+    pending.remove(); addMessage('assistant', result.response, result); $('prompt').value = ''; $('status').textContent = '● Connected'; loadConversations();
   } catch (error) {
     pending.remove(); $('messages').lastElementChild?.remove(); showError(error.message);
   } finally {
     busy = false; $('send').disabled = false; $('new-chat').disabled = false; $('prompt').disabled = false;
     $('messages').setAttribute('aria-busy', 'false'); $('prompt').focus();
   }
+});
+
+// Markdown is built with text nodes; model output never enters innerHTML.
+function inlineText(parent, text) {
+  const pattern = /(`[^`]+`|\*\*[^*]+\*\*|\[[^\]]+\]\(https?:\/\/[^\s)]+\))/g;
+  let previous = 0;
+  for (const match of text.matchAll(pattern)) {
+    parent.append(document.createTextNode(text.slice(previous, match.index)));
+    const value = match[0];
+    if (value.startsWith('`')) parent.append(element('code', '', value.slice(1, -1)));
+    else if (value.startsWith('**')) parent.append(element('strong', '', value.slice(2, -2)));
+    else {
+      const cut = value.indexOf('](');
+      const link = element('a', '', value.slice(1, cut));
+      try {
+        const url = new URL(value.slice(cut + 2, -1));
+        link.href = url.href; link.target = '_blank'; link.rel = 'noopener noreferrer'; parent.append(link);
+      } catch (_) {parent.append(document.createTextNode(value));}
+    }
+    previous = match.index + value.length;
+  }
+  parent.append(document.createTextNode(text.slice(previous)));
+}
+function renderMarkdown(text) {
+  const root = element('div', 'content');
+  const lines = text.split('\n');
+  for (let i = 0; i < lines.length;) {
+    const line = lines[i];
+    if (line.startsWith('```')) {
+      const language = line.slice(3).trim().slice(0, 30) || 'code';
+      const code = [];
+      for (i += 1; i < lines.length && !lines[i].startsWith('```'); i++) code.push(lines[i]);
+      i += 1;
+      const block = element('div', 'code-block'); const toolbar = element('div', 'code-toolbar');
+      const copy = element('button', '', 'Copy'); copy.type = 'button';
+      copy.addEventListener('click', async () => {try {await navigator.clipboard.writeText(code.join('\n')); copy.textContent = 'Copied';} catch (_) {copy.textContent = 'Select code to copy';}});
+      toolbar.append(element('span', '', language), copy);
+      const pre = element('pre'); pre.append(element('code', '', code.join('\n'))); block.append(toolbar, pre); root.append(block); continue;
+    }
+    if (!line.trim()) {i++; continue;}
+    const heading = line.match(/^(#{1,6})\s+(.+)$/);
+    if (heading) {const node = element(heading[1].length < 3 ? 'h3' : 'h4'); inlineText(node, heading[2]); root.append(node); i++; continue;}
+    if (/^\s*[-*]\s+/.test(line)) {
+      const list = element('ul');
+      while (i < lines.length && /^\s*[-*]\s+/.test(lines[i])) {const item = element('li'); inlineText(item, lines[i].replace(/^\s*[-*]\s+/, '')); list.append(item); i++;}
+      root.append(list); continue;
+    }
+    const paragraph = element('p'); inlineText(paragraph, line); root.append(paragraph); i++;
+  }
+  return root;
+}
+function showWelcome() { $('messages').replaceChildren(welcomeTemplate.cloneNode(true)); }
+function rememberConversation() {
+  sessionStorage.setItem('zenith_session', session);
+  if (activeUser) localStorage.setItem('zenith_last_' + activeUser.id, session);
+}
+async function switchConversation(identifier) {
+  if (busy) return;
+  session = identifier; rememberConversation(); showWelcome(); showError('');
+  try {await loadHistory(); await loadConversations();} catch (error) {showError(error.message);}
+}
+async function loadAccount() {
+  const data = await api('/api/account');
+  const previous = activeUser?.id;
+  activeUser = data.user;
+  $('greeting').textContent = data.greeting;
+  $('open-account').textContent = activeUser ? activeUser.display_name : 'Sign in';
+  $('account-name').textContent = activeUser ? 'Signed in as ' + activeUser.display_name + ' (@' + activeUser.username + ')' : '';
+  $('signed-in-panel').hidden = !activeUser; $('account-form').hidden = !!activeUser;
+  if (activeUser && previous !== activeUser.id) {
+    const saved = localStorage.getItem('zenith_last_' + activeUser.id);
+    session = saved && /^[0-9a-f-]{36}$/i.test(saved) ? saved : crypto.randomUUID();
+    rememberConversation(); showWelcome();
+  } else if (!activeUser && previous) {session = crypto.randomUUID(); rememberConversation(); showWelcome();}
+}
+async function loadConversations() {
+  const list = $('conversation-list'); list.replaceChildren();
+  if (!activeUser) {list.append(element('p', '', 'Sign in to keep your conversations together.')); return;}
+  try {
+    const data = await api('/api/conversations');
+    for (const item of data.conversations) {
+      const button = element('button', '', item.title); button.type = 'button'; button.title = item.title;
+      button.setAttribute('aria-current', item.session_id === session ? 'true' : 'false');
+      button.addEventListener('click', () => switchConversation(item.session_id)); list.append(button);
+    }
+    if (!data.conversations.length) list.append(element('p', '', 'Your next conversation starts here.'));
+  } catch (error) {showError(error.message);}
+}
+function openAccount() { if (busy) return; $('account-error').textContent = ''; $('account-dialog').showModal(); }
+$('open-account').addEventListener('click', openAccount);
+for (const button of document.querySelectorAll('[data-close]')) button.addEventListener('click', () => $(button.dataset.close).close());
+function setRegistration(value) {
+  registering = value; $('register-fields').hidden = !registering;
+  $('display-name').required = registering; $('password').minLength = registering ? 12 : 1;
+  $('password').autocomplete = registering ? 'new-password' : 'current-password';
+  $('account-submit').textContent = registering ? 'Create account' : 'Sign in';
+  $('toggle-register').textContent = registering ? 'I already have an account' : 'Create an account';
+}
+$('toggle-register').addEventListener('click', () => setRegistration(!registering));
+$('account-form').addEventListener('submit', async event => {
+  event.preventDefault(); $('account-submit').disabled = true; $('account-error').textContent = '';
+  try {
+    await api('/api/account/' + (registering ? 'register' : 'login'), {method: 'POST', body: JSON.stringify({username: $('username').value, password: $('password').value, ...(registering ? {display_name: $('display-name').value} : {})})});
+    $('password').value = ''; setRegistration(false); $('account-dialog').close(); await connect();
+  } catch (error) {$('account-error').textContent = error.message;}
+  finally {$('account-submit').disabled = false;}
+});
+$('logout').addEventListener('click', async () => {
+  if (busy) return;
+  try {await api('/api/account/logout', {method: 'POST'}); $('account-dialog').close(); await connect();}
+  catch (error) {$('account-error').textContent = error.message;}
+});
+async function loadMemories() {
+  const data = await api('/api/memories'); const list = $('memory-list'); list.replaceChildren();
+  $('memory-count').textContent = data.memories.length + ' saved notes';
+  for (const note of data.memories) {
+    const item = element('article', 'memory-note'); const remove = element('button', '', 'Forget'); remove.type = 'button';
+    remove.addEventListener('click', async () => {try {await api('/api/memories/' + note.id, {method: 'DELETE'}); await loadMemories();} catch (error) {$('memory-error').textContent = error.message;}});
+    item.append(element('p', '', note.content), remove); list.append(item);
+  }
+  if (!data.memories.length) list.append(element('p', 'dialog-description', 'No saved memories yet. You choose what stays.'));
+}
+$('open-memory').addEventListener('click', async () => {
+  if (!activeUser) {openAccount(); return;}
+  $('memory-dialog').showModal(); $('memory-error').textContent = '';
+  try {await loadMemories();} catch (error) {$('memory-error').textContent = error.message;}
+});
+$('memory-form').addEventListener('submit', async event => {
+  event.preventDefault(); $('memory-error').textContent = '';
+  const button = event.currentTarget.querySelector('button'); button.disabled = true;
+  try {await api('/api/memories', {method: 'POST', body: JSON.stringify({content: $('memory-content').value})}); $('memory-content').value = ''; await loadMemories();}
+  catch (error) {$('memory-error').textContent = error.message;} finally {button.disabled = false;}
+});
+$('forget-all').addEventListener('click', async () => {
+  if (!confirm('Forget all your saved memories? Existing chats and exported files are separate.')) return;
+  try {await api('/api/memories', {method: 'DELETE'}); await loadMemories();} catch (error) {$('memory-error').textContent = error.message;}
+});
+$('open-packs').addEventListener('click', async () => {
+  $('packs-dialog').showModal(); const list = $('pack-list'); list.replaceChildren();
+  try {
+    const data = await api('/api/model-packs');
+    for (const pack of data.packs) {
+      const card = element('article', 'pack-card');
+      card.append(element('h3', '', pack.name), element('p', '', pack.runtime_requirements));
+      card.append(element('p', '', `${pack.file_count} inventoried files · ${(pack.total_bytes / 2**30).toFixed(1)} GiB for every variant · ${pack.license}`));
+      card.append(element('pre', '', 'zenith packs files ' + pack.id + '\nzenith packs download ' + pack.id + (pack.recommended_file ? '' : ' --all')));
+      const source = element('a', '', 'Source and attribution'); source.href = pack.source_url; source.target = '_blank'; source.rel = 'noopener noreferrer';
+      card.append(source, element('small', '', 'Pinned integration; this model has not been benchmarked in Zenith. Full variants need substantial disk space.')); list.append(card);
+    }
+  } catch (error) {list.append(element('p', '', error.message));}
 });
 connect();

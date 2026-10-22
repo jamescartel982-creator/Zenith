@@ -2,25 +2,26 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#101714"><title>Zenith — local intelligence</title>
+  <meta name="theme-color" content="#201f22"><title>Zenith — local intelligence</title>
   <link rel="stylesheet" href="/static/style.css"><script src="/static/app.js" defer></script>
 </head>
 <body>
   <aside>
-    <a class="brand" href="/">Z<span>ZENITH<small>LOCAL INTELLIGENCE</small></span></a>
-    <div class="workspace-actions"><button id="new-chat" class="primary">＋ New conversation</button><button id="open-catalog" aria-haspopup="dialog">Browse catalog <span id="catalog-count" class="button-count"></span></button></div>
+    <a class="brand" href="/"><img src="/static/zenith-mark.svg" alt="Zenith logo" width="44" height="44"><span>ZENITH<small>LOCAL INTELLIGENCE</small></span></a>
+    <div class="workspace-actions"><button id="new-chat" class="primary">＋ New conversation</button><button id="open-catalog" aria-haspopup="dialog">Browse catalog <span id="catalog-count" class="button-count"></span></button><button id="open-memory">Memory <span id="memory-count" class="button-count">Your saved context</span></button><button id="open-packs">Zenith model packs</button></div>
+    <section class="recent-chats" aria-label="Recent conversations"><span class="eyebrow">RECENT CONVERSATIONS</span><div id="conversation-list"><p>Sign in to keep your conversations together.</p></div></section>
     <section class="model-card"><span class="eyebrow">YOUR ENGINE</span><strong id="model">Connecting…</strong><p id="provider"></p><span id="status" role="status">Checking server</span><details id="team-details"><summary id="team-label">Configured models</summary><div id="team-members"><p>Connecting to the model team…</p></div></details></section>
-    <div class="aside-bottom">
+    <div class="aside-bottom"><button id="open-account" class="account-button">Sign in / Create account</button>
       <details id="access"><summary>Server access</summary><label for="token">Access token</label><input id="token" type="password" autocomplete="off" placeholder="Required for hosted servers"><button id="connect">Connect</button></details>
       <p>Conversations stay on this server. Feedback becomes training data only when you explicitly approve it.</p>
       <button id="delete-chat" class="subtle">Delete this conversation</button>
     </div>
   </aside>
   <main>
-    <header><div><span class="eyebrow">WORKSPACE / CONVERSATION</span><h1>A place to think further.</h1></div><button id="open-team" class="badge" aria-haspopup="dialog">MODEL TEAM</button></header>
+    <header><div><span class="eyebrow">WORKSPACE / CONVERSATION</span><h1 id="greeting">Welcome to Zenith.</h1></div><button id="open-team" class="badge" aria-haspopup="dialog">MODEL TEAM</button></header>
     <div id="error" role="alert" hidden></div>
     <div id="messages" aria-live="polite" aria-busy="false">
-      <section id="welcome"><div class="orb">Z</div><h2>What are we building?</h2><p>Write code, explore an idea, or work through a problem.<br>Your model. Your conversation.</p><div class="suggestions"><button data-prompt="Help me plan a small Python project.">Build something</button><button data-prompt="Explain how a language model learns, in simple terms.">Understand an idea</button><button data-prompt="Write a Python function that removes duplicate items while preserving order.">Write some code</button></div></section>
+      <section id="welcome"><img class="welcome-banner" src="/static/zenith-banner.png" alt="Zenith — open intelligence, with its anime-inspired guardian"><h2>What can we work on together?</h2><p>A thoughtful space for your ideas, code, and questions.<br>Save what matters. Pick up where you left off.</p><div class="suggestions"><button data-prompt="Help me plan a small Python project.">Build something</button><button data-prompt="Explain how a language model learns, in simple terms.">Understand an idea</button><button data-prompt="Write a Python function that removes duplicate items while preserving order.">Write some code</button></div></section>
     </div>
     <form id="composer"><label class="sr-only" for="prompt">Message Zenith</label><div class="input-wrap"><textarea id="prompt" rows="2" maxlength="12000" placeholder="Message Zenith…" required></textarea><button id="send" class="primary" type="submit">Send ↑</button></div><p>Enter to send · Shift + Enter for a new line <span>Zenith can make mistakes. Check important answers.</span></p></form>
   </main>
@@ -38,5 +39,22 @@
     </section>
     <section id="catalog-team" role="tabpanel" aria-labelledby="catalog-team-tab" hidden><div id="team-overview" class="team-overview"><p>Connect to the server to inspect the configured model team.</p></div></section>
   </dialog>
+  <dialog id="account-dialog" aria-labelledby="account-title">
+    <div class="catalog-top"><div><span class="eyebrow">YOUR ZENITH</span><h2 id="account-title">Make yourself at home.</h2></div><button class="icon-button" data-close="account-dialog" aria-label="Close account">×</button></div>
+    <p class="dialog-description">A local account keeps your memories and conversations together on this server. No AI API key is needed.</p>
+    <div id="signed-in-panel" hidden><p id="account-name"></p><button id="logout">Sign out</button></div>
+    <form id="account-form"><label for="username">Username</label><input id="username" autocomplete="username" minlength="3" maxlength="40" required pattern="[A-Za-z0-9_-]{3,40}">
+    <label for="password">Password</label><input id="password" type="password" autocomplete="current-password" maxlength="256" required>
+    <div id="register-fields" hidden><label for="display-name">What should Zenith call you?</label><input id="display-name" autocomplete="nickname" maxlength="60"><p class="dialog-description">Choose a password with at least 12 characters. Keep it safe; this local server has no email password reset.</p></div>
+    <div class="actions"><button id="account-submit" class="primary" type="submit">Sign in</button><button id="toggle-register" type="button">Create an account</button></div></form>
+    <p id="account-error" role="alert"></p>
+  </dialog>
+  <dialog id="memory-dialog" aria-labelledby="memory-title"><div class="catalog-top"><div><span class="eyebrow">CONTEXT THAT STAYS WITH YOU</span><h2 id="memory-title">Your memory.</h2></div><button class="icon-button" data-close="memory-dialog" aria-label="Close memory">×</button></div>
+    <p class="dialog-description">Save preferences, project details, or facts you want Zenith to remember across conversations. Only notes you explicitly save are added. Relevant notes may be used in answers; they are not facts Zenith has verified.</p>
+    <form id="memory-form"><label for="memory-content">What would you like Zenith to remember?</label><textarea id="memory-content" rows="3" maxlength="500" required placeholder="For example: I prefer Python examples and concise explanations."></textarea><button class="primary" type="submit">Save memory</button></form>
+    <p id="memory-error" role="alert"></p><div id="memory-list"></div><button id="forget-all" class="subtle">Forget all saved memories</button>
+    <p class="dialog-description">Up to 50 notes; a bounded selection is used per answer. Deleting a note affects future answers. Existing chat history and approved exports are separate.</p>
+  </dialog>
+  <dialog id="packs-dialog" aria-labelledby="packs-title"><div class="catalog-top"><div><span class="eyebrow">RUN ON YOUR HARDWARE</span><h2 id="packs-title">Zenith model packs.</h2></div><button class="icon-button" data-close="packs-dialog" aria-label="Close model packs">×</button></div><p class="dialog-description">Three source-backed packs with complete pinned file inventories. Download a suitable quantization and start a compatible local server. Adding a pack does not load its weights.</p><div id="pack-list"></div></dialog>
 </body>
 </html>
