@@ -11,7 +11,7 @@ WEIGHT_PATTERNS = ['*.json', '*.safetensors', '*.model', '*.tiktoken', 'tokenize
 def model_specs(settings):
     if settings.provider == 'ensemble':
         from .ensemble import EnsembleProvider
-        return [member.public() | {'revision': member.revision, 'adapter': member.adapter, 'base_url': member.base_url or settings.ollama_url}
+        return [member.public() | {'revision': member.revision, 'adapter': member.adapter, 'base_url': member.base_url or (settings.local_server_url if member.provider == 'localserver' else settings.ollama_url)}
                 for member in EnsembleProvider(settings).members]
     return [{'id': 'primary', 'name': settings.model_name, 'provider': settings.provider,
              'model': settings.model_name, 'revision': settings.revision, 'adapter': settings.adapter}]
@@ -92,7 +92,7 @@ def main():
     failed = False
     seen = set()
     for spec in specs:
-        key = (spec['provider'], spec['model'], spec['revision'])
+        key = (spec['provider'], spec['model'], spec['revision'], spec.get('base_url'))
         if key in seen:
             continue
         seen.add(key)

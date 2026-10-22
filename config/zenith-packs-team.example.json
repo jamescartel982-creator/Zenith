@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "max_experts": 3,
+  "max_parallel": 1,
+  "max_cached_models": 3,
+  "round_timeout_seconds": 600,
+  "max_proposal_chars": 1200,
+  "synthesizer": "zenith-9b",
+  "critic": "zenith-vision",
+  "members": [
+    {"id": "zenith-27b", "name": "Zenith 27B", "provider": "localserver", "model": "zenith", "role": "coding", "base_url": "http://127.0.0.1:8080/v1"},
+    {"id": "zenith-vision", "name": "Zenith Vision", "provider": "localserver", "model": "zenith", "role": "reasoning", "base_url": "http://127.0.0.1:8081/v1"},
+    {"id": "zenith-9b", "name": "Zenith 9B", "provider": "localserver", "model": "zenith", "role": "general", "base_url": "http://127.0.0.1:8082/v1"}
+  ]
+}

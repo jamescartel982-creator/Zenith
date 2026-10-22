@@ -57,6 +57,21 @@ zenith serve
 
 The provider sends the normal chat-completions request to `http://127.0.0.1:8080/v1` using the local server's `zenith` alias, without an Authorization header or API key. `--endpoint` and `--model-alias` can select another loopback server. Remote hosts and credentials embedded in URLs are rejected. Source IDs stay in provenance and diagnostics; user-facing pack names say Zenith.
 
+## Let the three local runtimes collaborate
+
+`config/zenith-packs-team.example.json` connects three separately running local servers on ports 8080, 8081, and 8082. Each server must serve its own checkpoint under alias `zenith`; the third port is the synthesis model. The bounded ensemble collects three drafts, shares them with the reviewer, and synthesizes a final answer. It never treats matching model aliases on different ports as the same runtime.
+
+After provisioning the required hardware and starting the servers, set these values in your saved profile or checkout `.env`:
+
+```text
+AI_PROVIDER=ensemble
+ZENITH_TEAM_CONFIG=/absolute/path/to/Zenith/config/zenith-packs-team.example.json
+CONTEXT_TOKENS=8192
+MAX_NEW_TOKENS=2048
+```
+
+Use the actual Windows absolute path on Windows. Restart Zenith. This is an opt-in configuration: no model is silently downloaded, started, or added to the small default team. The orchestration is tested with controlled providers; these three large checkpoints have not been run together here. Read the requirements below before starting Zenith Vision. Multiple servers have additive hardware requirements, and collaboration cannot guarantee a better answer.
+
 ## Vision and specialized runtimes
 
 Zenith Vision's source reference calls for specialized DeepSeek V4 Vision kernels and multi-GPU hardware; its upstream example uses four GB300 GPUs. It is not compatible with simply setting `HF_MODEL` in this application's pinned Transformers 4 family. Read the bundled upstream instructions and provision a compatible vLLM/SGLang/reference runtime separately. Expose a compatible local chat-completions endpoint with served model name `zenith`, then select `zenith packs configure zenith-vision --overwrite-config`.

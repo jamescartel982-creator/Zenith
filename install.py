@@ -28,6 +28,12 @@ def configured_provider(python):
         cwd=ROOT, text=True, encoding='utf-8').strip()
 
 
+def configured_needs_hf(python):
+    return subprocess.check_output(
+        [str(python), '-c', 'from agent.models import model_specs; from agent.config import Settings; print(int(any(s["provider"] == "huggingface" for s in model_specs(Settings()))))'],
+        cwd=ROOT, text=True, encoding='utf-8').strip() == '1'
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--mode', choices=['local', 'ensemble', 'ollama', 'localserver'], default='local')
@@ -58,7 +64,7 @@ def main(argv=None):
         provider = configured_provider(python)
         if provider not in {'huggingface', 'ensemble', 'ollama', 'tiny', 'localserver'}:
             raise RuntimeError('Unexpected provider configuration')
-        needs_hf = provider in {'huggingface', 'ensemble'}
+        needs_hf = provider == 'huggingface' or (provider == 'ensemble' and configured_needs_hf(python))
         needs_torch = needs_hf or provider == 'tiny'
         if needs_torch and args.runtime == 'cpu':
             run([python, '-m', 'pip', 'install', 'torch>=2.6,<3', '--index-url', 'https://download.pytorch.org/whl/cpu'])
