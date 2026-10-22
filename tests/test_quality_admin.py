@@ -106,6 +106,13 @@ class AdminTests(unittest.TestCase):
 
 
 class QualityTests(unittest.TestCase):
+    def test_calculator_preserves_decimal_literals_and_repeating_fractions(self):
+        self.assertEqual(calculate('0.123456789012345678 + 0.000000000000000001'),'0.123456789012345679')
+        self.assertEqual(calculate('1/3'),'1/3')
+        self.assertEqual(calculate('999999999999999999 + 1/8'),'999999999999999999.125')
+        for literal in ['1e999999999999','0xff','1_000']:
+            with self.subTest(literal=literal),self.assertRaises(ValueError):calculate(literal)
+
     def test_arithmetic_is_bounded_exact_and_never_executes_names(self):
         self.assertEqual(calculate('0.1+0.2'),'0.3');self.assertEqual(calculate('(24+18)/6'),'7')
         self.assertEqual(calculate('1/8'),'0.125')

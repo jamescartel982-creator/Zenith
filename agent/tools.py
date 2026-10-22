@@ -12,8 +12,9 @@ from urllib.parse import urlsplit
 def calculate(expression):
     if not isinstance(expression, str) or not 1 <= len(expression) <= 120:
         raise ValueError('Use an arithmetic expression of at most 120 characters')
+    expression=expression.strip()
     try:
-        tree = ast.parse(expression.strip(), mode='eval')
+        tree = ast.parse(expression, mode='eval')
     except (SyntaxError, ValueError) as exc:
         raise ValueError('Use numbers, parentheses, +, -, *, / and small integer powers') from exc
     if len(list(ast.walk(tree))) > 40:
@@ -22,7 +23,11 @@ def calculate(expression):
         if depth > 12:
             raise ValueError('Expression is too deeply nested')
         if isinstance(node, ast.Constant) and type(node.value) in {int, float}:
-            value = Fraction(str(node.value))
+            literal=ast.get_source_segment(expression,node)
+            if not literal or not re.fullmatch(r'(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)',literal):
+                raise ValueError('Use ordinary decimal numbers; scientific and nondecimal literals are not supported')
+            # AST float values have already rounded: parse the original decimal.
+            value = Fraction(literal)
         elif isinstance(node, ast.UnaryOp) and isinstance(node.op, (ast.UAdd, ast.USub)):
             value = visit(node.operand, depth+1) * (-1 if isinstance(node.op, ast.USub) else 1)
         elif isinstance(node, ast.BinOp) and isinstance(node.op, (ast.Add, ast.Sub, ast.Mult, ast.Div, ast.Pow)):
@@ -45,8 +50,12 @@ def calculate(expression):
         return value
     value = visit(tree.body)
     if value.denominator == 1: return str(value.numerator)
+    remaining=value.denominator
+    for factor in (2,5):
+        while remaining%factor==0:remaining//=factor
+    if remaining!=1:return str(value)  # Preserve exact non-terminating fractions.
     with localcontext() as context:
-        context.prec = 24
+        context.prec = 80
         return format(Decimal(value.numerator) / Decimal(value.denominator), 'f').rstrip('0').rstrip('.')
 
 
@@ -78,7 +87,7 @@ def code_audit(text):
 
 
 TOOLS = {
-    'calculator': 'Bounded exact rational arithmetic with decimal output.',
+    'calculator': 'Bounded exact arithmetic; terminating decimals or reduced fractions.',
     'sha256': 'SHA-256 digest of supplied text.',
     'decode-base64': 'Decode a small supplied Base64 string as UTF-8 text.',
     'code-audit': 'Offline heuristic security review of pasted code.',
