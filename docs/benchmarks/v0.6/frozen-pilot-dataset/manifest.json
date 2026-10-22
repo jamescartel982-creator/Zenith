@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "source_sha256": "daa610fef4524115a3c5708d10c2a8ed5d3c6dcdf228175ce19f7e598bfcf0ad",
+  "seed": 42,
+  "quality": {
+    "input_rows": 94,
+    "usable_rows": 94,
+    "exact_duplicates_removed": 0,
+    "topics": {
+      "science": 6,
+      "history": 6,
+      "ancient-math": 6,
+      "investing": 6,
+      "day-trading": 6,
+      "cybersecurity": 6,
+      "programming": 6,
+      "books-writing": 6,
+      "data-research": 6,
+      "math": 40
+    },
+    "topic_balancing": {
+      "rows_per_topic": 6,
+      "selected_rows": 60,
+      "excluded_for_balance": 34
+    }
+  },
+  "files": {
+    "train": {
+      "path": "train.jsonl",
+      "rows": 40,
+      "sha256": "deb58757bc2567792835ca2ae52a3138c9896cd7b48632980560046d8fa3ba5e",
+      "topics": {
+        "ancient-math": 4,
+        "books-writing": 4,
+        "cybersecurity": 4,
+        "data-research": 4,
+        "day-trading": 4,
+        "history": 4,
+        "investing": 4,
+        "math": 4,
+        "programming": 4,
+        "science": 4
+      }
+    },
+    "validation": {
+      "path": "validation.jsonl",
+      "rows": 10,
+      "sha256": "5f0e54ce4777bf1abd479c24d9c8c2133540ed697a2d99e99455514f84fde95d",
+      "topics": {
+        "ancient-math": 1,
+        "books-writing": 1,
+        "cybersecurity": 1,
+        "data-research": 1,
+        "day-trading": 1,
+        "history": 1,
+        "investing": 1,
+        "math": 1,
+        "programming": 1,
+        "science": 1
+      }
+    },
+    "test": {
+      "path": "test.jsonl",
+      "rows": 10,
+      "sha256": "f23c6fb3a8c86fe0bf1e138f1256738d4c49462011de1d7eff47fb9823874e2f",
+      "topics": {
+        "ancient-math": 1,
+        "books-writing": 1,
+        "cybersecurity": 1,
+        "data-research": 1,
+        "day-trading": 1,
+        "history": 1,
+        "investing": 1,
+        "math": 1,
+        "programming": 1,
+        "science": 1
+      }
+    }
+  },
+  "final_test_used_for_training": false,
+  "automatic_promotion": false,
+  "limitations": [
+    "Original starter examples are a plumbing curriculum, not comprehensive subject training.",
+    "Public facts may already be present in the base model pretraining.",
+    "Final-test isolation applies to this dataset version, not all unknown upstream training."
+  ],
+  "source_snapshot": "source.jsonl"
+}

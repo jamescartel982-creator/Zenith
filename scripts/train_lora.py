@@ -20,8 +20,10 @@ def main():
     parser.add_argument('--batch-size', type=int, default=1)
     parser.add_argument('--gradient-accumulation', type=int, default=4)
     parser.add_argument('--learning-rate', type=float, default=2e-4)
+    parser.add_argument('--dataset-manifest', type=Path, help='Audit the immutable curriculum manifest and final-test isolation')
+    parser.add_argument('--cpu-threads',type=int,default=Settings().cpu_threads)
     args = parser.parse_args()
-    if args.max_length < 16 or args.epochs <= 0 or args.batch_size < 1 or args.gradient_accumulation < 1 or args.learning_rate <= 0 or args.max_steps == 0 or args.max_steps < -1:
+    if args.max_length < 16 or args.epochs <= 0 or args.batch_size < 1 or args.gradient_accumulation < 1 or args.learning_rate <= 0 or args.max_steps == 0 or args.max_steps < -1 or not 1<=args.cpu_threads<=64:
         parser.error('Invalid training limits')
     output = Path(args.output_dir)
     if output.exists() and any(output.iterdir()):
@@ -30,6 +32,18 @@ def main():
         if not Path(path).is_file():
             parser.error(f'Missing {path}. Export approved examples first.')
     train_rows, eval_rows = load_examples(args.train_data), load_examples(args.eval_data)
+    test_sha256=None
+    if args.dataset_manifest:
+        from agent.curriculum import audit_directory,assert_disjoint
+        try:
+            manifest=audit_directory(args.dataset_manifest.parent)
+            for partition,given in [('train',args.train_data),('validation',args.eval_data)]:
+                if Path(given).resolve()!=(args.dataset_manifest.parent/manifest['files'][partition]['path']).resolve():
+                    raise ValueError('Training arguments do not match the versioned train/validation files')
+            test_path=args.dataset_manifest.parent/manifest['files']['test']['path']
+            assert_disjoint({'train':train_rows,'validation':eval_rows,'test':load_examples(test_path)})
+            test_sha256=file_sha256(test_path)
+        except (ValueError,OSError,KeyError) as exc:parser.error(str(exc))
     def prompts(rows):
         return {' '.join((row.get('prompt') or row['messages'][-2]['content']).casefold().split()) for row in rows}
     if prompts(train_rows) & prompts(eval_rows):
@@ -42,6 +56,7 @@ def main():
         parser.error('Need at least five training examples and one held-out evaluation example')
 
     import torch
+    torch.set_num_threads(args.cpu_threads)
     from datasets import Dataset
     from transformers import AutoModelForCausalLM, AutoTokenizer, Trainer, TrainingArguments, set_seed
     from peft import LoraConfig, TaskType, get_peft_model
@@ -90,8 +105,9 @@ def main():
         'train_examples': len(train), 'eval_examples': len(evaluation), 'skipped': skipped,
         'baseline': baseline, 'final': final, 'training': trained.metrics,
         'parameters': vars(args), 'automatic_promotion': False,
+        'final_test_sha256':test_sha256,'final_test_used_for_training':False,
     }
-    (output / 'training_report.json').write_text(json.dumps(manifest, indent=2), encoding='utf-8')
+    (output / 'training_report.json').write_text(json.dumps(manifest, indent=2,default=str), encoding='utf-8')
     print(f'Saved adapter and training_report.json in {output}.')
     print('Compare held-out results and chat quality before selecting ZENITH_ADAPTER. Improvement is not guaranteed.')
 

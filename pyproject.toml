@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "zenith-local"
-version = "0.5.0"
+version = "0.6.0"
 description = "Local open-model chat, reviewed learning, and an experimental from-scratch transformer"
 requires-python = ">=3.10"
 license = {text = "Apache-2.0"}
@@ -24,4 +24,4 @@ zenith-serve = "agent.server:main"
 include = ["agent*", "scripts*"]
 
 [tool.setuptools.package-data]
-agent = ["web/*", "catalog/*.json", "model_packs/*.json"]
+agent = ["web/*", "catalog/*.json", "model_packs/*.json", "resources/*", "evaluation/*.json"]

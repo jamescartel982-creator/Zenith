@@ -1,0 +1,87 @@
+{
+  "version": 1,
+  "scope": "Curated starting references, not an exhaustive resource collection",
+  "training_text_policy": "Starter rows are original Zenith-authored educational examples. Linked source pages are references, not copied training payloads. External imports need explicit rights/quality review.",
+  "sources": [
+    {
+      "id": "math",
+      "title": "OpenStax Algebra and Trigonometry",
+      "url": "https://openstax.org/books/algebra-and-trigonometry-2e/pages/1-introduction-to-prerequisites",
+      "source_license_note": "CC-BY-4.0",
+      "status": "reference-only",
+      "automatically_trained": false
+    },
+    {
+      "id": "science",
+      "title": "NASA Earth facts",
+      "url": "https://science.nasa.gov/earth/facts/",
+      "source_license_note": "reference-only",
+      "status": "reference-only",
+      "automatically_trained": false
+    },
+    {
+      "id": "history",
+      "title": "Smithsonian Open Access",
+      "url": "https://www.si.edu/openaccess",
+      "source_license_note": "reference-only",
+      "status": "reference-only",
+      "automatically_trained": false
+    },
+    {
+      "id": "ancient-math",
+      "title": "MacTutor Babylonian mathematics",
+      "url": "https://mathshistory.st-andrews.ac.uk/HistTopics/Babylonian_mathematics/",
+      "source_license_note": "reference-only",
+      "status": "reference-only",
+      "automatically_trained": false
+    },
+    {
+      "id": "investing",
+      "title": "SEC Investor.gov investing basics",
+      "url": "https://www.investor.gov/introduction-investing",
+      "source_license_note": "reference-only",
+      "status": "reference-only",
+      "automatically_trained": false
+    },
+    {
+      "id": "day-trading",
+      "title": "FINRA day trading education",
+      "url": "https://www.finra.org/investors/investing/investment-products/stocks/day-trading",
+      "source_license_note": "reference-only",
+      "status": "reference-only",
+      "automatically_trained": false
+    },
+    {
+      "id": "cybersecurity",
+      "title": "OWASP SQL injection prevention",
+      "url": "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html",
+      "source_license_note": "CC-BY-SA-4.0-reference-only",
+      "status": "reference-only",
+      "automatically_trained": false
+    },
+    {
+      "id": "programming",
+      "title": "Python tutorial",
+      "url": "https://docs.python.org/3/tutorial/",
+      "source_license_note": "reference-only",
+      "status": "reference-only",
+      "automatically_trained": false
+    },
+    {
+      "id": "books-writing",
+      "title": "Project Gutenberg Euclid edition",
+      "url": "https://www.gutenberg.org/ebooks/21076",
+      "source_license_note": "reference-only-public-domain-review-needed",
+      "status": "reference-only",
+      "automatically_trained": false
+    },
+    {
+      "id": "data-research",
+      "title": "Scikit-learn common pitfalls",
+      "url": "https://scikit-learn.org/stable/common_pitfalls.html",
+      "source_license_note": "reference-only",
+      "status": "reference-only",
+      "automatically_trained": false
+    }
+  ]
+}

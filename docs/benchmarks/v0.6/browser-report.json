@@ -1,0 +1,12 @@
+{
+  "browser_errors": [],
+  "desktop": "1440x1000",
+  "mobile": "390x844",
+  "streaming_before_complete": true,
+  "observed_first_text_seconds_including_cold_load": 27.43,
+  "real_cpu_memory_answer": "Your telescope project is called Violet.",
+  "admin_code_not_in_chat": true,
+  "owner_unlock_and_tools": true,
+  "local_human_review_roundtrip": true,
+  "logout_clears_private_views": true
+}

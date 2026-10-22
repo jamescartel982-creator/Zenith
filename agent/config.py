@@ -26,6 +26,9 @@ class Settings:
     local_server_url: str = field(default_factory=lambda: os.getenv('ZENITH_LOCAL_SERVER_URL', 'http://127.0.0.1:8080/v1').rstrip('/'))
     local_server_model: str = field(default_factory=lambda: os.getenv('ZENITH_LOCAL_SERVER_MODEL', 'zenith'))
     display_name: str = field(default_factory=lambda: os.getenv('ZENITH_MODEL_LABEL', 'Zenith'))
+    response_mode: str = field(default_factory=lambda: os.getenv('ZENITH_RESPONSE_MODE', 'fast'))
+    calibration_file: str = field(default_factory=lambda: os.getenv('ZENITH_CALIBRATION_FILE', ''))
+    abstain_threshold: float = field(default_factory=lambda: float(os.getenv('ZENITH_ABSTAIN_THRESHOLD', '0.6')))
     tiny_checkpoint: str = field(default_factory=lambda: os.getenv("ZENITH_TINY_CHECKPOINT", str(zenith_home() / "artifacts" / "tiny" / "model.pt")))
     max_new_tokens: int = field(default_factory=lambda: int(os.getenv("MAX_NEW_TOKENS", "256")))
     context_tokens: int = field(default_factory=lambda: int(os.getenv("CONTEXT_TOKENS", "2048")))
@@ -34,6 +37,10 @@ class Settings:
     temperature: float = field(default_factory=lambda: float(os.getenv("TEMPERATURE", "0.4")))
 
     def __post_init__(self):
+        if self.response_mode not in {'fast', 'thorough'}:
+            raise ValueError('ZENITH_RESPONSE_MODE must be fast or thorough')
+        if not 0 <= self.abstain_threshold <= 1:
+            raise ValueError('ZENITH_ABSTAIN_THRESHOLD must be between zero and one')
         if not 1 <= self.cpu_threads <= 64:
             raise ValueError("ZENITH_CPU_THREADS must be between 1 and 64")
         if self.provider not in {"ensemble", "huggingface", "ollama", "tiny", "localserver"}:

@@ -21,8 +21,12 @@ class Store:
                 approved INTEGER NOT NULL DEFAULT 0, correction TEXT
             )""")
             db.execute("CREATE INDEX IF NOT EXISTS turns_session ON turns(session_id, created_at)")
+            db.execute('''CREATE TABLE IF NOT EXISTS human_reviews (
+                id TEXT PRIMARY KEY, user_id TEXT NOT NULL, session_id TEXT NOT NULL, turn_id TEXT NOT NULL,
+                reason TEXT NOT NULL, status TEXT NOT NULL, resolution TEXT NOT NULL, created REAL NOT NULL,
+                UNIQUE(user_id, turn_id))''')
             columns = {row['name'] for row in db.execute('PRAGMA table_info(turns)')}
-            for name in ('deliberation', 'sources'):
+            for name in ('deliberation', 'sources', 'quality'):
                 if name not in columns:
                     db.execute(f'ALTER TABLE turns ADD COLUMN {name} TEXT')
             db.execute("""CREATE TABLE IF NOT EXISTS knowledge (
@@ -47,20 +51,21 @@ class Store:
         finally:
             db.close()
 
-    def add(self, session_id, prompt, response, messages, model, deliberation=None, sources=None):
+    def add(self, session_id, prompt, response, messages, model, deliberation=None, sources=None, quality=None):
         turn_id = str(uuid4())
         with self.connect() as db:
             db.execute("""INSERT INTO turns
-                (id, session_id, prompt, response, messages, model, created_at, deliberation, sources)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""", (
+                (id, session_id, prompt, response, messages, model, created_at, deliberation, sources, quality)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""", (
                 turn_id, session_id, prompt, response, json.dumps(messages), model,
                 datetime.now(timezone.utc).isoformat(),
-                json.dumps(deliberation) if deliberation else None, json.dumps(sources) if sources else None))
+                json.dumps(deliberation) if deliberation else None, json.dumps(sources) if sources else None,
+                json.dumps(quality) if quality else None))
         return turn_id
 
     def history(self, session_id, limit=12):
         with self.connect() as db:
-            rows = db.execute("""SELECT id, prompt, response, rating, approved, correction, deliberation, sources
+            rows = db.execute("""SELECT id, prompt, response, rating, approved, correction, deliberation, sources, quality
                 FROM turns WHERE session_id=? ORDER BY rowid DESC LIMIT ?""",
                 (session_id, limit)).fetchall()
         result = []
@@ -68,10 +73,14 @@ class Store:
             item = dict(row)
             item['deliberation'] = json.loads(item['deliberation']) if item['deliberation'] else None
             item['sources'] = json.loads(item['sources']) if item['sources'] else []
+            item['quality'] = json.loads(item['quality']) if item['quality'] else None
             result.append(item)
         return result
 
     def review(self, session_id, turn_id, rating, approved=False, correction=None):
+        from .admin import contains_admin_code
+        if correction and contains_admin_code(correction):
+            raise ValueError('Never save an owner code in a review or training example')
         if rating not in {"good", "bad"}:
             raise ValueError("rating must be good or bad")
         correction = correction.strip() if correction else None
@@ -98,6 +107,7 @@ class Store:
     def delete_session(self, session_id):
         with self.connect() as db:
             db.execute("DELETE FROM turns WHERE session_id=?", (session_id,))
+            db.execute('DELETE FROM human_reviews WHERE session_id=?', (session_id,))
 
 
     def add_document(self, source_id, url, text):

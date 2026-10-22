@@ -14,10 +14,12 @@ def main():
         assert Path(module_path).resolve() != (Path(__file__).resolve().parents[1] / 'agent' / '__init__.py').resolve(), 'Smoke check must use the installed wheel, not the source checkout'
         version = subprocess.run([str(executable), '--version'], cwd=directory, text=True, encoding="utf-8",
                                  stdout=subprocess.PIPE, check=True).stdout
-        assert '0.5.0' in version
+        assert '0.6.0' in version
         resources = subprocess.check_output([sys.executable, '-c',
             'from pathlib import Path; import agent; from agent.packs import summaries; '
             'assert len(summaries()) == 3; '
+            'from agent.curriculum import RESOURCE_ROOT; from agent.quality import DEFAULT_SUITE; '
+            'assert (RESOURCE_ROOT / "starter-v1.jsonl").is_file(); assert DEFAULT_SUITE.is_file(); '
             'assert (Path(agent.__file__).parent / "web" / "zenith-banner.png").is_file()'],
             cwd=directory, text=True, encoding='utf-8')
         report = subprocess.run([str(executable), 'doctor', '--json'], cwd=directory, text=True, encoding="utf-8",

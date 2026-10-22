@@ -1,0 +1,115 @@
+{
+  "version": 1,
+  "references": [
+    {
+      "id": "math",
+      "url": "https://openstax.org/books/algebra-and-trigonometry-2e/pages/1-introduction-to-prerequisites",
+      "http_status": 200,
+      "title": "Ch. 1 Introduction to Prerequisites - Algebra and Trigonometry 2e | OpenStax",
+      "retrieved_prefix_sha256": "1bbf3b8945d5bd3c34b82f30d4dfbbbae5ccc62921d10d1a1df67e82a4c00a18",
+      "bytes_checked": 267720,
+      "prefix_limit_bytes": 2097152,
+      "checked_at": "2026-10-22T22:47:57.550061+00:00",
+      "training_payload_imported": false
+    },
+    {
+      "id": "science",
+      "url": "https://science.nasa.gov/earth/facts/",
+      "http_status": 200,
+      "title": "Facts About Earth",
+      "retrieved_prefix_sha256": "9d6479c88beb4fcd5396e502df1dbd1c08e535edb90ae3edb830bb904a439bf0",
+      "bytes_checked": 331072,
+      "prefix_limit_bytes": 2097152,
+      "checked_at": "2026-10-22T22:47:57.163970+00:00",
+      "training_payload_imported": false
+    },
+    {
+      "id": "history",
+      "url": "https://www.si.edu/openaccess",
+      "http_status": 200,
+      "title": "Smithsonian Open Access | Smithsonian Institution",
+      "retrieved_prefix_sha256": "ccab6fadae8f2587cfd7b243d6d0733077db22fbace816b71b26801f0bb5d9ba",
+      "bytes_checked": 119905,
+      "prefix_limit_bytes": 2097152,
+      "checked_at": "2026-10-22T22:47:57.539931+00:00",
+      "training_payload_imported": false
+    },
+    {
+      "id": "ancient-math",
+      "url": "https://mathshistory.st-andrews.ac.uk/HistTopics/Babylonian_mathematics/",
+      "http_status": 200,
+      "title": " Babylonian mathematics - MacTutor History of Mathematics ",
+      "retrieved_prefix_sha256": "cdddf28a0e9f3eb360e06df16aa54df1f908702e2dd1501362610fdceae0e0b1",
+      "bytes_checked": 159159,
+      "prefix_limit_bytes": 2097152,
+      "checked_at": "2026-10-22T22:47:58.385667+00:00",
+      "training_payload_imported": false
+    },
+    {
+      "id": "investing",
+      "url": "https://www.investor.gov/introduction-investing",
+      "http_status": 200,
+      "title": "Introduction to Investing | Investor.gov",
+      "retrieved_prefix_sha256": "29fc0b49d3694f1174004b42b22eff74271ea63f174edd210097d176881b084b",
+      "bytes_checked": 56532,
+      "prefix_limit_bytes": 2097152,
+      "checked_at": "2026-10-22T23:07:20.025422+00:00",
+      "training_payload_imported": false
+    },
+    {
+      "id": "day-trading",
+      "url": "https://www.finra.org/investors/investing/investment-products/stocks/day-trading",
+      "http_status": 200,
+      "title": "Frequent Intraday Trading: Understanding the Basics | FINRA.org",
+      "retrieved_prefix_sha256": "c7969c3e0ec628f55efb26987606ede94184431feb5460d4ed37b289533e5bc3",
+      "bytes_checked": 93801,
+      "prefix_limit_bytes": 2097152,
+      "checked_at": "2026-10-22T22:47:58.050964+00:00",
+      "training_payload_imported": false
+    },
+    {
+      "id": "cybersecurity",
+      "url": "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html",
+      "http_status": 200,
+      "title": "SQL Injection Prevention - OWASP Cheat Sheet Series",
+      "retrieved_prefix_sha256": "396db195affc3f0be5f6b0becdb233b3f5dc26d0047f9d720160299685888428",
+      "bytes_checked": 107282,
+      "prefix_limit_bytes": 2097152,
+      "checked_at": "2026-10-22T22:47:57.777517+00:00",
+      "training_payload_imported": false
+    },
+    {
+      "id": "programming",
+      "url": "https://docs.python.org/3/tutorial/",
+      "http_status": 200,
+      "title": "The Python Tutorial &#8212; Python 3.15.1 documentation",
+      "retrieved_prefix_sha256": "1686a90e1b8a8336ddd16613f6739f2bb6b6ea386562c4b57957fce00691cecc",
+      "bytes_checked": 37315,
+      "prefix_limit_bytes": 2097152,
+      "checked_at": "2026-10-22T22:47:57.875850+00:00",
+      "training_payload_imported": false
+    },
+    {
+      "id": "books-writing",
+      "url": "https://www.gutenberg.org/ebooks/21076",
+      "http_status": 200,
+      "title": "The First Six Books of the Elements of Euclid by Euclid and John Casey | Project Gutenberg",
+      "retrieved_prefix_sha256": "1e3a84fe2b046481722575a17688e97edee83470a0b2a7fb4ba833a08cbdc895",
+      "bytes_checked": 23536,
+      "prefix_limit_bytes": 2097152,
+      "checked_at": "2026-10-22T22:47:58.603080+00:00",
+      "training_payload_imported": false
+    },
+    {
+      "id": "data-research",
+      "url": "https://scikit-learn.org/stable/common_pitfalls.html",
+      "http_status": 200,
+      "title": "12. Common pitfalls and recommended practices &#8212; scikit-learn 1.9.1 documentation",
+      "retrieved_prefix_sha256": "21fac11c181ab35624dcf8673f0475d403d4f6ecf0f9bead01a573d7642b515c",
+      "bytes_checked": 109748,
+      "prefix_limit_bytes": 2097152,
+      "checked_at": "2026-10-22T22:47:58.786129+00:00",
+      "training_payload_imported": false
+    }
+  ]
+}

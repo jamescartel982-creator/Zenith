@@ -6,6 +6,8 @@ $('token').value = sessionStorage.getItem('zenith_token') || '';
 let busy = false;
 let activeUser = null;
 let registering = false;
+let adminState = null;
+let adminExpiry = null;
 const welcomeTemplate = $('welcome').cloneNode(true);
 let configuredTeam = null;
 let knowledgeStatus = null;
@@ -119,7 +121,9 @@ function renderDeliberation(turn) {
     list.append(item);
   }
   details.append(list);
-  if (trace.synthesizer?.status === 'ok' && trace.answer_stage !== 'draft_fallback') {
+  if (trace.response_mode === 'fast') {
+    details.append(element('p', '', 'Fast mode answers with the first successful routed contributor. Full review and synthesis were intentionally skipped.'));
+  } else if (trace.synthesizer?.status === 'ok' && trace.answer_stage !== 'draft_fallback') {
     details.append(element('p', '', `Combined by ${trace.synthesizer.name || trace.synthesizer.model || trace.synthesizer.id || 'configured synthesizer'}.`));
   } else {
     const fallbackId = trace.fallback_member || trace.answer_member;
@@ -157,6 +161,20 @@ function addMessage(role, text, turn = null) {
   article.append(element('div', 'who', role === 'user' ? 'YOU' : 'ZENITH'));
   article.append(role === 'assistant' ? renderMarkdown(text) : element('pre', 'content', text));
   if (turn) {
+    if (turn.quality) {
+      const q = turn.quality;
+      const label = q.verification === 'deterministic' ? 'Verified arithmetic' : q.abstained ? 'Evidence unavailable · abstained' : q.calibration === 'validation-method-group' ? 'Model answer · validation group estimate; individual confidence unknown' : 'Model answer · confidence not calibrated';
+      const note = element('p', 'quality-note', label + (turn.latency_ms !== undefined ? ` · ${(turn.latency_ms / 1000).toFixed(2)}s` : '') + (q.needs_human_review ? ' · human review recommended' : ''));
+      article.append(note);
+    }
+    if (activeUser) {
+      const handoff = element('button', 'human-review-button', 'Request human review'); handoff.type = 'button';
+      handoff.addEventListener('click', async () => {
+        if (!confirm('Share this question and answer with the local server administrator for review? No external notification is sent.')) return;
+        try {await api('/api/review-requests', {method: 'POST', body: JSON.stringify({session_id: session, turn_id: turn.id})}); handoff.textContent = 'Queued for administrator review'; handoff.disabled = true;}
+        catch (error) {showError(error.message);}
+      }); article.append(handoff);
+    }
     const deliberation = renderDeliberation(turn);
     if (deliberation) article.append(deliberation);
     const sources = renderSources(turn);
@@ -192,6 +210,7 @@ function addMessage(role, text, turn = null) {
   }
   $('messages').append(article);
   $('messages').scrollTop = $('messages').scrollHeight;
+  return article;
 }
 async function loadHistory() {
   const data = await api(`/api/history/${session}`);
@@ -297,7 +316,7 @@ async function connect() {
       $('access').open = true; $('status').textContent = 'Access token required'; return;
     }
     await loadAccount();
-    await Promise.all([loadHistory(), loadTeam(), loadConversations()]);
+    await Promise.all([loadHistory(), loadTeam(), loadConversations(), loadSkills(), loadAdmin()]);
     $('access').open = false;
     catalogLoaded = false;
   } catch (error) { showError(error.message); $('status').textContent = 'Connection needs attention'; }
@@ -337,16 +356,28 @@ $('composer').addEventListener('submit', async event => {
   event.preventDefault();
   const text = $('prompt').value.trim();
   if (busy || !text) return;
+  if (/^zenith-admin-[A-Za-z0-9_-]{43}$/.test(text)) {
+    $('prompt').value = '';
+    if (!activeUser) {showError('Sign in as your owner account before unlocking Admin. The code was not saved.'); return;}
+    try {await unlockAdmin(text); $('admin-dialog').showModal();} catch (error) {showError(error.message);}
+    return;
+  }
   busy = true; showError(''); $('send').disabled = true; $('new-chat').disabled = true; $('prompt').disabled = true;
   $('messages').setAttribute('aria-busy', 'true');
-  addMessage('user', text);
-  const pending = element('p', 'pending', configuredTeam?.mode === 'ensemble' ? 'Consulting the configured model team… Contributors respond before the final synthesis.' : 'Thinking… The first message may take a few minutes while the model downloads.');
+  const userMessage = addMessage('user', text);
+  let partial = null; let buffer = '';
+  const pending = element('p', 'pending', configuredTeam?.mode === 'ensemble' && $('response-mode').value === 'thorough' ? 'Consulting the configured model team… Contributors respond before the final synthesis.' : 'Preparing your answer… The first model load may take longer.');
   $('messages').append(pending); $('messages').scrollTop = $('messages').scrollHeight;
   try {
-    const result = await api('/api/chat', {method: 'POST', body: JSON.stringify({session_id: session, message: text})});
-    pending.remove(); addMessage('assistant', result.response, result); $('prompt').value = ''; $('status').textContent = '● Connected'; loadConversations();
+    const result = await streamChat({session_id: session, message: text, response_mode: $('response-mode').value, skill: $('skill-select').value}, chunk => {
+      buffer += chunk; pending.remove();
+      if (!partial) partial = addMessage('assistant', '');
+      partial.querySelector('.content').replaceWith(renderMarkdown(buffer));
+      $('messages').scrollTop = $('messages').scrollHeight;
+    });
+    pending.remove(); partial?.remove(); addMessage('assistant', result.response, result); $('prompt').value = ''; $('status').textContent = '● Connected'; loadConversations();
   } catch (error) {
-    pending.remove(); $('messages').lastElementChild?.remove(); showError(error.message);
+    pending.remove(); partial?.remove(); userMessage.remove(); showError(error.message);
   } finally {
     busy = false; $('send').disabled = false; $('new-chat').disabled = false; $('prompt').disabled = false;
     $('messages').setAttribute('aria-busy', 'false'); $('prompt').focus();
@@ -417,6 +448,8 @@ async function loadAccount() {
   const previous = activeUser?.id;
   activeUser = data.user;
   if (previous !== activeUser?.id) {
+    adminState = null; renderAdmin(); $('admin-code').value = ''; $('admin-tool-text').value = ''; $('admin-tool-result').textContent = '';
+    $('admin-review-list').replaceChildren(); $('my-review-list').replaceChildren(); $('admin-error').textContent = '';
     $('memory-list').replaceChildren(); $('memory-content').value = '';
     $('memory-count').textContent = 'Your saved context'; $('memory-error').textContent = '';
   }
@@ -506,4 +539,100 @@ $('open-packs').addEventListener('click', async () => {
     }
   } catch (error) {list.append(element('p', '', error.message));}
 });
+
+async function loadSkills() {
+  try {
+    const data = await api('/api/skills'); const selected = $('skill-select').value; $('skill-select').replaceChildren();
+    for (const skill of data.skills) {const option = element('option', '', skill.name); option.value = skill.id; $('skill-select').append(option);}
+    if (data.skills.some(skill => skill.id === selected)) $('skill-select').value = selected;
+    $('response-mode').value = localStorage.getItem('zenith_response_mode') || data.default_response_mode || 'fast';
+  } catch (_) { /* Basic chat remains usable if optional skill metadata is unavailable. */ }
+}
+$('response-mode').addEventListener('change', () => localStorage.setItem('zenith_response_mode', $('response-mode').value));
+function renderAdmin() {
+  const elevated = !!adminState?.elevated;
+  $('admin-controls').hidden = !elevated; $('admin-unlock').hidden = elevated;
+  $('devil-mode').checked = !!adminState?.devil_mode;
+  $('admin-status').textContent = !activeUser ? 'Sign in as your local owner account.' : elevated ? 'Administrator recognized. Access expires after 15 minutes.' : adminState?.eligible ? 'Owner account recognized. Enter your local code to unlock.' : 'This account has not been configured as the owner in the server terminal.';
+  document.body.classList.toggle('devil-workspace', elevated && !!adminState?.devil_mode);
+  clearTimeout(adminExpiry);
+  if (adminState?.expires_at) adminExpiry = setTimeout(() => loadAdmin(), Math.max(1000, adminState.expires_at * 1000 - Date.now() + 300));
+}
+async function loadAdmin() {
+  if (!activeUser) {adminState = null; renderAdmin(); return;}
+  try {adminState = await api('/api/admin/status');} catch (_) {adminState = null;}
+  renderAdmin();
+}
+async function unlockAdmin(code) {
+  adminState = await api('/api/admin/unlock', {method: 'POST', body: JSON.stringify({code})});
+  renderAdmin(); $('admin-error').textContent = '';
+}
+$('open-admin').addEventListener('click', async () => {
+  if (busy) return;
+  if (!activeUser) {openAccount(); return;}
+  await loadAdmin(); $('admin-dialog').showModal();
+});
+$('admin-unlock').addEventListener('submit', async event => {
+  event.preventDefault(); const code = $('admin-code').value; $('admin-code').value = '';
+  try {await unlockAdmin(code);} catch (error) {$('admin-error').textContent = error.message;}
+});
+$('devil-mode').addEventListener('change', async () => {
+  try {adminState = await api('/api/admin/mode', {method: 'POST', body: JSON.stringify({enabled: $('devil-mode').checked})}); renderAdmin();}
+  catch (error) {$('admin-error').textContent = error.message; await loadAdmin();}
+});
+$('lock-admin').addEventListener('click', async () => {
+  try {await api('/api/admin/lock', {method: 'POST'}); await loadAdmin();} catch (error) {$('admin-error').textContent = error.message;}
+});
+$('admin-tool-form').addEventListener('submit', async event => {
+  event.preventDefault(); $('admin-error').textContent = ''; const button = event.currentTarget.querySelector('button'); button.disabled = true;
+  try {const data = await api('/api/admin/tools', {method: 'POST', body: JSON.stringify({tool: $('admin-tool').value, text: $('admin-tool-text').value})}); $('admin-tool-result').textContent = JSON.stringify(data.result, null, 2);}
+  catch (error) {$('admin-error').textContent = error.message; await loadAdmin();}
+  finally {button.disabled = false;}
+});
+
+$('open-my-reviews').addEventListener('click', async () => {
+  $('account-dialog').close(); $('human-review-dialog').showModal(); const list = $('my-review-list'); list.replaceChildren();
+  try {const data = await api('/api/review-requests');
+    for (const item of data.requests) {const card = element('article', 'memory-note'); card.append(element('strong', '', item.status === 'closed' ? 'Reviewed' : 'Waiting for administrator'), element('p', '', item.prompt), element('p', '', item.resolution || 'No response yet.')); list.append(card);}
+    if (!data.requests.length) list.append(element('p', 'dialog-description', 'No human-review requests yet.'));
+  } catch (error) {list.append(element('p', '', error.message));}
+});
+$('refresh-admin-reviews').addEventListener('click', async () => {
+  const list = $('admin-review-list'); list.replaceChildren();
+  try {const data = await api('/api/admin/reviews');
+    for (const item of data.requests) {
+      const card = element('article', 'memory-note'); card.append(element('strong', '', item.status), element('p', '', item.prompt), element('p', '', item.response));
+      const reply = element('textarea'); reply.maxLength = 4000; reply.rows = 3; reply.value = item.resolution; reply.setAttribute('aria-label', 'Administrator review response');
+      const save = element('button', '', 'Send review response'); save.type = 'button';
+      save.addEventListener('click', async () => {try {await api('/api/admin/reviews/' + item.id, {method: 'POST', body: JSON.stringify({resolution: reply.value})}); save.textContent = 'Review saved';} catch (error) {$('admin-error').textContent = error.message;}});
+      card.append(reply, save); list.append(card);
+    }
+    if (!data.requests.length) list.append(element('p', 'dialog-description', 'No review requests.'));
+  } catch (error) {$('admin-error').textContent = error.message;}
+});
+
+async function streamChat(body, onText) {
+  const headers = {'Content-Type': 'application/json', 'Accept': 'text/event-stream'};
+  const token = sessionStorage.getItem('zenith_token'); if (token) headers.Authorization = 'Bearer ' + token;
+  const response = await fetch('/api/chat/stream', {method: 'POST', headers, body: JSON.stringify(body)});
+  if (!response.ok) {const data = await response.json(); throw new Error(typeof data.detail === 'string' ? data.detail : 'Chat request was rejected.');}
+  if (!response.body) throw new Error('Streaming is unavailable in this browser.');
+  const reader = response.body.getReader(); const decoder = new TextDecoder(); let pending = ''; let result = null;
+  try {
+    for (;;) {
+      const item = await reader.read(); pending += decoder.decode(item.value || new Uint8Array(), {stream: !item.done});
+      const frames = pending.split('\n\n'); pending = frames.pop();
+      for (const frame of frames) {
+        if (!frame.startsWith('data: ')) continue;
+        const event = JSON.parse(frame.slice(6));
+        if (event.type === 'delta') onText(event.text);
+        else if (event.type === 'result') result = event.result;
+        else if (event.type === 'error') throw new Error(event.message);
+      }
+      if (item.done) break;
+    }
+  } finally {await reader.cancel(); reader.releaseLock();}
+  if (!result) throw new Error('The answer was interrupted and was not completed. Please retry.');
+  return result;
+}
 connect();
