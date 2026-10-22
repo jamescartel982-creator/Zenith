@@ -10,7 +10,7 @@ The Windows and Linux installers share `install.py`, a standard-library bootstra
 - The small single model needs roughly 4–6 GB available RAM. The two-model team needs roughly 6–8 GB. CPU inference is supported; a GPU is optional.
 - Git to clone the current branch, or download/extract the branch ZIP instead.
 
-While PR #1 is open, clone `codex/zenith-open-model-chat`; `main` may still contain the original ZIP-only project. The README has exact clone commands.
+The complete project is merged into `main`. Clone `https://github.com/jamescartel982-creator/Zenith.git` using the commands in the README. If you already have the preview branch checked out, run `git fetch origin`, `git switch main`, and `git pull --ff-only`, then re-run your platform's installer.
 
 ## Windows PowerShell
 

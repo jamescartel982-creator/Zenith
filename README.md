@@ -20,14 +20,14 @@ The original starter ZIP is preserved. Its Python project is now unpacked, exten
 
 Python **3.10 or newer** is required; **Python 3.12 is recommended**. Internet is needed for package installation and the first model download. The installer creates a private `.venv`, installs CPU PyTorch when needed, saves user settings, and runs diagnostics. It preserves existing settings and conversations during upgrades.
 
-These commands target the current preview branch from [PR #1](https://github.com/jamescartel982-creator/Zenith/pull/1). After it is merged, you can clone `main` instead. You can also download this branch as a ZIP and extract it if Git is unavailable.
+The upgrades from [PR #1](https://github.com/jamescartel982-creator/Zenith/pull/1) are merged into `main`. These commands install the current version. You can also download `main` as a ZIP and extract it if Git is unavailable.
 
 ### Windows — PowerShell
 
 Install Python from python.org or with `winget install -e --id Python.Python.3.12`, then reopen your terminal. From the folder where you want Zenith:
 
 ```powershell
-git clone --branch codex/zenith-open-model-chat https://github.com/jamescartel982-creator/Zenith.git
+git clone https://github.com/jamescartel982-creator/Zenith.git
 cd Zenith
 powershell -NoProfile -ExecutionPolicy Bypass -File .\install.ps1 --mode local
 powershell -NoProfile -ExecutionPolicy Bypass -File .\run.ps1 chat
@@ -46,7 +46,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\run.ps1 serve
 Install Python and its venv support first if necessary (Debian/Ubuntu: `sudo apt install python3 python3-venv git`). Then:
 
 ```bash
-git clone --branch codex/zenith-open-model-chat https://github.com/jamescartel982-creator/Zenith.git
+git clone https://github.com/jamescartel982-creator/Zenith.git
 cd Zenith
 bash install.sh --mode local
 ./run.sh chat
