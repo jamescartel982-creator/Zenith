@@ -8,6 +8,8 @@ app_port: 7860
 license: apache-2.0
 ---
 
+![Zenith — Open Intelligence, with an original anime-inspired guardian and a violet neural-energy sphere.](assets/zenith-banner.png)
+
 # Zenith
 
 **Talk to a small team of open language models, browse 1,000 model sources and 200 datasets, collect reviewed examples, and train your own adapter.** Zenith also includes an original small transformer you can train from random weights.
