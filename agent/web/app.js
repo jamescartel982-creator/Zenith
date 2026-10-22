@@ -416,6 +416,10 @@ async function loadAccount() {
   const data = await api('/api/account');
   const previous = activeUser?.id;
   activeUser = data.user;
+  if (previous !== activeUser?.id) {
+    $('memory-list').replaceChildren(); $('memory-content').value = '';
+    $('memory-count').textContent = 'Your saved context'; $('memory-error').textContent = '';
+  }
   $('greeting').textContent = data.greeting;
   $('open-account').textContent = activeUser ? activeUser.display_name : 'Sign in';
   $('account-name').textContent = activeUser ? 'Signed in as ' + activeUser.display_name + ' (@' + activeUser.username + ')' : '';

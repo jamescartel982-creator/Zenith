@@ -36,12 +36,12 @@ class PackTests(unittest.TestCase):
                 if row['path'] != '.gitattributes':
                     self.assertTrue(verify_file(path,row), str(path))
 
-    def test_destinations_reject_traversal_and_symlink_escape(self):
+    def test_destinations_reject_traversal_and_preserve_subdirectories(self):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder)
             for name in ['../secret', '/absolute', 'C:/secret', 'folder\\secret']:
                 with self.assertRaises(ValueError): destination(root,name)
-            self.assertEqual(destination(root,'BF16/one.gguf'), root/'BF16'/'one.gguf')
+            self.assertEqual(destination(root,'BF16/one.gguf'), root.resolve()/'BF16'/'one.gguf')
 
     def test_integrity_download_failure_never_replaces_existing_file(self):
         data = b'fixture weights'
