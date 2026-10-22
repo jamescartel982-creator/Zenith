@@ -16,7 +16,7 @@ Compose persists the SQLite database in `zenith-data` and downloaded weights in 
 
 The supplied image uses CPU PyTorch. GPU deployment needs a compatible CUDA PyTorch image/build and NVIDIA runtime; merely passing `--gpus all` to this CPU image does not provide CUDA inference. Ollama with a quantized model is another option for local GPU inference outside this image.
 
-For a hosted server, point a TLS reverse proxy to port 7860, keep a long access token, attach persistent storage at `/app/data`, and cache model files at `/home/zenith/.cache/huggingface`. Start with at least 4–6 GB available RAM for the 0.5B default; concurrent infrastructure and larger contexts increase memory. The application admits one generation at a time and returns 429 while busy. Run **one process and one replica** per database/model instance; locks are process-local.
+For a hosted server, point a TLS reverse proxy to port 7860, keep a long access token, attach persistent storage at `/app/data`, and cache model files at `/home/zenith/.cache/huggingface`. Start with roughly 6–8 GB available RAM for the two-model CPU team (or 4–6 GB with `AI_PROVIDER=huggingface` for Qwen alone); concurrent infrastructure and larger contexts increase memory. The application admits one generation at a time and returns 429 while busy. Run **one process and one replica** per database/model instance; locks are process-local.
 
 Set `PORT` if the host assigns an HTTP port. The image starts `python -m agent.server --host 0.0.0.0 --port ${PORT:-7860}` and checks `/healthz`. Public binds through this entrypoint reject tokens shorter than 32 characters. Use the provided entrypoint; a custom direct Uvicorn invocation bypasses that CLI bind check.
 
@@ -43,6 +43,9 @@ The API takes a UUID `session_id` that acts as an unguessable conversation ident
 - `GET /api/history/<uuid>`: last 100 turns in the conversation.
 - `POST /api/feedback`: `{ "session_id": "<uuid>", "turn_id": "<uuid>", "rating": "good", "approved": true, "correction": null }`
 - `DELETE /api/history/<uuid>`: removes conversation turns and their future export approvals.
+- `GET /api/catalog`: authenticated, paginated source search (`kind`, `source`, `q`, `page`, `page_size`).
+- `GET /api/team`: configured roster, synthesis model, loaded-state and request limits.
+- `GET /api/knowledge`: locally imported document/source counts.
 - `GET /healthz`: public process/model status; does not run generation.
 
 The browser keeps the token and conversation ID in tab session storage. A new conversation starts a new ID. Closing the tab loses that tab's resume identifier; it does not delete server history. Save the ID if you need to resume through the CLI's `--session` option. Session IDs separate context and feedback but are not a substitute for account authorization in a multi-user deployment.
@@ -56,3 +59,5 @@ The browser keeps the token and conversation ID in tab session storage. A new co
 - **Adapter mismatch:** select the base model used to train it; keep the recorded base revision. Adapters do not replace base weights.
 - **Training skips every row:** increase `--max-length` if hardware allows, or approve shorter examples.
 - **Tiny output is nonsense:** this is expected from random or barely trained weights. Use the pretrained HF default for useful conversation.
+
+The default Docker/Compose provider is now `ensemble`. Set `AI_PROVIDER=huggingface` in `.env` to retain one-model inference. Custom team JSON must be mounted into the container and referenced by `ZENITH_TEAM_CONFIG`; source browsing cannot activate models. See [model-team configuration](model-team.md).

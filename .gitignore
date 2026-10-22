@@ -29,3 +29,6 @@ data/
 build/
 dist/
 .coverage
+
+# Local model-team configuration (may include private endpoint names)
+config/*.local.json

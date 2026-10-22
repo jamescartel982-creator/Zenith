@@ -8,7 +8,9 @@ load_dotenv()
 
 @dataclass(frozen=True)
 class Settings:
-    provider: str = field(default_factory=lambda: os.getenv("AI_PROVIDER", "huggingface").lower())
+    provider: str = field(default_factory=lambda: os.getenv("AI_PROVIDER", "ensemble").lower())
+    team_config: str = field(default_factory=lambda: os.getenv("ZENITH_TEAM_CONFIG", ""))
+    knowledge_limit: int = field(default_factory=lambda: int(os.getenv("ZENITH_KNOWLEDGE_LIMIT", "3")))
     model: str = field(default_factory=lambda: os.getenv("HF_MODEL", "Qwen/Qwen2.5-0.5B-Instruct"))
     revision: str = field(default_factory=lambda: os.getenv("HF_REVISION", "main"))
     adapter: str = field(default_factory=lambda: os.getenv("ZENITH_ADAPTER", ""))
@@ -23,8 +25,10 @@ class Settings:
     temperature: float = field(default_factory=lambda: float(os.getenv("TEMPERATURE", "0.4")))
 
     def __post_init__(self):
-        if self.provider not in {"huggingface", "ollama", "tiny"}:
-            raise ValueError("AI_PROVIDER must be huggingface, ollama, or tiny")
+        if self.provider not in {"ensemble", "huggingface", "ollama", "tiny"}:
+            raise ValueError("AI_PROVIDER must be ensemble, huggingface, ollama, or tiny")
+        if not 0 <= self.knowledge_limit <= 5:
+            raise ValueError("ZENITH_KNOWLEDGE_LIMIT must be between 0 and 5")
         if not 1 <= self.max_new_tokens <= 4096:
             raise ValueError("MAX_NEW_TOKENS must be between 1 and 4096")
         if self.context_tokens < 128 or self.context_tokens > 32768:
@@ -36,4 +40,6 @@ class Settings:
 
     @property
     def model_name(self):
+        if self.provider == "ensemble":
+            return "Zenith model team"
         return self.ollama_model if self.provider == "ollama" else self.tiny_checkpoint if self.provider == "tiny" else self.model

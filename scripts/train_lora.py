@@ -29,7 +29,7 @@ def main():
             parser.error(f'Missing {path}. Export approved examples first.')
     train_rows, eval_rows = load_examples(args.train_data), load_examples(args.eval_data)
     def prompts(rows):
-        return {' '.join(row['messages'][-2]['content'].casefold().split()) for row in rows}
+        return {' '.join((row.get('prompt') or row['messages'][-2]['content']).casefold().split()) for row in rows}
     if prompts(train_rows) & prompts(eval_rows):
         parser.error('Train/eval contain repeated prompts. Re-export with grouped splitting.')
     train_sessions = {row['conversation_id'] for row in train_rows if row.get('conversation_id')}

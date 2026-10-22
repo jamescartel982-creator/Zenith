@@ -10,13 +10,13 @@ license: apache-2.0
 
 # Zenith
 
-**Talk to an open language model in your browser or terminal, collect reviewed examples, and train your own adapter.** Zenith also includes an original small transformer you can train from random weights.
+**Talk to a small team of open language models, browse 1,000 model sources and 200 datasets, collect reviewed examples, and train your own adapter.** Zenith also includes an original small transformer you can train from random weights.
 
 The original starter ZIP is preserved. Its Python project is now unpacked, extended, and runnable from this repository's root.
 
 ## Start chatting
 
-Requires Python 3.10+ and internet for the first model download. No paid AI API key is needed. The default model, [Qwen2.5-0.5B-Instruct](https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct), is small enough for CPU inference; it is limited compared with larger models. Allow roughly 4–6 GB of free RAM, several GB of disk space for Python packages, and approximately 1 GB for the model download. First startup is slower while weights download.
+Requires Python 3.10+ and internet for the first model download. No paid AI API key is needed. The default team uses [Qwen2.5-0.5B-Instruct](https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct) and [SmolLM2-360M-Instruct](https://huggingface.co/HuggingFaceTB/SmolLM2-360M-Instruct) for drafting, cross-review, and final synthesis. Both are small CPU-capable models and have limited ability. Allow roughly 6–8 GB of available RAM, several GB for Python packages, and approximately 1.7 GB for these weights. For lower memory and latency, set `AI_PROVIDER=huggingface` to use Qwen alone (roughly 4–6 GB available RAM). First startup is slower while weights download.
 
 ```bash
 git clone https://github.com/jamescartel982-creator/Zenith.git
@@ -36,7 +36,7 @@ pip install -e ".[local]"
 python -m agent.server
 ```
 
-Open **http://127.0.0.1:7860**. Or run `python -m agent.cli` for terminal chat. The default server binds to your computer only. The model loads on your first message. Once its files are cached, Hugging Face inference can run offline (`HF_HUB_OFFLINE=1`).
+Open **http://127.0.0.1:7860**. Or run `python -m agent.cli` for terminal chat. The default server binds to your computer only. The configured models load on your first message. The default team makes up to four sequential model calls per answer, so it is slower than one model. Once its files are cached, Hugging Face inference can run offline (`HF_HUB_OFFLINE=1`).
 
 For a smaller CPU-only PyTorch installation on supported platforms, install PyTorch from its CPU index **before** the local dependencies:
 
@@ -51,7 +51,7 @@ Copy `.env.example` to `.env` to customize the provider, model, context length, 
 
 | Option | Setting | Practical use |
 | --- | --- | --- |
-| Small CPU default | `HF_MODEL=Qwen/Qwen2.5-0.5B-Instruct` | Basic chat and quick experiments |
+| Single-model CPU option | `HF_MODEL=Qwen/Qwen2.5-0.5B-Instruct` | Basic chat and quick experiments |
 | Larger local chat | `HF_MODEL=Qwen/Qwen2.5-1.5B-Instruct` | More capacity; more memory and latency |
 | Stronger open chat | `HF_MODEL=Qwen/Qwen2.5-7B-Instruct` | GPU recommended; ~14 GB weights at float16 before runtime overhead |
 | Quantized coding model | `AI_PROVIDER=ollama`, `OLLAMA_MODEL=qwen2.5-coder:7b` | Local code assistance through Ollama |
@@ -67,6 +67,28 @@ pip install -e .
 ```
 
 Put `AI_PROVIDER=ollama` in `.env`, then start Zenith normally. Ollama runs on `http://localhost:11434` by default. No PyTorch installation is needed for this provider.
+
+## Model catalog, dataset sources, and collaboration
+
+The bundled, source-backed catalog contains exactly:
+
+| Source | Model references | Dataset sources |
+| --- | ---: | ---: |
+| Hugging Face | 500 | 100 |
+| GitHub | 500 | 100 |
+| **Total** | **1,000** | **200** |
+
+Open **Browse catalog** in the chat UI to search, filter, and follow source links. Records include observed popularity, task, license metadata, timestamps, and provenance. Hugging Face selection uses downloads/likes with explicit practical CPU additions; GitHub selection ranks relevant candidates by stars after filtering. These are popularity-based selections, not a measured ranking of answer quality. GitHub entries are model implementations or dataset-source repositories, not ready-to-call chat endpoints. Many catalog models serve vision, audio, embeddings, or other tasks.
+
+**Only the configured team runs.** The default two-model team shares its drafts, performs a cross-review, and synthesizes a final response. Each answer shows executed stages and any failure/fallback. To customize, copy `config/team.example.json` to an ignored local file and set `ZENITH_TEAM_CONFIG` to that path. Select up to three experts per request from a roster of at most 32, plus an optional reviewer and a synthesizer. The provider cache is bounded; the whole catalog is never loaded into memory.
+
+Datasets are searchable source metadata until imported. Import selected text columns with `python -m scripts.import_dataset`; the local search index can then supply cited excerpts to all models participating in an answer. It does not train weights automatically or download all 200 datasets. See [team and dataset instructions](docs/model-team.md) for exact commands, limits, selection methods, and how to configure larger models.
+
+```bash
+python -m scripts.catalog --validate
+python -m scripts.catalog --kind model --source huggingface --query Qwen
+python -m scripts.catalog --kind dataset --source github
+```
 
 ## How improvement works
 
@@ -127,7 +149,9 @@ Open http://127.0.0.1:7860, expand **Server access**, and enter your token. Dock
 ## Project map
 
 - `agent/server.py`, `agent/web/`: browser UI and authenticated chat/review API.
-- `agent/providers.py`: direct HF, Ollama, and Zenith Tiny inference.
+- `agent/providers.py`, `agent/ensemble.py`: direct inference and bounded model-team deliberation.
+- `agent/registry.py`, `agent/catalog/`: 1,000 model references and 200 dataset sources.
+- `scripts/import_dataset.py`: bounded text ingestion and source-linked local retrieval.
 - `agent/core.py`, `agent/storage.py`: bounded generation and conversation-scoped SQLite storage.
 - `agent/learning.py`, `scripts/`: reviewed export, LoRA training, evaluation, scratch training, and optional model upload.
 - `tests/`: conversation isolation, approval/revocation, loss masks, API errors/authentication, and transformer checks.

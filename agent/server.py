@@ -6,13 +6,14 @@ from pathlib import Path
 from typing import Literal
 from uuid import UUID
 
-from fastapi import Depends, FastAPI, Header, HTTPException
+from fastapi import Depends, FastAPI, Header, HTTPException, Query
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from .config import Settings
 from .core import Agent, BusyError
+from .registry import Catalog
 
 WEB = Path(__file__).parent / 'web'
 logger = logging.getLogger('zenith')
@@ -31,11 +32,17 @@ class ReviewRequest(BaseModel):
     correction: str | None = Field(default=None, max_length=24000)
 
 
-def create_app(settings=None, agent=None):
+def create_app(settings=None, agent=None, catalog=None):
     settings = settings or Settings()
     agent = agent or Agent(settings)
-    app = FastAPI(title='Zenith', version='0.2.0', docs_url=None, redoc_url=None)
+    app = FastAPI(title='Zenith', version='0.3.0', docs_url=None, redoc_url=None)
     app.state.agent = agent
+    app.state.catalog = catalog
+
+    def get_catalog():
+        if app.state.catalog is None:
+            app.state.catalog = Catalog()
+        return app.state.catalog
 
     def authenticate(authorization: str = Header(default='')):
         if settings.api_token and not hmac.compare_digest(
@@ -61,9 +68,28 @@ def create_app(settings=None, agent=None):
 
     @app.get('/healthz')
     def health():
+        info = agent.team_info()
+        loaded = info.get('model_loaded', False) if settings.provider == 'ensemble' else getattr(agent.provider, 'model', None) is not None
         return {'status': 'ok', 'provider': settings.provider, 'model': settings.model_name,
-                'model_loaded': getattr(agent.provider, 'model', None) is not None,
+                'configured_members': len(info['members']), 'model_loaded': loaded,
                 'authentication_required': bool(settings.api_token)}
+
+    @app.get('/api/team', dependencies=[Depends(authenticate)])
+    def team():
+        return agent.team_info()
+
+    @app.get('/api/catalog', dependencies=[Depends(authenticate)])
+    def catalog_search(kind: Literal['model', 'dataset'] | None = None,
+                       source: Literal['huggingface', 'github'] | None = None,
+                       q: str = Query(default='', max_length=200),
+                       page: int = Query(default=1, ge=1),
+                       page_size: int = Query(default=20, ge=1, le=100)):
+        configured = {member['model'] for member in agent.team_info()['members'] if member['provider'] == 'huggingface'}
+        return get_catalog().search(kind, source, q, page, page_size, configured)
+
+    @app.get('/api/knowledge', dependencies=[Depends(authenticate)])
+    def knowledge_status():
+        return agent.store.knowledge_stats()
 
     @app.post('/api/chat', dependencies=[Depends(authenticate)])
     def chat(body: ChatRequest):

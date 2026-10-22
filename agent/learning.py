@@ -23,7 +23,7 @@ def split_examples(examples, eval_fraction=0.2, seed=42):
     owners = {}
     for index, row in enumerate(examples):
         messages = row['messages']
-        prompt = next(m['content'] for m in reversed(messages) if m['role'] == 'user')
+        prompt = row.get('prompt') or next(m['content'] for m in reversed(messages) if m['role'] == 'user')
         keys = [('prompt', ' '.join(prompt.casefold().split()))]
         if row.get('conversation_id'):
             keys.append(('conversation', row['conversation_id']))

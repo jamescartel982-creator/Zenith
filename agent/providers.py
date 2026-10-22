@@ -125,4 +125,7 @@ class TinyProvider:
 
 
 def make_provider(settings):
+    if settings.provider == "ensemble":
+        from .ensemble import EnsembleProvider
+        return EnsembleProvider(settings)
     return {"huggingface": HuggingFaceProvider, "ollama": OllamaProvider, "tiny": TinyProvider}[settings.provider](settings)

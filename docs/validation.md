@@ -48,3 +48,20 @@ The container test used cached weights in offline mode; the model was downloaded
 Host: Python 3.12.14, PyTorch 2.14.1+cpu, Transformers 4.57.6, PEFT 0.18.1, FastAPI 0.159.1, Starlette 1.9.0, Pydantic 2.14.1, httpx 0.28.1. The Docker image used Python 3.11 and CPU PyTorch. Requirements constrain supported version families; exact versions may vary on a new installation.
 
 Not verified: GPU/MPS execution, quantized Ollama runtime inference (request contract is tested), larger checkpoints, long-run training quality, multi-user deployment, or a public hosting service. No public Space/server was created, no model was published, and no general capability improvement is claimed.
+
+## Catalog and model-team extension
+
+The 0.3 extension was checked separately on the same date:
+
+- Four source snapshots validate to exactly **500 Hugging Face models, 500 GitHub model repositories, 100 Hugging Face datasets, and 100 GitHub dataset sources**, with per-source identity deduplication and source URLs/provenance. Entries remain metadata references rather than installed/verified models. GitHub query-pool ranking is not a global top-500 ranking.
+- **52 offline tests passed**, including nine initial ensemble tests plus cache eviction (10 ensemble checks), registry validation/search/authentication, dataset import limits/format handling, full-text retrieval, database migration, and the original chat/training/transformer checks.
+- A real CPU two-model run used **Qwen2.5-0.5B-Instruct** and **SmolLM2-360M-Instruct**. Both drafted, the independent model cross-reviewed both proposals, and Qwen synthesized “The correct answer to 2 plus 2 is 4.” All four calls succeeded; this checks coordination, not general quality improvement.
+- Imported two streamed SQuAD rows from the catalog-pinned Hugging Face revision; duplicate shared context became one local document. Imported five CSV rows from a pinned GitHub countries-data commit. These are bounded source-import checks, not ingestion of all 200 collections.
+- With the SQuAD context available, the full two-model draft/review/synthesis pipeline answered that Notre Dame's Main Building has the golden statue of the Virgin Mary. The response retained the source link and a non-degraded contribution trace. This CPU check took about 67 seconds with 48 output tokens per stage; production latency varies.
+- A browser run during heavy CPU/build contention exceeded the earlier 120-second soft budget, correctly displayed its draft fallback, and preserved source/context history. The default team budget was increased to 300 seconds; it remains a soft boundary between synchronous calls. This does not imply a hard cancellation guarantee.
+- Real Chromium browser checks exercised the 1,200-entry catalog, filters, paging, source links, team traces, retrieved source excerpts, history reload, and desktop/mobile layout. The full completed trace rendered correctly after reload. No uncaught JavaScript errors or mobile horizontal overflow were observed.
+- The installable wheel includes all four catalog snapshots, ensemble code, web assets, and dataset import utilities.
+
+Only the two small default checkpoints were exercised for real collaboration. The remaining catalog models are not claimed to be loaded, compatible with text chat, benchmarked, or communicating. No aggregate model was trained from all sources, and no dataset payload was included in Git.
+
+The final 0.3 Docker image was also built and run with cached weights in offline mode. Its authenticated catalog reported the exact 1,000/200 counts; an unauthenticated request returned 401. Both default checkpoints drafted, cross-review succeeded, and final synthesis returned “The correct answer to 2 plus 2 is 4.” All four model calls completed successfully. Dataset import utilities and all catalog snapshots are included in that image.
