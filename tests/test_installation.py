@@ -92,19 +92,20 @@ class InstallationTests(unittest.TestCase):
                 self.assertEqual(result.returncode, 0, result.stderr)
                 self.assertIn('usage:', result.stdout.lower())
 
-    def test_bootstrap_forwards_paths_and_keeps_ollama_lightweight(self):
+    def test_bootstrap_forwards_paths_and_keeps_local_server_teams_lightweight(self):
         spec = importlib.util.spec_from_file_location('zenith_bootstrap_test', ROOT / 'install.py')
         module = importlib.util.module_from_spec(spec); spec.loader.exec_module(module)
         with tempfile.TemporaryDirectory(prefix='zenith install spaces ') as folder:
             target = Path(folder).resolve() / '.venv'
-            with patch.object(module.venv.EnvBuilder, 'create') as create, patch.object(module, 'run') as run, patch.object(module, 'configured_provider', return_value='ollama'), contextlib.redirect_stdout(io.StringIO()):
-                self.assertEqual(module.main(['--mode', 'ollama', '--venv', str(target)]), 0)
-                create.assert_called_once_with(target)
-                commands = [list(map(str, call.args[0])) for call in run.call_args_list]
-                self.assertTrue(all(command[0] == str(module.environment_python(target)) for command in commands))
-                self.assertFalse(any('download.pytorch.org' in str(command) for command in commands))
-                self.assertTrue(any('configure' in command and 'ollama' in command for command in commands))
-                self.assertFalse(any('download' in command for command in commands))
+            for effective_provider in ['ollama', 'localserver', 'ensemble']:
+                with self.subTest(provider=effective_provider), patch.object(module.venv.EnvBuilder, 'create') as create, patch.object(module, 'run') as run, patch.object(module, 'configured_provider', return_value=effective_provider), patch.object(module, 'configured_needs_hf', return_value=False), contextlib.redirect_stdout(io.StringIO()):
+                    self.assertEqual(module.main(['--mode', 'ollama', '--venv', str(target)]), 0)
+                    create.assert_called_once_with(target)
+                    commands = [list(map(str, call.args[0])) for call in run.call_args_list]
+                    self.assertTrue(all(command[0] == str(module.environment_python(target)) for command in commands))
+                    self.assertFalse(any('download.pytorch.org' in str(command) for command in commands))
+                    self.assertTrue(any('configure' in command and 'ollama' in command for command in commands))
+                    self.assertFalse(any('download' in command for command in commands))
 
     def test_bootstrap_failures_return_nonzero_without_deleting_an_environment(self):
         spec = importlib.util.spec_from_file_location('zenith_bootstrap_fail_test', ROOT / 'install.py')

@@ -12,7 +12,7 @@ license: apache-2.0
 
 # Zenith
 
-**Talk to a small team of open language models, browse 1,000 model sources and 200 datasets, collect reviewed examples, and train your own adapter.** Zenith also includes an original small transformer you can train from random weights.
+**A local AI workspace with private saved memories, returning-user greetings, browser and terminal chat, and open-model collaboration. Browse 1,000 model sources and 200 datasets, collect reviewed examples, and train your own adapter.** Zenith also includes an original small transformer you can train from random weights.
 
 The original starter ZIP is preserved. Its Python project is now unpacked, extended, and runnable from this repository's root.
 
@@ -67,6 +67,7 @@ Open **http://127.0.0.1:7860** after starting the server. The wrappers use the i
 | `--mode local` | One Qwen2.5-0.5B instruction model; recommended first install | CPU; roughly 4–6 GB available RAM and ~1 GB weights |
 | `--mode ensemble` | Qwen + SmolLM2 drafts, cross-review, and synthesis | Roughly 6–8 GB available RAM and ~1.7 GB weights; slower answers |
 | `--mode ollama` | Lightweight Zenith client for an existing Ollama server | Install/start Ollama and pull its configured model separately |
+| `--mode localserver` | Lightweight client for a local llama.cpp/vLLM-compatible server | Download a model pack and start a compatible runtime separately |
 
 Append `--download` to a local/ensemble install to cache configured weights during setup. Otherwise, the first message downloads them. Re-running the installer upgrades the application while preserving your profile. Use `--overwrite-config` only when you intend to replace the saved profile; environment variables and a checkout `.env` still take precedence. See [local installation and upgrade instructions](docs/local-installation.md).
 
@@ -85,6 +86,22 @@ zenith --help                  List all available commands
 ```
 
 The saved profile and conversations live in `%LOCALAPPDATA%\Zenith` on Windows and `~/.local/share/zenith` on Linux (or `XDG_DATA_HOME/zenith`). `ZENITH_HOME` selects another absolute location. Existing checkout `data/zenith.sqlite3` databases are retained. No paid AI API key is needed; model downloads use open checkpoints. Once cached, `HF_HUB_OFFLINE=1` makes supported HF loads use local files only.
+
+## Your workspace, your memory
+
+In browser chat, select **Sign in / Create account** to keep your conversations and explicitly saved memories together. Zenith greets you with **Welcome back, <name>.** on return. Open **Memory** to save or forget preferences and project context. The refreshed workspace includes the Zenith logo/banner, safe Markdown and code blocks, copy buttons, and recent conversations. No paid AI API key is required. See [account and memory behavior](docs/memory.md), including limits, deletion, and training-context details.
+
+## Three requested Zenith model packs
+
+**Zenith 27B**, **Zenith Vision**, and **Zenith 9B** integrate the three requested N8STORM repositories through complete pinned manifests and a key-free local model-server provider. All **132 upstream files** are inventoried; all **43 non-weight support/source files** are copied under `vendor/model-packs/`. The **89 weight artifacts** remain verified downloads: every variant together is about **685.6 GiB**. The default pack download selects one suitable GGUF rather than every quantization.
+
+```text
+zenith packs list
+zenith packs files zenith-9b
+zenith packs download zenith-9b
+```
+
+Use your platform wrapper for these commands, as above. Compatible local runtime setup, full-repository downloads, disk/RAM needs, pinned revisions, and retained attribution are covered in [model pack instructions](docs/model-packs.md). The app uses Zenith display names; loader identifiers and copyright notices are preserved. These large checkpoints have not been benchmarked in Zenith, and the current chat transport is text-only. A different interface and memory do not establish that Zenith outperforms Claude.
 
 ## Choose more capability
 
@@ -210,7 +227,7 @@ python -m unittest discover -s tests -v
 
 Torch-specific checks skip if the optional local dependencies are absent. GitHub Actions runs Python 3.10/3.12 tests on Windows and Linux, plus native installer, cached-model inference, and installed-command checks on both platforms. See [validation notes](docs/validation.md) for checks actually run during development.
 
-This is a single-owner assistant, not a multi-tenant service. The shared access token is not a user-account system. Database files contain conversation text. Model downloads follow the selected Hub revision, use safetensors, and disable remote custom code. Existing starter JSONL files are left untouched; import would need an explicit review because they have no isolated conversation IDs.
+Local password accounts isolate browser conversation and memory access; the server operator still controls the database, shared knowledge, configuration, and training tools. The optional shared server access token is an additional gate. See [account limits](docs/memory.md); this is not an audited production multi-tenant service. Database files contain conversation text. Model downloads follow the selected Hub revision, use safetensors, and disable remote custom code. Existing starter JSONL files are left untouched; import would need an explicit review because they have no isolated conversation IDs.
 
 ## Upstream software
 

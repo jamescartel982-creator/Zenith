@@ -195,3 +195,28 @@ class EnsembleTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class LocalServerTeamTests(unittest.TestCase):
+    def test_three_separate_local_endpoints_share_drafts_and_review(self):
+        config = json.loads((Path(__file__).resolve().parents[1] / 'config' / 'zenith-packs-team.example.json').read_text(encoding='utf-8'))
+        calls, endpoints = [], []
+        def factory(settings):
+            endpoints.append(settings.local_server_url)
+            self.assertEqual(settings.local_server_model, 'zenith')
+            self.assertEqual(settings.provider, 'localserver')
+            return FakeProvider(settings.local_server_url, calls)
+        team = EnsembleProvider(Settings(provider='ensemble', context_tokens=8192), config=config, provider_factory=factory)
+        answer, _ = team.generate([{'role':'system','content':'You are Zenith'}, {'role':'user','content':'Explain a Python design'}])
+        self.assertEqual(len(set(endpoints)), 3)
+        self.assertEqual([call['stage'] for call in calls], ['draft','draft','draft','cross_review','synthesis'])
+        self.assertIn('synthesis answer', answer)
+        for port in ['8080', '8081', '8082']:
+            self.assertIn(port, calls[-1]['messages'][-1]['content'])
+        self.assertFalse(team.last_deliberation['degraded'])
+        self.assertNotIn('127.0.0.1', json.dumps(team.team_info()))
+
+    def test_local_team_rejects_remote_endpoints(self):
+        config = fixture_config()
+        config['members'][0].update(provider='localserver', base_url='https://unrelated.example/v1')
+        with self.assertRaises(ValueError): EnsembleProvider(Settings(), config=config)

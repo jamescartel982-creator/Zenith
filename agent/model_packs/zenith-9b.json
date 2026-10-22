@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "id": "zenith-9b",
+  "name": "Zenith 9B",
+  "source_repo": "N8STORM/Qwythos-9B-Claude-Mythos-5-1M-GGUF",
+  "revision": "82c035e532112a6c910dba87ade230948ae8a29b",
+  "observed_at": "2026-10-22T21:34:28.259288+00:00",
+  "license": "apache-2.0",
+  "source_url": "https://huggingface.co/N8STORM/Qwythos-9B-Claude-Mythos-5-1M-GGUF",
+  "recommended_file": "Qwythos-9B-Claude-Mythos-5-1M-Q4_K_M.gguf",
+  "runtime_requirements": "llama.cpp with qwen35 support; at least 8\u201312 GiB available RAM recommended for modest context",
+  "status": "integration_available_not_locally_benchmarked",
+  "file_count": 15,
+  "total_bytes": 96248115791,
+  "files": [
+    {
+      "path": ".gitattributes",
+      "size": 2471,
+      "git_blob_sha1": "49f6e777a06f1642afeb6490a3a8843d52b769bb",
+      "sha256": null,
+      "kind": "support",
+      "bundled": true
+    },
+    {
+      "path": "Qwythos-9B-Claude-Mythos-5-1M-BF16.gguf",
+      "size": 17920696992,
+      "git_blob_sha1": "1a7e8954764d4602ddcadccc217ba240cbf11664",
+      "sha256": "8a1d1d5dbc6bf921222d33dee2003fc98e1185f83aba54cce50acb5c278df1cb",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "Qwythos-9B-Claude-Mythos-5-1M-MTP-BF16.gguf",
+      "size": 18407321184,
+      "git_blob_sha1": "a736e3c4182255ef0071c677dab04d1b114968e6",
+      "sha256": "f188232e7e19f38f32c0fc2dfd57c801bd0ff1e32e7a30402885ae83741aeeb3",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "Qwythos-9B-Claude-Mythos-5-1M-MTP-Q4_K_M.gguf",
+      "size": 5887667808,
+      "git_blob_sha1": "14ed9ac7778cb299abe47318e9353273bf131eec",
+      "sha256": "318caed45110f5e3c60bff1142e0d1e658e046e670830d9be643df33940f4f98",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "Qwythos-9B-Claude-Mythos-5-1M-MTP-Q5_K_M.gguf",
+      "size": 6726528608,
+      "git_blob_sha1": "b091967bc9cb7f47043b16855b9499742f00a3dc",
+      "sha256": "a21b7f12f9908dbfbaeb2ad8ddd51c936ecadc780796abd70a8e5b08cdc6cd8e",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "Qwythos-9B-Claude-Mythos-5-1M-MTP-Q6_K.gguf",
+      "size": 7617818208,
+      "git_blob_sha1": "3052c3cb2d1105d025516bd366fd8fbf4578687b",
+      "sha256": "b6ca7dc848d9857c7759d7da6da502d1cb8941b69471375d74c7a539ddc381e9",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "Qwythos-9B-Claude-Mythos-5-1M-MTP-Q8_0.gguf",
+      "size": 9786060384,
+      "git_blob_sha1": "6b63eb26b20ead01fdc4f96530d15fc5728c54c0",
+      "sha256": "9a8f04df5b8b8af60a16ade370c9bd1a14d82e980e6d45946a0eb9282c019513",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "Qwythos-9B-Claude-Mythos-5-1M-Q4_K_M.gguf",
+      "size": 5629108896,
+      "git_blob_sha1": "ae5637af188e773e03c48686972864f8e55d2b64",
+      "sha256": "5c09e7f207d2fd9069c802ff77632fa7cdaffe7fb5ba40ff9f060aaeaa09acd5",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "Qwythos-9B-Claude-Mythos-5-1M-Q5_K_M.gguf",
+      "size": 6467969696,
+      "git_blob_sha1": "3147ee8b484864b952e06cd33512b1b880fc6f01",
+      "sha256": "20013a03b23d4b5c0608cb57c489778ef7dd5fd80ee750b93c8a08f03293aab7",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "Qwythos-9B-Claude-Mythos-5-1M-Q6_K.gguf",
+      "size": 7359259296,
+      "git_blob_sha1": "6ed615031d53004677d987cb44783f86d7c79dd8",
+      "sha256": "2bef47eee2e83fa5e2ac5619102d8418144147be1270870aba42b22a606831e6",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "Qwythos-9B-Claude-Mythos-5-1M-Q8_0.gguf",
+      "size": 9527501472,
+      "git_blob_sha1": "8f1a2e5c12abd2586ecf20967559baaab078328e",
+      "sha256": "e8118b9cde68a1a1dc3299060e9af7d8640c47e670e83ecd4204f15326938b70",
+      "kind": "weights",
+      "bundled": false
+    },
+    {
+      "path": "README.md",
+      "size": 10271,
+      "git_blob_sha1": "92663eac7d4fa9bf17e2d32e38b4f006e30ba85c",
+      "sha256": null,
+      "kind": "support",
+      "bundled": true
+    },
+    {
+      "path": "SHA256SUMS",
+      "size": 1312,
+      "git_blob_sha1": "f6328e9169f8b550dddc386f76d1eba3c3a36ed9",
+      "sha256": null,
+      "kind": "support",
+      "bundled": true
+    },
+    {
+      "path": "TEST_REPORT.md",
+      "size": 3721,
+      "git_blob_sha1": "69ea04e0fe12f01455f8a02fe10bc02d2c4ec39b",
+      "sha256": null,
+      "kind": "support",
+      "bundled": true
+    },
+    {
+      "path": "mmproj-Qwythos-9B-Claude-Mythos-5-1M-F16.gguf",
+      "size": 918165472,
+      "git_blob_sha1": "94902919379d8bd11ffef5c26da2692e5d42e422",
+      "sha256": "f977efc337a2ac2ba183eea0c73e25b75fc240d56c05ed4d9b56ab451f64c82c",
+      "kind": "weights",
+      "bundled": false
+    }
+  ]
+}

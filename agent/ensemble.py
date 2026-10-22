@@ -139,7 +139,7 @@ class EnsembleProvider:
             for field, limit in (("name", 100), ("model", 300)):
                 if not isinstance(member[field], str) or not member[field].strip() or len(member[field]) > limit:
                     raise ValueError(f"Invalid member {field}")
-            if member["provider"] not in {"huggingface", "ollama"} or member["role"] not in ROLES:
+            if member["provider"] not in {"huggingface", "ollama", "localserver"} or member["role"] not in ROLES:
                 raise ValueError("Team members need a supported provider and role")
             if member.get("device") not in {None, "auto", "cpu", "cuda", "mps"}:
                 raise ValueError("Invalid team member device")
@@ -153,8 +153,10 @@ class EnsembleProvider:
                 parsed = urlsplit(member["base_url"])
                 if parsed.scheme not in {"http", "https"} or not parsed.hostname or parsed.username or parsed.password or parsed.query or parsed.fragment:
                     raise ValueError("Member base_url must be an HTTP(S) URL without embedded credentials")
-                if member["provider"] != "ollama":
-                    raise ValueError("Only Ollama members use base_url")
+                if member["provider"] not in {"ollama", "localserver"}:
+                    raise ValueError("Only Ollama/localserver members use base_url")
+                if member["provider"] == 'localserver' and (parsed.hostname not in {'localhost', '127.0.0.1', '::1'} or any(c.isspace() for c in member['base_url'])):
+                    raise ValueError('Local server team members must use loopback endpoints')
             if member["role"] != "critic":
                 expert_count += 1
         if not expert_count:
@@ -196,12 +198,15 @@ class EnsembleProvider:
             revision=member.revision, adapter=member.adapter or "",
             device=member.device or self.settings.device,
             ollama_model=member.model,
-            ollama_url=(member.base_url or self.settings.ollama_url).rstrip("/"))
+            ollama_url=((member.base_url if member.provider == 'ollama' else None) or self.settings.ollama_url).rstrip("/"),
+            local_server_model=member.model,
+            local_server_url=((member.base_url if member.provider == 'localserver' else None) or self.settings.local_server_url).rstrip('/'))
 
     @staticmethod
     def _provider_key(configuration):
         return (configuration.provider, configuration.model, configuration.revision,
-                configuration.adapter, configuration.device, configuration.ollama_url)
+                configuration.adapter, configuration.device, configuration.ollama_url,
+                configuration.local_server_url, configuration.local_server_model)
 
     def _provider_for(self, member):
         configuration = self._settings_for(member)

@@ -28,9 +28,15 @@ def configured_provider(python):
         cwd=ROOT, text=True, encoding='utf-8').strip()
 
 
+def configured_needs_hf(python):
+    return subprocess.check_output(
+        [str(python), '-c', 'from agent.models import model_specs; from agent.config import Settings; print(int(any(s["provider"] == "huggingface" for s in model_specs(Settings()))))'],
+        cwd=ROOT, text=True, encoding='utf-8').strip() == '1'
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--mode', choices=['local', 'ensemble', 'ollama'], default='local')
+    parser.add_argument('--mode', choices=['local', 'ensemble', 'ollama', 'localserver'], default='local')
     parser.add_argument('--venv', type=Path, default=ROOT / '.venv')
     parser.add_argument('--runtime', choices=['cpu', 'auto'], default='cpu', help='CPU wheels by default; auto uses the standard PyTorch distribution')
     parser.add_argument('--download', action='store_true', help='Also download the configured HF weights now')
@@ -56,9 +62,9 @@ def main(argv=None):
             configure.append('--overwrite')
         run(configure)
         provider = configured_provider(python)
-        if provider not in {'huggingface', 'ensemble', 'ollama', 'tiny'}:
+        if provider not in {'huggingface', 'ensemble', 'ollama', 'tiny', 'localserver'}:
             raise RuntimeError('Unexpected provider configuration')
-        needs_hf = provider in {'huggingface', 'ensemble'}
+        needs_hf = provider == 'huggingface' or (provider == 'ensemble' and configured_needs_hf(python))
         needs_torch = needs_hf or provider == 'tiny'
         if needs_torch and args.runtime == 'cpu':
             run([python, '-m', 'pip', 'install', 'torch>=2.6,<3', '--index-url', 'https://download.pytorch.org/whl/cpu'])

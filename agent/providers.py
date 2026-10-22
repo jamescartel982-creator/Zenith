@@ -2,7 +2,11 @@
 import requests
 
 SYSTEM_PROMPT = (
-    "You are Zenith, a helpful AI assistant. Give clear, accurate answers. "
+    "You are Zenith, an independent AI assistant. Be thoughtful, warm, and precise. "
+    "Answer the user's actual question directly, then explain when useful. "
+    "Use readable paragraphs, Markdown, and fenced code for runnable examples. "
+    "Ask focused questions when essential information is missing. Distinguish facts "
+    "from assumptions; never invent citations, tool results, or remembered facts. "
     "Be honest about uncertainty. You can discuss and write code, but cannot "
     "execute tools, change your own weights, or deploy applications from chat."
 )
@@ -126,8 +130,34 @@ class TinyProvider:
         return decode(output[0, ids.shape[1]:].tolist()), used
 
 
+class LocalServerProvider:
+    """llama.cpp/vLLM-compatible local chat endpoint. Never sends an API key."""
+    def __init__(self, settings):
+        self.settings = settings
+
+    def generate(self, messages):
+        s = self.settings
+        used = trim_messages(messages, lambda items: sum(len(m['content'].encode('utf-8')) + 32 for m in items) <= s.context_tokens)
+        try:
+            response = requests.post(s.local_server_url + '/chat/completions', json={
+                'model': s.local_server_model, 'messages': used, 'stream': False,
+                'max_tokens': s.max_new_tokens, 'temperature': s.temperature,
+            }, timeout=(10, 300), allow_redirects=False)
+            if response.is_redirect is True:
+                raise requests.RequestException('Local model endpoint redirected')
+            response.raise_for_status()
+            content = response.json()['choices'][0]['message']['content']
+            if not isinstance(content, str) or not content.strip():
+                raise ValueError('No final text returned; increase the output budget for a reasoning model')
+        except requests.RequestException as exc:
+            raise RuntimeError('Start your local model server and verify its model alias and /v1 endpoint') from exc
+        except (KeyError, IndexError, TypeError, ValueError) as exc:
+            raise RuntimeError('Local server returned no valid final chat response') from exc
+        return content, used
+
+
 def make_provider(settings):
     if settings.provider == "ensemble":
         from .ensemble import EnsembleProvider
         return EnsembleProvider(settings)
-    return {"huggingface": HuggingFaceProvider, "ollama": OllamaProvider, "tiny": TinyProvider}[settings.provider](settings)
+    return {"huggingface": HuggingFaceProvider, "ollama": OllamaProvider, "tiny": TinyProvider, 'localserver': LocalServerProvider}[settings.provider](settings)
