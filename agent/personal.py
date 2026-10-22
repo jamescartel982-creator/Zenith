@@ -96,7 +96,8 @@ class PersonalStore:
             return [dict(row) for row in db.execute('SELECT id, content, created FROM memories WHERE user_id=? ORDER BY created LIMIT 50', (user_id,))]
 
     def remember(self, user_id, content):
-        content = content.strip()
+        from .assurance import normalize_input
+        content = normalize_input(content)
         if not 1 <= len(content) <= 500:
             raise ValueError('A memory must have 1–500 characters')
         with self.store.connect() as db:
@@ -124,3 +125,26 @@ class PersonalStore:
             if identifier:
                 return db.execute('DELETE FROM memories WHERE id=? AND user_id=?', (identifier, user_id)).rowcount
             return db.execute('DELETE FROM memories WHERE user_id=?', (user_id,)).rowcount
+
+    def request_human_review(self,user_id,session_id,turn_id,reason):
+        if not reason.strip():raise ValueError('Enter a review reason')
+        if not self.conversation_access(session_id,user_id):raise ValueError('Conversation not found')
+        identifier=str(uuid4())
+        with self.store.connect() as db:
+            if not db.execute('SELECT 1 FROM turns WHERE id=? AND session_id=?',(turn_id,session_id)).fetchone():raise ValueError('Turn not found')
+            previous=db.execute('SELECT id FROM human_reviews WHERE user_id=? AND turn_id=?',(user_id,turn_id)).fetchone()
+            if previous:return previous['id']
+            if db.execute("SELECT COUNT(*) FROM human_reviews WHERE user_id=? AND status='open'",(user_id,)).fetchone()[0]>=100:raise ValueError('Review request limit reached')
+            db.execute("INSERT INTO human_reviews VALUES (?, ?, ?, ?, ?, 'open', '', ?)",(identifier,user_id,session_id,turn_id,reason,time.time()))
+        return identifier
+
+    def review_requests(self,user_id=None):
+        sql='''SELECT r.*,t.prompt,t.response FROM human_reviews r JOIN turns t ON t.id=r.turn_id'''
+        with self.store.connect() as db:
+            rows=db.execute(sql+(' WHERE r.user_id=?' if user_id else '')+' ORDER BY r.created DESC LIMIT 100',(user_id,) if user_id else ()).fetchall()
+        return [dict(row) for row in rows]
+
+    def resolve_review(self,identifier,resolution):
+        if not resolution.strip():raise ValueError('Enter a review response')
+        with self.store.connect() as db:
+            return db.execute("UPDATE human_reviews SET status='closed',resolution=? WHERE id=?",(resolution,identifier)).rowcount>0

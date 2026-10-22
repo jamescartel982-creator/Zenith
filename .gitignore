@@ -32,3 +32,7 @@ dist/
 
 # Local model-team configuration (may include private endpoint names)
 config/*.local.json
+
+# Owner recovery codes are local secrets, never repository content
+admin-code*.txt
+.zenith-admin-*

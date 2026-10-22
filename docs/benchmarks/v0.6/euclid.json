@@ -1,0 +1,15 @@
+{
+  "book": "euclid",
+  "title": "The First Six Books of the Elements of Euclid, edited by John Casey",
+  "source_url": "https://www.gutenberg.org/cache/epub/21076/pg21076-images.html",
+  "catalog_url": "https://www.gutenberg.org/ebooks/21076",
+  "source_sha256": "c8c07bbfdf20016ea9e7c44277bed8a743a498f9c3a54d4d21a61e53fc61035d",
+  "snapshot_file": "euclid-c8c07bbfdf20016ea9e7c44277bed8a743a498f9c3a54d4d21a61e53fc61035d.html",
+  "source_bytes": 1842708,
+  "extracted_characters": 484168,
+  "chunks": 85,
+  "new_documents": 85,
+  "rights_note": "Ancient text and nineteenth-century edition; Project Gutenberg public-domain catalog. Preserve its notices and review local redistribution terms.",
+  "used_for_weight_training": false,
+  "purpose": "Shared cited retrieval; original file and notices retained."
+}

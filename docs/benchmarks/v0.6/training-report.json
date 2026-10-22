@@ -1,0 +1,55 @@
+{
+  "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "base_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "train_sha256": "deb58757bc2567792835ca2ae52a3138c9896cd7b48632980560046d8fa3ba5e",
+  "eval_sha256": "5f0e54ce4777bf1abd479c24d9c8c2133540ed697a2d99e99455514f84fde95d",
+  "train_examples": 40,
+  "eval_examples": 10,
+  "skipped": {
+    "train": 0,
+    "eval": 0
+  },
+  "baseline": {
+    "eval_loss": 3.510702133178711,
+    "eval_model_preparation_time": 0.0135,
+    "eval_runtime": 9.8496,
+    "eval_samples_per_second": 1.015,
+    "eval_steps_per_second": 1.015
+  },
+  "final": {
+    "eval_loss": 2.5624325275421143,
+    "eval_model_preparation_time": 0.0135,
+    "eval_runtime": 7.0617,
+    "eval_samples_per_second": 1.416,
+    "eval_steps_per_second": 1.416,
+    "epoch": 1.0
+  },
+  "training": {
+    "train_runtime": 85.9489,
+    "train_samples_per_second": 0.465,
+    "train_steps_per_second": 0.465,
+    "total_flos": 6325709391360.0,
+    "train_loss": 2.945934993028641,
+    "epoch": 1.0
+  },
+  "parameters": {
+    "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "train_data": "train.jsonl",
+    "eval_data": "validation.jsonl",
+    "output_dir": "zenith-v06-adapter",
+    "epochs": 1.0,
+    "max_steps": -1,
+    "max_length": 256,
+    "batch_size": 1,
+    "gradient_accumulation": 1,
+    "learning_rate": 0.0001,
+    "dataset_manifest": "manifest.json",
+    "cpu_threads": 2
+  },
+  "automatic_promotion": false,
+  "final_test_sha256": "f23c6fb3a8c86fe0bf1e138f1256738d4c49462011de1d7eff47fb9823874e2f",
+  "final_test_used_for_training": false,
+  "promoted": false,
+  "decision": "Retain base profile. Candidate has answer-scoring regressions and both models miss the base-60 case; manual review also found unsupported extra claims. Lower fixture loss is insufficient."
+}

@@ -8,6 +8,8 @@ from .config import Settings
 def main():
     parser = argparse.ArgumentParser(description='Chat with Zenith locally')
     parser.add_argument('--session', default=None, help='Resume a conversation UUID')
+    parser.add_argument('--mode', choices=['fast','thorough'], default=None)
+    parser.add_argument('--skill', default='general', help='Instruction skill, such as mathematics or cybersecurity')
     args = parser.parse_args()
     if args.session:
         from uuid import UUID
@@ -53,7 +55,7 @@ def main():
                 agent.store.review(session, last_id, rating, text in {'/approve', '/correct'}, correction)
                 print('Review saved. Weights change only when you run training.')
                 continue
-            result = agent.answer(text, session)
+            result = agent.answer(text, session, response_mode=args.mode, skill=args.skill)
             last_id = result['id']
             print('\nZenith> ' + result['response'])
         except (EOFError, KeyboardInterrupt):

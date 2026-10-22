@@ -1,0 +1,8 @@
+{
+  "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "adapter": "unpromoted-starter-candidate",
+  "examples": 10,
+  "skipped": 0,
+  "target_tokens": 283,
+  "mean_target_loss": 2.7143006958725597
+}

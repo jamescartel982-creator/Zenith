@@ -88,6 +88,47 @@ class HuggingFaceProvider:
                 pad_token_id=tokenizer.pad_token_id or tokenizer.eos_token_id, **options)
         return tokenizer.decode(output[0, ids.shape[1]:], skip_special_tokens=True).strip(), used
 
+    def stream(self, messages, cancel):
+        """Yield text while generation runs; cancellation joins the worker before reuse."""
+        self.load()
+        import queue
+        from threading import Thread
+        import torch
+        from transformers import TextIteratorStreamer, StoppingCriteria, StoppingCriteriaList
+        tokenizer,model,settings=self.tokenizer,self.model,self.settings
+        def encode(items):return tokenizer.apply_chat_template(items,tokenize=True,add_generation_prompt=True)
+        maximum=getattr(model.config,'max_position_embeddings',32768)
+        used=trim_messages(messages,lambda items:len(encode(items))<=min(settings.context_tokens,maximum-settings.max_new_tokens))
+        ids=torch.tensor([encode(used)],device=model.device)
+        streamer=TextIteratorStreamer(tokenizer,skip_prompt=True,skip_special_tokens=True,timeout=0.5)
+        class CancelGeneration(StoppingCriteria):
+            def __call__(self,*args,**kwargs):return cancel.is_set()
+        options={'do_sample':settings.temperature>0}
+        if settings.temperature>0:options.update(temperature=settings.temperature,top_p=0.9)
+        else:options.update(temperature=None,top_p=None,top_k=None)
+        errors=[]
+        def work():
+            try:
+                if model.device.type=='cpu':torch.set_num_threads(settings.cpu_threads)
+                with torch.inference_mode():
+                    model.generate(input_ids=ids,attention_mask=torch.ones_like(ids),max_new_tokens=settings.max_new_tokens,
+                        pad_token_id=tokenizer.pad_token_id or tokenizer.eos_token_id,streamer=streamer,
+                        stopping_criteria=StoppingCriteriaList([CancelGeneration()]),**options)
+            except Exception as exc:
+                errors.append(exc);streamer.end()
+        worker=Thread(target=work,name='zenith-generation',daemon=False);worker.start()
+        try:
+            while not cancel.is_set():
+                try:chunk=next(streamer)
+                except queue.Empty:
+                    if not worker.is_alive():break
+                    continue
+                except StopIteration:break
+                if chunk:yield chunk,used
+            if errors:raise RuntimeError('Model streaming generation failed') from errors[0]
+        finally:
+            cancel.set();worker.join()
+
 
 class OllamaProvider:
     def __init__(self, settings):
@@ -110,6 +151,21 @@ class OllamaProvider:
         except (KeyError, ValueError) as exc:
             raise RuntimeError("Ollama returned an invalid chat response") from exc
         return content, used
+
+    def stream(self,messages,cancel):
+        import json
+        s=self.settings
+        used=trim_messages(messages,lambda items:sum(len(m['content'].encode('utf-8'))+32 for m in items)<=s.context_tokens)
+        with requests.post(s.ollama_url+'/api/chat',json={'model':s.ollama_model,'messages':used,'stream':True,
+            'options':{'temperature':s.temperature,'num_predict':s.max_new_tokens,'num_ctx':s.context_tokens+s.max_new_tokens}},stream=True,timeout=(10,300)) as response:
+            response.raise_for_status()
+            for line in response.iter_lines():
+                if cancel.is_set():break
+                if not line:continue
+                row=json.loads(line)
+                if row.get('error'):raise RuntimeError('Ollama streaming failed')
+                chunk=row.get('message',{}).get('content','')
+                if chunk:yield chunk,used
 
 
 class TinyProvider:
@@ -154,6 +210,27 @@ class LocalServerProvider:
         except (KeyError, IndexError, TypeError, ValueError) as exc:
             raise RuntimeError('Local server returned no valid final chat response') from exc
         return content, used
+
+    def stream(self,messages,cancel):
+        import json
+        s=self.settings
+        used=trim_messages(messages,lambda items:sum(len(m['content'].encode('utf-8'))+32 for m in items)<=s.context_tokens)
+        with requests.post(s.local_server_url+'/chat/completions',json={'model':s.local_server_model,'messages':used,
+            'stream':True,'max_tokens':s.max_new_tokens,'temperature':s.temperature},stream=True,
+            timeout=(10,300),allow_redirects=False) as response:
+            if response.is_redirect:raise RuntimeError('Local model streaming endpoint redirected')
+            response.raise_for_status()
+            for line in response.iter_lines():
+                if cancel.is_set():break
+                if not line or not line.startswith(b'data:'):continue
+                payload=line[5:].strip()
+                if payload==b'[DONE]':break
+                row=json.loads(payload)
+                if row.get('error'):raise RuntimeError('Local model streaming failed')
+                choices=row.get('choices',[])
+                if choices:
+                    chunk=choices[0].get('delta',{}).get('content','')
+                    if chunk:yield chunk,used
 
 
 def make_provider(settings):

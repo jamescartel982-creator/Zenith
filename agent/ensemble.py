@@ -292,6 +292,61 @@ class EnsembleProvider:
         record["latency_ms"] = max(0, round((self.clock() - started) * 1000))
         return result, record
 
+    def generate_fast(self, messages):
+        """Return the first successful routed draft, without review/synthesis calls."""
+        if not messages or messages[-1].get('role')!='user':
+            raise ValueError('Ensemble input must end with a user message')
+        selected, reason = self.route(messages[-1]['content'])
+        deadline = self.clock()+self.timeout
+        traces=[]
+        self.last_deliberation = {'mode':'ensemble','response_mode':'fast','members':traces,
+            'synthesizer':{**self.synthesizer.public(),'status':'skipped','reason':'fast_mode'},
+            'rounds':1,'degraded':False,'route_reason':reason,'selected_members':[],
+            'deadline_semantics':'soft_between_calls','unselected_members':[m.id for m in self.members]}
+        for member in selected:
+            self.last_deliberation['selected_members'].append(member.id)
+            self.last_deliberation['unselected_members'].remove(member.id)
+            result, trace = self._call(member,self._draft_messages(messages,member),'draft',deadline)
+            traces.append(trace)
+            if result:
+                self.last_deliberation.update(answer_member=member.id,answer_stage='direct',degraded=any(t['status']!='ok' for t in traces))
+                return result['text'],result['used_messages']
+        self.last_deliberation['degraded']=True
+        raise RuntimeError('No routed model could answer in fast mode')
+
+    def stream_fast(self,messages,cancel):
+        selected,reason=self.route(messages[-1]['content']);deadline=self.clock()+self.timeout;traces=[]
+        self.last_deliberation={'mode':'ensemble','response_mode':'fast','members':traces,
+            'synthesizer':{**self.synthesizer.public(),'status':'skipped','reason':'fast_mode'},'rounds':1,
+            'degraded':False,'route_reason':reason,'selected_members':[],'deadline_semantics':'soft_between_calls'}
+        for member in selected:
+            if cancel.is_set():return
+            if self.clock()>=deadline:break
+            record={**member.public(),'stage':'draft','status':'failed','latency_ms':0};traces.append(record)
+            self.last_deliberation['selected_members'].append(member.id)
+            started=self.clock();emitted=False
+            try:
+                provider=self._provider_for(member);prepared=self._draft_messages(messages,member)
+                if callable(getattr(type(provider),'stream',None)):
+                    stream=provider.stream(prepared,cancel)
+                    try:
+                        for chunk,used in stream:
+                            if chunk:emitted=True;yield chunk,used
+                    finally:stream.close()
+                else:
+                    text,used=provider.generate(prepared)
+                    if not isinstance(text,str) or not text.strip():raise RuntimeError('Empty model response')
+                    emitted=True;yield text,used
+                if emitted:
+                    record.update(status='ok',latency_ms=round((self.clock()-started)*1000))
+                    self.last_deliberation.update(answer_member=member.id,answer_stage='direct',degraded=any(t['status']!='ok' for t in traces))
+                    return
+            except Exception:
+                record.update(reason='generation_failed',latency_ms=round((self.clock()-started)*1000))
+                if emitted:raise RuntimeError('A streamed answer was interrupted; partial drafts are not combined')
+        self.last_deliberation['degraded']=True
+        raise RuntimeError('No routed model could stream an answer')
+
     def generate(self, messages):
         if not messages or messages[-1].get("role") != "user":
             raise ValueError("Ensemble input must end with a user message")

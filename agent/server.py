@@ -9,7 +9,7 @@ from typing import Literal
 from uuid import UUID
 
 from fastapi import Depends, FastAPI, Header, HTTPException, Query, Request, Response
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse,StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
@@ -24,6 +24,8 @@ logger = logging.getLogger('zenith')
 class ChatRequest(BaseModel):
     session_id: UUID
     message: str = Field(min_length=1, max_length=12000)
+    response_mode: Literal['fast', 'thorough'] | None = None
+    skill: str = Field(default='general', max_length=40)
 
 
 class ReviewRequest(BaseModel):
@@ -47,10 +49,33 @@ class MemoryRequest(BaseModel):
     content: str = Field(min_length=1, max_length=500)
 
 
+class AdminUnlockRequest(BaseModel):
+    code: str = Field(min_length=1, max_length=128)
+
+
+class AdminModeRequest(BaseModel):
+    enabled: bool
+
+
+class AdminToolRequest(BaseModel):
+    tool: str = Field(max_length=40)
+    text: str = Field(max_length=12000)
+
+
+class HumanReviewRequest(BaseModel):
+    session_id: UUID
+    turn_id: UUID
+    reason: str = Field(default='Please review this answer.',min_length=1,max_length=500)
+
+
+class HumanResolution(BaseModel):
+    resolution: str = Field(min_length=1,max_length=4000)
+
+
 def create_app(settings=None, agent=None, catalog=None):
     settings = settings or Settings()
     agent = agent or Agent(settings)
-    app = FastAPI(title='Zenith', version='0.5.0', docs_url=None, redoc_url=None)
+    app = FastAPI(title='Zenith', version='0.6.0', docs_url=None, redoc_url=None)
     app.state.agent = agent
     app.state.catalog = catalog
     attempts = {}
@@ -73,6 +98,12 @@ def create_app(settings=None, agent=None, catalog=None):
     def signed_in(user=Depends(current_user)):
         if user is None:
             raise HTTPException(401, 'Sign in to use your private memories')
+        return user
+
+    def administrator(request: Request, user=Depends(signed_in)):
+        state = agent.admin.status(user['id'], request.cookies.get('zenith_login',''))
+        if not state['elevated']:
+            raise HTTPException(403, 'Unlock administrator access for your owner account first')
         return user
 
     def guard_conversation(session_id, user, create=False):
@@ -186,6 +217,75 @@ def create_app(settings=None, agent=None, catalog=None):
         from .packs import summaries
         return {'packs': summaries()}
 
+    @app.get('/api/skills', dependencies=[Depends(authenticate)])
+    def skills():
+        from .skills import list_skills
+        return {'skills':list_skills(), 'kind':'instruction-profiles', 'default_response_mode':settings.response_mode}
+
+    @app.get('/api/admin/status', dependencies=[Depends(authenticate)])
+    def admin_status(request: Request, user=Depends(signed_in)):
+        return agent.admin.status(user['id'],request.cookies.get('zenith_login',''))
+
+    @app.post('/api/admin/unlock', dependencies=[Depends(authenticate)])
+    def admin_unlock(body: AdminUnlockRequest, request: Request, user=Depends(signed_in)):
+        limit_login(request)
+        token=request.cookies.get('zenith_login','')
+        if not agent.admin.unlock(user['id'],token,body.code.strip()):
+            raise HTTPException(403,'Owner account or secret code was not accepted')
+        return agent.admin.status(user['id'],token)
+
+    @app.post('/api/admin/lock', dependencies=[Depends(authenticate)])
+    def admin_lock(request: Request, user=Depends(signed_in)):
+        agent.admin.lock(request.cookies.get('zenith_login',''))
+        return {'locked':True}
+
+    @app.post('/api/admin/mode', dependencies=[Depends(authenticate)])
+    def admin_mode(body: AdminModeRequest, request: Request, user=Depends(administrator)):
+        try:return agent.admin.mode(user['id'],request.cookies.get('zenith_login',''),body.enabled)
+        except PermissionError as exc:raise HTTPException(403,str(exc)) from exc
+
+    @app.get('/api/admin/tools', dependencies=[Depends(authenticate)])
+    def admin_tools(user=Depends(administrator)):
+        from .tools import TOOLS
+        return {'tools':[{'id':key,'description':value} for key,value in TOOLS.items()]}
+
+    @app.post('/api/admin/tools', dependencies=[Depends(authenticate)])
+    def admin_run_tool(body: AdminToolRequest, request: Request, user=Depends(administrator)):
+        if not agent.admin.status(user['id'],request.cookies.get('zenith_login',''))['devil_mode']:
+            raise HTTPException(403,'Enable the administrator security workspace first')
+        from .tools import run_tool
+        try: result=run_tool(body.tool,body.text)
+        except ValueError as exc: raise HTTPException(400,str(exc)) from exc
+        agent.admin.record_tool(user['id'],body.tool)
+        return {'result':result,'executed_by':'bounded-local-tool','model_execution':False}
+
+    @app.post('/api/review-requests', dependencies=[Depends(authenticate)])
+    def request_human_review(body: HumanReviewRequest,user=Depends(signed_in)):
+        guard_conversation(body.session_id,user)
+        from .assurance import normalize_input
+        try:identifier=agent.personal.request_human_review(user['id'],str(body.session_id),str(body.turn_id),normalize_input(body.reason))
+        except ValueError as exc:raise HTTPException(400,str(exc)) from exc
+        return {'id':identifier,'status':'open','notification_sent':False,'shared_with':'local-server-administrator'}
+
+    @app.get('/api/review-requests', dependencies=[Depends(authenticate)])
+    def my_review_requests(user=Depends(signed_in)):
+        return {'requests':agent.personal.review_requests(user['id'])}
+
+    @app.get('/api/admin/reviews', dependencies=[Depends(authenticate)])
+    def admin_reviews(user=Depends(administrator)):
+        return {'requests':agent.personal.review_requests()}
+
+    @app.post('/api/admin/reviews/{review_id}', dependencies=[Depends(authenticate)])
+    def resolve_review(review_id:UUID,body:HumanResolution,user=Depends(administrator)):
+        from .assurance import normalize_input
+        try:
+            resolution=normalize_input(body.resolution)
+            resolved=agent.personal.resolve_review(str(review_id),resolution)
+        except ValueError as exc:raise HTTPException(400,str(exc)) from exc
+        if not resolved:raise HTTPException(404,'Review request not found')
+        agent.admin.record_tool(user['id'],'resolve-review')
+        return {'resolved':True}
+
     @app.get('/api/team', dependencies=[Depends(authenticate)])
     def team():
         return agent.team_info()
@@ -207,7 +307,8 @@ def create_app(settings=None, agent=None, catalog=None):
     def chat(body: ChatRequest, user=Depends(current_user)):
         guard_conversation(body.session_id, user, create=True)
         try:
-            return agent.answer(body.message, str(body.session_id), user_id=user['id'] if user else None)
+            return agent.answer(body.message, str(body.session_id), user_id=user['id'] if user else None,
+                                response_mode=body.response_mode,skill=body.skill)
         except BusyError as exc:
             raise HTTPException(429, str(exc), headers={'Retry-After': '5'}) from exc
         except ValueError as exc:
@@ -215,6 +316,31 @@ def create_app(settings=None, agent=None, catalog=None):
         except Exception as exc:
             logger.exception('Model generation failed')
             raise HTTPException(503, 'Model unavailable. Check server logs, model download, and provider settings.') from exc
+
+    @app.post('/api/chat/stream', dependencies=[Depends(authenticate)])
+    def stream_chat(body:ChatRequest,user=Depends(current_user)):
+        guard_conversation(body.session_id,user,create=True)
+        try:stream=agent.stream_answer(body.message,str(body.session_id),user_id=user['id'] if user else None,
+                                      response_mode=body.response_mode,skill=body.skill)
+        except BusyError as exc:raise HTTPException(429,str(exc),headers={'Retry-After':'5'}) from exc
+        except ValueError as exc:raise HTTPException(400,str(exc)) from exc
+        import anyio
+        import json
+        def next_event():
+            try:return next(stream)
+            except StopIteration:return None
+        async def events():
+            try:
+                while True:
+                    event=await anyio.to_thread.run_sync(next_event)
+                    if event is None:break
+                    yield 'data: '+json.dumps(event,ensure_ascii=False)+'\n\n'
+            except Exception:
+                logger.exception('Streaming generation failed')
+                yield 'data: '+json.dumps({'type':'error','message':'Generation interrupted. Partial text was not saved; check model settings and retry.'})+'\n\n'
+            finally:
+                with anyio.CancelScope(shield=True):await anyio.to_thread.run_sync(stream.close)
+        return StreamingResponse(events(),media_type='text/event-stream',headers={'X-Accel-Buffering':'no'})
 
     @app.get('/api/history/{session_id}', dependencies=[Depends(authenticate)])
     def history(session_id: UUID, user=Depends(current_user)):

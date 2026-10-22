@@ -12,7 +12,7 @@ license: apache-2.0
 
 # Zenith
 
-**A local AI workspace with private saved memories, returning-user greetings, browser and terminal chat, and open-model collaboration. Browse 1,000 model sources and 200 datasets, collect reviewed examples, and train your own adapter.** Zenith also includes an original small transformer you can train from random weights.
+**A local AI workspace with streamed replies, fast/thorough response modes, private memories, returning-user greetings, and an owner-controlled security workspace. Browse 1,000 model sources and 200 datasets, collect reviewed examples, and train a measured candidate adapter.** Zenith also includes an original small transformer you can train from random weights.
 
 The original starter ZIP is preserved. Its Python project is now unpacked, extended, and runnable from this repository's root.
 
@@ -140,7 +140,7 @@ The bundled, source-backed catalog contains exactly:
 
 Open **Browse catalog** in the chat UI to search, filter, and follow source links. Records include observed popularity, task, license metadata, timestamps, and provenance. Hugging Face selection uses downloads/likes with explicit practical CPU additions; GitHub selection ranks relevant candidates by stars after filtering. These are popularity-based selections, not a measured ranking of answer quality. GitHub entries are model implementations or dataset-source repositories, not ready-to-call chat endpoints. Many catalog models serve vision, audio, embeddings, or other tasks.
 
-**Only the configured team runs.** Ensemble mode uses a two-model team that shares its drafts, performs a cross-review, and synthesizes a final response. Each answer shows executed stages and any failure/fallback. To customize, copy `config/team.example.json` to an ignored local file and set `ZENITH_TEAM_CONFIG` to that path. Select up to three experts per request from a roster of at most 32, plus an optional reviewer and a synthesizer. The provider cache is bounded; the whole catalog is never loaded into memory.
+**Only the configured team runs.** Fast mode, the default, answers with the first successful routed contributor. Thorough mode uses the configured two-model team to share drafts, cross-review, and synthesize a final response. Each answer shows executed stages and any failure/fallback. To customize, copy `config/team.example.json` to an ignored local file and set `ZENITH_TEAM_CONFIG` to that path. Select up to three experts per request from a roster of at most 32, plus an optional reviewer and a synthesizer. The provider cache is bounded; the whole catalog is never loaded into memory.
 
 Datasets are searchable source metadata until imported. Import selected text columns with `python -m scripts.import_dataset`; the local search index can then supply cited excerpts to all models participating in an answer. It does not train weights automatically or download all 200 datasets. See [team and dataset instructions](docs/model-team.md) for exact commands, limits, selection methods, and how to configure larger models.
 
@@ -149,6 +149,32 @@ python -m scripts.catalog --validate
 python -m scripts.catalog --kind model --source huggingface --query Qwen
 python -m scripts.catalog --kind dataset --source github
 ```
+
+## Fast responses, quality checks, and owner controls
+
+Browser replies stream as they are generated. Choose **Fast** for one routed contributor or **Thorough** for full configured team deliberation. Twelve selectable instruction profiles cover mathematics, science, history, ancient math, programming, investing, day trading, cybersecurity, writing, research, and data analysis. Profiles guide the model; they do not establish expert qualifications. Bounded arithmetic uses an exact calculator. Unavailable live data and some unsupported claims trigger explicit abstention; ordinary model answers remain labeled uncalibrated.
+
+Create your own browser account, then configure its owner role in your server terminal:
+
+```text
+zenith admin init --username YOUR_USERNAME
+```
+
+Use `./run.sh admin init ...` on Linux or `powershell -NoProfile -ExecutionPolicy Bypass -File .\run.ps1 admin init ...` on Windows. A private code is generated **on your machine**, never embedded in Git or sent to the model. Sign in as that account and unlock **Admin workspace**. **Devil mode** enables a short-lived offline workbench: bounded calculator, text hashing, Base64 decoding, pasted-code pattern review, and offline URL inspection. See [owner setup and exact access limits](docs/admin.md).
+
+Signed-in users can request human review of an answer; the owner responds through the local review queue. No outside person is notified automatically.
+
+```text
+zenith benchmark --output artifacts/baseline.json
+zenith curriculum prepare --balance-topics --output artifacts/curriculum-v1
+zenith curriculum audit --output artifacts/curriculum-v1
+zenith import-book euclid
+zenith campaign --output artifacts/campaign-v1 --max-steps 40
+```
+
+Training needs the optional `[train]` dependencies. The campaign freezes grouped training/validation/test partitions, trains a pinned-base adapter, measures held-out loss, compares task slices, and **never activates a candidate automatically**. A manual GitHub Actions training workflow also saves candidate artifacts. The bundled 94-row, ten-topic curriculum is a small original starter set. The Euclid book command adds cited retrieval excerpts, separately from weight training. No collection of every book or every subject has been trained.
+
+See [goals, evaluation, data isolation, calibration, and limitations](docs/quality-and-training.md), the [two-week training roadmap](docs/training-roadmap.md), and [measured development results](docs/validation.md). Faster deterministic paths and earlier streamed text do not establish a faster or more accurate underlying LLM.
 
 ## How improvement works
 
