@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "max_experts": 2,
+  "max_parallel": 1,
+  "round_timeout_seconds": 300,
+  "max_proposal_chars": 1200,
+  "max_cached_models": 2,
+  "synthesizer": "primary",
+  "critic": "independent",
+  "members": [
+    {
+      "id": "primary",
+      "name": "Zenith primary",
+      "provider": "huggingface",
+      "model": "Qwen/Qwen2.5-0.5B-Instruct",
+      "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+      "role": "general"
+    },
+    {
+      "id": "independent",
+      "name": "Independent reviewer",
+      "provider": "huggingface",
+      "model": "HuggingFaceTB/SmolLM2-360M-Instruct",
+      "role": "reasoning"
+    }
+  ]
+}

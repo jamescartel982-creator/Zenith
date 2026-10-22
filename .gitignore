@@ -1,0 +1,34 @@
+# Secrets and local environment
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# Data and generated artifacts
+data/*.jsonl
+artifacts/
+checkpoints/
+runs/
+wandb/
+.DS_Store
+
+# Persistent conversations, datasets, and local package builds
+data/
+*.sqlite3
+*.sqlite3-wal
+*.sqlite3-shm
+*.egg-info/
+build/
+dist/
+.coverage
+
+# Local model-team configuration (may include private endpoint names)
+config/*.local.json

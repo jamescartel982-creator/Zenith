@@ -1,0 +1,11 @@
+.git
+.venv
+.env
+.env.*
+data
+artifacts
+checkpoints
+__pycache__
+**/__pycache__
+*.zip
+*.egg-info

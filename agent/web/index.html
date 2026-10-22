@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#101714"><title>Zenith — local intelligence</title>
+  <link rel="stylesheet" href="/static/style.css"><script src="/static/app.js" defer></script>
+</head>
+<body>
+  <aside>
+    <a class="brand" href="/">Z<span>ZENITH<small>LOCAL INTELLIGENCE</small></span></a>
+    <div class="workspace-actions"><button id="new-chat" class="primary">＋ New conversation</button><button id="open-catalog" aria-haspopup="dialog">Browse catalog <span id="catalog-count" class="button-count"></span></button></div>
+    <section class="model-card"><span class="eyebrow">YOUR ENGINE</span><strong id="model">Connecting…</strong><p id="provider"></p><span id="status" role="status">Checking server</span><details id="team-details"><summary id="team-label">Configured models</summary><div id="team-members"><p>Connecting to the model team…</p></div></details></section>
+    <div class="aside-bottom">
+      <details id="access"><summary>Server access</summary><label for="token">Access token</label><input id="token" type="password" autocomplete="off" placeholder="Required for hosted servers"><button id="connect">Connect</button></details>
+      <p>Conversations stay on this server. Feedback becomes training data only when you explicitly approve it.</p>
+      <button id="delete-chat" class="subtle">Delete this conversation</button>
+    </div>
+  </aside>
+  <main>
+    <header><div><span class="eyebrow">WORKSPACE / CONVERSATION</span><h1>A place to think further.</h1></div><button id="open-team" class="badge" aria-haspopup="dialog">MODEL TEAM</button></header>
+    <div id="error" role="alert" hidden></div>
+    <div id="messages" aria-live="polite" aria-busy="false">
+      <section id="welcome"><div class="orb">Z</div><h2>What are we building?</h2><p>Write code, explore an idea, or work through a problem.<br>Your model. Your conversation.</p><div class="suggestions"><button data-prompt="Help me plan a small Python project.">Build something</button><button data-prompt="Explain how a language model learns, in simple terms.">Understand an idea</button><button data-prompt="Write a Python function that removes duplicate items while preserving order.">Write some code</button></div></section>
+    </div>
+    <form id="composer"><label class="sr-only" for="prompt">Message Zenith</label><div class="input-wrap"><textarea id="prompt" rows="2" maxlength="12000" placeholder="Message Zenith…" required></textarea><button id="send" class="primary" type="submit">Send ↑</button></div><p>Enter to send · Shift + Enter for a new line <span>Zenith can make mistakes. Check important answers.</span></p></form>
+  </main>
+  <dialog id="catalog-dialog" aria-labelledby="catalog-title" aria-describedby="catalog-explanation">
+    <div class="catalog-top"><div><span class="eyebrow">OPEN SOURCE / RESOURCE LIBRARY</span><h2 id="catalog-title">Explore the catalog.</h2></div><button id="close-catalog" class="icon-button" aria-label="Close catalog">×</button></div>
+    <p id="catalog-explanation" class="catalog-explanation">Discover sourced models and datasets. Catalog entries are references; only the configured model team contributes to chat. Weights are not installed and datasets are not ingested by browsing.</p>
+    <div class="catalog-tabs" role="tablist" aria-label="Resource library views"><button id="catalog-resources-tab" type="button" role="tab" aria-selected="true" aria-controls="catalog-resources">Models &amp; datasets</button><button id="catalog-team-tab" type="button" role="tab" aria-selected="false" aria-controls="catalog-team" tabindex="-1">Configured team</button></div>
+    <section id="catalog-resources" role="tabpanel" aria-labelledby="catalog-resources-tab">
+      <div id="catalog-stats" class="catalog-stats" aria-label="Catalog source counts"></div>
+      <form id="catalog-filters" class="catalog-filters"><div class="catalog-search"><label for="catalog-query">Search catalog</label><input id="catalog-query" type="search" maxlength="200" placeholder="Name, task, or description…"></div><div><label for="catalog-kind">Resource</label><select id="catalog-kind"><option value="model">Models</option><option value="dataset">Datasets</option></select></div><div><label for="catalog-source">Source</label><select id="catalog-source"><option value="">All sources</option><option value="huggingface">Hugging Face</option><option value="github">GitHub</option></select></div><button class="primary" type="submit">Search</button></form>
+      <div class="catalog-results-meta"><p id="catalog-results-label" role="status">Open the catalog to load sourced records.</p><span id="catalog-generated"></span></div>
+      <div id="catalog-error" class="catalog-error" role="alert" hidden></div>
+      <div id="catalog-results" class="catalog-results" aria-busy="false"></div>
+      <nav class="catalog-pagination" aria-label="Catalog pages"><button id="catalog-previous" type="button" disabled>← Previous</button><span id="catalog-page" role="status">Page 1</span><button id="catalog-next" type="button" disabled>Next →</button></nav>
+    </section>
+    <section id="catalog-team" role="tabpanel" aria-labelledby="catalog-team-tab" hidden><div id="team-overview" class="team-overview"><p>Connect to the server to inspect the configured model team.</p></div></section>
+  </dialog>
+</body>
+</html>
