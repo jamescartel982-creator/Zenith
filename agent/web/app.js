@@ -14,6 +14,7 @@ const welcomeTemplate = $('welcome').cloneNode(true);
 let configuredTeam = null;
 let knowledgeStatus = null;
 let catalogPage = 1;
+let discoveryCursors = [''];
 let catalogRequest = 0;
 let catalogLoaded = false;
 let skillLibrary = null;
@@ -239,15 +240,9 @@ async function loadHistory() {
     for (const turn of data.turns) { addMessage('user', turn.prompt); addMessage('assistant', turn.response, turn); }
   }
 }
-function renderCatalogCounts(counts = {}) {
+function renderCatalogCounts() {
   $('catalog-stats').replaceChildren();
-  const stats = [['huggingface_models', 'Hugging Face models'], ['github_models', 'GitHub model repositories'], ['huggingface_datasets', 'Hugging Face datasets'], ['github_datasets', 'GitHub dataset sources']];
-  for (const [key, label] of stats) {
-    const item = element('div', 'catalog-stat');
-    item.append(element('strong', '', number(counts[key])), element('span', '', label));
-    $('catalog-stats').append(item);
-  }
-  if (counts.models !== undefined && counts.datasets !== undefined) $('catalog-count').textContent = `${number(counts.models)} models · ${number(counts.datasets)} datasets`;
+  $('catalog-count').textContent = 'Hugging Face · GitHub';
 }
 function renderCatalogEntry(entry) {
   const article = element('article', 'catalog-entry');
@@ -271,6 +266,9 @@ function renderCatalogEntry(entry) {
   if (entry.downloads !== undefined) meta.append(element('span', '', `${number(entry.downloads)} downloads`));
   if (entry.likes !== undefined) meta.append(element('span', '', `${number(entry.likes)} likes`));
   if (entry.popularity_rank !== undefined) meta.append(element('span', '', `Source rank #${number(entry.popularity_rank)}`));
+  if (entry.fine_tuned) meta.append(element('span', 'runtime-tag', 'Fine-tuned model'));
+  if (entry.base_models?.length) article.append(element('p', 'catalog-note', 'Base: ' + entry.base_models.join(', ')));
+  if (entry.gated) meta.append(element('span', '', 'Source access approval required'));
   article.append(meta);
   return article;
 }
@@ -283,7 +281,10 @@ async function loadCatalog() {
   const params = new URLSearchParams({kind: $('catalog-kind').value, q: $('catalog-query').value.trim(), page: String(catalogPage), page_size: '20'});
   if ($('catalog-source').value) params.set('source', $('catalog-source').value);
   try {
-    const data = await api(`/api/catalog?${params}`);
+    const online = $('catalog-scope').value === 'online';
+    if (online && !$('catalog-source').value) params.set('source', 'huggingface');
+    if (online && discoveryCursors[catalogPage - 1]) params.set('cursor', discoveryCursors[catalogPage - 1]);
+    const data = await api(`/api/${online ? 'discovery' : 'catalog'}?${params}`);
     if (request !== catalogRequest) return;
     catalogLoaded = true;
     renderCatalogCounts(data.counts);
@@ -293,15 +294,14 @@ async function loadCatalog() {
     const pageSize = Number(data.page_size) || 20;
     catalogPage = Number(data.page) || catalogPage;
     const pages = Math.max(1, Math.ceil(total / pageSize));
-    const start = total ? (catalogPage - 1) * pageSize + 1 : 0;
-    const end = Math.min(catalogPage * pageSize, total);
-    $('catalog-results-label').textContent = `${number(start)}–${number(end)} of ${number(total)} matching ${$('catalog-kind').value === 'dataset' ? 'dataset sources' : 'model references'}`;
-    $('catalog-page').textContent = `Page ${catalogPage} of ${pages}`;
+    $('catalog-results-label').textContent = online ? data.notice : 'Local model and dataset references, including your saved imports.';
+    $('catalog-page').textContent = `Page ${catalogPage}`;
     $('catalog-previous').disabled = catalogPage <= 1;
-    $('catalog-next').disabled = catalogPage >= pages;
-    if (!total) $('catalog-results').append(element('p', 'catalog-empty', 'No matching sources. Try a broader search or another filter.'));
+    $('catalog-next').disabled = online ? !data.has_more : catalogPage >= pages;
+    if (online) discoveryCursors[catalogPage] = data.next_cursor || '';
+    if (!data.entries?.length) $('catalog-results').append(element('p', 'catalog-empty', 'No matching sources. Try a broader search or another filter.'));
     const generated = typeof data.generated_at === 'string' ? new Date(data.generated_at) : null;
-    $('catalog-generated').textContent = generated && !Number.isNaN(generated.valueOf()) ? `Snapshot: ${generated.toLocaleDateString()}` : 'Sourced metadata snapshot';
+    $('catalog-generated').textContent = online ? 'Live public source metadata' : generated && !Number.isNaN(generated.valueOf()) ? `Snapshot: ${generated.toLocaleDateString()}` : 'Sourced metadata snapshot';
   } catch (error) {
     if (request !== catalogRequest) return;
     $('catalog-error').textContent = error.message;
@@ -359,8 +359,13 @@ document.querySelector('.catalog-tabs').addEventListener('keydown', event => {
     target.click(); target.focus();
   }
 });
-$('catalog-filters').addEventListener('submit', event => {event.preventDefault(); catalogPage = 1; loadCatalog();});
-for (const id of ['catalog-kind', 'catalog-source']) $(id).addEventListener('change', () => {catalogPage = 1; loadCatalog();});
+$('catalog-filters').addEventListener('submit', event => {event.preventDefault(); catalogPage = 1; discoveryCursors = ['']; loadCatalog();});
+for (const id of ['catalog-kind', 'catalog-source', 'catalog-scope']) $(id).addEventListener('change', () => {
+  const online = $('catalog-scope').value === 'online';
+  $('catalog-source').options[0].disabled = online;
+  if (online && !$('catalog-source').value) $('catalog-source').value = 'huggingface';
+  catalogPage = 1; discoveryCursors = ['']; loadCatalog();
+});
 $('catalog-previous').addEventListener('click', () => {if (catalogPage > 1) {catalogPage -= 1; loadCatalog();}});
 $('catalog-next').addEventListener('click', () => {catalogPage += 1; loadCatalog();});
 $('delete-chat').addEventListener('click', async () => {

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "version": "0.10.0",
+  "version": "0.11.0",
   "files": [
     {
       "path": ".dockerignore",
@@ -28,8 +28,8 @@
     },
     {
       "path": ".github/workflows/tests.yml",
-      "size": 3984,
-      "sha256": "8f6b6f4685519283c0eb94f70e9cf6c929c397662c659943c88cc81a4cc8b714",
+      "size": 4685,
+      "sha256": "915dab322418cec30139755dee51c4c29a688368703b400beaa88fe6b87edcd5",
       "normalization": "lf"
     },
     {
@@ -46,8 +46,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "size": 7051,
-      "sha256": "e7fc9db234f8225bca23f82eb3585eca88098dccd2ca2bd5f443f7cb88b98848",
+      "size": 8079,
+      "sha256": "2bc72babe72ada0ff5e4c88764b28bdbe66bb83678ce494c5052b337f848036e",
       "normalization": "lf"
     },
     {
@@ -64,14 +64,26 @@
     },
     {
       "path": "README.md",
-      "size": 25618,
-      "sha256": "5a036a3d0c79cb00cc215cf075c5892ab81bb5905ab6c03d794003b1b3362619",
+      "size": 8218,
+      "sha256": "acd53b3dcd341b795afd7226ca2e97dd625062a89483f9651e6d3c998fbf5e53",
+      "normalization": "lf"
+    },
+    {
+      "path": "activate.ps1",
+      "size": 633,
+      "sha256": "f272d8af0ea655b25de3eb09909d88a1464eed9a8ecb8fbf29686a83c5aee305",
+      "normalization": "lf"
+    },
+    {
+      "path": "activate.sh",
+      "size": 644,
+      "sha256": "c9bdd46c3db81dfe6bf48e09ddeb5fbd05f05444741c498da44191598a077d24",
       "normalization": "lf"
     },
     {
       "path": "agent/__init__.py",
       "size": 105,
-      "sha256": "b2289d0bfa7e5c5350a997c8252970ce05ead5bf615b01b239c1e8ecc4503238",
+      "sha256": "df1f0d9e8a98fcb32ae49ea81aa8c644a48a8b9c15ec89a207f30d7df4a1092a",
       "normalization": "lf"
     },
     {
@@ -96,6 +108,12 @@
       "path": "agent/books.py",
       "size": 3771,
       "sha256": "a2d7fa7562a250b5903587bc088f966001ec398024a68e1a5dcb6a523211b016",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/branding.py",
+      "size": 425,
+      "sha256": "8b2bd7b643928860eb59b6609a91a6c229145e99711ef909e0d2690d1b4af430",
       "normalization": "lf"
     },
     {
@@ -124,14 +142,14 @@
     },
     {
       "path": "agent/cli.py",
-      "size": 8715,
-      "sha256": "1d50839d16fb5787a16b79a07c8018c26c1e80a26c179aaf415b0e79e36cf148",
+      "size": 8866,
+      "sha256": "cb358163a9fcb3eb8cafc7156e26642962d94bb89855c827fdbbf85c75f50b1b",
       "normalization": "lf"
     },
     {
       "path": "agent/commands.py",
-      "size": 3282,
-      "sha256": "dbd0f249c3261d1a1cac470ed5581e5cd23ba27502aa3caaad0f2748f28baa35",
+      "size": 3394,
+      "sha256": "869f3cf7603be84a2e1876b9ddb49cbe5e3d1d2a3c25644ebd8029f6a1ef9365",
       "normalization": "lf"
     },
     {
@@ -150,6 +168,12 @@
       "path": "agent/curriculum.py",
       "size": 8662,
       "sha256": "ed79afeb1f04a3d6d5cb5e1a3a0ad0455e93a8db102f1e6416a019d9b90e2e99",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/discovery.py",
+      "size": 14331,
+      "sha256": "0b23556e01291a298ed5ded7cee48dcf6ca771e941ae2f09c3f1921e31fced55",
       "normalization": "lf"
     },
     {
@@ -250,8 +274,8 @@
     },
     {
       "path": "agent/registry.py",
-      "size": 5163,
-      "sha256": "4c6571cb84a3b85da7b96fc62983561234e9596d0027eb430bb38d136f6172a1",
+      "size": 5608,
+      "sha256": "0184783f69b3f5d9af7be93c7141db54b480cb77299efeccac061c89eb3a65b7",
       "normalization": "lf"
     },
     {
@@ -280,8 +304,8 @@
     },
     {
       "path": "agent/server.py",
-      "size": 22814,
-      "sha256": "d563ad083c876237d5dd9867a9bc4a6d8d7a89ae917070ca86a52cb0dfef7c6f",
+      "size": 23653,
+      "sha256": "f2ad1119b2b45f6ad362e8dd55a428d2c1d4b195b28e0a2a45f0ac01538becc1",
       "normalization": "lf"
     },
     {
@@ -328,26 +352,26 @@
     },
     {
       "path": "agent/web/app.js",
-      "size": 53581,
-      "sha256": "cfd8732da909a72768cfd7a7a170bfd650f8c6e3d99662017cecc8cd781b3c76",
+      "size": 53864,
+      "sha256": "b7d681edd05a4f4f6db7ef028c68054d129c6a229bee7b5c1c018fc042ccc635",
       "normalization": "lf"
     },
     {
       "path": "agent/web/index.html",
-      "size": 15579,
-      "sha256": "5417395bf58bffb66b3f7d9d6321503c5f937c08231114461c98aef96031dca1",
+      "size": 16058,
+      "sha256": "e5250de4cc5414ba56c4d2ca81b867fa8b3ea5368f43368a815d36fbabd93771",
       "normalization": "lf"
     },
     {
       "path": "agent/web/style.css",
-      "size": 27178,
-      "sha256": "9eb13f2a510d524736938be23f10659e2004fd3493857ece5137b653963870f9",
+      "size": 29203,
+      "sha256": "ecee18677e09219361f548f6c6fcd1ed09b1bca8ab8931a5effc23f1e46c9c75",
       "normalization": "lf"
     },
     {
       "path": "agent/web/zenith-banner.png",
-      "size": 2607603,
-      "sha256": "3f9b89bcceda8cc368819f09e0e86b4054a8b60e74a66f41333dc72137e3a643",
+      "size": 637599,
+      "sha256": "48f637a72a0f431db0b124f050377106713937b0846f688f23d06151af735dda",
       "normalization": "raw"
     },
     {
@@ -358,8 +382,8 @@
     },
     {
       "path": "assets/zenith-banner.png",
-      "size": 2607603,
-      "sha256": "3f9b89bcceda8cc368819f09e0e86b4054a8b60e74a66f41333dc72137e3a643",
+      "size": 637599,
+      "sha256": "48f637a72a0f431db0b124f050377106713937b0846f688f23d06151af735dda",
       "normalization": "raw"
     },
     {
@@ -526,14 +550,20 @@
     },
     {
       "path": "docs/local-installation.md",
-      "size": 9352,
-      "sha256": "56b59b279e2a7996fe783c4133cbe1ed1f40f4ec44934e8f27d67e2fca8ab091",
+      "size": 10613,
+      "sha256": "f7dab6e656ef646d60982a8f30792fd5fc5fb3774a6ebea211ff419c7d81690c",
       "normalization": "lf"
     },
     {
       "path": "docs/memory.md",
       "size": 3330,
       "sha256": "b05b81353b6f1280638811c11f1a6a6987b8674cb89e508ebcf466a1fd4c0ea9",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/model-discovery.md",
+      "size": 6001,
+      "sha256": "a48f37ba238b3c3108cf426df08858f04bc1cccd0069fc7ed9182ae47093bcec",
       "normalization": "lf"
     },
     {
@@ -586,8 +616,8 @@
     },
     {
       "path": "docs/validation.md",
-      "size": 26225,
-      "sha256": "1e665fc015c1a9cc2b35507b126bcfc457cfa17579b3bd0b6261977f94957d9c",
+      "size": 29089,
+      "sha256": "480d54699ce4f6694bbeb1e8e0947fd59fcbe106d4824f9365c381a7d70bb47d",
       "normalization": "lf"
     },
     {
@@ -604,8 +634,8 @@
     },
     {
       "path": "install.py",
-      "size": 5009,
-      "sha256": "a9f79662979e106036614b576c37164ff6db385f802417f7ece298105b6a6d32",
+      "size": 6161,
+      "sha256": "e4dc7be5c7e5696a3d9dccbc22d6eea2a750c53883737b964305868c9a49de16",
       "normalization": "lf"
     },
     {
@@ -768,6 +798,12 @@
       "path": "tests/test_chat.py",
       "size": 5654,
       "sha256": "a216574818bb883a94c4428f04a73024ed12d7eb097e2cda185115e283492e1e",
+      "normalization": "lf"
+    },
+    {
+      "path": "tests/test_discovery.py",
+      "size": 11496,
+      "sha256": "3aebebf7b2ceb9d395a6fd9f725c498929de8c09154649618de355bf9275b12d",
       "normalization": "lf"
     },
     {

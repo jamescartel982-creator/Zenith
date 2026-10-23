@@ -72,9 +72,16 @@ class Catalog:
             raise ValueError('Unknown source or kind filter')
         if page < 1 or not 1 <= page_size <= 100 or len(q) > 200:
             raise ValueError('Invalid pagination or search length')
+        from .discovery import saved_models
+        entries = dict(self.lookup)
+        for entry in saved_models():
+            self._validate(entry, entry.get('source'), entry.get('kind'))
+            if entry.get('source') not in {'huggingface', 'github'} or entry.get('kind') != 'model':
+                raise ValueError('Invalid saved model source')
+            entries[(entry['source'], entry['kind'], entry['id'].casefold())] = entry
         words = q.casefold().split()
         rows = []
-        for entry in self.entries:
+        for entry in entries.values():
             if (kind and entry['kind'] != kind) or (source and entry['source'] != source):
                 continue
             haystack = ' '.join(str(entry.get(key, '')) for key in ('id', 'name', 'description', 'task', 'tags')).casefold()

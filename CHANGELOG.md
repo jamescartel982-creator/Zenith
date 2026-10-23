@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.11.0 — Model discovery, pixel identity, and explicit environments
+
+- Add public Hugging Face and GitHub discovery with pagination, published fine-tune lineage metadata, bounded requests, caching, offline handling, and explicit source failures.
+- Save selected model source metadata into the operator's local library and make it searchable in the catalog. Runtime configuration remains explicit; no repository code or weights are downloaded by discovery.
+- Add an original white pixel Zenith banner inspired by the supplied reference. Bundle it in browser welcome and persistent header branding; share a terminal wordmark between installation, chat, and owner login.
+- Rewrite the README around installation, workspace behavior, model discovery, privacy, and verification, without model-inventory marketing totals.
+- Provide PowerShell and Bash activation helpers. Require the installer's selected interpreter to be isolated before pip operations, and clarify successful dependency checks while retaining real failures.
+
+
 ## 0.10.0
 
 - Add built-in `/skill list`, `/skill ID`, `/skill status`, `/skill off`, and `/skills` commands in browser and terminal chat. Commands bypass inference and are excluded from chat/training history.

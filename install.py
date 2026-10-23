@@ -10,6 +10,7 @@ from pathlib import Path
 import subprocess
 import sys
 import venv
+from agent.branding import show_banner
 
 ROOT = Path(__file__).resolve().parent
 
@@ -19,7 +20,17 @@ def environment_python(directory):
 
 
 def run(command, environment=None):
-    subprocess.run([str(part) for part in command], cwd=ROOT, env=environment, check=True)
+    parts = [str(part) for part in command]
+    if parts[-3:] == ['-m', 'pip', 'check']:
+        result = subprocess.run(parts, cwd=ROOT, env=environment, capture_output=True,
+                                text=True, encoding='utf-8', errors='replace')
+        if result.returncode:
+            print(result.stdout, end='')
+            print(result.stderr, end='', file=sys.stderr)
+            result.check_returncode()
+        print('Dependencies verified. No package conflicts detected.', flush=True)
+    else:
+        subprocess.run(parts, cwd=ROOT, env=environment, check=True)
 
 
 def configured_provider(python):
@@ -44,6 +55,7 @@ def main(argv=None):
     args = parser.parse_args(argv)
     if sys.version_info < (3, 10):
         parser.error('Python 3.10+ is required; Python 3.12 is recommended')
+    show_banner()
     target = args.venv.expanduser().resolve()
     python = environment_python(target)
     creating_environment = False
@@ -53,6 +65,7 @@ def main(argv=None):
             print(f'Creating virtual environment: {target}', flush=True)
             venv.EnvBuilder(with_pip=True).create(target)
             creating_environment = False
+        run([python, '-I', '-c', 'import sys; sys.exit(0 if sys.prefix != sys.base_prefix else "Selected Python is not isolated. Choose a virtual-environment directory with --venv.")'])
         run([python, '-m', 'pip', 'install', '--upgrade', 'pip'])
         # Install the lightweight command first so the effective configuration
         # can be read correctly, including saved profiles and checkout .env.
@@ -85,7 +98,14 @@ def main(argv=None):
             print('On Debian/Ubuntu, install python3-venv. On Windows, install Python 3.12 from python.org or winget.', file=sys.stderr)
         return 1
     executable = target / ('Scripts/zenith.exe' if os.name == 'nt' else 'bin/zenith')
-    print('\nZenith installed. No environment activation is required.')
+    print('\nZenith installed in an isolated Python environment.')
+    if os.name == 'nt':
+        activation = str(target / 'Scripts' / 'Activate.ps1').replace("'", "''")
+        print("Activate in PowerShell: . '" + activation + "'")
+    else:
+        import shlex
+        print('Activate in your shell: source ' + shlex.quote(str(target / 'bin' / 'activate')))
+    print('Activate before using bare zenith, python, or pip. Checkout run scripts select this environment automatically.')
     prefix = '& ' if os.name == 'nt' else ''
     print(f'Chat:    {prefix}"{executable}" chat')
     print(f'Browser: {prefix}"{executable}" serve')

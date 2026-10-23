@@ -3,6 +3,7 @@ import argparse
 import getpass
 import sys
 from uuid import uuid4
+from .branding import show_banner
 from .core import Agent
 from .config import Settings
 from .skills import get_skill
@@ -64,6 +65,8 @@ class TerminalSession:
                 self.user, self.token = user, token
                 self.session = str(uuid4())
                 self.last_skill = 'general'
+                show_banner()
+                print('Welcome back, ' + user['display_name'] + '.')
                 print('Owner unlocked for 15 minutes. New private conversation started. Use /skill list, then /skill ID.')
             elif text.casefold() == '/admin lock':
                 self.close()
@@ -112,6 +115,7 @@ def main():
     history = agent.store.history(session, limit=1)
     if history:
         last_id = history[-1]['id']
+    show_banner()
     print(f'Zenith | {agent.settings.model_name}\nSession: {session}')
     print('/good /bad: rate | /approve: approve last answer for training')
     print('/correct: write & approve a better answer | /new: new chat | /quit')

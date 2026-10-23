@@ -165,3 +165,13 @@ dialog#skills-dialog{width:min(1000px,calc(100% - 28px))}.skills-filters{display
 .skill-card:only-child{grid-column:1/-1}
 
 #skill-command-status{font-size:10px;color:#c3b0d0;margin:0 0 8px;line-height:1.6}.skill-command-hint{font-family:monospace;color:#ddc0f4!important}
+/* Pixel identity: bundled assets work offline on every visit and sign-in. */
+:root{background:#050608;color:#f1f2f6;--zenith-accent:#b6c9ff}
+aside{background:#080a0f;border-color:#242b3b}.brand{color:#fff}.brand img{object-fit:contain;background:#000;border-radius:0}.brand span{color:#fff}.brand small,.eyebrow,.button-count{color:#a5b3ce}
+header{border-color:#242b3b;gap:16px}.header-logo{object-fit:contain;background:#000;flex-shrink:0}header>div:first-of-type{flex:1}h1,h2{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;color:#fff;letter-spacing:-1px}
+button{background:#121722;border-color:#35415b;color:#e9eefc}.primary{background:#edf1ff;color:#101628}.primary:hover{background:#c8d6ff}button:hover{background:#202b40}.badge{color:#c5d5fc;border-color:#394a70}
+.model-card,.input-wrap,dialog,#catalog-dialog{background:#0d111a;border-color:#35415b}.model-card p,.model-card #status,#team-details summary,.catalog-note{color:#acbad5!important}.message.user .content{background:#101724;border-color:#283958}.message .who{color:#b6c9ff}.message .content a{color:#c2d3ff}
+.welcome-banner{width:min(640px,100%);max-height:300px;object-fit:contain;background:#000;border:1px solid #27324b;border-radius:2px;box-shadow:none}#welcome h2{font-size:clamp(22px,4vw,33px)}#welcome p{color:#aab7d1}
+.catalog-filters{grid-template-columns:repeat(3,minmax(0,1fr));align-items:end}.catalog-filters .catalog-search{grid-column:span 2}input,select{background:#0a0f19;color:#eef3ff;border-color:#35415b}.code-block{background:#06090f;border-color:#2c3c59}.code-toolbar{background:#151e2e}.input-wrap:focus-within{border-color:#a9c0f8}
+@media(max-width:700px){.header-logo{width:72px;height:44px}header{gap:8px}.catalog-filters{grid-template-columns:1fr 1fr}.catalog-filters .catalog-search{grid-column:1/-1}.welcome-banner{max-height:210px}h1{font-size:17px}}
+@media(max-width:420px){.header-logo{width:48px}header{padding-left:4%;padding-right:4%}.header-actions{gap:3px}.header-actions button{padding:6px;font-size:7px}}
