@@ -14,37 +14,41 @@ license: apache-2.0
 
 A local AI workspace for conversations, coding, research, and reviewed learning. Zenith brings open model runtimes, private memory, streamed responses, and evaluation tools into a single application for Windows and Linux.
 
-**Release 0.11.0** · [Changelog](CHANGELOG.md) · [Installation](docs/local-installation.md) · [Model discovery](docs/model-discovery.md) · [Validation](docs/validation.md)
+**Release 0.11.1** · [Changelog](CHANGELOG.md) · [Installation](docs/local-installation.md) · [Model discovery](docs/model-discovery.md) · [Validation](docs/validation.md)
 
 ## Install
 
-Use a system terminal such as **PowerShell** or **Bash**, rather than the Python `>>>` prompt. Install Python 3.10 or newer; Python 3.12 is recommended. Initial installation and model downloads require internet access. Local inference requires sufficient RAM, disk space, and, for larger models, a suitable GPU.
+Install [Python 3.12](https://www.python.org/downloads/) first. On Windows, enable **Add Python to PATH**. Initial setup needs internet access and enough space for Python packages and the local model. The small default model typically needs about 4–6 GB of available RAM.
 
-### Windows PowerShell
+### Windows: download, extract, double-click
 
-```powershell
-git clone https://github.com/jamescartel982-creator/Zenith.git
-cd Zenith
-powershell -NoProfile -ExecutionPolicy Bypass -File .\install.ps1 --mode local
-# Permit activation in this PowerShell process only.
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-. .\activate.ps1
-zenith serve
-```
+1. [Download Zenith](https://github.com/jamescartel982-creator/Zenith/archive/refs/heads/main.zip) and **extract the ZIP**.
+2. Open the extracted Zenith folder and double-click **Install Zenith.cmd**.
+3. Wait for setup and the model download. Zenith opens in your browser when ready.
 
-### Linux Bash
+Next time, double-click **Start Zenith.cmd**. Keep its terminal window open while using Zenith; press **Ctrl+C** to stop. No Git, manual environment activation, or permanent PowerShell policy change is needed. Keep the extracted files together.
+
+If you already cloned the repository, run `& ".\Install Zenith.cmd"` in PowerShell from the Zenith folder, or double-click it in File Explorer.
+
+### Linux: install and open
+
+Extract the [source ZIP](https://github.com/jamescartel982-creator/Zenith/archive/refs/heads/main.zip), open a terminal in the extracted folder, and run:
 
 ```bash
-git clone https://github.com/jamescartel982-creator/Zenith.git
-cd Zenith
-bash install.sh --mode local
-source ./activate.sh
-zenith serve
+bash install.sh --launch
 ```
 
-On Debian/Ubuntu, install `python3-venv` if environment creation fails. Open **http://127.0.0.1:7860** for browser chat, or run `zenith chat` for terminal chat. The welcome artwork is bundled for offline use; terminal sessions show a matching text wordmark.
+Next time:
 
-The installer requires an isolated virtual environment, verifies dependencies and installed package files, and runs diagnostics. Activate the environment in each new terminal before using bare `zenith`, `python`, or `pip`; `deactivate` exits it. The checkout launchers also select `.venv` directly: `./run.sh serve` on Linux or `powershell -NoProfile -ExecutionPolicy Bypass -File .\run.ps1 serve` on Windows. No paid AI API key is required.
+```bash
+bash start.sh
+```
+
+On Debian/Ubuntu, install `python3-venv` if it is missing. If a browser cannot open automatically, visit **http://127.0.0.1:7860**. Keep the terminal open and use **Ctrl+C** to stop Zenith. You can also clone with Git instead of downloading the ZIP.
+
+The installer creates and verifies an isolated `.venv`, preserves existing settings, downloads the configured Hugging Face model before launching, and selects the environment automatically. The first setup may take several minutes depending on your connection. No paid AI API key is required. Existing Ollama or local-server configurations are preserved and require their separate runtime to be running.
+
+For terminal chat, use `./run.sh chat` on Linux or `powershell -NoProfile -ExecutionPolicy Bypass -File .\run.ps1 chat` on Windows. Manual activation is available for advanced `zenith`, `python`, and `pip` commands; see [installation details](docs/local-installation.md).
 
 ### Runtime choices
 
@@ -97,7 +101,7 @@ zenith doctor --inference
 
 `doctor --inference` tests a real response and may download the configured checkpoint. `verify` checks the installed wheel; `verify --source .` checks the source release inventory. Pip’s **“No broken requirements found” means its dependency check passed**. The installer presents that result as **“Dependencies verified. No package conflicts detected.”**
 
-To upgrade, stop Zenith, run `git pull --ff-only`, and rerun your platform installer. Reactivate the environment, then restart the application. Existing configuration and conversations are preserved. Without Git, use the [source ZIP](https://github.com/jamescartel982-creator/Zenith/archive/refs/heads/main.zip) and preserve any legacy checkout `data/` directory. See [upgrade instructions](docs/local-installation.md).
+To upgrade, stop Zenith, run `git pull --ff-only` if you use Git, then rerun **Install Zenith.cmd** on Windows or `bash install.sh --launch` on Linux. Existing configuration and conversations are preserved. Without Git, use the [source ZIP](https://github.com/jamescartel982-creator/Zenith/archive/refs/heads/main.zip) and preserve any legacy checkout `data/` directory. See [upgrade instructions](docs/local-installation.md).
 
 ## Privacy and administration
 

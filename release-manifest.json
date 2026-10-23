@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "version": "0.11.0",
+  "version": "0.11.1",
   "files": [
     {
       "path": ".dockerignore",
@@ -16,8 +16,8 @@
     },
     {
       "path": ".gitattributes",
-      "size": 115,
-      "sha256": "6f0e675dab3811360942046bf664b4d3d1ca477125acc31f6ced8e8332b82f9d",
+      "size": 135,
+      "sha256": "a16a7b9ba2157fcf575eb8fafc476c3fa68125b1293c3f25de3ec047625d22d4",
       "normalization": "lf"
     },
     {
@@ -28,8 +28,8 @@
     },
     {
       "path": ".github/workflows/tests.yml",
-      "size": 4685,
-      "sha256": "915dab322418cec30139755dee51c4c29a688368703b400beaa88fe6b87edcd5",
+      "size": 4863,
+      "sha256": "56d8db056fe4580e59f2fb0c45783781acd6714aeffee02ac216ddd726c64d4e",
       "normalization": "lf"
     },
     {
@@ -46,14 +46,20 @@
     },
     {
       "path": "CHANGELOG.md",
-      "size": 8079,
-      "sha256": "2bc72babe72ada0ff5e4c88764b28bdbe66bb83678ce494c5052b337f848036e",
+      "size": 8723,
+      "sha256": "e97f3d0aa8978299baff577022491d842030036a97beb9eedb96eed5ab102c00",
       "normalization": "lf"
     },
     {
       "path": "Dockerfile",
       "size": 1973,
       "sha256": "bef48c8adecc28b7a6c56f8a772151547bdf09652bb4c8ca2fcf890cb704707c",
+      "normalization": "lf"
+    },
+    {
+      "path": "Install Zenith.cmd",
+      "size": 335,
+      "sha256": "95acd362bd2fb365de74ee171eafa1760043c829cb51653766ea0c783f5eb43e",
       "normalization": "lf"
     },
     {
@@ -64,8 +70,14 @@
     },
     {
       "path": "README.md",
-      "size": 8218,
-      "sha256": "acd53b3dcd341b795afd7226ca2e97dd625062a89483f9651e6d3c998fbf5e53",
+      "size": 8895,
+      "sha256": "68a8a8c20a4edb31ba7239c191b56c8f9856eb126ac4307cd4a9929fd2c0d708",
+      "normalization": "lf"
+    },
+    {
+      "path": "Start Zenith.cmd",
+      "size": 471,
+      "sha256": "7e92e89955fcba401f826c441ee90b6acbfdc55f82501fdf854e7841c4618417",
       "normalization": "lf"
     },
     {
@@ -83,7 +95,7 @@
     {
       "path": "agent/__init__.py",
       "size": 105,
-      "sha256": "df1f0d9e8a98fcb32ae49ea81aa8c644a48a8b9c15ec89a207f30d7df4a1092a",
+      "sha256": "f893a471fc899ee52bd88c0cfa05af011019e366ad0dd865b0bc6ae273175e23",
       "normalization": "lf"
     },
     {
@@ -114,6 +126,12 @@
       "path": "agent/branding.py",
       "size": 425,
       "sha256": "8b2bd7b643928860eb59b6609a91a6c229145e99711ef909e0d2690d1b4af430",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/browser.py",
+      "size": 691,
+      "sha256": "33fbffa97738ef850c47eecc7eb4edb6135cecc9332157ebef4fb376ef9cf988",
       "normalization": "lf"
     },
     {
@@ -304,8 +322,8 @@
     },
     {
       "path": "agent/server.py",
-      "size": 23653,
-      "sha256": "f2ad1119b2b45f6ad362e8dd55a428d2c1d4b195b28e0a2a45f0ac01538becc1",
+      "size": 24619,
+      "sha256": "477f0e9376002d4fbf434d6db06ee39fe03bf3de3d123231f2b5dccad19e0120",
       "normalization": "lf"
     },
     {
@@ -550,8 +568,8 @@
     },
     {
       "path": "docs/local-installation.md",
-      "size": 10613,
-      "sha256": "f7dab6e656ef646d60982a8f30792fd5fc5fb3774a6ebea211ff419c7d81690c",
+      "size": 12402,
+      "sha256": "5585a81ce0b15effc0a59d46642713372ec96ed15a90d8cb586387b57f1b335f",
       "normalization": "lf"
     },
     {
@@ -616,8 +634,8 @@
     },
     {
       "path": "docs/validation.md",
-      "size": 29089,
-      "sha256": "480d54699ce4f6694bbeb1e8e0947fd59fcbe106d4824f9365c381a7d70bb47d",
+      "size": 30396,
+      "sha256": "e03b51dca89c5473ed5e025dc6344a6c9d9711321d80af9c73a9ac8cb9d0c5e6",
       "normalization": "lf"
     },
     {
@@ -628,14 +646,14 @@
     },
     {
       "path": "install.ps1",
-      "size": 620,
-      "sha256": "e09708b73dc353234ef365d3c2fad42ce5b42f850952c1247abfa4787584cc8d",
+      "size": 643,
+      "sha256": "1a4e4c163cfc5e31319079ca22b2c309dfe1030894624dcace2e27e6db9a2d83",
       "normalization": "lf"
     },
     {
       "path": "install.py",
-      "size": 6161,
-      "sha256": "e4dc7be5c7e5696a3d9dccbc22d6eea2a750c53883737b964305868c9a49de16",
+      "size": 6823,
+      "sha256": "1af0e770196eeff424bef92f506c7d0df0f8e7c9c34187d678688ead82e757d5",
       "normalization": "lf"
     },
     {
@@ -759,6 +777,12 @@
       "normalization": "lf"
     },
     {
+      "path": "scripts/smoke_easy_launch.py",
+      "size": 2785,
+      "sha256": "7f41ff6b10c7b379128662a370728c5dd6a612a112e6158a3545822589e3d81d",
+      "normalization": "lf"
+    },
+    {
       "path": "scripts/smoke_installed.py",
       "size": 2971,
       "sha256": "0172e413fba00ef326c734473b57a852eeea5546ac6fa1ca821bee39c05a38d9",
@@ -795,6 +819,12 @@
       "normalization": "raw"
     },
     {
+      "path": "start.sh",
+      "size": 201,
+      "sha256": "4ae98ac9ecb6717ba6e7051dd1cc16632ee7e21f1609756617a894e4587db942",
+      "normalization": "lf"
+    },
+    {
       "path": "tests/test_chat.py",
       "size": 5654,
       "sha256": "a216574818bb883a94c4428f04a73024ed12d7eb097e2cda185115e283492e1e",
@@ -804,6 +834,12 @@
       "path": "tests/test_discovery.py",
       "size": 11496,
       "sha256": "3aebebf7b2ceb9d395a6fd9f725c498929de8c09154649618de355bf9275b12d",
+      "normalization": "lf"
+    },
+    {
+      "path": "tests/test_easy_install.py",
+      "size": 6343,
+      "sha256": "80146fa1ba894ed93ff33be888f3bb9d73662d824ca4186bc1cff36ebe151038",
       "normalization": "lf"
     },
     {

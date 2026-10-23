@@ -90,6 +90,7 @@ jobs:
           ./run.sh doctor --inference
           .venv/bin/python -m unittest discover -s tests -v
           .venv/bin/python scripts/smoke_server.py
+          .venv/bin/python scripts/smoke_easy_launch.py
           .venv/bin/python scripts/smoke_installed.py
       - name: Windows PowerShell 5.1 environment activation
         if: runner.os == 'Windows'
@@ -120,6 +121,8 @@ jobs:
           .venv/Scripts/python.exe -m unittest discover -s tests -v
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           .venv/Scripts/python.exe scripts/smoke_server.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          .venv/Scripts/python.exe scripts/smoke_easy_launch.py
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           .venv/Scripts/python.exe scripts/smoke_installed.py
           exit $LASTEXITCODE

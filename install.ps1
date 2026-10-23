@@ -8,7 +8,7 @@ if ($env:ZENITH_PYTHON) {
 } elseif (Get-Command python -ErrorAction SilentlyContinue) {
     & python (Join-Path $ZenithRoot 'install.py') @args
 } else {
-    Write-Error 'Python 3.10+ is required. Install Python 3.12 from python.org or winget, reopen your terminal, then rerun this script.'
+    Write-Error 'Python 3.10+ is required. Install Python 3.12 from https://www.python.org/downloads/ (enable Add Python to PATH), then reopen this installer.'
     exit 1
 }
 exit $LASTEXITCODE

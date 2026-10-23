@@ -2,6 +2,16 @@
 
 The Windows and Linux installers share `install.py`, a standard-library bootstrap. Thin shell wrappers choose Python and forward your arguments. They install Zenith as a normal wheel into `.venv`; runtime commands can then work outside the checkout. No virtual-environment activation is required when using `run.ps1`, `run.sh`, or the absolute installed executable path.
 
+## Quick setup
+
+Windows users can download/extract the [source ZIP](https://github.com/jamescartel982-creator/Zenith/archive/refs/heads/main.zip), then double-click **Install Zenith.cmd**. Python 3.12 should already be installed with **Add Python to PATH** enabled. Setup installs the configured runtime, verifies dependencies and package files, downloads configured Hugging Face weights, and opens the local browser workspace. Run **Start Zenith.cmd** on later visits. Git and environment activation are optional for this flow; ZIP contents must be extracted and kept together.
+
+Linux users run `bash install.sh --launch` from the extracted or cloned folder. Run `bash start.sh` on later visits. Both launchers select the private virtual environment automatically. Keep the terminal open while using Zenith; Ctrl+C stops the server. Headless systems can open the printed localhost URL manually or forward the port as appropriate for their environment.
+
+The terminal equivalent on Windows is `powershell -NoProfile -ExecutionPolicy Bypass -File .\install.ps1 --launch`. The policy argument applies only to that process. `--launch` can be combined with normal installer mode/runtime options; a custom `--venv` is used for immediate launch, while the checkout start scripts always use `.venv`. On a custom environment, use the absolute browser command printed by setup on later visits.
+
+`zenith serve --open-browser` opens the browser only after its own server starts. A failed startup does not open an unrelated service already occupying the port. If no browser is available, the URL remains in the terminal. CLI scripts and CI can set `ZENITH_NO_PAUSE=1` to prevent Windows launchers from pausing on errors. There is no automatic login, password generation, or external AI API-key setup.
+
 ## Requirements
 
 - Python 3.10+; Python 3.12 is recommended. Python 3.10 and 3.12 are covered by platform CI.

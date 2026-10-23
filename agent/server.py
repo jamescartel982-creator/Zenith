@@ -468,8 +468,11 @@ def main():
     parser = argparse.ArgumentParser(description='Run Zenith browser chat')
     parser.add_argument('--host', default='127.0.0.1')
     parser.add_argument('--port', type=int, default=7860)
+    parser.add_argument('--open-browser', action='store_true', help='Open local chat in your default browser when the server is ready')
     parser.add_argument('--warmup',action='store_true',help='Load and warm the first configured model before accepting requests')
     args = parser.parse_args()
+    if args.open_browser and not 1 <= args.port <= 65535:
+        parser.error('--open-browser needs a port between 1 and 65535')
     settings = Settings()
     if args.host not in {'127.0.0.1', 'localhost', '::1'} and len(settings.api_token) < 32:
         parser.error('Set ZENITH_API_TOKEN to at least 32 characters before binding a public interface')
@@ -483,7 +486,26 @@ def main():
         with provider_limits(provider,16):provider.generate([{'role':'system','content':'You are Zenith.'},{'role':'user','content':'Say hello briefly.'}])
         print('Model warmed. Starting the local server.',flush=True)
     import uvicorn
-    uvicorn.run(app, host=args.host, port=args.port, workers=1)
+    if not args.open_browser:
+        uvicorn.run(app, host=args.host, port=args.port, workers=1)
+        return
+    from threading import Event, Thread
+    from .browser import open_when_ready
+    server = uvicorn.Server(uvicorn.Config(app, host=args.host, port=args.port, workers=1))
+    stopped = Event()
+    browser_host = '[::1]' if args.host == '::1' else '127.0.0.1'
+    url = f'http://{browser_host}:{args.port}'
+    print('Zenith: ' + url + ' · keep this terminal open; Ctrl+C stops the server.', flush=True)
+    opener = Thread(target=open_when_ready, args=(server, url, stopped), daemon=True)
+    opener.start()
+    try:
+        server.run()
+    except KeyboardInterrupt:
+        pass
+    finally:
+        stopped.set()
+        opener.join(timeout=1)
+
 
 
 if __name__ == '__main__':
