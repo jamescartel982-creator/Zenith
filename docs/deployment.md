@@ -79,6 +79,7 @@ The browser stores the shared token/conversation ID in tab session storage and a
 - **429:** wait for generation/cleanup, then retry. Failed text remains in the composer.
 - **Context error:** shorten the message or increase `CONTEXT_TOKENS` within hardware/model limits; oldest complete turns are trimmed first.
 - **Truncated answer:** select Full, continue explicitly, or adjust the operator output limit.
+- **Interrupted stream:** check the local runtime's logs and retry. EOF without a completion marker fails the turn and saves no partial answer; see [provider reliability](provider-reliability.md).
 - **Integrity failure:** inspect the listed files and reinstall/re-extract the intended version. Do not regenerate checksums to hide an unknown change.
 - **Training skips every row:** inspect length/format limits and use independent approved examples.
 - **Tiny nonsense:** a random or barely trained scratch transformer is not a capable pretrained assistant.

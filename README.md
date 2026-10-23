@@ -16,7 +16,7 @@ license: apache-2.0
 
 The original starter ZIP is preserved. Its Python project is now unpacked, extended, and runnable from this repository's root.
 
-**Current release: 0.8.0.** This update adds complete source-file checksums, installed-wheel verification, a properly installed Docker command, persistent container owner-code storage, and diagnostics that respect Fast mode. See the [changelog](CHANGELOG.md) and [file-integrity guide](docs/integrity.md).
+**Current release: 0.8.1.** Local-server and Ollama streams now require explicit completion before saving an answer. Bounded HTTP framing handles split Unicode, SSE events, invalid responses, and interrupted connections. File verification, Windows/Linux installers, Docker persistence, and Fast-mode budgets remain supported. See the [changelog](CHANGELOG.md), [provider engineering guide](docs/provider-reliability.md), and [file-integrity guide](docs/integrity.md).
 
 ## Upgrade an existing installation
 
@@ -297,6 +297,7 @@ The installed training/export utilities use the same configured data directory a
 | [Quality and training](docs/quality-and-training.md) | Versioned data, isolated tests, calibration, human review |
 | [Training roadmap](docs/training-roadmap.md) | Bounded experiments and a two-week plan |
 | [Deployment](docs/deployment.md) | Docker, persistent storage, hosting, API access |
+| [Provider reliability](docs/provider-reliability.md) | Completion checks, bounded HTTP streams, failure recovery |
 | [Integrity](docs/integrity.md) | Complete source and installed-package checks |
 | [Validation](docs/validation.md) | Actual checks and measured limitations |
 | [Changelog](CHANGELOG.md) | Release changes |

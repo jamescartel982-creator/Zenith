@@ -257,7 +257,7 @@ class StreamingTests(unittest.TestCase):
         from threading import Event
         from agent.providers import LocalServerProvider
         response=Mock();response.__enter__=Mock(return_value=response);response.__exit__=Mock(return_value=False);response.is_redirect=False
-        response.iter_lines.return_value=[b'data: {"choices":[{"delta":{"content":"Hello"}}]}',b'data: [DONE]']
+        response.iter_content.return_value=[b'data: {"choices":[{"delta":{"content":"Hello"}}]}\n\n',b'data: [DONE]\n\n']
         with patch('agent.providers.requests.post',return_value=response) as post:
             rows=list(LocalServerProvider(Settings(provider='localserver')).stream([{'role':'user','content':'Hi'}],Event()))
         self.assertEqual(rows[0][0],'Hello');self.assertNotIn('headers',post.call_args.kwargs)

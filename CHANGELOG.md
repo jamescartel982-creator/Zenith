@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.8.1
+
+- Require explicit Ollama/local-server stream completion before an answer is persisted. Interrupted or malformed replies emit an error and retain no partial training/history turn.
+- Extract bounded HTTP framing into a separate module with strict UTF-8/JSON handling, NDJSON, multiline SSE, CR/LF/CRLF boundaries, comments, and frame/stream byte limits.
+- Read arriving bytes without waiting for a larger line buffer to fill. Verify first-text delivery with a real HTTP server that waits for the client before sending the remainder.
+- Close HTTP responses on success, failure, cancellation, and early termination; block Ollama redirects as well as local-server redirects.
+- Validate text and completion metadata, retain provider token counts only after successful completion, and reject unsupported tool-call finishes.
+- Add protocol and real HTTP regression tests for partial-turn rejection, model-lock recovery, cancellation, Unicode, malformed payloads, and bounded parsing. Refresh the README and release inventory.
+- Run branch validation on pull requests and post-merge validation on main, avoiding duplicate push/PR jobs for the same feature branch.
+
+This is an application reliability update. It changes no model weights or training and makes no general inference-speed or intelligence claim. Optional calibration artifacts must match the new release signature.
+
 ## 0.8.0
 
 - Add a complete tracked-source SHA-256 manifest and `zenith verify --source PATH`, usable on extracted ZIPs without Git. Text checks normalize Windows/Linux line endings; binary checks are exact.
