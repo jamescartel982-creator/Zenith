@@ -1,0 +1,19 @@
+{
+  "cases": 5,
+  "before_total_p50_ms": 13173.587198994937,
+  "after_total_p50_ms": 6990.184438000142,
+  "before_first_text_p50_ms": 1085.08,
+  "after_first_text_p50_ms": 1360.83,
+  "prompt_tokens_before": 940,
+  "prompt_tokens_after": 555,
+  "reply_text_tokens_before": 572,
+  "reply_text_tokens_after": 120,
+  "total_latency_change_fraction": -0.46937881592847774,
+  "limitations": [
+    "Five public diagnostic questions, single warm CPU run, output policies intentionally differ.",
+    "Visible response text is retokenized for a comparable token measure; provider raw counts may include EOS.",
+    "First-text median did not improve, and the rainbow case was slower.",
+    "Some scientific explanations remain wrong; speed and shortness do not establish correctness.",
+    "No ChatGPT/Claude benchmark or speed parity claim."
+  ]
+}

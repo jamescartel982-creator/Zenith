@@ -12,7 +12,7 @@ license: apache-2.0
 
 # Zenith
 
-**A local AI workspace with streamed replies, fast/thorough response modes, private memories, returning-user greetings, and an owner-controlled security workspace. Browse 1,000 model sources and 200 datasets, collect reviewed examples, and train a measured candidate adapter.** Zenith also includes an original small transformer you can train from random weights.
+**A local AI workspace with streamed replies, shorter adaptive reply budgets, a five-component System view, private memories, returning-user greetings, and an owner-controlled security workspace. Browse 1,000 model sources and 200 datasets, collect reviewed examples, and train a measured candidate adapter.** Zenith also includes an original small transformer you can train from random weights.
 
 The original starter ZIP is preserved. Its Python project is now unpacked, extended, and runnable from this repository's root.
 
@@ -151,6 +151,12 @@ python -m scripts.catalog --kind dataset --source github
 ```
 
 ## Fast responses, quality checks, and owner controls
+
+Open **System** to inspect Zenith's model, harness, context/memory, infrastructure/data pipeline, and governance/monitoring. Private account metrics show reported tokens and model-generated latency separately from instant built-in checks; the elevated owner can inspect server totals. A bounded GitHub diagnostic workflow checks relevant PRs, `main` updates, and a weekly schedule for regressions.
+
+**Length: Auto** keeps simple fast answers concise with a 96-token maximum, recent context, and shorter instructions. Code/detailed work keeps the full configured budget; **Full** also restores longer history context. The browser can stop generation and continue a capped reply; terminal replies now stream as well. `zenith serve --warmup` moves the first model-load wait to startup. See [the five components, token budgets, monitoring, and limits](docs/system.md).
+
+In a five-question CPU development comparison, prompt tokens fell 41%, reply-text tokens 79%, and median complete replies 47% (13.17 → 6.99 seconds). First-text time did not improve, one request became slower, and factual errors remain. [Raw reports and interpretation](docs/benchmarks/v0.7/) are included; no ChatGPT/Claude speed parity is claimed.
 
 Browser replies stream as they are generated. Choose **Fast** for one routed contributor or **Thorough** for full configured team deliberation. Twelve selectable instruction profiles cover mathematics, science, history, ancient math, programming, investing, day trading, cybersecurity, writing, research, and data analysis. Profiles guide the model; they do not establish expert qualifications. Bounded arithmetic uses an exact calculator. Unavailable live data and some unsupported claims trigger explicit abstention; ordinary model answers remain labeled uncalibrated.
 

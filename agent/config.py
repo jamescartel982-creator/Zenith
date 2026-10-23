@@ -27,6 +27,9 @@ class Settings:
     local_server_model: str = field(default_factory=lambda: os.getenv('ZENITH_LOCAL_SERVER_MODEL', 'zenith'))
     display_name: str = field(default_factory=lambda: os.getenv('ZENITH_MODEL_LABEL', 'Zenith'))
     response_mode: str = field(default_factory=lambda: os.getenv('ZENITH_RESPONSE_MODE', 'fast'))
+    reply_style: str = field(default_factory=lambda: os.getenv('ZENITH_REPLY_STYLE', 'auto'))
+    fast_max_new_tokens: int = field(default_factory=lambda: int(os.getenv('ZENITH_FAST_MAX_NEW_TOKENS', '96')))
+    fast_history_turns: int = field(default_factory=lambda: int(os.getenv('ZENITH_FAST_HISTORY_TURNS', '4')))
     calibration_file: str = field(default_factory=lambda: os.getenv('ZENITH_CALIBRATION_FILE', ''))
     abstain_threshold: float = field(default_factory=lambda: float(os.getenv('ZENITH_ABSTAIN_THRESHOLD', '0.6')))
     tiny_checkpoint: str = field(default_factory=lambda: os.getenv("ZENITH_TINY_CHECKPOINT", str(zenith_home() / "artifacts" / "tiny" / "model.pt")))
@@ -39,6 +42,10 @@ class Settings:
     def __post_init__(self):
         if self.response_mode not in {'fast', 'thorough'}:
             raise ValueError('ZENITH_RESPONSE_MODE must be fast or thorough')
+        if self.reply_style not in {'auto','brief','full'}:
+            raise ValueError('ZENITH_REPLY_STYLE must be auto, brief, or full')
+        if not 16 <= self.fast_max_new_tokens <= 4096 or not 1 <= self.fast_history_turns <= 12:
+            raise ValueError('Use 16–4096 fast output tokens and 1–12 fast history turns')
         if not 0 <= self.abstain_threshold <= 1:
             raise ValueError('ZENITH_ABSTAIN_THRESHOLD must be between zero and one')
         if not 1 <= self.cpu_threads <= 64:

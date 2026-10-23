@@ -228,6 +228,8 @@ class EnsembleProvider:
                 from .providers import make_provider
                 self.providers[key] = make_provider(configuration)
         self.providers.move_to_end(key)
+        provider=self.providers[key]
+        if hasattr(provider,'settings'):provider.settings=configuration
         return self.providers[key]
 
     @staticmethod
@@ -283,6 +285,8 @@ class EnsembleProvider:
             # by reusing the same list after returning from generation.
             used = self._copy_messages(used)
             record["status"] = "ok"
+            from .efficiency import reported_usage
+            record['usage']=reported_usage(getattr(self.providers.get(self._provider_key(self._settings_for(member))),'last_usage',None))
             result = {"text": response.strip(), "used_messages": used, "member": member}
         except Exception:
             # Error strings may include configured endpoints or credentials.
@@ -296,6 +300,7 @@ class EnsembleProvider:
         """Return the first successful routed draft, without review/synthesis calls."""
         if not messages or messages[-1].get('role')!='user':
             raise ValueError('Ensemble input must end with a user message')
+        self.last_usage=None
         selected, reason = self.route(messages[-1]['content'])
         deadline = self.clock()+self.timeout
         traces=[]
@@ -309,12 +314,15 @@ class EnsembleProvider:
             result, trace = self._call(member,self._draft_messages(messages,member),'draft',deadline)
             traces.append(trace)
             if result:
+                from .efficiency import combine_usage
+                self.last_usage=combine_usage(traces)
                 self.last_deliberation.update(answer_member=member.id,answer_stage='direct',degraded=any(t['status']!='ok' for t in traces))
                 return result['text'],result['used_messages']
         self.last_deliberation['degraded']=True
         raise RuntimeError('No routed model could answer in fast mode')
 
     def stream_fast(self,messages,cancel):
+        self.last_usage=None
         selected,reason=self.route(messages[-1]['content']);deadline=self.clock()+self.timeout;traces=[]
         self.last_deliberation={'mode':'ensemble','response_mode':'fast','members':traces,
             'synthesizer':{**self.synthesizer.public(),'status':'skipped','reason':'fast_mode'},'rounds':1,
@@ -338,7 +346,10 @@ class EnsembleProvider:
                     if not isinstance(text,str) or not text.strip():raise RuntimeError('Empty model response')
                     emitted=True;yield text,used
                 if emitted:
+                    from .efficiency import reported_usage,combine_usage
+                    record['usage']=reported_usage(getattr(provider,'last_usage',None))
                     record.update(status='ok',latency_ms=round((self.clock()-started)*1000))
+                    self.last_usage=combine_usage(traces)
                     self.last_deliberation.update(answer_member=member.id,answer_stage='direct',degraded=any(t['status']!='ok' for t in traces))
                     return
             except Exception:
@@ -348,6 +359,7 @@ class EnsembleProvider:
         raise RuntimeError('No routed model could stream an answer')
 
     def generate(self, messages):
+        self.last_usage=None
         if not messages or messages[-1].get("role") != "user":
             raise ValueError("Ensemble input must end with a user message")
         selected, reason = self.route(messages[-1]["content"])
@@ -378,6 +390,8 @@ class EnsembleProvider:
                 critique = result["text"]
                 self.last_deliberation["rounds"] = 2
         result, trace = self._call(self.synthesizer, self._collaboration_messages(messages, drafts, critique), "synthesis", deadline)
+        from .efficiency import combine_usage
+        self.last_usage=combine_usage([*traces,trace])
         self.last_deliberation["synthesizer"] = trace
         self.last_deliberation["degraded"] = any(trace["status"] != "ok" for trace in traces) or trace["status"] != "ok"
         if result:

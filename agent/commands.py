@@ -16,6 +16,7 @@ COMMANDS = {
     'curriculum': ('agent.curriculum', 'Prepare and audit versioned training/validation/test data'),
     'import-book': ('agent.books', 'Snapshot a public-domain book for source-linked local retrieval'),
     'campaign': ('scripts.run_training_campaign', 'Run a bounded training candidate with held-out and regression reports'),
+    'system': ('agent.monitoring', 'Inspect the five system components or local performance aggregates'),
     'catalog': ('scripts.catalog', 'Search or validate the source catalog'),
     'import-data': ('scripts.import_dataset', 'Import selected dataset text'),
     'export-data': ('scripts.export_training_data', 'Export approved training examples'),

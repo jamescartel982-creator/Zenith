@@ -44,7 +44,7 @@ def assurance(text, method='model', abstained=False, sources=0):
             'note':'No calibrated confidence probability is available. Retrieved text and model agreement do not prove correctness.'}
 
 
-def calibrated_assurance(settings, quality, mode):
+def calibrated_assurance(settings, quality, mode, reply_style=None):
     if not settings.calibration_file:return quality
     import json
     from pathlib import Path
@@ -53,7 +53,7 @@ def calibrated_assurance(settings, quality, mode):
         path=Path(settings.calibration_file)
         if path.stat().st_size>65536:raise ValueError('Calibration file is oversized')
         artifact=json.loads(path.read_text(encoding='utf-8'))
-        if artifact.get('configuration_sha256')!=configuration_signature(settings,mode):raise ValueError('Configuration mismatch')
+        if artifact.get('configuration_sha256')!=configuration_signature(settings,mode,reply_style):raise ValueError('Configuration mismatch')
         group=artifact['groups'].get(quality['method'])
         if not group or group['cases']<artifact['min_cases']:raise ValueError('Insufficient independent validation cases')
         if not 0<=group['wilson_lower']<=group['estimate']<=group['wilson_upper']<=1:raise ValueError('Invalid confidence bounds')
