@@ -9,3 +9,16 @@ __pycache__
 **/__pycache__
 *.zip
 *.egg-info
+build
+dist
+config/*.local.json
+**/admin-code*.txt
+**/.zenith-admin-*
+**/*.sqlite3*
+**/*.safetensors
+**/*.gguf
+**/*.pt
+**/*.pem
+**/*.key
+.zenith-*
+training-candidate

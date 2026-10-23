@@ -14,7 +14,7 @@ Licenses are publisher-reported metadata, not a grant for every artifact in a re
 
 ## Real collaboration
 
-With `AI_PROVIDER=ensemble` (or installer `--mode ensemble`), the team runs:
+With `AI_PROVIDER=ensemble` (or installer `--mode ensemble`), **Fast** is the default: the first successful routed contributor streams its answer, with bounded fallback before any text is emitted. Fast skips review and synthesis. **Thorough** runs the complete team:
 
 1. Qwen2.5-0.5B-Instruct drafts an answer.
 2. SmolLM2-360M-Instruct drafts independently.
@@ -34,7 +34,7 @@ AI_PROVIDER=ensemble
 ZENITH_TEAM_CONFIG=config/team.local.json
 ```
 
-The example pins the primary Qwen revision. Pin other model revisions for reproducibility. Each member has an ID, display name, provider (`huggingface` or `ollama`), model, and role (`general`, `coding`, `math`, `reasoning`, or `critic`). Optional fields: revision, device, local adapter, and Ollama `base_url` without embedded credentials. The roster is trusted local configuration and cannot be modified by prompts or catalog clicks.
+The example pins the primary Qwen revision. Pin other revisions for reproducibility. Each member has an ID, display name, provider (`huggingface`, `ollama`, or `localserver`), model, and role (`general`, `coding`, `math`, `reasoning`, or `critic`). Optional fields include revision, device, local adapter, and a compatible provider's `base_url` without embedded credentials. Local-server URLs must be loopback endpoints. The roster is trusted local configuration, not editable by prompts or catalog clicks.
 
 A larger hardware-backed roster could assign a Qwen coding model to `coding`, a separate math model to `math`, and a stronger general model as the synthesizer. Download/serve and validate those models first. For Ollama, run `ollama pull <model>` and set the member's provider/model/base URL. For HF, install `.[local]` and use a supported instruction checkpoint with a chat template and safetensors; arbitrary remote Python code remains disabled.
 
@@ -69,7 +69,7 @@ python -m scripts.import_dataset --source github --id lukes/ISO-3166-Countries-w
 
 That example imports a bounded country-name column from a pinned CSV snapshot. For JSON imports, the file must be an array of row objects containing the selected text field. Nested JSON schemas need a local conversion first. CSV, JSONL/NDJSON, array JSON, text, and Markdown are supported; arbitrary code and archives are not executed. GitHub files have a 20 MiB limit. Imports examine at most 10,000 rows, retain at most 12,000 text characters per row in bounded chunks, and deduplicate repeated source/text pairs.
 
-Imported documents are stored in the same local SQLite database, separately from conversation training approvals. Full-text search supplies up to five excerpts (default three, each at most 600 characters) with source URLs. They enter each participating model's input as untrusted evidence. This is lexical retrieval, not an embedding index or proof that a passage is reliable. `ZENITH_KNOWLEDGE_LIMIT=0` disables it. Importing does not update model weights.
+Imported documents live in the local SQLite database, separately from training approvals. Full-text search supplies up to five excerpts (default three, at most 600 characters each) with source URLs. Concise reply plans further cap this to two 350-character excerpts and recent history; Full retains configured limits. Excerpts enter participating models as untrusted evidence. This is lexical retrieval, not an embedding index or proof of reliability. `ZENITH_KNOWLEDGE_LIMIT=0` disables it. Imports do not update weights.
 
 The Docker image includes these import utilities. For a running Compose service, prefix the import command with `docker compose exec zenith` (for example, `docker compose exec zenith python -m scripts.import_dataset ...`). Its default data directory is the persistent `/app/data` volume.
 

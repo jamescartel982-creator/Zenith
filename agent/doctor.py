@@ -13,6 +13,9 @@ from pathlib import Path
 from .config import Settings
 from .paths import config_file
 from .models import model_specs, cache_status
+from . import __version__
+
+PROBE='What is 2 plus 2? Answer briefly.'
 
 
 def inspect(settings=None, inference=False):
@@ -24,6 +27,8 @@ def inspect(settings=None, inference=False):
     add('platform', 'ok', platform.system() + ' ' + platform.machine())
     add('configuration', 'ok', str(config_file()) + (' (saved)' if config_file().is_file() else ' (defaults/environment)'))
     add('provider', 'ok', settings.provider)
+    add('version','ok',__version__)
+    add('response','ok',f'{settings.response_mode} · {settings.reply_style} · brief cap {min(settings.max_new_tokens,settings.fast_max_new_tokens)} / full cap {settings.max_new_tokens}')
     try:
         if os.name == 'nt':
             import ctypes
@@ -67,9 +72,13 @@ def inspect(settings=None, inference=False):
     except (OSError, RuntimeError, sqlite3.Error) as exc:
         add('storage', 'error', 'Cannot initialize local storage: ' + type(exc).__name__)
     cached = True
+    required_ids={spec['id'] for spec in specs}
+    if settings.provider=='ensemble' and settings.response_mode=='fast':
+        from .ensemble import EnsembleProvider
+        required_ids={EnsembleProvider(settings).route(PROBE)[0][0].id}
     for spec in specs:
         state = cache_status(spec)
-        if state['cached'] is False:
+        if state['cached'] is False and spec['id'] in required_ids:
             cached = False
         add('model:' + spec['id'], 'warning' if state['cached'] is False else 'ok', spec['model'] + ' — ' + state['reason'])
     if settings.provider == 'ollama':
@@ -99,8 +108,9 @@ def inspect(settings=None, inference=False):
             try:
                 from .providers import make_provider, SYSTEM_PROMPT
                 provider = make_provider(replace(settings, max_new_tokens=24, temperature=0, offline=True))
-                answer, _ = provider.generate([{'role': 'system', 'content': SYSTEM_PROMPT},
-                                              {'role': 'user', 'content': 'What is 2 plus 2? Answer briefly.'}])
+                messages=[{'role':'system','content':SYSTEM_PROMPT},{'role':'user','content':PROBE}]
+                if settings.provider=='ensemble' and settings.response_mode=='fast':answer,_=provider.generate_fast(messages)
+                else:answer,_=provider.generate(messages)
                 if not isinstance(answer, str) or not answer.strip():
                     raise RuntimeError('Empty answer')
                 add('inference', 'ok', answer[:160])

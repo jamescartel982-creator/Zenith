@@ -18,6 +18,7 @@ def write_configuration(mode='local', path=None, overwrite=False):
         'HF_MODEL=Qwen/Qwen2.5-0.5B-Instruct\n'
         'HF_REVISION=7ae557604adf67be50417f59c2c2f167def9a775\n'
         'ZENITH_DEVICE=auto\nMAX_NEW_TOKENS=128\nCONTEXT_TOKENS=2048\n'
+        'ZENITH_RESPONSE_MODE=fast\nZENITH_REPLY_STYLE=auto\nZENITH_FAST_MAX_NEW_TOKENS=96\nZENITH_FAST_HISTORY_TURNS=4\n'
         'TEMPERATURE=0.4\nOLLAMA_BASE_URL=http://localhost:11434\n'
         'OLLAMA_MODEL=qwen2.5-coder:7b\n'
         'ZENITH_LOCAL_SERVER_URL=http://127.0.0.1:8080/v1\nZENITH_LOCAL_SERVER_MODEL=zenith\n'

@@ -2,12 +2,13 @@
 import argparse
 import importlib
 import sys
-from importlib.metadata import PackageNotFoundError, version
+from . import __version__
 
 COMMANDS = {
     'chat': ('agent.cli', 'Chat in your terminal'),
     'serve': ('agent.server', 'Start browser chat on localhost'),
     'doctor': ('agent.doctor', 'Check installation and model readiness'),
+    'verify': ('agent.integrity', 'Verify installed files or a complete source release manifest'),
     'configure': ('agent.setup', 'Save a local or Ollama configuration'),
     'models': ('agent.models', 'List, check, or download configured models'),
     'packs': ('agent.packs', 'Inspect, verify, download or configure Zenith model packs'),
@@ -41,10 +42,7 @@ def main(argv=None):
         parser.print_help()
         return 0
     if args == ['--version']:
-        try:
-            print('Zenith ' + version('zenith-local'))
-        except PackageNotFoundError:
-            print('Zenith (source checkout)')
+        print('Zenith ' + __version__)
         return 0
     command = args.pop(0) if args else 'chat'
     if command not in COMMANDS:

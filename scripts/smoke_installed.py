@@ -14,7 +14,8 @@ def main():
         assert Path(module_path).resolve() != (Path(__file__).resolve().parents[1] / 'agent' / '__init__.py').resolve(), 'Smoke check must use the installed wheel, not the source checkout'
         version = subprocess.run([str(executable), '--version'], cwd=directory, text=True, encoding="utf-8",
                                  stdout=subprocess.PIPE, check=True).stdout
-        assert '0.7.0' in version
+        from agent import __version__
+        assert __version__ in version
         resources = subprocess.check_output([sys.executable, '-c',
             'from pathlib import Path; import agent; from agent.packs import summaries; '
             'assert len(summaries()) == 3; '
@@ -28,6 +29,8 @@ def main():
         assert result['ok']
         system = subprocess.check_output([str(executable), 'system'],cwd=directory,text=True,encoding='utf-8')
         assert len(json.loads(system)['components']) == 5
+        verified=subprocess.check_output([str(executable),'verify','--json'],cwd=directory,text=True,encoding='utf-8')
+        assert json.loads(verified)['ok']
         catalog = subprocess.run([str(executable), 'catalog', '--validate'], cwd=directory,
                                  text=True, encoding="utf-8", stdout=subprocess.PIPE, check=True).stdout
         assert json.loads(catalog)['counts']['models'] == 1000

@@ -16,6 +16,7 @@ from pydantic import BaseModel, Field
 from .config import Settings
 from .core import Agent, BusyError
 from .registry import Catalog
+from . import __version__
 
 WEB = Path(__file__).parent / 'web'
 logger = logging.getLogger('zenith')
@@ -92,7 +93,7 @@ class HumanResolution(BaseModel):
 def create_app(settings=None, agent=None, catalog=None):
     settings = settings or Settings()
     agent = agent or Agent(settings)
-    app = FastAPI(title='Zenith', version='0.7.0', docs_url=None, redoc_url=None)
+    app = FastAPI(title='Zenith', version=__version__, docs_url=None, redoc_url=None)
     app.state.agent = agent
     app.state.catalog = catalog
     attempts = {}
@@ -172,7 +173,7 @@ def create_app(settings=None, agent=None, catalog=None):
     def health():
         info = agent.team_info()
         loaded = info.get('model_loaded', False) if settings.provider == 'ensemble' else getattr(agent.provider, 'model', None) is not None
-        return {'status': 'ok', 'provider': settings.provider, 'model': settings.model_name, 'display_name': settings.display_name,
+        return {'status': 'ok', 'version':__version__, 'provider': settings.provider, 'model': settings.model_name, 'display_name': settings.display_name,
                 'configured_members': len(info['members']), 'model_loaded': loaded,
                 'authentication_required': bool(settings.api_token)}
 
