@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.11.1 — Simple setup and launch
+
+- Add Windows double-click installation and launch scripts, plus a Linux start script. Normal use automatically selects the private environment.
+- Add installer `--launch` to download configured Hugging Face weights and open browser chat after successful setup; retain existing external-runtime profiles.
+- Open the browser only after the launched server is ready, with a manual URL fallback and clean handling of setup interruption or launch failure.
+- Put ZIP-based Windows setup and a single Linux install-and-open command first in the README. Keep advanced activation and runtime options available.
+
+
 ## 0.11.0 — Model discovery, pixel identity, and explicit environments
 
 - Add public Hugging Face and GitHub discovery with pagination, published fine-tune lineage metadata, bounded requests, caching, offline handling, and explicit source failures.

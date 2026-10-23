@@ -51,6 +51,7 @@ def main(argv=None):
     parser.add_argument('--venv', type=Path, default=ROOT / '.venv')
     parser.add_argument('--runtime', choices=['cpu', 'auto'], default='cpu', help='CPU wheels by default; auto uses the standard PyTorch distribution')
     parser.add_argument('--download', action='store_true', help='Also download the configured HF weights now')
+    parser.add_argument('--launch', action='store_true', help='Download configured HF weights, then open browser chat after setup')
     parser.add_argument('--overwrite-config', action='store_true', help='Explicitly replace the saved user profile')
     args = parser.parse_args(argv)
     if sys.version_info < (3, 10):
@@ -90,28 +91,34 @@ def main(argv=None):
         # source tree or a package selected by an inherited PYTHONPATH.
         run([python,'-I','-m','agent','verify','--json'])
         run([python, '-m', 'agent', 'doctor'])
-        if args.download and needs_hf:
+        if (args.download or args.launch) and needs_hf:
+            print('Downloading configured model weights. The first installation can take several minutes.', flush=True)
             run([python, '-m', 'agent', 'models', 'download'])
+    except KeyboardInterrupt:
+        print('\nSetup interrupted. Rerun the same installer to continue.', file=sys.stderr)
+        return 130
     except (subprocess.CalledProcessError, OSError, RuntimeError) as exc:
         print(f'Installation stopped: {type(exc).__name__}. Review the preceding error, fix it, and rerun the same command.', file=sys.stderr)
         if creating_environment or not python.exists():
             print('On Debian/Ubuntu, install python3-venv. On Windows, install Python 3.12 from python.org or winget.', file=sys.stderr)
         return 1
-    executable = target / ('Scripts/zenith.exe' if os.name == 'nt' else 'bin/zenith')
-    print('\nZenith installed in an isolated Python environment.')
-    if os.name == 'nt':
-        activation = str(target / 'Scripts' / 'Activate.ps1').replace("'", "''")
-        print("Activate in PowerShell: . '" + activation + "'")
-    else:
-        import shlex
-        print('Activate in your shell: source ' + shlex.quote(str(target / 'bin' / 'activate')))
-    print('Activate before using bare zenith, python, or pip. Checkout run scripts select this environment automatically.')
+    print('\nZenith is ready. Its isolated environment is selected automatically by the launchers.')
+    if target == ROOT / '.venv':
+        print('Next time: double-click Start Zenith.cmd' if os.name == 'nt' else 'Next time: bash start.sh')
     prefix = '& ' if os.name == 'nt' else ''
-    print(f'Chat:    {prefix}"{executable}" chat')
-    print(f'Browser: {prefix}"{executable}" serve')
-    print(f'Checks:  {prefix}"{executable}" doctor')
-    print('From this checkout, use run.ps1 on Windows or ./run.sh on Linux.')
-    print('HF weights download on the first message unless already cached. Ollama needs its own running server/model.')
+    print(f'Browser command: {prefix}"{python}" -m agent serve --open-browser')
+    if args.launch:
+        print('Opening Zenith. Keep this terminal open; press Ctrl+C to stop.', flush=True)
+        try:
+            run([python, '-m', 'agent', 'serve', '--open-browser'])
+        except KeyboardInterrupt:
+            print('\nZenith stopped. Use the launcher whenever you want to return.')
+        except (subprocess.CalledProcessError, OSError) as exc:
+            print('Zenith was installed, but could not start. Check the error above and use the launcher to retry.', file=sys.stderr)
+            return exc.returncode if isinstance(exc, subprocess.CalledProcessError) and exc.returncode > 0 else 1
+    else:
+        print('Use --launch with this installer to download configured HF weights and open Zenith immediately.')
+    print('Advanced terminal commands: activate the environment with activate.ps1 or source ./activate.sh.')
     return 0
 
 

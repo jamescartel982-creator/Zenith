@@ -163,3 +163,11 @@ Validated on 2026-10-23 in a Linux CPU environment. These checks cover implement
 - The release CI workflow includes Python 3.10/3.12 tests on Windows and Linux, native installation with cached-model inference on both platforms, explicit PowerShell 5.1 and Bash activation/deactivation checks, and container/server verification. Hosted run results are linked from the release pull request in [GitHub](https://github.com/jamescartel982-creator/Zenith/pulls?q=is%3Apr+0.11).
 
 Public source APIs can fail, rate-limit, or return incomplete metadata. Saved references do not download weights, execute source repositories, configure a runtime, or add training knowledge. Full-site mirroring and arbitrary architecture compatibility are outside the implemented behavior.
+
+## Simplified installation and browser launch (0.11.1)
+
+Validated on 2026-10-23. Windows setup now starts through `Install Zenith.cmd`; later sessions use `Start Zenith.cmd`. Linux setup supports `bash install.sh --launch`, followed by `bash start.sh` on later visits. Python remains a prerequisite; normal launchers select the isolated environment automatically.
+
+Focused checks cover selected-interpreter use, model download before launch, installation interruption, external-runtime behavior, launch failure propagation, browser readiness and unavailable-browser fallback, and launch from directories containing spaces. A real local server smoke check records the browser-open request only after its health endpoint responds. Existing installation, account, owner-control, model-provider, data, and evaluation regressions remain in the release suite. Native Windows/Linux CI additionally exercises the browser-ready smoke check; Windows checks CMD launcher argument forwarding and Linux checks its start script.
+
+The auto-open option opens a local URL, rather than signing in or changing credentials. A headless machine can use the printed URL manually. The first installation still requires downloading Python dependencies and configured model weights; duration depends on the connection and hardware.
