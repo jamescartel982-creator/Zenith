@@ -16,7 +16,7 @@ license: apache-2.0
 
 The original starter ZIP is preserved. Its Python project is now unpacked, extended, and runnable from this repository's root.
 
-**Current release: 0.8.1.** Local-server and Ollama streams now require explicit completion before saving an answer. Bounded HTTP framing handles split Unicode, SSE events, invalid responses, and interrupted connections. File verification, Windows/Linux installers, Docker persistence, and Fast-mode budgets remain supported. See the [changelog](CHANGELOG.md), [provider engineering guide](docs/provider-reliability.md), and [file-integrity guide](docs/integrity.md).
+**Current release: 0.9.0.** Browse **51 instruction profiles** and **40 source-linked learning resources** in the new Skills library: AI engineering, defensive cybersecurity, and general subjects. Each profile has a workflow, review checklist, and practice exercise. Resources are curated references, not automatic downloads or training. See the [skills guide](docs/skills.md), [changelog](CHANGELOG.md), [provider engineering guide](docs/provider-reliability.md), and [file-integrity guide](docs/integrity.md).
 
 ## Upgrade an existing installation
 
@@ -114,6 +114,8 @@ zenith doctor --inference      Test a real response using cached weights
 zenith catalog --validate      Check the 1,000-model / 200-dataset catalog
 zenith system                  Inspect the five configured system components
 zenith system --metrics        Inspect local server performance as the OS operator
+zenith skills list             Browse instruction profiles
+zenith skills validate         Check the bundled offline learning library
 zenith --help                  List all available commands
 ```
 
@@ -190,7 +192,7 @@ Open **System** to inspect Zenith's model, harness, context/memory, infrastructu
 
 In a five-question CPU development comparison, prompt tokens fell 41%, reply-text tokens 79%, and median complete replies 47% (13.17 → 6.99 seconds). First-text time did not improve, one request became slower, and factual errors remain. [Raw reports and interpretation](docs/benchmarks/v0.7/) are included; no ChatGPT/Claude speed parity is claimed.
 
-Browser replies stream as they are generated. Choose **Fast** for one routed contributor or **Thorough** for full configured team deliberation. Twelve selectable instruction profiles cover mathematics, science, history, ancient math, programming, investing, day trading, cybersecurity, writing, research, and data analysis. Profiles guide the model; they do not establish expert qualifications. Bounded arithmetic uses an exact calculator. Unavailable live data and some unsupported claims trigger explicit abstention; ordinary model answers remain labeled uncalibrated.
+Browser replies stream as they are generated. Choose **Fast** for one routed contributor or **Thorough** for full configured team deliberation. The **Skills** button opens a searchable library of **24 AI engineering**, **16 cybersecurity**, and **11 general-subject** profiles. Topics include LLM architecture, retrieval, fine-tuning, evaluation, MLOps, incident response, secure coding, scoped assessment planning, mathematics, and history. Each has a workflow, checklist, practice example, and learning references. The six hacker-color labels are explained as informal terminology, with defensive and authorized alternatives; they are not executable modes. Profiles guide the configured model and do not establish professional qualifications or independently trained expertise. Bounded arithmetic uses an exact calculator. Unavailable live data and some unsupported claims trigger explicit abstention; ordinary model answers remain labeled uncalibrated. See [the library, references, scope, and extension guide](docs/skills.md).
 
 Create your own browser account, then configure its owner role in your server terminal:
 
@@ -298,6 +300,7 @@ The installed training/export utilities use the same configured data directory a
 | [Training roadmap](docs/training-roadmap.md) | Bounded experiments and a two-week plan |
 | [Deployment](docs/deployment.md) | Docker, persistent storage, hosting, API access |
 | [Provider reliability](docs/provider-reliability.md) | Completion checks, bounded HTTP streams, failure recovery |
+| [Skills and learning resources](docs/skills.md) | AI/security workflows, reference library, taxonomy, extension |
 | [Integrity](docs/integrity.md) | Complete source and installed-package checks |
 | [Validation](docs/validation.md) | Actual checks and measured limitations |
 | [Changelog](CHANGELOG.md) | Release changes |

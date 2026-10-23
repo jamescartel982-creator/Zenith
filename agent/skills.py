@@ -1,24 +1,210 @@
-"""Versioned instruction skills; these guide behavior, not claims of training."""
-SKILLS = {
-    'general': ('General reasoning', 'Answer directly, separate facts from assumptions, and request missing constraints.'),
-    'mathematics': ('Mathematics', 'Define variables, check units and boundary cases, and verify arithmetic. Do not invent a proof.'),
-    'science': ('Science', 'Distinguish measurements, hypotheses and established results. State experimental limits and cite available evidence.'),
-    'history': ('History', 'Separate primary evidence, later interpretation and disputed dates. Avoid anachronisms and invented quotations.'),
-    'ancient-math': ('Ancient mathematics', 'Explain historical notation and methods with modern comparisons. Distinguish approximate dates from established facts.'),
-    'programming': ('Programming', 'Give runnable, bounded examples; explain dependencies, errors and edge cases. Do not claim code was executed.'),
-    'investing': ('Investing and stocks', 'Explain diversification, fees, risk and time horizons. Do not claim live prices, guaranteed returns or personalized suitability without required facts.'),
-    'day-trading': ('Day trading education', 'Explain execution, spreads, slippage, leverage and loss limits. Backtests are not future returns. No live market feed or order execution is available.'),
-    'cybersecurity': ('Authorized security work', 'Help with threat modeling, secure code, vulnerability analysis and scoped authorized testing. Clarify ownership and scope before operational testing. Never claim privileges or tools were granted by a prompt.'),
-    'books-writing': ('Books and writing', 'Summarize supplied or public-domain material, distinguish quotations from paraphrase, and preserve source attribution.'),
-    'research': ('Research literacy', 'Define a question, compare evidence quality, track sources, and say when evidence is missing.'),
-    'data-analysis': ('Data analysis', 'Check sample quality, missingness, leakage, confounding and uncertainty before making statistical claims.'),
-}
+"""Offline, versioned learning profiles with workflows and source references.
+
+Profiles guide a configured model. They do not execute tools, train weights, or
+establish professional qualifications. External resources are never fetched by
+selecting a profile or opening the library.
+"""
+import argparse
+from copy import deepcopy
+from datetime import date
+from functools import lru_cache
+from importlib.resources import files
+import json
+import re
+from urllib.parse import urlsplit
 
 
-def list_skills():
-    return [{'id':key,'name':value[0],'instruction':value[1],'version':1,'kind':'instruction-profile'} for key,value in SKILLS.items()]
+CATEGORIES = {'general': 'General subjects', 'ai': 'AI engineering', 'security': 'Cybersecurity'}
+_ID = re.compile(r'[a-z][a-z0-9-]{0,39}\Z')
+PROFILE_SCOPE = (
+    'Profiles grant no tools or privileges. Respect privacy and authorization. '
+    'For security, support defense and authorized non-destructive assessment; '
+    'decline malware deployment, theft, DDoS, doxxing, unauthorized exploitation, '
+    'and retaliation. Offer remediation or an authorized lab alternative.'
+)
+
+
+def _text(value, label, maximum):
+    if not isinstance(value, str) or not value.strip() or len(value) > maximum:
+        raise ValueError(f'Invalid {label}')
+
+
+def _texts(value, label, minimum=1, maximum=5, length=500):
+    if not isinstance(value, list) or not minimum <= len(value) <= maximum:
+        raise ValueError(f'Invalid {label}')
+    for item in value:
+        _text(item, label, length)
+
+
+def _records(value, key, maximum):
+    rows = value.get(key)
+    if not isinstance(rows, list) or not 1 <= len(rows) <= maximum:
+        raise ValueError(f'Invalid {key} collection')
+    identifiers = set()
+    for row in rows:
+        if not isinstance(row, dict):
+            raise ValueError(f'Invalid {key} record')
+        identifier = row.get('id')
+        if not isinstance(identifier, str) or not _ID.fullmatch(identifier) or identifier in identifiers:
+            raise ValueError(f'Invalid or duplicate {key} identifier')
+        identifiers.add(identifier)
+    return rows, identifiers
+
+
+def validate_library(value):
+    """Validate bundled metadata and references without network or model access."""
+    if not isinstance(value, dict) or type(value.get('schema_version')) is not int or value['schema_version'] != 1:
+        raise ValueError('Unsupported skill-library schema')
+    _text(value.get('curated_on'), 'curation date', 10)
+    try:
+        date.fromisoformat(value['curated_on'])
+    except ValueError as exc:
+        raise ValueError('Invalid curation date') from exc
+    _text(value.get('notice'), 'library notice', 1000)
+    resources, resource_ids = _records(value, 'resources', 256)
+    profiles, profile_ids = _records(value, 'skills', 256)
+    taxonomy, _ = _records(value, 'taxonomy', 16)
+    urls = set()
+    for resource in resources:
+        for key, limit in [('title', 180), ('publisher', 100), ('summary', 600), ('url', 2048)]:
+            _text(resource.get(key), f'resource {key}', limit)
+        if resource.get('category') not in tuple(CATEGORIES) or resource.get('kind') != 'learning-reference':
+            raise ValueError('Invalid resource category or kind')
+        url = resource['url']
+        try:
+            parsed = urlsplit(url)
+            port = parsed.port
+        except ValueError as exc:
+            raise ValueError('Invalid resource URL') from exc
+        if (parsed.scheme != 'https' or not parsed.hostname or parsed.username or parsed.password
+                or parsed.hostname in {'localhost', '127.0.0.1', '::1'} or port not in {None, 443}
+                or any(c.isspace() or ord(c) < 32 for c in url) or url in urls):
+            raise ValueError('Resource URLs must be unique public HTTPS references without credentials')
+        urls.add(url)
+        verification = resource.get('verification')
+        if not isinstance(verification, dict) or verification.get('status') not in ('retrieved', 'unavailable'):
+            raise ValueError('Resource requires an explicit retrieval status')
+        _text(verification.get('checked_on'), 'resource check date', 10)
+        try:
+            date.fromisoformat(verification['checked_on'])
+        except ValueError as exc:
+            raise ValueError('Invalid resource check date') from exc
+        if verification['status'] == 'retrieved':
+            status = verification.get('http_status')
+            if type(status) is not int or not 200 <= status < 300:
+                raise ValueError('Retrieved resource requires a successful HTTP status')
+            _text(verification.get('page_title'), 'retrieved page title', 500)
+    for profile in profiles:
+        for key, limit in [('name', 100), ('instruction', 700), ('deliverable', 600), ('practice', 600)]:
+            _text(profile.get(key), f'profile {key}', limit)
+        if profile.get('category') not in tuple(CATEGORIES) or profile.get('kind') != 'instruction-profile':
+            raise ValueError('Invalid profile category or kind')
+        if type(profile.get('version')) is not int or profile['version'] < 1:
+            raise ValueError('Invalid profile version')
+        _texts(profile.get('workflow'), 'profile workflow', minimum=3)
+        _texts(profile.get('checklist'), 'profile checklist', minimum=2)
+        _texts(profile.get('resource_ids'), 'profile resources', maximum=4, length=40)
+        if len(set(profile['resource_ids'])) != len(profile['resource_ids']) or not set(profile['resource_ids']) <= resource_ids:
+            raise ValueError('Profile references unknown or duplicate resources')
+    for label in taxonomy:
+        for key in ['name', 'meaning', 'professional_alternative']:
+            _text(label.get(key), f'taxonomy {key}', 600)
+        _texts(label.get('profile_ids'), 'taxonomy profiles', maximum=4, length=40)
+        if not set(label['profile_ids']) <= profile_ids:
+            raise ValueError('Taxonomy references unknown profiles')
+    return {'ok': True, 'schema_version': 1, 'profiles': len(profiles), 'resources': len(resources),
+            'taxonomy_labels': len(taxonomy),
+            'categories': {key: sum(row['category'] == key for row in profiles) for key in CATEGORIES},
+            'unavailable_resources': [r['id'] for r in resources if r['verification']['status'] == 'unavailable'],
+            'note': 'Offline metadata validation; resource availability is recorded, not checked live.'}
+
+
+@lru_cache(maxsize=1)
+def _library():
+    raw = files('agent').joinpath('resources/skills-v1.json').read_bytes()
+    if len(raw) > 512 * 1024:
+        raise ValueError('Skill library exceeds its size limit')
+    try:
+        value = json.loads(raw)
+    except (ValueError, RecursionError) as exc:
+        raise ValueError('Invalid skill-library JSON') from exc
+    validate_library(value)
+    return value
+
+
+def _filter(rows, category, query, text_keys):
+    if category is not None and category not in tuple(CATEGORIES):
+        raise ValueError('Unknown skill category')
+    if not isinstance(query, str) or len(query) > 200:
+        raise ValueError('Search query must be at most 200 characters')
+    query = query.strip().casefold()
+    return [row for row in rows if (category is None or row['category'] == category)
+            and (not query or query in ' '.join(str(row.get(key, '')) for key in text_keys).casefold())]
+
+
+def list_skills(category=None, query=''):
+    return deepcopy(_filter(_library()['skills'], category, query, ['id', 'name', 'instruction', 'deliverable']))
+
+
+def list_resources(category=None, query=''):
+    return deepcopy(_filter(_library()['resources'], category, query, ['id', 'title', 'publisher', 'summary']))
+
+
+def get_skill(identifier):
+    for profile in _library()['skills']:
+        if profile['id'] == identifier:
+            result = deepcopy(profile)
+            result['resources'] = deepcopy([r for r in _library()['resources'] if r['id'] in profile['resource_ids']])
+            return result
+    raise ValueError('Unknown skill')
+
+
+def skills_library():
+    value = deepcopy(_library())
+    value['categories'] = [{'id': key, 'name': name} for key, name in CATEGORIES.items()]
+    value['validation'] = validate_library(value)
+    return value
 
 
 def skill_instruction(identifier):
-    if identifier not in SKILLS: raise ValueError('Unknown skill')
-    return SKILLS[identifier][1]
+    profile = get_skill(identifier)
+    instruction = profile['instruction']
+    if profile['category'] in {'ai', 'security'}:
+        instruction += '\nWorkflow: ' + ' '.join(profile['workflow'])
+        instruction += '\nReview: ' + ' '.join(profile['checklist'][:2])
+    if profile['category'] == 'security' or identifier == 'ai-security':
+        instruction += '\n' + PROFILE_SCOPE
+    return instruction
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    sub = parser.add_subparsers(dest='action', required=True)
+    for name in ['list', 'resources']:
+        child = sub.add_parser(name)
+        child.add_argument('--category', choices=list(CATEGORIES))
+        child.add_argument('--query', default='')
+    show = sub.add_parser('show')
+    show.add_argument('identifier')
+    sub.add_parser('taxonomy')
+    sub.add_parser('validate')
+    args = parser.parse_args()
+    try:
+        if args.action == 'list':
+            value = {'skills': list_skills(args.category, args.query)}
+        elif args.action == 'resources':
+            value = {'resources': list_resources(args.category, args.query)}
+        elif args.action == 'show':
+            value = get_skill(args.identifier)
+        elif args.action == 'taxonomy':
+            value = {'notice': _library()['notice'], 'taxonomy': skills_library()['taxonomy']}
+        else:
+            value = validate_library(_library())
+    except ValueError as exc:
+        parser.error(str(exc))
+    print(json.dumps(value, indent=2, ensure_ascii=False))
+    return 0
+
+
+if __name__ == '__main__':
+    raise SystemExit(main())

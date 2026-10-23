@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "version": "0.8.1",
+  "version": "0.9.0",
   "files": [
     {
       "path": ".dockerignore",
@@ -28,8 +28,8 @@
     },
     {
       "path": ".github/workflows/tests.yml",
-      "size": 3948,
-      "sha256": "30d0b85f374f983b2151bbb22d3534d5fda8e5fa3ca2a888577613de46b6d1b4",
+      "size": 3984,
+      "sha256": "8f6b6f4685519283c0eb94f70e9cf6c929c397662c659943c88cc81a4cc8b714",
       "normalization": "lf"
     },
     {
@@ -46,8 +46,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "size": 3862,
-      "sha256": "8705dc1d7ae84715a644da69b586077a62def9d17d80428e4a3d918a7f208019",
+      "size": 5386,
+      "sha256": "f540997b1e95acb7d5d872fcfb0a43176a6788644efd4e787e746cfaf3e97780",
       "normalization": "lf"
     },
     {
@@ -64,14 +64,14 @@
     },
     {
       "path": "README.md",
-      "size": 24859,
-      "sha256": "14f0e1d3d5a7070c408d8ff443a6a5f8c91f5bb40c642c0be76ccc04fa2b052b",
+      "size": 25612,
+      "sha256": "05e00808ebc273c1201318d612004024a129b85cee5e7a59cf22322ee7e5818f",
       "normalization": "lf"
     },
     {
       "path": "agent/__init__.py",
       "size": 104,
-      "sha256": "b8ac614d7f7843a4d5a39a1786432227ae9568792c73d6485ed0ec6fedb65060",
+      "sha256": "2ea00adaefda05e2b2ef49098731f68fac0a801e8527b62cc195bc29423dcb70",
       "normalization": "lf"
     },
     {
@@ -130,8 +130,8 @@
     },
     {
       "path": "agent/commands.py",
-      "size": 3174,
-      "sha256": "80a34de09260afe11aac5514d24a6eb7a37510754e0b42e42a04edd462608952",
+      "size": 3282,
+      "sha256": "dbd0f249c3261d1a1cac470ed5581e5cd23ba27502aa3caaad0f2748f28baa35",
       "normalization": "lf"
     },
     {
@@ -255,6 +255,12 @@
       "normalization": "lf"
     },
     {
+      "path": "agent/resources/skills-v1.json",
+      "size": 72478,
+      "sha256": "4bfad00a6130ae5d4580386c4f950c91f7a53cc1ca14e3bc0b2dc1eb68364d6e",
+      "normalization": "lf"
+    },
+    {
       "path": "agent/resources/source-checks-v1.json",
       "size": 4862,
       "sha256": "8f00d399b20223177f1de240a052630759047c3523eadd8c52d8a29208aa4e5c",
@@ -274,8 +280,8 @@
     },
     {
       "path": "agent/server.py",
-      "size": 20263,
-      "sha256": "67f18b7656148adb8c7b1878debc7a41d6cf2859a23b6535b2f98aa108a5104e",
+      "size": 20262,
+      "sha256": "8d7d7236a77c8f3d2d716d9ab16e2acb379aa9e0371ac1aba45cdb2e9f32ec39",
       "normalization": "lf"
     },
     {
@@ -286,8 +292,8 @@
     },
     {
       "path": "agent/skills.py",
-      "size": 2366,
-      "sha256": "75dd52b4447901b3570fe04a3b058b6506530399ebc8483565134a577215cc66",
+      "size": 9725,
+      "sha256": "889aa27771d8fec8369569a0012614099837cf67bb0cb29bb8d82f71d39a6728",
       "normalization": "lf"
     },
     {
@@ -316,20 +322,20 @@
     },
     {
       "path": "agent/web/app.js",
-      "size": 46564,
-      "sha256": "30a74ab668d738bc89208c879fa44b6b06669c13cc08013419470910860fcd90",
+      "size": 50518,
+      "sha256": "28d83c3a7e84221b1a7a0f6c52ce153b4b78c244082cabc20b9cdcb4850d335c",
       "normalization": "lf"
     },
     {
       "path": "agent/web/index.html",
-      "size": 13608,
-      "sha256": "b0206c602b8a7739768bde974b15dd1967d9a208fa282e2699edae5c3874ace6",
+      "size": 15459,
+      "sha256": "4c36657eaa3d7f487a6733c81bce456a13aaaf05691cad46416088bbad55d8b2",
       "normalization": "lf"
     },
     {
       "path": "agent/web/style.css",
-      "size": 25208,
-      "sha256": "11113ff426a1646b56df638b86c2ed7513df3566a618aaa196218a2c39754807",
+      "size": 27028,
+      "sha256": "2f94aaa45d2a3eb0efa65dc749f1e682a20067eac08cd7f8cca97929717e517e",
       "normalization": "lf"
     },
     {
@@ -543,6 +549,12 @@
       "normalization": "lf"
     },
     {
+      "path": "docs/skills.md",
+      "size": 18460,
+      "sha256": "55377d7a507bb2cc94b2cb4b6d5dc391d11be39a8a024fe6357ad3beae8e8092",
+      "normalization": "lf"
+    },
+    {
       "path": "docs/system.md",
       "size": 7394,
       "sha256": "1cf43eed13ae375fc951b9cdf9c98825ac14a247668836ac7272b29aaf3b91d2",
@@ -550,8 +562,8 @@
     },
     {
       "path": "docs/training-roadmap.md",
-      "size": 2973,
-      "sha256": "bb2b53d5b66e0029e8a39ab785b692ed2b36859307ee682516bd3db17abf2ca1",
+      "size": 3023,
+      "sha256": "840252c90ceedc12fc5ef3474e0ef1f222a991925e04af1ce162a5c4411d134d",
       "normalization": "lf"
     },
     {
@@ -562,8 +574,8 @@
     },
     {
       "path": "docs/validation.md",
-      "size": 21932,
-      "sha256": "dc61cc6b37e785b8698f2e53d04491240b19468d967bc86d2a34653bdf2a9598",
+      "size": 24136,
+      "sha256": "860cb1e3eefb7ee8b91aa6cac58feeb5291b21b44c1db0cfb94716dd0b7a6a8a",
       "normalization": "lf"
     },
     {
@@ -706,8 +718,8 @@
     },
     {
       "path": "scripts/smoke_installed.py",
-      "size": 2740,
-      "sha256": "9ee46834d727d7e68df5ca38b6e12f389ec097acb4cc997c2e36e33c7bb6f664",
+      "size": 2971,
+      "sha256": "2470aac41275d04617e29a0bbc9df3ef1a79ef12482edcfdcf5c6fdc9b7e4891",
       "normalization": "lf"
     },
     {
@@ -804,6 +816,12 @@
       "path": "tests/test_registry.py",
       "size": 9587,
       "sha256": "dad78781251c2349c32f8ffe27b05125d0aff6372ff7f2cdf3c2c4ac2c111a88",
+      "normalization": "lf"
+    },
+    {
+      "path": "tests/test_skills_library.py",
+      "size": 8174,
+      "sha256": "18c3d55fee74d12a98abb7278e0fc2f027c1520e9483da9a5448d99b1979e51f",
       "normalization": "lf"
     },
     {

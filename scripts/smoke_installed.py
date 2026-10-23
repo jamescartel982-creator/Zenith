@@ -31,6 +31,9 @@ def main():
         assert len(json.loads(system)['components']) == 5
         verified=subprocess.check_output([str(executable),'verify','--json'],cwd=directory,text=True,encoding='utf-8')
         assert json.loads(verified)['ok']
+        skills = subprocess.check_output([str(executable), 'skills', 'validate'], cwd=directory, text=True, encoding='utf-8')
+        assert json.loads(skills)['profiles'] == 51
+        assert json.loads(skills)['resources'] == 40
         catalog = subprocess.run([str(executable), 'catalog', '--validate'], cwd=directory,
                                  text=True, encoding="utf-8", stdout=subprocess.PIPE, check=True).stdout
         assert json.loads(catalog)['counts']['models'] == 1000

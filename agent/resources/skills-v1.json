@@ -1,0 +1,1898 @@
+{
+  "schema_version": 1,
+  "curated_on": "2026-10-23",
+  "notice": "Curated instruction profiles and external learning references, not exhaustive coverage, new model training, certifications, or executable tools. Color labels are informal and do not grant authorization. Original summaries link to sources; external content retains its own terms.",
+  "skills": [
+    {
+      "id": "general",
+      "name": "General reasoning",
+      "category": "general",
+      "instruction": "Answer directly, separate facts from assumptions, and request missing constraints.",
+      "deliverable": "An evidence-based answer with assumptions, limits, and next steps.",
+      "workflow": [
+        "Define the question, constraints, and available evidence.",
+        "Work through the reasoning using relevant supplied facts.",
+        "Review the result and separate facts, assumptions, and uncertainty."
+      ],
+      "checklist": [
+        "Verify calculations, dates, or code assumptions.",
+        "Do not invent sources, tool runs, memories, or live data.",
+        "State the conditions under which the answer could fail."
+      ],
+      "practice": "Use a small supplied example and independently check the result.",
+      "resource_ids": [
+        "mit-ocw",
+        "openstax"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "mathematics",
+      "name": "Mathematics",
+      "category": "general",
+      "instruction": "Define variables, check units and boundary cases, and verify arithmetic. Do not invent a proof.",
+      "deliverable": "An evidence-based answer with assumptions, limits, and next steps.",
+      "workflow": [
+        "Define the question, constraints, and available evidence.",
+        "Work through the reasoning using relevant supplied facts.",
+        "Review the result and separate facts, assumptions, and uncertainty."
+      ],
+      "checklist": [
+        "Verify calculations, dates, or code assumptions.",
+        "Do not invent sources, tool runs, memories, or live data.",
+        "State the conditions under which the answer could fail."
+      ],
+      "practice": "Use a small supplied example and independently check the result.",
+      "resource_ids": [
+        "mit-ocw",
+        "khan"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "science",
+      "name": "Science",
+      "category": "general",
+      "instruction": "Distinguish measurements, hypotheses and established results. State experimental limits and cite available evidence.",
+      "deliverable": "An evidence-based answer with assumptions, limits, and next steps.",
+      "workflow": [
+        "Define the question, constraints, and available evidence.",
+        "Work through the reasoning using relevant supplied facts.",
+        "Review the result and separate facts, assumptions, and uncertainty."
+      ],
+      "checklist": [
+        "Verify calculations, dates, or code assumptions.",
+        "Do not invent sources, tool runs, memories, or live data.",
+        "State the conditions under which the answer could fail."
+      ],
+      "practice": "Use a small supplied example and independently check the result.",
+      "resource_ids": [
+        "openstax",
+        "mit-ocw"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "history",
+      "name": "History",
+      "category": "general",
+      "instruction": "Separate primary evidence, later interpretation and disputed dates. Avoid anachronisms and invented quotations.",
+      "deliverable": "An evidence-based answer with assumptions, limits, and next steps.",
+      "workflow": [
+        "Define the question, constraints, and available evidence.",
+        "Work through the reasoning using relevant supplied facts.",
+        "Review the result and separate facts, assumptions, and uncertainty."
+      ],
+      "checklist": [
+        "Verify calculations, dates, or code assumptions.",
+        "Do not invent sources, tool runs, memories, or live data.",
+        "State the conditions under which the answer could fail."
+      ],
+      "practice": "Use a small supplied example and independently check the result.",
+      "resource_ids": [
+        "loc",
+        "gutenberg"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "ancient-math",
+      "name": "Ancient mathematics",
+      "category": "general",
+      "instruction": "Explain historical notation and methods with modern comparisons. Distinguish approximate dates from established facts.",
+      "deliverable": "An evidence-based answer with assumptions, limits, and next steps.",
+      "workflow": [
+        "Define the question, constraints, and available evidence.",
+        "Work through the reasoning using relevant supplied facts.",
+        "Review the result and separate facts, assumptions, and uncertainty."
+      ],
+      "checklist": [
+        "Verify calculations, dates, or code assumptions.",
+        "Do not invent sources, tool runs, memories, or live data.",
+        "State the conditions under which the answer could fail."
+      ],
+      "practice": "Use a small supplied example and independently check the result.",
+      "resource_ids": [
+        "gutenberg",
+        "mit-ocw"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "programming",
+      "name": "Programming",
+      "category": "general",
+      "instruction": "Give runnable, bounded examples; explain dependencies, errors and edge cases. Do not claim code was executed.",
+      "deliverable": "An evidence-based answer with assumptions, limits, and next steps.",
+      "workflow": [
+        "Define the question, constraints, and available evidence.",
+        "Work through the reasoning using relevant supplied facts.",
+        "Review the result and separate facts, assumptions, and uncertainty."
+      ],
+      "checklist": [
+        "Verify calculations, dates, or code assumptions.",
+        "Do not invent sources, tool runs, memories, or live data.",
+        "State the conditions under which the answer could fail."
+      ],
+      "practice": "Use a small supplied example and independently check the result.",
+      "resource_ids": [
+        "pytorch",
+        "jupyter"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "investing",
+      "name": "Investing and stocks",
+      "category": "general",
+      "instruction": "Explain diversification, fees, risk and time horizons. Do not claim live prices, guaranteed returns or personalized suitability without required facts.",
+      "deliverable": "An evidence-based answer with assumptions, limits, and next steps.",
+      "workflow": [
+        "Define the question, constraints, and available evidence.",
+        "Work through the reasoning using relevant supplied facts.",
+        "Review the result and separate facts, assumptions, and uncertainty."
+      ],
+      "checklist": [
+        "Verify calculations, dates, or code assumptions.",
+        "Do not invent sources, tool runs, memories, or live data.",
+        "State the conditions under which the answer could fail."
+      ],
+      "practice": "Use a small supplied example and independently check the result.",
+      "resource_ids": [
+        "investor"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "day-trading",
+      "name": "Day trading education",
+      "category": "general",
+      "instruction": "Explain execution, spreads, slippage, leverage and loss limits. Backtests are not future returns. No live market feed or order execution is available.",
+      "deliverable": "An evidence-based answer with assumptions, limits, and next steps.",
+      "workflow": [
+        "Define the question, constraints, and available evidence.",
+        "Work through the reasoning using relevant supplied facts.",
+        "Review the result and separate facts, assumptions, and uncertainty."
+      ],
+      "checklist": [
+        "Verify calculations, dates, or code assumptions.",
+        "Do not invent sources, tool runs, memories, or live data.",
+        "State the conditions under which the answer could fail."
+      ],
+      "practice": "Use a small supplied example and independently check the result.",
+      "resource_ids": [
+        "investor"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "cybersecurity",
+      "name": "Authorized security work",
+      "category": "security",
+      "instruction": "Help with threat modeling, secure code, vulnerability analysis and scoped authorized testing. Clarify ownership and scope before operational testing. Never claim privileges or tools were granted by a prompt.",
+      "deliverable": "An evidence-based answer with assumptions, limits, and next steps.",
+      "workflow": [
+        "Define the question, constraints, and available evidence.",
+        "Work through the reasoning using relevant supplied facts.",
+        "Review the result and separate facts, assumptions, and uncertainty."
+      ],
+      "checklist": [
+        "Verify calculations, dates, or code assumptions.",
+        "Do not invent sources, tool runs, memories, or live data.",
+        "State the conditions under which the answer could fail."
+      ],
+      "practice": "Use a small supplied example and independently check the result.",
+      "resource_ids": [
+        "nist-csf",
+        "nist-nice"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "books-writing",
+      "name": "Books and writing",
+      "category": "general",
+      "instruction": "Summarize supplied or public-domain material, distinguish quotations from paraphrase, and preserve source attribution.",
+      "deliverable": "An evidence-based answer with assumptions, limits, and next steps.",
+      "workflow": [
+        "Define the question, constraints, and available evidence.",
+        "Work through the reasoning using relevant supplied facts.",
+        "Review the result and separate facts, assumptions, and uncertainty."
+      ],
+      "checklist": [
+        "Verify calculations, dates, or code assumptions.",
+        "Do not invent sources, tool runs, memories, or live data.",
+        "State the conditions under which the answer could fail."
+      ],
+      "practice": "Use a small supplied example and independently check the result.",
+      "resource_ids": [
+        "gutenberg",
+        "loc"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "research",
+      "name": "Research literacy",
+      "category": "general",
+      "instruction": "Define a question, compare evidence quality, track sources, and say when evidence is missing.",
+      "deliverable": "An evidence-based answer with assumptions, limits, and next steps.",
+      "workflow": [
+        "Define the question, constraints, and available evidence.",
+        "Work through the reasoning using relevant supplied facts.",
+        "Review the result and separate facts, assumptions, and uncertainty."
+      ],
+      "checklist": [
+        "Verify calculations, dates, or code assumptions.",
+        "Do not invent sources, tool runs, memories, or live data.",
+        "State the conditions under which the answer could fail."
+      ],
+      "practice": "Use a small supplied example and independently check the result.",
+      "resource_ids": [
+        "nist-ai",
+        "loc"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "data-analysis",
+      "name": "Data analysis",
+      "category": "general",
+      "instruction": "Check sample quality, missingness, leakage, confounding and uncertainty before making statistical claims.",
+      "deliverable": "An evidence-based answer with assumptions, limits, and next steps.",
+      "workflow": [
+        "Define the question, constraints, and available evidence.",
+        "Work through the reasoning using relevant supplied facts.",
+        "Review the result and separate facts, assumptions, and uncertainty."
+      ],
+      "checklist": [
+        "Verify calculations, dates, or code assumptions.",
+        "Do not invent sources, tool runs, memories, or live data.",
+        "State the conditions under which the answer could fail."
+      ],
+      "practice": "Use a small supplied example and independently check the result.",
+      "resource_ids": [
+        "pandas",
+        "scipy"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "ai-foundations",
+      "name": "AI systems foundations",
+      "category": "ai",
+      "instruction": "Map models, harness, memory, data pipelines, and governance to a concrete use case.",
+      "deliverable": "A component map with responsibilities and acceptance criteria.",
+      "workflow": [
+        "Define the user task and measurable baseline.",
+        "Map data and inference flow across the five components.",
+        "Specify failure modes, monitoring, and ownership."
+      ],
+      "checklist": [
+        "Keep model capability separate from application features.",
+        "Include latency, quality, and cost budgets."
+      ],
+      "practice": "Sketch a local document assistant without external credentials.",
+      "resource_ids": [
+        "d2l",
+        "nist-ai"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "ml-foundations",
+      "name": "Machine learning foundations",
+      "category": "ai",
+      "instruction": "Choose an interpretable baseline before increasing model complexity.",
+      "deliverable": "A leakage-aware experiment design.",
+      "workflow": [
+        "Define prediction time and labels.",
+        "Split by entity or time before fitting preprocessing.",
+        "Compare held-out metrics against a simple baseline."
+      ],
+      "checklist": [
+        "Avoid target and time leakage.",
+        "Inspect subgroup and class imbalance."
+      ],
+      "practice": "Build a plan for a public tabular classification task.",
+      "resource_ids": [
+        "sklearn",
+        "scipy"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "deep-learning",
+      "name": "Deep learning",
+      "category": "ai",
+      "instruction": "Explain tensor shapes, gradients, optimization, and generalization precisely.",
+      "deliverable": "A reproducible training-loop design.",
+      "workflow": [
+        "Check input and output tensor contracts.",
+        "Specify loss, optimizer, and validation cadence.",
+        "Diagnose learning curves and gradient problems."
+      ],
+      "checklist": [
+        "Distinguish train and evaluation behavior.",
+        "Account for seeds and numerical precision."
+      ],
+      "practice": "Review a small supplied training loop without claiming it ran.",
+      "resource_ids": [
+        "pytorch",
+        "d2l"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "llm-architecture",
+      "name": "LLM architecture",
+      "category": "ai",
+      "instruction": "Reason about tokenization, attention, positional encoding, context, and decoding.",
+      "deliverable": "An architecture explanation with compute and memory tradeoffs.",
+      "workflow": [
+        "Define model inputs and outputs.",
+        "Trace attention and next-token prediction.",
+        "Estimate constraints and identify unsupported assumptions."
+      ],
+      "checklist": [
+        "Distinguish parameters, context length, and output length.",
+        "Use the actual model configuration when supplied."
+      ],
+      "practice": "Trace a short text through a transformer conceptually.",
+      "resource_ids": [
+        "transformers",
+        "d2l"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "tokenization",
+      "name": "Tokenization and context",
+      "category": "ai",
+      "instruction": "Treat tokenizer behavior and chat templates as model-specific contracts.",
+      "deliverable": "A context-budget and truncation plan.",
+      "workflow": [
+        "Identify tokenizer and special tokens.",
+        "Reserve output space and preserve complete recent turns.",
+        "Check multilingual and boundary-case behavior."
+      ],
+      "checklist": [
+        "Do not equate characters with model tokens.",
+        "Preserve system and current-user messages."
+      ],
+      "practice": "Compare supplied token counts for short multilingual examples.",
+      "resource_ids": [
+        "hf-course",
+        "transformers"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "prompt-design",
+      "name": "Prompt and context design",
+      "category": "ai",
+      "instruction": "Create concise instructions with explicit task, evidence, output contract, and uncertainty.",
+      "deliverable": "A versioned prompt and evaluation checklist.",
+      "workflow": [
+        "Define success and required evidence.",
+        "Separate trusted instructions from untrusted content.",
+        "Test ordinary, missing-information, and adversarial examples."
+      ],
+      "checklist": [
+        "Avoid unsupported tool or memory claims.",
+        "Measure quality alongside token and latency budgets."
+      ],
+      "practice": "Revise a verbose prompt and explain each retained constraint.",
+      "resource_ids": [
+        "hf-course",
+        "nist-ai"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "rag",
+      "name": "Retrieval-augmented generation",
+      "category": "ai",
+      "instruction": "Ground answers in supplied retrievable evidence and preserve provenance.",
+      "deliverable": "A retrieval and citation evaluation plan.",
+      "workflow": [
+        "Define corpus rights, freshness, and access rules.",
+        "Choose chunking, retrieval, and reranking baselines.",
+        "Evaluate retrieval recall and answer support independently."
+      ],
+      "checklist": [
+        "Enforce document access before retrieval.",
+        "Abstain when relevant evidence is missing."
+      ],
+      "practice": "Design retrieval over three user-supplied documents.",
+      "resource_ids": [
+        "sbert",
+        "datasets"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "embeddings",
+      "name": "Embeddings and semantic search",
+      "category": "ai",
+      "instruction": "Choose embedding and similarity methods using task-specific retrieval evidence.",
+      "deliverable": "A search benchmark with labeled relevance examples.",
+      "workflow": [
+        "Define query and document distributions.",
+        "Compare embedding normalization and search baselines.",
+        "Measure recall, ranking quality, latency, and drift."
+      ],
+      "checklist": [
+        "Keep evaluation queries out of tuning data.",
+        "Check multilingual and near-duplicate cases."
+      ],
+      "practice": "Analyze a small supplied similarity matrix.",
+      "resource_ids": [
+        "sbert",
+        "sklearn"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "fine-tuning",
+      "name": "Fine-tuning and adapters",
+      "category": "ai",
+      "instruction": "Use representative licensed data and compare adapters to the unchanged base.",
+      "deliverable": "A bounded candidate experiment with promotion criteria.",
+      "workflow": [
+        "Prepare versioned grouped data splits.",
+        "Define trainable parameters, loss masking, and resource limits.",
+        "Evaluate answer quality and regressions before promotion."
+      ],
+      "checklist": [
+        "Never train on the sealed final test set.",
+        "Lower training loss alone is insufficient for release."
+      ],
+      "practice": "Draft a LoRA experiment for a narrow supported task.",
+      "resource_ids": [
+        "peft",
+        "datasets"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "data-engineering",
+      "name": "AI data engineering",
+      "category": "ai",
+      "instruction": "Audit provenance, permissions, schemas, missingness, duplicates, and leakage.",
+      "deliverable": "A versioned data contract and quality report.",
+      "workflow": [
+        "Define row grain, schema, source, and retention.",
+        "Clean and deduplicate before creating isolated splits.",
+        "Record checksums, transformations, and known gaps."
+      ],
+      "checklist": [
+        "Preserve source notices and access controls.",
+        "Do not infer data rights from public availability."
+      ],
+      "practice": "Review a supplied dataset schema and propose quality checks.",
+      "resource_ids": [
+        "datasets",
+        "pandas"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "model-evaluation",
+      "name": "Model evaluation",
+      "category": "ai",
+      "instruction": "Use task-specific, slice-aware tests and inspect actual outputs.",
+      "deliverable": "A baseline comparison and regression report.",
+      "workflow": [
+        "Define metrics and error costs before testing.",
+        "Evaluate independent representative examples and slices.",
+        "Inspect failures and set promotion and rollback gates."
+      ],
+      "checklist": [
+        "Separate development diagnostics from sealed tests.",
+        "Report uncertainty and scorer limitations."
+      ],
+      "practice": "Design an answer-quality rubric for ten supplied questions.",
+      "resource_ids": [
+        "sklearn",
+        "mlflow"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "uncertainty",
+      "name": "Calibration and abstention",
+      "category": "ai",
+      "instruction": "Separate subjective confidence from validated probability and decide when to abstain.",
+      "deliverable": "A calibration and human-review policy.",
+      "workflow": [
+        "Define correctness labels and costly error cases.",
+        "Fit thresholds on a validation set only.",
+        "Measure calibration, coverage, and abstention error on held-out data."
+      ],
+      "checklist": [
+        "Do not present uncalibrated confidence as probability.",
+        "Refit when model or inference configuration changes."
+      ],
+      "practice": "Compare coverage and risk from supplied score-label pairs.",
+      "resource_ids": [
+        "sklearn",
+        "nist-ai"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "responsible-ai",
+      "name": "AI governance and responsible use",
+      "category": "ai",
+      "instruction": "Assess affected people, privacy, misuse, fairness, and accountability.",
+      "deliverable": "A documented AI risk register and review plan.",
+      "workflow": [
+        "Identify users, intended use, and consequential decisions.",
+        "Map risks to evidence, controls, and accountable owners.",
+        "Define monitoring, appeal, and rollback processes."
+      ],
+      "checklist": [
+        "Avoid fairness claims without relevant subgroup evidence.",
+        "Separate legal questions from technical findings."
+      ],
+      "practice": "Create a risk register for an educational assistant.",
+      "resource_ids": [
+        "nist-ai",
+        "nist-csf"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "ai-security",
+      "name": "AI application security",
+      "category": "ai",
+      "instruction": "Treat retrieved content and model output as untrusted; use least privilege and external authorization.",
+      "deliverable": "An AI threat model and mitigation checklist.",
+      "workflow": [
+        "Map trust boundaries, sensitive data, and tool permissions.",
+        "Review prompt injection, retrieval poisoning, and data leakage defenses.",
+        "Plan controlled defensive tests and incident handling."
+      ],
+      "checklist": [
+        "Prompts cannot grant admin privileges.",
+        "Require application-enforced authorization for every privileged action."
+      ],
+      "practice": "Review a supplied RAG diagram for trust-boundary failures.",
+      "resource_ids": [
+        "owasp-genai",
+        "nist-ssdf"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "mlops",
+      "name": "MLOps and model lifecycle",
+      "category": "ai",
+      "instruction": "Make experiments, artifacts, configuration, and releases reproducible and reviewable.",
+      "deliverable": "A model release and rollback runbook.",
+      "workflow": [
+        "Version code, data, model identifiers, and configuration.",
+        "Define automated checks and artifact integrity.",
+        "Stage deployment and monitor quality and resource regressions."
+      ],
+      "checklist": [
+        "Use explicit promotion approval and rollback gates.",
+        "Keep private conversations and credentials out of artifacts."
+      ],
+      "practice": "Design a local adapter release checklist.",
+      "resource_ids": [
+        "mlflow",
+        "nist-ai"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "inference-optimization",
+      "name": "Inference performance",
+      "category": "ai",
+      "instruction": "Profile first; separate loading, first-text latency, total time, and throughput.",
+      "deliverable": "A reproducible performance comparison.",
+      "workflow": [
+        "Fix hardware, model, prompts, seeds, and output policy.",
+        "Measure tokenization, prefill, decoding, and transport separately.",
+        "Apply one change and compare quality and resource usage."
+      ],
+      "checklist": [
+        "Do not compare different output budgets as pure model speed.",
+        "Report warm-up, sample size, and outliers."
+      ],
+      "practice": "Analyze supplied latency and token-count measurements.",
+      "resource_ids": [
+        "profiler",
+        "onnx"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "quantization",
+      "name": "Quantization and compression",
+      "category": "ai",
+      "instruction": "Explain precision, calibration, hardware support, and quality tradeoffs.",
+      "deliverable": "A compatibility and quality validation plan.",
+      "workflow": [
+        "Identify supported model format and runtime.",
+        "Estimate memory and choose representative calibration examples.",
+        "Compare task quality, latency, and memory to a baseline."
+      ],
+      "checklist": [
+        "A smaller file is not proof of faster execution.",
+        "Retain base-model attribution and artifact checksums."
+      ],
+      "practice": "Evaluate two documented deployment options using supplied specifications.",
+      "resource_ids": [
+        "onnx",
+        "transformers"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "distributed-training",
+      "name": "Distributed training",
+      "category": "ai",
+      "instruction": "Plan parallelism around communication, memory, checkpointing, and recovery limits.",
+      "deliverable": "A distributed experiment and recovery specification.",
+      "workflow": [
+        "Estimate model, optimizer, activation, and communication costs.",
+        "Choose data or model parallelism and effective batch size.",
+        "Plan checkpoint consistency and failure recovery tests."
+      ],
+      "checklist": [
+        "Document topology, precision, and accumulation.",
+        "Verify equivalence against a small single-device baseline."
+      ],
+      "practice": "Estimate resource budgets from a supplied training configuration.",
+      "resource_ids": [
+        "accelerate",
+        "pytorch"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "computer-vision",
+      "name": "Computer vision",
+      "category": "ai",
+      "instruction": "Evaluate image models with appropriate spatial labels and distribution checks.",
+      "deliverable": "A vision data and evaluation design.",
+      "workflow": [
+        "Define task, image rights, and labeling quality.",
+        "Choose augmentations without validation leakage.",
+        "Evaluate domain shift, error slices, and deployment conditions."
+      ],
+      "checklist": [
+        "Check subject overlap between splits.",
+        "Avoid identity or sensitive-attribute conclusions without valid evidence."
+      ],
+      "practice": "Review a supplied image-classification evaluation plan.",
+      "resource_ids": [
+        "hf-cv",
+        "pytorch"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "speech-audio",
+      "name": "Speech and audio AI",
+      "category": "ai",
+      "instruction": "Account for sample rate, transcript quality, language, noise, and speaker overlap.",
+      "deliverable": "An audio processing and evaluation plan.",
+      "workflow": [
+        "Define consent, language coverage, and input format.",
+        "Choose preprocessing and a documented baseline.",
+        "Evaluate recognition errors, noise slices, and latency."
+      ],
+      "checklist": [
+        "Split speakers and recordings appropriately.",
+        "Do not impersonate people or infer consent from a recording."
+      ],
+      "practice": "Analyze supplied transcription errors across noise conditions.",
+      "resource_ids": [
+        "hf-audio",
+        "datasets"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "multimodal-ai",
+      "name": "Multimodal systems",
+      "category": "ai",
+      "instruction": "Distinguish what the configured interface and model actually support.",
+      "deliverable": "A modality contract and grounded evaluation plan.",
+      "workflow": [
+        "Inventory input modalities and preprocessing.",
+        "Map alignment, missing-modality, and context limits.",
+        "Evaluate cross-modal grounding and unsupported claims."
+      ],
+      "checklist": [
+        "Do not claim Zenith accepts images or audio unless implemented.",
+        "Respect consent and provenance for every modality."
+      ],
+      "practice": "Design tests for a hypothetical document-image assistant.",
+      "resource_ids": [
+        "transformers",
+        "hf-cv"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "recommender-systems",
+      "name": "Recommender systems",
+      "category": "ai",
+      "instruction": "Compare ranking baselines while avoiding temporal and user-level leakage.",
+      "deliverable": "A recommendation evaluation and monitoring plan.",
+      "workflow": [
+        "Define feedback, exposure, and candidate generation.",
+        "Build chronological splits and simple popularity baselines.",
+        "Evaluate ranking, coverage, diversity, and feedback bias."
+      ],
+      "checklist": [
+        "Offline metrics do not prove user benefit.",
+        "Respect user deletion and sensitive preference boundaries."
+      ],
+      "practice": "Design a book recommender with explicit user preferences.",
+      "resource_ids": [
+        "d2l",
+        "sklearn"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "reinforcement-learning",
+      "name": "Reinforcement learning",
+      "category": "ai",
+      "instruction": "Specify states, actions, rewards, constraints, and evaluation separately.",
+      "deliverable": "An environment specification and bounded experiment.",
+      "workflow": [
+        "Define the task and simulator assumptions.",
+        "Compare a simple baseline under fixed evaluation episodes.",
+        "Check reward hacking, instability, and transfer limits."
+      ],
+      "checklist": [
+        "Simulation success does not establish real-world safety.",
+        "Use resource and action bounds."
+      ],
+      "practice": "Review a toy grid-world reward design.",
+      "resource_ids": [
+        "gymnasium",
+        "d2l"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "ai-research",
+      "name": "AI research and reproducibility",
+      "category": "ai",
+      "instruction": "Separate paper claims, reproduced results, and speculation.",
+      "deliverable": "A reproducibility checklist and evidence table.",
+      "workflow": [
+        "State the research question and baseline.",
+        "Inspect datasets, compute, ablations, and evaluation validity.",
+        "Document reproduction differences and unresolved uncertainty."
+      ],
+      "checklist": [
+        "Do not invent citations or executed experiments.",
+        "Report negative results and limitations."
+      ],
+      "practice": "Critique a supplied paper abstract and experiment description.",
+      "resource_ids": [
+        "jupyter",
+        "mlflow"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "security-foundations",
+      "name": "Security foundations",
+      "category": "security",
+      "instruction": "Teach confidentiality, integrity, availability, identity, and least privilege.",
+      "deliverable": "A scoped defensive report with evidence, risk, remediation, and verification.",
+      "workflow": [
+        "Inventory assets and trust boundaries.",
+        "Compare threats, vulnerabilities, and business impact.",
+        "Prioritize practical controls and verification."
+      ],
+      "checklist": [
+        "Use a defensive or explicitly authorized context.",
+        "Do not confuse tool familiarity with professional competence."
+      ],
+      "practice": "Create a hardening checklist for your own test computer.",
+      "resource_ids": [
+        "nist-csf",
+        "nist-nice"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "threat-modeling",
+      "name": "Threat modeling",
+      "category": "security",
+      "instruction": "Reason from assets, adversary capabilities, trust boundaries, and realistic abuse cases.",
+      "deliverable": "A scoped defensive report with evidence, risk, remediation, and verification.",
+      "workflow": [
+        "Map assets and data flows.",
+        "Describe plausible failures without executable attack instructions.",
+        "Prioritize mitigations and tests by impact and likelihood."
+      ],
+      "checklist": [
+        "Tie each mitigation to an identified risk.",
+        "Record assumptions and residual risk."
+      ],
+      "practice": "Threat-model a supplied sign-in and memory architecture.",
+      "resource_ids": [
+        "owasp-samm",
+        "nist-csf"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "secure-coding",
+      "name": "Secure coding",
+      "category": "security",
+      "instruction": "Review supplied code for unsafe input handling, authorization, secrets, and dependency risks.",
+      "deliverable": "A scoped defensive report with evidence, risk, remediation, and verification.",
+      "workflow": [
+        "Identify entry points and trust boundaries.",
+        "Explain findings with code evidence and severity uncertainty.",
+        "Propose minimal defensive fixes and regression checks."
+      ],
+      "checklist": [
+        "Distinguish confirmed issues from heuristic warnings.",
+        "Avoid exploit payloads, persistence, or evasion implementations."
+      ],
+      "practice": "Review a supplied input-validation function and its tests.",
+      "resource_ids": [
+        "owasp-cheatsheets",
+        "nist-ssdf"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "appsec-audit",
+      "name": "Application security auditing",
+      "category": "security",
+      "instruction": "Map application controls to verification requirements and evidence.",
+      "deliverable": "A scoped defensive report with evidence, risk, remediation, and verification.",
+      "workflow": [
+        "Define application scope, data sensitivity, and owners.",
+        "Review authentication, session, authorization, and storage controls.",
+        "Produce findings with evidence, remediation, and retest criteria."
+      ],
+      "checklist": [
+        "Do not claim compliance from a checklist alone.",
+        "Protect sensitive evidence and redact secrets."
+      ],
+      "practice": "Audit a supplied API design against selected ASVS requirements.",
+      "resource_ids": [
+        "owasp-asvs",
+        "owasp-cheatsheets"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "authorized-pentest",
+      "name": "Authorized assessment planning",
+      "category": "security",
+      "instruction": "Plan authorized security assessments with written scope and non-destructive boundaries.",
+      "deliverable": "A scoped defensive report with evidence, risk, remediation, and verification.",
+      "workflow": [
+        "Confirm the system owner, written authorization, and permitted assets.",
+        "Define rules of engagement, time window, stop conditions, and evidence handling.",
+        "Prepare a reporting and remediation-retest plan."
+      ],
+      "checklist": [
+        "No testing of third-party assets without explicit permission.",
+        "Exclude data theft, malware deployment, service disruption, and retaliation."
+      ],
+      "practice": "Write rules of engagement for an isolated training environment.",
+      "resource_ids": [
+        "nist-testing",
+        "owasp-asvs"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "vulnerability-management",
+      "name": "Vulnerability management",
+      "category": "security",
+      "instruction": "Prioritize remediation using asset context, exposure, severity, and evidence.",
+      "deliverable": "A scoped defensive report with evidence, risk, remediation, and verification.",
+      "workflow": [
+        "Inventory approved assets and software versions from supplied records.",
+        "Correlate vulnerability advisories and document applicability uncertainty.",
+        "Prioritize patches, compensating controls, and retest evidence."
+      ],
+      "checklist": [
+        "A version match alone does not prove exploitability.",
+        "Use official advisories and change-management procedures."
+      ],
+      "practice": "Triage a supplied vulnerability inventory and patch schedule.",
+      "resource_ids": [
+        "nvd",
+        "cisa-cpg"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "incident-response",
+      "name": "Incident response",
+      "category": "security",
+      "instruction": "Provide evidence-preserving triage, containment, recovery, and communication guidance.",
+      "deliverable": "A scoped defensive report with evidence, risk, remediation, and verification.",
+      "workflow": [
+        "Establish incident scope, timeline, and response authority.",
+        "Prioritize safety and containment while preserving evidence.",
+        "Plan recovery verification, notifications, and lessons learned."
+      ],
+      "checklist": [
+        "Separate observed facts from hypotheses.",
+        "Use qualified responders for live critical incidents."
+      ],
+      "practice": "Build a tabletop response from synthetic authentication logs.",
+      "resource_ids": [
+        "nist-ir",
+        "nist-csf"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "digital-forensics",
+      "name": "Digital forensics fundamentals",
+      "category": "security",
+      "instruction": "Explain defensible evidence handling and analysis of supplied artifacts.",
+      "deliverable": "A scoped defensive report with evidence, risk, remediation, and verification.",
+      "workflow": [
+        "Record acquisition context, consent, timestamps, and hashes.",
+        "Analyze copies and correlate available artifacts.",
+        "Report provenance, limitations, and alternative explanations."
+      ],
+      "checklist": [
+        "Preserve originals and chain of custody.",
+        "Do not access another person's accounts or private data without authority."
+      ],
+      "practice": "Build an evidence timeline from synthetic log excerpts.",
+      "resource_ids": [
+        "nist-ir",
+        "nist-nice"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "malware-analysis",
+      "name": "Defensive malware analysis",
+      "category": "security",
+      "instruction": "Use static triage, supplied indicators, and isolated-lab precautions to understand suspected malware.",
+      "deliverable": "A scoped defensive report with evidence, risk, remediation, and verification.",
+      "workflow": [
+        "Document artifact provenance and hashes.",
+        "Inspect supplied metadata and static observations without executing unknown code.",
+        "Summarize indicators, containment, and remediation uncertainty."
+      ],
+      "checklist": [
+        "Do not generate, modify, deploy, or evade detection with malware.",
+        "A hash or string alone does not establish malicious behavior."
+      ],
+      "practice": "Classify a synthetic indicator report and propose containment checks.",
+      "resource_ids": [
+        "mitre-d3fend",
+        "nist-ir"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "ransomware-defense",
+      "name": "Ransomware defense and recovery",
+      "category": "security",
+      "instruction": "Focus on prevention, detection, evidence preservation, containment, and backup restoration.",
+      "deliverable": "A scoped defensive report with evidence, risk, remediation, and verification.",
+      "workflow": [
+        "Review identity exposure, segmentation, and backup resilience.",
+        "Build an incident escalation and isolation decision tree.",
+        "Define restoration order and validate clean recovery."
+      ],
+      "checklist": [
+        "Do not create encryptors, extortion workflows, or destructive code.",
+        "Follow the incident-response authority and preserve evidence."
+      ],
+      "practice": "Run a tabletop backup-restoration exercise using synthetic facts.",
+      "resource_ids": [
+        "cisa-ransomware",
+        "nist-ir"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "network-defense",
+      "name": "Network and availability defense",
+      "category": "security",
+      "instruction": "Interpret supplied network telemetry and design protective availability controls.",
+      "deliverable": "A scoped defensive report with evidence, risk, remediation, and verification.",
+      "workflow": [
+        "Establish expected traffic, approved assets, and service limits.",
+        "Compare anomalies with logs and known operational changes.",
+        "Plan rate limits, provider escalation, monitoring, and recovery."
+      ],
+      "checklist": [
+        "Do not launch denial-of-service traffic or retaliatory attacks.",
+        "Validate control changes in an owned test environment."
+      ],
+      "practice": "Review synthetic traffic counts and an availability runbook.",
+      "resource_ids": [
+        "cisa-ddos",
+        "mitre-d3fend"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "identity-security",
+      "name": "Identity and account protection",
+      "category": "security",
+      "instruction": "Strengthen authentication, authorization, session handling, and account recovery.",
+      "deliverable": "A scoped defensive report with evidence, risk, remediation, and verification.",
+      "workflow": [
+        "Map identities, privileges, and recovery flows.",
+        "Review MFA, least privilege, session expiry, and audit coverage.",
+        "Plan account compromise response and recovery verification."
+      ],
+      "checklist": [
+        "Never request passwords, recovery codes, or secret tokens.",
+        "No account theft, impersonation, or bypassing another user's access."
+      ],
+      "practice": "Review a supplied account-recovery design for defensive gaps.",
+      "resource_ids": [
+        "owasp-cheatsheets",
+        "cisa-cpg"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "cloud-security",
+      "name": "Cloud and container security",
+      "category": "security",
+      "instruction": "Reason about identity, network boundaries, configuration, secrets, and operational evidence.",
+      "deliverable": "A scoped defensive report with evidence, risk, remediation, and verification.",
+      "workflow": [
+        "Inventory resources and permissions from supplied configuration.",
+        "Review least privilege, isolation, storage exposure, and logging.",
+        "Prioritize remediation with rollback and verification steps."
+      ],
+      "checklist": [
+        "Do not claim access to or scan cloud accounts.",
+        "Keep credentials out of source, prompts, images, and logs."
+      ],
+      "practice": "Review a supplied container deployment configuration.",
+      "resource_ids": [
+        "nist-csf",
+        "nist-ssdf"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "supply-chain-security",
+      "name": "Software supply-chain security",
+      "category": "security",
+      "instruction": "Track dependency provenance, artifact integrity, review, and update policy.",
+      "deliverable": "A scoped defensive report with evidence, risk, remediation, and verification.",
+      "workflow": [
+        "Inventory dependencies, licenses, and release inputs.",
+        "Review build isolation, checksums, signing, and secret handling.",
+        "Define vulnerability response and reproducible release checks."
+      ],
+      "checklist": [
+        "Checksums alone do not prove publisher authenticity.",
+        "Preserve upstream notices and attribution."
+      ],
+      "practice": "Audit a supplied package manifest and release checklist.",
+      "resource_ids": [
+        "nist-ssdf",
+        "owasp-samm"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    },
+    {
+      "id": "disclosure",
+      "name": "Responsible disclosure",
+      "category": "security",
+      "instruction": "Plan coordinated reporting that minimizes harm and protects affected people.",
+      "deliverable": "A scoped defensive report with evidence, risk, remediation, and verification.",
+      "workflow": [
+        "Document observations from permitted work without accessing more data.",
+        "Find the owner's published reporting policy and approved channel.",
+        "Prepare a factual report with remediation and coordination steps."
+      ],
+      "checklist": [
+        "No doxxing, extortion, unauthorized exploitation, or public release of sensitive evidence.",
+        "Do not contact third parties automatically."
+      ],
+      "practice": "Draft a redacted report from a synthetic audit finding.",
+      "resource_ids": [
+        "nist-testing",
+        "nist-ir"
+      ],
+      "version": 2,
+      "kind": "instruction-profile"
+    }
+  ],
+  "resources": [
+    {
+      "id": "pytorch",
+      "title": "PyTorch tutorials",
+      "publisher": "PyTorch",
+      "category": "ai",
+      "url": "https://pytorch.org/tutorials/",
+      "summary": "Tensor operations, training loops, autograd, and deployment tutorials.",
+      "kind": "learning-reference",
+      "verification": {
+        "status": "retrieved",
+        "checked_on": "2026-10-23",
+        "http_status": 200,
+        "page_title": "Welcome to PyTorch Tutorials — PyTorch Tutorials 2.14.0+cu130 documentation",
+        "method": "live-page-retrieval"
+      }
+    },
+    {
+      "id": "hf-course",
+      "title": "Hugging Face LLM course",
+      "publisher": "Hugging Face",
+      "category": "ai",
+      "url": "https://huggingface.co/learn/llm-course/en/chapter1/1",
+      "summary": "Transformers, tokenizers, datasets, and practical language-model workflows.",
+      "kind": "learning-reference",
+      "verification": {
+        "status": "retrieved",
+        "checked_on": "2026-10-23",
+        "http_status": 200,
+        "page_title": "Introduction · Hugging Face",
+        "method": "live-page-retrieval"
+      }
+    },
+    {
+      "id": "transformers",
+      "title": "Transformers documentation",
+      "publisher": "Hugging Face",
+      "category": "ai",
+      "url": "https://huggingface.co/docs/transformers/index",
+      "summary": "Model loading, generation, configuration, and supported architectures.",
+      "kind": "learning-reference",
+      "verification": {
+        "status": "retrieved",
+        "checked_on": "2026-10-23",
+        "http_status": 200,
+        "page_title": "Transformers · Hugging Face",
+        "method": "live-page-retrieval"
+      }
+    },
+    {
+      "id": "datasets",
+      "title": "Datasets documentation",
+      "publisher": "Hugging Face",
+      "category": "ai",
+      "url": "https://huggingface.co/docs/datasets/index",
+      "summary": "Dataset loading, transformation, streaming, and reproducible data handling.",
+      "kind": "learning-reference",
+      "verification": {
+        "status": "retrieved",
+        "checked_on": "2026-10-23",
+        "http_status": 200,
+        "page_title": "Datasets · Hugging Face",
+        "method": "live-page-retrieval"
+      }
+    },
+    {
+      "id": "peft",
+      "title": "PEFT documentation",
+      "publisher": "Hugging Face",
+      "category": "ai",
+      "url": "https://huggingface.co/docs/peft/index",
+      "summary": "Parameter-efficient adaptation and supported fine-tuning methods.",
+      "kind": "learning-reference",
+      "verification": {
+        "status": "retrieved",
+        "checked_on": "2026-10-23",
+        "http_status": 200,
+        "page_title": "PEFT · Hugging Face",
+        "method": "live-page-retrieval"
+      }
+    },
+    {
+      "id": "accelerate",
+      "title": "Accelerate documentation",
+      "publisher": "Hugging Face",
+      "category": "ai",
+      "url": "https://huggingface.co/docs/accelerate/index",
+      "summary": "Distributed and mixed-precision training configuration.",
+      "kind": "learning-reference",
+      "verification": {
+        "status": "retrieved",
+        "checked_on": "2026-10-23",
+        "http_status": 200,
+        "page_title": "Accelerate · Hugging Face",
+        "method": "live-page-retrieval"
+      }
+    },
+    {
+      "id": "sklearn",
+      "title": "Scikit-learn user guide",
+      "publisher": "Scikit-learn",
+      "category": "ai",
+      "url": "https://scikit-learn.org/stable/user_guide.html",
+      "summary": "Supervised learning, preprocessing, model selection, and evaluation.",
+      "kind": "learning-reference",
+      "verification": {
+        "status": "retrieved",
+        "checked_on": "2026-10-23",
+        "http_status": 200,
+        "page_title": "User Guide — scikit-learn 1.9.1 documentation",
+        "method": "live-page-retrieval"
+      }
+    },
+    {
+      "id": "numpy",
+      "title": "NumPy learning resources",
+      "publisher": "NumPy",
+      "category": "ai",
+      "url": "https://numpy.org/learn/",
+      "summary": "Numerical arrays, broadcasting, and scientific computing foundations.",
+      "kind": "learning-reference",
+      "verification": {
+        "status": "retrieved",
+        "checked_on": "2026-10-23",
+        "http_status": 200,
+        "page_title": "NumPy - Learn",
+        "method": "live-page-retrieval"
+      }
+    },
+    {
+      "id": "scipy",
+      "title": "SciPy user guide",
+      "publisher": "SciPy",
+      "category": "ai",
+      "url": "https://docs.scipy.org/doc/scipy/tutorial/",
+      "summary": "Optimization, probability, statistics, and numerical methods.",
+      "kind": "learning-reference",
+      "verification": {
+        "status": "retrieved",
+        "checked_on": "2026-10-23",
+        "http_status": 200,
+        "page_title": "SciPy User Guide — SciPy v1.18.0 Manual",
+        "method": "live-page-retrieval"
+      }
+    },
+    {
+      "id": "pandas",
+      "title": "Pandas user guide",
+      "publisher": "Pandas",
+      "category": "ai",
+      "url": "https://pandas.pydata.org/docs/user_guide/index.html",
+      "summary": "Tabular cleaning, joins, time series, and data inspection.",
+      "kind": "learning-reference",
+      "verification": {
+        "status": "retrieved",
+        "checked_on": "2026-10-23",
+        "http_status": 200,
+        "page_title": "User Guide — pandas 3.1.0 documentation",
+        "method": "live-page-retrieval"
+      }
+    },
+    {
+      "id": "jupyter",
+      "title": "Jupyter documentation",
+      "publisher": "Project Jupyter",
+      "category": "ai",
+      "url": "https://docs.jupyter.org/en/latest/",
+      "summary": "Reproducible computational notebooks and supported environments.",
+      "kind": "learning-reference",
+      "verification": {
+        "status": "retrieved",
+        "checked_on": "2026-10-23",
+        "http_status": 200,
+        "page_title": "Project Jupyter Documentation — Jupyter Documentation 4.1.1 alpha documentation",
+        "method": "live-page-retrieval"
+      }
+    },
+    {
+      "id": "mlflow",
+      "title": "MLflow documentation",
+      "publisher": "MLflow",
+      "category": "ai",
+      "url": "https://mlflow.org/docs/latest/index.html",
+      "summary": "Experiment tracking, model lifecycle, deployment, and evaluation.",
+      "kind": "learning-reference",
+      "verification": {
+        "status": "retrieved",
+        "checked_on": "2026-10-23",
+        "http_status": 200,
+        "page_title": "MLflow Documentation | MLflow AI Platform",
+        "method": "live-page-retrieval"
+      }
+    },
+    {
+      "id": "onnx",
+      "title": "ONNX Runtime documentation",
+      "publisher": "ONNX Runtime",
+      "category": "ai",
+      "url": "https://onnxruntime.ai/docs/",
+      "summary": "Portable inference, execution providers, and runtime optimization.",
+      "kind": "learning-reference",
+      "verification": {
+        "status": "retrieved",
+        "checked_on": "2026-10-23",
+        "http_status": 200,
+        "page_title": "ONNX Runtime | onnxruntime",
+        "method": "live-page-retrieval"
+      }
+    },
+    {
+      "id": "profiler",
+      "title": "PyTorch Profiler recipe",
+      "publisher": "PyTorch",
+      "category": "ai",
+      "url": "https://docs.pytorch.org/tutorials/recipes/recipes/profiler_recipe.html",
+      "summary": "Measure operator time, memory, and performance bottlenecks.",
+      "kind": "learning-reference",
+      "verification": {
+        "status": "retrieved",
+        "checked_on": "2026-10-23",
+        "http_status": 200,
+        "page_title": "PyTorch Profiler — PyTorch Tutorials 2.14.0+cu130 documentation",
+        "method": "live-page-retrieval"
+      }
+    },
+    {
+      "id": "d2l",
+      "title": "Dive into Deep Learning",
+      "publisher": "D2L authors",
+      "category": "ai",
+      "url": "https://d2l.ai/",
+      "summary": "Open textbook covering neural networks and modern deep-learning concepts.",
+      "kind": "learning-reference",
+      "verification": {
+        "status": "retrieved",
+        "checked_on": "2026-10-23",
+        "http_status": 200,
+        "page_title": "Dive into Deep Learning — Dive into Deep Learning 1.0.3 documentation",
+        "method": "live-page-retrieval"
+      }
+    },
+    {
+      "id": "nist-ai",
+      "title": "AI Risk Management Framework",
+      "publisher": "NIST",
+      "category": "ai",
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+      "summary": "Risk identification, measurement, governance, and trustworthy AI guidance.",
+      "kind": "learning-reference",
+      "verification": {
+        "status": "retrieved",
+        "checked_on": "2026-10-23",
+        "http_status": 200,
+        "page_title": "AI Risk Management Framework | NIST",
+        "method": "live-page-retrieval"
+      }
+    },
+    {
+      "id": "hf-audio",
+      "title": "Hugging Face Audio course",
+      "publisher": "Hugging Face",
+      "category": "ai",
+      "url": "https://huggingface.co/learn/audio-course/en/chapter0/introduction",
+      "summary": "Audio data, speech recognition, and audio-model workflows.",
+      "kind": "learning-reference",
+      "verification": {
+        "status": "retrieved",
+        "checked_on": "2026-10-23",
+        "http_status": 200,
+        "page_title": "Welcome to the Hugging Face Audio course! · Hugging Face",
+        "method": "live-page-retrieval"
+      }
+    },
+    {
+      "id": "hf-cv",
+      "title": "Hugging Face Computer Vision course",
+      "publisher": "Hugging Face",
+      "category": "ai",
+      "url": "https://huggingface.co/learn/computer-vision-course/en/unit0/welcome/welcome",
+      "summary": "Image data, computer vision models, and evaluation concepts.",
+      "kind": "learning-reference",
+      "verification": {
+        "status": "retrieved",
+        "checked_on": "2026-10-23",
+        "http_status": 200,
+        "page_title": "Welcome to the Community Computer Vision Course · Hugging Face",
+        "method": "live-page-retrieval"
+      }
+    },
+    {
+      "id": "sbert",
+      "title": "Sentence Transformers documentation",
+      "publisher": "Sentence Transformers",
+      "category": "ai",
+      "url": "https://sbert.net/",
+      "summary": "Embedding models, semantic search, and reranking.",
+      "kind": "learning-reference",
+      "verification": {
+        "status": "retrieved",
+        "checked_on": "2026-10-23",
+        "http_status": 200,
+        "page_title": "SentenceTransformers Documentation — Sentence Transformers  documentation",
+        "method": "live-page-retrieval"
+      }
+    },
+    {
+      "id": "gymnasium",
+      "title": "Gymnasium documentation",
+      "publisher": "Farama Foundation",
+      "category": "ai",
+      "url": "https://gymnasium.farama.org/",
+      "summary": "Reinforcement-learning environment interfaces and evaluation basics.",
+      "kind": "learning-reference",
+      "verification": {
+        "status": "retrieved",
+        "checked_on": "2026-10-23",
+        "http_status": 200,
+        "page_title": "Gymnasium Documentation",
+        "method": "live-page-retrieval"
+      }
+    },
+    {
+      "id": "nist-csf",
+      "title": "Cybersecurity Framework",
+      "publisher": "NIST",
+      "category": "security",
+      "url": "https://www.nist.gov/cyberframework",
+      "summary": "Governance, identification, protection, detection, response, and recovery.",
+      "kind": "learning-reference",
+      "verification": {
+        "status": "retrieved",
+        "checked_on": "2026-10-23",
+        "http_status": 200,
+        "page_title": "Cybersecurity Framework | NIST",
+        "method": "live-page-retrieval"
+      }
+    },
+    {
+      "id": "nist-nice",
+      "title": "NICE workforce framework",
+      "publisher": "NIST",
+      "category": "security",
+      "url": "https://www.nist.gov/itl/applied-cybersecurity/nice/nice-framework-resource-center",
+      "summary": "Cybersecurity work roles, knowledge, and skills; useful for learning paths.",
+      "kind": "learning-reference",
+      "verification": {
+        "status": "retrieved",
+        "checked_on": "2026-10-23",
+        "http_status": 200,
+        "page_title": "NICE Framework Resource Center | NIST",
+        "method": "live-page-retrieval"
+      }
+    },
+    {
+      "id": "nist-testing",
+      "title": "Technical guide to security testing and assessment",
+      "publisher": "NIST",
+      "category": "security",
+      "url": "https://csrc.nist.gov/pubs/sp/800/115/final",
+      "summary": "Planning, authorization, assessment governance, analysis, and reporting.",
+      "kind": "learning-reference",
+      "verification": {
+        "status": "retrieved",
+        "checked_on": "2026-10-23",
+        "http_status": 200,
+        "page_title": "SP 800-115, Technical Guide to Information Security Testing and Assessment | CSRC",
+        "method": "live-page-retrieval"
+      }
+    },
+    {
+      "id": "nist-ir",
+      "title": "Incident response recommendations, SP 800-61 Rev. 3",
+      "publisher": "NIST",
+      "category": "security",
+      "url": "https://csrc.nist.gov/pubs/sp/800/61/r3/final",
+      "summary": "Incident preparation, detection, response, recovery, and improvement.",
+      "kind": "learning-reference",
+      "verification": {
+        "status": "retrieved",
+        "checked_on": "2026-10-23",
+        "http_status": 200,
+        "page_title": "SP 800-61 Rev. 3, Incident Response Recommendations and Considerations for Cybersecurity Risk Management: A CSF 2.0 Community Profile | CSRC",
+        "method": "live-page-retrieval"
+      }
+    },
+    {
+      "id": "nist-ssdf",
+      "title": "Secure Software Development Framework",
+      "publisher": "NIST",
+      "category": "security",
+      "url": "https://csrc.nist.gov/projects/ssdf",
+      "summary": "Integrate secure development practices throughout the software lifecycle.",
+      "kind": "learning-reference",
+      "verification": {
+        "status": "retrieved",
+        "checked_on": "2026-10-23",
+        "http_status": 200,
+        "page_title": "Secure Software Development Framework | CSRC",
+        "method": "live-page-retrieval"
+      }
+    },
+    {
+      "id": "owasp-asvs",
+      "title": "Application Security Verification Standard",
+      "publisher": "OWASP",
+      "category": "security",
+      "url": "https://owasp.org/www-project-application-security-verification-standard/",
+      "summary": "Structured application-security requirements and verification evidence.",
+      "kind": "learning-reference",
+      "verification": {
+        "status": "retrieved",
+        "checked_on": "2026-10-23",
+        "http_status": 200,
+        "page_title": "Overview | OWASP Application Security Verification Standard",
+        "method": "live-page-retrieval"
+      }
+    },
+    {
+      "id": "owasp-cheatsheets",
+      "title": "OWASP Cheat Sheet Series",
+      "publisher": "OWASP",
+      "category": "security",
+      "url": "https://cheatsheetseries.owasp.org/",
+      "summary": "Defensive implementation guidance for authentication, input handling, and application controls.",
+      "kind": "learning-reference",
+      "verification": {
+        "status": "retrieved",
+        "checked_on": "2026-10-23",
+        "http_status": 200,
+        "page_title": "Introduction - OWASP Cheat Sheet Series",
+        "method": "live-page-retrieval"
+      }
+    },
+    {
+      "id": "owasp-samm",
+      "title": "Software Assurance Maturity Model",
+      "publisher": "OWASP",
+      "category": "security",
+      "url": "https://owaspsamm.org/",
+      "summary": "Assess and improve an organization's software security practices.",
+      "kind": "learning-reference",
+      "verification": {
+        "status": "retrieved",
+        "checked_on": "2026-10-23",
+        "http_status": 200,
+        "page_title": "OWASP SAMM | OWASP SAMM",
+        "method": "live-page-retrieval"
+      }
+    },
+    {
+      "id": "owasp-genai",
+      "title": "OWASP GenAI Security Project",
+      "publisher": "OWASP",
+      "category": "security",
+      "url": "https://genai.owasp.org/",
+      "summary": "Threat awareness and mitigations for LLM and generative-AI applications.",
+      "kind": "learning-reference",
+      "verification": {
+        "status": "retrieved",
+        "checked_on": "2026-10-23",
+        "http_status": 200,
+        "page_title": "Home - OWASP Gen AI Security Project",
+        "method": "live-page-retrieval"
+      }
+    },
+    {
+      "id": "cisa-ransomware",
+      "title": "StopRansomware guide",
+      "publisher": "CISA",
+      "category": "security",
+      "url": "https://www.cisa.gov/stopransomware/ransomware-guide",
+      "summary": "Prevention, incident preparation, containment, and recovery guidance.",
+      "kind": "learning-reference",
+      "verification": {
+        "status": "retrieved",
+        "checked_on": "2026-10-23",
+        "http_status": 200,
+        "page_title": "#StopRansomware Guide | CISA",
+        "method": "live-page-retrieval"
+      }
+    },
+    {
+      "id": "cisa-ddos",
+      "title": "Understanding and responding to DDoS attacks",
+      "publisher": "CISA",
+      "category": "security",
+      "url": "https://www.cisa.gov/resources-tools/resources/understanding-and-responding-distributed-denial-service-attacks",
+      "summary": "Recognize availability attacks and coordinate defensive response.",
+      "kind": "learning-reference",
+      "verification": {
+        "status": "retrieved",
+        "checked_on": "2026-10-23",
+        "http_status": 200,
+        "page_title": "Understanding and Responding to Distributed Denial-Of-Service Attacks | CISA",
+        "method": "live-page-retrieval"
+      }
+    },
+    {
+      "id": "cisa-cpg",
+      "title": "Cross-sector cybersecurity performance goals",
+      "publisher": "CISA",
+      "category": "security",
+      "url": "https://www.cisa.gov/cross-sector-cybersecurity-performance-goals",
+      "summary": "Prioritized baseline controls and measurable security improvements.",
+      "kind": "learning-reference",
+      "verification": {
+        "status": "retrieved",
+        "checked_on": "2026-10-23",
+        "http_status": 200,
+        "page_title": "Cross-Sector Cybersecurity Performance Goals | CISA",
+        "method": "live-page-retrieval"
+      }
+    },
+    {
+      "id": "mitre-d3fend",
+      "title": "D3FEND defensive techniques",
+      "publisher": "MITRE",
+      "category": "security",
+      "url": "https://d3fend.mitre.org/",
+      "summary": "Vocabulary and relationships for cybersecurity countermeasures.",
+      "kind": "learning-reference",
+      "verification": {
+        "status": "retrieved",
+        "checked_on": "2026-10-23",
+        "http_status": 200,
+        "page_title": "D3FEND Matrix | MITRE D3FEND™",
+        "method": "live-page-retrieval"
+      }
+    },
+    {
+      "id": "nvd",
+      "title": "National Vulnerability Database",
+      "publisher": "NIST",
+      "category": "security",
+      "url": "https://nvd.nist.gov/",
+      "summary": "Vulnerability records and enrichment for defensive prioritization.",
+      "kind": "learning-reference",
+      "verification": {
+        "status": "retrieved",
+        "checked_on": "2026-10-23",
+        "http_status": 200,
+        "page_title": "NVD - Home",
+        "method": "live-page-retrieval"
+      }
+    },
+    {
+      "id": "mit-ocw",
+      "title": "MIT OpenCourseWare",
+      "publisher": "MIT",
+      "category": "general",
+      "url": "https://ocw.mit.edu/",
+      "summary": "University course materials for mathematics, computing, and science.",
+      "kind": "learning-reference",
+      "verification": {
+        "status": "retrieved",
+        "checked_on": "2026-10-23",
+        "http_status": 200,
+        "page_title": "MIT OpenCourseWare | Free Online Course Materials",
+        "method": "live-page-retrieval"
+      }
+    },
+    {
+      "id": "openstax",
+      "title": "OpenStax subjects",
+      "publisher": "OpenStax",
+      "category": "general",
+      "url": "https://openstax.org/subjects",
+      "summary": "Textbooks covering mathematics, statistics, science, and other subjects.",
+      "kind": "learning-reference",
+      "verification": {
+        "status": "retrieved",
+        "checked_on": "2026-10-23",
+        "http_status": 200,
+        "page_title": "Subjects - OpenStax",
+        "method": "live-page-retrieval"
+      }
+    },
+    {
+      "id": "gutenberg",
+      "title": "Project Gutenberg",
+      "publisher": "Project Gutenberg",
+      "category": "general",
+      "url": "https://www.gutenberg.org/",
+      "summary": "Book discovery with jurisdiction-dependent public-domain and reuse notices.",
+      "kind": "learning-reference",
+      "verification": {
+        "status": "retrieved",
+        "checked_on": "2026-10-23",
+        "http_status": 200,
+        "page_title": "Free eBooks | Project Gutenberg",
+        "method": "live-page-retrieval"
+      }
+    },
+    {
+      "id": "loc",
+      "title": "Library of Congress primary sources",
+      "publisher": "Library of Congress",
+      "category": "general",
+      "url": "https://www.loc.gov/classroom-materials/",
+      "summary": "Primary-source collections and evidence-based historical learning.",
+      "kind": "learning-reference",
+      "verification": {
+        "status": "retrieved",
+        "checked_on": "2026-10-23",
+        "http_status": 200,
+        "page_title": "Classroom Materials at the Library of Congress, Available Online | Library of Congress",
+        "method": "live-page-retrieval"
+      }
+    },
+    {
+      "id": "investor",
+      "title": "Investor education",
+      "publisher": "U.S. Securities and Exchange Commission",
+      "category": "general",
+      "url": "https://www.investor.gov/introduction-investing",
+      "summary": "Investment concepts, risks, fees, diversification, and fraud awareness.",
+      "kind": "learning-reference",
+      "verification": {
+        "status": "retrieved",
+        "checked_on": "2026-10-23",
+        "http_status": 200,
+        "page_title": "Introduction to Investing | Investor.gov",
+        "method": "live-page-retrieval"
+      }
+    },
+    {
+      "id": "khan",
+      "title": "Khan Academy",
+      "publisher": "Khan Academy",
+      "category": "general",
+      "url": "https://www.khanacademy.org/",
+      "summary": "Foundational mathematics, statistics, science, and computing lessons.",
+      "kind": "learning-reference",
+      "verification": {
+        "status": "retrieved",
+        "checked_on": "2026-10-23",
+        "http_status": 200,
+        "page_title": "Khan Academy | Free Online Courses, Lessons & Practice",
+        "method": "live-page-retrieval"
+      }
+    }
+  ],
+  "taxonomy": [
+    {
+      "id": "black-hat",
+      "name": "Black hat",
+      "meaning": "An informal label for malicious or criminal activity for gain, harm, or unauthorized access.",
+      "professional_alternative": "Threat analysis, malware defense, ransomware recovery, and fraud prevention.",
+      "profile_ids": [
+        "malware-analysis",
+        "ransomware-defense",
+        "identity-security"
+      ]
+    },
+    {
+      "id": "white-hat",
+      "name": "White hat",
+      "meaning": "An informal label for security work performed with explicit authorization and agreed scope.",
+      "professional_alternative": "Written rules of engagement, evidence-based auditing, remediation, and retesting.",
+      "profile_ids": [
+        "authorized-pentest",
+        "appsec-audit",
+        "secure-coding"
+      ]
+    },
+    {
+      "id": "gray-hat",
+      "name": "Gray hat",
+      "meaning": "Often describes finding or disclosing flaws without prior permission; good intentions do not establish authorization.",
+      "professional_alternative": "Use an authorized lab or owner-approved assessment and coordinated disclosure.",
+      "profile_ids": [
+        "disclosure",
+        "authorized-pentest"
+      ]
+    },
+    {
+      "id": "green-hat",
+      "name": "Green hat",
+      "meaning": "An inconsistent informal term sometimes used for beginners; it is not a qualification.",
+      "professional_alternative": "Learn fundamentals, practice on owned synthetic examples, and develop reporting skills.",
+      "profile_ids": [
+        "security-foundations",
+        "secure-coding"
+      ]
+    },
+    {
+      "id": "blue-hat",
+      "name": "Blue hat",
+      "meaning": "An ambiguous term used for external security testers in some contexts and revenge-motivated actors in others.",
+      "professional_alternative": "Account protection, incident response, lawful reporting, and authorized external review.",
+      "profile_ids": [
+        "identity-security",
+        "incident-response",
+        "disclosure"
+      ]
+    },
+    {
+      "id": "red-hat",
+      "name": "Red hat",
+      "meaning": "An inconsistent internet label sometimes associated with vigilante retaliation; distinct from an authorized red-team exercise or the software company.",
+      "professional_alternative": "Defensive detection, incident response, and assessment work with explicit rules of engagement.",
+      "profile_ids": [
+        "network-defense",
+        "incident-response",
+        "authorized-pentest"
+      ]
+    }
+  ]
+}
