@@ -4,6 +4,7 @@ import importlib.util
 import io
 import json
 import os
+import shlex
 from pathlib import Path
 import subprocess
 import sys
@@ -32,7 +33,7 @@ class EasyInstallTests(unittest.TestCase):
             with patch.object(module.venv.EnvBuilder, 'create'), patch.object(module, 'run') as run, patch.object(module, 'configured_provider', return_value='huggingface'), contextlib.redirect_stdout(io.StringIO()):
                 self.assertEqual(module.main(['--venv', folder, '--launch']), 0)
                 commands = [list(map(str, call.args[0])) for call in run.call_args_list]
-                self.assertTrue(all(c[0] == str(module.environment_python(folder)) for c in commands))
+                self.assertTrue(all(c[0] == str(module.environment_python(Path(folder).resolve())) for c in commands))
                 download = next(i for i, c in enumerate(commands) if c[-2:] == ['models', 'download'])
                 self.assertLess(download, len(commands) - 1)
                 self.assertEqual(commands[-1][1:], ['-m', 'agent', 'serve', '--open-browser'])
@@ -84,7 +85,8 @@ class EasyInstallTests(unittest.TestCase):
             for name in ['start.sh', 'run.sh']:
                 (root / name).write_bytes((ROOT / name).read_bytes())
             python = root / '.venv/bin/python'; python.parent.mkdir(parents=True)
-            python.write_text('#!' + sys.executable + '\nimport sys,json; print(json.dumps(sys.argv[1:]))\n')
+            code = 'import sys,json; print(json.dumps(sys.argv[1:]))'
+            python.write_text('#!/bin/sh\nexec ' + shlex.quote(sys.executable) + ' -c ' + shlex.quote(code) + ' \"$@\"\n')
             python.chmod(0o755)
             result = subprocess.run(['bash', str(root / 'start.sh'), '--port', '8123'], cwd=elsewhere, text=True, capture_output=True)
             self.assertEqual(result.returncode, 0, result.stderr)

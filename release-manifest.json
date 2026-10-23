@@ -838,8 +838,8 @@
     },
     {
       "path": "tests/test_easy_install.py",
-      "size": 6231,
-      "sha256": "5f427a39da6c4c76b86ff80b990f7d860ad2ad045e98f19ad3346c2f97bc58ca",
+      "size": 6343,
+      "sha256": "80146fa1ba894ed93ff33be888f3bb9d73662d824ca4186bc1cff36ebe151038",
       "normalization": "lf"
     },
     {
