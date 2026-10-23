@@ -19,10 +19,12 @@ DEFAULT_SUITE=Path(__file__).parent/'evaluation'/'suite-v1.json'
 ABSTENTION=re.compile(r"(?:don.t know|do not know|don.t have|do not have|cannot (?:know|determine|provide|guarantee)|can.t (?:know|determine|provide|guarantee)|not (?:known|available|documented)|unknown|no way to|not possible|no reliable)",re.I)
 
 
-def configuration_signature(settings,mode=None):
-    fields={'version':'0.6','provider':settings.provider,'model':settings.model_name,'revision':settings.revision,
+def configuration_signature(settings,mode=None,reply_style=None):
+    fields={'version':'0.7','provider':settings.provider,'model':settings.model_name,'revision':settings.revision,
             'adapter':settings.adapter,'max_new_tokens':settings.max_new_tokens,'context_tokens':settings.context_tokens,
-            'temperature':settings.temperature,'mode':mode or settings.response_mode,'team_sha256':None}
+            'temperature':settings.temperature,'mode':mode or settings.response_mode,'team_sha256':None,
+            'reply_style':reply_style or settings.reply_style,'fast_max_new_tokens':settings.fast_max_new_tokens,'fast_history_turns':settings.fast_history_turns}
+    fields.update(device=settings.device,cpu_threads=settings.cpu_threads)
     if settings.team_config:
         fields['team_sha256']=hashlib.sha256(Path(settings.team_config).read_bytes()).hexdigest()
     return hashlib.sha256(json.dumps(fields,sort_keys=True).encode()).hexdigest()
@@ -87,13 +89,13 @@ def run_suite(settings,suite_path=DEFAULT_SUITE,mode='fast',repeat=1,purpose='di
                 row={'id':case['id'],'iteration':iteration,'prompt':case['prompt'],'response':result['response'],
                      'latency_ms':(time.perf_counter()-started)*1000,'slices':case['slices']+['path:'+result['quality']['method']],
                      'should_abstain':case['should_abstain'],'quality':result['quality'],
-                     'first_text_ms':result.get('time_to_first_text_ms')}
+                     'first_text_ms':result.get('time_to_first_text_ms'),'performance':result.get('performance')}
                 row.update(score_case(case,row['response']));results.append(row)
     return {'schema_version':1,'purpose':purpose,'suite_sha256':hashlib.sha256(path.read_bytes()).hexdigest(),
             'model':settings.model_name,'revision':settings.revision,'adapter':settings.adapter,'provider':settings.provider,
             'python':platform.python_version(),'cpu_threads':settings.cpu_threads,'max_new_tokens':settings.max_new_tokens,
             'temperature':settings.temperature,'context_tokens':settings.context_tokens,
-            'response_mode':mode,'cold_start_ms':cold_ms,'results':results,'slices':summarize(results),
+            'response_mode':mode,'reply_style':settings.reply_style,'cold_start_ms':cold_ms,'results':results,'slices':summarize(results),
             'configuration_sha256':configuration_signature(settings,mode),
             'calibration':{'available':False,'brier_score':None,'expected_calibration_error':None,'note':'No calibrated probabilities supplied; model self-confidence is not measured confidence.'},
             'limitations':['Rule-based answer scorers require human review for nuanced correctness.','Public diagnostic cases are not a sealed generalization benchmark.','Latency depends on hardware, load, output length and cache state.']}
@@ -176,6 +178,7 @@ def main():
     parser.add_argument('--purpose',choices=['diagnostic','calibration-validation','final-test'],default='diagnostic')
     parser.add_argument('--fit-calibration',type=Path,help='Fit from this existing validation report instead of generating answers')
     parser.add_argument('--max-new-tokens',type=int,default=None)
+    parser.add_argument('--reply-style',choices=['auto','brief','full'],default=None)
     parser.add_argument('--calibration',type=Path,help='Evaluate a fitted method-group artifact on an independent suite')
     args=parser.parse_args()
     try:
@@ -183,6 +186,7 @@ def main():
         else:
             settings=Settings()
             if args.max_new_tokens is not None:settings=replace(settings,max_new_tokens=args.max_new_tokens)
+            if args.reply_style is not None:settings=replace(settings,reply_style=args.reply_style)
             report=run_suite(settings,args.suite,args.mode,args.repeat,args.purpose)
             if args.calibration:report=apply_calibration(report,json.loads(args.calibration.read_text(encoding='utf-8')))
             if args.baseline:report['comparison']=compare_reports(report,json.loads(args.baseline.read_text(encoding='utf-8')),args.suite)

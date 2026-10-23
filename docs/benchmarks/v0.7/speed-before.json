@@ -1,0 +1,62 @@
+{
+  "model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "temperature": 0,
+  "cpu_threads": 2,
+  "max_new_tokens": 256,
+  "context_tokens": 2048,
+  "cold_warmup_ms": 9710.331217000203,
+  "response_token_measure": "Retokenized visible text, comparable across both runs; raw generation may include EOS.",
+  "results": [
+    {
+      "id": "photosynthesis",
+      "prompt": "What gas do plants take in during photosynthesis?",
+      "response": "Plants take in carbon dioxide (CO2) during photosynthesis to produce glucose (C6H12O6). This process occurs in chloroplasts within plant cells. The exact amount of CO2 absorbed depends on the type of plant and its growth stage. For example:\n\n- **Greenhouse plants**: Plants grown under controlled conditions often absorb more CO2 than those growing outdoors.\n- **Outdoor plants**: Outdoor plants typically absorb less CO2 compared to indoor greenhouses.\n- **Trees**: Trees grow rapidly and absorb large amounts of CO2 through their leaves.\n- **Shrubbery**: Shrubbery plants may absorb slightly more CO2 than trees.\n\nThe rate at which CO2 is absorbed varies depending on factors such as temperature, light intensity, soil moisture, and the specific species of plant.",
+      "elapsed_ms": 26099.83414599992,
+      "first_text_ms": 1156.64,
+      "input_tokens": 189,
+      "response_text_tokens": 162,
+      "performance": null
+    },
+    {
+      "id": "force",
+      "prompt": "What is the SI unit of force?",
+      "response": "The International System of Units (SI) defines the unit of force as the newton (N). This fundamental unit is defined such that it has the same numerical value regardless of the mass of the object being acted upon. The newton is derived from the following definitions:\n\n1. **Definition of Newton**: \n   - 1 newton = 1 kg \u00d7 m/s\u00b2\n\n2. **Derived Units**:\n   - 1 newton = 9.80665 N/kg (for air)\n   - 1 newton = 1 N/m\u00b2 (for water)\n\n3. **Other Derived Units**:\n   - 1 newton = 1 N/(kg\u00b7m\u00b2) (for pressure)\n   - 1 newton = 1 N/(kg\u00b7s\u00b2) (for torque)\n\n4. **Special Cases**:\n   - 1 newton = 1 N (for weight)\n   - 1 newton = 1 N (for acceleration due to gravity on Earth)\n\nTherefore, the SI unit of force is indeed the newton (N), which is equivalent to the kilogram-meter per second squared (kg\u00b7m/s\u00b2).",
+      "elapsed_ms": 36268.62652000273,
+      "first_text_ms": 997.52,
+      "input_tokens": 187,
+      "response_text_tokens": 242,
+      "performance": null
+    },
+    {
+      "id": "evaporation",
+      "prompt": "What is evaporation? Answer briefly.",
+      "response": "Evaporation is the process by which water changes from a liquid to a gas state without changing its temperature. This occurs due to the increased kinetic energy of the molecules as they lose their bonds with the solvent (water) causing them to move faster and collide more frequently with each other. The key factors leading to evaporation include heat, surface area, and humidity. Evaporation can occur on any surface exposed to air, including glass, metal, and even some organic materials like paper.",
+      "elapsed_ms": 13173.587198994937,
+      "first_text_ms": 1071.15,
+      "input_tokens": 187,
+      "response_text_tokens": 96,
+      "performance": null
+    },
+    {
+      "id": "diversification",
+      "prompt": "In one sentence, explain investment diversification.",
+      "response": "Investment diversification involves spreading investments across different asset classes, sectors, and geographic regions to reduce risk.",
+      "elapsed_ms": 3543.5870669971337,
+      "first_text_ms": 1085.08,
+      "input_tokens": 188,
+      "response_text_tokens": 21,
+      "performance": null
+    },
+    {
+      "id": "rainbow",
+      "prompt": "Explain how rainbows form in one sentence.",
+      "response": "Rainbows are formed because sunlight passes through water droplets suspended in the air, causing them to refract and bend as they interact with the water molecules. When light bounces off these water droplets, it creates colors that we see as rainbow colors.",
+      "elapsed_ms": 7668.789600000309,
+      "first_text_ms": 1193.34,
+      "input_tokens": 189,
+      "response_text_tokens": 51,
+      "performance": null
+    }
+  ]
+}

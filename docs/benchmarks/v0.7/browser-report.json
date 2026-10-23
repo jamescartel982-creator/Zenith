@@ -1,0 +1,12 @@
+{
+  "desktop": "1440x1000",
+  "mobile": "390x844",
+  "five_components": true,
+  "real_cpu_answer": "The SI unit of force is the newton (N).",
+  "streaming_before_complete": true,
+  "reported_usage_visible": true,
+  "stop_cancelled_and_no_partial_history": true,
+  "logout_clears_metrics": true,
+  "javascript_errors": [],
+  "model_median_ms": 5370.51
+}

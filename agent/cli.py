@@ -10,6 +10,8 @@ def main():
     parser.add_argument('--session', default=None, help='Resume a conversation UUID')
     parser.add_argument('--mode', choices=['fast','thorough'], default=None)
     parser.add_argument('--skill', default='general', help='Instruction skill, such as mathematics or cybersecurity')
+    parser.add_argument('--reply-style',choices=['auto','brief','full'],default=None)
+    parser.add_argument('--stats',action='store_true',help='Show reported token usage after each completed answer')
     args = parser.parse_args()
     if args.session:
         from uuid import UUID
@@ -55,9 +57,20 @@ def main():
                 agent.store.review(session, last_id, rating, text in {'/approve', '/correct'}, correction)
                 print('Review saved. Weights change only when you run training.')
                 continue
-            result = agent.answer(text, session, response_mode=args.mode, skill=args.skill)
-            last_id = result['id']
-            print('\nZenith> ' + result['response'])
+            stream=agent.stream_answer(text,session,response_mode=args.mode,skill=args.skill,reply_style=args.reply_style)
+            print('\nZenith> ',end='',flush=True)
+            result=None
+            try:
+                for event in stream:
+                    if event['type']=='delta':print(event['text'],end='',flush=True)
+                    elif event['type']=='result':result=event['result']
+            finally:stream.close()
+            print()
+            if result:
+                last_id=result['id']
+                usage=result['performance'].get('usage') or {}
+                if args.stats:print(f"[Reported tokens: {usage.get('input_tokens')} in / {usage.get('output_tokens')} out · {result['latency_ms']/1000:.2f}s]")
+                if usage.get('finish_reason')=='length':print('[Output cap reached. Use --reply-style full or ask to continue.]')
         except (EOFError, KeyboardInterrupt):
             break
         except Exception as exc:

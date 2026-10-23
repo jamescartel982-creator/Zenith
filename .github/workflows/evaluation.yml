@@ -1,0 +1,56 @@
+name: Scheduled diagnostic regression watch
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'agent/**'
+      - 'scripts/**'
+      - 'docs/benchmarks/v0.7/diagnostic.json'
+      - '.github/workflows/evaluation.yml'
+  push:
+    branches: [main]
+  schedule:
+    - cron: '17 6 * * 1'
+permissions:
+  contents: read
+concurrency:
+  group: zenith-diagnostic-watch
+  cancel-in-progress: false
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      ZENITH_HOME: ${{ github.workspace }}/.zenith-evaluation
+      AI_PROVIDER: huggingface
+      HF_MODEL: Qwen/Qwen2.5-0.5B-Instruct
+      HF_REVISION: 7ae557604adf67be50417f59c2c2f167def9a775
+      HF_HUB_DISABLE_XET: '1'
+      TOKENIZERS_PARALLELISM: 'false'
+      ZENITH_CPU_THREADS: '2'
+      OMP_NUM_THREADS: '2'
+      TEMPERATURE: '0'
+      CONTEXT_TOKENS: '2048'
+      ZENITH_REPLY_STYLE: auto
+      ZENITH_FAST_MAX_NEW_TOKENS: '96'
+      ZENITH_FAST_HISTORY_TURNS: '4'
+      ZENITH_ADAPTER: ''
+      ZENITH_CALIBRATION_FILE: ''
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - run: python -m pip install 'torch>=2.6,<3' --index-url https://download.pytorch.org/whl/cpu
+      - run: python -m pip install '.[local]'
+      - name: Compare public task slices against the frozen development baseline
+        run: zenith benchmark --max-new-tokens 64 --reply-style auto --baseline docs/benchmarks/v0.7/diagnostic.json --output diagnostic-watch.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: zenith-diagnostic-watch
+          path: diagnostic-watch.json
+          retention-days: 30
+          if-no-files-found: warn

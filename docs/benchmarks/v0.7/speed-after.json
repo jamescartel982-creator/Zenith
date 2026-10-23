@@ -1,0 +1,152 @@
+{
+  "model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "temperature": 0,
+  "cpu_threads": 2,
+  "max_new_tokens": 256,
+  "context_tokens": 2048,
+  "cold_warmup_ms": 7231.610301001638,
+  "response_token_measure": "Retokenized visible text, comparable across both runs; raw generation may include EOS.",
+  "results": [
+    {
+      "id": "photosynthesis",
+      "prompt": "What gas do plants take in during photosynthesis?",
+      "response": "Plants take in carbon dioxide (CO2) during photosynthesis to produce glucose (C6H12O6).",
+      "elapsed_ms": 6990.184438000142,
+      "first_text_ms": 1360.83,
+      "input_tokens": 112,
+      "response_text_tokens": 25,
+      "performance": {
+        "response_mode": "fast",
+        "reply_style": "auto",
+        "concise": true,
+        "output_token_limit": 96,
+        "context_token_limit": 2048,
+        "history_turn_limit": 4,
+        "usage": {
+          "input_tokens": 112,
+          "output_tokens": 26,
+          "total_tokens": 138,
+          "source": "model-tokenizer",
+          "finish_reason": "stop",
+          "model_calls": 1
+        },
+        "elapsed_ms": 6983.84,
+        "first_text_ms": 1360.83,
+        "history_turns_sent": 0
+      }
+    },
+    {
+      "id": "force",
+      "prompt": "What is the SI unit of force?",
+      "response": "The SI unit of force is the newton (N).",
+      "elapsed_ms": 2441.4159409934655,
+      "first_text_ms": 808.4,
+      "input_tokens": 110,
+      "response_text_tokens": 12,
+      "performance": {
+        "response_mode": "fast",
+        "reply_style": "auto",
+        "concise": true,
+        "output_token_limit": 96,
+        "context_token_limit": 2048,
+        "history_turn_limit": 4,
+        "usage": {
+          "input_tokens": 110,
+          "output_tokens": 13,
+          "total_tokens": 123,
+          "source": "model-tokenizer",
+          "finish_reason": "stop",
+          "model_calls": 1
+        },
+        "elapsed_ms": 2440.75,
+        "first_text_ms": 808.4,
+        "history_turns_sent": 0
+      }
+    },
+    {
+      "id": "evaporation",
+      "prompt": "What is evaporation? Answer briefly.",
+      "response": "Evaporation is the process by which water changes from a liquid to a gas state without changing its temperature. This occurs due to heat energy absorbed during condensation.",
+      "elapsed_ms": 8321.104832000856,
+      "first_text_ms": 1405.45,
+      "input_tokens": 110,
+      "response_text_tokens": 32,
+      "performance": {
+        "response_mode": "fast",
+        "reply_style": "auto",
+        "concise": true,
+        "output_token_limit": 96,
+        "context_token_limit": 2048,
+        "history_turn_limit": 4,
+        "usage": {
+          "input_tokens": 110,
+          "output_tokens": 33,
+          "total_tokens": 143,
+          "source": "model-tokenizer",
+          "finish_reason": "stop",
+          "model_calls": 1
+        },
+        "elapsed_ms": 8320.04,
+        "first_text_ms": 1405.45,
+        "history_turns_sent": 0
+      }
+    },
+    {
+      "id": "diversification",
+      "prompt": "In one sentence, explain investment diversification.",
+      "response": "Investment diversification involves spreading investments across various assets to reduce risk.",
+      "elapsed_ms": 2635.11403099983,
+      "first_text_ms": 951.79,
+      "input_tokens": 111,
+      "response_text_tokens": 14,
+      "performance": {
+        "response_mode": "fast",
+        "reply_style": "auto",
+        "concise": true,
+        "output_token_limit": 96,
+        "context_token_limit": 2048,
+        "history_turn_limit": 4,
+        "usage": {
+          "input_tokens": 111,
+          "output_tokens": 15,
+          "total_tokens": 126,
+          "source": "model-tokenizer",
+          "finish_reason": "stop",
+          "model_calls": 1
+        },
+        "elapsed_ms": 2634.04,
+        "first_text_ms": 951.79,
+        "history_turns_sent": 0
+      }
+    },
+    {
+      "id": "rainbow",
+      "prompt": "Explain how rainbows form in one sentence.",
+      "response": "Rainbows are formed by light reflecting off water droplets suspended in the air, causing colors to refract and bend as they pass through the prism-like structure of the water droplet.",
+      "elapsed_ms": 10834.671425000124,
+      "first_text_ms": 1607.54,
+      "input_tokens": 112,
+      "response_text_tokens": 37,
+      "performance": {
+        "response_mode": "fast",
+        "reply_style": "auto",
+        "concise": true,
+        "output_token_limit": 96,
+        "context_token_limit": 2048,
+        "history_turn_limit": 4,
+        "usage": {
+          "input_tokens": 112,
+          "output_tokens": 38,
+          "total_tokens": 150,
+          "source": "model-tokenizer",
+          "finish_reason": "stop",
+          "model_calls": 1
+        },
+        "elapsed_ms": 10832.31,
+        "first_text_ms": 1607.54,
+        "history_turns_sent": 0
+      }
+    }
+  ]
+}

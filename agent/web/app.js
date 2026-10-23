@@ -4,6 +4,8 @@ let session = sessionStorage.getItem('zenith_session') || crypto.randomUUID();
 sessionStorage.setItem('zenith_session', session);
 $('token').value = sessionStorage.getItem('zenith_token') || '';
 let busy = false;
+let chatController = null;
+let showingServerMetrics = false;
 let activeUser = null;
 let registering = false;
 let adminState = null;
@@ -161,6 +163,21 @@ function addMessage(role, text, turn = null) {
   article.append(element('div', 'who', role === 'user' ? 'YOU' : 'ZENITH'));
   article.append(role === 'assistant' ? renderMarkdown(text) : element('pre', 'content', text));
   if (turn) {
+    const performance = turn.performance;
+    if (performance) {
+      const usage = performance.usage || {}; const pieces = [];
+      if (usage.output_tokens !== undefined && usage.output_tokens !== null) pieces.push(`${number(usage.output_tokens)} output tokens`);
+      if (usage.input_tokens !== undefined && usage.input_tokens !== null) pieces.push(`${number(usage.input_tokens)} input tokens`);
+      if (performance.first_text_ms !== undefined && performance.first_text_ms !== null) pieces.push(`${(performance.first_text_ms / 1000).toFixed(2)}s to first text`);
+      if (usage.model_calls === 0) pieces.push('Built-in check · model not called');
+      if (!pieces.length) pieces.push('Token counts not supplied by this provider');
+      article.append(element('p', 'usage-note', pieces.join(' · ')));
+      if (usage.finish_reason === 'length') {
+        const next = element('button', 'human-review-button', 'Output cap reached · continue with Full'); next.type = 'button';
+        next.addEventListener('click', () => {$('reply-style').value = 'full'; $('prompt').value = 'Continue your previous answer from where it stopped, without repeating earlier text.'; $('prompt').focus();});
+        article.append(next);
+      }
+    }
     if (turn.quality) {
       const q = turn.quality;
       const label = q.verification === 'deterministic' ? 'Verified arithmetic' : q.abstained ? 'Evidence unavailable · abstained' : q.calibration === 'validation-method-group' ? 'Model answer · validation group estimate; individual confidence unknown' : 'Model answer · confidence not calibrated';
@@ -362,27 +379,28 @@ $('composer').addEventListener('submit', async event => {
     try {await unlockAdmin(text); $('admin-dialog').showModal();} catch (error) {showError(error.message);}
     return;
   }
-  busy = true; showError(''); $('send').disabled = true; $('new-chat').disabled = true; $('prompt').disabled = true;
+  busy = true; chatController = new AbortController(); showError(''); $('send').hidden = true; $('stop').hidden = false; $('send').disabled = true; $('new-chat').disabled = true; $('prompt').disabled = true;
   $('messages').setAttribute('aria-busy', 'true');
   const userMessage = addMessage('user', text);
   let partial = null; let buffer = '';
   const pending = element('p', 'pending', configuredTeam?.mode === 'ensemble' && $('response-mode').value === 'thorough' ? 'Consulting the configured model team… Contributors respond before the final synthesis.' : 'Preparing your answer… The first model load may take longer.');
   $('messages').append(pending); $('messages').scrollTop = $('messages').scrollHeight;
   try {
-    const result = await streamChat({session_id: session, message: text, response_mode: $('response-mode').value, skill: $('skill-select').value}, chunk => {
+    const result = await streamChat({session_id: session, message: text, response_mode: $('response-mode').value, skill: $('skill-select').value, reply_style: $('reply-style').value}, chunk => {
       buffer += chunk; pending.remove();
       if (!partial) partial = addMessage('assistant', '');
       partial.querySelector('.content').replaceWith(renderMarkdown(buffer));
       $('messages').scrollTop = $('messages').scrollHeight;
-    });
+    }, chatController.signal);
     pending.remove(); partial?.remove(); addMessage('assistant', result.response, result); $('prompt').value = ''; $('status').textContent = '● Connected'; loadConversations();
   } catch (error) {
-    pending.remove(); partial?.remove(); userMessage.remove(); showError(error.message);
+    pending.remove(); partial?.remove(); userMessage.remove(); showError(error.name === 'AbortError' ? 'Stopped. Incomplete replies are discarded; completed replies remain in history.' : error.message);
   } finally {
-    busy = false; $('send').disabled = false; $('new-chat').disabled = false; $('prompt').disabled = false;
+    busy = false; chatController = null; $('send').hidden = false; $('stop').hidden = true; $('send').disabled = false; $('new-chat').disabled = false; $('prompt').disabled = false;
     $('messages').setAttribute('aria-busy', 'false'); $('prompt').focus();
   }
 });
+$('stop').addEventListener('click', () => chatController?.abort());
 
 // Markdown is built with text nodes; model output never enters innerHTML.
 function inlineText(parent, text) {
@@ -450,6 +468,8 @@ async function loadAccount() {
   if (previous !== activeUser?.id) {
     adminState = null; renderAdmin(); $('admin-code').value = ''; $('admin-tool-text').value = ''; $('admin-tool-result').textContent = '';
     $('admin-review-list').replaceChildren(); $('my-review-list').replaceChildren(); $('admin-error').textContent = '';
+    $('performance-summary').replaceChildren(); $('performance-scope').textContent = ''; $('performance-note').textContent = ''; $('server-metrics').hidden = true;
+    $('system-components').replaceChildren(); showingServerMetrics = false;
     $('memory-list').replaceChildren(); $('memory-content').value = '';
     $('memory-count').textContent = 'Your saved context'; $('memory-error').textContent = '';
   }
@@ -546,11 +566,15 @@ async function loadSkills() {
     for (const skill of data.skills) {const option = element('option', '', skill.name); option.value = skill.id; $('skill-select').append(option);}
     if (data.skills.some(skill => skill.id === selected)) $('skill-select').value = selected;
     $('response-mode').value = localStorage.getItem('zenith_response_mode') || data.default_response_mode || 'fast';
+    $('reply-style').value = localStorage.getItem('zenith_reply_style') || data.default_reply_style || 'auto';
   } catch (_) { /* Basic chat remains usable if optional skill metadata is unavailable. */ }
 }
 $('response-mode').addEventListener('change', () => localStorage.setItem('zenith_response_mode', $('response-mode').value));
+$('reply-style').addEventListener('change', () => localStorage.setItem('zenith_reply_style', $('reply-style').value));
 function renderAdmin() {
   const elevated = !!adminState?.elevated;
+  $('server-metrics').hidden = !elevated;
+  if (!elevated && showingServerMetrics) {$('performance-summary').replaceChildren(); $('performance-scope').textContent = 'Admin locked. Refresh to view your account totals.'; $('performance-note').textContent = ''; showingServerMetrics = false;}
   $('admin-controls').hidden = !elevated; $('admin-unlock').hidden = elevated;
   $('devil-mode').checked = !!adminState?.devil_mode;
   $('admin-status').textContent = !activeUser ? 'Sign in as your local owner account.' : elevated ? 'Administrator recognized. Access expires after 15 minutes.' : adminState?.eligible ? 'Owner account recognized. Enter your local code to unlock.' : 'This account has not been configured as the owner in the server terminal.';
@@ -611,10 +635,10 @@ $('refresh-admin-reviews').addEventListener('click', async () => {
   } catch (error) {$('admin-error').textContent = error.message;}
 });
 
-async function streamChat(body, onText) {
+async function streamChat(body, onText, signal) {
   const headers = {'Content-Type': 'application/json', 'Accept': 'text/event-stream'};
   const token = sessionStorage.getItem('zenith_token'); if (token) headers.Authorization = 'Bearer ' + token;
-  const response = await fetch('/api/chat/stream', {method: 'POST', headers, body: JSON.stringify(body)});
+  const response = await fetch('/api/chat/stream', {method: 'POST', headers, body: JSON.stringify(body), signal});
   if (!response.ok) {const data = await response.json(); throw new Error(typeof data.detail === 'string' ? data.detail : 'Chat request was rejected.');}
   if (!response.body) throw new Error('Streaming is unavailable in this browser.');
   const reader = response.body.getReader(); const decoder = new TextDecoder(); let pending = ''; let result = null;
@@ -631,8 +655,37 @@ async function streamChat(body, onText) {
       }
       if (item.done) break;
     }
-  } finally {await reader.cancel(); reader.releaseLock();}
+  } finally {try {await reader.cancel();} finally {reader.releaseLock();}}
   if (!result) throw new Error('The answer was interrupted and was not completed. Please retry.');
   return result;
 }
+async function loadSystem(server = false) {
+  $('system-error').textContent = '';
+  try {
+    const data = await api('/api/system'); const list = $('system-components'); list.replaceChildren();
+    for (const component of data.components) {
+      const card = element('article', 'system-component'); const heading = element('div', 'catalog-top');
+      heading.append(element('h3', '', component.name), element('span', 'source-tag', component.status));
+      card.append(heading, element('p', '', component.summary)); const details = element('details'); details.append(element('summary', '', 'Configuration and behavior'));
+      const items = element('ul'); for (const line of component.details) items.append(element('li', '', line)); details.append(items); card.append(details); list.append(card);
+    }
+    $('server-metrics').hidden = !adminState?.elevated;
+    if (!activeUser) {$('performance-scope').textContent = 'Sign in to view your private response metrics.'; $('performance-summary').replaceChildren(); $('performance-note').textContent = 'Auto keeps simple fast replies concise. Brief cap: ' + data.limits.brief_max_new_tokens + ' tokens; Full cap: ' + data.limits.max_new_tokens + ' tokens. The cap is a maximum, not measured usage.'; return;}
+    const metrics = await api(server ? '/api/admin/metrics' : '/api/metrics'); renderMetrics(metrics);
+  } catch (error) {$('system-error').textContent = error.message;}
+}
+function renderMetrics(data) {
+  showingServerMetrics = data.scope === 'server';
+  $('performance-summary').replaceChildren();
+  const model = data.model_generated;
+  const seconds = value => value === null || value === undefined ? '—' : (value / 1000).toFixed(2) + 's';
+  for (const [label,value] of [['Completed replies',number(data.completed)],['First text · model median',seconds(model.first_text_p50_ms)],['Full reply · model median',seconds(model.total_p50_ms)],['Reported output tokens',number(data.reported_output_tokens)],['Stopped / failed',`${data.cancelled} / ${data.failed}`],['Replies at output cap',number(data.capped_replies)]]) {
+    const card = element('div', 'performance-stat'); card.append(element('strong', '', value), element('span', '', label)); $('performance-summary').append(card);
+  }
+  $('performance-scope').textContent = data.scope === 'server' ? 'Server totals · administrator access' : 'Your account only · local performance records';
+  $('performance-note').textContent = `${data.retention} First-text and full-reply medians above exclude built-in checks. ${data.reported_token_requests} replies supplied token counts (including zero-call checks); missing counts are not estimated. ${data.signals.map(item => item.note).join(' ')} Performance changes alone do not establish factual accuracy or quality drift.`;
+}
+$('open-system').addEventListener('click', async () => {$('system-dialog').showModal(); await loadAdmin(); await loadSystem();});
+$('refresh-system').addEventListener('click', () => loadSystem());
+$('server-metrics').addEventListener('click', () => loadSystem(true));
 connect();

@@ -2,6 +2,8 @@
 from threading import Lock,Event
 import json
 import time
+import logging
+from .efficiency import reply_plan,provider_limits,reported_usage,COMPACT_SYSTEM
 from .storage import Store
 from .providers import make_provider,SYSTEM_PROMPT
 from .config import Settings
@@ -29,6 +31,8 @@ class Agent:
         from .personal import PersonalStore
         from .admin import AdminStore
         self.personal=PersonalStore(self.store);self.admin=AdminStore(self.store)
+        from .monitoring import Monitor
+        self.monitor=Monitor(self.store)
         self.lock=Lock()
 
     def team_info(self):
@@ -38,12 +42,11 @@ class Agent:
         return {'mode':'single','members':[{'id':'primary','name':self.settings.model_name,'provider':self.settings.provider,
                 'model':self.settings.model_name,'role':'general'}],'synthesizer':None,'limits':{'max_experts':1}}
 
-    def _messages(self,text,session_id,user_id,instruction):
-        sources=self.store.search_documents(text,self.settings.knowledge_limit)
-        system=SYSTEM_PROMPT+'\n\nSelected skill: '+instruction+(
-            '\nWhen information is unavailable, say so and ask for evidence or recommend human review. '
-            'No calibrated confidence score is available. Never invent current prices or administrator privileges. '
-            'Administrator codes are handled by the application, not by this model. Never ask for a secret in chat.')
+    def _messages(self,text,session_id,user_id,instruction,plan):
+        sources=self.store.search_documents(text,plan.knowledge_limit)
+        for source in sources:source['excerpt']=source['excerpt'][:plan.excerpt_chars]
+        system=(COMPACT_SYSTEM if plan.concise else SYSTEM_PROMPT)+'\nSelected skill: '+instruction
+        if plan.concise:system+='\nReply in 1–3 short sentences. Avoid preambles, repetition, and restating the question.'
         if user_id:
             notes=self.personal.context_memories(user_id,text,max_chars=min(1200,self.settings.context_tokens//2))
             if notes:
@@ -54,12 +57,12 @@ class Agent:
                 'Excerpts may be incomplete or wrong; do not invent evidence.\n'+json.dumps([
                 {'source':f'S{i}','url':source['url'],'excerpt':source['excerpt']} for i,source in enumerate(sources,1)],ensure_ascii=False))
         messages=[{'role':'system','content':system}]
-        for turn in self.store.history(session_id):
+        for turn in self.store.history(session_id,limit=plan.history_turns):
             messages.extend([{'role':'user','content':turn['prompt']},{'role':'assistant','content':turn['response']}])
         messages.append({'role':'user','content':text})
         return messages,sources
 
-    def stream_answer(self,text,session_id,user_id=None,response_mode=None,skill='general'):
+    def stream_answer(self,text,session_id,user_id=None,response_mode=None,skill='general',reply_style=None):
         from .assurance import normalize_input,direct_answer,assurance,calibrated_assurance
         from .skills import skill_instruction
         from .ensemble import EnsembleProvider
@@ -68,52 +71,72 @@ class Agent:
         if not text or len(text)>12000:raise ValueError('Message must contain 1 to 12000 characters')
         if mode not in {'fast','thorough'}:raise ValueError('Choose fast or thorough response mode')
         instruction=skill_instruction(skill)
+        plan=reply_plan(self.settings,text,mode,reply_style)
         if not self.lock.acquire(blocking=False):raise BusyError('Zenith is answering another message. Try again shortly.')
         def events(lease):
             provider_stream=None
+            status='cancelled';method='not-started';first_token=None
+            performance={'response_mode':mode,'reply_style':plan.requested_style,'concise':plan.concise,'output_token_limit':plan.max_new_tokens,
+                         'context_token_limit':self.settings.context_tokens,'history_turn_limit':plan.history_turns,'usage':None}
             try:
-                yield {'type':'start','response_mode':mode,'skill':skill}
-                messages,sources=self._messages(text,session_id,user_id,instruction)
+                yield {'type':'start','response_mode':mode,'skill':skill,'reply_style':plan.requested_style,'output_token_limit':plan.max_new_tokens}
+                messages,sources=self._messages(text,session_id,user_id,instruction,plan)
                 direct=direct_answer(text,fast=mode=='fast')
                 quality=calibrated_assurance(self.settings,assurance(text,method=direct['method'] if direct else 'model',
-                    abstained=bool(direct and direct['abstained']),sources=len(sources)),mode)
+                    abstained=bool(direct and direct['abstained']),sources=len(sources)),mode,plan.requested_style)
+                method=quality['method']
                 if quality['method']=='validation-threshold-abstention':
                     direct={'text':"I don't have enough validated confidence to answer reliably under this evaluation profile. Please request human review or provide better evidence.",'abstained':True,'method':quality['method']}
-                pieces=[];used=messages;first_token=None;size=0
-                if direct:
-                    provider_stream=iter([(direct['text'],messages)])
-                elif mode=='fast' and isinstance(self.provider,EnsembleProvider):
-                    provider_stream=self.provider.stream_fast(messages,lease.cancel)
-                elif not isinstance(self.provider,EnsembleProvider) and callable(getattr(type(self.provider),'stream',None)):
-                    provider_stream=self.provider.stream(messages,lease.cancel)
-                else:
-                    # Thorough team deliberation is synchronous before its final answer.
-                    response,used=self.provider.generate(messages)
-                    provider_stream=iter([(response,used)])
-                for chunk,used in provider_stream:
-                    if not isinstance(chunk,str):raise RuntimeError('The model returned invalid text')
-                    if not chunk:continue
-                    size+=len(chunk)
-                    if size>150000:raise RuntimeError('The answer exceeded the bounded output size')
-                    if first_token is None:first_token=round((time.perf_counter()-started)*1000,2)
-                    pieces.append(chunk);yield {'type':'delta','text':chunk}
+                pieces=[];used=messages;size=0
+                with provider_limits(self.provider,plan.max_new_tokens):
+                    if direct:
+                        provider_stream=iter([(direct['text'],messages)])
+                    elif mode=='fast' and isinstance(self.provider,EnsembleProvider):
+                        provider_stream=self.provider.stream_fast(messages,lease.cancel)
+                    elif not isinstance(self.provider,EnsembleProvider) and callable(getattr(type(self.provider),'stream',None)):
+                        provider_stream=self.provider.stream(messages,lease.cancel)
+                    else:
+                        response,used=self.provider.generate(messages)
+                        provider_stream=iter([(response,used)])
+                    try:
+                        for chunk,used in provider_stream:
+                            if not isinstance(chunk,str):raise RuntimeError('The model returned invalid text')
+                            if not chunk:continue
+                            size+=len(chunk)
+                            if size>150000:raise RuntimeError('The answer exceeded the bounded output size')
+                            if first_token is None:first_token=round((time.perf_counter()-started)*1000,2)
+                            pieces.append(chunk);yield {'type':'delta','text':chunk}
+                    finally:
+                        lease.cancel.set()
+                        if callable(getattr(provider_stream,'close',None)):provider_stream.close()
                 response=''.join(pieces).strip()
                 if not response:raise RuntimeError('The model returned an empty answer')
                 trace=None if direct else getattr(self.provider,'last_deliberation',None)
                 if not isinstance(trace,dict):trace=None
                 model='Zenith built-in checks' if direct else self.settings.model_name
-                turn_id=self.store.add(session_id,text,response,used,model,deliberation=trace,sources=sources,quality=quality)
+                usage={'input_tokens':0,'output_tokens':0,'total_tokens':0,'model_calls':0,'source':'model-not-called','finish_reason':'stop'} if direct else reported_usage(getattr(self.provider,'last_usage',None))
+                performance.update(usage=usage,elapsed_ms=round((time.perf_counter()-started)*1000,2),first_text_ms=first_token,
+                                   history_turns_sent=max(0,(len(used)-2)//2))
+                turn_id=self.store.add(session_id,text,response,used,model,deliberation=trace,sources=sources,quality=quality,performance=performance)
+                status='completed'
                 yield {'type':'result','result':{'id':turn_id,'response':response,'model':model,'deliberation':trace,
                     'sources':sources,'quality':quality,'response_mode':mode,'skill':skill,
-                    'latency_ms':round((time.perf_counter()-started)*1000,2),'time_to_first_text_ms':first_token}}
+                    'latency_ms':performance['elapsed_ms'],'time_to_first_text_ms':first_token,'performance':performance}}
+            except Exception:
+                status='failed';raise
             finally:
                 lease.cancel.set()
-                if provider_stream is not None and callable(getattr(provider_stream,'close',None)):provider_stream.close()
-                lease.release()
+                try:
+                    if provider_stream is not None and callable(getattr(provider_stream,'close',None)):provider_stream.close()
+                finally:
+                    metric_performance={**performance,'elapsed_ms':round((time.perf_counter()-started)*1000,2),'first_text_ms':first_token}
+                    try:self.monitor.record(self.settings,user_id,session_id,status,metric_performance,method)
+                    except Exception:logging.getLogger('zenith').warning('Local performance record could not be saved')
+                    lease.release()
         return ManagedAnswerStream(self,events)
 
-    def answer(self,text,session_id,user_id=None,response_mode=None,skill='general'):
-        stream=self.stream_answer(text,session_id,user_id,response_mode,skill)
+    def answer(self,text,session_id,user_id=None,response_mode=None,skill='general',reply_style=None):
+        stream=self.stream_answer(text,session_id,user_id,response_mode,skill,reply_style)
         result=None
         try:
             for event in stream:

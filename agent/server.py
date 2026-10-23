@@ -21,11 +21,28 @@ WEB = Path(__file__).parent / 'web'
 logger = logging.getLogger('zenith')
 
 
+class ManagedStreamingResponse(StreamingResponse):
+    """ASGI 2.4 send failures do not otherwise guarantee iterator finalization."""
+    def __init__(self,*args,close_stream,**kwargs):
+        super().__init__(*args,**kwargs);self.close_stream=close_stream
+
+    async def __call__(self,scope,receive,send):
+        import anyio
+        try:await super().__call__(scope,receive,send)
+        finally:
+            with anyio.CancelScope(shield=True):
+                try:
+                    close=getattr(self.body_iterator,'aclose',None)
+                    if close:await close()
+                finally:await anyio.to_thread.run_sync(self.close_stream)
+
+
 class ChatRequest(BaseModel):
     session_id: UUID
     message: str = Field(min_length=1, max_length=12000)
     response_mode: Literal['fast', 'thorough'] | None = None
     skill: str = Field(default='general', max_length=40)
+    reply_style: Literal['auto','brief','full'] | None = None
 
 
 class ReviewRequest(BaseModel):
@@ -75,7 +92,7 @@ class HumanResolution(BaseModel):
 def create_app(settings=None, agent=None, catalog=None):
     settings = settings or Settings()
     agent = agent or Agent(settings)
-    app = FastAPI(title='Zenith', version='0.6.0', docs_url=None, redoc_url=None)
+    app = FastAPI(title='Zenith', version='0.7.0', docs_url=None, redoc_url=None)
     app.state.agent = agent
     app.state.catalog = catalog
     attempts = {}
@@ -220,7 +237,20 @@ def create_app(settings=None, agent=None, catalog=None):
     @app.get('/api/skills', dependencies=[Depends(authenticate)])
     def skills():
         from .skills import list_skills
-        return {'skills':list_skills(), 'kind':'instruction-profiles', 'default_response_mode':settings.response_mode}
+        return {'skills':list_skills(), 'kind':'instruction-profiles', 'default_response_mode':settings.response_mode,'default_reply_style':settings.reply_style}
+
+    @app.get('/api/system', dependencies=[Depends(authenticate)])
+    def system_status(user=Depends(current_user)):
+        from .monitoring import system_snapshot
+        return system_snapshot(agent,user['id'] if user else None)
+
+    @app.get('/api/metrics', dependencies=[Depends(authenticate)])
+    def my_metrics(user=Depends(signed_in)):
+        return agent.monitor.summary(user['id'])
+
+    @app.get('/api/admin/metrics', dependencies=[Depends(authenticate)])
+    def server_metrics(user=Depends(administrator)):
+        return agent.monitor.summary(all_users=True)
 
     @app.get('/api/admin/status', dependencies=[Depends(authenticate)])
     def admin_status(request: Request, user=Depends(signed_in)):
@@ -308,7 +338,7 @@ def create_app(settings=None, agent=None, catalog=None):
         guard_conversation(body.session_id, user, create=True)
         try:
             return agent.answer(body.message, str(body.session_id), user_id=user['id'] if user else None,
-                                response_mode=body.response_mode,skill=body.skill)
+                                response_mode=body.response_mode,skill=body.skill,reply_style=body.reply_style)
         except BusyError as exc:
             raise HTTPException(429, str(exc), headers={'Retry-After': '5'}) from exc
         except ValueError as exc:
@@ -321,7 +351,7 @@ def create_app(settings=None, agent=None, catalog=None):
     def stream_chat(body:ChatRequest,user=Depends(current_user)):
         guard_conversation(body.session_id,user,create=True)
         try:stream=agent.stream_answer(body.message,str(body.session_id),user_id=user['id'] if user else None,
-                                      response_mode=body.response_mode,skill=body.skill)
+                                      response_mode=body.response_mode,skill=body.skill,reply_style=body.reply_style)
         except BusyError as exc:raise HTTPException(429,str(exc),headers={'Retry-After':'5'}) from exc
         except ValueError as exc:raise HTTPException(400,str(exc)) from exc
         import anyio
@@ -340,7 +370,7 @@ def create_app(settings=None, agent=None, catalog=None):
                 yield 'data: '+json.dumps({'type':'error','message':'Generation interrupted. Partial text was not saved; check model settings and retry.'})+'\n\n'
             finally:
                 with anyio.CancelScope(shield=True):await anyio.to_thread.run_sync(stream.close)
-        return StreamingResponse(events(),media_type='text/event-stream',headers={'X-Accel-Buffering':'no'})
+        return ManagedStreamingResponse(events(),close_stream=stream.close,media_type='text/event-stream',headers={'X-Accel-Buffering':'no'})
 
     @app.get('/api/history/{session_id}', dependencies=[Depends(authenticate)])
     def history(session_id: UUID, user=Depends(current_user)):
@@ -377,12 +407,22 @@ def main():
     parser = argparse.ArgumentParser(description='Run Zenith browser chat')
     parser.add_argument('--host', default='127.0.0.1')
     parser.add_argument('--port', type=int, default=7860)
+    parser.add_argument('--warmup',action='store_true',help='Load and warm the first configured model before accepting requests')
     args = parser.parse_args()
     settings = Settings()
     if args.host not in {'127.0.0.1', 'localhost', '::1'} and len(settings.api_token) < 32:
         parser.error('Set ZENITH_API_TOKEN to at least 32 characters before binding a public interface')
+    app=create_app(settings)
+    if args.warmup:
+        from .efficiency import provider_limits
+        from .ensemble import EnsembleProvider
+        print('Warming the first configured model. Initial downloads/loading can take time.',flush=True)
+        provider=app.state.agent.provider
+        if isinstance(provider,EnsembleProvider):provider=provider._provider_for(provider.route('Hello')[0][0])
+        with provider_limits(provider,16):provider.generate([{'role':'system','content':'You are Zenith.'},{'role':'user','content':'Say hello briefly.'}])
+        print('Model warmed. Starting the local server.',flush=True)
     import uvicorn
-    uvicorn.run(create_app(settings), host=args.host, port=args.port, workers=1)
+    uvicorn.run(app, host=args.host, port=args.port, workers=1)
 
 
 if __name__ == '__main__':
