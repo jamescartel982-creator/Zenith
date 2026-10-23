@@ -1,0 +1,1079 @@
+{
+  "schema_version": 1,
+  "version": "0.8.0",
+  "files": [
+    {
+      "path": ".dockerignore",
+      "size": 259,
+      "sha256": "478b05bc3e2638371cdfd598a908022456c23bc0373403fd0204570d42f7169f",
+      "normalization": "lf"
+    },
+    {
+      "path": ".env.example",
+      "size": 2245,
+      "sha256": "c6636fc12ce9284473877befb88128569f1635c47bc0031e51fb666606ead8b5",
+      "normalization": "lf"
+    },
+    {
+      "path": ".gitattributes",
+      "size": 115,
+      "sha256": "6f0e675dab3811360942046bf664b4d3d1ca477125acc31f6ced8e8332b82f9d",
+      "normalization": "lf"
+    },
+    {
+      "path": ".github/workflows/evaluation.yml",
+      "size": 1804,
+      "sha256": "f3ee811e4a47fbba9375551ac28bde6a0597bc7db6040ffe9a57c366bbab5aaf",
+      "normalization": "lf"
+    },
+    {
+      "path": ".github/workflows/tests.yml",
+      "size": 3927,
+      "sha256": "03fb6693ac0d46095f0ef3480284653c8a204707399b4b046e553f0817d3c173",
+      "normalization": "lf"
+    },
+    {
+      "path": ".github/workflows/training.yml",
+      "size": 1481,
+      "sha256": "7d14663fb10c75c9da00b259b676bac108a1ac24372981243f6e190cf2152905",
+      "normalization": "lf"
+    },
+    {
+      "path": ".gitignore",
+      "size": 557,
+      "sha256": "6d6e3cb57ff84d11f2de39e789d2018af29a3d193669b90e906aa191fe856347",
+      "normalization": "lf"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "size": 2482,
+      "sha256": "d4349ab9f0525495e6d4b60835158ed8c204f7e9fc9b0b078dacfbc9f94c5251",
+      "normalization": "lf"
+    },
+    {
+      "path": "Dockerfile",
+      "size": 1973,
+      "sha256": "bef48c8adecc28b7a6c56f8a772151547bdf09652bb4c8ca2fcf890cb704707c",
+      "normalization": "lf"
+    },
+    {
+      "path": "LICENSE",
+      "size": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "normalization": "lf"
+    },
+    {
+      "path": "README.md",
+      "size": 24580,
+      "sha256": "0c24a6923090017e0f7397baa3eedb6edb1132a1b34108050f11c1a0df22865c",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/__init__.py",
+      "size": 104,
+      "sha256": "593ce728c7b39b49146406d8b3464e1ebec7bbf3b4f447fa6783ef496114a0d5",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/__main__.py",
+      "size": 53,
+      "sha256": "4c33226fd588d4696c6bce739f056dfd49a528d5bdf0fb72d7b6e5fde3dd1bec",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/admin.py",
+      "size": 6756,
+      "sha256": "308bdcf54ae5f687bed9136bd08b2f6924c754bf0495faa9d4d536895f73e05d",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/assurance.py",
+      "size": 5635,
+      "sha256": "05d329e5758a842181663075365ddeec3707092c83eb8561d32044b792ed73d1",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/books.py",
+      "size": 3771,
+      "sha256": "a2d7fa7562a250b5903587bc088f966001ec398024a68e1a5dcb6a523211b016",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/catalog/github_datasets.json",
+      "size": 152443,
+      "sha256": "bc021d905875f15a63967c4ea4c5e8a320cf2db9de4585e37937b830eecf129e",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/catalog/github_models.json",
+      "size": 746340,
+      "sha256": "bb97c04cb3cbc9114254571aa0d9463919c4d3f7bc8eba61f26cbc404c9cfc66",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/catalog/huggingface_datasets.json",
+      "size": 339727,
+      "sha256": "83926e50fc01287449ec494f29acf088c4ca22a24710eb23cd2e00a5c080ef9e",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/catalog/huggingface_models.json",
+      "size": 1099918,
+      "sha256": "5495499bb337b52f0f042a5348f82c929141b3b1c2ea54cbbbda0ab551f0a06b",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/cli.py",
+      "size": 3757,
+      "sha256": "41ffe225abb5d739fa0f764b8fb934c6e2efda6fa6c41d7855a929ee34a50539",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/commands.py",
+      "size": 3174,
+      "sha256": "80a34de09260afe11aac5514d24a6eb7a37510754e0b42e42a04edd462608952",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/config.py",
+      "size": 5521,
+      "sha256": "dc4e97e60b46671471553d58c7cad18734286259d6aedf89a902f11efa77eac5",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/core.py",
+      "size": 9675,
+      "sha256": "f55fd33deeb5470c25da80c8540016c66a801583c93417579f022a323c54eea7",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/curriculum.py",
+      "size": 8662,
+      "sha256": "ed79afeb1f04a3d6d5cb5e1a3a0ad0455e93a8db102f1e6416a019d9b90e2e99",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/doctor.py",
+      "size": 8380,
+      "sha256": "3746c5f6126fc8f29a3d27a31dc7da70d87f0f4f46b718adff45719f30f23e8f",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/efficiency.py",
+      "size": 3397,
+      "sha256": "9c848ef77e29721857e4f42cc9fdf4cc7073f9eb590ed19fe6ec8efcdf77a02a",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/ensemble.py",
+      "size": 23891,
+      "sha256": "75d4f15192005e9f4bcad1619d150e3416a5d4e6eecbe5bc078414be23a196a6",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/evaluation/suite-v1.json",
+      "size": 4490,
+      "sha256": "8b809bdba16219bcd3bde7ccb5203c7c1937e88fe74ec8f9dbe3886c3164f67f",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/integrity.py",
+      "size": 6614,
+      "sha256": "2b3a9a37187dba2ba16cc13b1cbdfb71c9561e0bdc4becae5c3284bb1513c08a",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/learning.py",
+      "size": 4760,
+      "sha256": "d9096f5c16f88571257f4852af4cc550ed2072f098a77039f2e814ecaeb58eb9",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/model_packs/zenith-27b.json",
+      "size": 9654,
+      "sha256": "ca533ddbb934287abe26097d75535c942e6d7c7b7f331b226cb97cca288592bf",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/model_packs/zenith-9b.json",
+      "size": 4755,
+      "sha256": "43c06320a293229c8c35f0abc4f6bb9dd0e852e0395cac71e48dd6bcceed18a0",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/model_packs/zenith-vision.json",
+      "size": 22135,
+      "sha256": "491cf84af0960edb7abde2977d2b3ee394410fc995137ccffe4caf52f8a58477",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/models.py",
+      "size": 5813,
+      "sha256": "edfdd42975067ee50c8d9a967078d5903b33fc070a993f5ee9e3bc2904d00e29",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/monitoring.py",
+      "size": 9028,
+      "sha256": "4f41cb74f86284e92221596f59fcf58f79e33bd8f5e41ccf1e5be205300041ff",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/packs.py",
+      "size": 7582,
+      "sha256": "8628e7d0d6be7c395dfca1fad4829c7f1ad86e2ee38dec485dd6e28a7a7550bc",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/paths.py",
+      "size": 839,
+      "sha256": "153dd7b19c995d1256581afb4f328a680dfb4a45df7b94f79ae1af13c4dc309a",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/personal.py",
+      "size": 8817,
+      "sha256": "e414bc68e2b093e8a704bb8102450d5d26a71fed7ee3c41fac684b831e1f2a57",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/providers.py",
+      "size": 14930,
+      "sha256": "faea755f943d3ce295245a15a518e8fd8202f8a31e078e1f3c9836b64c888f26",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/quality.py",
+      "size": 13684,
+      "sha256": "27a67e91e9a82644b2f70a642e5ac505042885a547cb14fcbc1cbfd56539ce6d",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/registry.py",
+      "size": 5163,
+      "sha256": "4c6571cb84a3b85da7b96fc62983561234e9596d0027eb430bb38d136f6172a1",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/resources/source-checks-v1.json",
+      "size": 4862,
+      "sha256": "8f00d399b20223177f1de240a052630759047c3523eadd8c52d8a29208aa4e5c",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/resources/sources-v1.json",
+      "size": 3136,
+      "sha256": "11dc13848edf51e80d4443a6999ff21f61dd88f5c04b8db71f7d80affd77bad9",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/resources/starter-v1.jsonl",
+      "size": 66441,
+      "sha256": "ab7a78911785a7e836f8c4e57eb6d5454162571f31a13586da52d597bcc8e1f1",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/server.py",
+      "size": 20263,
+      "sha256": "67f18b7656148adb8c7b1878debc7a41d6cf2859a23b6535b2f98aa108a5104e",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/setup.py",
+      "size": 2414,
+      "sha256": "751311f8c9ea2d188e54be1a983b59770a20d7b298e6d4264a7fe9b68d3cef53",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/skills.py",
+      "size": 2366,
+      "sha256": "75dd52b4447901b3570fe04a3b058b6506530399ebc8483565134a577215cc66",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/storage.py",
+      "size": 8706,
+      "sha256": "a93b8de7758321fc70c8611f2314577fb8ae6c75117189f0da7c5e36948fc7dd",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/tiny.py",
+      "size": 4544,
+      "sha256": "0a03f50c99706d545559f07c33ac710ada40b2d06e8f015c89e359840a620389",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/tools.py",
+      "size": 6546,
+      "sha256": "c082d0faa55fe51380e028138f4a2042f730b44e9f7698190cb29623306d6ed9",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/web/app.js",
+      "size": 46564,
+      "sha256": "30a74ab668d738bc89208c879fa44b6b06669c13cc08013419470910860fcd90",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/web/index.html",
+      "size": 13608,
+      "sha256": "b0206c602b8a7739768bde974b15dd1967d9a208fa282e2699edae5c3874ace6",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/web/style.css",
+      "size": 25208,
+      "sha256": "11113ff426a1646b56df638b86c2ed7513df3566a618aaa196218a2c39754807",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/web/zenith-banner.png",
+      "size": 2607603,
+      "sha256": "3f9b89bcceda8cc368819f09e0e86b4054a8b60e74a66f41333dc72137e3a643",
+      "normalization": "raw"
+    },
+    {
+      "path": "agent/web/zenith-mark.svg",
+      "size": 411,
+      "sha256": "7ec6dae68c6ee1acf649d64331350aca35375a3cca2263129549c2dc437e5729",
+      "normalization": "lf"
+    },
+    {
+      "path": "assets/zenith-banner.png",
+      "size": 2607603,
+      "sha256": "3f9b89bcceda8cc368819f09e0e86b4054a8b60e74a66f41333dc72137e3a643",
+      "normalization": "raw"
+    },
+    {
+      "path": "compose.yaml",
+      "size": 1064,
+      "sha256": "6b740d9693d6dd4dafb68c924454755f387ee29032897d12cd54db5a5f9a40e7",
+      "normalization": "lf"
+    },
+    {
+      "path": "config/team.example.json",
+      "size": 645,
+      "sha256": "9c075b83ee745ec23f95b591308630f7d3dc6fb6526548835f2f46a0decfcf0a",
+      "normalization": "lf"
+    },
+    {
+      "path": "config/zenith-packs-team.example.json",
+      "size": 690,
+      "sha256": "94fb5f0a19726f6cb6aee32cefbb8df7609b2f4bd2a8c2008022dad69da71b7c",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/admin.md",
+      "size": 3470,
+      "sha256": "50045648d6e23ddfeb591247f18f0242a15996404cedf20dea0e8c2b1166b11d",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/v0.6/README.md",
+      "size": 1432,
+      "sha256": "3a6fc5447409bf95d84b5854cce4a0e8f149769b3d472ccc319e36d2ef5f5e94",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/v0.6/baseline.json",
+      "size": 7429,
+      "sha256": "652c5803f394d67777da6fbd4291270c59c57a098ae65d0c8e43f389792f2213",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/v0.6/browser-report.json",
+      "size": 392,
+      "sha256": "e0f48ff300a51c40654d65cdfc0ab339c10140c32919d1b767b72d956a1457bc",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/v0.6/controlled-candidate.json",
+      "size": 54227,
+      "sha256": "54d288215e3a51e7f1de77696f07c931152c34acd0e6c26fc2d95806f0aa06cf",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/v0.6/controlled-fast.json",
+      "size": 51861,
+      "sha256": "0fa8fbf399aa972bf895ec0191d6a6c5a8f07d58c44eee3e3737feaf37368db9",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/v0.6/euclid.json",
+      "size": 811,
+      "sha256": "761dc749090ff4309e579aaf94ae34f4cd00aabb1a4645f245eba5507b6e8768",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/v0.6/frozen-pilot-dataset/manifest.json",
+      "size": 2306,
+      "sha256": "5737f71110938bb71c0bfff9c832d07d41ab40f2a039d0919e86aa4d00dda358",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/v0.6/frozen-pilot-dataset/source.jsonl",
+      "size": 66543,
+      "sha256": "daa610fef4524115a3c5708d10c2a8ed5d3c6dcdf228175ce19f7e598bfcf0ad",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/v0.6/frozen-pilot-dataset/test.jsonl",
+      "size": 7607,
+      "sha256": "f23c6fb3a8c86fe0bf1e138f1256738d4c49462011de1d7eff47fb9823874e2f",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/v0.6/frozen-pilot-dataset/train.jsonl",
+      "size": 30607,
+      "sha256": "deb58757bc2567792835ca2ae52a3138c9896cd7b48632980560046d8fa3ba5e",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/v0.6/frozen-pilot-dataset/validation.jsonl",
+      "size": 7651,
+      "sha256": "5f0e54ce4777bf1abd479c24d9c8c2133540ed697a2d99e99455514f84fde95d",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/v0.6/test-baseline.json",
+      "size": 167,
+      "sha256": "23deccccc7df3fa057a356b40e93f311df6e161802da6b07b5ff653d4c498080",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/v0.6/test-candidate.json",
+      "size": 194,
+      "sha256": "0fc4a86aba9fffc8a16ee8001e87e921d025b768215bd2555c27e2f4f012b695",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/v0.6/training-report.json",
+      "size": 1852,
+      "sha256": "cb8837b80cd7d60b578d2c515341478657afecd5b15fa0b3365b354683e50332",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/v0.7/README.md",
+      "size": 1779,
+      "sha256": "138f7f2f5b64cdf18e0a7923d8ad185876336ddb84ae40a4f47be545d847b733",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/v0.7/browser-report.json",
+      "size": 353,
+      "sha256": "40aa8d12c0d39616a4cfbc085479eba6a75d11a972c367946f29af3dc79365e0",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/v0.7/comparison.json",
+      "size": 838,
+      "sha256": "123d2f6b9dbf546bd5a0d378eea5b63029c7a0c0275aecc136e3f377aafd2b45",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/v0.7/diagnostic.json",
+      "size": 61846,
+      "sha256": "cef16aa7bb4854e72a4b2232347b938e3c38d4d481ed530e44c38303c8b3c1f4",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/v0.7/speed-after.json",
+      "size": 4942,
+      "sha256": "939b66bfbf8f67e10d6cd7cd3b288a09537ff63032ba148dcfb7c1e73104accd",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/v0.7/speed-before.json",
+      "size": 4294,
+      "sha256": "933de84328a6e382f61230e2351c81291c9a6bd3a5310ca42c94e16cfd9e3ccb",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/deployment.md",
+      "size": 8011,
+      "sha256": "38671ab61f5709e1fbd9040f0ab0e4909849e23bb933f1b985391365464552b6",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/integrity.md",
+      "size": 2875,
+      "sha256": "c1acef221ddb5a81d7b31e13d38809d04bb29af967e3d21242abedd8213dbebd",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/local-installation.md",
+      "size": 9352,
+      "sha256": "56b59b279e2a7996fe783c4133cbe1ed1f40f4ec44934e8f27d67e2fca8ab091",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/memory.md",
+      "size": 3330,
+      "sha256": "b05b81353b6f1280638811c11f1a6a6987b8674cb89e508ebcf466a1fd4c0ea9",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/model-packs.md",
+      "size": 7727,
+      "sha256": "7ae8947a8fd2601079d21d818b0c8d46a56a352b20e3eec4a2246144873a04d3",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/model-team.md",
+      "size": 9429,
+      "sha256": "6a941adf040394a1e44c7053f8ed8538e7579fbf869cf04f73280a94f0f4fa75",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/quality-and-training.md",
+      "size": 9284,
+      "sha256": "3531f26172d1005defb20f9590ac944f3ccc8bc58893277a8c83d2aa705f4148",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/system.md",
+      "size": 7394,
+      "sha256": "1cf43eed13ae375fc951b9cdf9c98825ac14a247668836ac7272b29aaf3b91d2",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/training-roadmap.md",
+      "size": 2973,
+      "sha256": "bb2b53d5b66e0029e8a39ab785b692ed2b36859307ee682516bd3db17abf2ca1",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/upstream.md",
+      "size": 2039,
+      "sha256": "2b47873315d6a5ec4435dd4e112a6c190121dd5c9d49dd9a111d9902b6bcc085",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/validation.md",
+      "size": 20311,
+      "sha256": "741c1113dd273eafe6234eff8ffa1d3c9bb8bba5d4cb262a78142b081e012f90",
+      "normalization": "lf"
+    },
+    {
+      "path": "hf-model-card/README.md",
+      "size": 1314,
+      "sha256": "2daba92ed15cb03e178b182911dea0c6bbe99a68423e56c60223efc0686faa85",
+      "normalization": "lf"
+    },
+    {
+      "path": "install.ps1",
+      "size": 620,
+      "sha256": "e09708b73dc353234ef365d3c2fad42ce5b42f850952c1247abfa4787584cc8d",
+      "normalization": "lf"
+    },
+    {
+      "path": "install.py",
+      "size": 5009,
+      "sha256": "a9f79662979e106036614b576c37164ff6db385f802417f7ece298105b6a6d32",
+      "normalization": "lf"
+    },
+    {
+      "path": "install.sh",
+      "size": 517,
+      "sha256": "7d345731fd700bc3ad53e1d9b2f95b8b610c7c41caa36434e7afa2fcc0bda1bb",
+      "normalization": "lf"
+    },
+    {
+      "path": "pyproject.toml",
+      "size": 1035,
+      "sha256": "5a63f9d1a079f074fb570b68e1958594466c0bf9af2c08a01644c5386b024037",
+      "normalization": "lf"
+    },
+    {
+      "path": "requirements-data.txt",
+      "size": 35,
+      "sha256": "970f1bda1a36688bb4045984c60cf1d1e7bd365a8b960172592e1922846217f2",
+      "normalization": "lf"
+    },
+    {
+      "path": "requirements-hf.txt",
+      "size": 25,
+      "sha256": "84cddc35b3c1c8a5eb027399661d9d6a13d04b12d39a935ca1fb68e34e2b9691",
+      "normalization": "lf"
+    },
+    {
+      "path": "requirements-local.txt",
+      "size": 92,
+      "sha256": "3da0d45d036025bfdecacac2d141e6c729f95923492205234b046acc59259f93",
+      "normalization": "lf"
+    },
+    {
+      "path": "requirements-train.txt",
+      "size": 41,
+      "sha256": "ce357427d8adf392469ae86d8534480663c94a5cbce2b94cdb48860bcfe6d079",
+      "normalization": "lf"
+    },
+    {
+      "path": "requirements.txt",
+      "size": 73,
+      "sha256": "0c92eadf7d4b9872b56e85565a4a7d83ec283853fc2e2b10ce51ea3e0d434eac",
+      "normalization": "lf"
+    },
+    {
+      "path": "run.ps1",
+      "size": 485,
+      "sha256": "0048347e9944fd50f3d756647d66f33e1686e715a3c58ac770ef184e728e0514",
+      "normalization": "lf"
+    },
+    {
+      "path": "run.sh",
+      "size": 309,
+      "sha256": "9f012a57345b899445280757cd5ce12b2c80cbd6e644601b5e23ba7c4b80c0fd",
+      "normalization": "lf"
+    },
+    {
+      "path": "scripts/__init__.py",
+      "size": 59,
+      "sha256": "439c1abda3d3f657db12fcfabcb3297fce7fd7c72308b91be3aab49e80761e8f",
+      "normalization": "lf"
+    },
+    {
+      "path": "scripts/build_release_manifest.py",
+      "size": 2083,
+      "sha256": "4601b23da9d711fc2e9f1dbf03f74535546b2a8aec1851a987a60f61e16edb02",
+      "normalization": "lf"
+    },
+    {
+      "path": "scripts/catalog.py",
+      "size": 1006,
+      "sha256": "f2c1bc6fd34c04ca5dabda3a5c3692abd6d26d22651a4615d54ceb2c01c627f4",
+      "normalization": "lf"
+    },
+    {
+      "path": "scripts/evaluate.py",
+      "size": 2542,
+      "sha256": "9a37dd91aec56b9f5b9bfebba3603c4121cbd7b4850caa45122e7d263dbe06d0",
+      "normalization": "lf"
+    },
+    {
+      "path": "scripts/export_training_data.py",
+      "size": 1596,
+      "sha256": "12b4c286fd581c410fcde1957a2570d24db82b987b2bca61e04a97c732501c69",
+      "normalization": "lf"
+    },
+    {
+      "path": "scripts/import_dataset.py",
+      "size": 5088,
+      "sha256": "530ee671f2c1026eabba7a7804a02fb8e9d5a44f001cf5426a90697cbd4a0cc5",
+      "normalization": "lf"
+    },
+    {
+      "path": "scripts/refresh_github_catalog.py",
+      "size": 21749,
+      "sha256": "292ca164e274c117e62af2d1774fb5221f8fa7aaaf68495eff6b3829b8721dd2",
+      "normalization": "lf"
+    },
+    {
+      "path": "scripts/refresh_huggingface_catalog.py",
+      "size": 17791,
+      "sha256": "bcdedb0d6a98f3ea98ae10b414bf0394aaf4c697fab83015157e0e4b1b7049ee",
+      "normalization": "lf"
+    },
+    {
+      "path": "scripts/run_training_campaign.py",
+      "size": 4713,
+      "sha256": "45c6cc5718003953dfb06bb135f352458b1176574513825826e8ef3e3b79b418",
+      "normalization": "lf"
+    },
+    {
+      "path": "scripts/sample_tiny.py",
+      "size": 1096,
+      "sha256": "1afbbae92c5f69168f7e010fe322179188f49825c8650d3d14727b7369de61c3",
+      "normalization": "lf"
+    },
+    {
+      "path": "scripts/smoke_container.py",
+      "size": 4965,
+      "sha256": "2272ff338a48deec648cf4ec9ec31135849d48247ce8acf67eaf3a672a700366",
+      "normalization": "lf"
+    },
+    {
+      "path": "scripts/smoke_installed.py",
+      "size": 2740,
+      "sha256": "9ee46834d727d7e68df5ca38b6e12f389ec097acb4cc997c2e36e33c7bb6f664",
+      "normalization": "lf"
+    },
+    {
+      "path": "scripts/smoke_server.py",
+      "size": 1890,
+      "sha256": "73c64d9f8c370bf6859983acd42a0d59d51df191275411f8bcee0fe9a4d2944b",
+      "normalization": "lf"
+    },
+    {
+      "path": "scripts/train_lora.py",
+      "size": 7216,
+      "sha256": "bbb81a4f8ae90d790c6765d8f25e39a01a42d99498f63ef5538805c08fff6a26",
+      "normalization": "lf"
+    },
+    {
+      "path": "scripts/train_tiny.py",
+      "size": 4015,
+      "sha256": "9928bd616a0e48d079255f209b4290cd6394232810f78af3e58c74e2863199e8",
+      "normalization": "lf"
+    },
+    {
+      "path": "scripts/upload_to_huggingface.py",
+      "size": 1092,
+      "sha256": "507b761fb7ba4495764e108b5228342cfc1aff01d6b9612261f6a261d9772882",
+      "normalization": "lf"
+    },
+    {
+      "path": "self_improving_ai_agent_starter.zip",
+      "size": 11796,
+      "sha256": "2804be76f5e17353e05ab5d8757fa8aae78a14a035255cdf0603a5a8ddc4254a",
+      "normalization": "raw"
+    },
+    {
+      "path": "tests/test_chat.py",
+      "size": 5654,
+      "sha256": "a216574818bb883a94c4428f04a73024ed12d7eb097e2cda185115e283492e1e",
+      "normalization": "lf"
+    },
+    {
+      "path": "tests/test_ensemble.py",
+      "size": 12071,
+      "sha256": "d8d6673f3ab17b3d35f1b7a6f67ffc54771a1d3d6b36855fcdb307d04d9213a8",
+      "normalization": "lf"
+    },
+    {
+      "path": "tests/test_installation.py",
+      "size": 9750,
+      "sha256": "c8177abd05ad8bc7999a583c99bd629fa56bd983b2be3b641ee415634d5c07d2",
+      "normalization": "lf"
+    },
+    {
+      "path": "tests/test_integrity.py",
+      "size": 5498,
+      "sha256": "3ddc3e37a3bdfaf47f75757c0c3d198b39b118da0ffa34f0ee317ad561c7bf93",
+      "normalization": "lf"
+    },
+    {
+      "path": "tests/test_knowledge.py",
+      "size": 11575,
+      "sha256": "2584a4300bef75913c448174f2248b27206f26d6db2ee3cbd0b8655b5c40d9d6",
+      "normalization": "lf"
+    },
+    {
+      "path": "tests/test_learning.py",
+      "size": 4028,
+      "sha256": "bec134b420101d6408d16ce62dcafeea742e6e138738f1e683842b44849b0f4f",
+      "normalization": "lf"
+    },
+    {
+      "path": "tests/test_packs.py",
+      "size": 4728,
+      "sha256": "c364ab6af0c8e0d4e865e854a9f5b6f6501c90a0d9e0a6a41535cb3a6d5df6ac",
+      "normalization": "lf"
+    },
+    {
+      "path": "tests/test_personal.py",
+      "size": 8235,
+      "sha256": "946b2dbde17a4dd4c974ceb9df6dcbe67fea87b411e9b0030b28bad68262b932",
+      "normalization": "lf"
+    },
+    {
+      "path": "tests/test_quality_admin.py",
+      "size": 18987,
+      "sha256": "9ff718130ff9425d6682e600df7ff564c1e716e3d563ce2fe561421751d5bc8c",
+      "normalization": "lf"
+    },
+    {
+      "path": "tests/test_registry.py",
+      "size": 9587,
+      "sha256": "dad78781251c2349c32f8ffe27b05125d0aff6372ff7f2cdf3c2c4ac2c111a88",
+      "normalization": "lf"
+    },
+    {
+      "path": "tests/test_storage.py",
+      "size": 2117,
+      "sha256": "a07643c275a7a4749b45dfc89e12910ab3c36476c30df7d00ec01c36505f3810",
+      "normalization": "lf"
+    },
+    {
+      "path": "tests/test_system_efficiency.py",
+      "size": 11198,
+      "sha256": "54dc5480d085fbb4d6b31060b01bc7a4e4951aa864d1b0b1697dd1f69f11770a",
+      "normalization": "lf"
+    },
+    {
+      "path": "tests/test_tiny.py",
+      "size": 1958,
+      "sha256": "7902a729b9c6c1c82a9be8fbb5725b55fd18e9b9e4642419577ee0dfe38ee243",
+      "normalization": "lf"
+    },
+    {
+      "path": "vendor/model-packs/NOTICE.md",
+      "size": 1914,
+      "sha256": "7360814fa9d3d47fd5184c32d1b8961b039681eab534058867dc858372ef45bf",
+      "normalization": "lf"
+    },
+    {
+      "path": "vendor/model-packs/zenith-27b/.gitattributes",
+      "size": 4332,
+      "sha256": "8583799b1b64feb2c0dbd21f3e4cff534143f3d4241739fb16a4c5fa75006c77",
+      "normalization": "lf"
+    },
+    {
+      "path": "vendor/model-packs/zenith-27b/README.md",
+      "size": 7455,
+      "sha256": "66088b22a4db15353288f45a570279f76d7d8b7f349a64dd28698b867c9bd2bb",
+      "normalization": "lf"
+    },
+    {
+      "path": "vendor/model-packs/zenith-27b/config.json",
+      "size": 3760,
+      "sha256": "45d9009888b40b71af58ac82f7151393c113b4eabb870ca3c3bbd237667d18cc",
+      "normalization": "lf"
+    },
+    {
+      "path": "vendor/model-packs/zenith-9b/.gitattributes",
+      "size": 2628,
+      "sha256": "eaccb934c08d50e5a0b32b4faad9703c4435766a98b3c14fa8db3c8948bdd69f",
+      "normalization": "lf"
+    },
+    {
+      "path": "vendor/model-packs/zenith-9b/README.md",
+      "size": 10271,
+      "sha256": "0cccd62fff0829279491d340c5126e2dd2ed351fe1cb172dc4655912f1f07aff",
+      "normalization": "lf"
+    },
+    {
+      "path": "vendor/model-packs/zenith-9b/SHA256SUMS",
+      "size": 1312,
+      "sha256": "376665d156263c8fd456e2d6967be7812bae3a781cb4b07a5fb33b289a5083b5",
+      "normalization": "lf"
+    },
+    {
+      "path": "vendor/model-packs/zenith-9b/TEST_REPORT.md",
+      "size": 3721,
+      "sha256": "7f66b8f2dc2a7e1d8a63ab373d3e7d58c6c58363e9b3b3d3cb00caa38955a00a",
+      "normalization": "lf"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/.eval_results/deep-swe.yaml",
+      "size": 178,
+      "sha256": "5bd7bef84ae1b57886b6190fb46dacb2f75d1e23b1c9584d36b027d1a537a7a7",
+      "normalization": "lf"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/.eval_results/terminal-bench-2.1.yaml",
+      "size": 203,
+      "sha256": "4ed5ad487bb11b9ee3406487ea56fd2af57aedb860d987272df7293bad24d377",
+      "normalization": "lf"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/.gitattributes",
+      "size": 1751,
+      "sha256": "ebd5419cfe361622a6798c35ca1c8bfeb6d3b433827863385261af45020e01f5",
+      "normalization": "lf"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/.gitignore",
+      "size": 69,
+      "sha256": "04eab6f6eca92634c2db9bb74cd65e740e4818d23a0ca25bcb80cae2d78a79ca",
+      "normalization": "lf"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/LICENSE",
+      "size": 1064,
+      "sha256": "1c8f573e830ca9b3ebfeb7ace1823146e22b66f99ee223840e7637c9e745e1c7",
+      "normalization": "lf"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/README.md",
+      "size": 6592,
+      "sha256": "5e120ab94b1f4c1c4a9096b666b1256e96331142fd2dc649c2a0ae5fc8482606",
+      "normalization": "lf"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/config.json",
+      "size": 2165,
+      "sha256": "6cd841bdd6702f5e2ac34671bc78047ed80817102465525ae2a41c502abbcd75",
+      "normalization": "lf"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/encoding/README.md",
+      "size": 2517,
+      "sha256": "c0de71597fcce00568dbc3eb678cee6203fd3969e21fba63e6a289f321b10676",
+      "normalization": "lf"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/encoding/encoding_dsv4.py",
+      "size": 36707,
+      "sha256": "b4bbb74bbb11a9c8ada04daa30cc7de7dba3abba08e9ade06d38b51a3d0d1701",
+      "normalization": "lf"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/encoding/test_encoding_dsv4.py",
+      "size": 6577,
+      "sha256": "76403800e683be7706387dd30fcc1244b5c0796ce9985de08a2106e9cad3ad79",
+      "normalization": "lf"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/encoding/tests/test_input_1.json",
+      "size": 2748,
+      "sha256": "10e0c074c977c3a80daab758af28219c6b1c2bd7f3f5cf2890c84b361cc32897",
+      "normalization": "lf"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/encoding/tests/test_input_2.json",
+      "size": 526,
+      "sha256": "c44ae0db20fafff38a6021e8068d7ed6e28605d76cafd20be80b03398509f447",
+      "normalization": "lf"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/encoding/tests/test_input_3.json",
+      "size": 4546,
+      "sha256": "37bf8ef95e0411ea5f411be0b02fbafec7363438b6ccefddca0c52ec9aeaf69a",
+      "normalization": "lf"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/encoding/tests/test_input_4.json",
+      "size": 2730,
+      "sha256": "c45bbd0a1b7a2f75033d8db4ba74ee5b7653bd01114045a52f79d3b387663465",
+      "normalization": "lf"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/encoding/tests/test_output_1.txt",
+      "size": 2390,
+      "sha256": "9b366d9d2eac842a6e890594aac0b58648e5623717202b33497afadf03e26540",
+      "normalization": "lf"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/encoding/tests/test_output_2.txt",
+      "size": 342,
+      "sha256": "ca66b01a1ac3a204bb032c928fb607d4877171e998a50f7f89f39fa821b75665",
+      "normalization": "lf"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/encoding/tests/test_output_3.txt",
+      "size": 3313,
+      "sha256": "b3b1cd8748b7b90d3c6be6da3f786f12e4d70be073bd445ea162dfad4dc01a64",
+      "normalization": "lf"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/encoding/tests/test_output_4.txt",
+      "size": 2552,
+      "sha256": "60e1643840ba9e4aeede450feb7b0498fa66ee24e4a939d48855ce04ec6fc375",
+      "normalization": "lf"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/generation_config.json",
+      "size": 170,
+      "sha256": "5fccff80f55a4d455bbe516bdd552edf3e9623df95e99fbf2a3c3389fdf91af0",
+      "normalization": "lf"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/inference/README.md",
+      "size": 1874,
+      "sha256": "17cdd3cfe7f40bfe74744bc783a34dd6f1e84d61e52843a5818a495ffa9491f3",
+      "normalization": "lf"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/inference/config.json",
+      "size": 1449,
+      "sha256": "be1af50a0a8dc4e2e096362f9cc79d821846075a45863ded0b7d9bf4512075f6",
+      "normalization": "lf"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/inference/convert.py",
+      "size": 7359,
+      "sha256": "9410d1be5b9835b427cd5e5c74057b7174fc1d5aa9468b905c61737205d2d89e",
+      "normalization": "lf"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/inference/examples/example_vl.txt",
+      "size": 234,
+      "sha256": "33a8eaca52e7268c96b71918ae983df0b7b6e1af03f8d993e1091ac41a06f25d",
+      "normalization": "lf"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/inference/examples/example_vl_harmony.json",
+      "size": 783,
+      "sha256": "99881aab1aa9e42fdb5c932bb3880560128a0841cadfb21bf0274309dfc7b152",
+      "normalization": "lf"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/inference/examples/images/carrots.jpeg",
+      "size": 212495,
+      "sha256": "5df896a4a07e127281c60fc957f8b3d73f4735b3258a0bf762b4383557f8fa9a",
+      "normalization": "raw"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/inference/examples/images/corn.jpeg",
+      "size": 56122,
+      "sha256": "251fe7ad58f44db139a6af5ed489e027eca93ae60878b83f3e709c7d6f0112a1",
+      "normalization": "raw"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/inference/generate.py",
+      "size": 8809,
+      "sha256": "0f0fa16440668875fa6c61d030f04ecd38151638ee8d02fe5f22d192486bdd3c",
+      "normalization": "lf"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/inference/image_processor.py",
+      "size": 7696,
+      "sha256": "cac2ff6af15207ce53d0319dc52c6ed1fa5f4fed21f75795fe0fc014632e9086",
+      "normalization": "lf"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/inference/kernel.py",
+      "size": 22191,
+      "sha256": "b9e91e297c26e586a3fcdc8af304436d7d7c13159a876dc7e6fa2e76a8055a78",
+      "normalization": "lf"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/inference/model.py",
+      "size": 49541,
+      "sha256": "ae8de79223d53c16edc7fa67af124ddd0212f27bddd3207bdd4cb05b48a0a1a7",
+      "normalization": "lf"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/inference/requirements.txt",
+      "size": 106,
+      "sha256": "39f09b1aba34d63d27383b36071b9bbc273b1b6596fb3be6127e33ea8244f99a",
+      "normalization": "lf"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/inference/run.sh",
+      "size": 382,
+      "sha256": "a60e7437a5cbbd246e2ab9b7c1f7b01d3b52be61be6c1c1fa9f31b422422704b",
+      "normalization": "lf"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/inference/vision.py",
+      "size": 4460,
+      "sha256": "a4f089069310398d42ca17fd4496cec82da64cbbfde9b0230679ce1537cc0bb1",
+      "normalization": "lf"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/model.safetensors.index.json",
+      "size": 5625861,
+      "sha256": "507977e3d3818865264e68c0fdab139aa7f3929d0d0cf693dacc47428da56395",
+      "normalization": "lf"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/tokenizer.json",
+      "size": 6367257,
+      "sha256": "c90dfa01249db1be4245780a052ede752e1361c612ac6d08e2bdada7d599476b",
+      "normalization": "lf"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/tokenizer_config.json",
+      "size": 801,
+      "sha256": "6ac8c8dc065ed118161d02dd532749ae3f52c243deac27872134fae2f50d8547",
+      "normalization": "lf"
+    }
+  ],
+  "manifest_self_excluded": true,
+  "scope": "Every tracked source release file except this manifest itself.",
+  "text_line_endings": "UTF-8 text hashes normalize CRLF to LF for Windows/Linux and source ZIP consistency; binary files are exact.",
+  "external_weights": "Model-pack manifests inventory 89 separately downloaded weight artifacts; they are not bundled source files.",
+  "privacy": "Untracked local settings, accounts, conversations, admin codes, caches and trained artifacts are excluded."
+}

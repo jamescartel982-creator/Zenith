@@ -14,13 +14,14 @@ import time
 from uuid import uuid4
 from .config import Settings
 from .paths import zenith_home
+from . import __version__
 
 DEFAULT_SUITE=Path(__file__).parent/'evaluation'/'suite-v1.json'
 ABSTENTION=re.compile(r"(?:don.t know|do not know|don.t have|do not have|cannot (?:know|determine|provide|guarantee)|can.t (?:know|determine|provide|guarantee)|not (?:known|available|documented)|unknown|no way to|not possible|no reliable)",re.I)
 
 
 def configuration_signature(settings,mode=None,reply_style=None):
-    fields={'version':'0.7','provider':settings.provider,'model':settings.model_name,'revision':settings.revision,
+    fields={'version':__version__,'provider':settings.provider,'model':settings.model_name,'revision':settings.revision,
             'adapter':settings.adapter,'max_new_tokens':settings.max_new_tokens,'context_tokens':settings.context_tokens,
             'temperature':settings.temperature,'mode':mode or settings.response_mode,'team_sha256':None,
             'reply_style':reply_style or settings.reply_style,'fast_max_new_tokens':settings.fast_max_new_tokens,'fast_history_turns':settings.fast_history_turns}

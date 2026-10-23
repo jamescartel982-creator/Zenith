@@ -59,7 +59,7 @@ For a specific interpreter: `ZENITH_PYTHON=/path/to/python3.12 bash install.sh -
 
 ## Mode and runtime choices
 
-The default installer mode is `local`: a single small instruction model with CPU PyTorch. `--mode ensemble` enables the two-model draft/review/synthesis pipeline. `--mode localserver` installs the key-free local llama.cpp/vLLM client; see [model packs](model-packs.md). `--mode ollama` installs the lightweight client without Torch/Transformers when that is the effective configured provider. Install/start Ollama separately and run `ollama pull qwen2.5-coder:7b` before chatting.
+The default installer mode is `local`: a single small instruction model with CPU PyTorch. `--mode ensemble` configures the small team: Fast uses one routed contributor; Thorough performs draft/review/synthesis. `--mode localserver` installs the key-free local llama.cpp/vLLM client; see [model packs](model-packs.md). `--mode ollama` installs the lightweight client without Torch/Transformers when that is the effective configured provider. Install/start Ollama separately and run `ollama pull qwen2.5-coder:7b` before chatting.
 
 `--runtime cpu` is the default and uses PyTorch's official CPU wheel index. For an accelerator build, use `--runtime auto` and follow PyTorch's current instructions for your hardware/driver; the ordinary distribution is not a guarantee that every GPU is supported. `ZENITH_DEVICE=auto` selects supported CUDA/MPS/CPU at runtime. `ZENITH_CPU_THREADS` bounds CPU inference threads (default at most four).
 
@@ -94,7 +94,7 @@ Training export, evaluation, and default dataset inputs use the same configured 
 
 `zenith doctor` checks dependency presence, writable SQLite/FTS storage, disk/RAM, configuration, and cached files. It does not download or execute a model. Missing cached weights produce a warning; the installer can still finish so you can download them later.
 
-`zenith models download` caches configured HF weights. `zenith models check` checks existing files without a network request. `zenith doctor --inference` then runs a short real response; it requires cached HF files. A successful diagnostic is a readiness check, not a broad quality benchmark. In ensemble mode, the report also warns if some stages degrade.
+`zenith models download` caches configured HF weights. `zenith models check` checks existing files without a network request. `zenith doctor --inference` then runs a short real response; it requires cached HF files. A successful diagnostic is a readiness check, not a broad quality benchmark. In ensemble Fast mode, the inference probe runs one actual routed model and does not require the unused reviewer cache. Thorough checks the complete team and warns about degraded stages.
 
 Use `HF_HUB_OFFLINE=1` after caching to force supported HF model loads to local files. Adapters need their own cached/local files as well. Catalog search and local dataset retrieval remain available offline; refreshing source metadata and importing remote datasets need network access.
 
@@ -120,5 +120,9 @@ If you intentionally want a fresh profile, use `--overwrite-config`. To experime
 - **Install failed:** the bootstrap stops with a nonzero exit code; inspect the preceding pip/config error and retry. It preserves the environment and saved data.
 - **`zenith` not found by the shell:** use `run.ps1`/`run.sh` or the installed executable path. An optional venv activation makes the short name available in that terminal session.
 - **Model unavailable:** run `doctor`, `models download`, then `doctor --inference`. Check RAM/disk and model access. Ollama needs its running server and pulled model.
-- **Slow answers:** select `--mode local`, reduce `MAX_NEW_TOKENS`, or configure suitable hardware. The model-team mode deliberately makes several calls.
+- **Slow answers:** choose Fast + Auto/Brief, use `serve --warmup`, or configure suitable hardware. Thorough deliberately makes several model calls; Full raises context/output use.
 - **Port 7860 occupied:** use `zenith serve --port 7861` through your wrapper/executable.
+
+## Release file checks
+
+After upgrading, run `zenith --version`, `zenith verify`, and `zenith verify --source PATH_TO_CHECKOUT` through your wrapper. Installed verification checks the wheel; source verification checks the complete tracked manifest and works with ZIP extraction. Editable development installs must use source verification. See [integrity checks](integrity.md) and the [changelog](../CHANGELOG.md). Existing optional calibration artifacts must match the new release configuration before use.

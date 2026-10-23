@@ -5,6 +5,7 @@ import json
 import platform
 import time
 from .quality import percentile,configuration_signature
+from . import __version__
 
 
 class Monitor:
@@ -90,7 +91,7 @@ def system_snapshot(agent,user_id=None):
                     'Versioned task/slice evaluation and scheduled regression checks; no automatic model promotion',
                     'Model confidence remains uncalibrated without a matching validated artifact.']},
     ]
-    return {'version':'0.7.0','components':components,'limits':{'max_new_tokens':settings.max_new_tokens,'brief_max_new_tokens':min(settings.max_new_tokens,settings.fast_max_new_tokens),
+    return {'version':__version__,'components':components,'limits':{'max_new_tokens':settings.max_new_tokens,'brief_max_new_tokens':min(settings.max_new_tokens,settings.fast_max_new_tokens),
             'context_tokens':settings.context_tokens,'default_reply_style':settings.reply_style,'default_response_mode':settings.response_mode},
             'metrics_available':bool(user_id),'monitoring_is_local':True}
 

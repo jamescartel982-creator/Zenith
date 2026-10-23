@@ -4,6 +4,20 @@ on:
   pull_request:
   workflow_dispatch:
 jobs:
+  container:
+    name: Container package and server
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t zenith:ci .
+      - run: docker run --rm --entrypoint zenith zenith:ci verify --json
+      - run: docker run --rm --entrypoint python zenith:ci -m scripts.smoke_server
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install 'requests>=2.32,<3'
+      - run: python -m scripts.smoke_container --image zenith:ci
   tests:
     name: Tests (${{ matrix.os }}, Python ${{ matrix.python }})
     runs-on: ${{ matrix.os }}
@@ -25,6 +39,7 @@ jobs:
       - run: python -m unittest discover -s tests -v
       - run: zenith --version
       - run: zenith catalog --validate
+      - run: zenith verify --source . --json
   install:
     name: Native install and inference (${{ matrix.os }})
     runs-on: ${{ matrix.os }}

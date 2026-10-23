@@ -16,11 +16,39 @@ license: apache-2.0
 
 The original starter ZIP is preserved. Its Python project is now unpacked, extended, and runnable from this repository's root.
 
+**Current release: 0.8.0.** This update adds complete source-file checksums, installed-wheel verification, a properly installed Docker command, persistent container owner-code storage, and diagnostics that respect Fast mode. See the [changelog](CHANGELOG.md) and [file-integrity guide](docs/integrity.md).
+
+## Upgrade an existing installation
+
+From your existing Zenith folder, stop the running server, then pull and rerun the installer. Your saved profile, accounts, memories, and conversations are retained.
+
+```powershell
+# Windows PowerShell
+git pull --ff-only
+powershell -NoProfile -ExecutionPolicy Bypass -File .\install.ps1 --mode local
+powershell -NoProfile -ExecutionPolicy Bypass -File .\run.ps1 --version
+powershell -NoProfile -ExecutionPolicy Bypass -File .\run.ps1 verify
+powershell -NoProfile -ExecutionPolicy Bypass -File .\run.ps1 verify --source .
+powershell -NoProfile -ExecutionPolicy Bypass -File .\run.ps1 serve --warmup
+```
+
+```bash
+# Linux
+git pull --ff-only
+bash install.sh --mode local
+./run.sh --version
+./run.sh verify
+./run.sh verify --source .
+./run.sh serve --warmup
+```
+
+Without Git, download the [complete main source ZIP](https://github.com/jamescartel982-creator/Zenith/archive/refs/heads/main.zip), extract it, and rerun the installer. Preserve any legacy checkout `data/` directory or keep `AGENT_DATA_DIR` pointing to it when changing folders. The source manifest covers all tracked application, installer, test, documentation, catalog, resource, and vendored support files. Separately downloaded model weights, private local settings, chats, and training artifacts are outside that source archive.
+
 ## Install locally: Windows or Linux
 
 Python **3.10 or newer** is required; **Python 3.12 is recommended**. Internet is needed for package installation and the first model download. The installer creates a private `.venv`, installs CPU PyTorch when needed, saves user settings, and runs diagnostics. It preserves existing settings and conversations during upgrades.
 
-The upgrades from [PR #1](https://github.com/jamescartel982-creator/Zenith/pull/1) are merged into `main`. These commands install the current version. You can also download `main` as a ZIP and extract it if Git is unavailable.
+The current upgrades are merged into `main`. These commands install that version; the source ZIP works without Git.
 
 ### Windows — PowerShell
 
@@ -65,7 +93,7 @@ Open **http://127.0.0.1:7860** after starting the server. The wrappers use the i
 | Installer flag | Behavior | Practical requirements |
 | --- | --- | --- |
 | `--mode local` | One Qwen2.5-0.5B instruction model; recommended first install | CPU; roughly 4–6 GB available RAM and ~1 GB weights |
-| `--mode ensemble` | Qwen + SmolLM2 drafts, cross-review, and synthesis | Roughly 6–8 GB available RAM and ~1.7 GB weights; slower answers |
+| `--mode ensemble` | Configures Qwen + SmolLM2; Fast uses one routed contributor, Thorough adds review/synthesis | Up to roughly 6–8 GB available RAM and ~1.7 GB weights for the complete team |
 | `--mode ollama` | Lightweight Zenith client for an existing Ollama server | Install/start Ollama and pull its configured model separately |
 | `--mode localserver` | Lightweight client for a local llama.cpp/vLLM-compatible server | Download a model pack and start a compatible runtime separately |
 
@@ -79,9 +107,13 @@ After installation, use the platform wrapper (or the installed `zenith` executab
 zenith chat                    Terminal conversation
 zenith serve                   Browser chat on localhost
 zenith doctor                  Dependency, storage, and cache checks
+zenith verify                  Check installed wheel files against their recorded hashes
+zenith verify --source .       Check every inventoried source-release file
 zenith models download         Cache configured HF model weights
 zenith doctor --inference      Test a real response using cached weights
 zenith catalog --validate      Check the 1,000-model / 200-dataset catalog
+zenith system                  Inspect the five configured system components
+zenith system --metrics        Inspect local server performance as the OS operator
 zenith --help                  List all available commands
 ```
 
@@ -249,6 +281,25 @@ The installed training/export utilities use the same configured data directory a
 - `agent/core.py`, `agent/storage.py`: bounded generation and conversation-scoped SQLite storage.
 - `agent/learning.py`, `scripts/`: reviewed export, LoRA training, evaluation, scratch training, and optional model upload.
 - `tests/`: conversation isolation, approval/revocation, loss masks, API errors/authentication, and transformer checks.
+- `agent/integrity.py`, `release-manifest.json`: installed-file checks and complete source inventory.
+- `Dockerfile`, `compose.yaml`: non-root installed runtime and persistent data/profile volumes.
+
+## Documentation
+
+| Guide | Covers |
+| --- | --- |
+| [Local installation](docs/local-installation.md) | Windows/Linux, saved profiles, upgrades, offline use |
+| [System](docs/system.md) | Five components, shorter replies, token reporting, monitoring |
+| [Accounts and memory](docs/memory.md) | Private conversations, saved notes, deletion |
+| [Owner workspace](docs/admin.md) | Private owner code, expiry/rotation, Devil-mode tools |
+| [Model packs](docs/model-packs.md) | All 132 pinned upstream entries, support files, weight downloads |
+| [Model team and imports](docs/model-team.md) | Fast/Thorough collaboration, bounded source retrieval |
+| [Quality and training](docs/quality-and-training.md) | Versioned data, isolated tests, calibration, human review |
+| [Training roadmap](docs/training-roadmap.md) | Bounded experiments and a two-week plan |
+| [Deployment](docs/deployment.md) | Docker, persistent storage, hosting, API access |
+| [Integrity](docs/integrity.md) | Complete source and installed-package checks |
+| [Validation](docs/validation.md) | Actual checks and measured limitations |
+| [Changelog](CHANGELOG.md) | Release changes |
 
 ## Tests and evidence
 

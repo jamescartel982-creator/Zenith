@@ -73,6 +73,9 @@ def main(argv=None):
         if needs_hf:
             run([python, '-m', 'pip', 'install', '--upgrade', str(ROOT) + '[local]'])
         run([python, '-m', 'pip', 'check'])
+        # Isolated mode verifies the installed wheel instead of a same-named
+        # source tree or a package selected by an inherited PYTHONPATH.
+        run([python,'-I','-m','agent','verify','--json'])
         run([python, '-m', 'agent', 'doctor'])
         if args.download and needs_hf:
             run([python, '-m', 'agent', 'models', 'download'])
