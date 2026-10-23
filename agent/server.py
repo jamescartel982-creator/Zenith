@@ -237,8 +237,8 @@ def create_app(settings=None, agent=None, catalog=None):
 
     @app.get('/api/skills', dependencies=[Depends(authenticate)])
     def skills():
-        from .skills import list_skills
-        return {'skills':list_skills(), 'kind':'instruction-profiles', 'default_response_mode':settings.response_mode,'default_reply_style':settings.reply_style}
+        from .skills import skills_library
+        return {**skills_library(), 'kind':'instruction-profiles', 'default_response_mode':settings.response_mode,'default_reply_style':settings.reply_style}
 
     @app.get('/api/system', dependencies=[Depends(authenticate)])
     def system_status(user=Depends(current_user)):

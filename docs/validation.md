@@ -127,3 +127,15 @@ Additional cases cover split Unicode, BOM/CR/LF/CRLF boundaries, multiline SSE, 
 A normal 0.8.1 wheel upgrade verified **72 hashed installed files**. Installed commands, catalog, diagnostics, and terminal exit succeeded outside the checkout. The refreshed source inventory covers **181 files**, including the transport module, tests, and engineering guide.
 
 These are transport and application integration checks, not actual Ollama/vLLM/llama.cpp model execution or a neural inference benchmark. The read timeout remains 300 seconds of inactivity; cancellation cannot forcibly interrupt a blocking network read. No new model, training adapter, or calibration artifact is activated. See [protocol contracts and operational limits](provider-reliability.md).
+
+## Curated AI and cybersecurity learning library (0.9)
+
+Checked on 2026-10-23. **134 CPU-enabled tests passed** locally, including seven library tests covering 51 profiles, 40 resources, six educational terminology labels, preserved legacy IDs, schema/reference validation, malformed links and metadata, search/category behavior, copy isolation, bounded selected instructions, unchanged general prompts, gated API access, no resource fetching during browsing, no role elevation, and CLI operation without importing Torch.
+
+All **40 original-publisher pages** returned successful live retrievals. Titles, dates, HTTP status, and source URLs are recorded in the bundled library. This verifies point-in-time availability; it is not exhaustive content review, reuse permission, or an assurance that links never change. The release includes original summaries and links rather than copies of source courses or books.
+
+A controlled-provider Chromium check passed at **1440×1000** and **390×844**: 51 grouped options, category filtering, empty search results, workflow and source details, six terminology explanations, selected profile in a real chat request, Escape dismissal, and no page errors, mobile horizontal overflow, or external requests during browsing. Screenshots were visually inspected. This UI fixture does not measure model knowledge.
+
+The pinned small Qwen CPU model retained **13/14** on the public development diagnostic with **no accuracy-regression slices**. General-subject prompts remain compatible; security scope text is applied to the relevant profiles. This diagnostic informed implementation and is not sealed test evidence. The historical base-60 error remains. No new weights, training, professional certification, exhaustive skill coverage, or broad cybersecurity-model compliance claim is established. Profiles are model guidance; application authorization remains separate.
+
+The regular 0.9.0 wheel verified **73 hashed installed files**, including the packaged learning library. Installed skills validation and other command checks succeeded outside the checkout. The source manifest inventories **184 files**; external model weights and private local data remain separate.

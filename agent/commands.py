@@ -12,6 +12,7 @@ COMMANDS = {
     'configure': ('agent.setup', 'Save a local or Ollama configuration'),
     'models': ('agent.models', 'List, check, or download configured models'),
     'packs': ('agent.packs', 'Inspect, verify, download or configure Zenith model packs'),
+    'skills': ('agent.skills', 'Browse AI/security learning profiles, workflows, and reference resources'),
     'admin': ('agent.admin', 'Configure your local owner code without exposing it in chat'),
     'benchmark': ('agent.quality', 'Run versioned task/slice evaluations and latency comparisons'),
     'curriculum': ('agent.curriculum', 'Prepare and audit versioned training/validation/test data'),

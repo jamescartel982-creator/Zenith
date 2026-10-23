@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.9.0
+
+- Add a curated, packaged learning library: 51 versioned profiles (24 AI, 16 cybersecurity, 11 general subjects), 40 original-source references, and six educational hacker-color explanations.
+- Give each profile a workflow, deliverable, review checklist, practice exercise, and linked resources. Cybersecurity profiles focus on defense, evidence, remediation, recovery, and authorized non-destructive assessment planning.
+- Add a searchable desktop/mobile Skills dialog and grouped chat selector; add offline `zenith skills list/show/resources/taxonomy/validate` commands.
+- Validate resource provenance, HTTPS links, schema bounds, categories, and references; isolate returned metadata from the cached library. Apply only the selected profile to a request.
+- Preserve existing general-subject prompts; keep detailed security scope guidance within cybersecurity and AI-security profiles.
+- Record original-publisher page retrieval dates and status; resource browsing/selection performs no external fetching, training, tool execution, or role elevation.
+- Add library/API/CLI/integration tests and installed-wheel/CI validation. Refresh the README, skill inventory, resource bibliography, and release manifest.
+
+Learning references are curated rather than exhaustive. Prompt guidance does not guarantee model compliance or establish expertise, and external sources retain their own terms. New model weights or training are not part of this release; optional calibration artifacts must match its release signature.
+
 ## 0.8.1
 
 - Require explicit Ollama/local-server stream completion before an answer is persisted. Interrupted or malformed replies emit an error and retain no partial training/history turn.

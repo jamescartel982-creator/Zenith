@@ -16,6 +16,7 @@ let knowledgeStatus = null;
 let catalogPage = 1;
 let catalogRequest = 0;
 let catalogLoaded = false;
+let skillLibrary = null;
 
 function showError(message) {
   $('error').textContent = message;
@@ -563,12 +564,71 @@ $('open-packs').addEventListener('click', async () => {
 async function loadSkills() {
   try {
     const data = await api('/api/skills'); const selected = $('skill-select').value; $('skill-select').replaceChildren();
-    for (const skill of data.skills) {const option = element('option', '', skill.name); option.value = skill.id; $('skill-select').append(option);}
+    skillLibrary = data;
+    for (const category of data.categories) {
+      const group = element('optgroup'); group.label = category.name;
+      for (const skill of data.skills.filter(item => item.category === category.id)) {
+        const option = element('option', '', skill.name); option.value = skill.id; group.append(option);
+      }
+      $('skill-select').append(group);
+    }
     if (data.skills.some(skill => skill.id === selected)) $('skill-select').value = selected;
     $('response-mode').value = localStorage.getItem('zenith_response_mode') || data.default_response_mode || 'fast';
     $('reply-style').value = localStorage.getItem('zenith_reply_style') || data.default_reply_style || 'auto';
+    if ($('skills-dialog').open) renderSkillLibrary();
   } catch (_) { /* Basic chat remains usable if optional skill metadata is unavailable. */ }
 }
+
+function renderSkillLibrary() {
+  const results = $('skills-results'); results.replaceChildren();
+  const taxonomy = $('skills-taxonomy'); taxonomy.replaceChildren();
+  if (!skillLibrary) return;
+  const query = $('skills-query').value.trim().toLocaleLowerCase();
+  const category = $('skills-category').value;
+  const skills = skillLibrary.skills.filter(skill => (!category || skill.category === category) &&
+    `${skill.id} ${skill.name} ${skill.instruction} ${skill.deliverable}`.toLocaleLowerCase().includes(query));
+  $('skills-count').textContent = `${skills.length} matching profiles · ${skillLibrary.skills.length} profiles and ${skillLibrary.resources.length} references in this library`;
+  for (const skill of skills) {
+    const card = element('article', 'skill-card'); card.dataset.skill = skill.id;
+    card.append(element('span', 'eyebrow', skillLibrary.categories.find(item => item.id === skill.category)?.name || skill.category));
+    card.append(element('h3', '', skill.name), element('p', '', skill.deliverable));
+    const choose = element('button', '', 'Use ' + skill.name); choose.type = 'button';
+    choose.addEventListener('click', () => {$('skill-select').value = skill.id; $('skills-dialog').close(); $('prompt').focus();});
+    card.append(choose);
+    const details = element('details'); details.append(element('summary', '', 'Workflow, checks, and resources'));
+    for (const [label, rows] of [['Workflow', skill.workflow], ['Review checklist', skill.checklist]]) {
+      details.append(element('h4', '', label)); const list = element('ol');
+      for (const text of rows) list.append(element('li', '', text)); details.append(list);
+    }
+    details.append(element('h4', '', 'Practice'), element('p', '', skill.practice), element('h4', '', 'Learning references'));
+    const resources = element('ul', 'skill-references');
+    for (const reference of skillLibrary.resources.filter(item => skill.resource_ids.includes(item.id))) {
+      try {
+        const url = new URL(reference.url); if (url.protocol !== 'https:' || url.username || url.password) continue;
+        const item = element('li'); const link = element('a', '', reference.title); link.href = url.href;
+        link.target = '_blank'; link.rel = 'noopener noreferrer';
+        item.append(link, element('small', '', `${reference.publisher} · ${reference.verification.status === 'retrieved' ? 'retrieved' : 'retrieval unconfirmed'} ${reference.verification.checked_on}`));
+        resources.append(item);
+      } catch (_) { /* A malformed external link must not affect the rest of the library. */ }
+    }
+    details.append(resources); card.append(details); results.append(card);
+  }
+  if (!skills.length) results.append(element('p', 'dialog-description', 'No matching profiles. Try a broader subject or clear the search.'));
+  for (const item of skillLibrary.taxonomy) {
+    const row = element('section', 'skill-taxonomy-row');
+    row.append(element('h3', '', item.name), element('p', '', item.meaning), element('p', '', item.professional_alternative));
+    taxonomy.append(row);
+  }
+}
+$('open-skills').addEventListener('click', async () => {
+  $('skills-dialog').showModal(); $('skills-error').textContent = '';
+  if (!skillLibrary) await loadSkills();
+  if (!skillLibrary) {$('skills-error').textContent = 'Connect to the server to load the skill library.'; return;}
+  renderSkillLibrary();
+});
+$('skills-filters').addEventListener('submit', event => {event.preventDefault(); renderSkillLibrary();});
+$('skills-query').addEventListener('input', renderSkillLibrary);
+$('skills-category').addEventListener('change', renderSkillLibrary);
 $('response-mode').addEventListener('change', () => localStorage.setItem('zenith_response_mode', $('response-mode').value));
 $('reply-style').addEventListener('change', () => localStorage.setItem('zenith_reply_style', $('reply-style').value));
 function renderAdmin() {
