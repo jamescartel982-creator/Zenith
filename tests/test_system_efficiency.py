@@ -99,9 +99,9 @@ class EfficiencyTests(unittest.TestCase):
 
     def test_local_stream_usage_and_length_reason_are_taken_from_provider_not_estimated(self):
         response=Mock();response.__enter__=Mock(return_value=response);response.__exit__=Mock(return_value=False);response.is_redirect=False
-        response.iter_lines.return_value=iter([b'data: {"choices":[{"delta":{"content":"Hi"}}]}',
+        response.iter_content.return_value=iter([line+b'\n\n' for line in [b'data: {"choices":[{"delta":{"content":"Hi"}}]}',
             b'data: {"choices":[{"delta":{},"finish_reason":"length"}]}',
-            b'data: {"choices":[],"usage":{"prompt_tokens":12,"completion_tokens":2}}',b'data: [DONE]'])
+            b'data: {"choices":[],"usage":{"prompt_tokens":12,"completion_tokens":2}}',b'data: [DONE]']])
         from threading import Event
         provider=LocalServerProvider(replace(self.settings,provider='localserver'))
         with patch('agent.providers.requests.post',return_value=response) as post:

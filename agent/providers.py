@@ -1,5 +1,12 @@
 """Open-model inference without paid API keys or arbitrary remote Python code."""
+from contextlib import closing
+
 import requests
+
+from .transport import (
+    ProviderProtocolError, delta_text, final_text, json_object,
+    ndjson_objects, sse_payloads,
+)
 
 SYSTEM_PROMPT = (
     "You are Zenith, an independent AI assistant. Be thoughtful, warm, and precise. "
@@ -154,7 +161,7 @@ class OllamaProvider:
         self.settings = settings
 
     def generate(self, messages):
-        self.last_usage=None
+        self.last_usage = None
         s = self.settings
         # Conservative byte budget: Ollama tokenizes the final request itself.
         used = trim_messages(messages, lambda items: sum(len(m["content"].encode("utf-8")) + 32 for m in items) <= s.context_tokens)
@@ -163,32 +170,55 @@ class OllamaProvider:
                 "model": s.ollama_model, "stream": False, "messages": used,
                 "options": {"temperature": s.temperature, "num_predict": s.max_new_tokens,
                             "num_ctx": s.context_tokens + s.max_new_tokens},
-            }, timeout=(10, 300))
-            response.raise_for_status()
-            data=response.json();content = data["message"]["content"]
-            self.last_usage=token_usage(data.get('prompt_eval_count'),data.get('eval_count'),finish_reason=data.get('done_reason'))
+            }, timeout=(10, 300), allow_redirects=False)
+            with closing(response):
+                if response.is_redirect is True:
+                    raise ProviderProtocolError('Ollama endpoint redirected; check its configured URL')
+                response.raise_for_status()
+                data = response.json()
+                if not isinstance(data, dict) or data.get('error') or data.get('done') is False:
+                    raise ProviderProtocolError('Ollama returned an invalid or incomplete chat response')
+                content = final_text(data['message']['content'])
+                self.last_usage = token_usage(data.get('prompt_eval_count'), data.get('eval_count'),
+                                              finish_reason=data.get('done_reason'))
         except requests.RequestException as exc:
             raise RuntimeError(f"Cannot reach Ollama or its model. Run: ollama pull {s.ollama_model}") from exc
-        except (KeyError, ValueError) as exc:
+        except (KeyError, TypeError, ValueError) as exc:
             raise RuntimeError("Ollama returned an invalid chat response") from exc
         return content, used
 
-    def stream(self,messages,cancel):
-        self.last_usage=None
-        import json
-        s=self.settings
-        used=trim_messages(messages,lambda items:sum(len(m['content'].encode('utf-8'))+32 for m in items)<=s.context_tokens)
-        with requests.post(s.ollama_url+'/api/chat',json={'model':s.ollama_model,'messages':used,'stream':True,
-            'options':{'temperature':s.temperature,'num_predict':s.max_new_tokens,'num_ctx':s.context_tokens+s.max_new_tokens}},stream=True,timeout=(10,300)) as response:
+    def stream(self, messages, cancel):
+        self.last_usage = None
+        if cancel.is_set():
+            return
+        s = self.settings
+        used = trim_messages(messages, lambda items: sum(len(m['content'].encode('utf-8')) + 32 for m in items) <= s.context_tokens)
+        response = requests.post(s.ollama_url + '/api/chat', json={
+            'model': s.ollama_model, 'messages': used, 'stream': True,
+            'options': {'temperature': s.temperature, 'num_predict': s.max_new_tokens,
+                        'num_ctx': s.context_tokens + s.max_new_tokens},
+        }, stream=True, timeout=(10, 300), allow_redirects=False)
+        with closing(response):
+            if response.is_redirect:
+                raise ProviderProtocolError('Ollama streaming endpoint redirected')
             response.raise_for_status()
-            for line in response.iter_lines():
-                if cancel.is_set():break
-                if not line:continue
-                row=json.loads(line)
-                if row.get('error'):raise RuntimeError('Ollama streaming failed')
-                if row.get('done'):self.last_usage=token_usage(row.get('prompt_eval_count'),row.get('eval_count'),finish_reason=row.get('done_reason'))
-                chunk=row.get('message',{}).get('content','')
-                if chunk:yield chunk,used
+            for row in ndjson_objects(response, cancel):
+                if cancel.is_set():
+                    return
+                message = row.get('message', {})
+                if not isinstance(message, dict) or type(row.get('done', False)) is not bool:
+                    raise ProviderProtocolError('Ollama returned an invalid stream event')
+                chunk = delta_text(message.get('content'))
+                if chunk:
+                    yield chunk, used
+                if cancel.is_set():
+                    return
+                if row.get('done') is True:
+                    self.last_usage = token_usage(row.get('prompt_eval_count'), row.get('eval_count'),
+                                                  finish_reason=row.get('done_reason'))
+                    return
+            if not cancel.is_set():
+                raise ProviderProtocolError('Ollama stream ended before its completion event; retry the answer')
 
 
 class TinyProvider:
@@ -225,47 +255,80 @@ class LocalServerProvider:
                 'model': s.local_server_model, 'messages': used, 'stream': False,
                 'max_tokens': s.max_new_tokens, 'temperature': s.temperature,
             }, timeout=(10, 300), allow_redirects=False)
-            if response.is_redirect is True:
-                raise requests.RequestException('Local model endpoint redirected')
-            response.raise_for_status()
-            data=response.json();choice=data['choices'][0];content = choice['message']['content']
-            counts=data.get('usage') or {};self.last_usage=token_usage(counts.get('prompt_tokens'),counts.get('completion_tokens'),finish_reason=choice.get('finish_reason'))
-            if not isinstance(content, str) or not content.strip():
-                raise ValueError('No final text returned; increase the output budget for a reasoning model')
+            with closing(response):
+                if response.is_redirect is True:
+                    raise ProviderProtocolError('Local model endpoint redirected')
+                response.raise_for_status()
+                data = response.json()
+                if not isinstance(data, dict) or data.get('error'):
+                    raise ProviderProtocolError('Local model server reported an invalid response')
+                choice = data['choices'][0]
+                if choice.get('finish_reason') not in {None, 'stop', 'length'}:
+                    raise ProviderProtocolError('Local model did not complete a text answer')
+                content = final_text(choice['message']['content'])
+                counts = data.get('usage') or {}
+                self.last_usage = token_usage(counts.get('prompt_tokens'), counts.get('completion_tokens'),
+                                              finish_reason=choice.get('finish_reason'))
         except requests.RequestException as exc:
             raise RuntimeError('Start your local model server and verify its model alias and /v1 endpoint') from exc
-        except (KeyError, IndexError, TypeError, ValueError) as exc:
+        except (AttributeError, KeyError, IndexError, TypeError, ValueError) as exc:
             raise RuntimeError('Local server returned no valid final chat response') from exc
         return content, used
 
-    def stream(self,messages,cancel):
-        self.last_usage=None
-        import json
-        s=self.settings
-        used=trim_messages(messages,lambda items:sum(len(m['content'].encode('utf-8'))+32 for m in items)<=s.context_tokens)
-        with requests.post(s.local_server_url+'/chat/completions',json={'model':s.local_server_model,'messages':used,
-            'stream':True,'stream_options':{'include_usage':True},'max_tokens':s.max_new_tokens,'temperature':s.temperature},stream=True,
-            timeout=(10,300),allow_redirects=False) as response:
-            if response.is_redirect:raise RuntimeError('Local model streaming endpoint redirected')
+    def stream(self, messages, cancel):
+        self.last_usage = None
+        if cancel.is_set():
+            return
+        s = self.settings
+        used = trim_messages(messages, lambda items: sum(len(m['content'].encode('utf-8')) + 32 for m in items) <= s.context_tokens)
+        response = requests.post(s.local_server_url + '/chat/completions', json={
+            'model': s.local_server_model, 'messages': used, 'stream': True,
+            'stream_options': {'include_usage': True}, 'max_tokens': s.max_new_tokens,
+            'temperature': s.temperature,
+        }, stream=True, timeout=(10, 300), allow_redirects=False)
+        usage = None
+        finish_reason = None
+        completed = False
+        with closing(response):
+            if response.is_redirect:
+                raise ProviderProtocolError('Local model streaming endpoint redirected')
             response.raise_for_status()
-            for line in response.iter_lines():
-                if cancel.is_set():break
-                if not line or not line.startswith(b'data:'):continue
-                payload=line[5:].strip()
-                if payload==b'[DONE]':break
-                row=json.loads(payload)
-                if row.get('error'):raise RuntimeError('Local model streaming failed')
-                counts=row.get('usage')
-                if isinstance(counts,dict):
-                    previous=self.last_usage or {}
-                    self.last_usage=token_usage(counts.get('prompt_tokens'),counts.get('completion_tokens'),finish_reason=previous.get('finish_reason'))
-                choices=row.get('choices',[])
+            for payload in sse_payloads(response, cancel):
+                if cancel.is_set():
+                    return
+                if payload.strip() == '[DONE]':
+                    completed = True
+                    break
+                row = json_object(payload)
+                counts = row.get('usage')
+                if counts is not None:
+                    if not isinstance(counts, dict):
+                        raise ProviderProtocolError('Local model returned invalid usage metadata')
+                    usage = counts
+                choices = row.get('choices', [])
+                if not isinstance(choices, list) or len(choices) > 1:
+                    raise ProviderProtocolError('Local model returned an unexpected choice list')
                 if choices:
-                    if choices[0].get('finish_reason'):
-                        previous=self.last_usage or {}
-                        self.last_usage=token_usage(previous.get('input_tokens'),previous.get('output_tokens'),finish_reason=choices[0]['finish_reason'])
-                    chunk=choices[0].get('delta',{}).get('content','')
-                    if chunk:yield chunk,used
+                    choice = choices[0]
+                    if not isinstance(choice, dict) or not isinstance(choice.get('delta', {}), dict):
+                        raise ProviderProtocolError('Local model returned an invalid choice')
+                    chunk = delta_text(choice.get('delta', {}).get('content'))
+                    if finish_reason is not None and chunk:
+                        raise ProviderProtocolError('Local model sent text after completion')
+                    reason = choice.get('finish_reason')
+                    if reason is not None:
+                        if reason not in ('stop', 'length'):
+                            raise ProviderProtocolError('Local model did not complete a text answer')
+                        finish_reason = reason
+                    if chunk:
+                        yield chunk, used
+            if cancel.is_set():
+                return
+            if not completed and finish_reason is None:
+                raise ProviderProtocolError('Local model stream ended before completion; retry the answer')
+            counts = usage or {}
+            self.last_usage = token_usage(counts.get('prompt_tokens'), counts.get('completion_tokens'),
+                                          finish_reason=finish_reason)
 
 
 def make_provider(settings):

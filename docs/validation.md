@@ -117,3 +117,13 @@ The scheduled diagnostic workflow uses the frozen public baseline and isolated C
 - The source manifest covers every tracked release file except itself, including code, assets, docs, workflows, installers, tests, catalogs, original starter archive, and vendored support sources. UTF-8 text is normalized only for CRLF/LF portability; binary files retain exact checksums. Installed-wheel checks separately use distribution records. Neither inventory is a publisher signature or a model-quality guarantee.
 
 No prompt/model/training capability improvement is claimed for this maintenance release. Historical v0.7 timing/quality reports retain their original scope. All 89 alternative large-model weight artifacts remain external pinned downloads; no private accounts, keys, conversation databases, or candidate adapters are included in source releases.
+
+## Provider response integrity (0.8.1)
+
+Checked on 2026-10-23. **127 CPU-enabled tests passed** locally, including 11 new protocol and real HTTP tests. A loopback server flushed a small text event and withheld the remainder until the client consumed that first event; the client received the delta without waiting for the remainder. Another real HTTP fixture disconnected before completion: the chat API emitted an error, saved no partial turn, recorded a failed request, released the model lock, and completed the next request successfully.
+
+Additional cases cover split Unicode, BOM/CR/LF/CRLF boundaries, multiline SSE, comments, NDJSON, malformed JSON and text, frame and total byte limits, missing completion markers, provider usage after completion, redirects, connection closure, and cancellation. Existing provider fixtures were updated to supply properly delimited SSE byte events. Python compilation and Git whitespace checks passed.
+
+A normal 0.8.1 wheel upgrade verified **72 hashed installed files**. Installed commands, catalog, diagnostics, and terminal exit succeeded outside the checkout. The refreshed source inventory covers **181 files**, including the transport module, tests, and engineering guide.
+
+These are transport and application integration checks, not actual Ollama/vLLM/llama.cpp model execution or a neural inference benchmark. The read timeout remains 300 seconds of inactivity; cancellation cannot forcibly interrupt a blocking network read. No new model, training adapter, or calibration artifact is activated. See [protocol contracts and operational limits](provider-reliability.md).

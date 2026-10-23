@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "version": "0.8.0",
+  "version": "0.8.1",
   "files": [
     {
       "path": ".dockerignore",
@@ -28,8 +28,8 @@
     },
     {
       "path": ".github/workflows/tests.yml",
-      "size": 3927,
-      "sha256": "03fb6693ac0d46095f0ef3480284653c8a204707399b4b046e553f0817d3c173",
+      "size": 3948,
+      "sha256": "30d0b85f374f983b2151bbb22d3534d5fda8e5fa3ca2a888577613de46b6d1b4",
       "normalization": "lf"
     },
     {
@@ -46,8 +46,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "size": 2482,
-      "sha256": "d4349ab9f0525495e6d4b60835158ed8c204f7e9fc9b0b078dacfbc9f94c5251",
+      "size": 3862,
+      "sha256": "8705dc1d7ae84715a644da69b586077a62def9d17d80428e4a3d918a7f208019",
       "normalization": "lf"
     },
     {
@@ -64,14 +64,14 @@
     },
     {
       "path": "README.md",
-      "size": 24580,
-      "sha256": "0c24a6923090017e0f7397baa3eedb6edb1132a1b34108050f11c1a0df22865c",
+      "size": 24859,
+      "sha256": "14f0e1d3d5a7070c408d8ff443a6a5f8c91f5bb40c642c0be76ccc04fa2b052b",
       "normalization": "lf"
     },
     {
       "path": "agent/__init__.py",
       "size": 104,
-      "sha256": "593ce728c7b39b49146406d8b3464e1ebec7bbf3b4f447fa6783ef496114a0d5",
+      "sha256": "b8ac614d7f7843a4d5a39a1786432227ae9568792c73d6485ed0ec6fedb65060",
       "normalization": "lf"
     },
     {
@@ -238,8 +238,8 @@
     },
     {
       "path": "agent/providers.py",
-      "size": 14930,
-      "sha256": "faea755f943d3ce295245a15a518e8fd8202f8a31e078e1f3c9836b64c888f26",
+      "size": 17844,
+      "sha256": "aa04df467aeb173df0185fe8b265841c0757fb59e948145fe84ca4a9488546ed",
       "normalization": "lf"
     },
     {
@@ -306,6 +306,12 @@
       "path": "agent/tools.py",
       "size": 6546,
       "sha256": "c082d0faa55fe51380e028138f4a2042f730b44e9f7698190cb29623306d6ed9",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/transport.py",
+      "size": 3816,
+      "sha256": "5d17bff8baf1a3705d92cf95c3b2b73f816e8caf362a44327abb6a2303ddb6ef",
       "normalization": "lf"
     },
     {
@@ -490,8 +496,8 @@
     },
     {
       "path": "docs/deployment.md",
-      "size": 8011,
-      "sha256": "38671ab61f5709e1fbd9040f0ab0e4909849e23bb933f1b985391365464552b6",
+      "size": 8208,
+      "sha256": "1c67318096cc372c0467b80aa71e1d82e5c82741c466d1ed5947702bef2a2efe",
       "normalization": "lf"
     },
     {
@@ -525,6 +531,12 @@
       "normalization": "lf"
     },
     {
+      "path": "docs/provider-reliability.md",
+      "size": 3915,
+      "sha256": "8cf8293b3d8ffed1cc330268666ad6eb85b1474894548a098ef187746f13436b",
+      "normalization": "lf"
+    },
+    {
       "path": "docs/quality-and-training.md",
       "size": 9284,
       "sha256": "3531f26172d1005defb20f9590ac944f3ccc8bc58893277a8c83d2aa705f4148",
@@ -550,8 +562,8 @@
     },
     {
       "path": "docs/validation.md",
-      "size": 20311,
-      "sha256": "741c1113dd273eafe6234eff8ffa1d3c9bb8bba5d4cb262a78142b081e012f90",
+      "size": 21932,
+      "sha256": "dc61cc6b37e785b8698f2e53d04491240b19468d967bc86d2a34653bdf2a9598",
       "normalization": "lf"
     },
     {
@@ -777,9 +789,15 @@
       "normalization": "lf"
     },
     {
+      "path": "tests/test_provider_transport.py",
+      "size": 13425,
+      "sha256": "d702f451c46756efa3f22d7ac6d019fad0bfbf5bfa0e661651db4b59c25bc952",
+      "normalization": "lf"
+    },
+    {
       "path": "tests/test_quality_admin.py",
-      "size": 18987,
-      "sha256": "9ff718130ff9425d6682e600df7ff564c1e716e3d563ce2fe561421751d5bc8c",
+      "size": 18997,
+      "sha256": "515f060d2fd0d4c69ce1f9e8e9029d4d21f065657a1cd9058e6417202c5a9433",
       "normalization": "lf"
     },
     {
@@ -796,8 +814,8 @@
     },
     {
       "path": "tests/test_system_efficiency.py",
-      "size": 11198,
-      "sha256": "54dc5480d085fbb4d6b31060b01bc7a4e4951aa864d1b0b1697dd1f69f11770a",
+      "size": 11227,
+      "sha256": "bcd1641dd3b3100df870308324af3d53223735c21d9d6066aa8299c05bc372af",
       "normalization": "lf"
     },
     {
