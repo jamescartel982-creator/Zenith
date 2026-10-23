@@ -15,6 +15,7 @@ from pydantic import BaseModel, Field
 
 from .config import Settings
 from .core import Agent, BusyError
+from .skill_access import SkillAccessDenied, ConversationAccessDenied
 from .registry import Catalog
 from . import __version__
 
@@ -42,7 +43,7 @@ class ChatRequest(BaseModel):
     session_id: UUID
     message: str = Field(min_length=1, max_length=12000)
     response_mode: Literal['fast', 'thorough'] | None = None
-    skill: str = Field(default='general', max_length=40)
+    skill: str | None = Field(default=None, max_length=40)
     reply_style: Literal['auto','brief','full'] | None = None
 
 
@@ -52,6 +53,11 @@ class ReviewRequest(BaseModel):
     rating: Literal['good', 'bad']
     approved: bool = False
     correction: str | None = Field(default=None, max_length=24000)
+
+
+class SkillCommandRequest(BaseModel):
+    session_id: UUID
+    command: str = Field(min_length=1, max_length=200)
 
 
 class LoginRequest(BaseModel):
@@ -120,7 +126,7 @@ def create_app(settings=None, agent=None, catalog=None):
 
     def administrator(request: Request, user=Depends(signed_in)):
         state = agent.admin.status(user['id'], request.cookies.get('zenith_login',''))
-        if not state['elevated']:
+        if not state['eligible'] or not state['elevated']:
             raise HTTPException(403, 'Unlock administrator access for your owner account first')
         return user
 
@@ -236,9 +242,28 @@ def create_app(settings=None, agent=None, catalog=None):
         return {'packs': summaries()}
 
     @app.get('/api/skills', dependencies=[Depends(authenticate)])
-    def skills():
+    def skills(request: Request, user=Depends(current_user)):
         from .skills import skills_library
-        return {**skills_library(), 'kind':'instruction-profiles', 'default_response_mode':settings.response_mode,'default_reply_style':settings.reply_style}
+        allowed = agent.skills.is_admin(user['id'] if user else None, request.cookies.get('zenith_login', ''))
+        return {**skills_library(include_admin=allowed), 'kind':'instruction-profiles', 'default_response_mode':settings.response_mode,'default_reply_style':settings.reply_style}
+
+    @app.get('/api/skills/current', dependencies=[Depends(authenticate)])
+    def current_skill(request: Request, session_id: UUID, user=Depends(current_user)):
+        guard_conversation(session_id, user)
+        return agent.skills.command(str(session_id), '/skill status', user['id'] if user else None,
+                                    request.cookies.get('zenith_login', ''))
+
+    @app.post('/api/skills/command', dependencies=[Depends(authenticate)])
+    def skill_command(body: SkillCommandRequest, request: Request, user=Depends(current_user)):
+        try:
+            return agent.skills.command(str(body.session_id), body.command, user['id'] if user else None,
+                                        request.cookies.get('zenith_login', ''))
+        except SkillAccessDenied as exc:
+            raise HTTPException(403, str(exc)) from exc
+        except ConversationAccessDenied as exc:
+            raise HTTPException(404, str(exc)) from exc
+        except ValueError as exc:
+            raise HTTPException(400, str(exc)) from exc
 
     @app.get('/api/system', dependencies=[Depends(authenticate)])
     def system_status(user=Depends(current_user)):
@@ -334,25 +359,42 @@ def create_app(settings=None, agent=None, catalog=None):
     def knowledge_status():
         return agent.store.knowledge_stats()
 
-    @app.post('/api/chat', dependencies=[Depends(authenticate)])
-    def chat(body: ChatRequest, user=Depends(current_user)):
+    def prepare_chat(body, request, user):
+        user_id = user['id'] if user else None
+        token = request.cookies.get('zenith_login', '')
+        skill = body.skill if body.skill is not None else agent.skills.active(str(body.session_id), user_id, token)
+        agent.skills.require(skill, user_id, token)
         guard_conversation(body.session_id, user, create=True)
+        return {'skill': skill, 'login_token': token}
+
+    @app.post('/api/chat', dependencies=[Depends(authenticate)])
+    def chat(body: ChatRequest, request: Request, user=Depends(current_user)):
         try:
+            arguments = prepare_chat(body, request, user)
             return agent.answer(body.message, str(body.session_id), user_id=user['id'] if user else None,
-                                response_mode=body.response_mode,skill=body.skill,reply_style=body.reply_style)
+                                response_mode=body.response_mode,reply_style=body.reply_style,**arguments)
+        except SkillAccessDenied as exc:
+            raise HTTPException(403, str(exc)) from exc
+        except ConversationAccessDenied as exc:
+            raise HTTPException(404, str(exc)) from exc
         except BusyError as exc:
             raise HTTPException(429, str(exc), headers={'Retry-After': '5'}) from exc
         except ValueError as exc:
             raise HTTPException(400, str(exc)) from exc
+        except HTTPException:
+            raise
         except Exception as exc:
             logger.exception('Model generation failed')
             raise HTTPException(503, 'Model unavailable. Check server logs, model download, and provider settings.') from exc
 
     @app.post('/api/chat/stream', dependencies=[Depends(authenticate)])
-    def stream_chat(body:ChatRequest,user=Depends(current_user)):
-        guard_conversation(body.session_id,user,create=True)
-        try:stream=agent.stream_answer(body.message,str(body.session_id),user_id=user['id'] if user else None,
-                                      response_mode=body.response_mode,skill=body.skill,reply_style=body.reply_style)
+    def stream_chat(body:ChatRequest,request:Request,user=Depends(current_user)):
+        try:
+            arguments=prepare_chat(body,request,user)
+            stream=agent.stream_answer(body.message,str(body.session_id),user_id=user['id'] if user else None,
+                                       response_mode=body.response_mode,reply_style=body.reply_style,**arguments)
+        except SkillAccessDenied as exc:raise HTTPException(403,str(exc)) from exc
+        except ConversationAccessDenied as exc:raise HTTPException(404,str(exc)) from exc
         except BusyError as exc:raise HTTPException(429,str(exc),headers={'Retry-After':'5'}) from exc
         except ValueError as exc:raise HTTPException(400,str(exc)) from exc
         import anyio
@@ -366,6 +408,8 @@ def create_app(settings=None, agent=None, catalog=None):
                     event=await anyio.to_thread.run_sync(next_event)
                     if event is None:break
                     yield 'data: '+json.dumps(event,ensure_ascii=False)+'\n\n'
+            except SkillAccessDenied:
+                yield 'data: '+json.dumps({'type':'error','message':'Admin access expired or was locked. Unlock Admin and activate the security skill again. Incomplete text was not saved.'})+'\n\n'
             except Exception:
                 logger.exception('Streaming generation failed')
                 yield 'data: '+json.dumps({'type':'error','message':'Generation interrupted. Partial text was not saved; check model settings and retry.'})+'\n\n'

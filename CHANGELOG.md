@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.10.0
+
+- Add built-in `/skill list`, `/skill ID`, `/skill status`, `/skill off`, and `/skills` commands in browser and terminal chat. Commands bypass inference and are excluded from chat/training history.
+- Persist selection per conversation in an additive SQLite table; resolve chat selection on the server and protect reads/writes with conversation ownership.
+- Restrict all 16 cybersecurity profiles to the configured owner with a valid login and current admin-code elevation. Check authorization in the core and both chat endpoints; reject forged fields and non-owner access.
+- Bind protected selection to the login hash and clear it on lock, logout, code rotation, re-unlock, or expiry. Recheck before model work, at streamed chunks, and before saving; revoked partial turns are discarded.
+- Add masked `/admin unlock` and `/admin lock` controls to terminal chat with temporary-login cleanup. Browser commands open the existing private Admin field; secrets are never command arguments.
+- Remove 24 AI engineering subjects from the runtime catalog and preserve their development guidance/reference bibliography in `docs/engineering.md`. The application now has 11 public conversation skills, 16 owner-only security profiles, and 24 associated references.
+- Add authorization, command, persistence, revocation, terminal, and upgrade tests; update README, owner instructions, API documentation, and release checks.
+
+Account-level authorization does not sandbox the local OS owner. Skills remain bounded model guidance; this release adds no offensive execution tools, weights, or training. Optional calibration artifacts must match the new release signature.
+
 ## 0.9.0
 
 - Add a curated, packaged learning library: 51 versioned profiles (24 AI, 16 cybersecurity, 11 general subjects), 40 original-source references, and six educational hacker-color explanations.

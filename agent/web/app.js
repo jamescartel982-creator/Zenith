@@ -17,6 +17,8 @@ let catalogPage = 1;
 let catalogRequest = 0;
 let catalogLoaded = false;
 let skillLibrary = null;
+let skillLoadRequest = 0;
+let skillStateReady = false;
 
 function showError(message) {
   $('error').textContent = message;
@@ -334,7 +336,7 @@ async function connect() {
       $('access').open = true; $('status').textContent = 'Access token required'; return;
     }
     await loadAccount();
-    await Promise.all([loadHistory(), loadTeam(), loadConversations(), loadSkills(), loadAdmin()]);
+    await Promise.all([loadHistory(), loadTeam(), loadConversations(), loadAdmin()]);
     $('access').open = false;
     catalogLoaded = false;
   } catch (error) { showError(error.message); $('status').textContent = 'Connection needs attention'; }
@@ -374,12 +376,30 @@ $('composer').addEventListener('submit', async event => {
   event.preventDefault();
   const text = $('prompt').value.trim();
   if (busy || !text) return;
+  if (/^\/skills?(?:\s|$)/i.test(text)) {
+    $('prompt').value = '';
+    try {await runSkillCommand(text);} catch (error) {showError(error.message);}
+    return;
+  }
+  if (/^\/admin(?:\s|$)/i.test(text)) {
+    $('prompt').value = '';
+    try {
+      if (text.toLowerCase() === '/admin lock') {
+        await api('/api/admin/lock', {method: 'POST'}); await loadAdmin();
+      } else if (text.toLowerCase() === '/admin unlock') {
+        if (!activeUser) {openAccount(); return;}
+        await loadAdmin(); $('admin-dialog').showModal();
+      } else showError('Use /admin unlock or /admin lock. Enter your private code only in the masked Admin field.');
+    } catch (error) {showError(error.message);}
+    return;
+  }
   if (/^zenith-admin-[A-Za-z0-9_-]{43}$/.test(text)) {
     $('prompt').value = '';
     if (!activeUser) {showError('Sign in as your owner account before unlocking Admin. The code was not saved.'); return;}
     try {await unlockAdmin(text); $('admin-dialog').showModal();} catch (error) {showError(error.message);}
     return;
   }
+  if (!skillStateReady) {showError('Reconnect to confirm the active skill before sending a message.'); return;}
   busy = true; chatController = new AbortController(); showError(''); $('send').hidden = true; $('stop').hidden = false; $('send').disabled = true; $('new-chat').disabled = true; $('prompt').disabled = true;
   $('messages').setAttribute('aria-busy', 'true');
   const userMessage = addMessage('user', text);
@@ -387,7 +407,7 @@ $('composer').addEventListener('submit', async event => {
   const pending = element('p', 'pending', configuredTeam?.mode === 'ensemble' && $('response-mode').value === 'thorough' ? 'Consulting the configured model team… Contributors respond before the final synthesis.' : 'Preparing your answer… The first model load may take longer.');
   $('messages').append(pending); $('messages').scrollTop = $('messages').scrollHeight;
   try {
-    const result = await streamChat({session_id: session, message: text, response_mode: $('response-mode').value, skill: $('skill-select').value, reply_style: $('reply-style').value}, chunk => {
+    const result = await streamChat({session_id: session, message: text, response_mode: $('response-mode').value, reply_style: $('reply-style').value}, chunk => {
       buffer += chunk; pending.remove();
       if (!partial) partial = addMessage('assistant', '');
       partial.querySelector('.content').replaceWith(renderMarkdown(buffer));
@@ -459,14 +479,18 @@ function rememberConversation() {
 }
 async function switchConversation(identifier) {
   if (busy) return;
+  skillStateReady = false;
   session = identifier; rememberConversation(); showWelcome(); showError('');
-  try {await loadHistory(); await loadConversations();} catch (error) {showError(error.message);}
+  try {await Promise.all([loadHistory(), loadConversations(), loadSkills()]);} catch (error) {showError(error.message);}
 }
 async function loadAccount() {
   const data = await api('/api/account');
   const previous = activeUser?.id;
   activeUser = data.user;
   if (previous !== activeUser?.id) {
+    skillLoadRequest += 1; skillLibrary = null; skillStateReady = false;
+    $('skill-select').replaceChildren(new Option('General reasoning', 'general'));
+    $('skill-command-status').textContent = 'Active skill: General reasoning';
     adminState = null; renderAdmin(); $('admin-code').value = ''; $('admin-tool-text').value = ''; $('admin-tool-result').textContent = '';
     $('admin-review-list').replaceChildren(); $('my-review-list').replaceChildren(); $('admin-error').textContent = '';
     $('performance-summary').replaceChildren(); $('performance-scope').textContent = ''; $('performance-note').textContent = ''; $('server-metrics').hidden = true;
@@ -562,8 +586,13 @@ $('open-packs').addEventListener('click', async () => {
 });
 
 async function loadSkills() {
+  const request = ++skillLoadRequest; const activeSession = session;
+  skillStateReady = false;
   try {
-    const data = await api('/api/skills'); const selected = $('skill-select').value; $('skill-select').replaceChildren();
+    const [data, current] = await Promise.all([api('/api/skills'), api('/api/skills/current?session_id=' + encodeURIComponent(activeSession))]);
+    if (request !== skillLoadRequest || activeSession !== session) return;
+    skillStateReady = true;
+    $('skill-select').replaceChildren();
     skillLibrary = data;
     for (const category of data.categories) {
       const group = element('optgroup'); group.label = category.name;
@@ -572,12 +601,36 @@ async function loadSkills() {
       }
       $('skill-select').append(group);
     }
-    if (data.skills.some(skill => skill.id === selected)) $('skill-select').value = selected;
+    $('skill-select').value = data.skills.some(skill => skill.id === current.skill) ? current.skill : 'general';
+    $('skill-command-status').textContent = current.message;
+    $('skills-category').replaceChildren(new Option('All available skills', ''));
+    for (const category of data.categories) $('skills-category').append(new Option(category.name, category.id));
+    $('skills-access-note').textContent = data.security_unlocked ? 'Owner unlocked. Security skills require explicit activation and expire with this admin login.' : 'Security skills are locked. Only the configured owner can unlock Admin and activate them.';
+    document.querySelector('.skills-taxonomy').hidden = !data.security_unlocked;
     $('response-mode').value = localStorage.getItem('zenith_response_mode') || data.default_response_mode || 'fast';
     $('reply-style').value = localStorage.getItem('zenith_reply_style') || data.default_reply_style || 'auto';
     if ($('skills-dialog').open) renderSkillLibrary();
-  } catch (_) { /* Basic chat remains usable if optional skill metadata is unavailable. */ }
+  } catch (_) {
+    if (request === skillLoadRequest) {
+      skillLibrary = null; $('skill-select').replaceChildren(new Option('General reasoning', 'general'));
+      $('skill-command-status').textContent = 'Skill state unavailable. Reconnect before changing skills.';
+    }
+  }
 }
+
+async function runSkillCommand(command) {
+  if (busy) throw new Error('Wait for the current answer before changing skills.');
+  showError('');
+  const result = await api('/api/skills/command', {method: 'POST', body: JSON.stringify({session_id: session, command})});
+  await loadSkills();
+  $('skill-command-status').textContent = result.message;
+  if (result.type === 'skill-list') {$('skills-dialog').showModal(); renderSkillLibrary();}
+  return result;
+}
+$('skill-select').addEventListener('change', async () => {
+  try {await runSkillCommand('/skill ' + $('skill-select').value);}
+  catch (error) {showError(error.message); await loadSkills();}
+});
 
 function renderSkillLibrary() {
   const results = $('skills-results'); results.replaceChildren();
@@ -593,8 +646,11 @@ function renderSkillLibrary() {
     card.append(element('span', 'eyebrow', skillLibrary.categories.find(item => item.id === skill.category)?.name || skill.category));
     card.append(element('h3', '', skill.name), element('p', '', skill.deliverable));
     const choose = element('button', '', 'Use ' + skill.name); choose.type = 'button';
-    choose.addEventListener('click', () => {$('skill-select').value = skill.id; $('skills-dialog').close(); $('prompt').focus();});
-    card.append(choose);
+    choose.addEventListener('click', async () => {
+      try {await runSkillCommand('/skill ' + skill.id); $('skills-dialog').close(); $('prompt').focus();}
+      catch (error) {$('skills-error').textContent = error.message;}
+    });
+    card.append(choose, element('p', 'skill-command-hint', '/skill ' + skill.id));
     const details = element('details'); details.append(element('summary', '', 'Workflow, checks, and resources'));
     for (const [label, rows] of [['Workflow', skill.workflow], ['Review checklist', skill.checklist]]) {
       details.append(element('h4', '', label)); const list = element('ol');
@@ -643,13 +699,14 @@ function renderAdmin() {
   if (adminState?.expires_at) adminExpiry = setTimeout(() => loadAdmin(), Math.max(1000, adminState.expires_at * 1000 - Date.now() + 300));
 }
 async function loadAdmin() {
-  if (!activeUser) {adminState = null; renderAdmin(); return;}
+  if (!activeUser) {adminState = null; renderAdmin(); await loadSkills(); return;}
   try {adminState = await api('/api/admin/status');} catch (_) {adminState = null;}
   renderAdmin();
+  await loadSkills();
 }
 async function unlockAdmin(code) {
   adminState = await api('/api/admin/unlock', {method: 'POST', body: JSON.stringify({code})});
-  renderAdmin(); $('admin-error').textContent = '';
+  renderAdmin(); $('admin-error').textContent = ''; await loadSkills();
 }
 $('open-admin').addEventListener('click', async () => {
   if (busy) return;

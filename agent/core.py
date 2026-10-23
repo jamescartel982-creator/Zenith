@@ -31,6 +31,8 @@ class Agent:
         from .personal import PersonalStore
         from .admin import AdminStore
         self.personal=PersonalStore(self.store);self.admin=AdminStore(self.store)
+        from .skill_access import SkillAccess
+        self.skills=SkillAccess(self.store,self.personal,self.admin)
         from .monitoring import Monitor
         self.monitor=Monitor(self.store)
         self.lock=Lock()
@@ -62,14 +64,19 @@ class Agent:
         messages.append({'role':'user','content':text})
         return messages,sources
 
-    def stream_answer(self,text,session_id,user_id=None,response_mode=None,skill='general',reply_style=None):
+    def stream_answer(self,text,session_id,user_id=None,response_mode=None,skill=None,reply_style=None,login_token=None):
         from .assurance import normalize_input,direct_answer,assurance,calibrated_assurance
         from .skills import skill_instruction
+        from .skill_access import parse_skill_command
         from .ensemble import EnsembleProvider
         started=time.perf_counter();text=normalize_input(text)
         mode=response_mode or self.settings.response_mode
         if not text or len(text)>12000:raise ValueError('Message must contain 1 to 12000 characters')
+        if parse_skill_command(text) is not None or text.split()[0].casefold() == '/admin':
+            raise ValueError('Send skill commands through the command interface; they are not model prompts')
         if mode not in {'fast','thorough'}:raise ValueError('Choose fast or thorough response mode')
+        skill=skill if skill is not None else self.skills.active(session_id,user_id,login_token)
+        restricted=self.skills.require(skill,user_id,login_token)['access']=='admin'
         instruction=skill_instruction(skill)
         plan=reply_plan(self.settings,text,mode,reply_style)
         if not self.lock.acquire(blocking=False):raise BusyError('Zenith is answering another message. Try again shortly.')
@@ -80,6 +87,7 @@ class Agent:
                          'context_token_limit':self.settings.context_tokens,'history_turn_limit':plan.history_turns,'usage':None}
             try:
                 yield {'type':'start','response_mode':mode,'skill':skill,'reply_style':plan.requested_style,'output_token_limit':plan.max_new_tokens}
+                if restricted:self.skills.require(skill,user_id,login_token)
                 messages,sources=self._messages(text,session_id,user_id,instruction,plan)
                 direct=direct_answer(text,fast=mode=='fast')
                 quality=calibrated_assurance(self.settings,assurance(text,method=direct['method'] if direct else 'model',
@@ -88,6 +96,7 @@ class Agent:
                 if quality['method']=='validation-threshold-abstention':
                     direct={'text':"I don't have enough validated confidence to answer reliably under this evaluation profile. Please request human review or provide better evidence.",'abstained':True,'method':quality['method']}
                 pieces=[];used=messages;size=0
+                if restricted:self.skills.require(skill,user_id,login_token)
                 with provider_limits(self.provider,plan.max_new_tokens):
                     if direct:
                         provider_stream=iter([(direct['text'],messages)])
@@ -100,6 +109,7 @@ class Agent:
                         provider_stream=iter([(response,used)])
                     try:
                         for chunk,used in provider_stream:
+                            if restricted:self.skills.require(skill,user_id,login_token)
                             if not isinstance(chunk,str):raise RuntimeError('The model returned invalid text')
                             if not chunk:continue
                             size+=len(chunk)
@@ -117,6 +127,7 @@ class Agent:
                 usage={'input_tokens':0,'output_tokens':0,'total_tokens':0,'model_calls':0,'source':'model-not-called','finish_reason':'stop'} if direct else reported_usage(getattr(self.provider,'last_usage',None))
                 performance.update(usage=usage,elapsed_ms=round((time.perf_counter()-started)*1000,2),first_text_ms=first_token,
                                    history_turns_sent=max(0,(len(used)-2)//2))
+                if restricted:self.skills.require(skill,user_id,login_token)
                 turn_id=self.store.add(session_id,text,response,used,model,deliberation=trace,sources=sources,quality=quality,performance=performance)
                 status='completed'
                 yield {'type':'result','result':{'id':turn_id,'response':response,'model':model,'deliberation':trace,
@@ -135,8 +146,8 @@ class Agent:
                     lease.release()
         return ManagedAnswerStream(self,events)
 
-    def answer(self,text,session_id,user_id=None,response_mode=None,skill='general',reply_style=None):
-        stream=self.stream_answer(text,session_id,user_id,response_mode,skill,reply_style)
+    def answer(self,text,session_id,user_id=None,response_mode=None,skill=None,reply_style=None,login_token=None):
+        stream=self.stream_answer(text,session_id,user_id,response_mode,skill,reply_style,login_token)
         result=None
         try:
             for event in stream:

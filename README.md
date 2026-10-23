@@ -16,7 +16,7 @@ license: apache-2.0
 
 The original starter ZIP is preserved. Its Python project is now unpacked, extended, and runnable from this repository's root.
 
-**Current release: 0.9.0.** Browse **51 instruction profiles** and **40 source-linked learning resources** in the new Skills library: AI engineering, defensive cybersecurity, and general subjects. Each profile has a workflow, review checklist, and practice exercise. Resources are curated references, not automatic downloads or training. See the [skills guide](docs/skills.md), [changelog](CHANGELOG.md), [provider engineering guide](docs/provider-reliability.md), and [file-integrity guide](docs/integrity.md).
+**Current release: 0.10.0.** Activate built-in conversation skills with `/skill ID`. There are **11 public skills** and **16 owner-only defensive cybersecurity profiles**, protected by login and a current admin-code unlock. AI engineering is implemented in the code and documented as development standards. See [commands and access](docs/skills.md), [engineering standards](docs/engineering.md), and the [changelog](CHANGELOG.md).
 
 ## Upgrade an existing installation
 
@@ -192,7 +192,7 @@ Open **System** to inspect Zenith's model, harness, context/memory, infrastructu
 
 In a five-question CPU development comparison, prompt tokens fell 41%, reply-text tokens 79%, and median complete replies 47% (13.17 → 6.99 seconds). First-text time did not improve, one request became slower, and factual errors remain. [Raw reports and interpretation](docs/benchmarks/v0.7/) are included; no ChatGPT/Claude speed parity is claimed.
 
-Browser replies stream as they are generated. Choose **Fast** for one routed contributor or **Thorough** for full configured team deliberation. The **Skills** button opens a searchable library of **24 AI engineering**, **16 cybersecurity**, and **11 general-subject** profiles. Topics include LLM architecture, retrieval, fine-tuning, evaluation, MLOps, incident response, secure coding, scoped assessment planning, mathematics, and history. Each has a workflow, checklist, practice example, and learning references. The six hacker-color labels are explained as informal terminology, with defensive and authorized alternatives; they are not executable modes. Profiles guide the configured model and do not establish professional qualifications or independently trained expertise. Bounded arithmetic uses an exact calculator. Unavailable live data and some unsupported claims trigger explicit abstention; ordinary model answers remain labeled uncalibrated. See [the library, references, scope, and extension guide](docs/skills.md).
+Browser replies stream as they are generated. Choose **Fast** for one routed contributor or **Thorough** for full configured team deliberation. Type `/skill list`, `/skill mathematics`, `/skill status`, or `/skill off` in browser or terminal chat. Commands run in Zenith's control layer, use no model tokens, and save the selection for the current conversation. The Skills button and selector use the same backend. **Security skills are locked to the configured owner**: sign in, unlock Admin with the private local code, then explicitly activate a skill such as `/skill incident-response`. Other accounts cannot activate them even with a forged request or knowledge of the code. Lock, logout, rotation, and expiry revoke protected selection. AI engineering is a code and review standard, rather than a user subject. Profiles guide the model and do not establish professional qualifications or new trained expertise. See [commands, public/private inventory, and enforcement](docs/skills.md).
 
 Create your own browser account, then configure its owner role in your server terminal:
 
@@ -300,7 +300,8 @@ The installed training/export utilities use the same configured data directory a
 | [Training roadmap](docs/training-roadmap.md) | Bounded experiments and a two-week plan |
 | [Deployment](docs/deployment.md) | Docker, persistent storage, hosting, API access |
 | [Provider reliability](docs/provider-reliability.md) | Completion checks, bounded HTTP streams, failure recovery |
-| [Skills and learning resources](docs/skills.md) | AI/security workflows, reference library, taxonomy, extension |
+| [Built-in skill commands](docs/skills.md) | Public commands, owner-only security, activation, API, extension |
+| [Engineering standards](docs/engineering.md) | Actual implementation boundaries, code-review practices, developer references |
 | [Integrity](docs/integrity.md) | Complete source and installed-package checks |
 | [Validation](docs/validation.md) | Actual checks and measured limitations |
 | [Changelog](CHANGELOG.md) | Release changes |

@@ -18,38 +18,39 @@ from agent.skills import (get_skill, list_resources, list_skills, skill_instruct
 
 class SkillsLibraryTests(unittest.TestCase):
     def test_bundled_library_counts_references_and_legacy_profiles(self):
-        library = skills_library()
+        library = skills_library(include_admin=True)
         report = validate_library(library)
-        self.assertEqual(report['profiles'], 51)
-        self.assertEqual(report['resources'], 40)
-        self.assertEqual(report['categories'], {'general': 11, 'ai': 24, 'security': 16})
+        self.assertEqual(report['profiles'], 27)
+        self.assertEqual(report['resources'], 24)
+        self.assertEqual(report['categories'], {'general': 11, 'security': 16})
         self.assertEqual(len(library['taxonomy']), 6)
         self.assertTrue({'general', 'mathematics', 'science', 'history', 'ancient-math',
                          'programming', 'investing', 'day-trading', 'cybersecurity',
-                         'books-writing', 'research', 'data-analysis'} <= {s['id'] for s in list_skills()})
+                         'books-writing', 'research', 'data-analysis'} <= {s['id'] for s in list_skills(include_admin=True)})
         self.assertEqual(get_skill('incident-response')['resources'][0]['publisher'], 'NIST')
 
     def test_search_categories_and_returned_data_are_isolated(self):
-        self.assertEqual(len(list_skills('ai')), 24)
-        self.assertEqual([s['id'] for s in list_skills('security', 'RANSOMWARE')], ['ransomware-defense'])
-        self.assertTrue(all(row['category'] == 'security' for row in list_resources('security')))
+        self.assertEqual(len(list_skills()), 11)
+        with self.assertRaises(ValueError): list_skills('ai')
+        self.assertEqual([s['id'] for s in list_skills('security', 'RANSOMWARE', include_admin=True)], ['ransomware-defense'])
+        self.assertTrue(len(list_resources('security', include_admin=True)) == 13)
         self.assertEqual(list_resources(query='no matching reference here'), [])
-        copied = skills_library()
+        copied = skills_library(include_admin=True)
         copied['skills'][0]['instruction'] = 'poisoned'
         copied['resources'][0]['url'] = 'javascript:alert(1)'
         copied['taxonomy'].clear()
-        profile = get_skill('ai-security')
+        profile = get_skill('secure-coding')
         profile['resources'][0]['title'] = 'poisoned'
         self.assertNotIn('poisoned', skill_instruction('general'))
         self.assertTrue(list_resources()[0]['url'].startswith('https://'))
-        self.assertEqual(len(skills_library()['taxonomy']), 6)
-        self.assertNotEqual(get_skill('ai-security')['resources'][0]['title'], 'poisoned')
+        self.assertEqual(len(skills_library(include_admin=True)['taxonomy']), 6)
+        self.assertNotEqual(get_skill('secure-coding')['resources'][0]['title'], 'poisoned')
         for function, args in [(list_skills, ('unknown',)), (list_resources, (None, 'x' * 201))]:
             with self.assertRaises(ValueError):
                 function(*args)
 
     def test_schema_rejects_dangling_duplicates_and_unsafe_links(self):
-        base = skills_library()
+        base = skills_library(include_admin=True)
         bad_values = []
         for edit in [lambda x: x['skills'].append(deepcopy(x['skills'][0])),
                      lambda x: x['skills'][0].update(resource_ids=['unknown']),
@@ -72,17 +73,17 @@ class SkillsLibraryTests(unittest.TestCase):
                 validate_library(value)
 
     def test_selected_instruction_is_bounded_and_taxonomy_grants_no_roles(self):
-        for profile in list_skills():
+        for profile in list_skills(include_admin=True):
             text = skill_instruction(profile['id'])
             self.assertLess(len(text), 2400)
-            if profile['category'] == 'security' or profile['id'] == 'ai-security':
+            if profile['category'] == 'security':
                 self.assertIn('Profiles grant no tools or privileges', text)
                 self.assertIn('decline malware deployment', text)
             self.assertNotIn('https://', text)
         self.assertEqual(skill_instruction('general'), get_skill('general')['instruction'])
         self.assertIn('Workflow:', skill_instruction('authorized-pentest'))
         self.assertNotIn('distributed experiment', skill_instruction('ransomware-defense'))
-        for label in skills_library()['taxonomy']:
+        for label in skills_library(include_admin=True)['taxonomy']:
             with self.assertRaises(ValueError):
                 skill_instruction(label['id'])
 
@@ -97,7 +98,7 @@ class SkillsLibraryTests(unittest.TestCase):
                 response = client.get('/api/skills', headers={'Authorization': 'Bearer ' + settings.api_token})
             self.assertEqual(response.status_code, 200)
             value = response.json()
-            self.assertEqual(value['validation']['profiles'], 51)
+            self.assertEqual(value['validation']['profiles'], 11)
             self.assertEqual(value['kind'], 'instruction-profiles')
             self.assertEqual(value['default_reply_style'], settings.reply_style)
             self.assertNotIn('api_token', value)
@@ -110,11 +111,11 @@ class SkillsLibraryTests(unittest.TestCase):
             provider.generate.side_effect = lambda messages: ('A defensive checklist.', messages)
             agent = Agent(settings, provider=provider)
             with patch('requests.get', side_effect=AssertionError('Unexpected resource fetch')):
-                result = agent.answer('Review this backup recovery plan.', str(uuid4()), skill='ransomware-defense')
+                result = agent.answer('Review this function.', str(uuid4()), skill='programming')
             messages = provider.generate.call_args.args[0]
-            self.assertIn('backup restoration', messages[0]['content'])
+            self.assertIn('runnable', messages[0]['content'])
             self.assertNotIn('Reinforcement learning', messages[0]['content'])
-            self.assertEqual(result['skill'], 'ransomware-defense')
+            self.assertEqual(result['skill'], 'programming')
             with agent.store.connect() as db:
                 self.assertIsNone(db.execute('SELECT * FROM admin_owner').fetchone())
             with self.assertRaises(ValueError):
@@ -126,12 +127,15 @@ class SkillsLibraryTests(unittest.TestCase):
             "import sys; from agent.skills import main; sys.argv=['skills','validate']; main(); assert 'torch' not in sys.modules"],
             text=True, capture_output=True, check=True)
         self.assertTrue(json.loads(process.stdout)['ok'])
-        for args, key in [(['list', '--category', 'ai'], 'skills'),
+        for args, key in [(['list', '--category', 'general'], 'skills'),
                           (['resources', '--query', 'NIST'], 'resources'),
                           (['taxonomy'], 'taxonomy')]:
             result = subprocess.run([sys.executable, '-m', 'agent', 'skills', *args],
                                     capture_output=True, text=True, check=True)
-            self.assertTrue(json.loads(result.stdout)[key])
+            if key == 'taxonomy':
+                self.assertEqual(json.loads(result.stdout)[key], [])
+            else:
+                self.assertTrue(json.loads(result.stdout)[key])
         result = subprocess.run([sys.executable, '-m', 'agent', 'skills', 'show', 'black-hat'],
                                 capture_output=True, text=True)
         self.assertEqual(result.returncode, 2)

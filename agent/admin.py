@@ -54,6 +54,7 @@ class AdminStore:
             with self.store.connect() as db:
                 db.execute('INSERT OR REPLACE INTO admin_owner VALUES (1, ?, ?, ?)', (user['id'], salt, hashed))
                 db.execute('DELETE FROM admin_elevations')
+                db.execute("DELETE FROM skill_activations WHERE token_hash<>''")
                 db.execute('INSERT INTO admin_audit VALUES (?, ?, ?)', (time.time(), user['id'], 'owner-code-rotated' if owner else 'owner-configured'))
         finally:
             if temporary is not None: temporary.unlink(missing_ok=True)
@@ -82,6 +83,7 @@ class AdminStore:
         with self.store.connect() as db:
             db.execute('INSERT INTO admin_audit VALUES (?, ?, ?)', (time.time(), user_id, 'unlock-ok' if valid else 'unlock-denied'))
             if valid:
+                db.execute('DELETE FROM skill_activations WHERE token_hash=?', (digest,))
                 db.execute('DELETE FROM admin_elevations WHERE expires<=?', (time.time(),))
                 db.execute('INSERT OR REPLACE INTO admin_elevations VALUES (?, ?, ?, 0)', (digest,user_id,time.time()+900))
         return valid
@@ -100,6 +102,7 @@ class AdminStore:
     def lock(self, token):
         with self.store.connect() as db:
             db.execute('DELETE FROM admin_elevations WHERE token_hash=?', (hashlib.sha256(token.encode()).hexdigest(),))
+            db.execute('DELETE FROM skill_activations WHERE token_hash=?', (hashlib.sha256(token.encode()).hexdigest(),))
 
 
 def main():
