@@ -57,6 +57,27 @@ Direct executable use:
 
 For a specific interpreter: `ZENITH_PYTHON=/path/to/python3.12 bash install.sh --mode local`.
 
+## Activate the environment
+
+The isolated environment is required for installation. Activate it in each terminal before using bare `zenith`, `python`, or `pip` commands:
+
+```powershell
+# Windows PowerShell; execution policy changes only for this process.
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+. .\activate.ps1
+zenith doctor
+```
+
+```bash
+# Linux Bash
+source ./activate.sh
+zenith doctor
+```
+
+Run `deactivate` to leave. Source the helper in the current shell; executing it as a child process cannot activate the parent terminal. With a custom `--venv` path, use the exact activation path printed by the installer instead. Checkout run scripts and absolute installed executable paths select the correct environment directly.
+
+The installer checks that its selected Python belongs to a virtual environment before running pip. The message **Dependencies verified. No package conflicts detected.** means `pip check` succeeded; pip's original **No broken requirements found** is also a success result. Actual package conflicts retain their error output and stop installation. A successful dependency check does not prove that an external runtime is running or that model weights are compatible; use `doctor --inference` for a real response check.
+
 ## Mode and runtime choices
 
 The default installer mode is `local`: a single small instruction model with CPU PyTorch. `--mode ensemble` configures the small team: Fast uses one routed contributor; Thorough performs draft/review/synthesis. `--mode localserver` installs the key-free local llama.cpp/vLLM client; see [model packs](model-packs.md). `--mode ollama` installs the lightweight client without Torch/Transformers when that is the effective configured provider. Install/start Ollama separately and run `ollama pull qwen2.5-coder:7b` before chatting.

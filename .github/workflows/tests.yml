@@ -80,6 +80,10 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           .venv/bin/python -m pip install 'httpx>=0.27,<1'
+          source ./activate.sh
+          python -c "import sys; assert sys.prefix != sys.base_prefix"
+          zenith discover list
+          deactivate
           ./run.sh --version
           ./run.sh catalog --validate
           ./run.sh models download
@@ -87,6 +91,18 @@ jobs:
           .venv/bin/python -m unittest discover -s tests -v
           .venv/bin/python scripts/smoke_server.py
           .venv/bin/python scripts/smoke_installed.py
+      - name: Windows PowerShell 5.1 environment activation
+        if: runner.os == 'Windows'
+        shell: powershell
+        run: |
+          Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+          . .\activate.ps1
+          python -c "import sys; assert sys.prefix != sys.base_prefix"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          zenith discover list
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          deactivate
+          if ($env:VIRTUAL_ENV) { throw 'Environment was not deactivated' }
       - name: Windows installed commands and cached-model inference
         if: runner.os == 'Windows'
         shell: pwsh

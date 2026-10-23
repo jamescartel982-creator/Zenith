@@ -19,6 +19,7 @@ COMMANDS = {
     'import-book': ('agent.books', 'Snapshot a public-domain book for source-linked local retrieval'),
     'campaign': ('scripts.run_training_campaign', 'Run a bounded training candidate with held-out and regression reports'),
     'system': ('agent.monitoring', 'Inspect the five system components or local performance aggregates'),
+    'discover': ('agent.discovery', 'Discover public models, including fine-tunes, and save model references'),
     'catalog': ('scripts.catalog', 'Search or validate the source catalog'),
     'import-data': ('scripts.import_dataset', 'Import selected dataset text'),
     'export-data': ('scripts.export_training_data', 'Export approved training examples'),

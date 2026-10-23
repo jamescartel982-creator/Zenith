@@ -17,6 +17,7 @@ from .config import Settings
 from .core import Agent, BusyError
 from .skill_access import SkillAccessDenied, ConversationAccessDenied
 from .registry import Catalog
+from .discovery import Discovery, DiscoveryError
 from . import __version__
 
 WEB = Path(__file__).parent / 'web'
@@ -102,6 +103,7 @@ def create_app(settings=None, agent=None, catalog=None):
     app = FastAPI(title='Zenith', version=__version__, docs_url=None, redoc_url=None)
     app.state.agent = agent
     app.state.catalog = catalog
+    app.state.discovery = Discovery()
     attempts = {}
     attempt_lock = Lock()
 
@@ -354,6 +356,20 @@ def create_app(settings=None, agent=None, catalog=None):
                        page_size: int = Query(default=20, ge=1, le=100)):
         configured = {member['model'] for member in agent.team_info()['members'] if member['provider'] == 'huggingface'}
         return get_catalog().search(kind, source, q, page, page_size, configured)
+
+    @app.get('/api/discovery', dependencies=[Depends(authenticate)])
+    def discover(source: Literal['huggingface', 'github'] = 'huggingface',
+                 kind: Literal['model', 'dataset'] = 'model',
+                 q: str = Query(default='', max_length=200),
+                 page: int = Query(default=1, ge=1, le=1000000),
+                 page_size: int = Query(default=20, ge=1, le=50),
+                 cursor: str = Query(default='', max_length=4096)):
+        try:
+            return app.state.discovery.search(source, kind, q, page, page_size, cursor)
+        except DiscoveryError as exc:
+            raise HTTPException(502, str(exc)) from exc
+        except ValueError as exc:
+            raise HTTPException(400, str(exc)) from exc
 
     @app.get('/api/knowledge', dependencies=[Depends(authenticate)])
     def knowledge_status():
