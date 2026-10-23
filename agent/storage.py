@@ -21,6 +21,8 @@ class Store:
                 approved INTEGER NOT NULL DEFAULT 0, correction TEXT
             )""")
             db.execute("CREATE INDEX IF NOT EXISTS turns_session ON turns(session_id, created_at)")
+            db.execute('''CREATE TABLE IF NOT EXISTS skill_activations (
+                session_id TEXT PRIMARY KEY, skill TEXT NOT NULL, token_hash TEXT NOT NULL)''')
             db.execute('''CREATE TABLE IF NOT EXISTS human_reviews (
                 id TEXT PRIMARY KEY, user_id TEXT NOT NULL, session_id TEXT NOT NULL, turn_id TEXT NOT NULL,
                 reason TEXT NOT NULL, status TEXT NOT NULL, resolution TEXT NOT NULL, created REAL NOT NULL,
@@ -108,11 +110,10 @@ class Store:
     def delete_session(self, session_id):
         with self.connect() as db:
             db.execute("DELETE FROM turns WHERE session_id=?", (session_id,))
+            db.execute('DELETE FROM skill_activations WHERE session_id=?', (session_id,))
             db.execute('DELETE FROM human_reviews WHERE session_id=?', (session_id,))
             if db.execute("SELECT 1 FROM sqlite_master WHERE name='generation_metrics'").fetchone():
                 db.execute('DELETE FROM generation_metrics WHERE session_id=?',(session_id,))
-
-
     def add_document(self, source_id, url, text):
         import hashlib
         from urllib.parse import urlparse

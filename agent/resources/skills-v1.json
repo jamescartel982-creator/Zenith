@@ -1,7 +1,7 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "curated_on": "2026-10-23",
-  "notice": "Curated instruction profiles and external learning references, not exhaustive coverage, new model training, certifications, or executable tools. Color labels are informal and do not grant authorization. Original summaries link to sources; external content retains its own terms.",
+  "notice": "Built-in conversation profiles. Public skills can be selected with /skill ID. Cybersecurity skills require the configured owner account and a current admin-code unlock. Profiles do not execute tools or train weights. AI engineering is implemented in the codebase and documented as development standards.",
   "skills": [
     {
       "id": "general",
@@ -24,8 +24,9 @@
         "mit-ocw",
         "openstax"
       ],
-      "version": 2,
-      "kind": "instruction-profile"
+      "version": 3,
+      "kind": "instruction-profile",
+      "access": "public"
     },
     {
       "id": "mathematics",
@@ -48,8 +49,9 @@
         "mit-ocw",
         "khan"
       ],
-      "version": 2,
-      "kind": "instruction-profile"
+      "version": 3,
+      "kind": "instruction-profile",
+      "access": "public"
     },
     {
       "id": "science",
@@ -72,8 +74,9 @@
         "openstax",
         "mit-ocw"
       ],
-      "version": 2,
-      "kind": "instruction-profile"
+      "version": 3,
+      "kind": "instruction-profile",
+      "access": "public"
     },
     {
       "id": "history",
@@ -96,8 +99,9 @@
         "loc",
         "gutenberg"
       ],
-      "version": 2,
-      "kind": "instruction-profile"
+      "version": 3,
+      "kind": "instruction-profile",
+      "access": "public"
     },
     {
       "id": "ancient-math",
@@ -120,8 +124,9 @@
         "gutenberg",
         "mit-ocw"
       ],
-      "version": 2,
-      "kind": "instruction-profile"
+      "version": 3,
+      "kind": "instruction-profile",
+      "access": "public"
     },
     {
       "id": "programming",
@@ -144,8 +149,9 @@
         "pytorch",
         "jupyter"
       ],
-      "version": 2,
-      "kind": "instruction-profile"
+      "version": 3,
+      "kind": "instruction-profile",
+      "access": "public"
     },
     {
       "id": "investing",
@@ -167,8 +173,9 @@
       "resource_ids": [
         "investor"
       ],
-      "version": 2,
-      "kind": "instruction-profile"
+      "version": 3,
+      "kind": "instruction-profile",
+      "access": "public"
     },
     {
       "id": "day-trading",
@@ -190,8 +197,9 @@
       "resource_ids": [
         "investor"
       ],
-      "version": 2,
-      "kind": "instruction-profile"
+      "version": 3,
+      "kind": "instruction-profile",
+      "access": "public"
     },
     {
       "id": "cybersecurity",
@@ -214,8 +222,9 @@
         "nist-csf",
         "nist-nice"
       ],
-      "version": 2,
-      "kind": "instruction-profile"
+      "version": 3,
+      "kind": "instruction-profile",
+      "access": "admin"
     },
     {
       "id": "books-writing",
@@ -238,8 +247,9 @@
         "gutenberg",
         "loc"
       ],
-      "version": 2,
-      "kind": "instruction-profile"
+      "version": 3,
+      "kind": "instruction-profile",
+      "access": "public"
     },
     {
       "id": "research",
@@ -262,8 +272,9 @@
         "nist-ai",
         "loc"
       ],
-      "version": 2,
-      "kind": "instruction-profile"
+      "version": 3,
+      "kind": "instruction-profile",
+      "access": "public"
     },
     {
       "id": "data-analysis",
@@ -286,560 +297,9 @@
         "pandas",
         "scipy"
       ],
-      "version": 2,
-      "kind": "instruction-profile"
-    },
-    {
-      "id": "ai-foundations",
-      "name": "AI systems foundations",
-      "category": "ai",
-      "instruction": "Map models, harness, memory, data pipelines, and governance to a concrete use case.",
-      "deliverable": "A component map with responsibilities and acceptance criteria.",
-      "workflow": [
-        "Define the user task and measurable baseline.",
-        "Map data and inference flow across the five components.",
-        "Specify failure modes, monitoring, and ownership."
-      ],
-      "checklist": [
-        "Keep model capability separate from application features.",
-        "Include latency, quality, and cost budgets."
-      ],
-      "practice": "Sketch a local document assistant without external credentials.",
-      "resource_ids": [
-        "d2l",
-        "nist-ai"
-      ],
-      "version": 2,
-      "kind": "instruction-profile"
-    },
-    {
-      "id": "ml-foundations",
-      "name": "Machine learning foundations",
-      "category": "ai",
-      "instruction": "Choose an interpretable baseline before increasing model complexity.",
-      "deliverable": "A leakage-aware experiment design.",
-      "workflow": [
-        "Define prediction time and labels.",
-        "Split by entity or time before fitting preprocessing.",
-        "Compare held-out metrics against a simple baseline."
-      ],
-      "checklist": [
-        "Avoid target and time leakage.",
-        "Inspect subgroup and class imbalance."
-      ],
-      "practice": "Build a plan for a public tabular classification task.",
-      "resource_ids": [
-        "sklearn",
-        "scipy"
-      ],
-      "version": 2,
-      "kind": "instruction-profile"
-    },
-    {
-      "id": "deep-learning",
-      "name": "Deep learning",
-      "category": "ai",
-      "instruction": "Explain tensor shapes, gradients, optimization, and generalization precisely.",
-      "deliverable": "A reproducible training-loop design.",
-      "workflow": [
-        "Check input and output tensor contracts.",
-        "Specify loss, optimizer, and validation cadence.",
-        "Diagnose learning curves and gradient problems."
-      ],
-      "checklist": [
-        "Distinguish train and evaluation behavior.",
-        "Account for seeds and numerical precision."
-      ],
-      "practice": "Review a small supplied training loop without claiming it ran.",
-      "resource_ids": [
-        "pytorch",
-        "d2l"
-      ],
-      "version": 2,
-      "kind": "instruction-profile"
-    },
-    {
-      "id": "llm-architecture",
-      "name": "LLM architecture",
-      "category": "ai",
-      "instruction": "Reason about tokenization, attention, positional encoding, context, and decoding.",
-      "deliverable": "An architecture explanation with compute and memory tradeoffs.",
-      "workflow": [
-        "Define model inputs and outputs.",
-        "Trace attention and next-token prediction.",
-        "Estimate constraints and identify unsupported assumptions."
-      ],
-      "checklist": [
-        "Distinguish parameters, context length, and output length.",
-        "Use the actual model configuration when supplied."
-      ],
-      "practice": "Trace a short text through a transformer conceptually.",
-      "resource_ids": [
-        "transformers",
-        "d2l"
-      ],
-      "version": 2,
-      "kind": "instruction-profile"
-    },
-    {
-      "id": "tokenization",
-      "name": "Tokenization and context",
-      "category": "ai",
-      "instruction": "Treat tokenizer behavior and chat templates as model-specific contracts.",
-      "deliverable": "A context-budget and truncation plan.",
-      "workflow": [
-        "Identify tokenizer and special tokens.",
-        "Reserve output space and preserve complete recent turns.",
-        "Check multilingual and boundary-case behavior."
-      ],
-      "checklist": [
-        "Do not equate characters with model tokens.",
-        "Preserve system and current-user messages."
-      ],
-      "practice": "Compare supplied token counts for short multilingual examples.",
-      "resource_ids": [
-        "hf-course",
-        "transformers"
-      ],
-      "version": 2,
-      "kind": "instruction-profile"
-    },
-    {
-      "id": "prompt-design",
-      "name": "Prompt and context design",
-      "category": "ai",
-      "instruction": "Create concise instructions with explicit task, evidence, output contract, and uncertainty.",
-      "deliverable": "A versioned prompt and evaluation checklist.",
-      "workflow": [
-        "Define success and required evidence.",
-        "Separate trusted instructions from untrusted content.",
-        "Test ordinary, missing-information, and adversarial examples."
-      ],
-      "checklist": [
-        "Avoid unsupported tool or memory claims.",
-        "Measure quality alongside token and latency budgets."
-      ],
-      "practice": "Revise a verbose prompt and explain each retained constraint.",
-      "resource_ids": [
-        "hf-course",
-        "nist-ai"
-      ],
-      "version": 2,
-      "kind": "instruction-profile"
-    },
-    {
-      "id": "rag",
-      "name": "Retrieval-augmented generation",
-      "category": "ai",
-      "instruction": "Ground answers in supplied retrievable evidence and preserve provenance.",
-      "deliverable": "A retrieval and citation evaluation plan.",
-      "workflow": [
-        "Define corpus rights, freshness, and access rules.",
-        "Choose chunking, retrieval, and reranking baselines.",
-        "Evaluate retrieval recall and answer support independently."
-      ],
-      "checklist": [
-        "Enforce document access before retrieval.",
-        "Abstain when relevant evidence is missing."
-      ],
-      "practice": "Design retrieval over three user-supplied documents.",
-      "resource_ids": [
-        "sbert",
-        "datasets"
-      ],
-      "version": 2,
-      "kind": "instruction-profile"
-    },
-    {
-      "id": "embeddings",
-      "name": "Embeddings and semantic search",
-      "category": "ai",
-      "instruction": "Choose embedding and similarity methods using task-specific retrieval evidence.",
-      "deliverable": "A search benchmark with labeled relevance examples.",
-      "workflow": [
-        "Define query and document distributions.",
-        "Compare embedding normalization and search baselines.",
-        "Measure recall, ranking quality, latency, and drift."
-      ],
-      "checklist": [
-        "Keep evaluation queries out of tuning data.",
-        "Check multilingual and near-duplicate cases."
-      ],
-      "practice": "Analyze a small supplied similarity matrix.",
-      "resource_ids": [
-        "sbert",
-        "sklearn"
-      ],
-      "version": 2,
-      "kind": "instruction-profile"
-    },
-    {
-      "id": "fine-tuning",
-      "name": "Fine-tuning and adapters",
-      "category": "ai",
-      "instruction": "Use representative licensed data and compare adapters to the unchanged base.",
-      "deliverable": "A bounded candidate experiment with promotion criteria.",
-      "workflow": [
-        "Prepare versioned grouped data splits.",
-        "Define trainable parameters, loss masking, and resource limits.",
-        "Evaluate answer quality and regressions before promotion."
-      ],
-      "checklist": [
-        "Never train on the sealed final test set.",
-        "Lower training loss alone is insufficient for release."
-      ],
-      "practice": "Draft a LoRA experiment for a narrow supported task.",
-      "resource_ids": [
-        "peft",
-        "datasets"
-      ],
-      "version": 2,
-      "kind": "instruction-profile"
-    },
-    {
-      "id": "data-engineering",
-      "name": "AI data engineering",
-      "category": "ai",
-      "instruction": "Audit provenance, permissions, schemas, missingness, duplicates, and leakage.",
-      "deliverable": "A versioned data contract and quality report.",
-      "workflow": [
-        "Define row grain, schema, source, and retention.",
-        "Clean and deduplicate before creating isolated splits.",
-        "Record checksums, transformations, and known gaps."
-      ],
-      "checklist": [
-        "Preserve source notices and access controls.",
-        "Do not infer data rights from public availability."
-      ],
-      "practice": "Review a supplied dataset schema and propose quality checks.",
-      "resource_ids": [
-        "datasets",
-        "pandas"
-      ],
-      "version": 2,
-      "kind": "instruction-profile"
-    },
-    {
-      "id": "model-evaluation",
-      "name": "Model evaluation",
-      "category": "ai",
-      "instruction": "Use task-specific, slice-aware tests and inspect actual outputs.",
-      "deliverable": "A baseline comparison and regression report.",
-      "workflow": [
-        "Define metrics and error costs before testing.",
-        "Evaluate independent representative examples and slices.",
-        "Inspect failures and set promotion and rollback gates."
-      ],
-      "checklist": [
-        "Separate development diagnostics from sealed tests.",
-        "Report uncertainty and scorer limitations."
-      ],
-      "practice": "Design an answer-quality rubric for ten supplied questions.",
-      "resource_ids": [
-        "sklearn",
-        "mlflow"
-      ],
-      "version": 2,
-      "kind": "instruction-profile"
-    },
-    {
-      "id": "uncertainty",
-      "name": "Calibration and abstention",
-      "category": "ai",
-      "instruction": "Separate subjective confidence from validated probability and decide when to abstain.",
-      "deliverable": "A calibration and human-review policy.",
-      "workflow": [
-        "Define correctness labels and costly error cases.",
-        "Fit thresholds on a validation set only.",
-        "Measure calibration, coverage, and abstention error on held-out data."
-      ],
-      "checklist": [
-        "Do not present uncalibrated confidence as probability.",
-        "Refit when model or inference configuration changes."
-      ],
-      "practice": "Compare coverage and risk from supplied score-label pairs.",
-      "resource_ids": [
-        "sklearn",
-        "nist-ai"
-      ],
-      "version": 2,
-      "kind": "instruction-profile"
-    },
-    {
-      "id": "responsible-ai",
-      "name": "AI governance and responsible use",
-      "category": "ai",
-      "instruction": "Assess affected people, privacy, misuse, fairness, and accountability.",
-      "deliverable": "A documented AI risk register and review plan.",
-      "workflow": [
-        "Identify users, intended use, and consequential decisions.",
-        "Map risks to evidence, controls, and accountable owners.",
-        "Define monitoring, appeal, and rollback processes."
-      ],
-      "checklist": [
-        "Avoid fairness claims without relevant subgroup evidence.",
-        "Separate legal questions from technical findings."
-      ],
-      "practice": "Create a risk register for an educational assistant.",
-      "resource_ids": [
-        "nist-ai",
-        "nist-csf"
-      ],
-      "version": 2,
-      "kind": "instruction-profile"
-    },
-    {
-      "id": "ai-security",
-      "name": "AI application security",
-      "category": "ai",
-      "instruction": "Treat retrieved content and model output as untrusted; use least privilege and external authorization.",
-      "deliverable": "An AI threat model and mitigation checklist.",
-      "workflow": [
-        "Map trust boundaries, sensitive data, and tool permissions.",
-        "Review prompt injection, retrieval poisoning, and data leakage defenses.",
-        "Plan controlled defensive tests and incident handling."
-      ],
-      "checklist": [
-        "Prompts cannot grant admin privileges.",
-        "Require application-enforced authorization for every privileged action."
-      ],
-      "practice": "Review a supplied RAG diagram for trust-boundary failures.",
-      "resource_ids": [
-        "owasp-genai",
-        "nist-ssdf"
-      ],
-      "version": 2,
-      "kind": "instruction-profile"
-    },
-    {
-      "id": "mlops",
-      "name": "MLOps and model lifecycle",
-      "category": "ai",
-      "instruction": "Make experiments, artifacts, configuration, and releases reproducible and reviewable.",
-      "deliverable": "A model release and rollback runbook.",
-      "workflow": [
-        "Version code, data, model identifiers, and configuration.",
-        "Define automated checks and artifact integrity.",
-        "Stage deployment and monitor quality and resource regressions."
-      ],
-      "checklist": [
-        "Use explicit promotion approval and rollback gates.",
-        "Keep private conversations and credentials out of artifacts."
-      ],
-      "practice": "Design a local adapter release checklist.",
-      "resource_ids": [
-        "mlflow",
-        "nist-ai"
-      ],
-      "version": 2,
-      "kind": "instruction-profile"
-    },
-    {
-      "id": "inference-optimization",
-      "name": "Inference performance",
-      "category": "ai",
-      "instruction": "Profile first; separate loading, first-text latency, total time, and throughput.",
-      "deliverable": "A reproducible performance comparison.",
-      "workflow": [
-        "Fix hardware, model, prompts, seeds, and output policy.",
-        "Measure tokenization, prefill, decoding, and transport separately.",
-        "Apply one change and compare quality and resource usage."
-      ],
-      "checklist": [
-        "Do not compare different output budgets as pure model speed.",
-        "Report warm-up, sample size, and outliers."
-      ],
-      "practice": "Analyze supplied latency and token-count measurements.",
-      "resource_ids": [
-        "profiler",
-        "onnx"
-      ],
-      "version": 2,
-      "kind": "instruction-profile"
-    },
-    {
-      "id": "quantization",
-      "name": "Quantization and compression",
-      "category": "ai",
-      "instruction": "Explain precision, calibration, hardware support, and quality tradeoffs.",
-      "deliverable": "A compatibility and quality validation plan.",
-      "workflow": [
-        "Identify supported model format and runtime.",
-        "Estimate memory and choose representative calibration examples.",
-        "Compare task quality, latency, and memory to a baseline."
-      ],
-      "checklist": [
-        "A smaller file is not proof of faster execution.",
-        "Retain base-model attribution and artifact checksums."
-      ],
-      "practice": "Evaluate two documented deployment options using supplied specifications.",
-      "resource_ids": [
-        "onnx",
-        "transformers"
-      ],
-      "version": 2,
-      "kind": "instruction-profile"
-    },
-    {
-      "id": "distributed-training",
-      "name": "Distributed training",
-      "category": "ai",
-      "instruction": "Plan parallelism around communication, memory, checkpointing, and recovery limits.",
-      "deliverable": "A distributed experiment and recovery specification.",
-      "workflow": [
-        "Estimate model, optimizer, activation, and communication costs.",
-        "Choose data or model parallelism and effective batch size.",
-        "Plan checkpoint consistency and failure recovery tests."
-      ],
-      "checklist": [
-        "Document topology, precision, and accumulation.",
-        "Verify equivalence against a small single-device baseline."
-      ],
-      "practice": "Estimate resource budgets from a supplied training configuration.",
-      "resource_ids": [
-        "accelerate",
-        "pytorch"
-      ],
-      "version": 2,
-      "kind": "instruction-profile"
-    },
-    {
-      "id": "computer-vision",
-      "name": "Computer vision",
-      "category": "ai",
-      "instruction": "Evaluate image models with appropriate spatial labels and distribution checks.",
-      "deliverable": "A vision data and evaluation design.",
-      "workflow": [
-        "Define task, image rights, and labeling quality.",
-        "Choose augmentations without validation leakage.",
-        "Evaluate domain shift, error slices, and deployment conditions."
-      ],
-      "checklist": [
-        "Check subject overlap between splits.",
-        "Avoid identity or sensitive-attribute conclusions without valid evidence."
-      ],
-      "practice": "Review a supplied image-classification evaluation plan.",
-      "resource_ids": [
-        "hf-cv",
-        "pytorch"
-      ],
-      "version": 2,
-      "kind": "instruction-profile"
-    },
-    {
-      "id": "speech-audio",
-      "name": "Speech and audio AI",
-      "category": "ai",
-      "instruction": "Account for sample rate, transcript quality, language, noise, and speaker overlap.",
-      "deliverable": "An audio processing and evaluation plan.",
-      "workflow": [
-        "Define consent, language coverage, and input format.",
-        "Choose preprocessing and a documented baseline.",
-        "Evaluate recognition errors, noise slices, and latency."
-      ],
-      "checklist": [
-        "Split speakers and recordings appropriately.",
-        "Do not impersonate people or infer consent from a recording."
-      ],
-      "practice": "Analyze supplied transcription errors across noise conditions.",
-      "resource_ids": [
-        "hf-audio",
-        "datasets"
-      ],
-      "version": 2,
-      "kind": "instruction-profile"
-    },
-    {
-      "id": "multimodal-ai",
-      "name": "Multimodal systems",
-      "category": "ai",
-      "instruction": "Distinguish what the configured interface and model actually support.",
-      "deliverable": "A modality contract and grounded evaluation plan.",
-      "workflow": [
-        "Inventory input modalities and preprocessing.",
-        "Map alignment, missing-modality, and context limits.",
-        "Evaluate cross-modal grounding and unsupported claims."
-      ],
-      "checklist": [
-        "Do not claim Zenith accepts images or audio unless implemented.",
-        "Respect consent and provenance for every modality."
-      ],
-      "practice": "Design tests for a hypothetical document-image assistant.",
-      "resource_ids": [
-        "transformers",
-        "hf-cv"
-      ],
-      "version": 2,
-      "kind": "instruction-profile"
-    },
-    {
-      "id": "recommender-systems",
-      "name": "Recommender systems",
-      "category": "ai",
-      "instruction": "Compare ranking baselines while avoiding temporal and user-level leakage.",
-      "deliverable": "A recommendation evaluation and monitoring plan.",
-      "workflow": [
-        "Define feedback, exposure, and candidate generation.",
-        "Build chronological splits and simple popularity baselines.",
-        "Evaluate ranking, coverage, diversity, and feedback bias."
-      ],
-      "checklist": [
-        "Offline metrics do not prove user benefit.",
-        "Respect user deletion and sensitive preference boundaries."
-      ],
-      "practice": "Design a book recommender with explicit user preferences.",
-      "resource_ids": [
-        "d2l",
-        "sklearn"
-      ],
-      "version": 2,
-      "kind": "instruction-profile"
-    },
-    {
-      "id": "reinforcement-learning",
-      "name": "Reinforcement learning",
-      "category": "ai",
-      "instruction": "Specify states, actions, rewards, constraints, and evaluation separately.",
-      "deliverable": "An environment specification and bounded experiment.",
-      "workflow": [
-        "Define the task and simulator assumptions.",
-        "Compare a simple baseline under fixed evaluation episodes.",
-        "Check reward hacking, instability, and transfer limits."
-      ],
-      "checklist": [
-        "Simulation success does not establish real-world safety.",
-        "Use resource and action bounds."
-      ],
-      "practice": "Review a toy grid-world reward design.",
-      "resource_ids": [
-        "gymnasium",
-        "d2l"
-      ],
-      "version": 2,
-      "kind": "instruction-profile"
-    },
-    {
-      "id": "ai-research",
-      "name": "AI research and reproducibility",
-      "category": "ai",
-      "instruction": "Separate paper claims, reproduced results, and speculation.",
-      "deliverable": "A reproducibility checklist and evidence table.",
-      "workflow": [
-        "State the research question and baseline.",
-        "Inspect datasets, compute, ablations, and evaluation validity.",
-        "Document reproduction differences and unresolved uncertainty."
-      ],
-      "checklist": [
-        "Do not invent citations or executed experiments.",
-        "Report negative results and limitations."
-      ],
-      "practice": "Critique a supplied paper abstract and experiment description.",
-      "resource_ids": [
-        "jupyter",
-        "mlflow"
-      ],
-      "version": 2,
-      "kind": "instruction-profile"
+      "version": 3,
+      "kind": "instruction-profile",
+      "access": "public"
     },
     {
       "id": "security-foundations",
@@ -861,8 +321,9 @@
         "nist-csf",
         "nist-nice"
       ],
-      "version": 2,
-      "kind": "instruction-profile"
+      "version": 3,
+      "kind": "instruction-profile",
+      "access": "admin"
     },
     {
       "id": "threat-modeling",
@@ -884,8 +345,9 @@
         "owasp-samm",
         "nist-csf"
       ],
-      "version": 2,
-      "kind": "instruction-profile"
+      "version": 3,
+      "kind": "instruction-profile",
+      "access": "admin"
     },
     {
       "id": "secure-coding",
@@ -907,8 +369,9 @@
         "owasp-cheatsheets",
         "nist-ssdf"
       ],
-      "version": 2,
-      "kind": "instruction-profile"
+      "version": 3,
+      "kind": "instruction-profile",
+      "access": "admin"
     },
     {
       "id": "appsec-audit",
@@ -930,8 +393,9 @@
         "owasp-asvs",
         "owasp-cheatsheets"
       ],
-      "version": 2,
-      "kind": "instruction-profile"
+      "version": 3,
+      "kind": "instruction-profile",
+      "access": "admin"
     },
     {
       "id": "authorized-pentest",
@@ -953,8 +417,9 @@
         "nist-testing",
         "owasp-asvs"
       ],
-      "version": 2,
-      "kind": "instruction-profile"
+      "version": 3,
+      "kind": "instruction-profile",
+      "access": "admin"
     },
     {
       "id": "vulnerability-management",
@@ -976,8 +441,9 @@
         "nvd",
         "cisa-cpg"
       ],
-      "version": 2,
-      "kind": "instruction-profile"
+      "version": 3,
+      "kind": "instruction-profile",
+      "access": "admin"
     },
     {
       "id": "incident-response",
@@ -999,8 +465,9 @@
         "nist-ir",
         "nist-csf"
       ],
-      "version": 2,
-      "kind": "instruction-profile"
+      "version": 3,
+      "kind": "instruction-profile",
+      "access": "admin"
     },
     {
       "id": "digital-forensics",
@@ -1022,8 +489,9 @@
         "nist-ir",
         "nist-nice"
       ],
-      "version": 2,
-      "kind": "instruction-profile"
+      "version": 3,
+      "kind": "instruction-profile",
+      "access": "admin"
     },
     {
       "id": "malware-analysis",
@@ -1045,8 +513,9 @@
         "mitre-d3fend",
         "nist-ir"
       ],
-      "version": 2,
-      "kind": "instruction-profile"
+      "version": 3,
+      "kind": "instruction-profile",
+      "access": "admin"
     },
     {
       "id": "ransomware-defense",
@@ -1068,8 +537,9 @@
         "cisa-ransomware",
         "nist-ir"
       ],
-      "version": 2,
-      "kind": "instruction-profile"
+      "version": 3,
+      "kind": "instruction-profile",
+      "access": "admin"
     },
     {
       "id": "network-defense",
@@ -1091,8 +561,9 @@
         "cisa-ddos",
         "mitre-d3fend"
       ],
-      "version": 2,
-      "kind": "instruction-profile"
+      "version": 3,
+      "kind": "instruction-profile",
+      "access": "admin"
     },
     {
       "id": "identity-security",
@@ -1114,8 +585,9 @@
         "owasp-cheatsheets",
         "cisa-cpg"
       ],
-      "version": 2,
-      "kind": "instruction-profile"
+      "version": 3,
+      "kind": "instruction-profile",
+      "access": "admin"
     },
     {
       "id": "cloud-security",
@@ -1137,8 +609,9 @@
         "nist-csf",
         "nist-ssdf"
       ],
-      "version": 2,
-      "kind": "instruction-profile"
+      "version": 3,
+      "kind": "instruction-profile",
+      "access": "admin"
     },
     {
       "id": "supply-chain-security",
@@ -1160,8 +633,9 @@
         "nist-ssdf",
         "owasp-samm"
       ],
-      "version": 2,
-      "kind": "instruction-profile"
+      "version": 3,
+      "kind": "instruction-profile",
+      "access": "admin"
     },
     {
       "id": "disclosure",
@@ -1183,8 +657,9 @@
         "nist-testing",
         "nist-ir"
       ],
-      "version": 2,
-      "kind": "instruction-profile"
+      "version": 3,
+      "kind": "instruction-profile",
+      "access": "admin"
     }
   ],
   "resources": [
@@ -1192,7 +667,7 @@
       "id": "pytorch",
       "title": "PyTorch tutorials",
       "publisher": "PyTorch",
-      "category": "ai",
+      "category": "general",
       "url": "https://pytorch.org/tutorials/",
       "summary": "Tensor operations, training loops, autograd, and deployment tutorials.",
       "kind": "learning-reference",
@@ -1205,122 +680,10 @@
       }
     },
     {
-      "id": "hf-course",
-      "title": "Hugging Face LLM course",
-      "publisher": "Hugging Face",
-      "category": "ai",
-      "url": "https://huggingface.co/learn/llm-course/en/chapter1/1",
-      "summary": "Transformers, tokenizers, datasets, and practical language-model workflows.",
-      "kind": "learning-reference",
-      "verification": {
-        "status": "retrieved",
-        "checked_on": "2026-10-23",
-        "http_status": 200,
-        "page_title": "Introduction · Hugging Face",
-        "method": "live-page-retrieval"
-      }
-    },
-    {
-      "id": "transformers",
-      "title": "Transformers documentation",
-      "publisher": "Hugging Face",
-      "category": "ai",
-      "url": "https://huggingface.co/docs/transformers/index",
-      "summary": "Model loading, generation, configuration, and supported architectures.",
-      "kind": "learning-reference",
-      "verification": {
-        "status": "retrieved",
-        "checked_on": "2026-10-23",
-        "http_status": 200,
-        "page_title": "Transformers · Hugging Face",
-        "method": "live-page-retrieval"
-      }
-    },
-    {
-      "id": "datasets",
-      "title": "Datasets documentation",
-      "publisher": "Hugging Face",
-      "category": "ai",
-      "url": "https://huggingface.co/docs/datasets/index",
-      "summary": "Dataset loading, transformation, streaming, and reproducible data handling.",
-      "kind": "learning-reference",
-      "verification": {
-        "status": "retrieved",
-        "checked_on": "2026-10-23",
-        "http_status": 200,
-        "page_title": "Datasets · Hugging Face",
-        "method": "live-page-retrieval"
-      }
-    },
-    {
-      "id": "peft",
-      "title": "PEFT documentation",
-      "publisher": "Hugging Face",
-      "category": "ai",
-      "url": "https://huggingface.co/docs/peft/index",
-      "summary": "Parameter-efficient adaptation and supported fine-tuning methods.",
-      "kind": "learning-reference",
-      "verification": {
-        "status": "retrieved",
-        "checked_on": "2026-10-23",
-        "http_status": 200,
-        "page_title": "PEFT · Hugging Face",
-        "method": "live-page-retrieval"
-      }
-    },
-    {
-      "id": "accelerate",
-      "title": "Accelerate documentation",
-      "publisher": "Hugging Face",
-      "category": "ai",
-      "url": "https://huggingface.co/docs/accelerate/index",
-      "summary": "Distributed and mixed-precision training configuration.",
-      "kind": "learning-reference",
-      "verification": {
-        "status": "retrieved",
-        "checked_on": "2026-10-23",
-        "http_status": 200,
-        "page_title": "Accelerate · Hugging Face",
-        "method": "live-page-retrieval"
-      }
-    },
-    {
-      "id": "sklearn",
-      "title": "Scikit-learn user guide",
-      "publisher": "Scikit-learn",
-      "category": "ai",
-      "url": "https://scikit-learn.org/stable/user_guide.html",
-      "summary": "Supervised learning, preprocessing, model selection, and evaluation.",
-      "kind": "learning-reference",
-      "verification": {
-        "status": "retrieved",
-        "checked_on": "2026-10-23",
-        "http_status": 200,
-        "page_title": "User Guide — scikit-learn 1.9.1 documentation",
-        "method": "live-page-retrieval"
-      }
-    },
-    {
-      "id": "numpy",
-      "title": "NumPy learning resources",
-      "publisher": "NumPy",
-      "category": "ai",
-      "url": "https://numpy.org/learn/",
-      "summary": "Numerical arrays, broadcasting, and scientific computing foundations.",
-      "kind": "learning-reference",
-      "verification": {
-        "status": "retrieved",
-        "checked_on": "2026-10-23",
-        "http_status": 200,
-        "page_title": "NumPy - Learn",
-        "method": "live-page-retrieval"
-      }
-    },
-    {
       "id": "scipy",
       "title": "SciPy user guide",
       "publisher": "SciPy",
-      "category": "ai",
+      "category": "general",
       "url": "https://docs.scipy.org/doc/scipy/tutorial/",
       "summary": "Optimization, probability, statistics, and numerical methods.",
       "kind": "learning-reference",
@@ -1336,7 +699,7 @@
       "id": "pandas",
       "title": "Pandas user guide",
       "publisher": "Pandas",
-      "category": "ai",
+      "category": "general",
       "url": "https://pandas.pydata.org/docs/user_guide/index.html",
       "summary": "Tabular cleaning, joins, time series, and data inspection.",
       "kind": "learning-reference",
@@ -1352,7 +715,7 @@
       "id": "jupyter",
       "title": "Jupyter documentation",
       "publisher": "Project Jupyter",
-      "category": "ai",
+      "category": "general",
       "url": "https://docs.jupyter.org/en/latest/",
       "summary": "Reproducible computational notebooks and supported environments.",
       "kind": "learning-reference",
@@ -1365,74 +728,10 @@
       }
     },
     {
-      "id": "mlflow",
-      "title": "MLflow documentation",
-      "publisher": "MLflow",
-      "category": "ai",
-      "url": "https://mlflow.org/docs/latest/index.html",
-      "summary": "Experiment tracking, model lifecycle, deployment, and evaluation.",
-      "kind": "learning-reference",
-      "verification": {
-        "status": "retrieved",
-        "checked_on": "2026-10-23",
-        "http_status": 200,
-        "page_title": "MLflow Documentation | MLflow AI Platform",
-        "method": "live-page-retrieval"
-      }
-    },
-    {
-      "id": "onnx",
-      "title": "ONNX Runtime documentation",
-      "publisher": "ONNX Runtime",
-      "category": "ai",
-      "url": "https://onnxruntime.ai/docs/",
-      "summary": "Portable inference, execution providers, and runtime optimization.",
-      "kind": "learning-reference",
-      "verification": {
-        "status": "retrieved",
-        "checked_on": "2026-10-23",
-        "http_status": 200,
-        "page_title": "ONNX Runtime | onnxruntime",
-        "method": "live-page-retrieval"
-      }
-    },
-    {
-      "id": "profiler",
-      "title": "PyTorch Profiler recipe",
-      "publisher": "PyTorch",
-      "category": "ai",
-      "url": "https://docs.pytorch.org/tutorials/recipes/recipes/profiler_recipe.html",
-      "summary": "Measure operator time, memory, and performance bottlenecks.",
-      "kind": "learning-reference",
-      "verification": {
-        "status": "retrieved",
-        "checked_on": "2026-10-23",
-        "http_status": 200,
-        "page_title": "PyTorch Profiler — PyTorch Tutorials 2.14.0+cu130 documentation",
-        "method": "live-page-retrieval"
-      }
-    },
-    {
-      "id": "d2l",
-      "title": "Dive into Deep Learning",
-      "publisher": "D2L authors",
-      "category": "ai",
-      "url": "https://d2l.ai/",
-      "summary": "Open textbook covering neural networks and modern deep-learning concepts.",
-      "kind": "learning-reference",
-      "verification": {
-        "status": "retrieved",
-        "checked_on": "2026-10-23",
-        "http_status": 200,
-        "page_title": "Dive into Deep Learning — Dive into Deep Learning 1.0.3 documentation",
-        "method": "live-page-retrieval"
-      }
-    },
-    {
       "id": "nist-ai",
       "title": "AI Risk Management Framework",
       "publisher": "NIST",
-      "category": "ai",
+      "category": "general",
       "url": "https://www.nist.gov/itl/ai-risk-management-framework",
       "summary": "Risk identification, measurement, governance, and trustworthy AI guidance.",
       "kind": "learning-reference",
@@ -1441,70 +740,6 @@
         "checked_on": "2026-10-23",
         "http_status": 200,
         "page_title": "AI Risk Management Framework | NIST",
-        "method": "live-page-retrieval"
-      }
-    },
-    {
-      "id": "hf-audio",
-      "title": "Hugging Face Audio course",
-      "publisher": "Hugging Face",
-      "category": "ai",
-      "url": "https://huggingface.co/learn/audio-course/en/chapter0/introduction",
-      "summary": "Audio data, speech recognition, and audio-model workflows.",
-      "kind": "learning-reference",
-      "verification": {
-        "status": "retrieved",
-        "checked_on": "2026-10-23",
-        "http_status": 200,
-        "page_title": "Welcome to the Hugging Face Audio course! · Hugging Face",
-        "method": "live-page-retrieval"
-      }
-    },
-    {
-      "id": "hf-cv",
-      "title": "Hugging Face Computer Vision course",
-      "publisher": "Hugging Face",
-      "category": "ai",
-      "url": "https://huggingface.co/learn/computer-vision-course/en/unit0/welcome/welcome",
-      "summary": "Image data, computer vision models, and evaluation concepts.",
-      "kind": "learning-reference",
-      "verification": {
-        "status": "retrieved",
-        "checked_on": "2026-10-23",
-        "http_status": 200,
-        "page_title": "Welcome to the Community Computer Vision Course · Hugging Face",
-        "method": "live-page-retrieval"
-      }
-    },
-    {
-      "id": "sbert",
-      "title": "Sentence Transformers documentation",
-      "publisher": "Sentence Transformers",
-      "category": "ai",
-      "url": "https://sbert.net/",
-      "summary": "Embedding models, semantic search, and reranking.",
-      "kind": "learning-reference",
-      "verification": {
-        "status": "retrieved",
-        "checked_on": "2026-10-23",
-        "http_status": 200,
-        "page_title": "SentenceTransformers Documentation — Sentence Transformers  documentation",
-        "method": "live-page-retrieval"
-      }
-    },
-    {
-      "id": "gymnasium",
-      "title": "Gymnasium documentation",
-      "publisher": "Farama Foundation",
-      "category": "ai",
-      "url": "https://gymnasium.farama.org/",
-      "summary": "Reinforcement-learning environment interfaces and evaluation basics.",
-      "kind": "learning-reference",
-      "verification": {
-        "status": "retrieved",
-        "checked_on": "2026-10-23",
-        "http_status": 200,
-        "page_title": "Gymnasium Documentation",
         "method": "live-page-retrieval"
       }
     },
@@ -1633,22 +868,6 @@
         "checked_on": "2026-10-23",
         "http_status": 200,
         "page_title": "OWASP SAMM | OWASP SAMM",
-        "method": "live-page-retrieval"
-      }
-    },
-    {
-      "id": "owasp-genai",
-      "title": "OWASP GenAI Security Project",
-      "publisher": "OWASP",
-      "category": "security",
-      "url": "https://genai.owasp.org/",
-      "summary": "Threat awareness and mitigations for LLM and generative-AI applications.",
-      "kind": "learning-reference",
-      "verification": {
-        "status": "retrieved",
-        "checked_on": "2026-10-23",
-        "http_status": 200,
-        "page_title": "Home - OWASP Gen AI Security Project",
         "method": "live-page-retrieval"
       }
     },

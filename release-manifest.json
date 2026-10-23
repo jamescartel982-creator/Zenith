@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "version": "0.9.0",
+  "version": "0.10.0",
   "files": [
     {
       "path": ".dockerignore",
@@ -46,8 +46,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "size": 5386,
-      "sha256": "f540997b1e95acb7d5d872fcfb0a43176a6788644efd4e787e746cfaf3e97780",
+      "size": 7051,
+      "sha256": "e7fc9db234f8225bca23f82eb3585eca88098dccd2ca2bd5f443f7cb88b98848",
       "normalization": "lf"
     },
     {
@@ -64,14 +64,14 @@
     },
     {
       "path": "README.md",
-      "size": 25612,
-      "sha256": "05e00808ebc273c1201318d612004024a129b85cee5e7a59cf22322ee7e5818f",
+      "size": 25618,
+      "sha256": "5a036a3d0c79cb00cc215cf075c5892ab81bb5905ab6c03d794003b1b3362619",
       "normalization": "lf"
     },
     {
       "path": "agent/__init__.py",
-      "size": 104,
-      "sha256": "2ea00adaefda05e2b2ef49098731f68fac0a801e8527b62cc195bc29423dcb70",
+      "size": 105,
+      "sha256": "b2289d0bfa7e5c5350a997c8252970ce05ead5bf615b01b239c1e8ecc4503238",
       "normalization": "lf"
     },
     {
@@ -82,8 +82,8 @@
     },
     {
       "path": "agent/admin.py",
-      "size": 6756,
-      "sha256": "308bdcf54ae5f687bed9136bd08b2f6924c754bf0495faa9d4d536895f73e05d",
+      "size": 7049,
+      "sha256": "28817d5e57b52841830ce7118be27e128a9e8367ceca54a7313ca93f074f4d15",
       "normalization": "lf"
     },
     {
@@ -124,8 +124,8 @@
     },
     {
       "path": "agent/cli.py",
-      "size": 3757,
-      "sha256": "41ffe225abb5d739fa0f764b8fb934c6e2efda6fa6c41d7855a929ee34a50539",
+      "size": 8715,
+      "sha256": "1d50839d16fb5787a16b79a07c8018c26c1e80a26c179aaf415b0e79e36cf148",
       "normalization": "lf"
     },
     {
@@ -142,8 +142,8 @@
     },
     {
       "path": "agent/core.py",
-      "size": 9675,
-      "sha256": "f55fd33deeb5470c25da80c8540016c66a801583c93417579f022a323c54eea7",
+      "size": 10584,
+      "sha256": "8035daa13ca5f54d8a43ed9666a51b6ef19491455bb5dd41426d2f3961b24492",
       "normalization": "lf"
     },
     {
@@ -232,8 +232,8 @@
     },
     {
       "path": "agent/personal.py",
-      "size": 8817,
-      "sha256": "e414bc68e2b093e8a704bb8102450d5d26a71fed7ee3c41fac684b831e1f2a57",
+      "size": 8939,
+      "sha256": "c19760b299ed92ccd1ab0ca6d641a489d062d4b1126ccc30a6aac3de16110190",
       "normalization": "lf"
     },
     {
@@ -256,8 +256,8 @@
     },
     {
       "path": "agent/resources/skills-v1.json",
-      "size": 72478,
-      "sha256": "4bfad00a6130ae5d4580386c4f950c91f7a53cc1ca14e3bc0b2dc1eb68364d6e",
+      "size": 43865,
+      "sha256": "dbbeb982eeb4fd0b7b86e94fb764c3c8f98fc92ad4aef345b05d47cb0d0c2d3d",
       "normalization": "lf"
     },
     {
@@ -280,8 +280,8 @@
     },
     {
       "path": "agent/server.py",
-      "size": 20262,
-      "sha256": "8d7d7236a77c8f3d2d716d9ab16e2acb379aa9e0371ac1aba45cdb2e9f32ec39",
+      "size": 22814,
+      "sha256": "d563ad083c876237d5dd9867a9bc4a6d8d7a89ae917070ca86a52cb0dfef7c6f",
       "normalization": "lf"
     },
     {
@@ -291,15 +291,21 @@
       "normalization": "lf"
     },
     {
+      "path": "agent/skill_access.py",
+      "size": 4555,
+      "sha256": "76d94e0a50ed08eee8468744d24682942f32e379916628f1447a721749201502",
+      "normalization": "lf"
+    },
+    {
       "path": "agent/skills.py",
-      "size": 9725,
-      "sha256": "889aa27771d8fec8369569a0012614099837cf67bb0cb29bb8d82f71d39a6728",
+      "size": 10747,
+      "sha256": "8f7249fe401ed2c545ee90ce50ac1a495f68374b48bb050ff0a672b39ae8e68c",
       "normalization": "lf"
     },
     {
       "path": "agent/storage.py",
-      "size": 8706,
-      "sha256": "a93b8de7758321fc70c8611f2314577fb8ae6c75117189f0da7c5e36948fc7dd",
+      "size": 8963,
+      "sha256": "7aa352974d15c51aae89d2c53913423c10460bd67e26a6fecef14f6591985aa5",
       "normalization": "lf"
     },
     {
@@ -322,20 +328,20 @@
     },
     {
       "path": "agent/web/app.js",
-      "size": 50518,
-      "sha256": "28d83c3a7e84221b1a7a0f6c52ce153b4b78c244082cabc20b9cdcb4850d335c",
+      "size": 53581,
+      "sha256": "cfd8732da909a72768cfd7a7a170bfd650f8c6e3d99662017cecc8cd781b3c76",
       "normalization": "lf"
     },
     {
       "path": "agent/web/index.html",
-      "size": 15459,
-      "sha256": "4c36657eaa3d7f487a6733c81bce456a13aaaf05691cad46416088bbad55d8b2",
+      "size": 15579,
+      "sha256": "5417395bf58bffb66b3f7d9d6321503c5f937c08231114461c98aef96031dca1",
       "normalization": "lf"
     },
     {
       "path": "agent/web/style.css",
-      "size": 27028,
-      "sha256": "2f94aaa45d2a3eb0efa65dc749f1e682a20067eac08cd7f8cca97929717e517e",
+      "size": 27178,
+      "sha256": "9eb13f2a510d524736938be23f10659e2004fd3493857ece5137b653963870f9",
       "normalization": "lf"
     },
     {
@@ -376,8 +382,8 @@
     },
     {
       "path": "docs/admin.md",
-      "size": 3470,
-      "sha256": "50045648d6e23ddfeb591247f18f0242a15996404cedf20dea0e8c2b1166b11d",
+      "size": 4224,
+      "sha256": "b5ac471e0c4d90282c713d39d54250e7f3932b18ac0fec3015b3e65235db62d4",
       "normalization": "lf"
     },
     {
@@ -502,8 +508,14 @@
     },
     {
       "path": "docs/deployment.md",
-      "size": 8208,
-      "sha256": "1c67318096cc372c0467b80aa71e1d82e5c82741c466d1ed5947702bef2a2efe",
+      "size": 8505,
+      "sha256": "dee716ede18b8c89f9b9fd60752f0ac25cf60c9b3e6957505a092e97e54f5652",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/engineering.md",
+      "size": 18625,
+      "sha256": "c284cbe353ccf5e27b727960b6b3c9419ba57f37a7b9be21c0276ef6806d671c",
       "normalization": "lf"
     },
     {
@@ -550,8 +562,8 @@
     },
     {
       "path": "docs/skills.md",
-      "size": 18460,
-      "sha256": "55377d7a507bb2cc94b2cb4b6d5dc391d11be39a8a024fe6357ad3beae8e8092",
+      "size": 9273,
+      "sha256": "0b6617098976d47dc3d8c024f7bb9d8bfeda2ea439ae22e2e4866f836382b0f7",
       "normalization": "lf"
     },
     {
@@ -562,8 +574,8 @@
     },
     {
       "path": "docs/training-roadmap.md",
-      "size": 3023,
-      "sha256": "840252c90ceedc12fc5ef3474e0ef1f222a991925e04af1ce162a5c4411d134d",
+      "size": 3153,
+      "sha256": "e3a8e7651f7cf42946c6720dcd57bb937e4979c7c03948aba5e21e2dd44aa82b",
       "normalization": "lf"
     },
     {
@@ -574,8 +586,8 @@
     },
     {
       "path": "docs/validation.md",
-      "size": 24136,
-      "sha256": "860cb1e3eefb7ee8b91aa6cac58feeb5291b21b44c1db0cfb94716dd0b7a6a8a",
+      "size": 26225,
+      "sha256": "1e665fc015c1a9cc2b35507b126bcfc457cfa17579b3bd0b6261977f94957d9c",
       "normalization": "lf"
     },
     {
@@ -719,7 +731,7 @@
     {
       "path": "scripts/smoke_installed.py",
       "size": 2971,
-      "sha256": "2470aac41275d04617e29a0bbc9df3ef1a79ef12482edcfdcf5c6fdc9b7e4891",
+      "sha256": "0172e413fba00ef326c734473b57a852eeea5546ac6fa1ca821bee39c05a38d9",
       "normalization": "lf"
     },
     {
@@ -819,9 +831,15 @@
       "normalization": "lf"
     },
     {
+      "path": "tests/test_skill_access.py",
+      "size": 14416,
+      "sha256": "80fec52f1d120d084b5e9bdafd6f2c5153548a867800f3969e3e05a57164cb18",
+      "normalization": "lf"
+    },
+    {
       "path": "tests/test_skills_library.py",
-      "size": 8174,
-      "sha256": "18c3d55fee74d12a98abb7278e0fc2f027c1520e9483da9a5448d99b1979e51f",
+      "size": 8417,
+      "sha256": "faf376f3bb9880a830401ff5cf83865a2f1a1eaa6222e371239c3a63f35cfd5f",
       "normalization": "lf"
     },
     {

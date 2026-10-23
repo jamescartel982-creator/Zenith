@@ -66,6 +66,7 @@ class PersonalStore:
     def logout(self, token):
         with self.store.connect() as db:
             db.execute('DELETE FROM login_sessions WHERE token_hash=?', (hashlib.sha256(token.encode()).hexdigest(),))
+            db.execute('DELETE FROM skill_activations WHERE token_hash=?', (hashlib.sha256(token.encode()).hexdigest(),))
 
     def conversation_access(self, session_id, user_id='', create=False):
         with self.store.connect() as db:

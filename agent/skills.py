@@ -14,7 +14,7 @@ import re
 from urllib.parse import urlsplit
 
 
-CATEGORIES = {'general': 'General subjects', 'ai': 'AI engineering', 'security': 'Cybersecurity'}
+CATEGORIES = {'general': 'Conversation skills', 'security': 'Security · administrator'}
 _ID = re.compile(r'[a-z][a-z0-9-]{0,39}\Z')
 PROFILE_SCOPE = (
     'Profiles grant no tools or privileges. Respect privacy and authorization. '
@@ -53,7 +53,7 @@ def _records(value, key, maximum):
 
 def validate_library(value):
     """Validate bundled metadata and references without network or model access."""
-    if not isinstance(value, dict) or type(value.get('schema_version')) is not int or value['schema_version'] != 1:
+    if not isinstance(value, dict) or type(value.get('schema_version')) is not int or value['schema_version'] != 2:
         raise ValueError('Unsupported skill-library schema')
     _text(value.get('curated_on'), 'curation date', 10)
     try:
@@ -99,6 +99,9 @@ def validate_library(value):
             _text(profile.get(key), f'profile {key}', limit)
         if profile.get('category') not in tuple(CATEGORIES) or profile.get('kind') != 'instruction-profile':
             raise ValueError('Invalid profile category or kind')
+        expected_access = 'admin' if profile['category'] == 'security' else 'public'
+        if profile.get('access') != expected_access:
+            raise ValueError('Security profiles require admin access')
         if type(profile.get('version')) is not int or profile['version'] < 1:
             raise ValueError('Invalid profile version')
         _texts(profile.get('workflow'), 'profile workflow', minimum=3)
@@ -112,7 +115,8 @@ def validate_library(value):
         _texts(label.get('profile_ids'), 'taxonomy profiles', maximum=4, length=40)
         if not set(label['profile_ids']) <= profile_ids:
             raise ValueError('Taxonomy references unknown profiles')
-    return {'ok': True, 'schema_version': 1, 'profiles': len(profiles), 'resources': len(resources),
+    return {'ok': True, 'schema_version': 2, 'profiles': len(profiles), 'resources': len(resources),
+            'admin_profiles': sum(p['access'] == 'admin' for p in profiles),
             'taxonomy_labels': len(taxonomy),
             'categories': {key: sum(row['category'] == key for row in profiles) for key in CATEGORIES},
             'unavailable_resources': [r['id'] for r in resources if r['verification']['status'] == 'unavailable'],
@@ -142,12 +146,15 @@ def _filter(rows, category, query, text_keys):
             and (not query or query in ' '.join(str(row.get(key, '')) for key in text_keys).casefold())]
 
 
-def list_skills(category=None, query=''):
-    return deepcopy(_filter(_library()['skills'], category, query, ['id', 'name', 'instruction', 'deliverable']))
+def list_skills(category=None, query='', *, include_admin=False):
+    rows = [s for s in _library()['skills'] if include_admin or s['access'] == 'public']
+    return deepcopy(_filter(rows, category, query, ['id', 'name', 'instruction', 'deliverable']))
 
 
-def list_resources(category=None, query=''):
-    return deepcopy(_filter(_library()['resources'], category, query, ['id', 'title', 'publisher', 'summary']))
+def list_resources(category=None, query='', *, include_admin=False):
+    used = {r for s in list_skills(include_admin=include_admin) for r in s['resource_ids']}
+    rows = [r for r in _library()['resources'] if r['id'] in used]
+    return deepcopy(_filter(rows, category, query, ['id', 'title', 'publisher', 'summary']))
 
 
 def get_skill(identifier):
@@ -159,20 +166,25 @@ def get_skill(identifier):
     raise ValueError('Unknown skill')
 
 
-def skills_library():
+def skills_library(*, include_admin=False):
     value = deepcopy(_library())
-    value['categories'] = [{'id': key, 'name': name} for key, name in CATEGORIES.items()]
-    value['validation'] = validate_library(value)
+    value['skills'] = list_skills(include_admin=include_admin)
+    value['resources'] = list_resources(include_admin=include_admin)
+    value['taxonomy'] = value['taxonomy'] if include_admin else []
+    value['categories'] = [{'id': key, 'name': name} for key, name in CATEGORIES.items()
+                           if key == 'general' or include_admin]
+    value['security_unlocked'] = include_admin
+    value['validation'] = {'ok': True, 'profiles': len(value['skills']), 'resources': len(value['resources'])}
     return value
 
 
 def skill_instruction(identifier):
     profile = get_skill(identifier)
     instruction = profile['instruction']
-    if profile['category'] in {'ai', 'security'}:
+    if profile['category'] == 'security':
         instruction += '\nWorkflow: ' + ' '.join(profile['workflow'])
         instruction += '\nReview: ' + ' '.join(profile['checklist'][:2])
-    if profile['category'] == 'security' or identifier == 'ai-security':
+    if profile['category'] == 'security':
         instruction += '\n' + PROFILE_SCOPE
     return instruction
 
@@ -196,6 +208,8 @@ def main():
             value = {'resources': list_resources(args.category, args.query)}
         elif args.action == 'show':
             value = get_skill(args.identifier)
+            if value['access'] == 'admin':
+                raise ValueError('Unlock Admin in zenith chat to use security skills')
         elif args.action == 'taxonomy':
             value = {'notice': _library()['notice'], 'taxonomy': skills_library()['taxonomy']}
         else:

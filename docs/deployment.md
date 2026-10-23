@@ -63,6 +63,7 @@ Use same-origin HTTPS in a public deployment. POST login/register returns the co
 - `GET /api/history/<uuid>`, `DELETE /api/history/<uuid>`: owned history; deletion removes future training approvals and linked reviews/metrics, not existing exports/weights.
 - `POST /api/feedback`: explicit rating/correction/training approval; an approval must be intentional.
 - `GET /api/account`, `POST /api/account/register`, `/login`, `/logout`: local account lifecycle.
+- `POST /api/skills/command`, `GET /api/skills/current?session_id=UUID`: conversation-scoped `/skill` activation and status. Security selection requires the unlocked owner; both chat endpoints enforce the same rule and use saved selection when `skill` is omitted. See [skill commands](skills.md).
 - `GET/POST /api/memories`, `DELETE /api/memories[/<uuid>]`: signed-in private saved notes.
 - `GET /api/system`, `/api/team`, `/api/catalog`, `/api/model-packs`, `/api/knowledge`, `/api/skills`: configured components and reference metadata.
 - `GET /api/metrics`: that account's private aggregates. `/api/admin/metrics` requires current owner elevation.
