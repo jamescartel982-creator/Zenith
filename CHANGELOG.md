@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.14.1 — One-command terminal installation
+
+- Add a standalone standard-library bootstrap that downloads the official source archive, verifies its complete release inventory, and runs the existing isolated installer.
+- Provide one terminal command for Windows and Linux with no Git or manual environment activation. Support custom folders, installation without launch, and explicit experimental candidate selection.
+- Resume verified existing installations without overwriting local code, settings or data; reject unsafe or corrupted archives before running source code.
+- Exercise bootstrap stdin execution and the actual install path on both operating systems.
+
 ## 0.14.0 — Explicit candidate activation and conventional installation
 
 - Add `zenith setup --activate-candidate` and an explicit experimental deployment override. Preserve failed numeric scores in the activation receipt instead of marking them passed.

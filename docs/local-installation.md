@@ -1,5 +1,21 @@
 # Install, run, and upgrade Zenith locally
 
+The [one-command terminal installer](../README.md#install) needs only Python
+(3.12 recommended). It downloads the official GitHub archive, verifies all
+source-manifest entries, then runs the normal isolated installer. Git and manual
+activation are optional. The default folder is `~/Zenith`; add `--directory PATH`
+to select another location. `--no-launch` installs and caches without starting
+the server. `--activate-candidate` explicitly accepts the existing experimental
+checkpoint's recorded regressions.
+
+A rerun verifies and reuses existing files. It does not replace local edits or
+refresh an existing checkout from a different revision. Update a clone with
+`git pull --ff-only`, or select a new directory for a fresh download. Archive
+checks reject unsafe paths, symbolic links, oversized payloads and invalid file
+checksums before running the installer. Checksums establish byte consistency;
+the official HTTPS GitHub repository is the download trust source.
+
+
 Use the standard clone, virtual environment, `python -m pip install ".[local]"`,
 `zenith setup --activate-candidate`, and `zenith serve --open-browser` commands in
 the [README](../README.md#install). This explicitly selects the experimental
