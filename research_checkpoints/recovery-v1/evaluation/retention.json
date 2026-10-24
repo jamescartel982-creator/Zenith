@@ -1,0 +1,10 @@
+{
+  "checkpoint": "/workspace/scratch/zenith-recovery-candidate-mean",
+  "retained_target_loss": 3.3733704780277454,
+  "retained_rows": 19,
+  "test_sha256": "008baa4d44941f94c367ae8a9a4d4236e4f0b8376dd48c20b9bc9e29e3dd6f71",
+  "retained_target_tokens": 520,
+  "gradient_updates": 0,
+  "previous_trained_reference_loss": 3.207596539075558,
+  "loss_definition": "mean per-example assistant-target negative log likelihood"
+}

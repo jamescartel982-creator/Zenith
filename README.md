@@ -9,41 +9,63 @@ license: apache-2.0
 
 A local AI workspace for conversations, coding, research, and reviewed learning. Zenith brings open model runtimes, private memory, streamed responses, and evaluation tools into a single application for Windows and Linux.
 
-**Release 0.13.0** · [Changelog](CHANGELOG.md) · [Installation](docs/local-installation.md) · [Model discovery](docs/model-discovery.md) · [Validation](docs/validation.md)
+**Release 0.14.0** · [Changelog](CHANGELOG.md) · [Installation](docs/local-installation.md) · [Model discovery](docs/model-discovery.md) · [Validation](docs/validation.md)
 
 ## Install
 
-Install [Python 3.12](https://www.python.org/downloads/) first. On Windows, enable **Add Python to PATH**. Initial setup needs internet access and enough space for Python packages and the local model. The small default model typically needs about 4–6 GB of available RAM.
-
-### Windows: download, extract, double-click
-
-1. [Download Zenith](https://github.com/jamescartel982-creator/Zenith/archive/refs/heads/main.zip) and **extract the ZIP**.
-2. Open the extracted Zenith folder and double-click **Install Zenith.cmd**.
-3. Wait for setup and the model download. Zenith opens in your browser when ready.
-
-Next time, double-click **Start Zenith.cmd**. Keep its terminal window open while using Zenith; press **Ctrl+C** to stop. No Git, manual environment activation, or permanent PowerShell policy change is needed. Keep the extracted files together.
-
-If you already cloned the repository, run `& ".\Install Zenith.cmd"` in PowerShell from the Zenith folder, or double-click it in File Explorer.
-
-### Linux: install and open
-
-Extract the [source ZIP](https://github.com/jamescartel982-creator/Zenith/archive/refs/heads/main.zip), open a terminal in the extracted folder, and run:
+Install Python 3.12 and Git, then clone the repository:
 
 ```bash
-bash install.sh --launch
+git clone https://github.com/jamescartel982-creator/Zenith.git
+cd Zenith
 ```
 
-Next time:
+Create and activate a standard virtual environment.
+
+Linux:
 
 ```bash
-bash start.sh
+python3 -m venv .venv
+source .venv/bin/activate
 ```
 
-On Debian/Ubuntu, install `python3-venv` if it is missing. If a browser cannot open automatically, visit **http://127.0.0.1:7860**. Keep the terminal open and use **Ctrl+C** to stop Zenith. You can also clone with Git instead of downloading the ZIP.
+Windows PowerShell:
 
-The installer creates and verifies an isolated `.venv`, preserves existing settings, downloads the configured Hugging Face model before launching, and selects the environment automatically. The first setup may take several minutes depending on your connection. No paid AI API key is required. Existing Ollama or local-server configurations are preserved and require their separate runtime to be running.
+```powershell
+py -3.12 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
 
-For terminal chat, use `./run.sh chat` on Linux or `powershell -NoProfile -ExecutionPolicy Bypass -File .\run.ps1 chat` on Windows. Manual activation is available for advanced `zenith`, `python`, and `pip` commands; see [installation details](docs/local-installation.md).
+Then use the same commands on either platform:
+
+```bash
+python -m pip install ".[local]"
+zenith setup --activate-candidate
+zenith serve --open-browser
+```
+
+Open **http://127.0.0.1:7860** if a browser does not open automatically. For
+terminal conversations, run `zenith chat`. On later visits, activate `.venv` and
+run `zenith serve --open-browser` again. Press Ctrl+C to stop the server.
+
+`--activate-candidate` explicitly selects the existing combined experimental
+checkpoint and accepts its recorded quality regressions. Setup verifies and
+reconstructs its weights, caches the pinned base, tests loading, and saves a
+rollback receipt. The failed evaluation results remain visible. One checkpoint
+is active at a time; restricted security tools retain their existing permissions.
+Run `zenith deployment status` to see the active checkpoint and receipt.
+`zenith setup` alone configures the base checkpoint and preserves existing settings.
+
+The first setup needs internet access, several GB of disk space, and about
+4–6 GB of available RAM. CPU inference is supported. No paid API key is required.
+On Debian/Ubuntu, install `python3-venv` if needed. If PowerShell blocks activation,
+use `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` in that terminal.
+See [installation details](docs/local-installation.md) for CPU-only PyTorch and
+additional runtime choices.
+
+The existing optional launchers also work: `bash install.sh --activate-candidate --launch` on Linux, or `python install.py --activate-candidate --launch` on Windows.
+The source ZIP can be extracted instead of cloning. Existing conversations and
+owner configuration are preserved.
 
 ### Runtime choices
 
@@ -96,7 +118,7 @@ zenith doctor --inference
 
 `doctor --inference` tests a real response and may download the configured checkpoint. `verify` checks the installed wheel; `verify --source .` checks the source release inventory. Pip’s **“No broken requirements found” means its dependency check passed**. The installer presents that result as **“Dependencies verified. No package conflicts detected.”**
 
-To upgrade, stop Zenith, run `git pull --ff-only` if you use Git, then rerun **Install Zenith.cmd** on Windows or `bash install.sh --launch` on Linux. Existing configuration and conversations are preserved. Without Git, use the [source ZIP](https://github.com/jamescartel982-creator/Zenith/archive/refs/heads/main.zip) and preserve any legacy checkout `data/` directory. See [upgrade instructions](docs/local-installation.md).
+To upgrade, stop Zenith, activate `.venv`, run `git pull --ff-only`, then `python -m pip install --upgrade ".[local]"`. Run `zenith setup --activate-candidate` to select the bundled experimental checkpoint. Existing configuration and conversations are preserved. Without Git, use the [source ZIP](https://github.com/jamescartel982-creator/Zenith/archive/refs/heads/main.zip) and preserve any legacy checkout `data/` directory. See [upgrade instructions](docs/local-installation.md).
 
 ## Privacy and administration
 
@@ -114,12 +136,14 @@ The unique code is created locally and kept out of model prompts and Git. Sign i
 
 The existing trained Zenith adapter can be verified and continued into a separate candidate with preserved architecture, tokenizer, and parent file hashes. The pipeline supports instruction tuning, domain-text continuation, reviewed preference pairs, historical replay, raw-model diagnostics, and local merge/export checks. It never promotes or publishes automatically.
 
-The recovery study continues the existing checkpoint with instruction tuning, training-only replay, and reviewed preferences. One candidate reached 24/24 on the public diagnostics, while manual review and independent tests exposed further limitations; it remains inactive. Promotion now checks individual cases as well as slice scores. See [measured recovery results](docs/model-recovery.md), [activation and rollback](docs/model-promotion.md), the [original pilot](docs/continued-training.md), and the [model card](docs/MODEL_CARD.md).
+The recovery study continues the existing checkpoint with instruction tuning, training-only replay, and reviewed preferences. One candidate reached 24/24 on the public diagnostics, while manual review and independent tests exposed further limitations; its failed quality decision is retained. Explicit experimental activation is available through `zenith setup --activate-candidate`. Promotion now checks individual cases as well as slice scores. See [measured recovery results](docs/model-recovery.md), [activation and rollback](docs/model-promotion.md), the [original pilot](docs/continued-training.md), and the [model card](docs/MODEL_CARD.md).
 
-An [inactive research snapshot](research_checkpoints/recovery-v1/) includes the actual
+An [experimental research snapshot](research_checkpoints/recovery-v1/) includes the actual
 continued adapter weights, original tokenizer, pinned base identity, and training
-history. It is available for verification and further experiments; installing this
-release preserves your production model. No candidate has passed final review.
+history. It is available for verification, further experiments, and explicit activation.
+Installing the package preserves your selected model; `setup --activate-candidate`
+records your exception for its known regressions. No candidate is relabeled as
+having passed quality review.
 
 Owner controls now include Argon2id password migration, authenticator-based MFA, explicit capability grants, narrow target scopes, activity records, bounded diagnostic plans, and emergency shutdown. Restricted execution starts disabled, including for the owner. Account-owned conversation summaries provide additional external context without changing weights. See [execution and memory controls](docs/execution-controls.md).
 

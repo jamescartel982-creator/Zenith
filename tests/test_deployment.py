@@ -8,7 +8,7 @@ from types import SimpleNamespace
 from unittest.mock import patch
 from agent.checkpoints import inventory,digest
 from agent.expansion_eval import rescore_report
-from agent.deployment import review,activate,rollback,checked_review,validate_activation,use_release
+from agent.deployment import review,activate,rollback,checked_review,validate_activation,use_release,use_research
 
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -73,6 +73,7 @@ class DeploymentTests(unittest.TestCase):
                 validate_activation(settings)
                 settings.revision='main'
                 with self.assertRaises(ValueError):validate_activation(settings)
+
                 settings.revision=receipt['base_revision']
                 original_weights=(candidate/'adapter_model.safetensors').read_bytes()
                 (candidate/'adapter_model.safetensors').write_bytes(b'mutated weights')
@@ -83,6 +84,27 @@ class DeploymentTests(unittest.TestCase):
                 self.assertFalse((state/'active.json').exists())
                 with self.assertRaises(ValueError):rollback(state/receipt['id']/'receipt.json')
                 with self.assertRaises(ValueError):validate_activation(settings)
+
+    def test_experimental_override_retains_failures_and_cannot_override_altered_evidence(self):
+        with tempfile.TemporaryDirectory() as folder:
+            candidate,training,paths=self.fixture(folder)
+            failed=rescore_report(json.loads((ROOT/'docs/benchmarks/continuation-v1/candidate-benchmark.json').read_text()))
+            failed['checkpoint_files']=inventory(candidate);paths[0].write_text(json.dumps(failed))
+            target=Path(folder)/'review.json';profile=Path(folder)/'profile.env';original=b'AI_PROVIDER=ollama\n'
+            profile.write_bytes(original);state=Path(folder)/'state'
+            inspection={'parent_files':inventory(candidate),'tokenizer_sha256':training['tokenizer_sha256'],'inference':'4'}
+            with patch('agent.checkpoints.parent_metadata',return_value=(candidate,{},training)),patch('agent.checkpoints.inspect_checkpoint',return_value=inspection) as load:
+                review(candidate,paths[0],paths[1:],target)
+                with self.assertRaises(ValueError):activate(target,profile,state,True,'Owner requested activation')
+                with self.assertRaises(ValueError):activate(target,profile,state,False,'Owner requested activation',True)
+                load.assert_not_called()
+                receipt=activate(target,profile,state,True,'Owner explicitly accepted recorded regressions',True)
+                self.assertFalse(receipt['numeric_gate_passed']);self.assertTrue(receipt['regression_override'])
+                self.assertEqual(receipt['activation_status'],'experimental');self.assertFalse(receipt['network_tools_enabled'])
+                self.assertTrue(any(not r['numeric_gate_passed'] for r in receipt['comparisons']))
+                rollback(state/receipt['id']/'receipt.json');self.assertEqual(profile.read_bytes(),original)
+                paths[0].write_text(paths[0].read_text()+' ')
+                with self.assertRaises(ValueError):checked_review(target,allow_regressions=True)
 
     def test_changed_weights_evidence_and_profile_fail_closed(self):
         with tempfile.TemporaryDirectory() as folder:

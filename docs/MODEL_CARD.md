@@ -1,6 +1,6 @@
 # Zenith model card
 
-Current recovery status: **experimental; no new model release is approved yet**.
+Current recovery status: **experimental; explicit owner activation is available with known regressions**.
 
 The existing rank-8 adapter continues the original pinned Qwen2 architecture and
 tokenizer. The stability-repair candidate reached 24/24 on the public development
@@ -17,7 +17,9 @@ On matched application-policy runs, the parameter mean scored 15/20 fresh tasks
 versus 17/20 for its immediate parent and 12/20 for the previous trained reference.
 It confused forensic hashing with password hashing. Retained-domain loss was
 3.3734, above the previous reference's 3.2076. Promotion remains rejected.
-All source checkpoints remain preserved and inactive.
+All original source checkpoints remain preserved. An owner can explicitly select
+the combined candidate with `zenith setup --activate-candidate`; the activation
+receipt retains the failed gate and rollback path.
 
 The small authored Apache-2.0 curricula were guided by public diagnostic failures.
 Exact diagnostic prompts and old held-out rows are excluded from gradient updates,
@@ -27,8 +29,14 @@ and [execution controls](execution-controls.md). Model activation never enables
 restricted execution tools or bypasses MFA and target-scope checks.
 
 The [research snapshot](../research_checkpoints/recovery-v1/) contains the actual
-experimental adapter and tokenizer. It is inactive and explicitly rejected by the
-approved-release activation workflow. Base weights remain a separate pinned download.
+experimental adapter and tokenizer. It is rejected by the
+approved-release activation workflow; a separate explicit experimental override
+is available. Base weights remain a separate pinned download.
+
+The workspace profile was explicitly activated under the owner's regression
+exception in 0.14. This is an operator deployment decision, not a passing quality
+evaluation. [Activation and rollback evidence](benchmarks/activation-v014/) records
+real loading and inference. Other installations select it with the setup command.
 
 ## Historical 0.12 pilot
 

@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.14.0 — Explicit candidate activation and conventional installation
+
+- Add `zenith setup --activate-candidate` and an explicit experimental deployment override. Preserve failed numeric scores in the activation receipt instead of marking them passed.
+- Verify and cache the complete research bundle, reconstruct the exact adapter, load it with the original tokenizer and pinned base, and preserve profile rollback. Restricted security tool grants remain separate.
+- Bundle frozen evaluation evidence with the experimental snapshot for reproducible activation outside the original checkout.
+- Lead installation with standard Git, venv, pip, setup, and serve commands for Windows and Linux; retain optional launchers and existing settings.
+- Exercise real installed candidate activation, inference, and exact rollback on Windows and Linux.
+
 ## 0.13.0 — Regression repair and reversible model activation
 
 - Continue the existing trained checkpoint using authored repair curricula, historical training-only replay, and reviewed preference examples. Preserve architecture, tokenizer, original checkpoints, and raw evaluation evidence.

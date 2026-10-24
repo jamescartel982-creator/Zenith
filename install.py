@@ -53,7 +53,9 @@ def main(argv=None):
     parser.add_argument('--download', action='store_true', help='Also download the configured HF weights now')
     parser.add_argument('--launch', action='store_true', help='Download configured HF weights, then open browser chat after setup')
     parser.add_argument('--overwrite-config', action='store_true', help='Explicitly replace the saved user profile')
-    parser.add_argument('--activate-release',type=Path,help='Explicitly activate an approved trained model bundle after setup')
+    activation=parser.add_mutually_exclusive_group()
+    activation.add_argument('--activate-release',type=Path,help='Explicitly activate an approved trained model bundle after setup')
+    activation.add_argument('--activate-candidate',action='store_true',help='Explicitly accept known regressions and activate the bundled experimental candidate')
     args = parser.parse_args(argv)
     if sys.version_info < (3, 10):
         parser.error('Python 3.10+ is required; Python 3.12 is recommended')
@@ -92,13 +94,16 @@ def main(argv=None):
         # source tree or a package selected by an inherited PYTHONPATH.
         run([python,'-I','-m','agent','verify','--json'])
         run([python, '-m', 'agent', 'doctor'])
-        if (args.download or args.launch) and needs_hf and not args.activate_release:
+        if (args.download or args.launch) and needs_hf and not args.activate_release and not args.activate_candidate:
             print('Downloading configured model weights. The first installation can take several minutes.', flush=True)
             run([python, '-m', 'agent', 'models', 'download'])
         if args.activate_release:
             if provider!='huggingface':raise RuntimeError('A trained release requires --mode local and a Hugging Face profile')
             run([python,'-m','agent','deployment','use-release','--bundle',args.activate_release.expanduser().resolve(),
                  '--approve','--download-base','--review-note','Operator explicitly selected --activate-release in the installer.'])
+        if args.activate_candidate:
+            if provider!='huggingface':raise RuntimeError('Candidate activation requires --mode local and a Hugging Face profile')
+            run([python,'-m','agent','setup','--activate-candidate','--bundle',ROOT/'research_checkpoints'/'recovery-v1'])
     except KeyboardInterrupt:
         print('\nSetup interrupted. Rerun the same installer to continue.', file=sys.stderr)
         return 130

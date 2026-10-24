@@ -38,7 +38,20 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--mode', choices=['local', 'ensemble', 'ollama', 'localserver'], default='local')
     parser.add_argument('--overwrite', action='store_true', help='Explicitly replace the saved user profile')
+    parser.add_argument('--activate-candidate',action='store_true',help='Explicitly accept known regressions and activate the bundled experimental candidate')
+    parser.add_argument('--bundle',type=Path,default=Path.cwd()/'research_checkpoints'/'recovery-v1',help='Research bundle from the cloned repository')
     args = parser.parse_args()
+    if args.activate_candidate:
+        if args.mode!='local' or args.overwrite:parser.error('Candidate activation uses local mode and preserves the previous profile for rollback')
+        from .deployment import use_research
+        print('Activating the experimental candidate with known evaluation regressions. Restricted tools stay disabled.',flush=True)
+        try:
+            receipt=use_research(args.bundle,approve=True,allow_regressions=True,download_base=True,
+                review_note='Operator explicitly requested setup --activate-candidate, accepting recorded quality regressions.')
+        except (ValueError,OSError,KeyError) as exc:parser.error(str(exc))
+        print('Activated '+receipt['id']+' ('+receipt['activation_status']+'). Numeric quality gate passed: '+str(receipt['numeric_gate_passed']))
+        print('Run zenith serve --open-browser or zenith chat. Use zenith deployment status for the rollback receipt.')
+        return 0
     path, created = write_configuration(args.mode, overwrite=args.overwrite)
     print(('Saved ' if created else 'Kept existing configuration: ') + str(path))
     print(f'Fresh-install data location: {zenith_home() / "data"}')
