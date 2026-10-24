@@ -43,3 +43,7 @@ The owner can enable **Devil mode · authorized security workspace** after unloc
 The mode has a visible accent and follows the same expiry. Tools operate only on submitted text. There is no arbitrary command execution, scanning of external systems, automatic exploit execution, file access, or tool invocation by the language model. Heuristic code review is not a security audit. Cybersecurity instruction profiles can help explain defenses and write code, subject to the configured model's capabilities.
 
 Admin also has a **human review queue**. Users explicitly submit a question and answer for review; the owner can respond and close the request. No external person is contacted or notified automatically. The regular server access token, if configured, remains an additional gate for all these endpoints. Use HTTPS when hosting publicly.
+
+## Additional execution controls
+
+See [MFA, capability scopes, emergency shutdown, and recovery](execution-controls.md). Known enrollment secrets are kept out of model prompts and memories. Restricted cybersecurity diagnostics require MFA and an explicit active grant; the owner code alone does not activate them.

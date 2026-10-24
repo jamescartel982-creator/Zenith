@@ -6,3 +6,4 @@
 *.json text eol=lf
 *.png binary
 *.cmd text eol=crlf
+*.jsonl text eol=lf

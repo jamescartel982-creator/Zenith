@@ -1,0 +1,8 @@
+{
+  "identical_tensor_keys": true,
+  "bitwise_equal_weights": true,
+  "maximum_tensor_difference": 0.0,
+  "tensor_count": 336,
+  "primary_candidate": "zenith-expansion-sft-candidate-v3",
+  "reproduced_candidate": "zenith-expansion-repro-phase2"
+}

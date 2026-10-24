@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.12.0 — Verified continuation and owner execution controls
+
+- Verify and continue an existing trained adapter without initializing a new foundation, replacing the architecture, or changing token IDs. Preserve parent hashes and separate all candidate outputs.
+- Add SFT, corpus continuation, validated-preference DPO paths, historical replay isolation, raw-model diagnostics, candidate review campaigns, and local merge/reload export verification.
+- Record the actual CPU experiment and frozen evidence. Lower held-out loss did not pass all answer/retention gates; candidate weights remain unpromoted and unpublished.
+- Migrate account passwords to Argon2id on successful login, add encrypted TOTP enrollment and replay prevention, and require MFA plus explicit scoped grants for restricted execution.
+- Enforce target scopes and short-lived capability access on both new and legacy diagnostic routes; add activity logs, bounded plans, emergency shutdown, and trusted local owner recovery.
+- Preserve existing memory/retrieval and add explicit account-owned conversation summaries. No summary or ordinary conversation updates neural weights.
+
+
 ## 0.11.1 — Simple setup and launch
 
 - Add Windows double-click installation and launch scripts, plus a Linux start script. Normal use automatically selects the private environment.

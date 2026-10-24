@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "source_sha256": "25d52526aaba34bff5df81d7b850910fcc9d84de43425cb137e617c5defb601e",
+  "source_snapshot": "source.jsonl",
+  "seed": 42,
+  "quality": {
+    "input_rows": 98,
+    "usable_rows": 98,
+    "exact_duplicates_removed": 0,
+    "topics": {
+      "ai": 12,
+      "programming": 15,
+      "infrastructure": 12,
+      "science-mathematics": 12,
+      "white-hat": 4,
+      "blue-hat": 4,
+      "green-hat": 3,
+      "gray-hat": 4,
+      "red-hat": 4,
+      "black-hat-defense": 4,
+      "reasoning-communication": 6,
+      "structured-tools": 6,
+      "retrieval-memory": 6,
+      "agent-planning": 6
+    }
+  },
+  "files": {
+    "train": {
+      "path": "train.jsonl",
+      "rows": 100,
+      "sha256": "2b594ee1946717fa2f900df48017e2c278982fbf3024e3509c133a72e2b04799",
+      "topics": {
+        "agent-planning": 4,
+        "ai": 8,
+        "ancient-math": 4,
+        "black-hat-defense": 2,
+        "blue-hat": 2,
+        "books-writing": 4,
+        "cybersecurity": 4,
+        "data-research": 4,
+        "day-trading": 4,
+        "gray-hat": 2,
+        "green-hat": 1,
+        "history": 4,
+        "infrastructure": 8,
+        "investing": 4,
+        "math": 4,
+        "programming": 13,
+        "reasoning-communication": 4,
+        "red-hat": 2,
+        "retrieval-memory": 4,
+        "science": 4,
+        "science-mathematics": 8,
+        "structured-tools": 4,
+        "white-hat": 2
+      }
+    },
+    "validation": {
+      "path": "validation.jsonl",
+      "rows": 19,
+      "sha256": "9972c5532ab37e6add03fc018be42e3ffe20636bce5ec0cdf9ac33c13731556b",
+      "topics": {
+        "agent-planning": 1,
+        "ai": 2,
+        "black-hat-defense": 1,
+        "blue-hat": 1,
+        "gray-hat": 1,
+        "green-hat": 1,
+        "infrastructure": 2,
+        "programming": 3,
+        "reasoning-communication": 1,
+        "red-hat": 1,
+        "retrieval-memory": 1,
+        "science-mathematics": 2,
+        "structured-tools": 1,
+        "white-hat": 1
+      }
+    },
+    "test": {
+      "path": "test.jsonl",
+      "rows": 19,
+      "sha256": "008baa4d44941f94c367ae8a9a4d4236e4f0b8376dd48c20b9bc9e29e3dd6f71",
+      "topics": {
+        "agent-planning": 1,
+        "ai": 2,
+        "black-hat-defense": 1,
+        "blue-hat": 1,
+        "gray-hat": 1,
+        "green-hat": 1,
+        "infrastructure": 2,
+        "programming": 3,
+        "reasoning-communication": 1,
+        "red-hat": 1,
+        "retrieval-memory": 1,
+        "science-mathematics": 2,
+        "structured-tools": 1,
+        "white-hat": 1
+      }
+    }
+  },
+  "final_test_used_for_training": false,
+  "automatic_promotion": false,
+  "limitations": [
+    "Original starter examples are a plumbing curriculum, not comprehensive subject training.",
+    "Public facts may already be present in the base model pretraining.",
+    "Final-test isolation applies to this dataset version, not all unknown upstream training."
+  ],
+  "replay": {
+    "source_sha256": "deb58757bc2567792835ca2ae52a3138c9896cd7b48632980560046d8fa3ba5e",
+    "snapshot_sha256": "1f5a7418aef0cb309339c1a3bbf79480d83b01559e087ff0308609c89ed5f12d",
+    "path": "historical-train-replay.jsonl",
+    "partition": "train-only",
+    "rows": 40,
+    "note": "Previously trained examples are forbidden in validation and test."
+  }
+}

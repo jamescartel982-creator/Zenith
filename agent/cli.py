@@ -54,7 +54,9 @@ class TerminalSession:
                 token = self.agent.personal.issue_session(user['id'])
                 try:
                     code = getpass.getpass('Private admin code> ')
-                    accepted = self.agent.admin.unlock(user['id'], token, code.strip())
+                    otp = getpass.getpass('Authenticator code (required if MFA is configured)> ') if self.agent.admin.mfa.enabled(user['id']) else ''
+                    accepted = self.agent.admin.unlock(user['id'], token, code.strip(), otp)
+                    del otp
                     del code
                     if not accepted:
                         raise ValueError('Owner account or credentials were not accepted')

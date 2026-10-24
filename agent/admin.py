@@ -20,6 +20,8 @@ def contains_admin_code(text):
 class AdminStore:
     def __init__(self, store):
         self.store = store
+        from .owner_mfa import OwnerMFA
+        self.mfa = OwnerMFA(store)
         with store.connect() as db:
             db.execute('CREATE TABLE IF NOT EXISTS admin_owner (singleton INTEGER PRIMARY KEY CHECK(singleton=1), user_id TEXT NOT NULL, salt TEXT NOT NULL, code_hash TEXT NOT NULL)')
             db.execute('CREATE TABLE IF NOT EXISTS admin_elevations (token_hash TEXT PRIMARY KEY, user_id TEXT NOT NULL, expires REAL NOT NULL, devil INTEGER NOT NULL DEFAULT 0)')
@@ -54,6 +56,9 @@ class AdminStore:
             with self.store.connect() as db:
                 db.execute('INSERT OR REPLACE INTO admin_owner VALUES (1, ?, ?, ?)', (user['id'], salt, hashed))
                 db.execute('DELETE FROM admin_elevations')
+                db.execute('DELETE FROM owner_mfa_sessions')
+                if db.execute("SELECT 1 FROM sqlite_master WHERE name='execution_grants'").fetchone():
+                    db.execute('DELETE FROM execution_grants')
                 db.execute("DELETE FROM skill_activations WHERE token_hash<>''")
                 db.execute('INSERT INTO admin_audit VALUES (?, ?, ?)', (time.time(), user['id'], 'owner-code-rotated' if owner else 'owner-configured'))
         finally:
@@ -68,10 +73,13 @@ class AdminStore:
             row = db.execute('''SELECT e.expires, e.devil FROM admin_elevations e
                 JOIN login_sessions s ON s.token_hash=e.token_hash AND s.user_id=e.user_id
                 WHERE e.token_hash=? AND e.user_id=? AND e.expires>? AND s.expires>?''', (digest, user_id, now, now)).fetchone()
-        return {'eligible': bool(owner and owner['user_id']==user_id), 'elevated': row is not None,
-                'devil_mode': bool(row and row['devil']), 'expires_at': row['expires'] if row else None}
+        configured = self.mfa.enabled(user_id)
+        verified = self.mfa.verified(user_id,token)
+        return {'eligible': bool(owner and owner['user_id']==user_id), 'elevated': row is not None and (not configured or verified),
+                'mfa_configured':configured,'mfa_verified':verified,
+                'devil_mode': bool(row and row['devil'] and (not configured or verified)), 'expires_at': row['expires'] if row else None}
 
-    def unlock(self, user_id, token, code):
+    def unlock(self, user_id, token, code, otp=""):
         if not CODE_PATTERN.fullmatch(code): return False
         digest = hashlib.sha256(token.encode()).hexdigest()
         with self.store.connect() as db:
@@ -80,6 +88,8 @@ class AdminStore:
         if not owner or owner['user_id']!=user_id or not session or session['user_id']!=user_id:
             return False
         valid = hmac.compare_digest(owner['code_hash'], self.digest(code,owner['salt']))
+        if valid and self.mfa.enabled(user_id):
+            valid = self.mfa.verify(user_id,token,otp)
         with self.store.connect() as db:
             db.execute('INSERT INTO admin_audit VALUES (?, ?, ?)', (time.time(), user_id, 'unlock-ok' if valid else 'unlock-denied'))
             if valid:
@@ -91,6 +101,9 @@ class AdminStore:
     def mode(self, user_id, token, enabled):
         if not self.status(user_id,token)['elevated']: raise PermissionError('Administrator elevation required')
         with self.store.connect() as db:
+            if enabled and db.execute("SELECT 1 FROM sqlite_master WHERE name='execution_state'").fetchone():
+                if db.execute('SELECT stopped FROM execution_state WHERE singleton=1').fetchone()['stopped']:
+                    raise PermissionError('Emergency shutdown is active')
             db.execute('UPDATE admin_elevations SET devil=? WHERE token_hash=? AND user_id=?', (int(enabled),hashlib.sha256(token.encode()).hexdigest(),user_id))
             db.execute('INSERT INTO admin_audit VALUES (?, ?, ?)', (time.time(), user_id, 'devil-on' if enabled else 'devil-off'))
         return self.status(user_id,token)
@@ -102,12 +115,16 @@ class AdminStore:
     def lock(self, token):
         with self.store.connect() as db:
             db.execute('DELETE FROM admin_elevations WHERE token_hash=?', (hashlib.sha256(token.encode()).hexdigest(),))
+            db.execute('DELETE FROM owner_mfa_sessions WHERE token_hash=?',(hashlib.sha256(token.encode()).hexdigest(),))
+            if db.execute("SELECT 1 FROM sqlite_master WHERE name='execution_grants'").fetchone():
+                db.execute('DELETE FROM execution_grants WHERE token_hash=?',(hashlib.sha256(token.encode()).hexdigest(),))
             db.execute('DELETE FROM skill_activations WHERE token_hash=?', (hashlib.sha256(token.encode()).hexdigest(),))
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=['init'])
+    parser.add_argument('action', choices=['init','reset-mfa','stop-tools'])
+    parser.add_argument('--confirm-reset',action='store_true',help='Confirm local MFA reset and revocation of existing sessions')
     parser.add_argument('--username', required=True, help='Exact existing local account username')
     parser.add_argument('--rotate', action='store_true', help='Replace the existing code and revoke all elevations')
     args = parser.parse_args()
@@ -115,7 +132,25 @@ def main():
     from .storage import Store
     from .personal import PersonalStore
     store = Store(Settings().data_dir); PersonalStore(store)
-    try: path = AdminStore(store).initialize(args.username,rotate=args.rotate)
+    admin=AdminStore(store)
+    if args.action!='init':
+        with store.connect() as db:
+            owner=db.execute('SELECT o.user_id FROM admin_owner o JOIN users u ON u.id=o.user_id WHERE u.username=?',(args.username.strip().casefold(),)).fetchone()
+            if not owner:parser.error('Exact configured owner username required')
+            if args.action=='reset-mfa':
+                if not args.confirm_reset:parser.error('Use --confirm-reset to deliberately reset MFA from the trusted OS-owner terminal')
+                db.execute('DELETE FROM owner_mfa WHERE user_id=?',(owner['user_id'],))
+                db.execute('DELETE FROM owner_mfa_sessions')
+                db.execute('DELETE FROM admin_elevations')
+                db.execute("DELETE FROM skill_activations WHERE token_hash<>''")
+            if db.execute("SELECT 1 FROM sqlite_master WHERE name='execution_grants'").fetchone():db.execute('DELETE FROM execution_grants')
+            if args.action=='stop-tools':
+                db.execute('CREATE TABLE IF NOT EXISTS execution_state (singleton INTEGER PRIMARY KEY CHECK(singleton=1),stopped INTEGER NOT NULL)')
+                db.execute('INSERT OR REPLACE INTO execution_state VALUES(1,1)')
+            db.execute('INSERT INTO admin_audit VALUES(?,?,?)',(time.time(),owner['user_id'],'local-'+args.action))
+        print('Restricted tools revoked. '+('Enroll MFA again before enabling capabilities.' if args.action=='reset-mfa' else 'Emergency shutdown is active.'))
+        return
+    try: path = admin.initialize(args.username,rotate=args.rotate)
     except (ValueError,OSError) as exc: parser.error(str(exc))
     print('Owner configured. Your secret code is in this protected LOCAL file: ' + str(path))
     print('Read it privately on your own machine. Never commit it, share it, or paste it into normal chat.')

@@ -1,0 +1,9 @@
+{
+  "tensor_keys_preserved": true,
+  "tensor_shapes_preserved": true,
+  "changed_tensors": 336,
+  "tensor_count": 336,
+  "maximum_absolute_update": 0.0013713929802179337,
+  "parent_weight_sha256": "1a4037eb6e15fe2bbe75bcf53ea2d40ad42cd377bb2d2af47bc3e3c61914106f",
+  "candidate_weight_sha256": "71632026ae20795e991d86e29b63165e21083333f65e0132aff87d524bce7b93"
+}

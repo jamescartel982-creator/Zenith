@@ -111,6 +111,8 @@ class Store:
         with self.connect() as db:
             db.execute("DELETE FROM turns WHERE session_id=?", (session_id,))
             db.execute('DELETE FROM skill_activations WHERE session_id=?', (session_id,))
+            if db.execute("SELECT 1 FROM sqlite_master WHERE name='conversation_summaries'").fetchone():
+                db.execute('DELETE FROM conversation_summaries WHERE session_id=?',(session_id,))
             db.execute('DELETE FROM human_reviews WHERE session_id=?', (session_id,))
             if db.execute("SELECT 1 FROM sqlite_master WHERE name='generation_metrics'").fetchone():
                 db.execute('DELETE FROM generation_metrics WHERE session_id=?',(session_id,))

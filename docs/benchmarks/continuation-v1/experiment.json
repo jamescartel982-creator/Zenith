@@ -1,0 +1,51 @@
+{
+  "base_parameters": 494032768,
+  "trained_adapter_parameters": 4399104,
+  "optimizer_steps": 80,
+  "input_tokens_seen": 5567,
+  "target_tokens_seen": 2314,
+  "accepted_training_seconds": 126.33094345700374,
+  "replay_steps": 20,
+  "original_checkpoint_unchanged": true,
+  "architecture_unchanged": true,
+  "tokenizer_unchanged": true,
+  "gpu_utilization": null,
+  "gpu_reason": "No CUDA device; CPU training only",
+  "candidate_adapter_bytes": 17640136,
+  "held_out_target_loss_before": 3.5588773362911663,
+  "held_out_target_loss_after": 3.207596539075558,
+  "comparison": {
+    "parent_accuracy": 0.5833333333333334,
+    "candidate_accuracy": 0.625,
+    "production_accuracy": 0.4583333333333333,
+    "regressed_slices": [
+      "instruction-following",
+      "retrieval-grounding"
+    ],
+    "numeric_gate_passed": false,
+    "human_review_required": true,
+    "deployment_approved": false,
+    "automatic_promotion": false
+  },
+  "published": false,
+  "production_changed": false,
+  "aborted_run": {
+    "candidate": "zenith-expansion-sft-candidate",
+    "reason": "Historical replay was present in evaluation partitions. Run interrupted; no resulting weights were used as a parent or deployed."
+  },
+  "scoring_correction": {
+    "version": 2,
+    "note": "Saved raw outputs rescored to reject incomplete algebra and Markdown-wrapped JSON. Original reports retained as v1 evidence."
+  },
+  "weights_not_committed": true,
+  "reproduction": {
+    "identical_tensor_keys": true,
+    "bitwise_equal_weights": true,
+    "maximum_tensor_difference": 0.0,
+    "tensor_count": 336,
+    "primary_candidate": "zenith-expansion-sft-candidate-v3",
+    "reproduced_candidate": "zenith-expansion-repro-phase2"
+  },
+  "reproduction_training_seconds": 122.3691452560015,
+  "reproduction_optimizer_steps": 80
+}

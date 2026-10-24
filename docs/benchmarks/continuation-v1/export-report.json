@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "parent": "/workspace/scratch/zenith-expansion-sft-candidate-v3",
+  "parent_files": {
+    "README.md": {
+      "bytes": 5206,
+      "sha256": "6b95375f507809c480d15e683ecaf6c69fe91a26adef775e1ce4032df12c7d56"
+    },
+    "adapter_config.json": {
+      "bytes": 1056,
+      "sha256": "d0004ec85dc4712b3cc3531bad68abd687ff28b211457ef0ae9a7cfc298b5c32"
+    },
+    "adapter_model.safetensors": {
+      "bytes": 17640136,
+      "sha256": "71632026ae20795e991d86e29b63165e21083333f65e0132aff87d524bce7b93"
+    },
+    "added_tokens.json": {
+      "bytes": 605,
+      "sha256": "58b54bbe36fc752f79a24a271ef66a0a0830054b4dfad94bde757d851968060b"
+    },
+    "chat_template.jinja": {
+      "bytes": 2507,
+      "sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f"
+    },
+    "merges.txt": {
+      "bytes": 1671853,
+      "sha256": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5"
+    },
+    "special_tokens_map.json": {
+      "bytes": 613,
+      "sha256": "76862e765266b85aa9459767e33cbaf13970f327a0e88d1c65846c2ddd3a1ecd"
+    },
+    "tokenizer.json": {
+      "bytes": 11421896,
+      "sha256": "9c5ae00e602b8860cbd784ba82a8aa14e8feecec692e7076590d014d7b7fdafa"
+    },
+    "tokenizer_config.json": {
+      "bytes": 4686,
+      "sha256": "0a04a9d7d4a62b28482bdfe726c122756de85714fb64166ace92ae75b8f57614"
+    },
+    "training_report.json": {
+      "bytes": 19714,
+      "sha256": "4dcc7333cb89285e0fc5f1c0eff410eb651865656fd80e7f91d7458bfa0ea78e"
+    },
+    "vocab.json": {
+      "bytes": 2776833,
+      "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+    }
+  },
+  "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "base_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "architecture_unchanged": true,
+  "tokenizer_sha256": "221ea68122dfcfb2772276b69e62fc97ea9b13785ee069b118ee36498b19a418",
+  "maximum_merge_logit_error": 2.288818359375e-05,
+  "merge_and_reload_verified": true,
+  "export_files": {
+    "added_tokens.json": {
+      "bytes": 605,
+      "sha256": "58b54bbe36fc752f79a24a271ef66a0a0830054b4dfad94bde757d851968060b"
+    },
+    "chat_template.jinja": {
+      "bytes": 2507,
+      "sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f"
+    },
+    "config.json": {
+      "bytes": 1226,
+      "sha256": "57c2bbb6c62915ad8900ca692a7c84d11ccb19f32aaf9c4150308f01b4557109"
+    },
+    "generation_config.json": {
+      "bytes": 242,
+      "sha256": "da7d43d773bb1c2606bbd062d9af2e8aa2b73de104b1f8f0a93e31bf3b1426a3"
+    },
+    "merges.txt": {
+      "bytes": 1671853,
+      "sha256": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5"
+    },
+    "model-00001-of-00002.safetensors": {
+      "bytes": 986872824,
+      "sha256": "9b0ff330959d1a542afc4d95edf45c50c9bb2d7275e3e6e6936385587ef9c4f6"
+    },
+    "model-00002-of-00002.safetensors": {
+      "bytes": 989290248,
+      "sha256": "9f7f04602a0341152bf907669905d541a16a6f0790631d75bafabb3ec4ec29ce"
+    },
+    "model.safetensors.index.json": {
+      "bytes": 23784,
+      "sha256": "2c48cd2d29af36b3eb489e2618c37b348dd38511d923b6acc53381308be7600a"
+    },
+    "special_tokens_map.json": {
+      "bytes": 613,
+      "sha256": "76862e765266b85aa9459767e33cbaf13970f327a0e88d1c65846c2ddd3a1ecd"
+    },
+    "tokenizer.json": {
+      "bytes": 11421896,
+      "sha256": "9c5ae00e602b8860cbd784ba82a8aa14e8feecec692e7076590d014d7b7fdafa"
+    },
+    "tokenizer_config.json": {
+      "bytes": 4686,
+      "sha256": "0a04a9d7d4a62b28482bdfe726c122756de85714fb64166ace92ae75b8f57614"
+    },
+    "vocab.json": {
+      "bytes": 2776833,
+      "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+    }
+  },
+  "export_bytes": 1992067317,
+  "published": false,
+  "deployment_approved": false,
+  "automatic_promotion": false,
+  "notice": "Local compatibility export only. Passing these checks does not approve benchmark quality or deployment."
+}

@@ -6,6 +6,11 @@ import secrets
 import sqlite3
 import time
 from uuid import uuid4
+from argon2 import PasswordHasher
+from argon2.exceptions import VerifyMismatchError, VerificationError, InvalidHashError
+
+PASSWORD_HASHER = PasswordHasher(time_cost=2, memory_cost=19456, parallelism=1)
+DUMMY_PASSWORD_HASH = PASSWORD_HASHER.hash("zenith-absent-account-timing-padding")
 
 
 class PersonalStore:
@@ -35,7 +40,7 @@ class PersonalStore:
         identifier = str(uuid4())
         try:
             with self.store.connect() as db:
-                db.execute('INSERT INTO users VALUES (?, ?, ?, ?, ?)', (identifier, username, display_name, salt, self.password_hash(password, salt)))
+                db.execute('INSERT INTO users VALUES (?, ?, ?, ?, ?)', (identifier, username, display_name, salt, PASSWORD_HASHER.hash(password)))
         except sqlite3.IntegrityError as exc:
             raise ValueError('That username is unavailable') from exc
         return {'id': identifier, 'username': username, 'display_name': display_name}
@@ -43,10 +48,23 @@ class PersonalStore:
     def login(self, username, password):
         with self.store.connect() as db:
             row = db.execute('SELECT * FROM users WHERE username=?', (username.strip().casefold(),)).fetchone()
-        # Equal-cost hash for absent usernames avoids an obvious account timing leak.
-        candidate = self.password_hash(password, row['salt'] if row else '0' * 32)
-        if row is None or not hmac.compare_digest(row['password_hash'], candidate):
+        if not isinstance(password,str) or not 1 <= len(password) <= 256:
             return None
+        old_hash = row['password_hash'] if row else DUMMY_PASSWORD_HASH
+        if old_hash.startswith('$argon2id$'):
+            try:
+                PASSWORD_HASHER.verify(old_hash,password)
+                valid = row is not None
+            except (VerifyMismatchError, VerificationError, InvalidHashError):
+                valid = False
+        else:
+            valid = bool(row and hmac.compare_digest(old_hash,self.password_hash(password,row['salt'])))
+        if not valid:
+            return None
+        if not old_hash.startswith('$argon2id$') or PASSWORD_HASHER.check_needs_rehash(old_hash):
+            with self.store.connect() as db:
+                db.execute('UPDATE users SET password_hash=? WHERE id=? AND password_hash=?',
+                    (PASSWORD_HASHER.hash(password),row['id'],old_hash))
         return {key: row[key] for key in ('id', 'username', 'display_name')}
 
     def issue_session(self, user_id):
@@ -67,6 +85,9 @@ class PersonalStore:
         with self.store.connect() as db:
             db.execute('DELETE FROM login_sessions WHERE token_hash=?', (hashlib.sha256(token.encode()).hexdigest(),))
             db.execute('DELETE FROM skill_activations WHERE token_hash=?', (hashlib.sha256(token.encode()).hexdigest(),))
+            for table in ['owner_mfa_sessions','execution_grants']:
+                if db.execute('SELECT 1 FROM sqlite_master WHERE name=?',(table,)).fetchone():
+                    db.execute('DELETE FROM '+table+' WHERE token_hash=?',(hashlib.sha256(token.encode()).hexdigest(),))
 
     def conversation_access(self, session_id, user_id='', create=False):
         with self.store.connect() as db:
@@ -99,6 +120,8 @@ class PersonalStore:
     def remember(self, user_id, content):
         from .assurance import normalize_input
         content = normalize_input(content)
+        from .owner_mfa import contains_enrollment_secret
+        if contains_enrollment_secret(self.store,content):raise ValueError('Authenticator secrets cannot be saved as memories')
         if not 1 <= len(content) <= 500:
             raise ValueError('A memory must have 1–500 characters')
         with self.store.connect() as db:

@@ -500,7 +500,7 @@ async function loadAccount() {
     $('admin-review-list').replaceChildren(); $('my-review-list').replaceChildren(); $('admin-error').textContent = '';
     $('performance-summary').replaceChildren(); $('performance-scope').textContent = ''; $('performance-note').textContent = ''; $('server-metrics').hidden = true;
     $('system-components').replaceChildren(); showingServerMetrics = false;
-    $('memory-list').replaceChildren(); $('memory-content').value = '';
+    $('memory-list').replaceChildren(); $('memory-content').value = ''; $('conversation-summary').textContent='';
     $('memory-count').textContent = 'Your saved context'; $('memory-error').textContent = '';
   }
   $('greeting').textContent = data.greeting;
@@ -559,6 +559,9 @@ async function loadMemories() {
     item.append(element('p', '', note.content), remove); list.append(item);
   }
   if (!data.memories.length) list.append(element('p', 'dialog-description', 'No saved memories yet. You choose what stays.'));
+  const owner=activeUser?.id, conversation=session;
+  const summary=await api(`/api/conversations/${conversation}/summary`);
+  if (activeUser?.id===owner && session===conversation) $('conversation-summary').textContent=summary.summary?.summary || '';
 }
 $('open-memory').addEventListener('click', async () => {
   if (!activeUser) {openAccount(); return;}
@@ -698,6 +701,10 @@ function renderAdmin() {
   if (!elevated && showingServerMetrics) {$('performance-summary').replaceChildren(); $('performance-scope').textContent = 'Admin locked. Refresh to view your account totals.'; $('performance-note').textContent = ''; showingServerMetrics = false;}
   $('admin-controls').hidden = !elevated; $('admin-unlock').hidden = elevated;
   $('devil-mode').checked = !!adminState?.devil_mode;
+  $('mfa-status').textContent = adminState?.mfa_configured ? 'Authenticator configured. Restricted tools require a current MFA-verified owner session.' : 'Configure an authenticator before activating restricted tools.';
+  $('mfa-setup-form').hidden = !!adminState?.mfa_configured;
+  if (!elevated || adminState?.mfa_configured) { $('mfa-secret').textContent = ''; $('mfa-enrollment').hidden = true; $('mfa-password').value = ''; $('mfa-confirm-code').value = ''; }
+  if (!elevated) { $('admin-otp').value = ''; $('execution-result').textContent = ''; $('execution-log').textContent = ''; $('execution-arguments').value = '{"text":""}'; $('execution-status').textContent = 'Restricted tools locked.'; }
   $('admin-status').textContent = !activeUser ? 'Sign in as your local owner account.' : elevated ? 'Administrator recognized. Access expires after 15 minutes.' : adminState?.eligible ? 'Owner account recognized. Enter your local code to unlock.' : 'This account has not been configured as the owner in the server terminal.';
   document.body.classList.toggle('devil-workspace', elevated && !!adminState?.devil_mode);
   clearTimeout(adminExpiry);
@@ -707,11 +714,12 @@ async function loadAdmin() {
   if (!activeUser) {adminState = null; renderAdmin(); await loadSkills(); return;}
   try {adminState = await api('/api/admin/status');} catch (_) {adminState = null;}
   renderAdmin();
+  if (adminState?.elevated) { try { await refreshExecution(); } catch (error) { $('admin-error').textContent = error.message; } }
   await loadSkills();
 }
-async function unlockAdmin(code) {
-  adminState = await api('/api/admin/unlock', {method: 'POST', body: JSON.stringify({code})});
-  renderAdmin(); $('admin-error').textContent = ''; await loadSkills();
+async function unlockAdmin(code, otp = '') {
+  adminState = await api('/api/admin/unlock', {method: 'POST', body: JSON.stringify({code,otp})});
+  renderAdmin(); $('admin-error').textContent = ''; await refreshExecution(); await loadSkills();
 }
 $('open-admin').addEventListener('click', async () => {
   if (busy) return;
@@ -720,7 +728,8 @@ $('open-admin').addEventListener('click', async () => {
 });
 $('admin-unlock').addEventListener('submit', async event => {
   event.preventDefault(); const code = $('admin-code').value; $('admin-code').value = '';
-  try {await unlockAdmin(code);} catch (error) {$('admin-error').textContent = error.message;}
+  const otp = $('admin-otp').value; $('admin-otp').value = '';
+  try {await unlockAdmin(code, otp);} catch (error) {$('admin-error').textContent = error.message;}
 });
 $('devil-mode').addEventListener('change', async () => {
   try {adminState = await api('/api/admin/mode', {method: 'POST', body: JSON.stringify({enabled: $('devil-mode').checked})}); renderAdmin();}
@@ -811,3 +820,53 @@ $('open-system').addEventListener('click', async () => {$('system-dialog').showM
 $('refresh-system').addEventListener('click', () => loadSystem());
 $('server-metrics').addEventListener('click', () => loadSystem(true));
 connect();
+
+async function refreshExecution() {
+  const state = await api('/api/admin/execution');
+  $('execution-status').textContent = state.stopped ? 'Emergency shutdown active. No restricted tools can execute.' : state.active_grants.length ? 'Active: ' + state.active_grants.map(g => g.capability).join(', ') : 'All restricted capabilities disabled.';
+}
+$('mfa-setup-form').addEventListener('submit', async event => {
+  event.preventDefault(); $('admin-error').textContent = ''; const password = $('mfa-password').value; $('mfa-password').value = '';
+  const owner = activeUser?.id;
+  try { const setup = await api('/api/admin/mfa/setup', {method:'POST',body:JSON.stringify({password})}); if (activeUser?.id !== owner || !adminState?.elevated) return; $('mfa-secret').textContent = setup.secret; $('mfa-enrollment').hidden = false; }
+  catch (error) { $('admin-error').textContent = error.message; }
+});
+$('mfa-confirm-form').addEventListener('submit', async event => {
+  event.preventDefault(); $('admin-error').textContent = ''; const otp = $('mfa-confirm-code').value; $('mfa-confirm-code').value = '';
+  try { adminState = await api('/api/admin/mfa/confirm', {method:'POST',body:JSON.stringify({otp})}); renderAdmin(); await refreshExecution(); }
+  catch (error) { $('admin-error').textContent = error.message; }
+});
+$('execution-capability').addEventListener('change', () => {
+  const network = ['tcp-connect','tls-certificate'].includes($('execution-capability').value);
+  $('execution-scope').value = JSON.stringify(network ? {kind:'network',cidrs:[],ports:[],authorization_reference:''} : {kind:'offline'},null,2);
+  $('execution-arguments').value = JSON.stringify(network ? {host:'',port:443} : {text:''},null,2);
+});
+$('execution-grant-form').addEventListener('submit', async event => {
+  event.preventDefault(); $('admin-error').textContent = '';
+  try { await api('/api/admin/execution/grant', {method:'POST',body:JSON.stringify({capability:$('execution-capability').value,scope:JSON.parse($('execution-scope').value),seconds:300})}); await refreshExecution(); }
+  catch (error) { $('admin-error').textContent = error.message; }
+});
+$('execution-run-form').addEventListener('submit', async event => {
+  event.preventDefault(); $('admin-error').textContent = '';
+  const owner=activeUser?.id;
+  try { const value = await api('/api/admin/execution/run', {method:'POST',body:JSON.stringify({capability:$('execution-capability').value,arguments:JSON.parse($('execution-arguments').value)})}); if (activeUser?.id!==owner || !adminState?.elevated) return; $('execution-result').textContent = JSON.stringify(value.result,null,2); }
+  catch (error) { $('admin-error').textContent = error.message; }
+});
+for (const [id,path,method] of [['execution-stop','stop','POST'],['execution-resume','resume','POST'],['execution-revoke','grants','DELETE']]) $(id).addEventListener('click', async () => {
+  try { await api('/api/admin/execution/'+path,{method}); await loadAdmin(); }
+  catch (error) { $('admin-error').textContent = error.message; }
+});
+$('execution-history').addEventListener('click', async () => {
+  try { $('execution-log').textContent = JSON.stringify(await api('/api/admin/execution/history'),null,2); }
+  catch (error) { $('admin-error').textContent = error.message; }
+});
+
+$('save-summary').addEventListener('click', async () => {
+  const owner=activeUser?.id, conversation=session;
+  try { const value=await api(`/api/conversations/${conversation}/summary`,{method:'POST'}); if (activeUser?.id!==owner || session!==conversation) return; $('conversation-summary').textContent=value.summary?.summary || ''; }
+  catch(error) { $('memory-error').textContent=error.message; }
+});
+$('forget-summary').addEventListener('click', async () => {
+  try { await api(`/api/conversations/${session}/summary`,{method:'DELETE'}); $('conversation-summary').textContent=''; }
+  catch(error) { $('memory-error').textContent=error.message; }
+});
