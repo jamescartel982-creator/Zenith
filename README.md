@@ -9,9 +9,38 @@ license: apache-2.0
 
 A local AI workspace for conversations, coding, research, and reviewed learning. Zenith brings open model runtimes, private memory, streamed responses, and evaluation tools into a single application for Windows and Linux.
 
-**Release 0.14.0** · [Changelog](CHANGELOG.md) · [Installation](docs/local-installation.md) · [Model discovery](docs/model-discovery.md) · [Validation](docs/validation.md)
+**Release 0.14.1** · [Changelog](CHANGELOG.md) · [Installation](docs/local-installation.md) · [Model discovery](docs/model-discovery.md) · [Validation](docs/validation.md)
 
 ## Install
+
+With Python 3.12 installed, paste **one command** into your terminal.
+
+Windows PowerShell:
+
+```powershell
+py -3 -c "import urllib.request; exec(urllib.request.urlopen('https://raw.githubusercontent.com/jamescartel982-creator/Zenith/main/quickstart.py').read())" --activate-candidate
+```
+
+Linux:
+
+```bash
+python3 -c "import urllib.request; exec(urllib.request.urlopen('https://raw.githubusercontent.com/jamescartel982-creator/Zenith/main/quickstart.py').read())" --activate-candidate
+```
+
+This downloads Zenith into **`~/Zenith`**, verifies its source files, creates
+`.venv`, installs dependencies, activates the experimental candidate with its
+recorded regressions, and opens the app. Git and manual environment activation
+are not required. The first download can take several minutes. No paid API key
+is needed. Omit `--activate-candidate` to keep the normal base-model setup.
+
+Open **http://127.0.0.1:7860** if your browser does not open automatically.
+Keep the terminal open while chatting; press Ctrl+C to stop. The installer prints
+the command to start Zenith next time. Rerunning it resumes a verified existing
+installation without overwriting your files. Add `--directory PATH` to choose
+another folder or `--no-launch` to install without starting the app.
+
+### Manual installation
+
 
 Install Python 3.12 and Git, then clone the repository:
 

@@ -109,6 +109,7 @@ jobs:
           .venv/bin/python scripts/smoke_server.py
           .venv/bin/python scripts/smoke_easy_launch.py
           .venv/bin/python scripts/smoke_installed.py
+          .venv/bin/python -I -m scripts.smoke_quickstart --source .
       - name: Windows PowerShell 5.1 environment activation
         if: runner.os == 'Windows'
         shell: powershell
@@ -150,4 +151,6 @@ jobs:
           .venv/Scripts/python.exe scripts/smoke_easy_launch.py
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           .venv/Scripts/python.exe scripts/smoke_installed.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          .venv/Scripts/python.exe -I -m scripts.smoke_quickstart --source .
           exit $LASTEXITCODE

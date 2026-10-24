@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "version": "0.14.0",
+  "version": "0.14.1",
   "files": [
     {
       "path": ".dockerignore",
@@ -28,8 +28,8 @@
     },
     {
       "path": ".github/workflows/tests.yml",
-      "size": 6495,
-      "sha256": "f2544c64f746a7aa515215d06763b3cc050d3e3237873b3ee607e06d316888ec",
+      "size": 6699,
+      "sha256": "32f69ad6d32e6d1f42fecb16924d8b87ea0bcd2c73dee4e30296a90130a0410f",
       "normalization": "lf"
     },
     {
@@ -46,8 +46,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "size": 12616,
-      "sha256": "671a89852224b2161d87065ca10ca9cc5137da038bb00eb9484b46db57eb29c2",
+      "size": 13285,
+      "sha256": "23b6db9e7cf543e933264f9cae80aec936d000a7891c93817effd96f040acb42",
       "normalization": "lf"
     },
     {
@@ -70,8 +70,8 @@
     },
     {
       "path": "README.md",
-      "size": 10657,
-      "sha256": "9f7b86a6fc2a6df36504846d9396a8d5258aadcdb153df5f4482fcb04ad2cac5",
+      "size": 11948,
+      "sha256": "5cdaca3f6b9a5c1f2485cc14d55e4c99487ce06b6c801ae647f54cd719a54f36",
       "normalization": "lf"
     },
     {
@@ -95,7 +95,7 @@
     {
       "path": "agent/__init__.py",
       "size": 105,
-      "sha256": "bb5e643832ea9e091a33ae83d63b86a2295d4c4bfa469feabc2384112e128410",
+      "sha256": "c3f80e7591e595fd82edfa9c9bb1311f891691c0a773f4598cc3e319a03ebd52",
       "normalization": "lf"
     },
     {
@@ -1210,8 +1210,8 @@
     },
     {
       "path": "docs/local-installation.md",
-      "size": 13065,
-      "sha256": "6656dd5cd44e252b32da1bf56aa53c04e61f581a6f5d36d67af3db288cbe99cc",
+      "size": 14035,
+      "sha256": "1e849cb622481358a96f29abfc06afe9f6fd610fe54f0e4e5bad3041cc92f955",
       "normalization": "lf"
     },
     {
@@ -1320,6 +1320,12 @@
       "path": "pyproject.toml",
       "size": 1101,
       "sha256": "2c3fc5595abcda4c944b58d95571bf3b26fe6323b2d2da77e1dd7221cae9b49c",
+      "normalization": "lf"
+    },
+    {
+      "path": "quickstart.py",
+      "size": 8573,
+      "sha256": "81a1d0b72aed3b6b682ebd8bc2b6b6d73ff8a8e420ced318500dfcc1b0663326",
       "normalization": "lf"
     },
     {
@@ -1659,6 +1665,12 @@
       "normalization": "lf"
     },
     {
+      "path": "scripts/smoke_quickstart.py",
+      "size": 1444,
+      "sha256": "511612f56aad95c37ccdf16bef16bb4a9fcd5c3a814752c5a322db64c98b6a32",
+      "normalization": "lf"
+    },
+    {
       "path": "scripts/smoke_server.py",
       "size": 1890,
       "sha256": "73c64d9f8c370bf6859983acd42a0d59d51df191275411f8bcee0fe9a4d2944b",
@@ -1782,6 +1794,12 @@
       "path": "tests/test_quality_admin.py",
       "size": 18997,
       "sha256": "515f060d2fd0d4c69ce1f9e8e9029d4d21f065657a1cd9058e6417202c5a9433",
+      "normalization": "lf"
+    },
+    {
+      "path": "tests/test_quickstart.py",
+      "size": 4796,
+      "sha256": "4aa39f8478a8057bf636d637d496a1865373024e91ed47014867ffbd59a12275",
       "normalization": "lf"
     },
     {
