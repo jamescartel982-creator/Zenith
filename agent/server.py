@@ -76,6 +76,30 @@ class MemoryRequest(BaseModel):
 
 class AdminUnlockRequest(BaseModel):
     code: str = Field(min_length=1, max_length=128)
+    otp: str = Field(default='',max_length=6)
+
+
+class MFASetupRequest(BaseModel):
+    password: str = Field(min_length=1,max_length=256)
+
+
+class MFAConfirmRequest(BaseModel):
+    otp: str = Field(min_length=6,max_length=6)
+
+
+class CapabilityGrantRequest(BaseModel):
+    capability: str = Field(max_length=40)
+    scope: dict
+    seconds: int = Field(default=300,ge=1,le=900)
+
+
+class ExecutionRequest(BaseModel):
+    capability: str = Field(max_length=40)
+    arguments: dict
+
+
+class ExecutionPlanRequest(BaseModel):
+    steps: list[dict] = Field(min_length=1,max_length=8)
 
 
 class AdminModeRequest(BaseModel):
@@ -238,6 +262,28 @@ def create_app(settings=None, agent=None, catalog=None):
     def forget_all(user=Depends(signed_in)):
         return {'deleted': agent.personal.forget(user['id'])}
 
+    @app.get('/api/conversations/{session_id}/summary', dependencies=[Depends(authenticate)])
+    def get_summary(session_id: UUID,user=Depends(signed_in)):
+        from .summaries import current
+        try:return {'summary':current(agent.store,agent.personal,user['id'],str(session_id))}
+        except LookupError as exc:raise HTTPException(404,'Conversation not found') from exc
+
+    @app.post('/api/conversations/{session_id}/summary', dependencies=[Depends(authenticate)])
+    def save_summary(session_id: UUID,user=Depends(signed_in)):
+        from .summaries import summarize
+        try:return {'summary':summarize(agent,user['id'],str(session_id)),'weight_update':False}
+        except LookupError as exc:raise HTTPException(404,'Conversation not found') from exc
+        except BusyError as exc:raise HTTPException(429,str(exc)) from exc
+        except ValueError as exc:raise HTTPException(400,str(exc)) from exc
+
+    @app.delete('/api/conversations/{session_id}/summary', dependencies=[Depends(authenticate)])
+    def delete_summary(session_id: UUID,user=Depends(signed_in)):
+        guard_conversation(session_id,user)
+        from .summaries import initialize
+        initialize(agent.store)
+        with agent.store.connect() as db:db.execute('DELETE FROM conversation_summaries WHERE session_id=? AND user_id=?',(str(session_id),user['id']))
+        return {'deleted':True}
+
     @app.get('/api/model-packs', dependencies=[Depends(authenticate)])
     def model_packs():
         from .packs import summaries
@@ -288,7 +334,7 @@ def create_app(settings=None, agent=None, catalog=None):
     def admin_unlock(body: AdminUnlockRequest, request: Request, user=Depends(signed_in)):
         limit_login(request)
         token=request.cookies.get('zenith_login','')
-        if not agent.admin.unlock(user['id'],token,body.code.strip()):
+        if not agent.admin.unlock(user['id'],token,body.code.strip(),body.otp):
             raise HTTPException(403,'Owner account or secret code was not accepted')
         return agent.admin.status(user['id'],token)
 
@@ -309,13 +355,80 @@ def create_app(settings=None, agent=None, catalog=None):
 
     @app.post('/api/admin/tools', dependencies=[Depends(authenticate)])
     def admin_run_tool(body: AdminToolRequest, request: Request, user=Depends(administrator)):
+        if agent.execution.status(user['id'],request.cookies.get('zenith_login',''))['stopped']:
+            raise HTTPException(403,'Emergency shutdown is active')
         if not agent.admin.status(user['id'],request.cookies.get('zenith_login',''))['devil_mode']:
             raise HTTPException(403,'Enable the administrator security workspace first')
         from .tools import run_tool
-        try: result=run_tool(body.tool,body.text)
+        try:
+            if body.tool in {'code-audit','inspect-url'}:
+                result=agent.execution.execute(user['id'],request.cookies.get('zenith_login',''),body.tool,{'text':body.text})
+            else:
+                result=run_tool(body.tool,body.text)
+        except PermissionError as exc: raise HTTPException(403,str(exc)) from exc
         except ValueError as exc: raise HTTPException(400,str(exc)) from exc
         agent.admin.record_tool(user['id'],body.tool)
         return {'result':result,'executed_by':'bounded-local-tool','model_execution':False}
+
+    @app.post('/api/admin/mfa/setup', dependencies=[Depends(authenticate)])
+    def mfa_setup(body: MFASetupRequest,request: Request,user=Depends(administrator)):
+        limit_login(request)
+        if agent.personal.login(user['username'],body.password) is None:
+            raise HTTPException(403,'Reauthentication failed')
+        try:return agent.admin.mfa.begin(user['id'],user['username'])
+        except ValueError as exc:raise HTTPException(400,str(exc)) from exc
+
+    @app.post('/api/admin/mfa/confirm', dependencies=[Depends(authenticate)])
+    def mfa_confirm(body: MFAConfirmRequest,request: Request,user=Depends(administrator)):
+        limit_login(request)
+        token=request.cookies.get('zenith_login','')
+        if not agent.admin.mfa.verify(user['id'],token,body.otp,enroll=True):
+            raise HTTPException(403,'Authenticator code was not accepted')
+        return agent.admin.status(user['id'],token)
+
+    @app.get('/api/admin/execution', dependencies=[Depends(authenticate)])
+    def execution_status(request: Request,user=Depends(administrator)):
+        return agent.execution.status(user['id'],request.cookies.get('zenith_login',''))
+
+    @app.post('/api/admin/execution/grant', dependencies=[Depends(authenticate)])
+    def execution_grant(body: CapabilityGrantRequest,request: Request,user=Depends(administrator)):
+        try:return agent.execution.grant(user['id'],request.cookies.get('zenith_login',''),body.capability,body.scope,body.seconds)
+        except PermissionError as exc:raise HTTPException(403,str(exc)) from exc
+        except ValueError as exc:raise HTTPException(400,str(exc)) from exc
+
+    @app.delete('/api/admin/execution/grants', dependencies=[Depends(authenticate)])
+    def execution_revoke(request: Request,user=Depends(administrator)):
+        agent.execution.revoke(user['id'],request.cookies.get('zenith_login',''))
+        return {'revoked':True}
+
+    @app.post('/api/admin/execution/stop', dependencies=[Depends(authenticate)])
+    def execution_stop(request: Request,user=Depends(administrator)):
+        return agent.execution.emergency(user['id'],request.cookies.get('zenith_login',''))
+
+    @app.post('/api/admin/execution/resume', dependencies=[Depends(authenticate)])
+    def execution_resume(request: Request,user=Depends(administrator)):
+        try:return agent.execution.emergency(user['id'],request.cookies.get('zenith_login',''),False)
+        except PermissionError as exc:raise HTTPException(403,str(exc)) from exc
+
+    @app.post('/api/admin/execution/run', dependencies=[Depends(authenticate)])
+    def execution_run(body: ExecutionRequest,request: Request,user=Depends(administrator)):
+        try:return {'result':agent.execution.execute(user['id'],request.cookies.get('zenith_login',''),body.capability,body.arguments)}
+        except PermissionError as exc:raise HTTPException(403,str(exc)) from exc
+        except ValueError as exc:raise HTTPException(400,str(exc)) from exc
+        except OSError as exc:raise HTTPException(502,'Scoped diagnostic failed; check the authorized target and local network') from exc
+
+    @app.post('/api/admin/execution/plan', dependencies=[Depends(authenticate)])
+    def execution_plan(body: ExecutionPlanRequest,request: Request,user=Depends(administrator)):
+        try:return agent.execution.run_plan(user['id'],request.cookies.get('zenith_login',''),body.steps)
+        except PermissionError as exc:raise HTTPException(403,str(exc)) from exc
+        except ValueError as exc:raise HTTPException(400,str(exc)) from exc
+        except OSError as exc:raise HTTPException(502,'A scoped diagnostic failed; plan stopped') from exc
+
+    @app.get('/api/admin/execution/history', dependencies=[Depends(authenticate)])
+    def execution_history(user=Depends(administrator)):
+        with agent.store.connect() as db:
+            return {'events':[dict(r) for r in db.execute('SELECT * FROM execution_audit WHERE user_id=? ORDER BY id DESC LIMIT 100',(user['id'],))],
+                    'tasks':[dict(r) for r in db.execute('SELECT id,created,status,steps,results FROM agent_tasks WHERE user_id=? ORDER BY created DESC LIMIT 50',(user['id'],))]}
 
     @app.post('/api/review-requests', dependencies=[Depends(authenticate)])
     def request_human_review(body: HumanReviewRequest,user=Depends(signed_in)):

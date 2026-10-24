@@ -1,0 +1,8 @@
+{
+  "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "adapter": "/workspace/scratch/zenith-expansion-sft-candidate-v3",
+  "examples": 19,
+  "skipped": 0,
+  "target_tokens": 520,
+  "mean_target_loss": 3.207596539075558
+}

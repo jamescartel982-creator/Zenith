@@ -1,0 +1,8 @@
+{
+  "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "adapter": "/workspace/scratch/zenith-v06-adapter",
+  "examples": 19,
+  "skipped": 0,
+  "target_tokens": 520,
+  "mean_target_loss": 3.5588773362911663
+}

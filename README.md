@@ -9,7 +9,7 @@ license: apache-2.0
 
 A local AI workspace for conversations, coding, research, and reviewed learning. Zenith brings open model runtimes, private memory, streamed responses, and evaluation tools into a single application for Windows and Linux.
 
-**Release 0.11.1** · [Changelog](CHANGELOG.md) · [Installation](docs/local-installation.md) · [Model discovery](docs/model-discovery.md) · [Validation](docs/validation.md)
+**Release 0.12.0** · [Changelog](CHANGELOG.md) · [Installation](docs/local-installation.md) · [Model discovery](docs/model-discovery.md) · [Validation](docs/validation.md)
 
 ## Install
 
@@ -109,6 +109,14 @@ zenith admin init --username YOUR_USERNAME
 ```
 
 The unique code is created locally and kept out of model prompts and Git. Sign in as the owner and unlock Admin before explicitly activating a protected security profile. Logout, locking, code rotation, and expiry revoke that access. See [administration](docs/admin.md), [skills](docs/skills.md), and [memory](docs/memory.md). Shared deployments require the authentication and network controls in [deployment](docs/deployment.md).
+
+## Continued training and execution controls
+
+The existing trained Zenith adapter can be verified and continued into a separate candidate with preserved architecture, tokenizer, and parent file hashes. The pipeline supports instruction tuning, domain-text continuation, reviewed preference pairs, historical replay, raw-model diagnostics, and local merge/export checks. It never promotes or publishes automatically.
+
+The recorded CPU pilot improved held-out loss but failed quality gates because instruction following and retrieval grounding regressed. Its weights remain local and inactive. This is an actual training experiment, not a claim of comprehensive expertise. See [checkpoint inspection, measured results, and commands](docs/continued-training.md) and the [candidate model card](docs/MODEL_CARD.md).
+
+Owner controls now include Argon2id password migration, authenticator-based MFA, explicit capability grants, narrow target scopes, activity records, bounded diagnostic plans, and emergency shutdown. Restricted execution starts disabled, including for the owner. Account-owned conversation summaries provide additional external context without changing weights. See [execution and memory controls](docs/execution-controls.md).
 
 ## Development and limitations
 

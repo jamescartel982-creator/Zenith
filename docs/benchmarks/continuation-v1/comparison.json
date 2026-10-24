@@ -1,0 +1,13 @@
+{
+  "parent_accuracy": 0.5833333333333334,
+  "candidate_accuracy": 0.625,
+  "production_accuracy": 0.4583333333333333,
+  "regressed_slices": [
+    "instruction-following",
+    "retrieval-grounding"
+  ],
+  "numeric_gate_passed": false,
+  "human_review_required": true,
+  "deployment_approved": false,
+  "automatic_promotion": false
+}
