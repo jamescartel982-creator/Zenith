@@ -37,6 +37,16 @@ class EasyInstallTests(unittest.TestCase):
                 self.assertLess(selected,len(commands)-1)
                 self.assertFalse(any(c[-2:]==['models','download'] for c in commands))
 
+    def test_candidate_installer_can_switch_from_an_external_runtime_without_erasing_settings(self):
+        module=bootstrap()
+        with tempfile.TemporaryDirectory() as folder:
+            with patch.object(module.venv.EnvBuilder,'create'),patch.object(module,'run') as run,patch.object(module,'configured_provider',return_value='ollama'),contextlib.redirect_stdout(io.StringIO()):
+                self.assertEqual(module.main(['--venv',folder,'--activate-candidate']),0)
+                commands=[list(map(str,c.args[0])) for c in run.call_args_list]
+                self.assertTrue(any('download.pytorch.org' in ' '.join(c) for c in commands))
+                self.assertTrue(any('setup' in c and '--activate-candidate' in c for c in commands))
+                self.assertFalse(any('--overwrite' in c for c in commands))
+
     def test_explicit_release_is_cached_and_activated_before_launch(self):
         module=bootstrap()
         with tempfile.TemporaryDirectory(prefix='zenith release spaces ') as folder:

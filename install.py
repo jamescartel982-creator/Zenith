@@ -57,6 +57,8 @@ def main(argv=None):
     activation.add_argument('--activate-release',type=Path,help='Explicitly activate an approved trained model bundle after setup')
     activation.add_argument('--activate-candidate',action='store_true',help='Explicitly accept known regressions and activate the bundled experimental candidate')
     args = parser.parse_args(argv)
+    if args.activate_candidate and args.mode!='local':
+        parser.error('--activate-candidate uses --mode local')
     if sys.version_info < (3, 10):
         parser.error('Python 3.10+ is required; Python 3.12 is recommended')
     show_banner()
@@ -78,7 +80,9 @@ def main(argv=None):
         if args.overwrite_config:
             configure.append('--overwrite')
         run(configure)
-        provider = configured_provider(python)
+        # Explicit candidate selection installs its HF runtime even when the
+        # previous profile uses Ollama/ensemble. Activation backs up that profile.
+        provider = 'huggingface' if args.activate_candidate else configured_provider(python)
         if provider not in {'huggingface', 'ensemble', 'ollama', 'tiny', 'localserver'}:
             raise RuntimeError('Unexpected provider configuration')
         needs_hf = provider == 'huggingface' or (provider == 'ensemble' and configured_needs_hf(python))

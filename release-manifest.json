@@ -1306,8 +1306,8 @@
     },
     {
       "path": "install.py",
-      "size": 7939,
-      "sha256": "58cbd07532ef5ab707cbaba24a67627032de8f5968c3745c8b9909dc18e8a35d",
+      "size": 8263,
+      "sha256": "7b11f85d41dccf92ed8b04cdaf7561ce4ba186b5b7e095c87174a7ba76076429",
       "normalization": "lf"
     },
     {
@@ -1720,8 +1720,8 @@
     },
     {
       "path": "tests/test_easy_install.py",
-      "size": 8592,
-      "sha256": "6022d53fdfded5ce443aa196bb546c92c9a407b3ea941b7b9fb1a1bd695a018b",
+      "size": 9421,
+      "sha256": "e6ecdcc895c6c021d9abd4ff1b97cddd8fa5e1ba984cd58fe4f6ae09777353af",
       "normalization": "lf"
     },
     {
