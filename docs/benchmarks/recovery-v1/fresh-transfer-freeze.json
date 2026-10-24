@@ -1,0 +1,10 @@
+{
+  "created_utc": "2026-10-24T16:08:04.598288+00:00",
+  "source_sha256": "916a9182acc608d3b06abf424af2d985a63f632f00b50330bac1c2b0827cc983",
+  "suite_sha256": "9a6de9f8601d0e05f7a11685a9acdfcf3c8a25685724dc6fa2c01816e869e7f6",
+  "cases": 20,
+  "frozen_before_preference_gradient_updates": true,
+  "source_last_modified_utc": "2026-10-24T16:05:05.249752+00:00",
+  "freeze_basis": "The suite source was written before the tool operation launching preference training; this manifest was written afterward.",
+  "fresh_targets_not_used_for_gradient_updates": true
+}

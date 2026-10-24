@@ -39,6 +39,17 @@ class FakeProvider:
 
 
 class EnsembleTests(unittest.TestCase):
+    def test_activation_receipt_follows_only_the_approved_adapter(self):
+        with tempfile.TemporaryDirectory() as folder:
+            settings=Settings(provider='ensemble',adapter=str(Path(folder)/'adapter'),checkpoint_receipt=str(Path(folder)/'receipt.json'))
+            config=default_team_config(settings);team=EnsembleProvider(settings,config=config)
+            primary,reviewer=team.members
+            self.assertEqual(team._settings_for(primary).checkpoint_receipt,settings.checkpoint_receipt)
+            self.assertEqual(team._settings_for(reviewer).checkpoint_receipt,'')
+            config['members'][0]['revision']='different-revision'
+            changed=EnsembleProvider(settings,config=config)
+            self.assertEqual(changed._settings_for(changed.members[0]).checkpoint_receipt,settings.checkpoint_receipt)
+
     def setUp(self):
         self.settings = Settings(provider='huggingface')
         self.messages = [{'role': 'system', 'content': 'SYSTEM RULES'}, {'role': 'user', 'content': 'Write a Python function to add two numbers.'}]

@@ -1,0 +1,56 @@
+{
+  "comparisons": [
+    {
+      "baseline": "immediate-parent",
+      "parent_accuracy": 0.85,
+      "candidate_accuracy": 0.75,
+      "production_accuracy": 0.85,
+      "regressed_slices": [
+        "mathematical-reasoning",
+        "cybersecurity-knowledge"
+      ],
+      "regressed_cases": [
+        "fresh-math-2",
+        "fresh-forensic"
+      ],
+      "numeric_gate_passed": false,
+      "human_review_required": true,
+      "deployment_approved": false,
+      "automatic_promotion": false
+    },
+    {
+      "baseline": "previous-trained",
+      "parent_accuracy": 0.6,
+      "candidate_accuracy": 0.75,
+      "production_accuracy": 0.6,
+      "regressed_slices": [
+        "mathematical-reasoning",
+        "cybersecurity-knowledge",
+        "agent-planning"
+      ],
+      "regressed_cases": [
+        "fresh-math-2",
+        "fresh-forensic",
+        "fresh-plan"
+      ],
+      "numeric_gate_passed": false,
+      "human_review_required": true,
+      "deployment_approved": false,
+      "automatic_promotion": false
+    },
+    {
+      "baseline": "production",
+      "parent_accuracy": 0.55,
+      "candidate_accuracy": 0.75,
+      "production_accuracy": 0.55,
+      "regressed_slices": [],
+      "regressed_cases": [],
+      "numeric_gate_passed": true,
+      "human_review_required": true,
+      "deployment_approved": false,
+      "automatic_promotion": false
+    }
+  ],
+  "automatic_promotion": false,
+  "deployment_approved": false
+}

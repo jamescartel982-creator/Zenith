@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "source_sha256": "d2c1e9867dff8f6ef88a83729fd68fdcc5a3d4d252dc1bd3b728244f8f1ac47c",
+  "source_snapshot": "source.jsonl",
+  "seed": 113,
+  "quality": {
+    "input_rows": 36,
+    "usable_rows": 36,
+    "exact_duplicates_removed": 0,
+    "topics": {
+      "trust-boundaries": 12,
+      "approval-state": 12,
+      "answer-relevance": 12
+    }
+  },
+  "files": {
+    "train": {
+      "path": "train.jsonl",
+      "rows": 95,
+      "sha256": "ad602ac043f96aa264ec8c424e64689e9ee2c627b5005121e622fe149a7d4c56",
+      "topics": {
+        "agent-planning": 2,
+        "ai": 2,
+        "algebra": 2,
+        "ancient-math": 2,
+        "answer-relevance": 8,
+        "approval-state": 8,
+        "black-hat-defense": 2,
+        "blue-hat": 2,
+        "books-writing": 2,
+        "cybersecurity": 2,
+        "data-research": 2,
+        "day-trading": 2,
+        "document-grounding": 2,
+        "evidence-custody": 2,
+        "evidence-extraction": 2,
+        "exact-instructions": 2,
+        "gray-hat": 2,
+        "green-hat": 1,
+        "history": 2,
+        "infrastructure": 2,
+        "investing": 2,
+        "math": 2,
+        "numeral-systems": 2,
+        "programming": 2,
+        "python-functions": 2,
+        "raw-json": 2,
+        "reasoning-communication": 2,
+        "red-hat": 2,
+        "retrieval-memory": 2,
+        "rust-borrowing": 2,
+        "science": 2,
+        "science-mathematics": 2,
+        "security-retention": 2,
+        "structured-tools": 2,
+        "task-summary": 2,
+        "tool-schemas": 2,
+        "trust-boundaries": 8,
+        "untrusted-instructions": 2,
+        "white-hat": 2
+      }
+    },
+    "validation": {
+      "path": "validation.jsonl",
+      "rows": 6,
+      "sha256": "70fdc1a1195043a44688e6342e4beb6ef1b0c8944137f0cd999bf52fe128cff6",
+      "topics": {
+        "answer-relevance": 2,
+        "approval-state": 2,
+        "trust-boundaries": 2
+      }
+    },
+    "test": {
+      "path": "test.jsonl",
+      "rows": 6,
+      "sha256": "5d8b18f21a1b8b4a911d574a6a6eac8e3878938f685aa77bf0a64bca74cc191d",
+      "topics": {
+        "answer-relevance": 2,
+        "approval-state": 2,
+        "trust-boundaries": 2
+      }
+    }
+  },
+  "final_test_used_for_training": false,
+  "automatic_promotion": false,
+  "limitations": [
+    "Authored preference repair guided by public development diagnostics and manual review, not a sealed capability test.",
+    "Chosen/rejected judgments cover bounded examples and do not certify expert competence."
+  ],
+  "replay": {
+    "path": "historical-train-replay.jsonl",
+    "snapshot_sha256": "fe7efdc4d8719d1426fb905377137d9ef567254615657408c4e6fe44d1470e78",
+    "source_sha256": "5475180ecbeae771b41018ec5486a8d64bc745701a08d5269def8eeaf8f13f39",
+    "rows": 71,
+    "partition": "train-only"
+  }
+}

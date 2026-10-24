@@ -1,4 +1,36 @@
-# Zenith continued-training candidate
+# Zenith model card
+
+Current recovery status: **experimental; no new model release is approved yet**.
+
+The existing rank-8 adapter continues the original pinned Qwen2 architecture and
+tokenizer. The stability-repair candidate reached 24/24 on the public development
+diagnostics and 16/18 on the first transfer probes. Raw review found misleading
+permission and approval-state wording, and retained-domain loss increased from
+3.2076 to 3.4212. These results do not establish readiness for production.
+
+A 64-step preference repair scored 20/24 and introduced further regressions.
+Same-lineage parameter averaging scored 24/24 under the legacy prompt but failed
+manual permission/approval review. With the shared application policy it scored
+23/24, still omitting owner approval in a summary. These different inference
+protocols are reported separately. Averaging performs no new gradient updates.
+On matched application-policy runs, the parameter mean scored 15/20 fresh tasks
+versus 17/20 for its immediate parent and 12/20 for the previous trained reference.
+It confused forensic hashing with password hashing. Retained-domain loss was
+3.3734, above the previous reference's 3.2076. Promotion remains rejected.
+All source checkpoints remain preserved and inactive.
+
+The small authored Apache-2.0 curricula were guided by public diagnostic failures.
+Exact diagnostic prompts and old held-out rows are excluded from gradient updates,
+but the development score is not an independent estimate of expert competence.
+See [recovery evidence](model-recovery.md), [promotion controls](model-promotion.md),
+and [execution controls](execution-controls.md). Model activation never enables
+restricted execution tools or bypasses MFA and target-scope checks.
+
+The [research snapshot](../research_checkpoints/recovery-v1/) contains the actual
+experimental adapter and tokenizer. It is inactive and explicitly rejected by the
+approved-release activation workflow. Base weights remain a separate pinned download.
+
+## Historical 0.12 pilot
 
 Status: **experimental, local, not promoted or published**.
 

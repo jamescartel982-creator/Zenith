@@ -1,0 +1,17 @@
+{
+  "parent_accuracy": 0.625,
+  "candidate_accuracy": 0.7916666666666666,
+  "production_accuracy": 0.4583333333333333,
+  "regressed_slices": [
+    "retention",
+    "retrieval-grounding"
+  ],
+  "regressed_cases": [
+    "retention-2",
+    "grounding-2"
+  ],
+  "numeric_gate_passed": false,
+  "human_review_required": true,
+  "deployment_approved": false,
+  "automatic_promotion": false
+}

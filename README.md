@@ -9,7 +9,7 @@ license: apache-2.0
 
 A local AI workspace for conversations, coding, research, and reviewed learning. Zenith brings open model runtimes, private memory, streamed responses, and evaluation tools into a single application for Windows and Linux.
 
-**Release 0.12.1** · [Changelog](CHANGELOG.md) · [Installation](docs/local-installation.md) · [Model discovery](docs/model-discovery.md) · [Validation](docs/validation.md)
+**Release 0.13.0** · [Changelog](CHANGELOG.md) · [Installation](docs/local-installation.md) · [Model discovery](docs/model-discovery.md) · [Validation](docs/validation.md)
 
 ## Install
 
@@ -114,9 +114,12 @@ The unique code is created locally and kept out of model prompts and Git. Sign i
 
 The existing trained Zenith adapter can be verified and continued into a separate candidate with preserved architecture, tokenizer, and parent file hashes. The pipeline supports instruction tuning, domain-text continuation, reviewed preference pairs, historical replay, raw-model diagnostics, and local merge/export checks. It never promotes or publishes automatically.
 
-The recorded CPU pilot improved held-out loss but failed quality gates because instruction following and retrieval grounding regressed. Its weights remain local and inactive. This is an actual training experiment, not a claim of comprehensive expertise. See [checkpoint inspection, measured results, and commands](docs/continued-training.md) and the [candidate model card](docs/MODEL_CARD.md).
+The recovery study continues the existing checkpoint with instruction tuning, training-only replay, and reviewed preferences. One candidate reached 24/24 on the public diagnostics, while manual review and independent tests exposed further limitations; it remains inactive. Promotion now checks individual cases as well as slice scores. See [measured recovery results](docs/model-recovery.md), [activation and rollback](docs/model-promotion.md), the [original pilot](docs/continued-training.md), and the [model card](docs/MODEL_CARD.md).
 
-Diagnostic grading now rejects incomplete evidence, mismatched evaluation settings, and individual case regressions. See [grading corrections and recovery status](docs/benchmark-gates.md). Follow-up model artifacts remain experimental and are not activated by this update.
+An [inactive research snapshot](research_checkpoints/recovery-v1/) includes the actual
+continued adapter weights, original tokenizer, pinned base identity, and training
+history. It is available for verification and further experiments; installing this
+release preserves your production model. No candidate has passed final review.
 
 Owner controls now include Argon2id password migration, authenticator-based MFA, explicit capability grants, narrow target scopes, activity records, bounded diagnostic plans, and emergency shutdown. Restricted execution starts disabled, including for the owner. Account-owned conversation summaries provide additional external context without changing weights. See [execution and memory controls](docs/execution-controls.md).
 

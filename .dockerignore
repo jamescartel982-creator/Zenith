@@ -22,3 +22,8 @@ config/*.local.json
 **/*.key
 .zenith-*
 training-candidate
+!model_releases/
+!model_releases/**
+
+# Inactive research weights are source artifacts, not container production models.
+research_checkpoints/

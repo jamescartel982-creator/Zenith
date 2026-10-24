@@ -18,6 +18,7 @@ class Settings:
     model: str = field(default_factory=lambda: os.getenv("HF_MODEL", "Qwen/Qwen2.5-0.5B-Instruct"))
     revision: str = field(default_factory=lambda: os.getenv("HF_REVISION", "main"))
     adapter: str = field(default_factory=lambda: os.getenv("ZENITH_ADAPTER", ""))
+    checkpoint_receipt: str = field(default_factory=lambda: os.getenv('ZENITH_CHECKPOINT_RECEIPT', ''))
     device: str = field(default_factory=lambda: os.getenv("ZENITH_DEVICE", "auto"))
     data_dir: str = field(default_factory=lambda: os.getenv("AGENT_DATA_DIR", default_data_dir()))
     api_token: str = field(default_factory=lambda: os.getenv("ZENITH_API_TOKEN", ""))

@@ -89,6 +89,10 @@ jobs:
           ./run.sh models download
           ./run.sh doctor --inference
           .venv/bin/python -m unittest discover -s tests -v
+          if [ -f model_releases/recovery-v1/release.json ]; then
+            .venv/bin/python -I -m scripts.smoke_model_release --bundle model_releases/recovery-v1
+          fi
+          .venv/bin/python -I -m scripts.check_research_checkpoint --bundle research_checkpoints/recovery-v1
           .venv/bin/python scripts/smoke_server.py
           .venv/bin/python scripts/smoke_easy_launch.py
           .venv/bin/python scripts/smoke_installed.py
@@ -119,6 +123,12 @@ jobs:
           ./run.ps1 doctor --inference
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           .venv/Scripts/python.exe -m unittest discover -s tests -v
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          if (Test-Path model_releases/recovery-v1/release.json) {
+            .venv/Scripts/python.exe -I -m scripts.smoke_model_release --bundle model_releases/recovery-v1
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          }
+          .venv/Scripts/python.exe -I -m scripts.check_research_checkpoint --bundle research_checkpoints/recovery-v1
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           .venv/Scripts/python.exe scripts/smoke_server.py
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }

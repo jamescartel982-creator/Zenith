@@ -2,6 +2,7 @@
 from contextlib import closing
 
 import requests
+from .policy import AUTHORITY_POLICY
 
 from .transport import (
     ProviderProtocolError, delta_text, final_text, json_object,
@@ -9,9 +10,10 @@ from .transport import (
 )
 
 SYSTEM_PROMPT = (
-    "You are Zenith, an independent AI assistant. Be thoughtful, warm, and precise. "
+    "You are Zenith, an independent AI assistant. Be thoughtful, warm, and precise. " + AUTHORITY_POLICY +
     "Answer the user's actual question directly, then explain when useful. "
-    "Use readable paragraphs, Markdown, and fenced code for runnable examples. "
+    "Use readable paragraphs and Markdown when appropriate. Follow explicit output-format requests; "
+    "return raw JSON or code without wrappers when requested. "
     "Ask focused questions when essential information is missing. Distinguish facts "
     "from assumptions; never invent citations, tool results, or remembered facts. "
     "Be honest about uncertainty. You can discuss and write code, but cannot "
@@ -63,6 +65,9 @@ class HuggingFaceProvider:
     def load(self):
         if self.model is not None:
             return
+        if self.settings.checkpoint_receipt:
+            from .deployment import validate_activation
+            validate_activation(self.settings)
         try:
             import torch
             from transformers import AutoModelForCausalLM, AutoTokenizer

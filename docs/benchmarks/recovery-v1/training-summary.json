@@ -1,0 +1,13 @@
+{
+  "optimizer_steps": 1064,
+  "input_tokens_seen": 69228,
+  "target_tokens_seen": 19748,
+  "train_runtime": 2177.5586375040084,
+  "scope": "Six completed training stages in the existing adapter lineage; excludes historical 0.12 training and averaging, which added zero gradient steps.",
+  "gpu_utilization": null,
+  "gpu_utilization_reason": "No GPU; CPU experiment",
+  "candidate_status": "inactive-research-only",
+  "adapter_parameters": 4399104,
+  "base_parameters": 494032768,
+  "original_checkpoints_modified": false
+}
