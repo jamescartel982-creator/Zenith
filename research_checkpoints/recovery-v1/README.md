@@ -1,6 +1,6 @@
 # Zenith continued-learning research snapshot
 
-Status: **experimental and inactive; not approved for production activation**.
+Status: **experimental; explicit owner activation with known regressions is available**.
 
 These are actual learned adapter weights from the existing Zenith continuation
 chain. The unchanged base is Qwen/Qwen2.5-0.5B-Instruct at revision
@@ -18,6 +18,14 @@ These are known regressions. Raw measurements and matched baselines are recorded
 in docs/benchmarks/recovery-v1. These small authored checks do not establish
 expert competence or broad safety. This snapshot does not enable restricted tools.
 The supplied research.json deliberately disallows deployment use-release.
+An operator can explicitly accept the recorded regressions from the repository:
+
+```text
+zenith setup --activate-candidate
+```
+
+This creates a reversible experimental activation receipt and preserves the
+failed evaluation decision. The checkpoint files themselves are unchanged.
 
 From an installed environment with the pinned base cached, verify real loading:
 

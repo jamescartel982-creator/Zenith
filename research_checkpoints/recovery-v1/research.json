@@ -12,8 +12,8 @@
       "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
     },
     "README.md": {
-      "bytes": 2661,
-      "sha256": "a42c3fb6bc24689f7f1bb338b6ab0902af69eedcbc86a3a4d0ab5b6c6aa5d61d"
+      "bytes": 2950,
+      "sha256": "910510edd70a3055b4b00d00c632769a7b27db80b5a65a9dcb677082f4ac8602"
     },
     "checkpoint/README.md": {
       "bytes": 5206,
@@ -54,6 +54,30 @@
     "checkpoint/vocab.json": {
       "bytes": 2776833,
       "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+    },
+    "evaluation/candidate.json": {
+      "bytes": 23667,
+      "sha256": "a2b1a033d1408b9b46a2353102e60e3465df35e106c8e60ce027912c600263fe"
+    },
+    "evaluation/fresh-transfer.json": {
+      "bytes": 15312,
+      "sha256": "c754210985ac203c689c0dfd9894dd448bb661fbbeba7d4fc7da533d62509b6c"
+    },
+    "evaluation/immediate-parent.json": {
+      "bytes": 23911,
+      "sha256": "bb95c4278118dc4f5ae946f24a43a372ad53d5f6d968c1a97244b6c7e2af0f60"
+    },
+    "evaluation/previous-trained.json": {
+      "bytes": 24050,
+      "sha256": "d1e7e58fab31a82060f8b1b8c7e8d2b248aff0ac890e86fa564156ff48fe7e10"
+    },
+    "evaluation/production.json": {
+      "bytes": 25788,
+      "sha256": "b3f3ebc1e3a7afefe79e135be7f1d43a2a95016203eba031c223461a9bf4ed45"
+    },
+    "evaluation/retention.json": {
+      "bytes": 422,
+      "sha256": "a514aa6c35f13d2b6dceb81919fa56683722576af0605c988b96dbfc9efeadd6"
     },
     "weights/adapter-001.bin": {
       "bytes": 6291456,
@@ -122,5 +146,18 @@
     "weights/adapter-002.bin",
     "weights/adapter-003.bin"
   ],
-  "weight_file": "adapter_model.safetensors"
+  "weight_file": "adapter_model.safetensors",
+  "evaluation": {
+    "candidate_report": "evaluation/candidate.json",
+    "baseline_reports": [
+      "evaluation/immediate-parent.json",
+      "evaluation/previous-trained.json",
+      "evaluation/production.json"
+    ],
+    "additional_reports": [
+      "evaluation/fresh-transfer.json",
+      "evaluation/retention.json"
+    ]
+  },
+  "experimental_activation_available": true
 }

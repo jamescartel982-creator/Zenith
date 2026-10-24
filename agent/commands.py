@@ -10,6 +10,7 @@ COMMANDS = {
     'doctor': ('agent.doctor', 'Check installation and model readiness'),
     'verify': ('agent.integrity', 'Verify installed files or a complete source release manifest'),
     'configure': ('agent.setup', 'Save a local or Ollama configuration'),
+    'setup': ('agent.setup', 'Configure Zenith or explicitly activate its experimental candidate'),
     'models': ('agent.models', 'List, check, or download configured models'),
     'packs': ('agent.packs', 'Inspect, verify, download or configure Zenith model packs'),
     'skills': ('agent.skills', 'Browse AI/security learning profiles, workflows, and reference resources'),

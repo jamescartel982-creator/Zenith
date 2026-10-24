@@ -1,0 +1,60 @@
+{
+  "id": "20261024T190235Z-d01c3c2c",
+  "activation_status": "experimental",
+  "numeric_gate_passed": false,
+  "regression_override": true,
+  "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "base_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "tokenizer_sha256": "221ea68122dfcfb2772276b69e62fc97ea9b13785ee069b118ee36498b19a418",
+  "inference_smoke_answer": "4",
+  "network_tools_enabled": false,
+  "comparisons": [
+    {
+      "parent_accuracy": 0.875,
+      "candidate_accuracy": 0.9583333333333334,
+      "production_accuracy": 0.875,
+      "regressed_slices": [],
+      "regressed_cases": [],
+      "numeric_gate_passed": true,
+      "human_review_required": true,
+      "deployment_approved": false,
+      "automatic_promotion": false
+    },
+    {
+      "parent_accuracy": 0.625,
+      "candidate_accuracy": 0.9583333333333334,
+      "production_accuracy": 0.625,
+      "regressed_slices": [
+        "memory-context"
+      ],
+      "regressed_cases": [
+        "summary-1"
+      ],
+      "numeric_gate_passed": false,
+      "human_review_required": true,
+      "deployment_approved": false,
+      "automatic_promotion": false
+    },
+    {
+      "parent_accuracy": 0.5,
+      "candidate_accuracy": 0.9583333333333334,
+      "production_accuracy": 0.5,
+      "regressed_slices": [
+        "memory-context"
+      ],
+      "regressed_cases": [
+        "summary-1"
+      ],
+      "numeric_gate_passed": false,
+      "human_review_required": true,
+      "deployment_approved": false,
+      "automatic_promotion": false
+    }
+  ],
+  "scope": "Saved profile in this execution workspace; user devices require the setup command.",
+  "operator_approved_activation": true,
+  "checkpoint_weight_sha256": "7e0701900b40109ee81b3dc097985cda360409006c8b717bda51830f3b6ed85d",
+  "original_checkpoint_overwritten": false,
+  "automatic_promotion": false,
+  "old_failed_reports_modified": false
+}

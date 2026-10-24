@@ -4,6 +4,39 @@
 model, browser chat, agent plans, or network clients. It changes a saved local
 profile only after an explicit approval flag and real model loading.
 
+## Activate the experimental checkpoint explicitly
+
+```text
+zenith setup --activate-candidate
+```
+
+From the cloned repository, this verifies the research bundle and evaluation
+reports, reconstructs and caches the same trained adapter, downloads its original
+pinned base if necessary, tests loading, and selects it in your saved profile.
+This command explicitly accepts the recorded regressions. The receipt records
+`activation_status: experimental`, `numeric_gate_passed: false`, and
+`regression_override: true`; it never changes raw reports or marks failed scores
+as passed. The approved-release workflow retains its original quality gate.
+
+The lower-level operator command is:
+
+```text
+zenith deployment use-research --bundle research_checkpoints/recovery-v1 --approve --allow-regressions --download-base
+```
+
+For another verified checkpoint, `deployment activate` also accepts
+`--allow-regressions` together with `--approve` and a review note. This exception
+only permits measured quality regressions. Changed weights, forged scores,
+incomplete evidence, protocol differences, or incompatible tokenizers still fail.
+Neither command is exposed as a chat or remote execution tool. One checkpoint is
+selected at a time. Activating a different version preserves the prior profile
+for rollback; it does not average unrelated models or grant security capabilities.
+
+The cached model and evidence survive moving the source checkout. Use
+`zenith deployment status` to locate its receipt and the rollback command below
+to restore the previous profile. Existing environment variables and checkout
+`.env` settings still take precedence over saved configuration.
+
 ## Review a candidate
 
 Measure the complete fixed diagnostic suite on the candidate, its immediate

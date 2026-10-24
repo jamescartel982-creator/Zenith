@@ -63,14 +63,15 @@ def review(candidate,candidate_report,baseline_reports,output):
     return result
 
 
-def checked_review(path):
+def checked_review(path,allow_regressions=False):
     saved=read_json(path)
     evidence=[saved['candidate_report'],*saved['baseline_reports']]
     if any(digest(row['path'])!=row['sha256'] for row in evidence):raise ValueError('Review evidence changed')
     # Rebuild the decision from raw answers; a hand-edited passed flag is insufficient.
     with tempfile.TemporaryDirectory() as folder:
         fresh=review(saved['candidate'],saved['candidate_report']['path'],[r['path'] for r in saved['baseline_reports']],Path(folder)/'review.json')
-    if not fresh['numeric_gate_passed']:raise ValueError('Candidate still fails regression gates; activation denied')
+    if not fresh['numeric_gate_passed'] and not allow_regressions:
+        raise ValueError('Candidate fails regression gates; experimental activation requires --allow-regressions')
     return fresh
 
 
@@ -109,10 +110,10 @@ def validate_activation(settings):
     return receipt
 
 
-def activate(review_path,profile=None,state_dir=None,approve=False,review_note=''):
+def activate(review_path,profile=None,state_dir=None,approve=False,review_note='',allow_regressions=False):
     if not approve or not isinstance(review_note,str) or not review_note.strip() or len(review_note)>2000:
         raise ValueError('Explicit --approve and a human --review-note are required')
-    reviewed=checked_review(review_path)
+    reviewed=checked_review(review_path,allow_regressions)
     # Real model/tokenizer load and inference, not only a manifest check.
     from .checkpoints import inspect_checkpoint
     inspection=inspect_checkpoint(reviewed['candidate'])
@@ -147,6 +148,10 @@ def activate(review_path,profile=None,state_dir=None,approve=False,review_note='
         'tokenizer_sha256':reviewed['tokenizer_sha256'],
         'review_sha256':digest(review_path),'review_note':review_note.strip(),
         'approved':True,'inference_smoke_answer':inspection['inference'],
+        'numeric_gate_passed':reviewed['numeric_gate_passed'],
+        'regression_override':not reviewed['numeric_gate_passed'] and allow_regressions,
+        'activation_status':'validated' if reviewed['numeric_gate_passed'] else 'experimental',
+        'comparisons':reviewed['comparisons'],
         'requires_restart':True,'network_tools_enabled':False,'published':False,
         'override_notice':'Explicit environment variables and checkout .env override the saved user profile.'}
     write_new(run/'receipt.json',receipt)
@@ -214,26 +219,71 @@ def use_release(bundle,approve=False,profile=None,state_dir=None,cache_dir=None,
     return activate(review_path,profile,state_dir,approve,review_note or 'Operator selected the approved source-release bundle '+str(release.get('id','')))
 
 
+def use_research(bundle,approve=False,allow_regressions=False,profile=None,state_dir=None,cache_dir=None,review_note='',download_base=False):
+    """Explicit owner exception for an experimental model; never rewrite its scores."""
+    if not approve or not allow_regressions:
+        raise ValueError('Experimental activation requires --approve and --allow-regressions')
+    from .research import verify_bundle,materialize
+    from .integrity import safe_source_path
+    bundle,manifest=verify_bundle(bundle)
+    cache=Path(cache_dir or zenith_home()/'research_models').expanduser().resolve()
+    if cache==bundle or bundle in cache.parents or cache in bundle.parents:
+        raise ValueError('Keep the research cache separate from the source bundle')
+    stable=cache/digest(bundle/'research.json');cache.mkdir(parents=True,exist_ok=True)
+    source=stable/'source';candidate=stable/'checkpoint'
+    if stable.exists():
+        verify_bundle(source)
+        if inventory(source)!=inventory(bundle) or inventory(candidate)!=manifest['checkpoint_files']:
+            raise ValueError('Cached research checkpoint changed; refusing to overwrite it')
+    else:
+        with tempfile.TemporaryDirectory(prefix='.zenith-research-cache-',dir=cache) as folder:
+            root=Path(folder)/'release';root.mkdir()
+            shutil.copytree(bundle,root/'source')
+            if inventory(root/'source')!=inventory(bundle):raise ValueError('Research source changed during copy')
+            materialize(root/'source',root/'checkpoint')
+            os.rename(root,stable)
+    evidence=manifest['evaluation']
+    measured=safe_source_path(source,evidence['candidate_report'])
+    baselines=[safe_source_path(source,p) for p in evidence['baseline_reports']]
+    review_path=cache/('review-'+uuid4().hex+'.json')
+    decision=review(candidate,measured,baselines,review_path)
+    if download_base:
+        from .models import download
+        download({'provider':'huggingface','model':decision['base_model'],'revision':decision['base_revision']},
+            offline=os.getenv('HF_HUB_OFFLINE','').lower() in {'1','true','yes'})
+    return activate(review_path,profile,state_dir,approve,
+        review_note or 'Operator explicitly accepted known evaluation regressions for experimental research activation.',True)
+
+
 def main():
     parser=argparse.ArgumentParser(description=__doc__);sub=parser.add_subparsers(dest='action',required=True)
     p=sub.add_parser('review');p.add_argument('--candidate',type=Path,required=True);p.add_argument('--candidate-report',type=Path,required=True)
     p.add_argument('--baseline-report',type=Path,action='append',required=True);p.add_argument('--output',type=Path,required=True)
     p=sub.add_parser('activate');p.add_argument('--review',type=Path,required=True);p.add_argument('--profile',type=Path);p.add_argument('--state-dir',type=Path)
     p.add_argument('--approve',action='store_true');p.add_argument('--review-note',required=True)
+    p.add_argument('--allow-regressions',action='store_true',help='Explicit experimental exception; retain failed scores in the receipt')
     p=sub.add_parser('rollback');p.add_argument('--receipt',type=Path,required=True)
     p=sub.add_parser('status');p.add_argument('--state-dir',type=Path)
     p=sub.add_parser('use-release');p.add_argument('--bundle',type=Path,required=True);p.add_argument('--approve',action='store_true')
     p.add_argument('--profile',type=Path);p.add_argument('--state-dir',type=Path);p.add_argument('--cache-dir',type=Path);p.add_argument('--review-note',default='')
     p.add_argument('--download-base',action='store_true',help='Cache only the verified release base, respecting offline mode')
+    p=sub.add_parser('use-research');p.add_argument('--bundle',type=Path,required=True)
+    p.add_argument('--approve',action='store_true');p.add_argument('--allow-regressions',action='store_true')
+    p.add_argument('--profile',type=Path);p.add_argument('--state-dir',type=Path);p.add_argument('--cache-dir',type=Path)
+    p.add_argument('--review-note',default='');p.add_argument('--download-base',action='store_true')
     args=parser.parse_args()
     try:
         if args.action=='review':result=review(args.candidate,args.candidate_report,args.baseline_report,args.output)
-        elif args.action=='activate':result=activate(args.review,args.profile,args.state_dir,args.approve,args.review_note)
+        elif args.action=='activate':result=activate(args.review,args.profile,args.state_dir,args.approve,args.review_note,args.allow_regressions)
         elif args.action=='rollback':result=rollback(args.receipt)
         elif args.action=='use-release':result=use_release(args.bundle,args.approve,args.profile,args.state_dir,args.cache_dir,args.review_note,args.download_base)
+        elif args.action=='use-research':result=use_research(args.bundle,args.approve,args.allow_regressions,args.profile,args.state_dir,args.cache_dir,args.review_note,args.download_base)
         else:
             active=Path(args.state_dir or zenith_home()/'deployments')/'active.json'
             result=read_json(active) if active.is_file() else {'active_deployment':None}
+            if result.get('receipt'):
+                receipt=read_json(result['receipt'])
+                result.update({key:receipt.get(key) for key in ['candidate','activation_status','numeric_gate_passed','regression_override','requires_restart']})
     except (ValueError,OSError,KeyError) as exc:parser.error(str(exc))
     print(json.dumps(result,indent=2))
     return 1 if args.action=='review' and not result['numeric_gate_passed'] else 0

@@ -22,6 +22,19 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class InstallationTests(unittest.TestCase):
+    def test_conventional_setup_only_activates_candidate_when_explicitly_selected(self):
+        from agent import setup
+        with tempfile.TemporaryDirectory() as folder,patch.dict(os.environ,{'ZENITH_HOME':folder}):
+            with patch('agent.deployment.use_research') as activate,patch.object(sys,'argv',['zenith setup']),contextlib.redirect_stdout(io.StringIO()):
+                setup.main();activate.assert_not_called()
+            original=config_file().read_bytes()
+            result={'id':'fixture','activation_status':'experimental','numeric_gate_passed':False}
+            with patch('agent.deployment.use_research',return_value=result) as activate,patch.object(sys,'argv',['zenith setup','--activate-candidate']),contextlib.redirect_stdout(io.StringIO()):
+                self.assertEqual(setup.main(),0)
+                self.assertTrue(activate.call_args.kwargs['approve'])
+                self.assertTrue(activate.call_args.kwargs['allow_regressions'])
+            self.assertEqual(config_file().read_bytes(),original)
+
     def test_profile_preserves_existing_configuration(self):
         with tempfile.TemporaryDirectory() as folder, patch.dict(os.environ, {'ZENITH_HOME': folder}):
             path, created = write_configuration('local')

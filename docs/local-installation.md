@@ -1,5 +1,19 @@
 # Install, run, and upgrade Zenith locally
 
+Use the standard clone, virtual environment, `python -m pip install ".[local]"`,
+`zenith setup --activate-candidate`, and `zenith serve --open-browser` commands in
+the [README](../README.md#install). This explicitly selects the experimental
+checkpoint, preserving its known regressions in an activation receipt.
+`zenith setup` alone saves the normal base profile without changing an existing one.
+
+For CPU-only PyTorch, install it before the local extra:
+
+```bash
+python -m pip install "torch>=2.6,<3" --index-url https://download.pytorch.org/whl/cpu
+python -m pip install ".[local]"
+```
+
+
 The Windows and Linux installers share `install.py`, a standard-library bootstrap. Thin shell wrappers choose Python and forward your arguments. They install Zenith as a normal wheel into `.venv`; runtime commands can then work outside the checkout. No virtual-environment activation is required when using `run.ps1`, `run.sh`, or the absolute installed executable path.
 
 ## Quick setup
@@ -94,7 +108,7 @@ The default installer mode is `local`: a single small instruction model with CPU
 
 `--runtime cpu` is the default and uses PyTorch's official CPU wheel index. For an accelerator build, use `--runtime auto` and follow PyTorch's current instructions for your hardware/driver; the ordinary distribution is not a guarantee that every GPU is supported. `ZENITH_DEVICE=auto` selects supported CUDA/MPS/CPU at runtime. `ZENITH_CPU_THREADS` bounds CPU inference threads (default at most four).
 
-The bootstrap first reads the effective configuration after preserving or writing your profile, then installs dependencies for that provider. Existing Ollama users therefore avoid an accidental Torch download when re-running the default installer. `--download` proactively caches HF weights; otherwise the first chat performs the initial download. Model files are never bundled into Git.
+The bootstrap first reads the effective configuration after preserving or writing your profile, then installs dependencies for that provider. Existing Ollama users therefore avoid an accidental Torch download when re-running the default installer. `--download` proactively caches HF weights; otherwise the first chat performs the initial download. The pinned base is downloaded separately. The experimental adapter is bundled as verified research weight parts.
 
 `--venv /absolute/path` selects another virtual environment. The checkout wrappers always target the checkout's `.venv`; for a custom environment, use the executable path printed by the installer.
 

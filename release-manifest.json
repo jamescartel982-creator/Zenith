@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "version": "0.13.0",
+  "version": "0.14.0",
   "files": [
     {
       "path": ".dockerignore",
@@ -28,8 +28,8 @@
     },
     {
       "path": ".github/workflows/tests.yml",
-      "size": 5571,
-      "sha256": "edd7002b2e6b8fec38edfef8e3f25f51e0d10aedd9968616b7a439f2e6189f24",
+      "size": 6495,
+      "sha256": "f2544c64f746a7aa515215d06763b3cc050d3e3237873b3ee607e06d316888ec",
       "normalization": "lf"
     },
     {
@@ -46,8 +46,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "size": 11772,
-      "sha256": "560cc26d6b1532a5d6fd30b3327fe546adb57c89aaa70df3d1a547e6ec70fe0c",
+      "size": 12616,
+      "sha256": "671a89852224b2161d87065ca10ca9cc5137da038bb00eb9484b46db57eb29c2",
       "normalization": "lf"
     },
     {
@@ -70,8 +70,8 @@
     },
     {
       "path": "README.md",
-      "size": 10541,
-      "sha256": "feb58fecc19807bd9b9076f4ac2134a4fc8b5407eb3bbcae6df64181925503c2",
+      "size": 10657,
+      "sha256": "9f7b86a6fc2a6df36504846d9396a8d5258aadcdb153df5f4482fcb04ad2cac5",
       "normalization": "lf"
     },
     {
@@ -95,7 +95,7 @@
     {
       "path": "agent/__init__.py",
       "size": 105,
-      "sha256": "515d80f884821e78871ed1c6baece1a8f0c380499ed3e4845ae23b26bf643b26",
+      "sha256": "bb5e643832ea9e091a33ae83d63b86a2295d4c4bfa469feabc2384112e128410",
       "normalization": "lf"
     },
     {
@@ -172,8 +172,8 @@
     },
     {
       "path": "agent/commands.py",
-      "size": 4265,
-      "sha256": "33a11aa75192be7f8dcaa9c6ebd7aba784fad40b206d84ada7b5cce98f9aec82",
+      "size": 4365,
+      "sha256": "04f6ead9ed1b177108c6b9be19a7a6de4543cb44289ad0c7fcfb33c1beb7a8fd",
       "normalization": "lf"
     },
     {
@@ -202,8 +202,8 @@
     },
     {
       "path": "agent/deployment.py",
-      "size": 14789,
-      "sha256": "71ff7b8b156721fafed1cd4bbe1a892c4a48875449599afd62828288d052d22a",
+      "size": 18543,
+      "sha256": "343b9bcaf5cb5aad43a9210f42adb6424dbc4d89ec0c3dec6098044e826f0800",
       "normalization": "lf"
     },
     {
@@ -382,8 +382,8 @@
     },
     {
       "path": "agent/setup.py",
-      "size": 2414,
-      "sha256": "751311f8c9ea2d188e54be1a983b59770a20d7b298e6d4264a7fe9b68d3cef53",
+      "size": 3686,
+      "sha256": "55fa68e2fafbaf3b182b5c251c69b570b01131a71be1174ec0dea9fcf6a14863",
       "normalization": "lf"
     },
     {
@@ -490,8 +490,8 @@
     },
     {
       "path": "docs/MODEL_CARD.md",
-      "size": 3584,
-      "sha256": "e9b76e9027452c32a185f5649b1da185c6bd43f6bf2ee2649358688459bdaa1b",
+      "size": 4124,
+      "sha256": "dcdf7b157075cc133aff277470e142d6b6e2fa7d6b203bc289bd9fae84e6faea",
       "normalization": "lf"
     },
     {
@@ -504,6 +504,18 @@
       "path": "docs/benchmark-gates.md",
       "size": 2835,
       "sha256": "ae0190e00dcc6b7b3508a13fb16d52a561a9165101906a50ea4cfb9266f16659",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/activation-v014/activation-inference-rollback.json",
+      "size": 224,
+      "sha256": "4782f7d8ef4665b2acbc91bdd2ba4427eaff707a71b9b0af9cf3518475931bcb",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/activation-v014/workspace-activation.json",
+      "size": 1891,
+      "sha256": "5af3ce77ac0ef9ec13d913ffce76e637913fe6275a09e5cebbc9b5c07428c878",
       "normalization": "lf"
     },
     {
@@ -1198,8 +1210,8 @@
     },
     {
       "path": "docs/local-installation.md",
-      "size": 12402,
-      "sha256": "5585a81ce0b15effc0a59d46642713372ec96ed15a90d8cb586387b57f1b335f",
+      "size": 13065,
+      "sha256": "6656dd5cd44e252b32da1bf56aa53c04e61f581a6f5d36d67af3db288cbe99cc",
       "normalization": "lf"
     },
     {
@@ -1222,8 +1234,8 @@
     },
     {
       "path": "docs/model-promotion.md",
-      "size": 5074,
-      "sha256": "0e327b24aa9b4c6a9c4898145f8fc77689489bb061495aefa3c2f06da9ae5cad",
+      "size": 6729,
+      "sha256": "810d0a407b70075161a81e27424350c104bea8b087153cc1a48a3c54174c745d",
       "normalization": "lf"
     },
     {
@@ -1294,8 +1306,8 @@
     },
     {
       "path": "install.py",
-      "size": 7397,
-      "sha256": "04b1632e7fd4bdbc7f992f0737f0640473f7bfc3bf06d757f53be2f1832aa5e4",
+      "size": 8263,
+      "sha256": "7b11f85d41dccf92ed8b04cdaf7561ce4ba186b5b7e095c87174a7ba76076429",
       "normalization": "lf"
     },
     {
@@ -1348,8 +1360,8 @@
     },
     {
       "path": "research_checkpoints/recovery-v1/README.md",
-      "size": 2661,
-      "sha256": "a42c3fb6bc24689f7f1bb338b6ab0902af69eedcbc86a3a4d0ab5b6c6aa5d61d",
+      "size": 2950,
+      "sha256": "910510edd70a3055b4b00d00c632769a7b27db80b5a65a9dcb677082f4ac8602",
       "normalization": "lf"
     },
     {
@@ -1413,9 +1425,45 @@
       "normalization": "lf"
     },
     {
+      "path": "research_checkpoints/recovery-v1/evaluation/candidate.json",
+      "size": 23667,
+      "sha256": "a2b1a033d1408b9b46a2353102e60e3465df35e106c8e60ce027912c600263fe",
+      "normalization": "lf"
+    },
+    {
+      "path": "research_checkpoints/recovery-v1/evaluation/fresh-transfer.json",
+      "size": 15312,
+      "sha256": "c754210985ac203c689c0dfd9894dd448bb661fbbeba7d4fc7da533d62509b6c",
+      "normalization": "lf"
+    },
+    {
+      "path": "research_checkpoints/recovery-v1/evaluation/immediate-parent.json",
+      "size": 23911,
+      "sha256": "bb95c4278118dc4f5ae946f24a43a372ad53d5f6d968c1a97244b6c7e2af0f60",
+      "normalization": "lf"
+    },
+    {
+      "path": "research_checkpoints/recovery-v1/evaluation/previous-trained.json",
+      "size": 24050,
+      "sha256": "d1e7e58fab31a82060f8b1b8c7e8d2b248aff0ac890e86fa564156ff48fe7e10",
+      "normalization": "lf"
+    },
+    {
+      "path": "research_checkpoints/recovery-v1/evaluation/production.json",
+      "size": 25788,
+      "sha256": "b3f3ebc1e3a7afefe79e135be7f1d43a2a95016203eba031c223461a9bf4ed45",
+      "normalization": "lf"
+    },
+    {
+      "path": "research_checkpoints/recovery-v1/evaluation/retention.json",
+      "size": 422,
+      "sha256": "a514aa6c35f13d2b6dceb81919fa56683722576af0605c988b96dbfc9efeadd6",
+      "normalization": "lf"
+    },
+    {
       "path": "research_checkpoints/recovery-v1/research.json",
-      "size": 4296,
-      "sha256": "866c2640b8c1a0dedcd8af966a73be5cb394b6d4b9c00930afdbd18bb46a34ab",
+      "size": 5577,
+      "sha256": "0a527884e87e84f4d5ed38b46851c1a8781eea47b0e3f5fe875079a8f5086e62",
       "normalization": "lf"
     },
     {
@@ -1581,6 +1629,12 @@
       "normalization": "lf"
     },
     {
+      "path": "scripts/smoke_candidate_activation.py",
+      "size": 3038,
+      "sha256": "6f9b589e4cb54dcc4fd7376902e2cbd5d164f8d3e250affdac31c42710ade8b5",
+      "normalization": "lf"
+    },
+    {
       "path": "scripts/smoke_container.py",
       "size": 4965,
       "sha256": "2272ff338a48deec648cf4ec9ec31135849d48247ce8acf67eaf3a672a700366",
@@ -1654,8 +1708,8 @@
     },
     {
       "path": "tests/test_deployment.py",
-      "size": 8800,
-      "sha256": "a752f1fb3a0d7378cf1576e98e20115a8ef659f3c518f25859c200b453f7af16",
+      "size": 10794,
+      "sha256": "d7b5fcaddd5ef1541c391b931e73ab36e081ea26cdeb78831807451d3ba372ef",
       "normalization": "lf"
     },
     {
@@ -1666,8 +1720,8 @@
     },
     {
       "path": "tests/test_easy_install.py",
-      "size": 7744,
-      "sha256": "8f1ed478df6552621a7946e5761852d476130ab2abc825dee05bd82262608eaa",
+      "size": 9421,
+      "sha256": "e6ecdcc895c6c021d9abd4ff1b97cddd8fa5e1ba984cd58fe4f6ae09777353af",
       "normalization": "lf"
     },
     {
@@ -1684,8 +1738,8 @@
     },
     {
       "path": "tests/test_installation.py",
-      "size": 9750,
-      "sha256": "c8177abd05ad8bc7999a583c99bd629fa56bd983b2be3b641ee415634d5c07d2",
+      "size": 10791,
+      "sha256": "950b2c8bb5dea3564b07063b72b9a280c4cb03b3d560a9d9cddc602773822e7c",
       "normalization": "lf"
     },
     {
