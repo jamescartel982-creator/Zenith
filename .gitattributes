@@ -10,3 +10,5 @@
 *.safetensors binary
 # Approved checkpoints must retain exact bytes for promotion and runtime hashes.
 model_releases/** -text
+# Inactive research checkpoint inventories also require byte-exact files.
+research_checkpoints/** -text

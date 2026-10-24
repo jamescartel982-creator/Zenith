@@ -15,7 +15,7 @@ ROOT=Path(__file__).resolve().parents[1]
 
 class DeploymentTests(unittest.TestCase):
     def fixture(self,folder):
-        folder=Path(folder);candidate=folder/'candidate';candidate.mkdir()
+        folder=Path(folder).resolve();candidate=folder/'candidate';candidate.mkdir()
         (candidate/'adapter_model.safetensors').write_bytes(b'unit-test-adapter-not-a-real-model')
         source=ROOT/'docs/benchmarks/continuation-v1'
         parent=rescore_report(json.loads((source/'parent-benchmark.json').read_text()))

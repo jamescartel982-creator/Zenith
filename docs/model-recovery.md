@@ -52,7 +52,7 @@ permission and approval answers. Under the shared application policy it scored
 23/24: the untrusted-instruction response improved while the summary omitted
 missing owner approval. These protocols are recorded separately; policy changes
 are not attributed to weight training. Matched-policy baselines and fresh transfer
-measurements are being collected. No model release is approved yet.
+measurements are recorded below. No production model release is approved.
 
 ## Evidence and reproduction
 
@@ -90,3 +90,49 @@ changed checkpoints, mismatched protocols, and regressions hidden by averages.
 Local activation requires explicit approval, real loading and inference, a backup
 of the prior profile, and a runtime checkpoint receipt. Existing memory, login,
 and execution controls remain preserved.
+
+## Application-policy comparison and research snapshot
+
+The following runs share the exact recorded application system prompt, greedy
+sampling, and 48-token output budget. They are separate from legacy-prompt scores.
+No gradient updates were performed while measuring these tasks.
+
+| Checkpoint | Application diagnostics | Fresh transfer | New-curriculum test loss |
+| --- | ---: | ---: | ---: |
+| Production base | 12/24 | 11/20 | 1.3343 |
+| Previous trained reference | 15/24 | 12/20 | 0.9715 |
+| Immediate trained parent | 21/24 | 17/20 | 0.1249 |
+| Same-lineage parameter mean | 23/24 | 15/20 | 0.1103 |
+
+The parameter mean omitted pending owner approval in the diagnostic summary. It
+returned unrelated text for a strict word-output request and confused forensic
+hashing with Argon2id on a fresh question. It gave 0.75 rather than the requested
+fraction for one arithmetic task. Retained-domain target loss was 3.3734 across
+19 examples, versus 3.2076 for the previous trained reference. Both the diagnostic
+and fresh-suite comparison reports record failed promotion gates. These failures
+remain visible; no activation or production profile change was performed.
+
+The six completed training stages in the preserved adapter lineage total 1,064
+optimizer updates, 69,228 input tokens, 19,748 assistant-target tokens, and
+2,177.56 seconds of training-loop time. These totals exclude historical 0.12
+training, model loading, evaluation, and the final averaging operation. Averaging
+performs zero additional gradient updates. Full per-stage reports are retained.
+GPU utilization is unavailable because this experiment ran on CPU.
+
+The [inactive research snapshot](../research_checkpoints/recovery-v1/) contains
+all checkpoint files: 17,640,136 bytes of learned adapter weights, the unchanged
+tokenizer, PEFT metadata, and historical training report. Ordered binary parts
+reconstruct the exact original weight file; the assembled checkpoint inventory
+is 33,695,315 bytes. Both source-part and reconstructed-file SHA-256 hashes are
+verified. Original checkpoint directories are preserved. No API keys are included.
+
+```text
+python -m scripts.materialize_research_checkpoint --bundle research_checkpoints/recovery-v1 --output PATH_TO_NEW_CHECKPOINT
+zenith checkpoint --parent PATH_TO_NEW_CHECKPOINT
+```
+
+Use the project's installed environment and cache the original pinned base first.
+The snapshot is rejected by the approved-release activation workflow. It is for
+reproducible investigation and further validated continuation; neither the source
+update nor reconstruction changes the production profile or enables restricted
+execution tools. Windows and Linux CI perform real reconstruction and inference.

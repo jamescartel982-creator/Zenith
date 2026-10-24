@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "candidate": "/workspace/scratch/zenith-recovery-candidate-mean",
+  "checkpoint_files": {
+    "README.md": {
+      "bytes": 5206,
+      "sha256": "6b95375f507809c480d15e683ecaf6c69fe91a26adef775e1ce4032df12c7d56"
+    },
+    "adapter_config.json": {
+      "bytes": 1056,
+      "sha256": "b2b82c8e8e8b43d7a2ed48a1d4ff92e4e139bb9916acfefdd299bafa4c7a2595"
+    },
+    "adapter_model.safetensors": {
+      "bytes": 17640136,
+      "sha256": "7e0701900b40109ee81b3dc097985cda360409006c8b717bda51830f3b6ed85d"
+    },
+    "added_tokens.json": {
+      "bytes": 605,
+      "sha256": "58b54bbe36fc752f79a24a271ef66a0a0830054b4dfad94bde757d851968060b"
+    },
+    "chat_template.jinja": {
+      "bytes": 2507,
+      "sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f"
+    },
+    "merges.txt": {
+      "bytes": 1671853,
+      "sha256": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5"
+    },
+    "special_tokens_map.json": {
+      "bytes": 613,
+      "sha256": "76862e765266b85aa9459767e33cbaf13970f327a0e88d1c65846c2ddd3a1ecd"
+    },
+    "tokenizer.json": {
+      "bytes": 11421896,
+      "sha256": "9c5ae00e602b8860cbd784ba82a8aa14e8feecec692e7076590d014d7b7fdafa"
+    },
+    "tokenizer_config.json": {
+      "bytes": 4686,
+      "sha256": "0a04a9d7d4a62b28482bdfe726c122756de85714fb64166ace92ae75b8f57614"
+    },
+    "training_report.json": {
+      "bytes": 169924,
+      "sha256": "09e55168ec0eb8b7c7ef61e5ce2d9a8bc3832db229e679c28d50b3ee3dbce428"
+    },
+    "vocab.json": {
+      "bytes": 2776833,
+      "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+    }
+  },
+  "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "base_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "tokenizer_sha256": "221ea68122dfcfb2772276b69e62fc97ea9b13785ee069b118ee36498b19a418",
+  "candidate_report": {
+    "path": "/workspace/Zenith/docs/benchmarks/recovery-v1/parameter-mean-application-diagnostics.json",
+    "sha256": "a2b1a033d1408b9b46a2353102e60e3465df35e106c8e60ce027912c600263fe"
+  },
+  "baseline_reports": [
+    {
+      "path": "/workspace/Zenith/docs/benchmarks/recovery-v1/immediate-parent-application-diagnostics.json",
+      "sha256": "bb95c4278118dc4f5ae946f24a43a372ad53d5f6d968c1a97244b6c7e2af0f60"
+    },
+    {
+      "path": "/workspace/Zenith/docs/benchmarks/recovery-v1/previous-trained-application-diagnostics.json",
+      "sha256": "d1e7e58fab31a82060f8b1b8c7e8d2b248aff0ac890e86fa564156ff48fe7e10"
+    },
+    {
+      "path": "/workspace/Zenith/docs/benchmarks/recovery-v1/production-application-diagnostics.json",
+      "sha256": "b3f3ebc1e3a7afefe79e135be7f1d43a2a95016203eba031c223461a9bf4ed45"
+    }
+  ],
+  "comparisons": [
+    {
+      "parent_accuracy": 0.875,
+      "candidate_accuracy": 0.9583333333333334,
+      "production_accuracy": 0.875,
+      "regressed_slices": [],
+      "regressed_cases": [],
+      "numeric_gate_passed": true,
+      "human_review_required": true,
+      "deployment_approved": false,
+      "automatic_promotion": false
+    },
+    {
+      "parent_accuracy": 0.625,
+      "candidate_accuracy": 0.9583333333333334,
+      "production_accuracy": 0.625,
+      "regressed_slices": [
+        "memory-context"
+      ],
+      "regressed_cases": [
+        "summary-1"
+      ],
+      "numeric_gate_passed": false,
+      "human_review_required": true,
+      "deployment_approved": false,
+      "automatic_promotion": false
+    },
+    {
+      "parent_accuracy": 0.5,
+      "candidate_accuracy": 0.9583333333333334,
+      "production_accuracy": 0.5,
+      "regressed_slices": [
+        "memory-context"
+      ],
+      "regressed_cases": [
+        "summary-1"
+      ],
+      "numeric_gate_passed": false,
+      "human_review_required": true,
+      "deployment_approved": false,
+      "automatic_promotion": false
+    }
+  ],
+  "numeric_gate_passed": false,
+  "diagnostic_passed": 23,
+  "diagnostic_cases": 24,
+  "human_review_required": true,
+  "deployment_approved": false,
+  "automatic_promotion": false,
+  "limitations": [
+    "Development diagnostics are not a sealed expert benchmark.",
+    "Review raw answers and independent held-out results before explicitly approving activation."
+  ]
+}

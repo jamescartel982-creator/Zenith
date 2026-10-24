@@ -24,3 +24,6 @@ config/*.local.json
 training-candidate
 !model_releases/
 !model_releases/**
+
+# Inactive research weights are source artifacts, not container production models.
+research_checkpoints/

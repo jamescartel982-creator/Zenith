@@ -4,8 +4,8 @@
   "files": [
     {
       "path": ".dockerignore",
-      "size": 295,
-      "sha256": "b3b2c5dca881f43029c85c6e6b36af00ecbfe5cf79c46068fbe624c08f0eaff7",
+      "size": 401,
+      "sha256": "ed5c586d778b578ab6c84bdc65ca78aed054fca0ab8ad3f1b1eb506119c0dadb",
       "normalization": "lf"
     },
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": ".gitattributes",
-      "size": 281,
-      "sha256": "d0fdb4fc99c000c51f7aad41778ee5b9e216be2231ab6b10aa71a0035c62e85f",
+      "size": 385,
+      "sha256": "b510c4de6e9389cbe8a07984c97f19f571984a8657e777be425b4fb417b314bc",
       "normalization": "lf"
     },
     {
@@ -28,8 +28,8 @@
     },
     {
       "path": ".github/workflows/tests.yml",
-      "size": 5287,
-      "sha256": "b423afb84be47567fe7f1e06f62a07554da1f3bd32360bfa95a3e4d66fd48fb7",
+      "size": 5571,
+      "sha256": "edd7002b2e6b8fec38edfef8e3f25f51e0d10aedd9968616b7a439f2e6189f24",
       "normalization": "lf"
     },
     {
@@ -46,8 +46,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "size": 11565,
-      "sha256": "6ea648fe86d647142e36713373f18e4bd80b01e68eafc5dd7f8b33dcf0ba9c8f",
+      "size": 11772,
+      "sha256": "560cc26d6b1532a5d6fd30b3327fe546adb57c89aaa70df3d1a547e6ec70fe0c",
       "normalization": "lf"
     },
     {
@@ -70,8 +70,8 @@
     },
     {
       "path": "README.md",
-      "size": 10209,
-      "sha256": "90d15f044befe93a04cade18357d4523dff866e169b73a059136edf58048cdeb",
+      "size": 10541,
+      "sha256": "feb58fecc19807bd9b9076f4ac2134a4fc8b5407eb3bbcae6df64181925503c2",
       "normalization": "lf"
     },
     {
@@ -345,6 +345,12 @@
       "normalization": "lf"
     },
     {
+      "path": "agent/research.py",
+      "size": 2013,
+      "sha256": "528b53e089ddf1f162db4df7b396e4c3719240e5369db8e1966ad0b79bae5b4b",
+      "normalization": "lf"
+    },
+    {
       "path": "agent/resources/skills-v1.json",
       "size": 43865,
       "sha256": "dbbeb982eeb4fd0b7b86e94fb764c3c8f98fc92ad4aef345b05d47cb0d0c2d3d",
@@ -484,8 +490,8 @@
     },
     {
       "path": "docs/MODEL_CARD.md",
-      "size": 3017,
-      "sha256": "313f854cbb351f51197dadc3d73703dd1065af62e6efbf45bea182854a435712",
+      "size": 3584,
+      "sha256": "e9b76e9027452c32a185f5649b1da185c6bd43f6bf2ee2649358688459bdaa1b",
       "normalization": "lf"
     },
     {
@@ -645,6 +651,18 @@
       "normalization": "lf"
     },
     {
+      "path": "docs/benchmarks/recovery-v1/application-promotion-review.json",
+      "size": 4207,
+      "sha256": "7e849eee533c97449e94bbac57c114379bacbba8a2a8f1e3e316d7225767c9f8",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/candidate-fresh-transfer.json",
+      "size": 15312,
+      "sha256": "c754210985ac203c689c0dfd9894dd448bb661fbbeba7d4fc7da533d62509b6c",
+      "normalization": "lf"
+    },
+    {
       "path": "docs/benchmarks/recovery-v1/candidate-holdout-before-preference.json",
       "size": 11449,
       "sha256": "609e9147463760d4fb65b38299318101894e54b11e62a952a1423534d43f2ce2",
@@ -759,9 +777,27 @@
       "normalization": "lf"
     },
     {
+      "path": "docs/benchmarks/recovery-v1/fresh-transfer-comparison.json",
+      "size": 1453,
+      "sha256": "b953c5ad276ce9172d9bec95299b3bd9967928728c01cfb00d62ca202ebf78e4",
+      "normalization": "lf"
+    },
+    {
       "path": "docs/benchmarks/recovery-v1/fresh-transfer-freeze.json",
       "size": 562,
       "sha256": "328f05b1da484850515f99b8fba94b3a4c1dc5c13f3588863b6de95c22111168",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/immediate-parent-application-diagnostics.json",
+      "size": 23911,
+      "sha256": "bb95c4278118dc4f5ae946f24a43a372ad53d5f6d968c1a97244b6c7e2af0f60",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/immediate-parent-fresh-transfer.json",
+      "size": 15469,
+      "sha256": "1680873d275de092321c513a7e68efad57fe6a45244e36c4496c61c4a99761b6",
       "normalization": "lf"
     },
     {
@@ -786,6 +822,12 @@
       "path": "docs/benchmarks/recovery-v1/parameter-mean-legacy-diagnostics.json",
       "size": 22325,
       "sha256": "53c4b6f816d5ddf5e4df48f683262ec61e552a3ef71d9a177045f4753f0d3dc0",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/parameter-mean-retention.json",
+      "size": 422,
+      "sha256": "a514aa6c35f13d2b6dceb81919fa56683722576af0605c988b96dbfc9efeadd6",
       "normalization": "lf"
     },
     {
@@ -927,9 +969,33 @@
       "normalization": "lf"
     },
     {
+      "path": "docs/benchmarks/recovery-v1/previous-trained-application-diagnostics.json",
+      "size": 24050,
+      "sha256": "d1e7e58fab31a82060f8b1b8c7e8d2b248aff0ac890e86fa564156ff48fe7e10",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/previous-trained-fresh-transfer.json",
+      "size": 15084,
+      "sha256": "32de88b96fc5b749406bb777ab23721a7bcc4951d983c5b98d1d820013068198",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/production-application-diagnostics.json",
+      "size": 25788,
+      "sha256": "b3f3ebc1e3a7afefe79e135be7f1d43a2a95016203eba031c223461a9bf4ed45",
+      "normalization": "lf"
+    },
+    {
       "path": "docs/benchmarks/recovery-v1/production-benchmark.json",
       "size": 24616,
       "sha256": "0c45a6a127af9c389209057c288cf696bd41b66702a8b7daece8457fdb719fb1",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/production-fresh-transfer.json",
+      "size": 16771,
+      "sha256": "5c4c93d3f0d2c72e7df476d373a87c60d00529f09cd2565141227e77272595b3",
       "normalization": "lf"
     },
     {
@@ -954,6 +1020,18 @@
       "path": "docs/benchmarks/recovery-v1/raw-v6b-benchmark-v2.json",
       "size": 22624,
       "sha256": "24e1dbd2b1d2e8b26efd1570b432007a2a462df4183da1b880d52d44f7a0f042",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/research-checkpoint-loading.json",
+      "size": 435,
+      "sha256": "8a96dd68533e37aa6af1bd016a118ae6697060f2cfe15454d1a81a4d84bc68b6",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/training-summary.json",
+      "size": 525,
+      "sha256": "c87208b8572b348246d2eabe2866a95c5308cbd4b29d4209c088ed073a64b970",
       "normalization": "lf"
     },
     {
@@ -1150,8 +1228,8 @@
     },
     {
       "path": "docs/model-recovery.md",
-      "size": 5609,
-      "sha256": "ddbde384441bd2d599769b493726333fa3f54a91d50f17ce35f93d290864bd7a",
+      "size": 8321,
+      "sha256": "b44f2fb2938a90104f5bcb8b12d3f4005b924861f2a6770cf260ecda4087ffdb",
       "normalization": "lf"
     },
     {
@@ -1263,6 +1341,102 @@
       "normalization": "lf"
     },
     {
+      "path": "research_checkpoints/recovery-v1/LICENSE",
+      "size": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "normalization": "lf"
+    },
+    {
+      "path": "research_checkpoints/recovery-v1/README.md",
+      "size": 2661,
+      "sha256": "a42c3fb6bc24689f7f1bb338b6ab0902af69eedcbc86a3a4d0ab5b6c6aa5d61d",
+      "normalization": "lf"
+    },
+    {
+      "path": "research_checkpoints/recovery-v1/checkpoint/README.md",
+      "size": 5206,
+      "sha256": "6b95375f507809c480d15e683ecaf6c69fe91a26adef775e1ce4032df12c7d56",
+      "normalization": "lf"
+    },
+    {
+      "path": "research_checkpoints/recovery-v1/checkpoint/adapter_config.json",
+      "size": 1056,
+      "sha256": "b2b82c8e8e8b43d7a2ed48a1d4ff92e4e139bb9916acfefdd299bafa4c7a2595",
+      "normalization": "lf"
+    },
+    {
+      "path": "research_checkpoints/recovery-v1/checkpoint/added_tokens.json",
+      "size": 605,
+      "sha256": "58b54bbe36fc752f79a24a271ef66a0a0830054b4dfad94bde757d851968060b",
+      "normalization": "lf"
+    },
+    {
+      "path": "research_checkpoints/recovery-v1/checkpoint/chat_template.jinja",
+      "size": 2507,
+      "sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f",
+      "normalization": "lf"
+    },
+    {
+      "path": "research_checkpoints/recovery-v1/checkpoint/merges.txt",
+      "size": 1671853,
+      "sha256": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+      "normalization": "lf"
+    },
+    {
+      "path": "research_checkpoints/recovery-v1/checkpoint/special_tokens_map.json",
+      "size": 613,
+      "sha256": "76862e765266b85aa9459767e33cbaf13970f327a0e88d1c65846c2ddd3a1ecd",
+      "normalization": "lf"
+    },
+    {
+      "path": "research_checkpoints/recovery-v1/checkpoint/tokenizer.json",
+      "size": 11421896,
+      "sha256": "9c5ae00e602b8860cbd784ba82a8aa14e8feecec692e7076590d014d7b7fdafa",
+      "normalization": "lf"
+    },
+    {
+      "path": "research_checkpoints/recovery-v1/checkpoint/tokenizer_config.json",
+      "size": 4686,
+      "sha256": "0a04a9d7d4a62b28482bdfe726c122756de85714fb64166ace92ae75b8f57614",
+      "normalization": "lf"
+    },
+    {
+      "path": "research_checkpoints/recovery-v1/checkpoint/training_report.json",
+      "size": 169924,
+      "sha256": "09e55168ec0eb8b7c7ef61e5ce2d9a8bc3832db229e679c28d50b3ee3dbce428",
+      "normalization": "lf"
+    },
+    {
+      "path": "research_checkpoints/recovery-v1/checkpoint/vocab.json",
+      "size": 2776833,
+      "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+      "normalization": "lf"
+    },
+    {
+      "path": "research_checkpoints/recovery-v1/research.json",
+      "size": 4296,
+      "sha256": "866c2640b8c1a0dedcd8af966a73be5cb394b6d4b9c00930afdbd18bb46a34ab",
+      "normalization": "lf"
+    },
+    {
+      "path": "research_checkpoints/recovery-v1/weights/adapter-001.bin",
+      "size": 6291456,
+      "sha256": "6451caba78467a8e319d4b5e68d870e247b3b584023cf33040563d42184f35d8",
+      "normalization": "raw"
+    },
+    {
+      "path": "research_checkpoints/recovery-v1/weights/adapter-002.bin",
+      "size": 6291456,
+      "sha256": "d46d7b2a4cc6426654159d7d12e876a3f7e137dfa5ac6a855d4a297d60424f3e",
+      "normalization": "raw"
+    },
+    {
+      "path": "research_checkpoints/recovery-v1/weights/adapter-003.bin",
+      "size": 5057224,
+      "sha256": "dd1630b6102e9e5e895fe4245a4bc0a1b25a3df393e02d8421d5a67b98b3375a",
+      "normalization": "raw"
+    },
+    {
       "path": "run.ps1",
       "size": 485,
       "sha256": "0048347e9944fd50f3d756647d66f33e1686e715a3c58ac770ef184e728e0514",
@@ -1305,6 +1479,12 @@
       "normalization": "lf"
     },
     {
+      "path": "scripts/check_research_checkpoint.py",
+      "size": 1845,
+      "sha256": "3df9775c6260d07212a5c7fa804f5260bf23605b3c96c894c6757ac1675d6662",
+      "normalization": "lf"
+    },
+    {
       "path": "scripts/evaluate.py",
       "size": 2542,
       "sha256": "9a37dd91aec56b9f5b9bfebba3603c4121cbd7b4850caa45122e7d263dbe06d0",
@@ -1332,6 +1512,12 @@
       "path": "scripts/import_dataset.py",
       "size": 5088,
       "sha256": "530ee671f2c1026eabba7a7804a02fb8e9d5a44f001cf5426a90697cbd4a0cc5",
+      "normalization": "lf"
+    },
+    {
+      "path": "scripts/materialize_research_checkpoint.py",
+      "size": 482,
+      "sha256": "10fec333ab71e8c982ff376908701e0f91f29184dbabff8b2a471347091cd741",
       "normalization": "lf"
     },
     {
@@ -1468,8 +1654,8 @@
     },
     {
       "path": "tests/test_deployment.py",
-      "size": 8688,
-      "sha256": "b6b547aadb680370e7e9f69347a94cb96474249234d5ef31a35ca7af34dabce7",
+      "size": 8698,
+      "sha256": "a29fa3030c4e81271f1d8748a7463b8f6f02fbdf657b85689e102185f2e1411d",
       "normalization": "lf"
     },
     {
@@ -1548,6 +1734,12 @@
       "path": "tests/test_registry.py",
       "size": 9587,
       "sha256": "dad78781251c2349c32f8ffe27b05125d0aff6372ff7f2cdf3c2c4ac2c111a88",
+      "normalization": "lf"
+    },
+    {
+      "path": "tests/test_research.py",
+      "size": 1783,
+      "sha256": "f6debc06e6d62c9af1cf5f21f04c160e51e5f0033202e21be876d3114567c792",
       "normalization": "lf"
     },
     {

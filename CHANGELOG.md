@@ -6,6 +6,7 @@
 - Correct punctuation-related false negatives consistently across saved baselines; reject edited/incomplete reports, different evaluation protocols, slice regressions, and individual case regressions.
 - Add explicit local model review, stable release caching, real load/inference checks, checkpoint-bound runtime receipts, exact profile backup, and rollback. Restricted execution permissions remain separate and disabled by default.
 - Support an explicit installer `--activate-release` option, original pinned-base caching, and installed-provider release checks on Windows and Linux.
+- Include an inactive, byte-inventoried research checkpoint with actual learned weights, original tokenizer, and real Windows/Linux loading checks. Keep it out of production activation and container images.
 - Record that automated diagnostic success alone does not establish deployment readiness. Independent transfer results and manual answer review remain required.
 
 ## 0.12.1 — Diagnostic grading and promotion validation

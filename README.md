@@ -116,6 +116,11 @@ The existing trained Zenith adapter can be verified and continued into a separat
 
 The recovery study continues the existing checkpoint with instruction tuning, training-only replay, and reviewed preferences. One candidate reached 24/24 on the public diagnostics, while manual review and independent tests exposed further limitations; it remains inactive. Promotion now checks individual cases as well as slice scores. See [measured recovery results](docs/model-recovery.md), [activation and rollback](docs/model-promotion.md), the [original pilot](docs/continued-training.md), and the [model card](docs/MODEL_CARD.md).
 
+An [inactive research snapshot](research_checkpoints/recovery-v1/) includes the actual
+continued adapter weights, original tokenizer, pinned base identity, and training
+history. It is available for verification and further experiments; installing this
+release preserves your production model. No candidate has passed final review.
+
 Owner controls now include Argon2id password migration, authenticator-based MFA, explicit capability grants, narrow target scopes, activity records, bounded diagnostic plans, and emergency shutdown. Restricted execution starts disabled, including for the owner. Account-owned conversation summaries provide additional external context without changing weights. See [execution and memory controls](docs/execution-controls.md).
 
 ## Development and limitations
