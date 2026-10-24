@@ -16,8 +16,8 @@
     },
     {
       "path": ".gitattributes",
-      "size": 135,
-      "sha256": "a16a7b9ba2157fcf575eb8fafc476c3fa68125b1293c3f25de3ec047625d22d4",
+      "size": 155,
+      "sha256": "06a2d2534ea65a518d7563adb163da36d176170cfe4b4c51e823c512f2f12b39",
       "normalization": "lf"
     },
     {
@@ -256,8 +256,8 @@
     },
     {
       "path": "agent/learning.py",
-      "size": 4760,
-      "sha256": "d9096f5c16f88571257f4852af4cc550ed2072f098a77039f2e814ecaeb58eb9",
+      "size": 4774,
+      "sha256": "efd0dcbdaef90faf6a79337e813dfee68b1a94e8c75de7a9eac276974a38a997",
       "normalization": "lf"
     },
     {
@@ -952,8 +952,8 @@
     },
     {
       "path": "scripts/prepare_expansion_curriculum.py",
-      "size": 25668,
-      "sha256": "b1cb6d9f48ebb7b1963d718e7e6cd745cc73e3e5a9c99e474ec1c94cf902f37a",
+      "size": 25681,
+      "sha256": "b0fb7c431474bf5556343befd780a1fe9dbacd24ee244c08bb22e4f32311c9dc",
       "normalization": "lf"
     },
     {
@@ -1048,8 +1048,8 @@
     },
     {
       "path": "tests/test_continuation.py",
-      "size": 4593,
-      "sha256": "350d56268ba78cb9c2fba232722bcc0779ed070f7cbcc367b23b8f923558a889",
+      "size": 4711,
+      "sha256": "ba763f8daf4654fd2adcc08a1e1ec69eefc62940e9f7f981d87d2513a396d532",
       "normalization": "lf"
     },
     {

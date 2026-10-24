@@ -35,6 +35,8 @@ class ContinuationTests(unittest.TestCase):
             output=Path(folder)/'dataset'
             manifest=build(output,ROOT/'docs/benchmarks/v0.6/frozen-pilot-dataset/train.jsonl')
             audit_directory(output)
+            for path in output.glob('*.jsonl'):
+                self.assertNotIn(b'\r\n',path.read_bytes(),str(path))
             rows={name:load_examples(output/manifest['files'][name]['path']) for name in ['train','validation','test']}
             assert_disjoint(rows)
             self.assertTrue(any(row.get('retention_replay') for row in rows['train']))

@@ -150,7 +150,7 @@ def build(output,replay):
     if output.exists():raise ValueError('Use a new curriculum output directory')
     output.parent.mkdir(parents=True,exist_ok=True)
     source=output.parent/(output.name+'-source.jsonl')
-    with source.open('x',encoding='utf-8') as handle:
+    with source.open('x',encoding='utf-8',newline='\n') as handle:
         for row in rows:handle.write(json.dumps(row,ensure_ascii=False)+'\n')
     manifest=prepare(source,output,balance_topics=False)
     partitions={name:load_examples(output/manifest['files'][name]['path']) for name in ['train','validation','test']}
