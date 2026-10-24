@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
-  "version": "0.12.1",
+  "version": "0.13.0",
   "files": [
     {
       "path": ".dockerignore",
-      "size": 259,
-      "sha256": "478b05bc3e2638371cdfd598a908022456c23bc0373403fd0204570d42f7169f",
+      "size": 295,
+      "sha256": "b3b2c5dca881f43029c85c6e6b36af00ecbfe5cf79c46068fbe624c08f0eaff7",
       "normalization": "lf"
     },
     {
@@ -16,20 +16,20 @@
     },
     {
       "path": ".gitattributes",
-      "size": 155,
-      "sha256": "06a2d2534ea65a518d7563adb163da36d176170cfe4b4c51e823c512f2f12b39",
+      "size": 281,
+      "sha256": "d0fdb4fc99c000c51f7aad41778ee5b9e216be2231ab6b10aa71a0035c62e85f",
       "normalization": "lf"
     },
     {
       "path": ".github/workflows/evaluation.yml",
-      "size": 1804,
-      "sha256": "f3ee811e4a47fbba9375551ac28bde6a0597bc7db6040ffe9a57c366bbab5aaf",
+      "size": 2110,
+      "sha256": "840740759d8301fe67759d55c7ef2becdf936fe82f629cf7a496d789a835b1d6",
       "normalization": "lf"
     },
     {
       "path": ".github/workflows/tests.yml",
-      "size": 4863,
-      "sha256": "56d8db056fe4580e59f2fb0c45783781acd6714aeffee02ac216ddd726c64d4e",
+      "size": 5287,
+      "sha256": "b423afb84be47567fe7f1e06f62a07554da1f3bd32360bfa95a3e4d66fd48fb7",
       "normalization": "lf"
     },
     {
@@ -46,8 +46,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "size": 10526,
-      "sha256": "359fa6cfe41a8dac3310ebefac2c76760aa2ac41bd72b45c8652b622f3c6194b",
+      "size": 11565,
+      "sha256": "6ea648fe86d647142e36713373f18e4bd80b01e68eafc5dd7f8b33dcf0ba9c8f",
       "normalization": "lf"
     },
     {
@@ -70,8 +70,8 @@
     },
     {
       "path": "README.md",
-      "size": 10340,
-      "sha256": "47af1a96be139c29c554918fe79f5b037afc34636721246e5bcac7650e466955",
+      "size": 10209,
+      "sha256": "90d15f044befe93a04cade18357d4523dff866e169b73a059136edf58048cdeb",
       "normalization": "lf"
     },
     {
@@ -95,7 +95,7 @@
     {
       "path": "agent/__init__.py",
       "size": 105,
-      "sha256": "49960d7d7d68021d047023b1b6ec95f23e5063d1215b02881a905989cd4997bc",
+      "sha256": "515d80f884821e78871ed1c6baece1a8f0c380499ed3e4845ae23b26bf643b26",
       "normalization": "lf"
     },
     {
@@ -172,32 +172,38 @@
     },
     {
       "path": "agent/commands.py",
-      "size": 4015,
-      "sha256": "98f4f82f297f316cba760c6566b121e3dbc3185abc53a8b3ffeac017d7402b1a",
+      "size": 4265,
+      "sha256": "33a11aa75192be7f8dcaa9c6ebd7aba784fad40b206d84ada7b5cce98f9aec82",
       "normalization": "lf"
     },
     {
       "path": "agent/config.py",
-      "size": 5521,
-      "sha256": "dc4e97e60b46671471553d58c7cad18734286259d6aedf89a902f11efa77eac5",
+      "size": 5625,
+      "sha256": "2ce9cf163c42dfffc5664730390535c2d36b6ae7aee0945a89d4b6f0028ece1a",
       "normalization": "lf"
     },
     {
       "path": "agent/continual.py",
-      "size": 12572,
-      "sha256": "e8a60a2f99ee6cf4bcac21f57beb02e6ebb74b25f91411c82ab994beabe08f74",
+      "size": 12785,
+      "sha256": "808318633967f095d9d07f24a120e7ee2d8fd27daeb1c4a35b9df7fa59e8952a",
       "normalization": "lf"
     },
     {
       "path": "agent/core.py",
-      "size": 11230,
-      "sha256": "883bedc5cd111801b04771614a1f3d5fc5a745dc74e65d985c12cba76300685d",
+      "size": 11274,
+      "sha256": "8780305340ec37c42717aa7520f8e924d1d003464032a8a6c841005fd20677e3",
       "normalization": "lf"
     },
     {
       "path": "agent/curriculum.py",
       "size": 8662,
       "sha256": "ed79afeb1f04a3d6d5cb5e1a3a0ad0455e93a8db102f1e6416a019d9b90e2e99",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/deployment.py",
+      "size": 14789,
+      "sha256": "71ff7b8b156721fafed1cd4bbe1a892c4a48875449599afd62828288d052d22a",
       "normalization": "lf"
     },
     {
@@ -214,14 +220,14 @@
     },
     {
       "path": "agent/efficiency.py",
-      "size": 3397,
-      "sha256": "9c848ef77e29721857e4f42cc9fdf4cc7073f9eb590ed19fe6ec8efcdf77a02a",
+      "size": 3539,
+      "sha256": "f93ad9a4aff0ea677fe026b2ce1f7e38c6b1fea3867dcc2ff01e766ce7d02008",
       "normalization": "lf"
     },
     {
       "path": "agent/ensemble.py",
-      "size": 23891,
-      "sha256": "75d4f15192005e9f4bcad1619d150e3416a5d4e6eecbe5bc078414be23a196a6",
+      "size": 24217,
+      "sha256": "876505852387a4e68c7358c1ccab15cdf23d6482423cfe45b922fc952d48be67",
       "normalization": "lf"
     },
     {
@@ -238,8 +244,8 @@
     },
     {
       "path": "agent/expansion_eval.py",
-      "size": 14342,
-      "sha256": "d231ad68e879427669c4656e998f4305b3a75304395db89302d692eae22a403e",
+      "size": 16010,
+      "sha256": "8b18703541459b84a80614e7c9c37af3ca64ae17895bd300d70016436f1de29b",
       "normalization": "lf"
     },
     {
@@ -315,9 +321,15 @@
       "normalization": "lf"
     },
     {
+      "path": "agent/policy.py",
+      "size": 576,
+      "sha256": "ff953149dc1273d8d59496f674bb381bfa13edfc885ebfda940ac183e1da7833",
+      "normalization": "lf"
+    },
+    {
       "path": "agent/providers.py",
-      "size": 17844,
-      "sha256": "aa04df467aeb173df0185fe8b265841c0757fb59e948145fe84ca4a9488546ed",
+      "size": 18135,
+      "sha256": "c2afdb6be908f529edc218114226544b4ca790dd589b20016588a976dbc89779",
       "normalization": "lf"
     },
     {
@@ -378,6 +390,12 @@
       "path": "agent/skills.py",
       "size": 10747,
       "sha256": "8f7249fe401ed2c545ee90ce50ac1a495f68374b48bb050ff0a672b39ae8e68c",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/stabilize.py",
+      "size": 4963,
+      "sha256": "59405efa8b7fe0e87eea181f36328855854c768a905dd7df468ff8d377b66198",
       "normalization": "lf"
     },
     {
@@ -466,8 +484,8 @@
     },
     {
       "path": "docs/MODEL_CARD.md",
-      "size": 1600,
-      "sha256": "cd8e5d68814e5c56456050924ab28dfe964a1d2eb075324fce3b3beec1094f66",
+      "size": 3017,
+      "sha256": "313f854cbb351f51197dadc3d73703dd1065af62e6efbf45bea182854a435712",
       "normalization": "lf"
     },
     {
@@ -624,6 +642,330 @@
       "path": "docs/benchmarks/continuation-v1/weight-update.json",
       "size": 363,
       "sha256": "98626a6102146c0c6aec81403f054b7b983878d2d3a27b741c060c209054fe72",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/candidate-holdout-before-preference.json",
+      "size": 11449,
+      "sha256": "609e9147463760d4fb65b38299318101894e54b11e62a952a1423534d43f2ce2",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/dataset-v2/historical-train-replay.jsonl",
+      "size": 233252,
+      "sha256": "25f1a52bb31f78b8dd2e7c04e2bfcc2f8701fe1badf879d80bdc65614ed2d698",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/dataset-v2/manifest.json",
+      "size": 2613,
+      "sha256": "3ef2c4b8c9381c41dee3dab2eaab4cc83d3ec8b88e378d6c4781ffff6dfeb7f3",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/dataset-v2/source.jsonl",
+      "size": 60858,
+      "sha256": "14a0ca7340b54cc60f810e838ebbc60370688585a526fe5e034ee5d7eb18a7dd",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/dataset-v2/test.jsonl",
+      "size": 10691,
+      "sha256": "58ade51e3af352ef9084ab5512ec29d36c81b26ec037cf988076d05bd52de795",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/dataset-v2/train.jsonl",
+      "size": 272744,
+      "sha256": "0f17ebc0e762b2ff050cf112edb4b391f86c38ad92818385d6be60d156415b58",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/dataset-v2/validation.jsonl",
+      "size": 10675,
+      "sha256": "879a1d5893706085af4a16251292c479617f38f6f8ea531015dbf7996124cfad",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/dataset-v3/historical-train-replay.jsonl",
+      "size": 274096,
+      "sha256": "8f147ad394832d045351679215bab08dc79671dfef01d2de83cfd8cfea8bc6ee",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/dataset-v3/manifest.json",
+      "size": 2827,
+      "sha256": "e171619482266f67a3725435331d2397ee13dd17751f39b358d056c0b88c97d0",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/dataset-v3/source.jsonl",
+      "size": 39809,
+      "sha256": "1235481d352dde0238585668134f51cf5b9201a2f9ec8b019671500c545870fc",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/dataset-v3/test.jsonl",
+      "size": 6591,
+      "sha256": "48e194c07aa4c1dba57a7cb66e1255de7a59fd312aaeac9f14add7298569cbe0",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/dataset-v3/train.jsonl",
+      "size": 300588,
+      "sha256": "5475180ecbeae771b41018ec5486a8d64bc745701a08d5269def8eeaf8f13f39",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/dataset-v3/validation.jsonl",
+      "size": 6726,
+      "sha256": "37bf15bf8c71c276c8ec92f0aa56d1782471d9b85eb0c6f53d09dce6f1bf0b0b",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/dataset/historical-train-replay.jsonl",
+      "size": 100590,
+      "sha256": "e129439d56d333fac5d88ded0d9357140162578712816cc4938022c51f16aafe",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/dataset/manifest.json",
+      "size": 2885,
+      "sha256": "19831b08acf1a56c63fc13d3b0e0327e69eb64671841de547f9dbb4244922010",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/dataset/source.jsonl",
+      "size": 205271,
+      "sha256": "9c3fd70bab7eefef1c347accc5dc5cdcce799457009bfc1e40d49e88ad71853a",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/dataset/test.jsonl",
+      "size": 38755,
+      "sha256": "bd01d46ddbae84ce9fcd8fe2bbf0aad6b58f0dab9a0e245cd71dce02c8406825",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/dataset/train.jsonl",
+      "size": 228468,
+      "sha256": "7bafa1100d334a4fa519149cf1ec6aff03fd6cd5c7fac219b71cdd9300f9c644",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/dataset/validation.jsonl",
+      "size": 38638,
+      "sha256": "4c3d5f78bdb60eac8f2c4ea26f7ef5494306c3e090184341d820bc7b5ad52f4e",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/fresh-transfer-freeze.json",
+      "size": 562,
+      "sha256": "328f05b1da484850515f99b8fba94b3a4c1dc5c13f3588863b6de95c22111168",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/original-parent-benchmark.json",
+      "size": 23405,
+      "sha256": "9361eec075388ac89eaf2d6b339a70f93c9c23cb393c75311e12e1d7d2afd4ab",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/parameter-mean-application-diagnostics.json",
+      "size": 23667,
+      "sha256": "a2b1a033d1408b9b46a2353102e60e3465df35e106c8e60ce027912c600263fe",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/parameter-mean-history.json",
+      "size": 169924,
+      "sha256": "09e55168ec0eb8b7c7ef61e5ce2d9a8bc3832db229e679c28d50b3ee3dbce428",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/parameter-mean-legacy-diagnostics.json",
+      "size": 22325,
+      "sha256": "53c4b6f816d5ddf5e4df48f683262ec61e552a3ef71d9a177045f4753f0d3dc0",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/parent-benchmark.json",
+      "size": 22414,
+      "sha256": "13c2f083f23575edf944862271f3d6cff6386fc3333d948abf9a5f0d73c235ac",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/parent-holdout.json",
+      "size": 10939,
+      "sha256": "c0d9be9f3db46d4a3295249ddf461aaae4da9a36731f6cf7f0b5b020b7a1b432",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/phase1-benchmark.json",
+      "size": 22784,
+      "sha256": "c19a8fa5b1a33d3ff29e7da7ea6d042651ce0e935ca12baa8ef390e93cb29658",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/phase1-comparison.json",
+      "size": 469,
+      "sha256": "c966577d4ae5ef4a31a80d29741646d9bfc9601b956769fe241a396fcdfe46cf",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/phase1-training.json",
+      "size": 36766,
+      "sha256": "b729e8de107314224db3c2490bc5111791dfc96a42dd27771736d2d9e66f5248",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/phase2-benchmark.json",
+      "size": 22612,
+      "sha256": "91d0263b71bd85876a66d1d09f345d6c239a01ca3ce505a2b2d4bec74f3cde81",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/phase2-comparison.json",
+      "size": 385,
+      "sha256": "9dacfa0915129d2604501377069bcfd66d729b0a7c599eabad3865fc3b894455",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/phase2-training.json",
+      "size": 55760,
+      "sha256": "c9f69574ce219809daa7a6d561038f465640d081318a46ad215cd97bba80d9a6",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/phase3-benchmark.json",
+      "size": 22912,
+      "sha256": "1f50966b97ef3b731643e0c82d6972e8eeb6601e794b0c51d389a6dbd2c667a8",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/phase3-comparison.json",
+      "size": 336,
+      "sha256": "36dd7f63839cb05248194098a8349351889175d5667aac6424eeb2135cb42739",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/phase3-training.json",
+      "size": 76885,
+      "sha256": "74a601470eeee744cc45333623b7a683bd5f04ae4a6c216fa353c9159bede459",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/phase4-benchmark.json",
+      "size": 22482,
+      "sha256": "f624ca82dd50169010131be6ea3f418782b40adbef19c6f9c103b5d575e920b0",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/phase4-training.json",
+      "size": 100534,
+      "sha256": "ae9006640275e58ed808b86d0584797c55c46be82a0aeed8e712a1361ff2388e",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/phase5-benchmark.json",
+      "size": 22504,
+      "sha256": "96cbe2a8e1403cfe1bf1764ac44301c2aa538453347b3d2cc367b9eb02843ce4",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/phase5-training.json",
+      "size": 127355,
+      "sha256": "dffdee67e7c3244960e2fee61d5fac88ef34340302982f2d6b3b0a276caabd27",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/phase6-benchmark.json",
+      "size": 22627,
+      "sha256": "4e4c4feb577634adb773dd9f25e2941bf703b72fe1d39b1a295b6e0174e0d6e8",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/phase6-training.json",
+      "size": 151788,
+      "sha256": "29529f32a9a625b65b8bfcd429fb76813a5c2e92ebbfa17d6b445132df2c313f",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/preference-dataset/historical-train-replay.jsonl",
+      "size": 87196,
+      "sha256": "fe7efdc4d8719d1426fb905377137d9ef567254615657408c4e6fe44d1470e78",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/preference-dataset/manifest.json",
+      "size": 2805,
+      "sha256": "f4ecab07e498102d78204a437d401f6f5ab89a40468486260df24b0415cdbdf5",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/preference-dataset/source.jsonl",
+      "size": 38618,
+      "sha256": "d2c1e9867dff8f6ef88a83729fd68fdcc5a3d4d252dc1bd3b728244f8f1ac47c",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/preference-dataset/test.jsonl",
+      "size": 6500,
+      "sha256": "5d8b18f21a1b8b4a911d574a6a6eac8e3878938f685aa77bf0a64bca74cc191d",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/preference-dataset/train.jsonl",
+      "size": 112840,
+      "sha256": "ad602ac043f96aa264ec8c424e64689e9ee2c627b5005121e622fe149a7d4c56",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/preference-dataset/validation.jsonl",
+      "size": 6474,
+      "sha256": "70fdc1a1195043a44688e6342e4beb6ef1b0c8944137f0cd999bf52fe128cff6",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/production-benchmark.json",
+      "size": 24616,
+      "sha256": "0c45a6a127af9c389209057c288cf696bd41b66702a8b7daece8457fdb719fb1",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/production-holdout-before-preference.json",
+      "size": 12336,
+      "sha256": "a69f2ce2b8562c7a653804e0005f9e98fa1f357d00a67655c87ea281f36c695d",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/raw-v4b-benchmark-v2.json",
+      "size": 22481,
+      "sha256": "3bb21b3df2ac59a04b8b0a34979ec9878f58fdeb38ab8062f69e23ad7d0d16ea",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/raw-v5b-benchmark-v2.json",
+      "size": 22309,
+      "sha256": "4cc227fa792d211cc06ae886309701806d94959af965b09a5f1eafe134384a07",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/raw-v6b-benchmark-v2.json",
+      "size": 22624,
+      "sha256": "24e1dbd2b1d2e8b26efd1570b432007a2a462df4183da1b880d52d44f7a0f042",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/used-builders/evaluate_transfer_v2.py",
+      "size": 5094,
+      "sha256": "916a9182acc608d3b06abf424af2d985a63f632f00b50330bac1c2b0827cc983",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/used-builders/prepare_stability_curriculum.py",
+      "size": 7382,
+      "sha256": "60501c5abc105566280fd187ef52163d28bbcc9d83bf14cac069549fa7224659",
       "normalization": "lf"
     },
     {
@@ -801,6 +1143,18 @@
       "normalization": "lf"
     },
     {
+      "path": "docs/model-promotion.md",
+      "size": 5074,
+      "sha256": "0e327b24aa9b4c6a9c4898145f8fc77689489bb061495aefa3c2f06da9ae5cad",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/model-recovery.md",
+      "size": 5609,
+      "sha256": "ddbde384441bd2d599769b493726333fa3f54a91d50f17ce35f93d290864bd7a",
+      "normalization": "lf"
+    },
+    {
       "path": "docs/model-team.md",
       "size": 9429,
       "sha256": "6a941adf040394a1e44c7053f8ed8538e7579fbf869cf04f73280a94f0f4fa75",
@@ -862,8 +1216,8 @@
     },
     {
       "path": "install.py",
-      "size": 6823,
-      "sha256": "1af0e770196eeff424bef92f506c7d0df0f8e7c9c34187d678688ead82e757d5",
+      "size": 7397,
+      "sha256": "04b1632e7fd4bdbc7f992f0737f0640473f7bfc3bf06d757f53be2f1832aa5e4",
       "normalization": "lf"
     },
     {
@@ -927,6 +1281,12 @@
       "normalization": "lf"
     },
     {
+      "path": "scripts/build_model_release.py",
+      "size": 4257,
+      "sha256": "fbe2f50f3b4041faa998fa8cd1aa5070987d21ea095d4bfbf8b27c1bfabcb5c2",
+      "normalization": "lf"
+    },
+    {
       "path": "scripts/build_release_manifest.py",
       "size": 2083,
       "sha256": "4601b23da9d711fc2e9f1dbf03f74535546b2a8aec1851a987a60f61e16edb02",
@@ -939,9 +1299,27 @@
       "normalization": "lf"
     },
     {
+      "path": "scripts/check_model_release.py",
+      "size": 1895,
+      "sha256": "3705f936334a3e2d78d45957c88ad82d74a6fcdde9114852bdcb9442193f2cad",
+      "normalization": "lf"
+    },
+    {
       "path": "scripts/evaluate.py",
       "size": 2542,
       "sha256": "9a37dd91aec56b9f5b9bfebba3603c4121cbd7b4850caa45122e7d263dbe06d0",
+      "normalization": "lf"
+    },
+    {
+      "path": "scripts/evaluate_recovery_holdout.py",
+      "size": 7136,
+      "sha256": "ed7b5e1b6a57c1bbaa5bfd00c5c88f72475609f78ba6001735e5e53de67661a7",
+      "normalization": "lf"
+    },
+    {
+      "path": "scripts/evaluate_transfer_v2.py",
+      "size": 5308,
+      "sha256": "6870c7a70c3e4a2785e46a47e6d00fd8938fe9117f3144adea6c7f71c1f231da",
       "normalization": "lf"
     },
     {
@@ -960,6 +1338,30 @@
       "path": "scripts/prepare_expansion_curriculum.py",
       "size": 25681,
       "sha256": "b0fb7c431474bf5556343befd780a1fe9dbacd24ee244c08bb22e4f32311c9dc",
+      "normalization": "lf"
+    },
+    {
+      "path": "scripts/prepare_preference_repair.py",
+      "size": 7497,
+      "sha256": "8f83fdef0398340486c837ce05ca068375ed907f6fa08e697e476cf96d1c811d",
+      "normalization": "lf"
+    },
+    {
+      "path": "scripts/prepare_recovery_curriculum.py",
+      "size": 7484,
+      "sha256": "3b01131957fed392194b9005aa925f032f148dc9f953b5a3405d7d088503b8fc",
+      "normalization": "lf"
+    },
+    {
+      "path": "scripts/prepare_stability_curriculum.py",
+      "size": 7374,
+      "sha256": "4818a65022c292768ec5cac45519fb6b5a584c1e457c8256ca789d4ee7fe22b8",
+      "normalization": "lf"
+    },
+    {
+      "path": "scripts/prepare_transfer_curriculum.py",
+      "size": 6796,
+      "sha256": "c3241169f46eee5ffe501792465482c2f56fd66c9e5a3b66b57fa7ef2f4af988",
       "normalization": "lf"
     },
     {
@@ -1011,6 +1413,12 @@
       "normalization": "lf"
     },
     {
+      "path": "scripts/smoke_model_release.py",
+      "size": 1935,
+      "sha256": "9933e7a56f36369b34eba72f541d3e9cdc0616ab4367bcf226787af717f330ae",
+      "normalization": "lf"
+    },
+    {
       "path": "scripts/smoke_server.py",
       "size": 1890,
       "sha256": "73c64d9f8c370bf6859983acd42a0d59d51df191275411f8bcee0fe9a4d2944b",
@@ -1054,8 +1462,14 @@
     },
     {
       "path": "tests/test_continuation.py",
-      "size": 7748,
-      "sha256": "4d6e392eed10863fa4ef50df458471d91ea3c2671cbcd1c58fa66a52775f1c0d",
+      "size": 11018,
+      "sha256": "5f4ed8b2cbef8d01f7134e60b63a5974161e6de8199a9715d18bfa57233bd3b9",
+      "normalization": "lf"
+    },
+    {
+      "path": "tests/test_deployment.py",
+      "size": 8688,
+      "sha256": "b6b547aadb680370e7e9f69347a94cb96474249234d5ef31a35ca7af34dabce7",
       "normalization": "lf"
     },
     {
@@ -1066,14 +1480,14 @@
     },
     {
       "path": "tests/test_easy_install.py",
-      "size": 6343,
-      "sha256": "80146fa1ba894ed93ff33be888f3bb9d73662d824ca4186bc1cff36ebe151038",
+      "size": 7744,
+      "sha256": "8f1ed478df6552621a7946e5761852d476130ab2abc825dee05bd82262608eaa",
       "normalization": "lf"
     },
     {
       "path": "tests/test_ensemble.py",
-      "size": 12071,
-      "sha256": "d8d6673f3ab17b3d35f1b7a6f67ffc54771a1d3d6b36855fcdb307d04d9213a8",
+      "size": 12907,
+      "sha256": "b9e05ad990187d119ac7dbcbc879d29bb773ca68f099de60392db4cab2b0cda2",
       "normalization": "lf"
     },
     {
@@ -1146,6 +1560,12 @@
       "path": "tests/test_skills_library.py",
       "size": 8417,
       "sha256": "faf376f3bb9880a830401ff5cf83865a2f1a1eaa6222e371239c3a63f35cfd5f",
+      "normalization": "lf"
+    },
+    {
+      "path": "tests/test_stabilize.py",
+      "size": 2582,
+      "sha256": "c89fad6c60bfdfd81d108b061e197b4c34c7dc348fd3c92c3c7bbeaa764e01da",
       "normalization": "lf"
     },
     {

@@ -159,7 +159,7 @@ def continue_training(parent,dataset,output,steps=40,max_length=256,learning_rat
         'base_model':details['base_model'],'base_revision':details['base_revision'],
         'parent':str(parent),'parent_files':details['parent_files'],'parent_training_report_sha256':digest(parent/'training_report.json'),
         'tokenizer_sha256':details['tokenizer_sha256'],'architecture':details,
-        'objective':objective,'seed':seed,'start_offset':start_offset,'optimizer_state_resumed':False,'learning_rate':learning_rate,'max_length':max_length,
+        'objective':objective,'seed':seed,'start_offset':start_offset,'optimizer_state_resumed':False,'learning_rate':learning_rate,'max_length':max_length,'replay_fraction':replay_fraction,
         'train_examples':len(training),'eval_examples':len(validation),'dataset_manifest_sha256':digest(Path(dataset)/'manifest.json'),
         'dataset_files':manifest['files'],'skipped':{name:len(partitions[name])-len(prepared[name]) for name in prepared},
         'baseline':{'validation_target_loss':baseline},'final':{'validation_target_loss':final},
@@ -186,9 +186,10 @@ def main():
     parser.add_argument('--learning-rate',type=float,default=2e-5)
     parser.add_argument('--device',choices=['auto','cpu','cuda'],default='auto')
     parser.add_argument('--start-offset',type=int,default=0,help='Continue a deterministic curriculum schedule; optimizer state is reset explicitly')
+    parser.add_argument('--replay-fraction',type=float,default=0.25,help='Fraction of optimizer steps using historical training-only replay')
     parser.add_argument('--objective',choices=['sft','cpt','dpo'],default='sft')
     args=parser.parse_args()
-    try:report=continue_training(args.parent,args.dataset,args.output,args.steps,args.max_length,args.learning_rate,args.objective,start_offset=args.start_offset,device=args.device)
+    try:report=continue_training(args.parent,args.dataset,args.output,args.steps,args.max_length,args.learning_rate,args.objective,replay_fraction=args.replay_fraction,start_offset=args.start_offset,device=args.device)
     except (ValueError,OSError) as exc:parser.error(str(exc))
     print(json.dumps(report,indent=2))
 

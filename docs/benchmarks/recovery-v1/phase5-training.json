@@ -1,0 +1,3133 @@
+{
+  "schema_version": 1,
+  "run_id": "20261024T155144Z-b63a1dab",
+  "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "base_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "parent": "/workspace/scratch/zenith-recovery-candidate-v7",
+  "parent_files": {
+    "README.md": {
+      "bytes": 5206,
+      "sha256": "6b95375f507809c480d15e683ecaf6c69fe91a26adef775e1ce4032df12c7d56"
+    },
+    "adapter_config.json": {
+      "bytes": 1056,
+      "sha256": "efff2f18032405d91ec7c07bc7fb47548e349d6333de708467a3df9b8e156458"
+    },
+    "adapter_model.safetensors": {
+      "bytes": 17640136,
+      "sha256": "6e1047d0cd266a7bd437005927de4092c4aab20cd239fbce675b6669fd60fa4a"
+    },
+    "added_tokens.json": {
+      "bytes": 605,
+      "sha256": "58b54bbe36fc752f79a24a271ef66a0a0830054b4dfad94bde757d851968060b"
+    },
+    "chat_template.jinja": {
+      "bytes": 2507,
+      "sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f"
+    },
+    "merges.txt": {
+      "bytes": 1671853,
+      "sha256": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5"
+    },
+    "special_tokens_map.json": {
+      "bytes": 613,
+      "sha256": "76862e765266b85aa9459767e33cbaf13970f327a0e88d1c65846c2ddd3a1ecd"
+    },
+    "tokenizer.json": {
+      "bytes": 11421896,
+      "sha256": "9c5ae00e602b8860cbd784ba82a8aa14e8feecec692e7076590d014d7b7fdafa"
+    },
+    "tokenizer_config.json": {
+      "bytes": 4686,
+      "sha256": "0a04a9d7d4a62b28482bdfe726c122756de85714fb64166ace92ae75b8f57614"
+    },
+    "training_report.json": {
+      "bytes": 100534,
+      "sha256": "ae9006640275e58ed808b86d0584797c55c46be82a0aeed8e712a1361ff2388e"
+    },
+    "vocab.json": {
+      "bytes": 2776833,
+      "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+    }
+  },
+  "parent_training_report_sha256": "ae9006640275e58ed808b86d0584797c55c46be82a0aeed8e712a1361ff2388e",
+  "tokenizer_sha256": "221ea68122dfcfb2772276b69e62fc97ea9b13785ee069b118ee36498b19a418",
+  "architecture": {
+    "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "base_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "architecture": [
+      "Qwen2ForCausalLM"
+    ],
+    "model_type": "qwen2",
+    "base_parameters": 494032768,
+    "base_files": {
+      "LICENSE": {
+        "bytes": 11343,
+        "sha256": "832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e"
+      },
+      "README.md": {
+        "bytes": 4917,
+        "sha256": "b19c806a904db6dc878a0462e70b551f6b7ac78dfbb88c2eb966ca2b9109ae15"
+      },
+      "config.json": {
+        "bytes": 659,
+        "sha256": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45"
+      },
+      "generation_config.json": {
+        "bytes": 242,
+        "sha256": "e558847a8b4402616f1273797b015104dc266fe4b520056fca88823ba8f8ebe6"
+      },
+      "merges.txt": {
+        "bytes": 1671839,
+        "sha256": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3"
+      },
+      "model.safetensors": {
+        "bytes": 988097824,
+        "sha256": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe"
+      },
+      "tokenizer.json": {
+        "bytes": 7031645,
+        "sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539"
+      },
+      "tokenizer_config.json": {
+        "bytes": 7305,
+        "sha256": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583"
+      },
+      "vocab.json": {
+        "bytes": 2776833,
+        "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      }
+    },
+    "base_snapshot": "/home/agent/.cache/huggingface/hub/models--Qwen--Qwen2.5-0.5B-Instruct/snapshots/7ae557604adf67be50417f59c2c2f167def9a775",
+    "total_parameters_with_adapter": 498431872,
+    "trainable_parameters": 4399104,
+    "layers": 24,
+    "hidden_size": 896,
+    "attention_heads": 14,
+    "kv_heads": 2,
+    "context_limit": 32768,
+    "embedding_vocabulary": 151936,
+    "tokenizer_size": 151665,
+    "tokenizer_sha256": "221ea68122dfcfb2772276b69e62fc97ea9b13785ee069b118ee36498b19a418",
+    "checkpoint_format": "PEFT LoRA safetensors plus original pinned base safetensors",
+    "framework": {
+      "torch": "2.14.1+cpu",
+      "transformers": "4.57.6",
+      "peft": "0.18.1"
+    },
+    "parent": "/workspace/scratch/zenith-recovery-candidate-v7",
+    "parent_files": {
+      "README.md": {
+        "bytes": 5206,
+        "sha256": "6b95375f507809c480d15e683ecaf6c69fe91a26adef775e1ce4032df12c7d56"
+      },
+      "adapter_config.json": {
+        "bytes": 1056,
+        "sha256": "efff2f18032405d91ec7c07bc7fb47548e349d6333de708467a3df9b8e156458"
+      },
+      "adapter_model.safetensors": {
+        "bytes": 17640136,
+        "sha256": "6e1047d0cd266a7bd437005927de4092c4aab20cd239fbce675b6669fd60fa4a"
+      },
+      "added_tokens.json": {
+        "bytes": 605,
+        "sha256": "58b54bbe36fc752f79a24a271ef66a0a0830054b4dfad94bde757d851968060b"
+      },
+      "chat_template.jinja": {
+        "bytes": 2507,
+        "sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f"
+      },
+      "merges.txt": {
+        "bytes": 1671853,
+        "sha256": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5"
+      },
+      "special_tokens_map.json": {
+        "bytes": 613,
+        "sha256": "76862e765266b85aa9459767e33cbaf13970f327a0e88d1c65846c2ddd3a1ecd"
+      },
+      "tokenizer.json": {
+        "bytes": 11421896,
+        "sha256": "9c5ae00e602b8860cbd784ba82a8aa14e8feecec692e7076590d014d7b7fdafa"
+      },
+      "tokenizer_config.json": {
+        "bytes": 4686,
+        "sha256": "0a04a9d7d4a62b28482bdfe726c122756de85714fb64166ace92ae75b8f57614"
+      },
+      "training_report.json": {
+        "bytes": 100534,
+        "sha256": "ae9006640275e58ed808b86d0584797c55c46be82a0aeed8e712a1361ff2388e"
+      },
+      "vocab.json": {
+        "bytes": 2776833,
+        "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      }
+    },
+    "training_history": {
+      "schema_version": 1,
+      "run_id": "20261024T153912Z-aa30722a",
+      "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+      "base_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+      "parent": "/workspace/scratch/zenith-recovery-candidate-v6b",
+      "parent_files": {
+        "README.md": {
+          "bytes": 5206,
+          "sha256": "6b95375f507809c480d15e683ecaf6c69fe91a26adef775e1ce4032df12c7d56"
+        },
+        "adapter_config.json": {
+          "bytes": 1056,
+          "sha256": "8e9f74ca1a9961f12e4afd1bcc75e41d539eddc2a641184bbb295bc0b15e03bd"
+        },
+        "adapter_model.safetensors": {
+          "bytes": 17640136,
+          "sha256": "0d673044afc578eac2016a3283c5ff7183f52364f65936a0bbda8e85f48afad6"
+        },
+        "added_tokens.json": {
+          "bytes": 605,
+          "sha256": "58b54bbe36fc752f79a24a271ef66a0a0830054b4dfad94bde757d851968060b"
+        },
+        "chat_template.jinja": {
+          "bytes": 2507,
+          "sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f"
+        },
+        "merges.txt": {
+          "bytes": 1671853,
+          "sha256": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5"
+        },
+        "special_tokens_map.json": {
+          "bytes": 613,
+          "sha256": "76862e765266b85aa9459767e33cbaf13970f327a0e88d1c65846c2ddd3a1ecd"
+        },
+        "tokenizer.json": {
+          "bytes": 11421896,
+          "sha256": "9c5ae00e602b8860cbd784ba82a8aa14e8feecec692e7076590d014d7b7fdafa"
+        },
+        "tokenizer_config.json": {
+          "bytes": 4686,
+          "sha256": "0a04a9d7d4a62b28482bdfe726c122756de85714fb64166ace92ae75b8f57614"
+        },
+        "training_report.json": {
+          "bytes": 76885,
+          "sha256": "74a601470eeee744cc45333623b7a683bd5f04ae4a6c216fa353c9159bede459"
+        },
+        "vocab.json": {
+          "bytes": 2776833,
+          "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+        }
+      },
+      "parent_training_report_sha256": "74a601470eeee744cc45333623b7a683bd5f04ae4a6c216fa353c9159bede459",
+      "tokenizer_sha256": "221ea68122dfcfb2772276b69e62fc97ea9b13785ee069b118ee36498b19a418",
+      "architecture": {
+        "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+        "base_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+        "architecture": [
+          "Qwen2ForCausalLM"
+        ],
+        "model_type": "qwen2",
+        "base_parameters": 494032768,
+        "base_files": {
+          "LICENSE": {
+            "bytes": 11343,
+            "sha256": "832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e"
+          },
+          "README.md": {
+            "bytes": 4917,
+            "sha256": "b19c806a904db6dc878a0462e70b551f6b7ac78dfbb88c2eb966ca2b9109ae15"
+          },
+          "config.json": {
+            "bytes": 659,
+            "sha256": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45"
+          },
+          "generation_config.json": {
+            "bytes": 242,
+            "sha256": "e558847a8b4402616f1273797b015104dc266fe4b520056fca88823ba8f8ebe6"
+          },
+          "merges.txt": {
+            "bytes": 1671839,
+            "sha256": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3"
+          },
+          "model.safetensors": {
+            "bytes": 988097824,
+            "sha256": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe"
+          },
+          "tokenizer.json": {
+            "bytes": 7031645,
+            "sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539"
+          },
+          "tokenizer_config.json": {
+            "bytes": 7305,
+            "sha256": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583"
+          },
+          "vocab.json": {
+            "bytes": 2776833,
+            "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+          }
+        },
+        "base_snapshot": "/home/agent/.cache/huggingface/hub/models--Qwen--Qwen2.5-0.5B-Instruct/snapshots/7ae557604adf67be50417f59c2c2f167def9a775",
+        "total_parameters_with_adapter": 498431872,
+        "trainable_parameters": 4399104,
+        "layers": 24,
+        "hidden_size": 896,
+        "attention_heads": 14,
+        "kv_heads": 2,
+        "context_limit": 32768,
+        "embedding_vocabulary": 151936,
+        "tokenizer_size": 151665,
+        "tokenizer_sha256": "221ea68122dfcfb2772276b69e62fc97ea9b13785ee069b118ee36498b19a418",
+        "checkpoint_format": "PEFT LoRA safetensors plus original pinned base safetensors",
+        "framework": {
+          "torch": "2.14.1+cpu",
+          "transformers": "4.57.6",
+          "peft": "0.18.1"
+        },
+        "parent": "/workspace/scratch/zenith-recovery-candidate-v6b",
+        "parent_files": {
+          "README.md": {
+            "bytes": 5206,
+            "sha256": "6b95375f507809c480d15e683ecaf6c69fe91a26adef775e1ce4032df12c7d56"
+          },
+          "adapter_config.json": {
+            "bytes": 1056,
+            "sha256": "8e9f74ca1a9961f12e4afd1bcc75e41d539eddc2a641184bbb295bc0b15e03bd"
+          },
+          "adapter_model.safetensors": {
+            "bytes": 17640136,
+            "sha256": "0d673044afc578eac2016a3283c5ff7183f52364f65936a0bbda8e85f48afad6"
+          },
+          "added_tokens.json": {
+            "bytes": 605,
+            "sha256": "58b54bbe36fc752f79a24a271ef66a0a0830054b4dfad94bde757d851968060b"
+          },
+          "chat_template.jinja": {
+            "bytes": 2507,
+            "sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f"
+          },
+          "merges.txt": {
+            "bytes": 1671853,
+            "sha256": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5"
+          },
+          "special_tokens_map.json": {
+            "bytes": 613,
+            "sha256": "76862e765266b85aa9459767e33cbaf13970f327a0e88d1c65846c2ddd3a1ecd"
+          },
+          "tokenizer.json": {
+            "bytes": 11421896,
+            "sha256": "9c5ae00e602b8860cbd784ba82a8aa14e8feecec692e7076590d014d7b7fdafa"
+          },
+          "tokenizer_config.json": {
+            "bytes": 4686,
+            "sha256": "0a04a9d7d4a62b28482bdfe726c122756de85714fb64166ace92ae75b8f57614"
+          },
+          "training_report.json": {
+            "bytes": 76885,
+            "sha256": "74a601470eeee744cc45333623b7a683bd5f04ae4a6c216fa353c9159bede459"
+          },
+          "vocab.json": {
+            "bytes": 2776833,
+            "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+          }
+        },
+        "training_history": {
+          "schema_version": 1,
+          "run_id": "20261024T052702Z-8ca85edd",
+          "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "base_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+          "parent": "/workspace/scratch/zenith-recovery-candidate-v5b",
+          "parent_files": {
+            "README.md": {
+              "bytes": 5206,
+              "sha256": "6b95375f507809c480d15e683ecaf6c69fe91a26adef775e1ce4032df12c7d56"
+            },
+            "adapter_config.json": {
+              "bytes": 1056,
+              "sha256": "35e1fa7114ae4ead2a48217b281cf6eb58f144025a47403a351ea2c42f22f1e2"
+            },
+            "adapter_model.safetensors": {
+              "bytes": 17640136,
+              "sha256": "5ff965a99febddfca84806cb976f8200642fe4f4c5f181d70c82137c5bfa89a3"
+            },
+            "added_tokens.json": {
+              "bytes": 605,
+              "sha256": "58b54bbe36fc752f79a24a271ef66a0a0830054b4dfad94bde757d851968060b"
+            },
+            "chat_template.jinja": {
+              "bytes": 2507,
+              "sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f"
+            },
+            "merges.txt": {
+              "bytes": 1671853,
+              "sha256": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5"
+            },
+            "special_tokens_map.json": {
+              "bytes": 613,
+              "sha256": "76862e765266b85aa9459767e33cbaf13970f327a0e88d1c65846c2ddd3a1ecd"
+            },
+            "tokenizer.json": {
+              "bytes": 11421896,
+              "sha256": "9c5ae00e602b8860cbd784ba82a8aa14e8feecec692e7076590d014d7b7fdafa"
+            },
+            "tokenizer_config.json": {
+              "bytes": 4686,
+              "sha256": "0a04a9d7d4a62b28482bdfe726c122756de85714fb64166ace92ae75b8f57614"
+            },
+            "training_report.json": {
+              "bytes": 55760,
+              "sha256": "c9f69574ce219809daa7a6d561038f465640d081318a46ad215cd97bba80d9a6"
+            },
+            "vocab.json": {
+              "bytes": 2776833,
+              "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+            }
+          },
+          "parent_training_report_sha256": "c9f69574ce219809daa7a6d561038f465640d081318a46ad215cd97bba80d9a6",
+          "tokenizer_sha256": "221ea68122dfcfb2772276b69e62fc97ea9b13785ee069b118ee36498b19a418",
+          "architecture": {
+            "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+            "base_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+            "architecture": [
+              "Qwen2ForCausalLM"
+            ],
+            "model_type": "qwen2",
+            "base_parameters": 494032768,
+            "base_files": {
+              "LICENSE": {
+                "bytes": 11343,
+                "sha256": "832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e"
+              },
+              "README.md": {
+                "bytes": 4917,
+                "sha256": "b19c806a904db6dc878a0462e70b551f6b7ac78dfbb88c2eb966ca2b9109ae15"
+              },
+              "config.json": {
+                "bytes": 659,
+                "sha256": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45"
+              },
+              "generation_config.json": {
+                "bytes": 242,
+                "sha256": "e558847a8b4402616f1273797b015104dc266fe4b520056fca88823ba8f8ebe6"
+              },
+              "merges.txt": {
+                "bytes": 1671839,
+                "sha256": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3"
+              },
+              "model.safetensors": {
+                "bytes": 988097824,
+                "sha256": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe"
+              },
+              "tokenizer.json": {
+                "bytes": 7031645,
+                "sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539"
+              },
+              "tokenizer_config.json": {
+                "bytes": 7305,
+                "sha256": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583"
+              },
+              "vocab.json": {
+                "bytes": 2776833,
+                "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+              }
+            },
+            "base_snapshot": "/home/agent/.cache/huggingface/hub/models--Qwen--Qwen2.5-0.5B-Instruct/snapshots/7ae557604adf67be50417f59c2c2f167def9a775",
+            "total_parameters_with_adapter": 498431872,
+            "trainable_parameters": 4399104,
+            "layers": 24,
+            "hidden_size": 896,
+            "attention_heads": 14,
+            "kv_heads": 2,
+            "context_limit": 32768,
+            "embedding_vocabulary": 151936,
+            "tokenizer_size": 151665,
+            "tokenizer_sha256": "221ea68122dfcfb2772276b69e62fc97ea9b13785ee069b118ee36498b19a418",
+            "checkpoint_format": "PEFT LoRA safetensors plus original pinned base safetensors",
+            "framework": {
+              "torch": "2.14.1+cpu",
+              "transformers": "4.57.6",
+              "peft": "0.18.1"
+            },
+            "parent": "/workspace/scratch/zenith-recovery-candidate-v5b",
+            "parent_files": {
+              "README.md": {
+                "bytes": 5206,
+                "sha256": "6b95375f507809c480d15e683ecaf6c69fe91a26adef775e1ce4032df12c7d56"
+              },
+              "adapter_config.json": {
+                "bytes": 1056,
+                "sha256": "35e1fa7114ae4ead2a48217b281cf6eb58f144025a47403a351ea2c42f22f1e2"
+              },
+              "adapter_model.safetensors": {
+                "bytes": 17640136,
+                "sha256": "5ff965a99febddfca84806cb976f8200642fe4f4c5f181d70c82137c5bfa89a3"
+              },
+              "added_tokens.json": {
+                "bytes": 605,
+                "sha256": "58b54bbe36fc752f79a24a271ef66a0a0830054b4dfad94bde757d851968060b"
+              },
+              "chat_template.jinja": {
+                "bytes": 2507,
+                "sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f"
+              },
+              "merges.txt": {
+                "bytes": 1671853,
+                "sha256": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5"
+              },
+              "special_tokens_map.json": {
+                "bytes": 613,
+                "sha256": "76862e765266b85aa9459767e33cbaf13970f327a0e88d1c65846c2ddd3a1ecd"
+              },
+              "tokenizer.json": {
+                "bytes": 11421896,
+                "sha256": "9c5ae00e602b8860cbd784ba82a8aa14e8feecec692e7076590d014d7b7fdafa"
+              },
+              "tokenizer_config.json": {
+                "bytes": 4686,
+                "sha256": "0a04a9d7d4a62b28482bdfe726c122756de85714fb64166ace92ae75b8f57614"
+              },
+              "training_report.json": {
+                "bytes": 55760,
+                "sha256": "c9f69574ce219809daa7a6d561038f465640d081318a46ad215cd97bba80d9a6"
+              },
+              "vocab.json": {
+                "bytes": 2776833,
+                "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+              }
+            },
+            "training_history": {
+              "schema_version": 1,
+              "run_id": "20261024T051937Z-59e404e9",
+              "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+              "base_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+              "parent": "/workspace/scratch/zenith-recovery-candidate-v4b",
+              "parent_files": {
+                "README.md": {
+                  "bytes": 5206,
+                  "sha256": "6b95375f507809c480d15e683ecaf6c69fe91a26adef775e1ce4032df12c7d56"
+                },
+                "adapter_config.json": {
+                  "bytes": 1056,
+                  "sha256": "f85c3be6098eb029df7558c0dd2235f2a0ad3865456df894ac678b2688dbc657"
+                },
+                "adapter_model.safetensors": {
+                  "bytes": 17640136,
+                  "sha256": "9bbd2668793d8e0749cca4eb8d59afe4efcb82f8f84350eb846ce4ab31e1f5b0"
+                },
+                "added_tokens.json": {
+                  "bytes": 605,
+                  "sha256": "58b54bbe36fc752f79a24a271ef66a0a0830054b4dfad94bde757d851968060b"
+                },
+                "chat_template.jinja": {
+                  "bytes": 2507,
+                  "sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f"
+                },
+                "merges.txt": {
+                  "bytes": 1671853,
+                  "sha256": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5"
+                },
+                "special_tokens_map.json": {
+                  "bytes": 613,
+                  "sha256": "76862e765266b85aa9459767e33cbaf13970f327a0e88d1c65846c2ddd3a1ecd"
+                },
+                "tokenizer.json": {
+                  "bytes": 11421896,
+                  "sha256": "9c5ae00e602b8860cbd784ba82a8aa14e8feecec692e7076590d014d7b7fdafa"
+                },
+                "tokenizer_config.json": {
+                  "bytes": 4686,
+                  "sha256": "0a04a9d7d4a62b28482bdfe726c122756de85714fb64166ace92ae75b8f57614"
+                },
+                "training_report.json": {
+                  "bytes": 36766,
+                  "sha256": "b729e8de107314224db3c2490bc5111791dfc96a42dd27771736d2d9e66f5248"
+                },
+                "vocab.json": {
+                  "bytes": 2776833,
+                  "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+                }
+              },
+              "parent_training_report_sha256": "b729e8de107314224db3c2490bc5111791dfc96a42dd27771736d2d9e66f5248",
+              "tokenizer_sha256": "221ea68122dfcfb2772276b69e62fc97ea9b13785ee069b118ee36498b19a418",
+              "architecture": {
+                "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+                "base_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+                "architecture": [
+                  "Qwen2ForCausalLM"
+                ],
+                "model_type": "qwen2",
+                "base_parameters": 494032768,
+                "base_files": {
+                  "LICENSE": {
+                    "bytes": 11343,
+                    "sha256": "832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e"
+                  },
+                  "README.md": {
+                    "bytes": 4917,
+                    "sha256": "b19c806a904db6dc878a0462e70b551f6b7ac78dfbb88c2eb966ca2b9109ae15"
+                  },
+                  "config.json": {
+                    "bytes": 659,
+                    "sha256": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45"
+                  },
+                  "generation_config.json": {
+                    "bytes": 242,
+                    "sha256": "e558847a8b4402616f1273797b015104dc266fe4b520056fca88823ba8f8ebe6"
+                  },
+                  "merges.txt": {
+                    "bytes": 1671839,
+                    "sha256": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3"
+                  },
+                  "model.safetensors": {
+                    "bytes": 988097824,
+                    "sha256": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe"
+                  },
+                  "tokenizer.json": {
+                    "bytes": 7031645,
+                    "sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539"
+                  },
+                  "tokenizer_config.json": {
+                    "bytes": 7305,
+                    "sha256": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583"
+                  },
+                  "vocab.json": {
+                    "bytes": 2776833,
+                    "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+                  }
+                },
+                "base_snapshot": "/home/agent/.cache/huggingface/hub/models--Qwen--Qwen2.5-0.5B-Instruct/snapshots/7ae557604adf67be50417f59c2c2f167def9a775",
+                "total_parameters_with_adapter": 498431872,
+                "trainable_parameters": 4399104,
+                "layers": 24,
+                "hidden_size": 896,
+                "attention_heads": 14,
+                "kv_heads": 2,
+                "context_limit": 32768,
+                "embedding_vocabulary": 151936,
+                "tokenizer_size": 151665,
+                "tokenizer_sha256": "221ea68122dfcfb2772276b69e62fc97ea9b13785ee069b118ee36498b19a418",
+                "checkpoint_format": "PEFT LoRA safetensors plus original pinned base safetensors",
+                "framework": {
+                  "torch": "2.14.1+cpu",
+                  "transformers": "4.57.6",
+                  "peft": "0.18.1"
+                },
+                "parent": "/workspace/scratch/zenith-recovery-candidate-v4b",
+                "parent_files": {
+                  "README.md": {
+                    "bytes": 5206,
+                    "sha256": "6b95375f507809c480d15e683ecaf6c69fe91a26adef775e1ce4032df12c7d56"
+                  },
+                  "adapter_config.json": {
+                    "bytes": 1056,
+                    "sha256": "f85c3be6098eb029df7558c0dd2235f2a0ad3865456df894ac678b2688dbc657"
+                  },
+                  "adapter_model.safetensors": {
+                    "bytes": 17640136,
+                    "sha256": "9bbd2668793d8e0749cca4eb8d59afe4efcb82f8f84350eb846ce4ab31e1f5b0"
+                  },
+                  "added_tokens.json": {
+                    "bytes": 605,
+                    "sha256": "58b54bbe36fc752f79a24a271ef66a0a0830054b4dfad94bde757d851968060b"
+                  },
+                  "chat_template.jinja": {
+                    "bytes": 2507,
+                    "sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f"
+                  },
+                  "merges.txt": {
+                    "bytes": 1671853,
+                    "sha256": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5"
+                  },
+                  "special_tokens_map.json": {
+                    "bytes": 613,
+                    "sha256": "76862e765266b85aa9459767e33cbaf13970f327a0e88d1c65846c2ddd3a1ecd"
+                  },
+                  "tokenizer.json": {
+                    "bytes": 11421896,
+                    "sha256": "9c5ae00e602b8860cbd784ba82a8aa14e8feecec692e7076590d014d7b7fdafa"
+                  },
+                  "tokenizer_config.json": {
+                    "bytes": 4686,
+                    "sha256": "0a04a9d7d4a62b28482bdfe726c122756de85714fb64166ace92ae75b8f57614"
+                  },
+                  "training_report.json": {
+                    "bytes": 36766,
+                    "sha256": "b729e8de107314224db3c2490bc5111791dfc96a42dd27771736d2d9e66f5248"
+                  },
+                  "vocab.json": {
+                    "bytes": 2776833,
+                    "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+                  }
+                },
+                "training_history": {
+                  "schema_version": 1,
+                  "run_id": "20261024T050745Z-4dd5ce3c",
+                  "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+                  "base_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+                  "parent": "/workspace/scratch/zenith-expansion-sft-candidate-v3",
+                  "parent_files": {
+                    "README.md": {
+                      "bytes": 5206,
+                      "sha256": "6b95375f507809c480d15e683ecaf6c69fe91a26adef775e1ce4032df12c7d56"
+                    },
+                    "adapter_config.json": {
+                      "bytes": 1056,
+                      "sha256": "d0004ec85dc4712b3cc3531bad68abd687ff28b211457ef0ae9a7cfc298b5c32"
+                    },
+                    "adapter_model.safetensors": {
+                      "bytes": 17640136,
+                      "sha256": "71632026ae20795e991d86e29b63165e21083333f65e0132aff87d524bce7b93"
+                    },
+                    "added_tokens.json": {
+                      "bytes": 605,
+                      "sha256": "58b54bbe36fc752f79a24a271ef66a0a0830054b4dfad94bde757d851968060b"
+                    },
+                    "chat_template.jinja": {
+                      "bytes": 2507,
+                      "sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f"
+                    },
+                    "merges.txt": {
+                      "bytes": 1671853,
+                      "sha256": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5"
+                    },
+                    "special_tokens_map.json": {
+                      "bytes": 613,
+                      "sha256": "76862e765266b85aa9459767e33cbaf13970f327a0e88d1c65846c2ddd3a1ecd"
+                    },
+                    "tokenizer.json": {
+                      "bytes": 11421896,
+                      "sha256": "9c5ae00e602b8860cbd784ba82a8aa14e8feecec692e7076590d014d7b7fdafa"
+                    },
+                    "tokenizer_config.json": {
+                      "bytes": 4686,
+                      "sha256": "0a04a9d7d4a62b28482bdfe726c122756de85714fb64166ace92ae75b8f57614"
+                    },
+                    "training_report.json": {
+                      "bytes": 19714,
+                      "sha256": "4dcc7333cb89285e0fc5f1c0eff410eb651865656fd80e7f91d7458bfa0ea78e"
+                    },
+                    "vocab.json": {
+                      "bytes": 2776833,
+                      "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+                    }
+                  },
+                  "parent_training_report_sha256": "4dcc7333cb89285e0fc5f1c0eff410eb651865656fd80e7f91d7458bfa0ea78e",
+                  "tokenizer_sha256": "221ea68122dfcfb2772276b69e62fc97ea9b13785ee069b118ee36498b19a418",
+                  "architecture": {
+                    "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+                    "base_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+                    "architecture": [
+                      "Qwen2ForCausalLM"
+                    ],
+                    "model_type": "qwen2",
+                    "base_parameters": 494032768,
+                    "base_files": {
+                      "LICENSE": {
+                        "bytes": 11343,
+                        "sha256": "832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e"
+                      },
+                      "README.md": {
+                        "bytes": 4917,
+                        "sha256": "b19c806a904db6dc878a0462e70b551f6b7ac78dfbb88c2eb966ca2b9109ae15"
+                      },
+                      "config.json": {
+                        "bytes": 659,
+                        "sha256": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45"
+                      },
+                      "generation_config.json": {
+                        "bytes": 242,
+                        "sha256": "e558847a8b4402616f1273797b015104dc266fe4b520056fca88823ba8f8ebe6"
+                      },
+                      "merges.txt": {
+                        "bytes": 1671839,
+                        "sha256": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3"
+                      },
+                      "model.safetensors": {
+                        "bytes": 988097824,
+                        "sha256": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe"
+                      },
+                      "tokenizer.json": {
+                        "bytes": 7031645,
+                        "sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539"
+                      },
+                      "tokenizer_config.json": {
+                        "bytes": 7305,
+                        "sha256": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583"
+                      },
+                      "vocab.json": {
+                        "bytes": 2776833,
+                        "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+                      }
+                    },
+                    "base_snapshot": "/home/agent/.cache/huggingface/hub/models--Qwen--Qwen2.5-0.5B-Instruct/snapshots/7ae557604adf67be50417f59c2c2f167def9a775",
+                    "total_parameters_with_adapter": 498431872,
+                    "trainable_parameters": 4399104,
+                    "layers": 24,
+                    "hidden_size": 896,
+                    "attention_heads": 14,
+                    "kv_heads": 2,
+                    "context_limit": 32768,
+                    "embedding_vocabulary": 151936,
+                    "tokenizer_size": 151665,
+                    "tokenizer_sha256": "221ea68122dfcfb2772276b69e62fc97ea9b13785ee069b118ee36498b19a418",
+                    "checkpoint_format": "PEFT LoRA safetensors plus original pinned base safetensors",
+                    "framework": {
+                      "torch": "2.14.1+cpu",
+                      "transformers": "4.57.6",
+                      "peft": "0.18.1"
+                    },
+                    "parent": "/workspace/scratch/zenith-expansion-sft-candidate-v3",
+                    "parent_files": {
+                      "README.md": {
+                        "bytes": 5206,
+                        "sha256": "6b95375f507809c480d15e683ecaf6c69fe91a26adef775e1ce4032df12c7d56"
+                      },
+                      "adapter_config.json": {
+                        "bytes": 1056,
+                        "sha256": "d0004ec85dc4712b3cc3531bad68abd687ff28b211457ef0ae9a7cfc298b5c32"
+                      },
+                      "adapter_model.safetensors": {
+                        "bytes": 17640136,
+                        "sha256": "71632026ae20795e991d86e29b63165e21083333f65e0132aff87d524bce7b93"
+                      },
+                      "added_tokens.json": {
+                        "bytes": 605,
+                        "sha256": "58b54bbe36fc752f79a24a271ef66a0a0830054b4dfad94bde757d851968060b"
+                      },
+                      "chat_template.jinja": {
+                        "bytes": 2507,
+                        "sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f"
+                      },
+                      "merges.txt": {
+                        "bytes": 1671853,
+                        "sha256": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5"
+                      },
+                      "special_tokens_map.json": {
+                        "bytes": 613,
+                        "sha256": "76862e765266b85aa9459767e33cbaf13970f327a0e88d1c65846c2ddd3a1ecd"
+                      },
+                      "tokenizer.json": {
+                        "bytes": 11421896,
+                        "sha256": "9c5ae00e602b8860cbd784ba82a8aa14e8feecec692e7076590d014d7b7fdafa"
+                      },
+                      "tokenizer_config.json": {
+                        "bytes": 4686,
+                        "sha256": "0a04a9d7d4a62b28482bdfe726c122756de85714fb64166ace92ae75b8f57614"
+                      },
+                      "training_report.json": {
+                        "bytes": 19714,
+                        "sha256": "4dcc7333cb89285e0fc5f1c0eff410eb651865656fd80e7f91d7458bfa0ea78e"
+                      },
+                      "vocab.json": {
+                        "bytes": 2776833,
+                        "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+                      }
+                    },
+                    "training_history": {
+                      "schema_version": 1,
+                      "run_id": "20261024T035745Z-f9405143",
+                      "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+                      "base_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+                      "parent": "/workspace/scratch/zenith-expansion-sft-candidate-v2",
+                      "parent_files": {
+                        "README.md": {
+                          "bytes": 5206,
+                          "sha256": "6b95375f507809c480d15e683ecaf6c69fe91a26adef775e1ce4032df12c7d56"
+                        },
+                        "adapter_config.json": {
+                          "bytes": 1056,
+                          "sha256": "cdcbf87a4f1c9fc7b2b8bda0c0e9daa1f0d9f4ce206ebedb4f345e1e6d6502fd"
+                        },
+                        "adapter_model.safetensors": {
+                          "bytes": 17640136,
+                          "sha256": "fa7c1ee312fd1947d3e15697dd04ea820d3a5a0c0a2536de0dcf4dd3c2b8360a"
+                        },
+                        "added_tokens.json": {
+                          "bytes": 605,
+                          "sha256": "58b54bbe36fc752f79a24a271ef66a0a0830054b4dfad94bde757d851968060b"
+                        },
+                        "chat_template.jinja": {
+                          "bytes": 2507,
+                          "sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f"
+                        },
+                        "merges.txt": {
+                          "bytes": 1671853,
+                          "sha256": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5"
+                        },
+                        "special_tokens_map.json": {
+                          "bytes": 613,
+                          "sha256": "76862e765266b85aa9459767e33cbaf13970f327a0e88d1c65846c2ddd3a1ecd"
+                        },
+                        "tokenizer.json": {
+                          "bytes": 11421896,
+                          "sha256": "9c5ae00e602b8860cbd784ba82a8aa14e8feecec692e7076590d014d7b7fdafa"
+                        },
+                        "tokenizer_config.json": {
+                          "bytes": 4686,
+                          "sha256": "0a04a9d7d4a62b28482bdfe726c122756de85714fb64166ace92ae75b8f57614"
+                        },
+                        "training_report.json": {
+                          "bytes": 10197,
+                          "sha256": "b0873fe85c16baffb8885b25ced3d7c4a584fe817e6ddfbf8a53e4410008cb7c"
+                        },
+                        "vocab.json": {
+                          "bytes": 2776833,
+                          "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+                        }
+                      },
+                      "parent_training_report_sha256": "b0873fe85c16baffb8885b25ced3d7c4a584fe817e6ddfbf8a53e4410008cb7c",
+                      "tokenizer_sha256": "221ea68122dfcfb2772276b69e62fc97ea9b13785ee069b118ee36498b19a418",
+                      "architecture": {
+                        "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+                        "base_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+                        "architecture": [
+                          "Qwen2ForCausalLM"
+                        ],
+                        "model_type": "qwen2",
+                        "base_parameters": 494032768,
+                        "total_parameters_with_adapter": 498431872,
+                        "trainable_parameters": 4399104,
+                        "layers": 24,
+                        "hidden_size": 896,
+                        "attention_heads": 14,
+                        "kv_heads": 2,
+                        "context_limit": 32768,
+                        "embedding_vocabulary": 151936,
+                        "tokenizer_size": 151665,
+                        "tokenizer_sha256": "221ea68122dfcfb2772276b69e62fc97ea9b13785ee069b118ee36498b19a418",
+                        "checkpoint_format": "PEFT LoRA safetensors plus original pinned base safetensors",
+                        "framework": {
+                          "torch": "2.14.1+cpu",
+                          "transformers": "4.57.6",
+                          "peft": "0.18.1"
+                        },
+                        "parent": "/workspace/scratch/zenith-expansion-sft-candidate-v2",
+                        "parent_files": {
+                          "README.md": {
+                            "bytes": 5206,
+                            "sha256": "6b95375f507809c480d15e683ecaf6c69fe91a26adef775e1ce4032df12c7d56"
+                          },
+                          "adapter_config.json": {
+                            "bytes": 1056,
+                            "sha256": "cdcbf87a4f1c9fc7b2b8bda0c0e9daa1f0d9f4ce206ebedb4f345e1e6d6502fd"
+                          },
+                          "adapter_model.safetensors": {
+                            "bytes": 17640136,
+                            "sha256": "fa7c1ee312fd1947d3e15697dd04ea820d3a5a0c0a2536de0dcf4dd3c2b8360a"
+                          },
+                          "added_tokens.json": {
+                            "bytes": 605,
+                            "sha256": "58b54bbe36fc752f79a24a271ef66a0a0830054b4dfad94bde757d851968060b"
+                          },
+                          "chat_template.jinja": {
+                            "bytes": 2507,
+                            "sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f"
+                          },
+                          "merges.txt": {
+                            "bytes": 1671853,
+                            "sha256": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5"
+                          },
+                          "special_tokens_map.json": {
+                            "bytes": 613,
+                            "sha256": "76862e765266b85aa9459767e33cbaf13970f327a0e88d1c65846c2ddd3a1ecd"
+                          },
+                          "tokenizer.json": {
+                            "bytes": 11421896,
+                            "sha256": "9c5ae00e602b8860cbd784ba82a8aa14e8feecec692e7076590d014d7b7fdafa"
+                          },
+                          "tokenizer_config.json": {
+                            "bytes": 4686,
+                            "sha256": "0a04a9d7d4a62b28482bdfe726c122756de85714fb64166ace92ae75b8f57614"
+                          },
+                          "training_report.json": {
+                            "bytes": 10197,
+                            "sha256": "b0873fe85c16baffb8885b25ced3d7c4a584fe817e6ddfbf8a53e4410008cb7c"
+                          },
+                          "vocab.json": {
+                            "bytes": 2776833,
+                            "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+                          }
+                        },
+                        "training_history": {
+                          "schema_version": 1,
+                          "run_id": "20261024T035415Z-5c614506",
+                          "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+                          "base_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+                          "parent": "/workspace/scratch/zenith-v06-adapter",
+                          "parent_files": {
+                            "README.md": {
+                              "bytes": 5206,
+                              "sha256": "6b95375f507809c480d15e683ecaf6c69fe91a26adef775e1ce4032df12c7d56"
+                            },
+                            "adapter_config.json": {
+                              "bytes": 1056,
+                              "sha256": "7927c7d9d27cfa088c373a97a4cd554a571090eadda029dbeb3c777ca2868bbe"
+                            },
+                            "adapter_model.safetensors": {
+                              "bytes": 17640136,
+                              "sha256": "1a4037eb6e15fe2bbe75bcf53ea2d40ad42cd377bb2d2af47bc3e3c61914106f"
+                            },
+                            "added_tokens.json": {
+                              "bytes": 605,
+                              "sha256": "58b54bbe36fc752f79a24a271ef66a0a0830054b4dfad94bde757d851968060b"
+                            },
+                            "chat_template.jinja": {
+                              "bytes": 2507,
+                              "sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f"
+                            },
+                            "merges.txt": {
+                              "bytes": 1671853,
+                              "sha256": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5"
+                            },
+                            "special_tokens_map.json": {
+                              "bytes": 613,
+                              "sha256": "76862e765266b85aa9459767e33cbaf13970f327a0e88d1c65846c2ddd3a1ecd"
+                            },
+                            "tokenizer.json": {
+                              "bytes": 11421896,
+                              "sha256": "9c5ae00e602b8860cbd784ba82a8aa14e8feecec692e7076590d014d7b7fdafa"
+                            },
+                            "tokenizer_config.json": {
+                              "bytes": 4686,
+                              "sha256": "0a04a9d7d4a62b28482bdfe726c122756de85714fb64166ace92ae75b8f57614"
+                            },
+                            "training_report.json": {
+                              "bytes": 1791,
+                              "sha256": "f89699f9a6d4d15be4d218af0eadabb51f12414997c7f420dd67b4212c2a8f4d"
+                            },
+                            "vocab.json": {
+                              "bytes": 2776833,
+                              "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+                            }
+                          },
+                          "parent_training_report_sha256": "f89699f9a6d4d15be4d218af0eadabb51f12414997c7f420dd67b4212c2a8f4d",
+                          "tokenizer_sha256": "221ea68122dfcfb2772276b69e62fc97ea9b13785ee069b118ee36498b19a418",
+                          "architecture": {
+                            "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+                            "base_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+                            "architecture": [
+                              "Qwen2ForCausalLM"
+                            ],
+                            "model_type": "qwen2",
+                            "base_parameters": 494032768,
+                            "total_parameters_with_adapter": 498431872,
+                            "trainable_parameters": 4399104,
+                            "layers": 24,
+                            "hidden_size": 896,
+                            "attention_heads": 14,
+                            "kv_heads": 2,
+                            "context_limit": 32768,
+                            "embedding_vocabulary": 151936,
+                            "tokenizer_size": 151665,
+                            "tokenizer_sha256": "221ea68122dfcfb2772276b69e62fc97ea9b13785ee069b118ee36498b19a418",
+                            "checkpoint_format": "PEFT LoRA safetensors plus original pinned base safetensors",
+                            "framework": {
+                              "torch": "2.14.1+cpu",
+                              "transformers": "4.57.6",
+                              "peft": "0.18.1"
+                            },
+                            "parent": "/workspace/scratch/zenith-v06-adapter",
+                            "parent_files": {
+                              "README.md": {
+                                "bytes": 5206,
+                                "sha256": "6b95375f507809c480d15e683ecaf6c69fe91a26adef775e1ce4032df12c7d56"
+                              },
+                              "adapter_config.json": {
+                                "bytes": 1056,
+                                "sha256": "7927c7d9d27cfa088c373a97a4cd554a571090eadda029dbeb3c777ca2868bbe"
+                              },
+                              "adapter_model.safetensors": {
+                                "bytes": 17640136,
+                                "sha256": "1a4037eb6e15fe2bbe75bcf53ea2d40ad42cd377bb2d2af47bc3e3c61914106f"
+                              },
+                              "added_tokens.json": {
+                                "bytes": 605,
+                                "sha256": "58b54bbe36fc752f79a24a271ef66a0a0830054b4dfad94bde757d851968060b"
+                              },
+                              "chat_template.jinja": {
+                                "bytes": 2507,
+                                "sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f"
+                              },
+                              "merges.txt": {
+                                "bytes": 1671853,
+                                "sha256": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5"
+                              },
+                              "special_tokens_map.json": {
+                                "bytes": 613,
+                                "sha256": "76862e765266b85aa9459767e33cbaf13970f327a0e88d1c65846c2ddd3a1ecd"
+                              },
+                              "tokenizer.json": {
+                                "bytes": 11421896,
+                                "sha256": "9c5ae00e602b8860cbd784ba82a8aa14e8feecec692e7076590d014d7b7fdafa"
+                              },
+                              "tokenizer_config.json": {
+                                "bytes": 4686,
+                                "sha256": "0a04a9d7d4a62b28482bdfe726c122756de85714fb64166ace92ae75b8f57614"
+                              },
+                              "training_report.json": {
+                                "bytes": 1791,
+                                "sha256": "f89699f9a6d4d15be4d218af0eadabb51f12414997c7f420dd67b4212c2a8f4d"
+                              },
+                              "vocab.json": {
+                                "bytes": 2776833,
+                                "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+                              }
+                            },
+                            "training_history": {
+                              "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+                              "base_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+                              "train_sha256": "deb58757bc2567792835ca2ae52a3138c9896cd7b48632980560046d8fa3ba5e",
+                              "eval_sha256": "5f0e54ce4777bf1abd479c24d9c8c2133540ed697a2d99e99455514f84fde95d",
+                              "train_examples": 40,
+                              "eval_examples": 10,
+                              "skipped": {
+                                "train": 0,
+                                "eval": 0
+                              },
+                              "baseline": {
+                                "eval_loss": 3.510702133178711,
+                                "eval_model_preparation_time": 0.0135,
+                                "eval_runtime": 9.8496,
+                                "eval_samples_per_second": 1.015,
+                                "eval_steps_per_second": 1.015
+                              },
+                              "final": {
+                                "eval_loss": 2.5624325275421143,
+                                "eval_model_preparation_time": 0.0135,
+                                "eval_runtime": 7.0617,
+                                "eval_samples_per_second": 1.416,
+                                "eval_steps_per_second": 1.416,
+                                "epoch": 1.0
+                              },
+                              "training": {
+                                "train_runtime": 85.9489,
+                                "train_samples_per_second": 0.465,
+                                "train_steps_per_second": 0.465,
+                                "total_flos": 6325709391360.0,
+                                "train_loss": 2.945934993028641,
+                                "epoch": 1.0
+                              },
+                              "parameters": {
+                                "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+                                "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+                                "train_data": "/workspace/scratch/zenith-curriculum-v1-balanced/train.jsonl",
+                                "eval_data": "/workspace/scratch/zenith-curriculum-v1-balanced/validation.jsonl",
+                                "output_dir": "/workspace/scratch/zenith-v06-adapter",
+                                "epochs": 1.0,
+                                "max_steps": -1,
+                                "max_length": 256,
+                                "batch_size": 1,
+                                "gradient_accumulation": 1,
+                                "learning_rate": 0.0001,
+                                "dataset_manifest": "/workspace/scratch/zenith-curriculum-v1-balanced/manifest.json",
+                                "cpu_threads": 2
+                              },
+                              "automatic_promotion": false,
+                              "final_test_sha256": "f23c6fb3a8c86fe0bf1e138f1256738d4c49462011de1d7eff47fb9823874e2f",
+                              "final_test_used_for_training": false
+                            },
+                            "original_checkpoints_modified": false,
+                            "random_initialization_used": false,
+                            "hardware": {
+                              "device": "cpu",
+                              "cuda_available": false,
+                              "cpu_threads": 2
+                            }
+                          },
+                          "objective": "sft",
+                          "seed": 42,
+                          "learning_rate": 2e-05,
+                          "max_length": 256,
+                          "train_examples": 100,
+                          "eval_examples": 19,
+                          "dataset_manifest_sha256": "1ac1736e010d972b7b7d38e2792cbab88e2f6c92c5d274dc448e7c97298a572e",
+                          "dataset_files": {
+                            "train": {
+                              "path": "train.jsonl",
+                              "rows": 100,
+                              "sha256": "2b594ee1946717fa2f900df48017e2c278982fbf3024e3509c133a72e2b04799",
+                              "topics": {
+                                "agent-planning": 4,
+                                "ai": 8,
+                                "ancient-math": 4,
+                                "black-hat-defense": 2,
+                                "blue-hat": 2,
+                                "books-writing": 4,
+                                "cybersecurity": 4,
+                                "data-research": 4,
+                                "day-trading": 4,
+                                "gray-hat": 2,
+                                "green-hat": 1,
+                                "history": 4,
+                                "infrastructure": 8,
+                                "investing": 4,
+                                "math": 4,
+                                "programming": 13,
+                                "reasoning-communication": 4,
+                                "red-hat": 2,
+                                "retrieval-memory": 4,
+                                "science": 4,
+                                "science-mathematics": 8,
+                                "structured-tools": 4,
+                                "white-hat": 2
+                              }
+                            },
+                            "validation": {
+                              "path": "validation.jsonl",
+                              "rows": 19,
+                              "sha256": "9972c5532ab37e6add03fc018be42e3ffe20636bce5ec0cdf9ac33c13731556b",
+                              "topics": {
+                                "agent-planning": 1,
+                                "ai": 2,
+                                "black-hat-defense": 1,
+                                "blue-hat": 1,
+                                "gray-hat": 1,
+                                "green-hat": 1,
+                                "infrastructure": 2,
+                                "programming": 3,
+                                "reasoning-communication": 1,
+                                "red-hat": 1,
+                                "retrieval-memory": 1,
+                                "science-mathematics": 2,
+                                "structured-tools": 1,
+                                "white-hat": 1
+                              }
+                            },
+                            "test": {
+                              "path": "test.jsonl",
+                              "rows": 19,
+                              "sha256": "008baa4d44941f94c367ae8a9a4d4236e4f0b8376dd48c20b9bc9e29e3dd6f71",
+                              "topics": {
+                                "agent-planning": 1,
+                                "ai": 2,
+                                "black-hat-defense": 1,
+                                "blue-hat": 1,
+                                "gray-hat": 1,
+                                "green-hat": 1,
+                                "infrastructure": 2,
+                                "programming": 3,
+                                "reasoning-communication": 1,
+                                "red-hat": 1,
+                                "retrieval-memory": 1,
+                                "science-mathematics": 2,
+                                "structured-tools": 1,
+                                "white-hat": 1
+                              }
+                            }
+                          },
+                          "skipped": {
+                            "train": 0,
+                            "validation": 0
+                          },
+                          "baseline": {
+                            "validation_target_loss": 3.6825373925660787
+                          },
+                          "final": {
+                            "validation_target_loss": 3.3596038002716866
+                          },
+                          "training": {
+                            "train_loss": 3.115569473554691,
+                            "train_runtime": 82.94213978000334,
+                            "optimizer_steps": 48,
+                            "input_tokens_seen": 3332,
+                            "target_tokens_seen": 1373,
+                            "tokens_per_second": 40.1725830661933,
+                            "topics_seen": {
+                              "retrieval-memory": 3,
+                              "programming": 7,
+                              "black-hat-defense": 1,
+                              "cybersecurity": 3,
+                              "ai": 5,
+                              "infrastructure": 5,
+                              "ancient-math": 1,
+                              "agent-planning": 3,
+                              "blue-hat": 1,
+                              "structured-tools": 3,
+                              "science": 1,
+                              "investing": 2,
+                              "red-hat": 1,
+                              "science-mathematics": 5,
+                              "white-hat": 1,
+                              "math": 2,
+                              "books-writing": 1,
+                              "gray-hat": 1,
+                              "history": 1,
+                              "reasoning-communication": 1
+                            },
+                            "unique_training_records_seen": 48,
+                            "replay_steps": 12,
+                            "gpu_utilization": null,
+                            "gpu_utilization_reason": "CPU experiment; no CUDA device is available",
+                            "device": "cpu"
+                          },
+                          "original_checkpoints_modified": false,
+                          "weights_reinitialized": false,
+                          "automatic_promotion": false,
+                          "promoted": false,
+                          "final_test_used_for_training": false,
+                          "evaluation_pending": true
+                        },
+                        "original_checkpoints_modified": false,
+                        "random_initialization_used": false,
+                        "hardware": {
+                          "device": "cpu",
+                          "cuda_available": false,
+                          "cpu_threads": 2
+                        }
+                      },
+                      "objective": "sft",
+                      "seed": 42,
+                      "start_offset": 48,
+                      "optimizer_state_resumed": false,
+                      "learning_rate": 2e-05,
+                      "max_length": 256,
+                      "train_examples": 100,
+                      "eval_examples": 19,
+                      "dataset_manifest_sha256": "1ac1736e010d972b7b7d38e2792cbab88e2f6c92c5d274dc448e7c97298a572e",
+                      "dataset_files": {
+                        "train": {
+                          "path": "train.jsonl",
+                          "rows": 100,
+                          "sha256": "2b594ee1946717fa2f900df48017e2c278982fbf3024e3509c133a72e2b04799",
+                          "topics": {
+                            "agent-planning": 4,
+                            "ai": 8,
+                            "ancient-math": 4,
+                            "black-hat-defense": 2,
+                            "blue-hat": 2,
+                            "books-writing": 4,
+                            "cybersecurity": 4,
+                            "data-research": 4,
+                            "day-trading": 4,
+                            "gray-hat": 2,
+                            "green-hat": 1,
+                            "history": 4,
+                            "infrastructure": 8,
+                            "investing": 4,
+                            "math": 4,
+                            "programming": 13,
+                            "reasoning-communication": 4,
+                            "red-hat": 2,
+                            "retrieval-memory": 4,
+                            "science": 4,
+                            "science-mathematics": 8,
+                            "structured-tools": 4,
+                            "white-hat": 2
+                          }
+                        },
+                        "validation": {
+                          "path": "validation.jsonl",
+                          "rows": 19,
+                          "sha256": "9972c5532ab37e6add03fc018be42e3ffe20636bce5ec0cdf9ac33c13731556b",
+                          "topics": {
+                            "agent-planning": 1,
+                            "ai": 2,
+                            "black-hat-defense": 1,
+                            "blue-hat": 1,
+                            "gray-hat": 1,
+                            "green-hat": 1,
+                            "infrastructure": 2,
+                            "programming": 3,
+                            "reasoning-communication": 1,
+                            "red-hat": 1,
+                            "retrieval-memory": 1,
+                            "science-mathematics": 2,
+                            "structured-tools": 1,
+                            "white-hat": 1
+                          }
+                        },
+                        "test": {
+                          "path": "test.jsonl",
+                          "rows": 19,
+                          "sha256": "008baa4d44941f94c367ae8a9a4d4236e4f0b8376dd48c20b9bc9e29e3dd6f71",
+                          "topics": {
+                            "agent-planning": 1,
+                            "ai": 2,
+                            "black-hat-defense": 1,
+                            "blue-hat": 1,
+                            "gray-hat": 1,
+                            "green-hat": 1,
+                            "infrastructure": 2,
+                            "programming": 3,
+                            "reasoning-communication": 1,
+                            "red-hat": 1,
+                            "retrieval-memory": 1,
+                            "science-mathematics": 2,
+                            "structured-tools": 1,
+                            "white-hat": 1
+                          }
+                        }
+                      },
+                      "skipped": {
+                        "train": 0,
+                        "validation": 0
+                      },
+                      "baseline": {
+                        "validation_target_loss": 3.3596038002716866
+                      },
+                      "final": {
+                        "validation_target_loss": 3.29794232468856
+                      },
+                      "training": {
+                        "train_loss": 2.9609045051038265,
+                        "train_runtime": 43.388803677000396,
+                        "optimizer_steps": 32,
+                        "input_tokens_seen": 2235,
+                        "target_tokens_seen": 941,
+                        "tokens_per_second": 51.51098464567098,
+                        "topics_seen": {
+                          "retrieval-memory": 1,
+                          "blue-hat": 1,
+                          "science-mathematics": 3,
+                          "history": 2,
+                          "ai": 3,
+                          "black-hat-defense": 1,
+                          "reasoning-communication": 3,
+                          "day-trading": 1,
+                          "infrastructure": 3,
+                          "red-hat": 1,
+                          "data-research": 2,
+                          "green-hat": 1,
+                          "programming": 5,
+                          "agent-planning": 1,
+                          "investing": 1,
+                          "gray-hat": 1,
+                          "white-hat": 1,
+                          "structured-tools": 1
+                        },
+                        "unique_training_records_seen": 32,
+                        "replay_steps": 8,
+                        "gpu_utilization": null,
+                        "gpu_utilization_reason": "CPU experiment; no CUDA device is available",
+                        "device": "cpu"
+                      },
+                      "original_checkpoints_modified": false,
+                      "weights_reinitialized": false,
+                      "automatic_promotion": false,
+                      "promoted": false,
+                      "final_test_used_for_training": false,
+                      "evaluation_pending": true
+                    },
+                    "original_checkpoints_modified": false,
+                    "random_initialization_used": false,
+                    "hardware": {
+                      "device": "cpu",
+                      "cuda_available": false,
+                      "cpu_threads": 2
+                    }
+                  },
+                  "objective": "sft",
+                  "seed": 42,
+                  "start_offset": 0,
+                  "optimizer_state_resumed": false,
+                  "learning_rate": 5e-05,
+                  "max_length": 256,
+                  "train_examples": 284,
+                  "eval_examples": 56,
+                  "dataset_manifest_sha256": "19831b08acf1a56c63fc13d3b0e0327e69eb64671841de547f9dbb4244922010",
+                  "dataset_files": {
+                    "train": {
+                      "path": "train.jsonl",
+                      "rows": 284,
+                      "sha256": "7bafa1100d334a4fa519149cf1ec6aff03fd6cd5c7fac219b71cdd9300f9c644",
+                      "topics": {
+                        "agent-planning": 4,
+                        "ai": 8,
+                        "algebra": 22,
+                        "ancient-math": 4,
+                        "black-hat-defense": 2,
+                        "blue-hat": 2,
+                        "books-writing": 4,
+                        "cybersecurity": 4,
+                        "data-research": 4,
+                        "day-trading": 4,
+                        "document-grounding": 40,
+                        "exact-instructions": 24,
+                        "gray-hat": 2,
+                        "green-hat": 1,
+                        "history": 4,
+                        "infrastructure": 8,
+                        "investing": 4,
+                        "math": 4,
+                        "programming": 13,
+                        "raw-json": 24,
+                        "reasoning-communication": 4,
+                        "red-hat": 2,
+                        "retrieval-memory": 4,
+                        "science": 4,
+                        "science-mathematics": 8,
+                        "security-retention": 22,
+                        "structured-tools": 40,
+                        "task-summary": 16,
+                        "white-hat": 2
+                      }
+                    },
+                    "validation": {
+                      "path": "validation.jsonl",
+                      "rows": 56,
+                      "sha256": "4c3d5f78bdb60eac8f2c4ea26f7ef5494306c3e090184341d820bc7b5ad52f4e",
+                      "topics": {
+                        "algebra": 7,
+                        "document-grounding": 12,
+                        "exact-instructions": 8,
+                        "raw-json": 8,
+                        "security-retention": 7,
+                        "structured-tools": 10,
+                        "task-summary": 4
+                      }
+                    },
+                    "test": {
+                      "path": "test.jsonl",
+                      "rows": 56,
+                      "sha256": "bd01d46ddbae84ce9fcd8fe2bbf0aad6b58f0dab9a0e245cd71dce02c8406825",
+                      "topics": {
+                        "algebra": 7,
+                        "document-grounding": 12,
+                        "exact-instructions": 8,
+                        "raw-json": 8,
+                        "security-retention": 7,
+                        "structured-tools": 10,
+                        "task-summary": 4
+                      }
+                    }
+                  },
+                  "skipped": {
+                    "train": 0,
+                    "validation": 0
+                  },
+                  "baseline": {
+                    "validation_target_loss": 1.059412386301639
+                  },
+                  "final": {
+                    "validation_target_loss": 0.2117234140137693
+                  },
+                  "training": {
+                    "train_loss": 1.0441165123872451,
+                    "train_runtime": 360.50482196400117,
+                    "optimizer_steps": 200,
+                    "input_tokens_seen": 12078,
+                    "target_tokens_seen": 3310,
+                    "tokens_per_second": 33.50301927780059,
+                    "topics_seen": {
+                      "raw-json": 18,
+                      "structured-tools": 31,
+                      "retrieval-memory": 3,
+                      "document-grounding": 32,
+                      "algebra": 20,
+                      "red-hat": 2,
+                      "security-retention": 18,
+                      "exact-instructions": 21,
+                      "math": 1,
+                      "ai": 4,
+                      "task-summary": 12,
+                      "books-writing": 2,
+                      "science-mathematics": 5,
+                      "agent-planning": 1,
+                      "cybersecurity": 1,
+                      "blue-hat": 1,
+                      "day-trading": 2,
+                      "data-research": 3,
+                      "programming": 5,
+                      "reasoning-communication": 3,
+                      "infrastructure": 3,
+                      "science": 2,
+                      "history": 2,
+                      "investing": 2,
+                      "white-hat": 1,
+                      "ancient-math": 3,
+                      "black-hat-defense": 1,
+                      "green-hat": 1
+                    },
+                    "unique_training_records_seen": 200,
+                    "record_ids_seen": [
+                      "recovery-0041",
+                      "recovery-0114",
+                      "recovery-0066",
+                      "retrieval-memory-memory",
+                      "recovery-0192",
+                      "recovery-0174",
+                      "recovery-0222",
+                      "red-hat-emulation",
+                      "recovery-0221",
+                      "recovery-0269",
+                      "recovery-0009",
+                      "math-10",
+                      "recovery-0115",
+                      "recovery-0059",
+                      "recovery-0001",
+                      "ai-transfer",
+                      "recovery-0094",
+                      "recovery-0128",
+                      "recovery-0279",
+                      "books-writing-2",
+                      "recovery-0228",
+                      "recovery-0153",
+                      "recovery-0013",
+                      "science-mathematics-calculus",
+                      "recovery-0167",
+                      "recovery-0042",
+                      "recovery-0012",
+                      "agent-planning-tasks",
+                      "recovery-0156",
+                      "recovery-0152",
+                      "recovery-0230",
+                      "cybersecurity-5",
+                      "recovery-0082",
+                      "recovery-0284",
+                      "recovery-0260",
+                      "blue-hat-soc",
+                      "recovery-0018",
+                      "recovery-0181",
+                      "recovery-0070",
+                      "day-trading-6",
+                      "recovery-0019",
+                      "recovery-0087",
+                      "recovery-0197",
+                      "data-research-6",
+                      "recovery-0058",
+                      "recovery-0141",
+                      "recovery-0275",
+                      "ai-representation",
+                      "recovery-0235",
+                      "recovery-0033",
+                      "recovery-0242",
+                      "structured-tools-result",
+                      "recovery-0258",
+                      "recovery-0198",
+                      "recovery-0064",
+                      "structured-tools-denied",
+                      "recovery-0029",
+                      "recovery-0207",
+                      "recovery-0127",
+                      "data-research-2",
+                      "recovery-0136",
+                      "recovery-0140",
+                      "recovery-0166",
+                      "retrieval-memory-grounding",
+                      "recovery-0043",
+                      "recovery-0285",
+                      "recovery-0280",
+                      "science-mathematics-algebra",
+                      "recovery-0080",
+                      "recovery-0118",
+                      "recovery-0176",
+                      "programming-3",
+                      "recovery-0213",
+                      "recovery-0119",
+                      "recovery-0168",
+                      "day-trading-4",
+                      "recovery-0209",
+                      "recovery-0040",
+                      "recovery-0138",
+                      "reasoning-communication-verification",
+                      "recovery-0290",
+                      "recovery-0067",
+                      "recovery-0159",
+                      "programming-reverse-engineering",
+                      "recovery-0206",
+                      "recovery-0022",
+                      "recovery-0027",
+                      "infrastructure-servers",
+                      "recovery-0248",
+                      "recovery-0229",
+                      "recovery-0265",
+                      "programming-bash",
+                      "recovery-0134",
+                      "recovery-0294",
+                      "recovery-0125",
+                      "science-5",
+                      "recovery-0236",
+                      "recovery-0169",
+                      "recovery-0239",
+                      "history-3",
+                      "recovery-0135",
+                      "recovery-0145",
+                      "recovery-0212",
+                      "science-mathematics-numerics",
+                      "recovery-0147",
+                      "recovery-0006",
+                      "recovery-0124",
+                      "history-1",
+                      "recovery-0251",
+                      "recovery-0165",
+                      "recovery-0089",
+                      "infrastructure-backups",
+                      "recovery-0175",
+                      "recovery-0253",
+                      "recovery-0086",
+                      "investing-3",
+                      "recovery-0288",
+                      "recovery-0021",
+                      "recovery-0122",
+                      "programming-python",
+                      "recovery-0139",
+                      "recovery-0208",
+                      "recovery-0026",
+                      "ai-statistics",
+                      "recovery-0196",
+                      "recovery-0008",
+                      "recovery-0078",
+                      "science-mathematics-reasoning",
+                      "recovery-0095",
+                      "recovery-0282",
+                      "recovery-0254",
+                      "white-hat-review",
+                      "recovery-0214",
+                      "recovery-0266",
+                      "recovery-0077",
+                      "ancient-math-6",
+                      "recovery-0120",
+                      "recovery-0210",
+                      "recovery-0028",
+                      "data-research-4",
+                      "recovery-0049",
+                      "recovery-0224",
+                      "recovery-0144",
+                      "retrieval-memory-untrusted",
+                      "recovery-0131",
+                      "recovery-0047",
+                      "recovery-0048",
+                      "science-1",
+                      "recovery-0194",
+                      "recovery-0217",
+                      "recovery-0090",
+                      "science-mathematics-research",
+                      "recovery-0034",
+                      "recovery-0171",
+                      "recovery-0132",
+                      "investing-5",
+                      "recovery-0116",
+                      "recovery-0274",
+                      "recovery-0133",
+                      "black-hat-defense-ransomware",
+                      "recovery-0268",
+                      "recovery-0061",
+                      "recovery-0039",
+                      "reasoning-communication-counterexample",
+                      "recovery-0232",
+                      "recovery-0109",
+                      "recovery-0195",
+                      "infrastructure-virtualization",
+                      "recovery-0203",
+                      "recovery-0164",
+                      "recovery-0020",
+                      "reasoning-communication-synthesis",
+                      "recovery-0137",
+                      "recovery-0245",
+                      "recovery-0193",
+                      "red-hat-tactics",
+                      "recovery-0261",
+                      "recovery-0293",
+                      "recovery-0205",
+                      "green-hat-crypto",
+                      "recovery-0263",
+                      "recovery-0130",
+                      "recovery-0237",
+                      "books-writing-1",
+                      "recovery-0023",
+                      "recovery-0126",
+                      "recovery-0065",
+                      "ancient-math-2",
+                      "recovery-0038",
+                      "recovery-0276",
+                      "recovery-0155",
+                      "ancient-math-4",
+                      "recovery-0211",
+                      "recovery-0083",
+                      "recovery-0032",
+                      "ai-vision",
+                      "recovery-0117",
+                      "recovery-0259",
+                      "recovery-0079",
+                      "programming-go"
+                    ],
+                    "replay_steps": 50,
+                    "gpu_utilization": null,
+                    "gpu_utilization_reason": "CPU experiment",
+                    "gpu_peak_allocated_bytes": null,
+                    "device": "cpu"
+                  },
+                  "original_checkpoints_modified": false,
+                  "weights_reinitialized": false,
+                  "automatic_promotion": false,
+                  "promoted": false,
+                  "final_test_used_for_training": false,
+                  "evaluation_pending": true
+                },
+                "original_checkpoints_modified": false,
+                "random_initialization_used": false,
+                "hardware": {
+                  "device": "cpu",
+                  "cuda_available": false,
+                  "cpu_threads": 2
+                }
+              },
+              "objective": "sft",
+              "seed": 42,
+              "start_offset": 200,
+              "optimizer_state_resumed": false,
+              "learning_rate": 5e-05,
+              "max_length": 256,
+              "train_examples": 284,
+              "eval_examples": 56,
+              "dataset_manifest_sha256": "19831b08acf1a56c63fc13d3b0e0327e69eb64671841de547f9dbb4244922010",
+              "dataset_files": {
+                "train": {
+                  "path": "train.jsonl",
+                  "rows": 284,
+                  "sha256": "7bafa1100d334a4fa519149cf1ec6aff03fd6cd5c7fac219b71cdd9300f9c644",
+                  "topics": {
+                    "agent-planning": 4,
+                    "ai": 8,
+                    "algebra": 22,
+                    "ancient-math": 4,
+                    "black-hat-defense": 2,
+                    "blue-hat": 2,
+                    "books-writing": 4,
+                    "cybersecurity": 4,
+                    "data-research": 4,
+                    "day-trading": 4,
+                    "document-grounding": 40,
+                    "exact-instructions": 24,
+                    "gray-hat": 2,
+                    "green-hat": 1,
+                    "history": 4,
+                    "infrastructure": 8,
+                    "investing": 4,
+                    "math": 4,
+                    "programming": 13,
+                    "raw-json": 24,
+                    "reasoning-communication": 4,
+                    "red-hat": 2,
+                    "retrieval-memory": 4,
+                    "science": 4,
+                    "science-mathematics": 8,
+                    "security-retention": 22,
+                    "structured-tools": 40,
+                    "task-summary": 16,
+                    "white-hat": 2
+                  }
+                },
+                "validation": {
+                  "path": "validation.jsonl",
+                  "rows": 56,
+                  "sha256": "4c3d5f78bdb60eac8f2c4ea26f7ef5494306c3e090184341d820bc7b5ad52f4e",
+                  "topics": {
+                    "algebra": 7,
+                    "document-grounding": 12,
+                    "exact-instructions": 8,
+                    "raw-json": 8,
+                    "security-retention": 7,
+                    "structured-tools": 10,
+                    "task-summary": 4
+                  }
+                },
+                "test": {
+                  "path": "test.jsonl",
+                  "rows": 56,
+                  "sha256": "bd01d46ddbae84ce9fcd8fe2bbf0aad6b58f0dab9a0e245cd71dce02c8406825",
+                  "topics": {
+                    "algebra": 7,
+                    "document-grounding": 12,
+                    "exact-instructions": 8,
+                    "raw-json": 8,
+                    "security-retention": 7,
+                    "structured-tools": 10,
+                    "task-summary": 4
+                  }
+                }
+              },
+              "skipped": {
+                "train": 0,
+                "validation": 0
+              },
+              "baseline": {
+                "validation_target_loss": 0.2117234140137693
+              },
+              "final": {
+                "validation_target_loss": 0.07816378388474732
+              },
+              "training": {
+                "train_loss": 0.7690485715318391,
+                "train_runtime": 534.7030907170047,
+                "optimizer_steps": 200,
+                "input_tokens_seen": 12051,
+                "target_tokens_seen": 3232,
+                "tokens_per_second": 22.537741429248772,
+                "topics_seen": {
+                  "raw-json": 21,
+                  "algebra": 18,
+                  "structured-tools": 30,
+                  "science": 2,
+                  "document-grounding": 35,
+                  "science-mathematics": 3,
+                  "agent-planning": 3,
+                  "security-retention": 16,
+                  "task-summary": 13,
+                  "gray-hat": 2,
+                  "reasoning-communication": 1,
+                  "white-hat": 1,
+                  "exact-instructions": 19,
+                  "cybersecurity": 3,
+                  "infrastructure": 5,
+                  "ancient-math": 1,
+                  "ai": 4,
+                  "books-writing": 2,
+                  "history": 2,
+                  "day-trading": 2,
+                  "retrieval-memory": 1,
+                  "math": 3,
+                  "programming": 8,
+                  "investing": 2,
+                  "data-research": 1,
+                  "black-hat-defense": 1,
+                  "blue-hat": 1
+                },
+                "unique_training_records_seen": 200,
+                "record_ids_seen": [
+                  "recovery-0060",
+                  "recovery-0215",
+                  "recovery-0088",
+                  "science-6",
+                  "recovery-0044",
+                  "recovery-0170",
+                  "recovery-0157",
+                  "science-mathematics-bayes",
+                  "recovery-0154",
+                  "recovery-0204",
+                  "recovery-0199",
+                  "agent-planning-verification",
+                  "recovery-0249",
+                  "recovery-0252",
+                  "recovery-0281",
+                  "science-mathematics-complexity",
+                  "recovery-0146",
+                  "recovery-0076",
+                  "recovery-0046",
+                  "gray-hat-disclosure",
+                  "recovery-0273",
+                  "recovery-0045",
+                  "recovery-0123",
+                  "reasoning-communication-writing",
+                  "recovery-0295",
+                  "recovery-0129",
+                  "recovery-0081",
+                  "white-hat-remediation",
+                  "recovery-0035",
+                  "recovery-0177",
+                  "recovery-0007",
+                  "cybersecurity-1",
+                  "recovery-0180",
+                  "recovery-0244",
+                  "recovery-0108",
+                  "infrastructure-networking",
+                  "recovery-0071",
+                  "recovery-0247",
+                  "recovery-0121",
+                  "ancient-math-1",
+                  "recovery-0277",
+                  "recovery-0000",
+                  "recovery-0091",
+                  "infrastructure-linux",
+                  "recovery-0158",
+                  "recovery-0041",
+                  "recovery-0114",
+                  "ai-attention",
+                  "recovery-0066",
+                  "recovery-0192",
+                  "recovery-0174",
+                  "ai-backprop",
+                  "recovery-0222",
+                  "recovery-0221",
+                  "recovery-0269",
+                  "books-writing-5",
+                  "recovery-0009",
+                  "recovery-0115",
+                  "recovery-0059",
+                  "history-6",
+                  "recovery-0001",
+                  "recovery-0094",
+                  "recovery-0128",
+                  "infrastructure-kubernetes",
+                  "recovery-0279",
+                  "recovery-0228",
+                  "recovery-0153",
+                  "day-trading-1",
+                  "recovery-0013",
+                  "recovery-0167",
+                  "recovery-0042",
+                  "retrieval-memory-context",
+                  "recovery-0012",
+                  "recovery-0156",
+                  "recovery-0152",
+                  "math-17",
+                  "recovery-0230",
+                  "recovery-0082",
+                  "recovery-0284",
+                  "infrastructure-docker",
+                  "recovery-0260",
+                  "recovery-0018",
+                  "recovery-0181",
+                  "agent-planning-recovery",
+                  "recovery-0070",
+                  "recovery-0019",
+                  "recovery-0087",
+                  "programming-4",
+                  "recovery-0197",
+                  "recovery-0058",
+                  "recovery-0141",
+                  "structured-tools-digest",
+                  "recovery-0275",
+                  "recovery-0235",
+                  "recovery-0033",
+                  "programming-2",
+                  "recovery-0242",
+                  "recovery-0258",
+                  "recovery-0198",
+                  "science-mathematics-biology",
+                  "recovery-0064",
+                  "recovery-0029",
+                  "recovery-0207",
+                  "math-28",
+                  "recovery-0127",
+                  "recovery-0136",
+                  "recovery-0140",
+                  "infrastructure-cloud",
+                  "recovery-0166",
+                  "recovery-0043",
+                  "recovery-0285",
+                  "cybersecurity-6",
+                  "recovery-0280",
+                  "recovery-0080",
+                  "recovery-0118",
+                  "investing-4",
+                  "recovery-0176",
+                  "recovery-0213",
+                  "recovery-0119",
+                  "day-trading-2",
+                  "recovery-0168",
+                  "recovery-0209",
+                  "recovery-0040",
+                  "books-writing-3",
+                  "recovery-0138",
+                  "recovery-0290",
+                  "recovery-0067",
+                  "programming-sql",
+                  "recovery-0159",
+                  "recovery-0206",
+                  "recovery-0022",
+                  "programming-c",
+                  "recovery-0027",
+                  "recovery-0248",
+                  "recovery-0229",
+                  "math-23",
+                  "recovery-0265",
+                  "recovery-0134",
+                  "recovery-0294",
+                  "science-2",
+                  "recovery-0125",
+                  "recovery-0236",
+                  "recovery-0169",
+                  "ai-overfitting",
+                  "recovery-0239",
+                  "recovery-0135",
+                  "recovery-0145",
+                  "structured-tools-calculator",
+                  "recovery-0212",
+                  "recovery-0147",
+                  "recovery-0006",
+                  "data-research-1",
+                  "recovery-0124",
+                  "recovery-0251",
+                  "recovery-0165",
+                  "ai-supervision",
+                  "recovery-0089",
+                  "recovery-0175",
+                  "recovery-0253",
+                  "cybersecurity-2",
+                  "recovery-0086",
+                  "recovery-0288",
+                  "recovery-0021",
+                  "investing-6",
+                  "recovery-0122",
+                  "recovery-0139",
+                  "recovery-0208",
+                  "black-hat-defense-intrusion",
+                  "recovery-0026",
+                  "recovery-0196",
+                  "recovery-0008",
+                  "gray-hat-mitigation",
+                  "recovery-0078",
+                  "recovery-0095",
+                  "recovery-0282",
+                  "programming-cpp",
+                  "recovery-0254",
+                  "recovery-0214",
+                  "recovery-0266",
+                  "programming-javascript",
+                  "recovery-0077",
+                  "recovery-0120",
+                  "recovery-0210",
+                  "programming-systems",
+                  "recovery-0028",
+                  "recovery-0049",
+                  "recovery-0224",
+                  "programming-5",
+                  "recovery-0144",
+                  "recovery-0131",
+                  "recovery-0047",
+                  "agent-planning-repair",
+                  "recovery-0048",
+                  "recovery-0194",
+                  "recovery-0217",
+                  "blue-hat-automation",
+                  "recovery-0090",
+                  "recovery-0034",
+                  "recovery-0171",
+                  "history-5"
+                ],
+                "replay_steps": 50,
+                "gpu_utilization": null,
+                "gpu_utilization_reason": "CPU experiment",
+                "gpu_peak_allocated_bytes": null,
+                "device": "cpu"
+              },
+              "original_checkpoints_modified": false,
+              "weights_reinitialized": false,
+              "automatic_promotion": false,
+              "promoted": false,
+              "final_test_used_for_training": false,
+              "evaluation_pending": true
+            },
+            "original_checkpoints_modified": false,
+            "random_initialization_used": false,
+            "hardware": {
+              "device": "cpu",
+              "cuda_available": false,
+              "cpu_threads": 2
+            }
+          },
+          "objective": "sft",
+          "seed": 42,
+          "start_offset": 400,
+          "optimizer_state_resumed": false,
+          "learning_rate": 5e-05,
+          "max_length": 256,
+          "train_examples": 284,
+          "eval_examples": 56,
+          "dataset_manifest_sha256": "19831b08acf1a56c63fc13d3b0e0327e69eb64671841de547f9dbb4244922010",
+          "dataset_files": {
+            "train": {
+              "path": "train.jsonl",
+              "rows": 284,
+              "sha256": "7bafa1100d334a4fa519149cf1ec6aff03fd6cd5c7fac219b71cdd9300f9c644",
+              "topics": {
+                "agent-planning": 4,
+                "ai": 8,
+                "algebra": 22,
+                "ancient-math": 4,
+                "black-hat-defense": 2,
+                "blue-hat": 2,
+                "books-writing": 4,
+                "cybersecurity": 4,
+                "data-research": 4,
+                "day-trading": 4,
+                "document-grounding": 40,
+                "exact-instructions": 24,
+                "gray-hat": 2,
+                "green-hat": 1,
+                "history": 4,
+                "infrastructure": 8,
+                "investing": 4,
+                "math": 4,
+                "programming": 13,
+                "raw-json": 24,
+                "reasoning-communication": 4,
+                "red-hat": 2,
+                "retrieval-memory": 4,
+                "science": 4,
+                "science-mathematics": 8,
+                "security-retention": 22,
+                "structured-tools": 40,
+                "task-summary": 16,
+                "white-hat": 2
+              }
+            },
+            "validation": {
+              "path": "validation.jsonl",
+              "rows": 56,
+              "sha256": "4c3d5f78bdb60eac8f2c4ea26f7ef5494306c3e090184341d820bc7b5ad52f4e",
+              "topics": {
+                "algebra": 7,
+                "document-grounding": 12,
+                "exact-instructions": 8,
+                "raw-json": 8,
+                "security-retention": 7,
+                "structured-tools": 10,
+                "task-summary": 4
+              }
+            },
+            "test": {
+              "path": "test.jsonl",
+              "rows": 56,
+              "sha256": "bd01d46ddbae84ce9fcd8fe2bbf0aad6b58f0dab9a0e245cd71dce02c8406825",
+              "topics": {
+                "algebra": 7,
+                "document-grounding": 12,
+                "exact-instructions": 8,
+                "raw-json": 8,
+                "security-retention": 7,
+                "structured-tools": 10,
+                "task-summary": 4
+              }
+            }
+          },
+          "skipped": {
+            "train": 0,
+            "validation": 0
+          },
+          "baseline": {
+            "validation_target_loss": 0.07816378388474732
+          },
+          "final": {
+            "validation_target_loss": 0.06379523925956423
+          },
+          "training": {
+            "train_loss": 0.6007227285169665,
+            "train_runtime": 340.2596783530025,
+            "optimizer_steps": 200,
+            "input_tokens_seen": 12129,
+            "target_tokens_seen": 3316,
+            "tokens_per_second": 35.646304195399736,
+            "topics_seen": {
+              "structured-tools": 31,
+              "task-summary": 14,
+              "retrieval-memory": 3,
+              "security-retention": 19,
+              "raw-json": 19,
+              "red-hat": 2,
+              "exact-instructions": 19,
+              "algebra": 17,
+              "math": 1,
+              "document-grounding": 33,
+              "ai": 4,
+              "books-writing": 2,
+              "science-mathematics": 5,
+              "agent-planning": 1,
+              "cybersecurity": 1,
+              "blue-hat": 1,
+              "day-trading": 2,
+              "data-research": 3,
+              "programming": 5,
+              "reasoning-communication": 3,
+              "infrastructure": 3,
+              "science": 2,
+              "history": 2,
+              "investing": 2,
+              "white-hat": 1,
+              "ancient-math": 3,
+              "black-hat-defense": 1,
+              "green-hat": 1
+            },
+            "unique_training_records_seen": 200,
+            "record_ids_seen": [
+              "recovery-0132",
+              "recovery-0116",
+              "recovery-0274",
+              "retrieval-memory-memory",
+              "recovery-0133",
+              "recovery-0268",
+              "recovery-0061",
+              "red-hat-emulation",
+              "recovery-0039",
+              "recovery-0232",
+              "recovery-0109",
+              "math-10",
+              "recovery-0195",
+              "recovery-0203",
+              "recovery-0164",
+              "ai-transfer",
+              "recovery-0020",
+              "recovery-0137",
+              "recovery-0245",
+              "books-writing-2",
+              "recovery-0193",
+              "recovery-0261",
+              "recovery-0293",
+              "science-mathematics-calculus",
+              "recovery-0205",
+              "recovery-0263",
+              "recovery-0130",
+              "agent-planning-tasks",
+              "recovery-0237",
+              "recovery-0023",
+              "recovery-0126",
+              "cybersecurity-5",
+              "recovery-0065",
+              "recovery-0038",
+              "recovery-0276",
+              "blue-hat-soc",
+              "recovery-0155",
+              "recovery-0211",
+              "recovery-0083",
+              "day-trading-6",
+              "recovery-0032",
+              "recovery-0117",
+              "recovery-0259",
+              "data-research-6",
+              "recovery-0079",
+              "recovery-0060",
+              "recovery-0215",
+              "ai-representation",
+              "recovery-0088",
+              "recovery-0044",
+              "recovery-0170",
+              "structured-tools-result",
+              "recovery-0157",
+              "recovery-0154",
+              "recovery-0204",
+              "structured-tools-denied",
+              "recovery-0199",
+              "recovery-0249",
+              "recovery-0252",
+              "data-research-2",
+              "recovery-0281",
+              "recovery-0146",
+              "recovery-0076",
+              "retrieval-memory-grounding",
+              "recovery-0046",
+              "recovery-0273",
+              "recovery-0045",
+              "science-mathematics-algebra",
+              "recovery-0123",
+              "recovery-0295",
+              "recovery-0129",
+              "programming-3",
+              "recovery-0081",
+              "recovery-0035",
+              "recovery-0177",
+              "day-trading-4",
+              "recovery-0007",
+              "recovery-0180",
+              "recovery-0244",
+              "reasoning-communication-verification",
+              "recovery-0108",
+              "recovery-0071",
+              "recovery-0247",
+              "programming-reverse-engineering",
+              "recovery-0121",
+              "recovery-0277",
+              "recovery-0000",
+              "infrastructure-servers",
+              "recovery-0091",
+              "recovery-0158",
+              "recovery-0041",
+              "programming-bash",
+              "recovery-0114",
+              "recovery-0066",
+              "recovery-0192",
+              "science-5",
+              "recovery-0174",
+              "recovery-0222",
+              "recovery-0221",
+              "history-3",
+              "recovery-0269",
+              "recovery-0009",
+              "recovery-0115",
+              "science-mathematics-numerics",
+              "recovery-0059",
+              "recovery-0001",
+              "recovery-0094",
+              "history-1",
+              "recovery-0128",
+              "recovery-0279",
+              "recovery-0228",
+              "infrastructure-backups",
+              "recovery-0153",
+              "recovery-0013",
+              "recovery-0167",
+              "investing-3",
+              "recovery-0042",
+              "recovery-0012",
+              "recovery-0156",
+              "programming-python",
+              "recovery-0152",
+              "recovery-0230",
+              "recovery-0082",
+              "ai-statistics",
+              "recovery-0284",
+              "recovery-0260",
+              "recovery-0018",
+              "science-mathematics-reasoning",
+              "recovery-0181",
+              "recovery-0070",
+              "recovery-0019",
+              "white-hat-review",
+              "recovery-0087",
+              "recovery-0197",
+              "recovery-0058",
+              "ancient-math-6",
+              "recovery-0141",
+              "recovery-0275",
+              "recovery-0235",
+              "data-research-4",
+              "recovery-0033",
+              "recovery-0242",
+              "recovery-0258",
+              "retrieval-memory-untrusted",
+              "recovery-0198",
+              "recovery-0064",
+              "recovery-0029",
+              "science-1",
+              "recovery-0207",
+              "recovery-0127",
+              "recovery-0136",
+              "science-mathematics-research",
+              "recovery-0140",
+              "recovery-0166",
+              "recovery-0043",
+              "investing-5",
+              "recovery-0285",
+              "recovery-0280",
+              "recovery-0080",
+              "black-hat-defense-ransomware",
+              "recovery-0118",
+              "recovery-0176",
+              "recovery-0213",
+              "reasoning-communication-counterexample",
+              "recovery-0119",
+              "recovery-0168",
+              "recovery-0209",
+              "infrastructure-virtualization",
+              "recovery-0040",
+              "recovery-0138",
+              "recovery-0290",
+              "reasoning-communication-synthesis",
+              "recovery-0067",
+              "recovery-0159",
+              "recovery-0206",
+              "red-hat-tactics",
+              "recovery-0022",
+              "recovery-0027",
+              "recovery-0248",
+              "green-hat-crypto",
+              "recovery-0229",
+              "recovery-0265",
+              "recovery-0134",
+              "books-writing-1",
+              "recovery-0294",
+              "recovery-0125",
+              "recovery-0236",
+              "ancient-math-2",
+              "recovery-0169",
+              "recovery-0239",
+              "recovery-0135",
+              "ancient-math-4",
+              "recovery-0145",
+              "recovery-0212",
+              "recovery-0147",
+              "ai-vision",
+              "recovery-0006",
+              "recovery-0124",
+              "recovery-0251",
+              "programming-go"
+            ],
+            "replay_steps": 50,
+            "gpu_utilization": null,
+            "gpu_utilization_reason": "CPU experiment",
+            "gpu_peak_allocated_bytes": null,
+            "device": "cpu"
+          },
+          "original_checkpoints_modified": false,
+          "weights_reinitialized": false,
+          "automatic_promotion": false,
+          "promoted": false,
+          "final_test_used_for_training": false,
+          "evaluation_pending": true
+        },
+        "original_checkpoints_modified": false,
+        "random_initialization_used": false,
+        "hardware": {
+          "device": "cpu",
+          "cuda_available": false,
+          "cpu_threads": 2
+        }
+      },
+      "objective": "sft",
+      "seed": 42,
+      "start_offset": 0,
+      "optimizer_state_resumed": false,
+      "learning_rate": 5e-05,
+      "max_length": 256,
+      "replay_fraction": 0.5,
+      "train_examples": 336,
+      "eval_examples": 14,
+      "dataset_manifest_sha256": "3ef2c4b8c9381c41dee3dab2eaab4cc83d3ec8b88e378d6c4781ffff6dfeb7f3",
+      "dataset_files": {
+        "train": {
+          "path": "train.jsonl",
+          "rows": 336,
+          "sha256": "0f17ebc0e762b2ff050cf112edb4b391f86c38ad92818385d6be60d156415b58",
+          "topics": {
+            "agent-planning": 4,
+            "ai": 8,
+            "algebra": 22,
+            "ancient-math": 4,
+            "black-hat-defense": 2,
+            "blue-hat": 2,
+            "books-writing": 4,
+            "cybersecurity": 4,
+            "data-research": 4,
+            "day-trading": 4,
+            "document-grounding": 40,
+            "evidence-extraction": 32,
+            "exact-instructions": 24,
+            "gray-hat": 2,
+            "green-hat": 1,
+            "history": 4,
+            "infrastructure": 8,
+            "investing": 4,
+            "math": 4,
+            "programming": 13,
+            "raw-json": 24,
+            "reasoning-communication": 4,
+            "red-hat": 2,
+            "retrieval-memory": 4,
+            "rust-borrowing": 10,
+            "science": 4,
+            "science-mathematics": 8,
+            "security-retention": 22,
+            "structured-tools": 40,
+            "task-summary": 16,
+            "untrusted-instructions": 10,
+            "white-hat": 2
+          }
+        },
+        "validation": {
+          "path": "validation.jsonl",
+          "rows": 14,
+          "sha256": "879a1d5893706085af4a16251292c479617f38f6f8ea531015dbf7996124cfad",
+          "topics": {
+            "evidence-extraction": 8,
+            "rust-borrowing": 3,
+            "untrusted-instructions": 3
+          }
+        },
+        "test": {
+          "path": "test.jsonl",
+          "rows": 14,
+          "sha256": "58ade51e3af352ef9084ab5512ec29d36c81b26ec037cf988076d05bd52de795",
+          "topics": {
+            "evidence-extraction": 8,
+            "rust-borrowing": 3,
+            "untrusted-instructions": 3
+          }
+        }
+      },
+      "skipped": {
+        "train": 0,
+        "validation": 0
+      },
+      "baseline": {
+        "validation_target_loss": 2.3549969005897373
+      },
+      "final": {
+        "validation_target_loss": 0.0012684566346641596
+      },
+      "training": {
+        "train_loss": 0.5093701808881087,
+        "train_runtime": 321.51800270999996,
+        "optimizer_steps": 200,
+        "input_tokens_seen": 12125,
+        "target_tokens_seen": 3458,
+        "tokens_per_second": 37.71172966303975,
+        "topics_seen": {
+          "untrusted-instructions": 20,
+          "document-grounding": 13,
+          "evidence-extraction": 60,
+          "structured-tools": 11,
+          "rust-borrowing": 20,
+          "reasoning-communication": 2,
+          "raw-json": 8,
+          "science-mathematics": 3,
+          "algebra": 8,
+          "green-hat": 1,
+          "red-hat": 2,
+          "exact-instructions": 9,
+          "security-retention": 7,
+          "infrastructure": 4,
+          "task-summary": 4,
+          "gray-hat": 2,
+          "agent-planning": 1,
+          "data-research": 2,
+          "books-writing": 3,
+          "ai": 3,
+          "programming": 5,
+          "history": 2,
+          "cybersecurity": 2,
+          "retrieval-memory": 2,
+          "day-trading": 1,
+          "blue-hat": 1,
+          "math": 1,
+          "science": 2,
+          "ancient-math": 1
+        },
+        "unique_training_records_seen": 152,
+        "record_ids_seen": [
+          "transfer-repair-066",
+          "recovery-0197",
+          "transfer-repair-002",
+          "recovery-0116",
+          "transfer-repair-058",
+          "reasoning-communication-verification",
+          "transfer-repair-015",
+          "recovery-0041",
+          "transfer-repair-055",
+          "science-mathematics-algebra",
+          "transfer-repair-012",
+          "recovery-0230",
+          "transfer-repair-077",
+          "green-hat-crypto",
+          "transfer-repair-014",
+          "recovery-0229",
+          "transfer-repair-070",
+          "red-hat-tactics",
+          "transfer-repair-043",
+          "recovery-0140",
+          "transfer-repair-057",
+          "recovery-0018",
+          "transfer-repair-059",
+          "recovery-0258",
+          "transfer-repair-038",
+          "recovery-0048",
+          "transfer-repair-011",
+          "science-mathematics-bayes",
+          "transfer-repair-040",
+          "recovery-0164",
+          "transfer-repair-021",
+          "infrastructure-virtualization",
+          "transfer-repair-013",
+          "recovery-0277",
+          "transfer-repair-020",
+          "gray-hat-mitigation",
+          "transfer-repair-051",
+          "agent-planning-tasks",
+          "transfer-repair-003",
+          "data-research-2",
+          "transfer-repair-016",
+          "books-writing-5",
+          "transfer-repair-022",
+          "recovery-0059",
+          "transfer-repair-076",
+          "recovery-0239",
+          "transfer-repair-067",
+          "ai-transfer",
+          "transfer-repair-061",
+          "programming-python",
+          "transfer-repair-063",
+          "programming-2",
+          "transfer-repair-009",
+          "history-5",
+          "transfer-repair-023",
+          "recovery-0294",
+          "transfer-repair-049",
+          "recovery-0228",
+          "transfer-repair-037",
+          "recovery-0088",
+          "transfer-repair-074",
+          "books-writing-3",
+          "transfer-repair-065",
+          "recovery-0033",
+          "transfer-repair-056",
+          "recovery-0012",
+          "transfer-repair-000",
+          "gray-hat-disclosure",
+          "transfer-repair-041",
+          "recovery-0198",
+          "transfer-repair-068",
+          "recovery-0253",
+          "transfer-repair-060",
+          "recovery-0181",
+          "transfer-repair-027",
+          "recovery-0207",
+          "transfer-repair-010",
+          "recovery-0095",
+          "transfer-repair-017",
+          "cybersecurity-5",
+          "transfer-repair-008",
+          "retrieval-memory-context",
+          "transfer-repair-073",
+          "recovery-0265",
+          "transfer-repair-036",
+          "ai-attention",
+          "transfer-repair-024",
+          "programming-3",
+          "transfer-repair-075",
+          "recovery-0293",
+          "transfer-repair-039",
+          "books-writing-1",
+          "transfer-repair-025",
+          "recovery-0176",
+          "transfer-repair-001",
+          "recovery-0254",
+          "transfer-repair-018",
+          "recovery-0064",
+          "transfer-repair-019",
+          "recovery-0168",
+          "transfer-repair-026",
+          "red-hat-emulation",
+          "transfer-repair-042",
+          "history-6",
+          "transfer-repair-066",
+          "recovery-0138",
+          "transfer-repair-002",
+          "recovery-0236",
+          "transfer-repair-058",
+          "recovery-0009",
+          "transfer-repair-015",
+          "recovery-0159",
+          "transfer-repair-055",
+          "recovery-0029",
+          "transfer-repair-012",
+          "infrastructure-cloud",
+          "transfer-repair-077",
+          "recovery-0047",
+          "transfer-repair-014",
+          "day-trading-6",
+          "transfer-repair-070",
+          "recovery-0132",
+          "transfer-repair-043",
+          "cybersecurity-6",
+          "transfer-repair-057",
+          "recovery-0206",
+          "transfer-repair-059",
+          "retrieval-memory-untrusted",
+          "transfer-repair-038",
+          "data-research-6",
+          "transfer-repair-011",
+          "recovery-0135",
+          "transfer-repair-040",
+          "recovery-0042",
+          "transfer-repair-021",
+          "blue-hat-automation",
+          "transfer-repair-013",
+          "recovery-0127",
+          "transfer-repair-020",
+          "ai-overfitting",
+          "transfer-repair-051",
+          "structured-tools-denied",
+          "transfer-repair-003",
+          "math-28",
+          "transfer-repair-016",
+          "science-6",
+          "transfer-repair-022",
+          "recovery-0006",
+          "transfer-repair-076",
+          "recovery-0126",
+          "transfer-repair-067",
+          "programming-4",
+          "transfer-repair-061",
+          "recovery-0165",
+          "transfer-repair-063",
+          "ancient-math-2",
+          "transfer-repair-009",
+          "science-5",
+          "transfer-repair-023",
+          "recovery-0269",
+          "transfer-repair-049",
+          "recovery-0137",
+          "transfer-repair-037",
+          "infrastructure-kubernetes",
+          "transfer-repair-074",
+          "reasoning-communication-synthesis",
+          "transfer-repair-065",
+          "science-mathematics-numerics",
+          "transfer-repair-056",
+          "recovery-0139",
+          "transfer-repair-000",
+          "recovery-0208",
+          "transfer-repair-041",
+          "recovery-0026",
+          "transfer-repair-068",
+          "recovery-0196",
+          "transfer-repair-060",
+          "recovery-0008",
+          "transfer-repair-027",
+          "infrastructure-linux",
+          "transfer-repair-010",
+          "recovery-0118",
+          "transfer-repair-017",
+          "recovery-0134",
+          "transfer-repair-008",
+          "recovery-0282",
+          "transfer-repair-073",
+          "recovery-0043",
+          "transfer-repair-036",
+          "programming-c",
+          "transfer-repair-024",
+          "structured-tools-calculator",
+          "transfer-repair-075",
+          "recovery-0210",
+          "transfer-repair-039",
+          "recovery-0028",
+          "transfer-repair-025",
+          "recovery-0070",
+          "transfer-repair-001",
+          "recovery-0224"
+        ],
+        "replay_steps": 100,
+        "gpu_utilization": null,
+        "gpu_utilization_reason": "CPU experiment",
+        "gpu_peak_allocated_bytes": null,
+        "device": "cpu"
+      },
+      "original_checkpoints_modified": false,
+      "weights_reinitialized": false,
+      "automatic_promotion": false,
+      "promoted": false,
+      "final_test_used_for_training": false,
+      "evaluation_pending": true
+    },
+    "original_checkpoints_modified": false,
+    "random_initialization_used": false,
+    "hardware": {
+      "device": "cpu",
+      "cuda_available": false,
+      "cpu_threads": 2
+    }
+  },
+  "objective": "sft",
+  "seed": 42,
+  "start_offset": 0,
+  "optimizer_state_resumed": false,
+  "learning_rate": 2e-05,
+  "max_length": 256,
+  "replay_fraction": 0.5,
+  "train_examples": 368,
+  "eval_examples": 8,
+  "dataset_manifest_sha256": "e171619482266f67a3725435331d2397ee13dd17751f39b358d056c0b88c97d0",
+  "dataset_files": {
+    "train": {
+      "path": "train.jsonl",
+      "rows": 368,
+      "sha256": "5475180ecbeae771b41018ec5486a8d64bc745701a08d5269def8eeaf8f13f39",
+      "topics": {
+        "agent-planning": 4,
+        "ai": 8,
+        "algebra": 22,
+        "ancient-math": 4,
+        "black-hat-defense": 2,
+        "blue-hat": 2,
+        "books-writing": 4,
+        "cybersecurity": 4,
+        "data-research": 4,
+        "day-trading": 4,
+        "document-grounding": 40,
+        "evidence-custody": 8,
+        "evidence-extraction": 32,
+        "exact-instructions": 24,
+        "gray-hat": 2,
+        "green-hat": 1,
+        "history": 4,
+        "infrastructure": 8,
+        "investing": 4,
+        "math": 4,
+        "numeral-systems": 8,
+        "programming": 13,
+        "python-functions": 8,
+        "raw-json": 24,
+        "reasoning-communication": 4,
+        "red-hat": 2,
+        "retrieval-memory": 4,
+        "rust-borrowing": 10,
+        "science": 4,
+        "science-mathematics": 8,
+        "security-retention": 22,
+        "structured-tools": 40,
+        "task-summary": 16,
+        "tool-schemas": 8,
+        "untrusted-instructions": 10,
+        "white-hat": 2
+      }
+    },
+    "validation": {
+      "path": "validation.jsonl",
+      "rows": 8,
+      "sha256": "37bf15bf8c71c276c8ec92f0aa56d1782471d9b85eb0c6f53d09dce6f1bf0b0b",
+      "topics": {
+        "evidence-custody": 2,
+        "numeral-systems": 2,
+        "python-functions": 2,
+        "tool-schemas": 2
+      }
+    },
+    "test": {
+      "path": "test.jsonl",
+      "rows": 8,
+      "sha256": "48e194c07aa4c1dba57a7cb66e1255de7a59fd312aaeac9f14add7298569cbe0",
+      "topics": {
+        "evidence-custody": 2,
+        "numeral-systems": 2,
+        "python-functions": 2,
+        "tool-schemas": 2
+      }
+    }
+  },
+  "skipped": {
+    "train": 0,
+    "validation": 0
+  },
+  "baseline": {
+    "validation_target_loss": 1.6092369249090552
+  },
+  "final": {
+    "validation_target_loss": 0.5475484120097462
+  },
+  "training": {
+    "train_loss": 0.4498165920699785,
+    "train_runtime": 365.50532351800007,
+    "optimizer_steps": 200,
+    "input_tokens_seen": 12916,
+    "target_tokens_seen": 3963,
+    "tokens_per_second": 35.337378606919046,
+    "topics_seen": {
+      "numeral-systems": 25,
+      "programming": 6,
+      "tool-schemas": 26,
+      "ancient-math": 3,
+      "python-functions": 25,
+      "exact-instructions": 5,
+      "math": 1,
+      "document-grounding": 16,
+      "security-retention": 5,
+      "structured-tools": 12,
+      "untrusted-instructions": 3,
+      "evidence-custody": 24,
+      "evidence-extraction": 10,
+      "agent-planning": 2,
+      "raw-json": 9,
+      "science-mathematics": 2,
+      "rust-borrowing": 4,
+      "day-trading": 2,
+      "cybersecurity": 3,
+      "algebra": 7,
+      "data-research": 1,
+      "books-writing": 1,
+      "white-hat": 1,
+      "ai": 2,
+      "investing": 1,
+      "task-summary": 2,
+      "reasoning-communication": 1,
+      "history": 1
+    },
+    "unique_training_records_seen": 132,
+    "record_ids_seen": [
+      "stability-numeral-systems-034",
+      "programming-2",
+      "stability-tool-schemas-014",
+      "ancient-math-4",
+      "stability-python-functions-006",
+      "recovery-0001",
+      "stability-tool-schemas-018",
+      "math-17",
+      "stability-tool-schemas-015",
+      "recovery-0140",
+      "stability-tool-schemas-017",
+      "programming-5",
+      "stability-python-functions-001",
+      "recovery-0236",
+      "stability-numeral-systems-035",
+      "recovery-0119",
+      "stability-numeral-systems-025",
+      "transfer-repair-076",
+      "stability-python-functions-004",
+      "ancient-math-1",
+      "stability-evidence-custody-040",
+      "transfer-repair-043",
+      "stability-evidence-custody-037",
+      "agent-planning-tasks",
+      "stability-python-functions-005",
+      "recovery-0026",
+      "stability-tool-schemas-016",
+      "recovery-0259",
+      "stability-tool-schemas-023",
+      "recovery-0043",
+      "stability-evidence-custody-045",
+      "science-mathematics-algebra",
+      "stability-tool-schemas-013",
+      "transfer-repair-056",
+      "stability-evidence-custody-042",
+      "recovery-0082",
+      "stability-python-functions-009",
+      "day-trading-2",
+      "stability-python-functions-007",
+      "transfer-repair-011",
+      "stability-evidence-custody-046",
+      "structured-tools-denied",
+      "stability-evidence-custody-038",
+      "cybersecurity-5",
+      "stability-numeral-systems-029",
+      "recovery-0091",
+      "stability-numeral-systems-028",
+      "recovery-0157",
+      "stability-numeral-systems-033",
+      "recovery-0228",
+      "stability-tool-schemas-022",
+      "recovery-0042",
+      "stability-python-functions-008",
+      "data-research-4",
+      "stability-evidence-custody-043",
+      "recovery-0123",
+      "stability-numeral-systems-031",
+      "recovery-0198",
+      "stability-numeral-systems-026",
+      "transfer-repair-061",
+      "stability-evidence-custody-039",
+      "recovery-0019",
+      "stability-python-functions-011",
+      "transfer-repair-058",
+      "stability-numeral-systems-034",
+      "recovery-0046",
+      "stability-tool-schemas-014",
+      "recovery-0244",
+      "stability-python-functions-006",
+      "transfer-repair-057",
+      "stability-tool-schemas-018",
+      "books-writing-3",
+      "stability-tool-schemas-015",
+      "recovery-0180",
+      "stability-tool-schemas-017",
+      "recovery-0006",
+      "stability-python-functions-001",
+      "recovery-0197",
+      "stability-numeral-systems-035",
+      "recovery-0076",
+      "stability-numeral-systems-025",
+      "recovery-0207",
+      "stability-python-functions-004",
+      "recovery-0269",
+      "stability-evidence-custody-040",
+      "recovery-0153",
+      "stability-evidence-custody-037",
+      "transfer-repair-010",
+      "stability-python-functions-005",
+      "recovery-0081",
+      "stability-tool-schemas-016",
+      "recovery-0165",
+      "stability-tool-schemas-023",
+      "recovery-0095",
+      "stability-evidence-custody-045",
+      "recovery-0059",
+      "stability-tool-schemas-013",
+      "white-hat-remediation",
+      "stability-evidence-custody-042",
+      "recovery-0217",
+      "stability-python-functions-009",
+      "cybersecurity-6",
+      "stability-python-functions-007",
+      "transfer-repair-025",
+      "stability-evidence-custody-046",
+      "recovery-0058",
+      "stability-evidence-custody-038",
+      "ai-transfer",
+      "stability-numeral-systems-029",
+      "recovery-0027",
+      "stability-numeral-systems-028",
+      "transfer-repair-026",
+      "stability-numeral-systems-033",
+      "transfer-repair-042",
+      "stability-tool-schemas-022",
+      "investing-6",
+      "stability-python-functions-008",
+      "recovery-0232",
+      "stability-evidence-custody-043",
+      "transfer-repair-074",
+      "stability-numeral-systems-031",
+      "recovery-0152",
+      "stability-numeral-systems-026",
+      "ai-overfitting",
+      "stability-evidence-custody-039",
+      "recovery-0158",
+      "stability-python-functions-011",
+      "transfer-repair-037",
+      "stability-numeral-systems-034",
+      "programming-python",
+      "stability-tool-schemas-014",
+      "programming-bash",
+      "stability-python-functions-006",
+      "recovery-0293",
+      "stability-tool-schemas-018",
+      "reasoning-communication-counterexample",
+      "stability-tool-schemas-015",
+      "recovery-0049",
+      "stability-tool-schemas-017",
+      "programming-go",
+      "stability-python-functions-001",
+      "structured-tools-calculator",
+      "stability-numeral-systems-035",
+      "cybersecurity-2",
+      "stability-numeral-systems-025",
+      "recovery-0181",
+      "stability-python-functions-004",
+      "recovery-0061",
+      "stability-evidence-custody-040",
+      "recovery-0120",
+      "stability-evidence-custody-037",
+      "agent-planning-verification",
+      "stability-python-functions-005",
+      "recovery-0175",
+      "stability-tool-schemas-016",
+      "science-mathematics-numerics",
+      "stability-tool-schemas-023",
+      "recovery-0088",
+      "stability-evidence-custody-045",
+      "history-3",
+      "stability-tool-schemas-013",
+      "transfer-repair-073",
+      "stability-evidence-custody-042",
+      "recovery-0065",
+      "stability-python-functions-009",
+      "structured-tools-result",
+      "stability-python-functions-007",
+      "recovery-0171",
+      "stability-evidence-custody-046",
+      "recovery-0285",
+      "stability-evidence-custody-038",
+      "programming-c",
+      "stability-numeral-systems-029",
+      "transfer-repair-014",
+      "stability-numeral-systems-028",
+      "recovery-0224",
+      "stability-numeral-systems-033",
+      "recovery-0192",
+      "stability-tool-schemas-022",
+      "recovery-0118",
+      "stability-python-functions-008",
+      "recovery-0261",
+      "stability-evidence-custody-043",
+      "recovery-0235",
+      "stability-numeral-systems-031",
+      "recovery-0138",
+      "stability-numeral-systems-026",
+      "recovery-0168",
+      "stability-evidence-custody-039",
+      "day-trading-4",
+      "stability-python-functions-011",
+      "transfer-repair-024",
+      "stability-numeral-systems-034",
+      "ancient-math-6",
+      "stability-tool-schemas-014",
+      "recovery-0195",
+      "stability-python-functions-006",
+      "transfer-repair-019",
+      "stability-tool-schemas-018",
+      "recovery-0214"
+    ],
+    "replay_steps": 100,
+    "gpu_utilization": null,
+    "gpu_utilization_reason": "CPU experiment",
+    "gpu_peak_allocated_bytes": null,
+    "device": "cpu"
+  },
+  "original_checkpoints_modified": false,
+  "weights_reinitialized": false,
+  "automatic_promotion": false,
+  "promoted": false,
+  "final_test_used_for_training": false,
+  "evaluation_pending": true
+}

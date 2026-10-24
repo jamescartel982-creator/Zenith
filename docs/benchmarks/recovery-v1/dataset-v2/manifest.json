@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "source_sha256": "14a0ca7340b54cc60f810e838ebbc60370688585a526fe5e034ee5d7eb18a7dd",
+  "source_snapshot": "source.jsonl",
+  "seed": 89,
+  "quality": {
+    "input_rows": 80,
+    "usable_rows": 80,
+    "exact_duplicates_removed": 0,
+    "topics": {
+      "evidence-extraction": 48,
+      "rust-borrowing": 16,
+      "untrusted-instructions": 16
+    }
+  },
+  "files": {
+    "train": {
+      "path": "train.jsonl",
+      "rows": 336,
+      "sha256": "0f17ebc0e762b2ff050cf112edb4b391f86c38ad92818385d6be60d156415b58",
+      "topics": {
+        "agent-planning": 4,
+        "ai": 8,
+        "algebra": 22,
+        "ancient-math": 4,
+        "black-hat-defense": 2,
+        "blue-hat": 2,
+        "books-writing": 4,
+        "cybersecurity": 4,
+        "data-research": 4,
+        "day-trading": 4,
+        "document-grounding": 40,
+        "evidence-extraction": 32,
+        "exact-instructions": 24,
+        "gray-hat": 2,
+        "green-hat": 1,
+        "history": 4,
+        "infrastructure": 8,
+        "investing": 4,
+        "math": 4,
+        "programming": 13,
+        "raw-json": 24,
+        "reasoning-communication": 4,
+        "red-hat": 2,
+        "retrieval-memory": 4,
+        "rust-borrowing": 10,
+        "science": 4,
+        "science-mathematics": 8,
+        "security-retention": 22,
+        "structured-tools": 40,
+        "task-summary": 16,
+        "untrusted-instructions": 10,
+        "white-hat": 2
+      }
+    },
+    "validation": {
+      "path": "validation.jsonl",
+      "rows": 14,
+      "sha256": "879a1d5893706085af4a16251292c479617f38f6f8ea531015dbf7996124cfad",
+      "topics": {
+        "evidence-extraction": 8,
+        "rust-borrowing": 3,
+        "untrusted-instructions": 3
+      }
+    },
+    "test": {
+      "path": "test.jsonl",
+      "rows": 14,
+      "sha256": "58ade51e3af352ef9084ab5512ec29d36c81b26ec037cf988076d05bd52de795",
+      "topics": {
+        "evidence-extraction": 8,
+        "rust-borrowing": 3,
+        "untrusted-instructions": 3
+      }
+    }
+  },
+  "final_test_used_for_training": false,
+  "automatic_promotion": false,
+  "limitations": [
+    "Public diagnostics guided error analysis; their exact questions/answers are excluded.",
+    "Authored examples include related template families; final independent probes remain separate."
+  ],
+  "replay": {
+    "path": "historical-train-replay.jsonl",
+    "snapshot_sha256": "25f1a52bb31f78b8dd2e7c04e2bfcc2f8701fe1badf879d80bdc65614ed2d698",
+    "source_sha256": "7bafa1100d334a4fa519149cf1ec6aff03fd6cd5c7fac219b71cdd9300f9c644",
+    "partition": "train-only",
+    "rows": 284
+  }
+}

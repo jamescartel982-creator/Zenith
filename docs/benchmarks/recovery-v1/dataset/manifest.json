@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "source_sha256": "9c3fd70bab7eefef1c347accc5dc5cdcce799457009bfc1e40d49e88ad71853a",
+  "source_snapshot": "source.jsonl",
+  "seed": 73,
+  "quality": {
+    "input_rows": 296,
+    "usable_rows": 296,
+    "exact_duplicates_removed": 0,
+    "topics": {
+      "exact-instructions": 40,
+      "raw-json": 40,
+      "structured-tools": 56,
+      "document-grounding": 64,
+      "algebra": 36,
+      "security-retention": 36,
+      "task-summary": 24
+    }
+  },
+  "files": {
+    "train": {
+      "path": "train.jsonl",
+      "rows": 284,
+      "sha256": "7bafa1100d334a4fa519149cf1ec6aff03fd6cd5c7fac219b71cdd9300f9c644",
+      "topics": {
+        "agent-planning": 4,
+        "ai": 8,
+        "algebra": 22,
+        "ancient-math": 4,
+        "black-hat-defense": 2,
+        "blue-hat": 2,
+        "books-writing": 4,
+        "cybersecurity": 4,
+        "data-research": 4,
+        "day-trading": 4,
+        "document-grounding": 40,
+        "exact-instructions": 24,
+        "gray-hat": 2,
+        "green-hat": 1,
+        "history": 4,
+        "infrastructure": 8,
+        "investing": 4,
+        "math": 4,
+        "programming": 13,
+        "raw-json": 24,
+        "reasoning-communication": 4,
+        "red-hat": 2,
+        "retrieval-memory": 4,
+        "science": 4,
+        "science-mathematics": 8,
+        "security-retention": 22,
+        "structured-tools": 40,
+        "task-summary": 16,
+        "white-hat": 2
+      }
+    },
+    "validation": {
+      "path": "validation.jsonl",
+      "rows": 56,
+      "sha256": "4c3d5f78bdb60eac8f2c4ea26f7ef5494306c3e090184341d820bc7b5ad52f4e",
+      "topics": {
+        "algebra": 7,
+        "document-grounding": 12,
+        "exact-instructions": 8,
+        "raw-json": 8,
+        "security-retention": 7,
+        "structured-tools": 10,
+        "task-summary": 4
+      }
+    },
+    "test": {
+      "path": "test.jsonl",
+      "rows": 56,
+      "sha256": "bd01d46ddbae84ce9fcd8fe2bbf0aad6b58f0dab9a0e245cd71dce02c8406825",
+      "topics": {
+        "algebra": 7,
+        "document-grounding": 12,
+        "exact-instructions": 8,
+        "raw-json": 8,
+        "security-retention": 7,
+        "structured-tools": 10,
+        "task-summary": 4
+      }
+    }
+  },
+  "final_test_used_for_training": false,
+  "automatic_promotion": false,
+  "limitations": [
+    "Synthetic template families; related forms can occur across partitions. Scores do not establish broad expert competence.",
+    "No existing diagnostic question/answer was used as a training row. Diagnostics are public development tests, not sealed tests."
+  ],
+  "replay": {
+    "path": "historical-train-replay.jsonl",
+    "snapshot_sha256": "e129439d56d333fac5d88ded0d9357140162578712816cc4938022c51f16aafe",
+    "source_sha256": "2b594ee1946717fa2f900df48017e2c278982fbf3024e3509c133a72e2b04799",
+    "rows": 100,
+    "partition": "train-only"
+  }
+}

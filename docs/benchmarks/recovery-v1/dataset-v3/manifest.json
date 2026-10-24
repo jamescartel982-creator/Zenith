@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "source_sha256": "1235481d352dde0238585668134f51cf5b9201a2f9ec8b019671500c545870fc",
+  "source_snapshot": "source.jsonl",
+  "seed": 101,
+  "quality": {
+    "input_rows": 48,
+    "usable_rows": 48,
+    "exact_duplicates_removed": 0,
+    "topics": {
+      "python-functions": 12,
+      "tool-schemas": 12,
+      "numeral-systems": 12,
+      "evidence-custody": 12
+    }
+  },
+  "files": {
+    "train": {
+      "path": "train.jsonl",
+      "rows": 368,
+      "sha256": "5475180ecbeae771b41018ec5486a8d64bc745701a08d5269def8eeaf8f13f39",
+      "topics": {
+        "agent-planning": 4,
+        "ai": 8,
+        "algebra": 22,
+        "ancient-math": 4,
+        "black-hat-defense": 2,
+        "blue-hat": 2,
+        "books-writing": 4,
+        "cybersecurity": 4,
+        "data-research": 4,
+        "day-trading": 4,
+        "document-grounding": 40,
+        "evidence-custody": 8,
+        "evidence-extraction": 32,
+        "exact-instructions": 24,
+        "gray-hat": 2,
+        "green-hat": 1,
+        "history": 4,
+        "infrastructure": 8,
+        "investing": 4,
+        "math": 4,
+        "numeral-systems": 8,
+        "programming": 13,
+        "python-functions": 8,
+        "raw-json": 24,
+        "reasoning-communication": 4,
+        "red-hat": 2,
+        "retrieval-memory": 4,
+        "rust-borrowing": 10,
+        "science": 4,
+        "science-mathematics": 8,
+        "security-retention": 22,
+        "structured-tools": 40,
+        "task-summary": 16,
+        "tool-schemas": 8,
+        "untrusted-instructions": 10,
+        "white-hat": 2
+      }
+    },
+    "validation": {
+      "path": "validation.jsonl",
+      "rows": 8,
+      "sha256": "37bf15bf8c71c276c8ec92f0aa56d1782471d9b85eb0c6f53d09dce6f1bf0b0b",
+      "topics": {
+        "evidence-custody": 2,
+        "numeral-systems": 2,
+        "python-functions": 2,
+        "tool-schemas": 2
+      }
+    },
+    "test": {
+      "path": "test.jsonl",
+      "rows": 8,
+      "sha256": "48e194c07aa4c1dba57a7cb66e1255de7a59fd312aaeac9f14add7298569cbe0",
+      "topics": {
+        "evidence-custody": 2,
+        "numeral-systems": 2,
+        "python-functions": 2,
+        "tool-schemas": 2
+      }
+    }
+  },
+  "final_test_used_for_training": false,
+  "automatic_promotion": false,
+  "limitations": [
+    "Public diagnostic failures guided concept selection; diagnostic score is development evidence.",
+    "New authored examples are small and include related forms; separate transfer probes and retained evaluation remain necessary."
+  ],
+  "replay": {
+    "path": "historical-train-replay.jsonl",
+    "snapshot_sha256": "8f147ad394832d045351679215bab08dc79671dfef01d2de83cfd8cfea8bc6ee",
+    "source_sha256": "0f17ebc0e762b2ff050cf112edb4b391f86c38ad92818385d6be60d156415b58",
+    "rows": 336,
+    "partition": "train-only"
+  }
+}

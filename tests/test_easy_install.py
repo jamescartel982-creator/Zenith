@@ -27,6 +27,21 @@ def bootstrap():
 
 
 class EasyInstallTests(unittest.TestCase):
+    def test_explicit_release_is_cached_and_activated_before_launch(self):
+        module=bootstrap()
+        with tempfile.TemporaryDirectory(prefix='zenith release spaces ') as folder:
+            with patch.object(module.venv.EnvBuilder,'create'),patch.object(module,'run') as run,patch.object(module,'configured_provider',return_value='huggingface'),contextlib.redirect_stdout(io.StringIO()):
+                self.assertEqual(module.main(['--venv',folder,'--launch','--activate-release',folder]),0)
+                commands=[list(map(str,call.args[0])) for call in run.call_args_list]
+                activation=next(i for i,c in enumerate(commands) if 'use-release' in c)
+                self.assertLess(activation,len(commands)-1)
+                self.assertIn('--approve',commands[activation])
+                self.assertIn('--download-base',commands[activation])
+                self.assertFalse(any(c[-2:]==['models','download'] for c in commands))
+            with patch.object(module.venv.EnvBuilder,'create'),patch.object(module,'run') as run,patch.object(module,'configured_provider',return_value='ollama'),contextlib.redirect_stdout(io.StringIO()),contextlib.redirect_stderr(io.StringIO()):
+                self.assertEqual(module.main(['--venv',folder,'--activate-release',folder]),1)
+                self.assertFalse(any('use-release' in call.args[0] for call in run.call_args_list))
+
     def test_launch_downloads_before_serving_and_uses_selected_environment(self):
         module = bootstrap()
         with tempfile.TemporaryDirectory(prefix='zenith launch spaces ') as folder:

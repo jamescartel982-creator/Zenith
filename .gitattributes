@@ -7,3 +7,6 @@
 *.png binary
 *.cmd text eol=crlf
 *.jsonl text eol=lf
+*.safetensors binary
+# Approved checkpoints must retain exact bytes for promotion and runtime hashes.
+model_releases/** -text

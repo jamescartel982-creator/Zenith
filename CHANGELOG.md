@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.13.0 — Regression repair and reversible model activation
+
+- Continue the existing trained checkpoint using authored repair curricula, historical training-only replay, and reviewed preference examples. Preserve architecture, tokenizer, original checkpoints, and raw evaluation evidence.
+- Correct punctuation-related false negatives consistently across saved baselines; reject edited/incomplete reports, different evaluation protocols, slice regressions, and individual case regressions.
+- Add explicit local model review, stable release caching, real load/inference checks, checkpoint-bound runtime receipts, exact profile backup, and rollback. Restricted execution permissions remain separate and disabled by default.
+- Support an explicit installer `--activate-release` option, original pinned-base caching, and installed-provider release checks on Windows and Linux.
+- Record that automated diagnostic success alone does not establish deployment readiness. Independent transfer results and manual answer review remain required.
+
 ## 0.12.1 — Diagnostic grading and promotion validation
 
 - Accept sentence punctuation after a completed correct algebra answer and an initial negative authorization answer, while retaining wrong-number and structured-output checks.

@@ -47,10 +47,15 @@ jobs:
       - run: python -m pip install '.[local]'
       - name: Compare public task slices against the frozen development baseline
         run: zenith benchmark --max-new-tokens 64 --reply-style auto --baseline docs/benchmarks/v0.7/diagnostic.json --output diagnostic-watch.json
+      - name: Rerun approved trained-checkpoint diagnostics
+        if: ${{ hashFiles('model_releases/recovery-v1/release.json') != '' }}
+        run: python -I -m scripts.check_model_release --bundle model_releases/recovery-v1 --output candidate-watch.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: zenith-diagnostic-watch
-          path: diagnostic-watch.json
+          path: |
+            diagnostic-watch.json
+            candidate-watch.json*
           retention-days: 30
           if-no-files-found: warn

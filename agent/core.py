@@ -50,7 +50,7 @@ class Agent:
         sources=self.store.search_documents(text,plan.knowledge_limit)
         for source in sources:source['excerpt']=source['excerpt'][:plan.excerpt_chars]
         system=(COMPACT_SYSTEM if plan.concise else SYSTEM_PROMPT)+'\nSelected skill: '+instruction
-        if plan.concise:system+='\nReply in 1–3 short sentences. Avoid preambles, repetition, and restating the question.'
+        if plan.concise:system+='\nReply in 1–3 short sentences unless the user requires a different format. Avoid preambles, repetition, and restating the question.'
         if user_id:
             from .summaries import current as conversation_summary
             saved_summary=conversation_summary(self.store,self.personal,user_id,session_id)

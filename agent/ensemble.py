@@ -193,9 +193,12 @@ class EnsembleProvider:
         return [member for _, member in ranked[:self.max_experts]], f"keyword_route:{strongest}"
 
     def _settings_for(self, member):
+        bound=bool(self.settings.checkpoint_receipt and self.settings.adapter and member.adapter and
+            Path(member.adapter).expanduser().resolve()==Path(self.settings.adapter).expanduser().resolve())
         return replace(
             self.settings, provider=member.provider, model=member.model,
             revision=member.revision, adapter=member.adapter or "",
+            checkpoint_receipt=self.settings.checkpoint_receipt if bound else '',
             device=member.device or self.settings.device,
             ollama_model=member.model,
             ollama_url=((member.base_url if member.provider == 'ollama' else None) or self.settings.ollama_url).rstrip("/"),
@@ -205,7 +208,7 @@ class EnsembleProvider:
     @staticmethod
     def _provider_key(configuration):
         return (configuration.provider, configuration.model, configuration.revision,
-                configuration.adapter, configuration.device, configuration.ollama_url,
+                configuration.adapter, configuration.checkpoint_receipt, configuration.device, configuration.ollama_url,
                 configuration.local_server_url, configuration.local_server_model)
 
     def _provider_for(self, member):
