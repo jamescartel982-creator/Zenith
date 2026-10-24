@@ -13,88 +13,57 @@ A local AI workspace for conversations, coding, research, and reviewed learning.
 
 ## Install
 
-With Python 3.12 installed, paste **one command** into your terminal.
+Run these commands in your terminal. Python 3.12 is recommended.
 
 Windows PowerShell:
 
 ```powershell
-py -3 -c "import urllib.request; exec(urllib.request.urlopen('https://raw.githubusercontent.com/jamescartel982-creator/Zenith/main/quickstart.py').read())" --activate-candidate
+winget install -e --id Python.Python.3.12
+```
+
+Reopen PowerShell after installing Python, then run:
+
+```powershell
+git clone https://github.com/jamescartel982-creator/Zenith.git
+cd Zenith
+py -3.12 install.py --mode local
+powershell -NoProfile -ExecutionPolicy Bypass -File .\run.ps1 chat
+```
+
+If PowerShell says `git` is not recognized, install Git, reopen PowerShell,
+and retry the clone command:
+
+```powershell
+winget install -e --id Git.Git
 ```
 
 Linux:
-
-```bash
-python3 -c "import urllib.request; exec(urllib.request.urlopen('https://raw.githubusercontent.com/jamescartel982-creator/Zenith/main/quickstart.py').read())" --activate-candidate
-```
-
-This downloads Zenith into **`~/Zenith`**, verifies its source files, creates
-`.venv`, installs dependencies, activates the experimental candidate with its
-recorded regressions, and opens the app. Git and manual environment activation
-are not required. The first download can take several minutes. No paid API key
-is needed. Omit `--activate-candidate` to keep the normal base-model setup.
-
-Open **http://127.0.0.1:7860** if your browser does not open automatically.
-Keep the terminal open while chatting; press Ctrl+C to stop. The installer prints
-the command to start Zenith next time. Rerunning it resumes a verified existing
-installation without overwriting your files. Add `--directory PATH` to choose
-another folder or `--no-launch` to install without starting the app.
-
-### Manual installation
-
-
-Install Python 3.12 and Git, then clone the repository:
 
 ```bash
 git clone https://github.com/jamescartel982-creator/Zenith.git
 cd Zenith
+python3 install.py --mode local
+bash run.sh chat
 ```
 
-Create and activate a standard virtual environment.
+On Debian/Ubuntu, install `python3-venv` and Git if needed. The installer creates
+and selects `.venv` automatically. No manual activation or paid API key is
+required. The configured model downloads when first used; add `--download` to
+the installer command to cache it during setup. Allow several GB of disk space
+and about 4–6 GB of available RAM for the small local model.
 
-Linux:
+On later visits, open the Zenith folder and run the same `run.ps1 chat` or
+`bash run.sh chat` command. Type `/quit` to leave terminal chat.
 
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-```
+To explicitly select the combined experimental candidate, append
+`--activate-candidate` to the install command. This accepts its recorded quality
+regressions, verifies and caches its weights, and saves a rollback receipt.
+Existing settings and conversations are preserved. See
+[installation details](docs/local-installation.md) for updates and other runtimes.
 
-Windows PowerShell:
-
-```powershell
-py -3.12 -m venv .venv
-.\.venv\Scripts\Activate.ps1
-```
-
-Then use the same commands on either platform:
-
-```bash
-python -m pip install ".[local]"
-zenith setup --activate-candidate
-zenith serve --open-browser
-```
-
-Open **http://127.0.0.1:7860** if a browser does not open automatically. For
-terminal conversations, run `zenith chat`. On later visits, activate `.venv` and
-run `zenith serve --open-browser` again. Press Ctrl+C to stop the server.
-
-`--activate-candidate` explicitly selects the existing combined experimental
-checkpoint and accepts its recorded quality regressions. Setup verifies and
-reconstructs its weights, caches the pinned base, tests loading, and saves a
-rollback receipt. The failed evaluation results remain visible. One checkpoint
-is active at a time; restricted security tools retain their existing permissions.
-Run `zenith deployment status` to see the active checkpoint and receipt.
-`zenith setup` alone configures the base checkpoint and preserves existing settings.
-
-The first setup needs internet access, several GB of disk space, and about
-4–6 GB of available RAM. CPU inference is supported. No paid API key is required.
-On Debian/Ubuntu, install `python3-venv` if needed. If PowerShell blocks activation,
-use `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` in that terminal.
-See [installation details](docs/local-installation.md) for CPU-only PyTorch and
-additional runtime choices.
-
-The existing optional launchers also work: `bash install.sh --activate-candidate --launch` on Linux, or `python install.py --activate-candidate --launch` on Windows.
-The source ZIP can be extracted instead of cloning. Existing conversations and
-owner configuration are preserved.
+For browser chat, replace `chat` with `serve --open-browser` in the run command.
+The local address is **http://127.0.0.1:7860**; keep its terminal open and use
+Ctrl+C to stop the server.
 
 ### Runtime choices
 

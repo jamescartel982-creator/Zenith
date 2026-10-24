@@ -1,7 +1,8 @@
 # Changelog
 
-## 0.14.1 — One-command terminal installation
+## 0.14.1 — Terminal installation options
 
+- Restore the Git clone, `install.py --mode local`, and terminal-chat launcher instructions as the primary setup flow; keep the standalone bootstrap optional.
 - Add a standalone standard-library bootstrap that downloads the official source archive, verifies its complete release inventory, and runs the existing isolated installer.
 - Provide one terminal command for Windows and Linux with no Git or manual environment activation. Support custom folders, installation without launch, and explicit experimental candidate selection.
 - Resume verified existing installations without overwriting local code, settings or data; reject unsafe or corrupted archives before running source code.

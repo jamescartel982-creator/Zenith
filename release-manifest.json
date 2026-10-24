@@ -46,8 +46,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "size": 13285,
-      "sha256": "23b6db9e7cf543e933264f9cae80aec936d000a7891c93817effd96f040acb42",
+      "size": 13440,
+      "sha256": "adb7acdba45f73ebc7080257b2d5127c5fcb6176a831c0677ee5e8c8db378a8c",
       "normalization": "lf"
     },
     {
@@ -70,8 +70,8 @@
     },
     {
       "path": "README.md",
-      "size": 11948,
-      "sha256": "5cdaca3f6b9a5c1f2485cc14d55e4c99487ce06b6c801ae647f54cd719a54f36",
+      "size": 10405,
+      "sha256": "d27639f32c4ab7ca358185b3b78638f317dc551e67854b58df9217329627e20b",
       "normalization": "lf"
     },
     {
@@ -1210,8 +1210,8 @@
     },
     {
       "path": "docs/local-installation.md",
-      "size": 14035,
-      "sha256": "1e849cb622481358a96f29abfc06afe9f6fd610fe54f0e4e5bad3041cc92f955",
+      "size": 14250,
+      "sha256": "7cb7a2bc367ab74877a2ae11df930cdcc90b0f82016049872e608e7c2643dafe",
       "normalization": "lf"
     },
     {
