@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "version": "0.12.0",
+  "version": "0.12.1",
   "files": [
     {
       "path": ".dockerignore",
@@ -46,8 +46,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "size": 9872,
-      "sha256": "d77c3100d2a619c2465f8350310beaf30b480676440b493988ea1ae6500881f3",
+      "size": 10526,
+      "sha256": "359fa6cfe41a8dac3310ebefac2c76760aa2ac41bd72b45c8652b622f3c6194b",
       "normalization": "lf"
     },
     {
@@ -70,8 +70,8 @@
     },
     {
       "path": "README.md",
-      "size": 10066,
-      "sha256": "d5d3bd3d8f65c38dc6d7996aa12845baca3bb48990fe51b09abd43297752ad6c",
+      "size": 10340,
+      "sha256": "47af1a96be139c29c554918fe79f5b037afc34636721246e5bcac7650e466955",
       "normalization": "lf"
     },
     {
@@ -95,7 +95,7 @@
     {
       "path": "agent/__init__.py",
       "size": 105,
-      "sha256": "b7214e1e25738e0a544e9f2be9e2b803b77ca7188762b864eadc13592c41119b",
+      "sha256": "49960d7d7d68021d047023b1b6ec95f23e5063d1215b02881a905989cd4997bc",
       "normalization": "lf"
     },
     {
@@ -238,8 +238,8 @@
     },
     {
       "path": "agent/expansion_eval.py",
-      "size": 9590,
-      "sha256": "a795ad775ccfe685cf8a75b9cff609494733b8189d5a79bb01af0bc43589bdc2",
+      "size": 14342,
+      "sha256": "d231ad68e879427669c4656e998f4305b3a75304395db89302d692eae22a403e",
       "normalization": "lf"
     },
     {
@@ -474,6 +474,12 @@
       "path": "docs/admin.md",
       "size": 4539,
       "sha256": "370113318fe77573321023892d255e554685a9af1f2c0ab3656c406374d6811c",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmark-gates.md",
+      "size": 2835,
+      "sha256": "ae0190e00dcc6b7b3508a13fb16d52a561a9165101906a50ea4cfb9266f16659",
       "normalization": "lf"
     },
     {
@@ -1048,8 +1054,8 @@
     },
     {
       "path": "tests/test_continuation.py",
-      "size": 4711,
-      "sha256": "ba763f8daf4654fd2adcc08a1e1ec69eefc62940e9f7f981d87d2513a396d532",
+      "size": 7748,
+      "sha256": "4d6e392eed10863fa4ef50df458471d91ea3c2671cbcd1c58fa66a52775f1c0d",
       "normalization": "lf"
     },
     {
