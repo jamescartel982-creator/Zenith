@@ -1324,8 +1324,8 @@
     },
     {
       "path": "quickstart.py",
-      "size": 8413,
-      "sha256": "e96c7db69e0e144ed8a870f13a40158f94c90811cfbe27176824689c63e74163",
+      "size": 8573,
+      "sha256": "81a1d0b72aed3b6b682ebd8bc2b6b6d73ff8a8e420ced318500dfcc1b0663326",
       "normalization": "lf"
     },
     {
@@ -1798,8 +1798,8 @@
     },
     {
       "path": "tests/test_quickstart.py",
-      "size": 4701,
-      "sha256": "4fc397252ab5999fe82d4732f39d9177d6a531771bd0c6adc58656ab51bc7326",
+      "size": 4796,
+      "sha256": "4aa39f8478a8057bf636d637d496a1865373024e91ed47014867ffbd59a12275",
       "normalization": "lf"
     },
     {

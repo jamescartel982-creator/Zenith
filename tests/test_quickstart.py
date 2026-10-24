@@ -58,7 +58,8 @@ class QuickstartTests(unittest.TestCase):
             root=Path(folder)
             for number,name in enumerate(['Zenith-main/../../escape','/absolute','Zenith-main/C:/escape','Zenith-main/evil\\path','./','Zenith-main/.. /escape','Zenith-main/NUL.txt']):
                 archive=root/('unsafe'+str(number)+'.zip')
-                with zipfile.ZipFile(archive,'w') as z:z.writestr(name,b'invalid')
+                entry=zipfile.ZipInfo('fixture');entry.filename=name;entry.orig_filename=name
+                with zipfile.ZipFile(archive,'w') as z:z.writestr(entry,b'invalid')
                 with self.subTest(path=name),self.assertRaises(ValueError):bootstrap.extract_archive(archive,root/('stage'+str(number)))
             source=root/'source';source_fixture(source);(source/'install.py').write_text('corrupt')
             archive=root/'bad-checksum.zip'

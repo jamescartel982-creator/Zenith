@@ -81,7 +81,9 @@ def extract_archive(archive,destination):
         members=source.infolist()
         if not members or len(members)>20000:raise ValueError('Unexpected source archive file count')
         for member in members:
-            path=relative_path(member.filename)
+            # ZipInfo may normalize backslashes on Windows. Validate the original
+            # name so archive acceptance is identical on both platforms.
+            path=relative_path(member.orig_filename)
             if len(path.parts)<2 and not member.is_dir():raise ValueError('Archive has no repository root')
             roots.add(path.parts[0]);expanded+=member.file_size
             if expanded>MAX_EXPANDED or stat.S_ISLNK(member.external_attr>>16):raise ValueError('Unsafe or oversized source archive')
