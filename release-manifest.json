@@ -1654,8 +1654,8 @@
     },
     {
       "path": "tests/test_deployment.py",
-      "size": 8698,
-      "sha256": "a29fa3030c4e81271f1d8748a7463b8f6f02fbdf657b85689e102185f2e1411d",
+      "size": 8800,
+      "sha256": "a752f1fb3a0d7378cf1576e98e20115a8ef659f3c518f25859c200b453f7af16",
       "normalization": "lf"
     },
     {

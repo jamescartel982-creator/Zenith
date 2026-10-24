@@ -64,7 +64,9 @@ class DeploymentTests(unittest.TestCase):
                 receipt=activate(target,profile,state,True,'Synthetic fixture; approval behavior only')
                 load.assert_called_once_with(str(candidate))
                 self.assertIn(b'OTHER_SETTING=preserved',profile.read_bytes())
-                self.assertIn(str(candidate).encode(),profile.read_bytes())
+                from dotenv import dotenv_values
+                saved=dotenv_values(profile)
+                self.assertEqual(Path(saved['ZENITH_ADAPTER']).resolve(),candidate)
                 self.assertFalse(receipt['network_tools_enabled'])
                 settings=SimpleNamespace(checkpoint_receipt=str(state/receipt['id']/'receipt.json'),
                     adapter=str(candidate),model=receipt['base_model'],revision=receipt['base_revision'])
