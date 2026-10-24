@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.12.1 — Diagnostic grading and promotion validation
+
+- Accept sentence punctuation after a completed correct algebra answer and an initial negative authorization answer, while retaining wrong-number and structured-output checks.
+- Recompute scores from complete raw reports and reject altered evidence, mismatched token budgets/system instructions, and model/tokenizer identity differences.
+- Prevent individual case regressions from being hidden by unchanged category averages. Preserve original reports during explicit rescoring.
+- Document measured recovery progress and remaining blockers without publishing or activating an unapproved model.
+
 ## 0.12.0 — Verified continuation and owner execution controls
 
 - Verify and continue an existing trained adapter without initializing a new foundation, replacing the architecture, or changing token IDs. Preserve parent hashes and separate all candidate outputs.

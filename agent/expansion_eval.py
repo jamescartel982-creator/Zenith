@@ -1,12 +1,16 @@
 """Raw-model diagnostic benchmarks; no harness calculator or execution shortcuts."""
 import argparse
 import ast
+import copy
+import hashlib
 from collections import defaultdict
 import json
 from pathlib import Path
 import re
 import time
 from .checkpoints import load_existing,digest,tokenizer_signature
+
+LEGACY_SYSTEM_PROMPT='You are Zenith. Follow instructions accurately and respect authorization.'
 
 CASES=[
  ('knowledge-1','general-knowledge','Which planet is known as the Red Planet? Answer with the planet name.','contains',['mars']),
@@ -41,10 +45,11 @@ for n,needle in [(1,'CEDAR-742'),(2,'MAPLE-913')]:
 def score(answer,kind,expected):
     text=' '.join(answer.casefold().split())
     if kind=='algebra-x':
-        return bool(re.search(r'(?<![a-z])x\s*(?:=|is)\s*5(?![0-9.])',text)) or text=='5'
+        return bool(re.search(r'(?<![a-z])x\s*(?:=|is)\s*5(?:\.0+)?(?=$|[\s.,;:!?)](?![0-9]))',text)) or text in {'5','5.','5.0'}
     if kind=='exact':return text==expected[0].casefold()
     if kind=='contains':return all(s.casefold() in text for s in expected)
-    if kind=='contains-any':return any(s.casefold() in text for s in expected)
+    if kind=='contains-any':
+        return any(s.casefold() in text for s in expected) or ('no,' in expected and bool(re.match(r'^no(?:[.!?,:\s]|$)',text)))
     value=answer.strip()
     if kind in {'ready-json','tool-json'}:
         # Structured calls must be JSON, not Markdown or incomplete text.
@@ -65,7 +70,8 @@ def score(answer,kind,expected):
     raise ValueError('Unknown benchmark scorer')
 
 
-def evaluate(parent,output,base_only=False,max_new_tokens=48):
+def evaluate(parent,output,base_only=False,max_new_tokens=48,system_prompt=None):
+    system_prompt=LEGACY_SYSTEM_PROMPT if system_prompt is None else system_prompt
     import torch
     model,tokenizer,details=load_existing(parent)
     model.config.use_cache=True
@@ -73,7 +79,7 @@ def evaluate(parent,output,base_only=False,max_new_tokens=48):
     from contextlib import nullcontext
     with model.disable_adapter() if base_only else nullcontext():
         for identifier,area,prompt,scorer,expected in CASES:
-            ids=tokenizer.apply_chat_template([{'role':'system','content':'You are Zenith. Follow instructions accurately and respect authorization.'},{'role':'user','content':prompt}],tokenize=True,add_generation_prompt=True,return_tensors='pt')
+            ids=tokenizer.apply_chat_template([{'role':'system','content':system_prompt},{'role':'user','content':prompt}],tokenize=True,add_generation_prompt=True,return_tensors='pt')
             tick=time.perf_counter()
             with torch.inference_mode():
                 generated=model.generate(ids,attention_mask=torch.ones_like(ids),do_sample=False,max_new_tokens=max_new_tokens,pad_token_id=tokenizer.eos_token_id)
@@ -83,11 +89,12 @@ def evaluate(parent,output,base_only=False,max_new_tokens=48):
             rows.append(row);print(json.dumps({'id':identifier,'passed':row['passed'],'seconds':row['seconds']}),flush=True)
     slices=defaultdict(list)
     for row in rows:slices[row['area']].append(row)
-    report={'schema_version':1,'checkpoint':str(parent),'production_base_only':base_only,
+    report={'schema_version':1,'scoring_version':3,'checkpoint':str(parent),'production_base_only':base_only,
         'checkpoint_files':details['parent_files'],'base_model':details['base_model'],'base_revision':details['base_revision'],
         'tokenizer_sha256':tokenizer_signature(tokenizer),'model_parameters':details['base_parameters'],
         'suite_sha256':__import__('hashlib').sha256(json.dumps(CASES,sort_keys=True).encode()).hexdigest(),
-        'max_new_tokens':max_new_tokens,'temperature':0,'device':'cpu','gpu_utilization':None,
+        'max_new_tokens':max_new_tokens,'temperature':0,'system_prompt':system_prompt,
+        'system_prompt_sha256':hashlib.sha256(system_prompt.encode()).hexdigest(),'device':'cpu','gpu_utilization':None,
         'elapsed_seconds':time.perf_counter()-started,'accuracy':sum(r['passed'] for r in rows)/len(rows),
         'slices':{area:{'cases':len(values),'passed':sum(v['passed'] for v in values),'accuracy':sum(v['passed'] for v in values)/len(values)} for area,values in slices.items()},
         'results':rows,'limitations':['Small authored diagnostic suite, not a standardized or sealed expert benchmark.',
@@ -99,21 +106,82 @@ def evaluate(parent,output,base_only=False,max_new_tokens=48):
     return report
 
 
+
+def validate_report(report):
+    """Recompute scores and reject incomplete or altered diagnostic evidence."""
+    expected_hash=hashlib.sha256(json.dumps(CASES,sort_keys=True).encode()).hexdigest()
+    if report.get('suite_sha256')!=expected_hash or report.get('scoring_version')!=3:
+        raise ValueError('Expected the complete fixed diagnostic suite and scoring version 3')
+    rows=report.get('results',[])
+    if len(rows)!=len(CASES) or [r.get('id') for r in rows]!=[c[0] for c in CASES]:
+        raise ValueError('Missing, reordered, or duplicate diagnostic cases')
+    slices=defaultdict(list)
+    for row,case in zip(rows,CASES):
+        identifier,area,prompt,kind,expected=case
+        if row.get('prompt')!=prompt or row.get('area')!=area or not isinstance(row.get('answer'),str):
+            raise ValueError('Diagnostic prompt, area, or answer is invalid')
+        if type(row.get('passed')) is not bool or row['passed']!=score(row['answer'],kind,expected):
+            raise ValueError('Recorded score differs from the actual answer')
+        slices[area].append(row['passed'])
+    actual={area:{'cases':len(values),'passed':sum(values),'accuracy':sum(values)/len(values)} for area,values in slices.items()}
+    accuracy=sum(r['passed'] for r in rows)/len(rows)
+    if report.get('slices')!=actual or report.get('accuracy')!=accuracy:
+        raise ValueError('Aggregate diagnostic scores were changed or are incomplete')
+    if report.get('temperature')!=0 or not 1<=report.get('max_new_tokens',0)<=4096:
+        raise ValueError('Diagnostic generation settings are invalid')
+    for field in ['base_model','base_revision','tokenizer_sha256']:
+        if not isinstance(report.get(field),str) or not report[field]:raise ValueError('Missing model identity')
+    prompt=report.get('system_prompt',LEGACY_SYSTEM_PROMPT)
+    if not isinstance(prompt,str) or not prompt:raise ValueError('Missing inference system prompt')
+    if 'system_prompt_sha256' in report and report['system_prompt_sha256']!=hashlib.sha256(prompt.encode()).hexdigest():
+        raise ValueError('Inference system prompt fingerprint differs')
+    return report
+
+
+def rescore_report(report):
+    """Regrade saved answers consistently without modifying the original report."""
+    result=copy.deepcopy(report)
+    if len(result.get('results',[]))!=len(CASES):raise ValueError('Incomplete saved diagnostic report')
+    grouped=defaultdict(list)
+    for row,case in zip(result['results'],CASES):
+        row['passed']=score(row['answer'],case[3],case[4]);grouped[row['area']].append(row['passed'])
+    result['slices']={area:{'cases':len(values),'passed':sum(values),'accuracy':sum(values)/len(values)} for area,values in grouped.items()}
+    result['accuracy']=sum(row['passed'] for row in result['results'])/len(CASES)
+    result['scoring_version']=3;result['rescored_from_saved_outputs']=True
+    result['scoring_correction']='Accept sentence punctuation after a completed x=5 answer and an initial No; reject wrong numeric values and malformed/fenced JSON as before.'
+    return validate_report(result)
+
+
 def compare(parent,candidate,production):
-    if len({r['suite_sha256'] for r in [parent,candidate,production]})!=1:raise ValueError('Benchmark suites differ')
+    for report in [parent,candidate,production]:validate_report(report)
+    for field in ['suite_sha256','scoring_version','max_new_tokens','temperature','base_model','base_revision','tokenizer_sha256']:
+        if len({r[field] for r in [parent,candidate,production]})!=1:raise ValueError('Benchmark protocols differ: '+field)
+    if len({r.get('system_prompt',LEGACY_SYSTEM_PROMPT) for r in [parent,candidate,production]})!=1:
+        raise ValueError('Benchmark protocols differ: system prompt')
     regressions=[area for area,values in candidate['slices'].items() if values['accuracy']<max(parent['slices'][area]['accuracy'],production['slices'][area]['accuracy'])]
+    case_regressions=[row['id'] for row,previous,live in zip(candidate['results'],parent['results'],production['results'])
+        if not row['passed'] and (previous['passed'] or live['passed'])]
     return {'parent_accuracy':parent['accuracy'],'candidate_accuracy':candidate['accuracy'],'production_accuracy':production['accuracy'],
-        'regressed_slices':regressions,'numeric_gate_passed':not regressions and candidate['accuracy']>=max(parent['accuracy'],production['accuracy']),
+        'regressed_slices':regressions,'regressed_cases':case_regressions,
+        'numeric_gate_passed':not regressions and not case_regressions and candidate['accuracy']>=max(parent['accuracy'],production['accuracy']),
         'human_review_required':True,'deployment_approved':False,'automatic_promotion':False}
 
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--parent',type=Path,required=True)
+    inputs=parser.add_mutually_exclusive_group(required=True)
+    inputs.add_argument('--parent',type=Path)
+    inputs.add_argument('--rescore-input',type=Path,help='Rescore saved raw answers into a separate report')
     parser.add_argument('--output',type=Path,required=True)
     parser.add_argument('--production-base-only',action='store_true')
     args=parser.parse_args()
-    result=evaluate(args.parent,args.output,args.production_base_only)
+    if args.rescore_input:
+        if args.production_base_only:parser.error('--production-base-only requires --parent')
+        result=rescore_report(json.loads(args.rescore_input.read_text(encoding='utf-8')))
+        result['original_report_sha256']=digest(args.rescore_input)
+        args.output.parent.mkdir(parents=True,exist_ok=True)
+        with args.output.open('x',encoding='utf-8') as handle:json.dump(result,handle,indent=2)
+    else:result=evaluate(args.parent,args.output,args.production_base_only)
     print(json.dumps({'accuracy':result['accuracy'],'output':str(args.output)}))
 
 

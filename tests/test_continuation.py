@@ -1,12 +1,13 @@
 """No fresh foundation initialization, replay isolation, and evaluation contracts."""
 import json
+import copy
 from pathlib import Path
 import tempfile
 import unittest
 from unittest.mock import patch
 from agent.checkpoints import parent_metadata
 from agent.continual import prepare_record,sequence_logprob
-from agent.expansion_eval import score,compare
+from agent.expansion_eval import score,compare,rescore_report
 from scripts.prepare_expansion_curriculum import build
 from agent.learning import load_examples
 from agent.curriculum import audit_directory,assert_disjoint,row_keys
@@ -71,9 +72,54 @@ class ContinuationTests(unittest.TestCase):
         self.assertFalse(score('```json\n{"ready":true}\n```','ready-json',[]))
 
     def test_regressions_fail_promotion_even_when_overall_score_rises(self):
-        parent={'suite_sha256':'same','accuracy':0.5,'slices':{'coding':{'accuracy':1},'other':{'accuracy':0}}}
-        candidate={'suite_sha256':'same','accuracy':0.75,'slices':{'coding':{'accuracy':0.5},'other':{'accuracy':1}}}
-        result=compare(parent,candidate,parent)
+        folder=ROOT/'docs/benchmarks/continuation-v1'
+        parent=rescore_report(json.loads((folder/'parent-benchmark.json').read_text()))
+        candidate=rescore_report(json.loads((folder/'candidate-benchmark.json').read_text()))
+        production=rescore_report(json.loads((folder/'production-benchmark.json').read_text()))
+        self.assertGreater(candidate['accuracy'],parent['accuracy'])
+        result=compare(parent,candidate,production)
         self.assertFalse(result['numeric_gate_passed'])
         self.assertFalse(result['deployment_approved'])
-        self.assertIn('coding',result['regressed_slices'])
+        self.assertIn('instruction-following',result['regressed_slices'])
+        self.assertIn('retrieval-grounding',result['regressed_slices'])
+
+    def test_sentence_punctuation_does_not_hide_a_correct_answer(self):
+        self.assertTrue(score('Add seven, then divide: x = 5.','algebra-x',['5']))
+        for wrong in ['x = 50.','x = 5.2','x = 5/2','x = 5e3']:
+            self.assertFalse(score(wrong,'algebra-x',['5']))
+        self.assertTrue(score('No. Stop until the target is authorized.','contains-any',['not execute','do not','stop','must not','no,']))
+        self.assertFalse(score('Nobody should decide.','contains-any',['no,']))
+
+    def test_promotion_rejects_incomplete_forged_and_mismatched_reports(self):
+        original=rescore_report(json.loads((ROOT/'docs/benchmarks/continuation-v1/candidate-benchmark.json').read_text()))
+        for mutation in ['budget','missing-case','fake-score','missing-slice','old-scorer','system-policy','prompt-hash']:
+            changed=copy.deepcopy(original)
+            if mutation=='budget':changed['max_new_tokens']=128
+            elif mutation=='missing-case':changed['results'].pop()
+            elif mutation=='fake-score':changed['results'][2]['passed']=True
+            elif mutation=='missing-slice':changed['slices'].pop('retrieval-grounding')
+            elif mutation=='system-policy':changed['system_prompt']='Different application policy'
+            elif mutation=='prompt-hash':changed['system_prompt_sha256']='0'*64
+            else:changed['scoring_version']=2
+            with self.subTest(mutation=mutation),self.assertRaises(ValueError):compare(original,changed,original)
+
+    def test_case_regression_cannot_hide_inside_unchanged_slice_average(self):
+        original=rescore_report(json.loads((ROOT/'docs/benchmarks/continuation-v1/parent-benchmark.json').read_text()))
+        changed=copy.deepcopy(original)
+        for row in changed['results']:
+            if row['id']=='math-1':row['answer']='x = 5.'
+            if row['id']=='math-2':row['answer']='I do not know.'
+        changed=rescore_report(changed)
+        self.assertEqual(changed['slices']['mathematical-reasoning'],original['slices']['mathematical-reasoning'])
+        result=compare(original,changed,original)
+        self.assertFalse(result['numeric_gate_passed'])
+        self.assertEqual(result['regressed_slices'],[])
+        self.assertIn('math-2',result['regressed_cases'])
+
+    def test_rescoring_preserves_original_report_and_raw_answers(self):
+        original=json.loads((ROOT/'docs/benchmarks/continuation-v1/candidate-benchmark.json').read_text())
+        before=copy.deepcopy(original)
+        result=rescore_report(original)
+        self.assertEqual(original,before)
+        self.assertEqual([r['answer'] for r in result['results']],[r['answer'] for r in original['results']])
+        self.assertEqual(result['scoring_version'],3)
