@@ -1,26 +1,41 @@
 # Install, run, and upgrade Zenith locally
 
-The [one-command terminal installer](../README.md#install) needs only Python
-(3.12 recommended). It downloads the official GitHub archive, verifies all
-source-manifest entries, then runs the normal isolated installer. Git and manual
-activation are optional. The default folder is `~/Zenith`; add `--directory PATH`
-to select another location. `--no-launch` installs and caches without starting
-the server. `--activate-candidate` explicitly accepts the existing experimental
-checkpoint's recorded regressions.
+The primary installation flow is Git clone, `install.py --mode local`, and
+terminal chat through the platform launcher. The installer creates and selects
+its private `.venv` automatically.
 
-A rerun verifies and reuses existing files. It does not replace local edits or
-refresh an existing checkout from a different revision. Update a clone with
-`git pull --ff-only`, or select a new directory for a fresh download. Archive
-checks reject unsafe paths, symbolic links, oversized payloads and invalid file
-checksums before running the installer. Checksums establish byte consistency;
-the official HTTPS GitHub repository is the download trust source.
+Windows PowerShell:
 
+```powershell
+winget install -e --id Python.Python.3.12
+```
 
-Use the standard clone, virtual environment, `python -m pip install ".[local]"`,
-`zenith setup --activate-candidate`, and `zenith serve --open-browser` commands in
-the [README](../README.md#install). This explicitly selects the experimental
-checkpoint, preserving its known regressions in an activation receipt.
-`zenith setup` alone saves the normal base profile without changing an existing one.
+Reopen PowerShell, then run:
+
+```powershell
+git clone https://github.com/jamescartel982-creator/Zenith.git
+cd Zenith
+py -3.12 install.py --mode local
+powershell -NoProfile -ExecutionPolicy Bypass -File .\run.ps1 chat
+```
+
+If Git is missing, run `winget install -e --id Git.Git`, reopen PowerShell,
+and retry. Linux uses `python3 install.py --mode local` and `bash run.sh chat`
+after cloning and entering the repository.
+
+Add `--activate-candidate` to the installer to explicitly select the experimental
+checkpoint and accept its recorded regressions. Its receipt preserves the failed
+quality decision and rollback information. Without that option, existing model
+selection is preserved. Bare `zenith` commands require environment activation;
+the platform launchers select the environment directly.
+
+The standalone `quickstart.py` remains an optional download helper. It verifies
+source checksums and reuses a verified existing directory without replacing local
+edits. Its default location is `~/Zenith`; `--directory PATH` selects another
+folder, and `--no-launch` installs without starting the app. It does not refresh
+an existing checkout from a different revision. Use `git pull --ff-only` to update
+a clone. Checksums establish byte consistency; the official HTTPS repository is
+the download trust source.
 
 For CPU-only PyTorch, install it before the local extra:
 
