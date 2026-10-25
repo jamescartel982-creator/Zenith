@@ -1,0 +1,54 @@
+from report_helpers import *
+put('BENCHMARK_PLAN.md',f'''# Benchmark plan
+
+{COMMON}
+
+The [measured baseline and frozen comparison protocol](BENCHMARK_BASELINE.md) separates actual results from planned experiments. [Automated acceptance](AUTOMATED_TEST_PLAN.md) defines task, tool, memory, learning, security, persistence, multi-agent, multimodal and performance workloads. No benchmark result for a proposed subsystem exists yet.
+
+{table(['Requested measure','Workload / validator','Report'],[
+('Agent completion','Frozen owned repository/database/retrieval tasks; independent artifact assertions','Completed/partial/failed/blocked counts and denominator, budgets and model identities'),
+('Tool correctness','Schema, arguments, target and postcondition fixtures; malformed-call denial','Valid/executed/correct calls, side effects and retries'),
+('Authorization','Forged/stale/cross-account/changed approval and shutdown tests','Attempted denials and actual prohibited effects, with raw receipts'),
+('Retrieval','Frozen relevant/irrelevant multi-tenant corpus and deletion/expiry probes','Recall@k, MRR, factual consistency and isolation failures'),
+('Coordination','Specialists with scoped workspace dependencies and conflicting results','Validated completed graph, handoff failures, permission violations'),
+('Latency/tokens','Identical inference backend, fixed lengths, warm/cold and repeated complete tasks','TTFT, full median/p95, throughput, input/output/tool tokens, resource and successful-task cost'),
+('Concurrent throughput','Bounded sessions and actual backend queues','Successful tasks/time, latency/error distributions and resource peaks'),
+('Recovery','Crash at each durable state and ambiguous external write','Restored task outcomes, duplicate effects, lost events and lease fencing'),
+('Injection/sandbox','Untrusted document/skill/web fixtures and owned isolation probes','Observed boundary failures in finite fixtures; never universal immunity')])}
+
+Pin source commits, dataset licenses/revisions, fixture/config hashes, hardware, runtimes, model/tokenizer/adapter hashes, seeds, scoped services and raw run commands before comparison. Reference runtime access and sandbox/backend availability are blockers, not zero scores. Any new pin requires delta review. The original Zenith weights and private account data remain outside benchmark mutation and public exports.
+''')
+ROOT.joinpath('README.md').write_text(f'''# Zenith unified OpenClaw + Hermes audit — review package
+
+**2026-10-25. Audit and proposed architecture only. Zenith source, selected model weights, adapter, tokenizer and private profile were not modified.** The latest request requires approval of the expanded audit before implementation. Earlier OpenClaw pilot work is reported separately; no full parity claim is made.
+
+Start with:
+
+1. [Repository audit](reports/REPOSITORY_AUDIT.md), [Zenith architecture/model identity](reports/ZENITH_CURRENT_ARCHITECTURE.md), [OpenClaw source analysis](reports/OPENCLAW_REVERSE_ENGINEERING.md) and [Hermes source analysis](reports/HERMES_REVERSE_ENGINEERING.md).
+2. [Master matrix guide](reports/MASTER_FEATURE_PARITY_MATRIX.md), [full CSV](reports/MASTER_FEATURE_PARITY_MATRIX.csv), [full JSON](evidence/master-feature-matrix.json) and [source-to-Zenith mapping](reports/SOURCE_TO_ZENITH_MAPPING.md).
+3. [Unified architecture](reports/UNIFIED_INTEGRATION_ARCHITECTURE.md), [exact file plan](reports/FILE_BY_FILE_IMPLEMENTATION_PLAN.md), [machine-readable file plan](evidence/file-by-file-plan.json), [dependency graph](reports/DEPENDENCY_GRAPH.md) and [prioritized milestones](reports/PRIORITIZED_ENGINEERING_MILESTONES.md).
+4. [Security threat model](reports/SECURITY_THREAT_MODEL.md), [license/runtime compatibility](reports/LICENSE_AND_COMPATIBILITY.md), [test plan](reports/AUTOMATED_TEST_PLAN.md), [benchmark plan](reports/BENCHMARK_PLAN.md), [actual baseline](reports/BENCHMARK_BASELINE.md), [deployment/rollback](reports/DEPLOYMENT_AND_ROLLBACK_PLAN.md) and [parity/blocker report](reports/FEATURE_PARITY_REPORT.md).
+
+## Pinned scope and measured evidence
+
+- OpenClaw `{META['openclaw']['commit']}`; Hermes `{META['hermes']['commit']}`; Zenith main `{META['zenith-main']['commit']}`. All checked-out source views clean. Exact pins, inventories and runtime constraints: [repository metadata](evidence/repositories.json).
+- Fresh main: **242 passed, 1 skipped (243 total), 33.364 s**. [Raw log](evidence/zenith-main-tests.log). CPU native arithmetic/geography direct/routed probes passed: [raw inference](evidence/zenith-main-native-baseline.json). These do not establish agent parity or a performance gain.
+- Draft PR19 `44d55d2` remains [open/unmerged](https://github.com/jamescartel982-creator/Zenith/pull/19), as does [PR18](https://github.com/jamescartel982-creator/Zenith/pull/18). Earlier PR19 suite: 276 passed/1 skipped; [CI](https://github.com/jamescartel982-creator/Zenith/actions/runs/40212362742) and [diagnostic watch](https://github.com/jamescartel982-creator/Zenith/actions/runs/40212362734). [Previous raw queue smoke](evidence/pr19-native-smoke.prior.json) is reused from that unchanged commit and shows higher queued latency, not acceleration.
+- [Protection verification](evidence/protection-verification.json) and [fresh base-file rehash](evidence/base-rehash-verification.json) passed. [Prior verified model inventory](evidence/zenith-model-verification.prior.json) supplies architecture/lineage; current audit reloaded the same selected model. Private config contents, private hash receipts, user DBs and credentials are excluded from this package.
+- The matrix contains **3,672 overlapping coverage records**, including docs/fixtures/catalog references, not a count of unique capabilities. No newly proposed parity feature is VERIFIED. Upstream runtimes and real external-service integrations were not executed.
+
+## Scope and reproducibility limits
+
+All tracked paths were indexed and hashed, Python modules AST-parsed, and dependency/plugin/skill/doc declarations extracted. Behavioral analysis traces selected shared owners and 72 core contracts, not a manual semantic proof of every one of the approximately 81,000 reference files. Source findings, documentation claims, actual measurements and proposals are labeled separately. Dynamic registrations and external packages require runtime/source follow-up. Later source revisions are not covered by this pin.
+
+The `evidence/` folder contains compressed per-file source inventories, extraction/report scripts, source citations, license texts, declarations and public results. It contains no upstream executable checkout, copied weights, installed reference runtime or private database. The ZIP includes public evidence only; SHA256SUMS verifies its members. The evidence validator checks citations, matrix coverage, planned-file metadata, dependency ordering and local links; those are audit integrity checks, not tests of the proposed platform.
+
+To reproduce the source audit, clone the three public repositories and check out the full SHAs above. Also check out PR19 head `{META['zenith-pr19']['commit']}` and PR18 head `ac989d869f2c2b961003684dc6ee7843d01d08da` in separate worktrees. Preserve existing user/model state. Use Python3.12 and trusted PyYAML for metadata parsing. Configure checkout roots in `evidence/index_repositories.py`, `build_catalog.py`, `build_plan.py` and `report_helpers.py` (the archived scripts retain the recorded workspace paths), then run the index, catalog, plan and report scripts in that order. The final applicability labels are added by `finalize_evidence.py`; private protection receipt generation requires the existing local configuration and is intentionally not reproducible from this public bundle alone. Do not run that local finalizer against a different user's profile.
+
+The source validator can run against supplied pinned checkouts by adjusting its root map. Reproducing actual model smoke requires the same legitimately available cached base/adapter and existing compatible Zenith environment; the report does not download or distribute them. Reproducing upstream behavior requires their supported independent runtimes (host Node24.19/Python3.12 do not satisfy their current managed requirements), service access and isolation. Do not execute upstream setup code as part of reading this audit.
+
+## Approval boundary
+
+Review the expanded matrix, security boundaries, first milestones and existing PR reconciliation. The next authorized implementation, after approval, should be small tested PRs beginning with shared identity/policy, additive migrations, isolated execution and a bounded tool loop using Zenith. No candidates are activated, no weights are trained, no branches are merged, and no publication/deployment is performed in this audit.
+''',encoding='utf8')
+print('Index and benchmark plan written.')

@@ -1,4 +1,4 @@
-"""Adapter to Zenith's seven existing capabilities; scope remains server-owned."""
+"""Adapter to Zenith's registered fixed capabilities; scope remains server-owned."""
 from .execution import CAPABILITIES, authorized_addresses
 
 
@@ -8,17 +8,21 @@ class ToolRegistry:
 
     def describe(self):
         return [{'id': name, 'version': 1, 'description': description,
-                 'effect': 'network-read' if name in {'tcp-connect', 'tls-certificate'} else 'offline',
+                 'effect': 'isolated-code' if name == 'sandbox-python' else 'network-read' if name in {'tcp-connect', 'tls-certificate'} else 'offline',
                  'requires_owner_mfa': True, 'requires_explicit_grant': True,
-                 'requires_action_approval': name in {'tcp-connect', 'tls-certificate'}}
+                 'requires_action_approval': name in {'tcp-connect', 'tls-certificate', 'sandbox-python'}}
                 for name, description in CAPABILITIES.items()]
 
     def prepare(self, actor, call):
         scope = self.permissions.require_tool(actor, call.tool)
+        if call.tool == 'sandbox-python':
+            from .sandbox import SandboxPolicy
+            if not SandboxPolicy.from_env().enabled:
+                raise PermissionError('Isolated Python execution is disabled')
         if call.tool in {'tcp-connect', 'tls-certificate'}:
             arguments = call.arguments
             authorized_addresses(arguments['host'], arguments['port'], scope)
-        return call.tool in {'tcp-connect', 'tls-certificate'}
+        return call.tool in {'tcp-connect', 'tls-certificate', 'sandbox-python'}
 
     def execute(self, actor, call, guard=None):
         self.prepare(actor, call)

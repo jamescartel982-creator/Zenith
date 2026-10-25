@@ -1,0 +1,91 @@
+{
+  "purpose": "Actual existing-checkpoint ASGI/queued-chat compatibility and latency smoke",
+  "source_commit": "7c7362e9ca6805080b416bf6ee891f35b056accb",
+  "python_sources_sha256": "1cdc8e15625dd2ebab1e8a36292a90397e1621726f4bd9a245382ac65721da1c",
+  "fixture_sha256": "ed3260099f0513f3e63e4f0be35e0b13a67234d1a9520abf1da5cd18fea3dcf4",
+  "model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "adapter_sha256": "7e0701900b40109ee81b3dc097985cda360409006c8b717bda51830f3b6ed85d",
+  "device": "cpu",
+  "cpu_threads": 2,
+  "temperature": 0,
+  "max_new_tokens": 32,
+  "cold_load_seconds": 8.842,
+  "samples": [
+    {
+      "legacy": {
+        "end_to_end_ms": 4226.268,
+        "response": "Rain falls when water evaporates from oceans, lakes, and rivers.",
+        "model": "Qwen/Qwen2.5-0.5B-Instruct",
+        "performance": {
+          "response_mode": "fast",
+          "reply_style": "auto",
+          "concise": true,
+          "output_token_limit": 32,
+          "context_token_limit": 2048,
+          "history_turn_limit": 4,
+          "usage": {
+            "input_tokens": 204,
+            "output_tokens": 16,
+            "total_tokens": 220,
+            "source": "model-tokenizer",
+            "finish_reason": "stop",
+            "model_calls": 1
+          },
+          "elapsed_ms": 4210.54,
+          "first_text_ms": 1700.04,
+          "history_turns_sent": 0
+        }
+      },
+      "queued": {
+        "end_to_end_ms": 7307.406,
+        "response": "Rain falls when water evaporates from oceans, lakes, and rivers.",
+        "model": "Qwen/Qwen2.5-0.5B-Instruct",
+        "performance": {
+          "concise": true,
+          "context_token_limit": 2048,
+          "elapsed_ms": 7269.2,
+          "first_text_ms": 3323.92,
+          "history_turn_limit": 4,
+          "history_turns_sent": 0,
+          "output_token_limit": 32,
+          "reply_style": "auto",
+          "response_mode": "fast",
+          "usage": {
+            "finish_reason": "stop",
+            "input_tokens": 204,
+            "model_calls": 1,
+            "output_tokens": 16,
+            "source": "model-tokenizer",
+            "total_tokens": 220
+          }
+        }
+      },
+      "sample": 1,
+      "exact_output_parity": true
+    }
+  ],
+  "median_end_to_end_ms": {
+    "legacy": 4226.268,
+    "queued": 7307.406
+  },
+  "protected_model_and_profile_unchanged": true,
+  "external_model_calls": 0,
+  "not_measured": [
+    "general accuracy",
+    "task completion across domains",
+    "GPU utilization",
+    "peak RAM/VRAM",
+    "concurrent throughput",
+    "sandbox escape resistance",
+    "channel E2E",
+    "provider cost"
+  ],
+  "limitations": [
+    "Small warm sample; no speed/quality improvement claim",
+    "ASGI transport, not internet/network load testing",
+    "Queued latency includes admission and 20ms polling",
+    "Startup loading and blocking provider calls have cooperative cancellation limits"
+  ],
+  "selection": "explicit-byte-verified-inactive-bundle; no profile activation"
+}

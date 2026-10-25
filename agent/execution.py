@@ -7,6 +7,7 @@ import ssl
 import time
 
 CAPABILITIES={'calculator':'Bounded exact arithmetic offline','sha256':'Digest pasted text offline','decode-base64':'Decode pasted Base64 offline','code-audit':'Review pasted source offline','inspect-url':'Inspect URL components offline',
+              'sandbox-python':'Run Python in an opt-in ephemeral offline Linux container',
               'verify-python':'Test a bounded numeric Python subset in an isolated interpreter process',
               'tcp-connect':'One TCP connectivity check to an approved host and port',
               'tls-certificate':'Verify one TLS peer certificate in approved network scope'}
@@ -161,6 +162,9 @@ class ExecutionControls:
                 from .tools import run_tool
                 require()
                 result=run_tool(capability,arguments['text'])
+            elif capability == 'sandbox-python':
+                from .sandbox import run_python
+                result=run_python(arguments, require)
             elif capability == 'verify-python':
                 from .verification import run_restricted_tests
                 require()

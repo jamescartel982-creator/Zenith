@@ -1,0 +1,818 @@
+[
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "pyproject.toml",
+    "line": 15,
+    "needle": "requires-python",
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/pyproject.toml#L15"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "pm/pyproject.toml",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/pm/pyproject.toml#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": ".python-version",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/.python-version#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "package.json",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/package.json#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "apps/desktop/package.json",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/apps/desktop/package.json#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "model_tools.py",
+    "line": 150,
+    "needle": "discover_builtin_tools()",
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/model_tools.py#L150"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "hermes_cli/plugins.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/hermes_cli/plugins.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "hermes_cli/config_defaults.py",
+    "line": 298,
+    "needle": "\"backend\": \"local\"",
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/hermes_cli/config_defaults.py#L298"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "SECURITY.md",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/SECURITY.md#L1"
+  },
+  {
+    "repository": "openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/agents/sandbox/config.ts",
+    "line": 233,
+    "needle": "mode:",
+    "url": "https://github.com/openclaw/openclaw/blob/2f5727b9c61c2ba9dccc3c880d9115f02cb8652f/src/agents/sandbox/config.ts#L233"
+  },
+  {
+    "repository": "openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/gateway/http-endpoint-helpers.ts",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/openclaw/openclaw/blob/2f5727b9c61c2ba9dccc3c880d9115f02cb8652f/src/gateway/http-endpoint-helpers.ts#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "pyproject.toml",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/pyproject.toml#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "pm/pyproject.toml",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/pm/pyproject.toml#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "pm/uv.lock",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/pm/uv.lock#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "package.json",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/package.json#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "apps/desktop/package.json",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/apps/desktop/package.json#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "website/docs/getting-started/platform-support.md",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/website/docs/getting-started/platform-support.md#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "run_agent.py",
+    "line": 214,
+    "needle": "class AIAgent",
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/run_agent.py#L214"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "agent/turn_facade.py",
+    "line": 22,
+    "needle": "def run_conversation",
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/agent/turn_facade.py#L22"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "agent/turn_facade_lease.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/agent/turn_facade_lease.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "agent/conversation_loop.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/agent/conversation_loop.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "agent/turn_context.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/agent/turn_context.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "agent/turn_request_assembly.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/agent/turn_request_assembly.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "agent/turn_response_intake.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/agent/turn_response_intake.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "agent/turn_tool_round.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/agent/turn_tool_round.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "agent/turn_finalizer.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/agent/turn_finalizer.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "agent/turn_empty_response.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/agent/turn_empty_response.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "agent/turn_loop_errors.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/agent/turn_loop_errors.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "agent/turn_liveness.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/agent/turn_liveness.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "agent/interrupt_control.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/agent/interrupt_control.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "tools/registry.py",
+    "line": 121,
+    "needle": "def discover_builtin_tools",
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/tools/registry.py#L121"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "model_tools.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/model_tools.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "toolsets.py",
+    "line": 11,
+    "needle": "_HERMES_CORE_TOOLS",
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/toolsets.py#L11"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "agent/tool_executor.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/agent/tool_executor.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "agent/terminal_approval_batch.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/agent/terminal_approval_batch.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "hermes_cli/config_defaults.py",
+    "line": 298,
+    "needle": "\"backend\": \"local\"",
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/hermes_cli/config_defaults.py#L298"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "tools/terminal_tool_backends.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/tools/terminal_tool_backends.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "tools/environments/local.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/tools/environments/local.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "tools/environments/local_env_policy.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/tools/environments/local_env_policy.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "tools/environments/docker.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/tools/environments/docker.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "tools/environments/docker_egress.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/tools/environments/docker_egress.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "tools/environments/ssh.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/tools/environments/ssh.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "tools/file_operations.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/tools/file_operations.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "SECURITY.md",
+    "line": 32,
+    "needle": "## 2. Trust Model",
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/SECURITY.md#L32"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "tools/code_execution_tool.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/tools/code_execution_tool.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "hermes_state.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/hermes_state.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "hermes_state_schema.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/hermes_state_schema.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "hermes_state_search.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/hermes_state_search.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "tools/memory_tool_store.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/tools/memory_tool_store.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "agent/memory_manager.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/agent/memory_manager.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "agent/memory_provider.py",
+    "line": 37,
+    "needle": "PRE_COMPRESS_CHECKPOINT_API_VERSION",
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/agent/memory_provider.py#L37"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "agent/memory_caller_scope.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/agent/memory_caller_scope.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "agent/conversation_compression_checkpoint.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/agent/conversation_compression_checkpoint.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "website/docs/user-guide/features/memory-providers.md",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/website/docs/user-guide/features/memory-providers.md#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "plugins/memory/retaindb/plugin.yaml",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/plugins/memory/retaindb/plugin.yaml#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "plugins/memory/byterover/plugin.yaml",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/plugins/memory/byterover/plugin.yaml#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "agent/context_compressor.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/agent/context_compressor.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "agent/conversation_compression.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/agent/conversation_compression.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "agent/prompt_cache_scope.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/agent/prompt_cache_scope.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "agent/conversation_loop.py",
+    "line": 818,
+    "needle": "_restore_or_build_system_prompt",
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/agent/conversation_loop.py#L818"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "tools/skill_manager_tool.py",
+    "line": 783,
+    "needle": "def skill_manage",
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/tools/skill_manager_tool.py#L783"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "tools/skill_manager_guards.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/tools/skill_manager_guards.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "tools/skill_usage.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/tools/skill_usage.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "tools/skill_ledger.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/tools/skill_ledger.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "tools/skill_provenance.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/tools/skill_provenance.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "tools/skills_hub_install.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/tools/skills_hub_install.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "tools/skills_guard.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/tools/skills_guard.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "tools/skill_manager_tool.py",
+    "line": 672,
+    "needle": "def _run_write_gate",
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/tools/skill_manager_tool.py#L672"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "tools/skill_manager_tool.py",
+    "line": 41,
+    "needle": "def _guard_agent_created_enabled",
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/tools/skill_manager_tool.py#L41"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "tools/write_approval.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/tools/write_approval.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "agent/curator.py",
+    "line": 106,
+    "needle": "def is_enabled",
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/agent/curator.py#L106"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "agent/curator.py",
+    "line": 915,
+    "needle": "def run_curator_review",
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/agent/curator.py#L915"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "agent/curator_backup.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/agent/curator_backup.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "tools/delegate_tool.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/tools/delegate_tool.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "tools/delegate_tool_config.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/tools/delegate_tool_config.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "tools/delegate_tool_child_run.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/tools/delegate_tool_child_run.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "tools/delegate_tool_toolsets.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/tools/delegate_tool_toolsets.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "tools/async_delegation.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/tools/async_delegation.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "tools/delegate_tool_registry.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/tools/delegate_tool_registry.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "tools/kanban_tools.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/tools/kanban_tools.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "hermes_cli/kanban.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/hermes_cli/kanban.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "agent/moa_loop.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/agent/moa_loop.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "agent/moa_trace.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/agent/moa_trace.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "cron/jobs.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/cron/jobs.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "cron/scheduler.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/cron/scheduler.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "gateway/run.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/run.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "gateway/platform_registry.py",
+    "line": 43,
+    "needle": "class PlatformEntry",
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platform_registry.py#L43"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "gateway/run_adapters.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/run_adapters.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "tools/mcp_tool_transport.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/tools/mcp_tool_transport.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "tools/mcp_tool_registration.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/tools/mcp_tool_registration.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "tools/mcp_oauth.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/tools/mcp_oauth.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "tools/mcp_schema_cache.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/tools/mcp_schema_cache.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "cli.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/cli.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "ui-tui/package.json",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/ui-tui/package.json#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "tui_gateway/server.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/tui_gateway/server.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "web/package.json",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/web/package.json#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "apps/desktop/package.json",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/apps/desktop/package.json#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "tools/browser_use_cli.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/tools/browser_use_cli.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "tools/browser_vault_tool.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/tools/browser_vault_tool.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "tools/computer_use/tool.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/tools/computer_use/tool.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "tools/voice_mode.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/tools/voice_mode.py#L1"
+  },
+  {
+    "repository": "hermes",
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "tools/vision_tools.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/tools/vision_tools.py#L1"
+  }
+]

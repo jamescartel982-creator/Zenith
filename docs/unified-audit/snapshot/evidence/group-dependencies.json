@@ -1,0 +1,344 @@
+{
+  "G00": {
+    "title": "Baseline, approval and existing-PR reconciliation",
+    "deps": [],
+    "dest": [
+      "scripts/platform_protection.py",
+      "docs/unified-platform/compatibility.md"
+    ],
+    "tests": [
+      "tests/test_platform_protection.py"
+    ],
+    "accept": "Verify pinned baseline/model/tokenizer hashes, PR19 divergence and rollback backup; no original checkpoint mutation.",
+    "security": "No source edits or activation before approval; do not overwrite original data."
+  },
+  "G01": {
+    "title": "Identity, policy, schemas, audit and secrets",
+    "deps": [
+      "G00"
+    ],
+    "dest": [
+      "agent/permissions.py",
+      "agent/approvals.py",
+      "agent/audit_chain.py",
+      "agent/platform_migrations.py",
+      "agent/secret_broker.py"
+    ],
+    "tests": [
+      "tests/test_unified_permissions.py",
+      "tests/test_unified_migrations.py"
+    ],
+    "accept": "Deny forged actors, stale MFA/grants, cross-account references and post-approval argument changes with zero side effects; preserve old DB writers.",
+    "security": "Server-owned identity; capability/action grants and emergency stop, secret references only."
+  },
+  "G02": {
+    "title": "Isolated execution, files, shell, Git and egress",
+    "deps": [
+      "G01"
+    ],
+    "dest": [
+      "agent/sandbox.py",
+      "agent/sandbox_docker.py",
+      "agent/filesystem_tools.py",
+      "agent/shell_tools.py",
+      "agent/git_tools.py",
+      "agent/egress_policy.py"
+    ],
+    "tests": [
+      "tests/test_unified_sandbox.py",
+      "tests/e2e/test_unified_execution.py"
+    ],
+    "accept": "Owned container/VM runs real bounded tools; reject forbidden file/network/process access, junction/symlink escapes and missing sandbox; no host fallback.",
+    "security": "No unrestricted model shell; rootless/nonroot workers, quotas, pinned images, approvals and network deny by default."
+  },
+  "G03": {
+    "title": "Typed model turns and autonomous runtime",
+    "deps": [
+      "G01",
+      "G02"
+    ],
+    "dest": [
+      "agent/model_capabilities.py",
+      "agent/providers.py",
+      "agent/tool_protocol.py",
+      "agent/tool_registry.py",
+      "agent/autonomy.py",
+      "agent/planning.py",
+      "agent/verification.py",
+      "agent/runtime.py"
+    ],
+    "tests": [
+      "tests/test_unified_model_turns.py",
+      "tests/integration/test_unified_autonomy.py"
+    ],
+    "accept": "Actual selected Zenith checkpoint completes frozen multi-step workflows with valid schemas, error recovery, budgets, attribution and cancellation; malformed calls have no effects.",
+    "security": "Model output is a proposal, never authorization; preserve generate/stream and current model weights."
+  },
+  "G04": {
+    "title": "Durable sessions, tasks, events, HTTP/WebSocket/CLI",
+    "deps": [
+      "G03"
+    ],
+    "dest": [
+      "agent/task_store.py",
+      "agent/event_bus.py",
+      "agent/session_manager.py",
+      "agent/gateway.py",
+      "agent/server.py",
+      "agent/websocket_gateway.py",
+      "agent/task_cli.py",
+      "agent/commands.py"
+    ],
+    "tests": [
+      "tests/integration/test_unified_gateway.py",
+      "tests/e2e/test_unified_recovery.py"
+    ],
+    "accept": "Real HTTP/WS admission, replay, ownership, lease fencing and restart/cancel; uncertain non-idempotent writes reconcile instead of replay.",
+    "security": "Authenticate and scope live/replayed events; bounded frames/queues; no global bearer-to-owner promotion."
+  },
+  "G05": {
+    "title": "Persistent scoped memory and context compression",
+    "deps": [
+      "G01",
+      "G04"
+    ],
+    "dest": [
+      "agent/retrieval.py",
+      "agent/semantic_memory.py",
+      "agent/episodic_memory.py",
+      "agent/context_manager.py",
+      "agent/history_search.py"
+    ],
+    "tests": [
+      "tests/test_unified_memory.py",
+      "tests/integration/test_unified_compression.py"
+    ],
+    "accept": "Account/project recall, deletion/TTL, provenance, bounded context, compression checkpoint/recovery and retrieval relevance on frozen labels; no private/shared-corpus crossover.",
+    "security": "Treat retrieved text/inferences as data, isolate namespaces and redact provider egress; no duplicate personal-memory DB."
+  },
+  "G06": {
+    "title": "Reviewed learning, trajectories, skill candidates and workflow discovery",
+    "deps": [
+      "G03",
+      "G05"
+    ],
+    "dest": [
+      "agent/trajectory_store.py",
+      "agent/skill_learning.py",
+      "agent/skill_evaluation.py",
+      "agent/skill_versions.py",
+      "agent/workflow_discovery.py",
+      "agent/continual.py",
+      "agent/checkpoints.py",
+      "agent/deployment.py"
+    ],
+    "tests": [
+      "tests/test_unified_skill_learning.py",
+      "tests/integration/test_unified_learning_cycle.py"
+    ],
+    "accept": "Generate a real candidate from consented successful/failed traces, test on independent fixtures, review/activate/version/rollback; optional continued training preserves parent and retained quality.",
+    "security": "No unreviewed live code/weight changes; exclude secrets, held-out data and provider outputs without permitted training rights."
+  },
+  "G07": {
+    "title": "Plugin/skill packages, MCP and dynamic discovery",
+    "deps": [
+      "G01",
+      "G02",
+      "G04"
+    ],
+    "dest": [
+      "agent/plugins/manifest.py",
+      "agent/plugins/registry.py",
+      "agent/plugins/worker.py",
+      "agent/skill_packages.py",
+      "agent/mcp_client.py",
+      "agent/mcp_registry.py"
+    ],
+    "tests": [
+      "tests/test_unified_plugin_integrity.py",
+      "tests/integration/test_unified_mcp.py"
+    ],
+    "accept": "Pinned manifest/schema/protocol negotiation, actual isolated invocation, tool/resource discovery, cancellation, auth/revocation and upgrade reapproval; malformed packages fail closed.",
+    "security": "No untrusted import in host; discovery is not permission or implicit dependency installation."
+  },
+  "G08": {
+    "title": "Supervisor, specialist children and shared task graph",
+    "deps": [
+      "G03",
+      "G04",
+      "G07"
+    ],
+    "dest": [
+      "agent/multi_agent.py",
+      "agent/specialists.py",
+      "agent/task_graph.py",
+      "agent/workspace_manager.py"
+    ],
+    "tests": [
+      "tests/integration/test_unified_multi_agent.py"
+    ],
+    "accept": "Real supervisor/child goal completion, isolated workspaces, strict-subset grants, collective budgets, cancel/steer, blocked-input/review handoff and recovery.",
+    "security": "No automatic parent admin-cookie/MFA inheritance, no model self-elevation or unauthenticated inter-agent events."
+  },
+  "G09": {
+    "title": "Channels, identity routing, notifications and delivery",
+    "deps": [
+      "G01",
+      "G04",
+      "G07"
+    ],
+    "dest": [
+      "agent/channels/base.py",
+      "agent/channel_registry.py",
+      "agent/identity_router.py",
+      "agent/outbox.py"
+    ],
+    "tests": [
+      "tests/integration/test_unified_channels.py",
+      "tests/e2e/test_unified_channel_accounts.py"
+    ],
+    "accept": "Each separately inventoried service proves owned-account pairing, valid/invalid signatures, replay rejection, text/media/thread semantics and uncertain-send reconciliation; no test double counts as live service verification.",
+    "security": "Explicit account/chat/thread bindings, allowlists, message-send approvals, scoped credentials and PII-safe metadata."
+  },
+  "G10": {
+    "title": "Schedules, heartbeat, triggers and event workflows",
+    "deps": [
+      "G04",
+      "G08",
+      "G09"
+    ],
+    "dest": [
+      "agent/scheduler.py",
+      "agent/triggers.py",
+      "agent/heartbeat.py",
+      "agent/workflow_runner.py"
+    ],
+    "tests": [
+      "tests/integration/test_unified_scheduler.py"
+    ],
+    "accept": "Durable UTC/cron+timezone jobs with tested DST/misfire/overlap policy, standing-authority expiry, event dedup and restart recovery.",
+    "security": "Never reuse expired login/MFA sessions as permanent job authority; approve external effects individually or with narrow standing grants."
+  },
+  "G11": {
+    "title": "Browser, computer, remote environments and credential vault",
+    "deps": [
+      "G02",
+      "G04",
+      "G07"
+    ],
+    "dest": [
+      "agent/browser_automation.py",
+      "agent/computer_automation.py",
+      "agent/remote_execution.py",
+      "agent/browser_vault.py"
+    ],
+    "tests": [
+      "tests/e2e/test_unified_browser.py",
+      "tests/e2e/test_unified_desktop.py",
+      "tests/e2e/test_unified_remote_hosts.py"
+    ],
+    "accept": "Actual isolated browser/VM/owned SSH endpoint, all-subresource egress checks, private-profile exclusion, approval-bound writes, cancellation and cleanup; missing backend is unavailable.",
+    "security": "Do not import host cookies/keychains or send secrets to model context; origin-bind handles and human payment/credential actions."
+  },
+  "G12": {
+    "title": "Multimodal documents, images, audio, video and voice",
+    "deps": [
+      "G03",
+      "G07",
+      "G09",
+      "G11"
+    ],
+    "dest": [
+      "agent/multimodal/documents.py",
+      "agent/multimodal/vision.py",
+      "agent/multimodal/audio.py",
+      "agent/multimodal/speech.py",
+      "agent/multimodal/video.py"
+    ],
+    "tests": [
+      "tests/e2e/test_unified_multimodal.py"
+    ],
+    "accept": "Real licensed compatible backends with bounded files, OCR/STT/TTS/vision/media fixtures and declared failure/unsupported formats; preserve text-only installation.",
+    "security": "Do not splice an arbitrary encoder into Zenith embeddings; scan/limit media, isolate decoders and scope all provider egress."
+  },
+  "G13": {
+    "title": "Provider and infrastructure connectors",
+    "deps": [
+      "G01",
+      "G03",
+      "G07"
+    ],
+    "dest": [
+      "agent/model_registry.py",
+      "agent/provider_adapters/local_adapter.py",
+      "agent/connectors/base.py",
+      "agent/database_tools.py",
+      "agent/infrastructure_tools.py"
+    ],
+    "tests": [
+      "tests/integration/test_unified_providers.py",
+      "tests/e2e/test_unified_infrastructure.py"
+    ],
+    "accept": "Exact account-visible model IDs, local-default/privacy routing, errors/failover and actual least-privilege owned API/database/host operations; unsupported/restricted models unavailable.",
+    "security": "No account-access assumptions, no embedded keys, no secret-bearing provider output in training without permission."
+  },
+  "G14": {
+    "title": "CLI/TUI/web/desktop/mobile applications",
+    "deps": [
+      "G04",
+      "G08",
+      "G09",
+      "G12"
+    ],
+    "dest": [
+      "agent/web/platform.js",
+      "agent/web/index.html",
+      "agent/web/app.js",
+      "agent/web/style.css",
+      "clients/tui/package.json",
+      "clients/tui/src/main.ts",
+      "clients/desktop/package.json",
+      "clients/desktop/src/main.ts",
+      "clients/android/app/src/main/java/ai/zenith/CompanionActivity.kt",
+      "clients/ios/ZenithCompanion/App.swift"
+    ],
+    "tests": [
+      "tests/e2e/test_unified_ui.py",
+      "clients/tui/tests/session.test.ts",
+      "clients/desktop/tests/gateway.test.ts"
+    ],
+    "accept": "Real target-OS builds, login/task/approval/reconnect/accessibility/media workflows and identity/model attribution; no native-client claim from Linux-only unit tests.",
+    "security": "Keep Zenith branding/core; transport owns auth, renderer cannot grant permissions, platform prompts/signing/entitlements respected."
+  },
+  "G15": {
+    "title": "Packaging, deployment, benchmarks and acceptance release",
+    "deps": [
+      "G04",
+      "G06",
+      "G08",
+      "G10",
+      "G11",
+      "G12",
+      "G13",
+      "G14"
+    ],
+    "dest": [
+      "scripts/unified_benchmark.py",
+      "agent/evaluation/unified-platform-v1.json",
+      "agent/telemetry.py",
+      "agent/monitoring.py",
+      "pyproject.toml",
+      "install.py",
+      "Dockerfile",
+      "compose.yaml",
+      ".github/workflows/unified-platform.yml",
+      "THIRD_PARTY_NOTICES.md"
+    ],
+    "tests": [
+      "tests/test_unified_installation.py",
+      "tests/e2e/test_unified_acceptance.py"
+    ],
+    "accept": "Frozen paired reference/Zenith tests, security/retention/performance regressions, Windows/Linux CPU and optional GPU/remote/container/companion jobs, model-hash and rollback drills; publish only actual results.",
+    "security": "Default-off experiments, immutable parent checkpoint, signed/pinned artifacts and dependency notices; no automatic unverified deployment."
+  }
+}

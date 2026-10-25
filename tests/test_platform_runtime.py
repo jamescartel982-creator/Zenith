@@ -107,6 +107,26 @@ class PlatformRuntimeTests(unittest.TestCase):
         run.assert_not_called()
         self.assertEqual(self.task(identifier)['status'], 'failed')
 
+    def test_sandbox_needs_opt_in_and_exact_approval_after_owner_grant(self):
+        self.grant('sandbox-python')
+        body = {'kind': 'diagnostics', 'steps': [{'tool': 'sandbox-python', 'arguments': {'source': 'print(4)'}}]}
+        with patch.dict('os.environ', {'ZENITH_SANDBOX_ENABLED': 'false'}):
+            self.assertEqual(self.client.post('/api/platform/tasks', json=body).status_code, 403)
+        image = 'sha256:' + 'a'*64
+        with patch.dict('os.environ', {'ZENITH_SANDBOX_ENABLED': 'true', 'ZENITH_SANDBOX_IMAGE': image}), patch('agent.sandbox_docker.DockerSandbox.run', return_value={'stdout': '4', 'exit_code': 0}) as backend:
+            identifier = self.create(body)
+            self.service.run_once()
+            task = self.task(identifier)
+            self.assertEqual(task['status'], 'waiting_approval')
+            backend.assert_not_called()
+            approval = task['approvals'][0]['id']
+            self.client.post('/api/platform/approvals/'+approval, json={'approved': True})
+            self.service.run_once()
+            self.assertEqual(self.task(identifier)['status'], 'completed')
+            self.assertEqual(backend.call_count, 1)
+            self.service.run_once()
+            self.assertEqual(backend.call_count, 1)
+
     def test_network_plan_waits_for_exact_human_approval_then_connects_once(self):
         with socket.socket() as server:
             server.bind(('127.0.0.1', 0)); server.listen(2)

@@ -1,0 +1,186 @@
+[
+  {
+    "repository": "zenith-main",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/providers.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/jamescartel982-creator/Zenith/blob/e6963d9c6f45c196ae2e301819ae1ae093b35c41/agent/providers.py#L1"
+  },
+  {
+    "repository": "zenith-main",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/checkpoints.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/jamescartel982-creator/Zenith/blob/e6963d9c6f45c196ae2e301819ae1ae093b35c41/agent/checkpoints.py#L1"
+  },
+  {
+    "repository": "zenith-main",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "research_checkpoints/recovery-v1/research.json",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/jamescartel982-creator/Zenith/blob/e6963d9c6f45c196ae2e301819ae1ae093b35c41/research_checkpoints/recovery-v1/research.json#L1"
+  },
+  {
+    "repository": "zenith-main",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/continual.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/jamescartel982-creator/Zenith/blob/e6963d9c6f45c196ae2e301819ae1ae093b35c41/agent/continual.py#L1"
+  },
+  {
+    "repository": "zenith-main",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/deployment.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/jamescartel982-creator/Zenith/blob/e6963d9c6f45c196ae2e301819ae1ae093b35c41/agent/deployment.py#L1"
+  },
+  {
+    "repository": "zenith-main",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/core.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/jamescartel982-creator/Zenith/blob/e6963d9c6f45c196ae2e301819ae1ae093b35c41/agent/core.py#L1"
+  },
+  {
+    "repository": "zenith-main",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/server.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/jamescartel982-creator/Zenith/blob/e6963d9c6f45c196ae2e301819ae1ae093b35c41/agent/server.py#L1"
+  },
+  {
+    "repository": "zenith-main",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/storage.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/jamescartel982-creator/Zenith/blob/e6963d9c6f45c196ae2e301819ae1ae093b35c41/agent/storage.py#L1"
+  },
+  {
+    "repository": "zenith-main",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/personal.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/jamescartel982-creator/Zenith/blob/e6963d9c6f45c196ae2e301819ae1ae093b35c41/agent/personal.py#L1"
+  },
+  {
+    "repository": "zenith-main",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/model_registry.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/jamescartel982-creator/Zenith/blob/e6963d9c6f45c196ae2e301819ae1ae093b35c41/agent/model_registry.py#L1"
+  },
+  {
+    "repository": "zenith-main",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/orchestration.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/jamescartel982-creator/Zenith/blob/e6963d9c6f45c196ae2e301819ae1ae093b35c41/agent/orchestration.py#L1"
+  },
+  {
+    "repository": "zenith-main",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/execution.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/jamescartel982-creator/Zenith/blob/e6963d9c6f45c196ae2e301819ae1ae093b35c41/agent/execution.py#L1"
+  },
+  {
+    "repository": "zenith-main",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/skills.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/jamescartel982-creator/Zenith/blob/e6963d9c6f45c196ae2e301819ae1ae093b35c41/agent/skills.py#L1"
+  },
+  {
+    "repository": "zenith-main",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/monitoring.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/jamescartel982-creator/Zenith/blob/e6963d9c6f45c196ae2e301819ae1ae093b35c41/agent/monitoring.py#L1"
+  },
+  {
+    "repository": "zenith-main",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "install.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/jamescartel982-creator/Zenith/blob/e6963d9c6f45c196ae2e301819ae1ae093b35c41/install.py#L1"
+  },
+  {
+    "repository": "zenith-main",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "Dockerfile",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/jamescartel982-creator/Zenith/blob/e6963d9c6f45c196ae2e301819ae1ae093b35c41/Dockerfile#L1"
+  },
+  {
+    "repository": "zenith-pr19",
+    "commit": "44d55d23cb946254a4a718a35a7c5432003cc01b",
+    "path": "agent/runtime.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/jamescartel982-creator/Zenith/blob/44d55d23cb946254a4a718a35a7c5432003cc01b/agent/runtime.py#L1"
+  },
+  {
+    "repository": "zenith-pr19",
+    "commit": "44d55d23cb946254a4a718a35a7c5432003cc01b",
+    "path": "agent/gateway.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/jamescartel982-creator/Zenith/blob/44d55d23cb946254a4a718a35a7c5432003cc01b/agent/gateway.py#L1"
+  },
+  {
+    "repository": "zenith-pr19",
+    "commit": "44d55d23cb946254a4a718a35a7c5432003cc01b",
+    "path": "agent/task_store.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/jamescartel982-creator/Zenith/blob/44d55d23cb946254a4a718a35a7c5432003cc01b/agent/task_store.py#L1"
+  },
+  {
+    "repository": "zenith-pr19",
+    "commit": "44d55d23cb946254a4a718a35a7c5432003cc01b",
+    "path": "agent/permissions.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/jamescartel982-creator/Zenith/blob/44d55d23cb946254a4a718a35a7c5432003cc01b/agent/permissions.py#L1"
+  },
+  {
+    "repository": "zenith-pr19",
+    "commit": "44d55d23cb946254a4a718a35a7c5432003cc01b",
+    "path": "agent/approvals.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/jamescartel982-creator/Zenith/blob/44d55d23cb946254a4a718a35a7c5432003cc01b/agent/approvals.py#L1"
+  },
+  {
+    "repository": "zenith-pr19",
+    "commit": "44d55d23cb946254a4a718a35a7c5432003cc01b",
+    "path": "agent/platform_migrations.py",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/jamescartel982-creator/Zenith/blob/44d55d23cb946254a4a718a35a7c5432003cc01b/agent/platform_migrations.py#L1"
+  },
+  {
+    "repository": "zenith-pr19",
+    "commit": "44d55d23cb946254a4a718a35a7c5432003cc01b",
+    "path": "docs/platform/benchmark-results.md",
+    "line": 1,
+    "needle": null,
+    "url": "https://github.com/jamescartel982-creator/Zenith/blob/44d55d23cb946254a4a718a35a7c5432003cc01b/docs/platform/benchmark-results.md#L1"
+  }
+]
