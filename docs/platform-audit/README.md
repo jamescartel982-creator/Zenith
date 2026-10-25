@@ -1,0 +1,32 @@
+# Platform audit and staged implementation
+
+Audited 2026-10-25 at commit `2dc28c03227cf5f2b04beea263195133a485193e`, before creating the feature branch or editing tracked source. The working tree was clean. `source-inventory.json` records all 354 tracked files: SHA-256 and size, parsed imports/symbols for all 114 Python modules, JSON structures, and documentation/configuration/script outlines. This is a static inventory, not proof of arbitrary runtime correctness. All 208 existing tests passed (one optional skip) in 27.930 seconds. `baseline.json` records an actual original checkpoint load and inference; `doctor --inference --json` separately passed with response `4`.
+
+## Existing architecture
+
+| Area | Implemented modules and boundaries |
+| --- | --- |
+| Chat harness | `core`, `cli`, `server`, `commands`, `browser`: serialized generation, cancellable streaming, FastAPI, account-bound conversations, source attribution, immutable review snapshots. |
+| Model execution | `providers`: Transformers/PEFT, Ollama, compatible loopback server and experimental tiny checkpoint. `transport` validates bounded SSE/NDJSON framing and completion. `ensemble` coordinates a configured local roster with draft/review/synthesis and explicitly soft inter-call deadlines. |
+| Catalog | `registry`, `discovery`, `models`, `packs`: sourced public references, online metadata search, explicit model downloads and verified model-pack artifacts. A catalog entry is not an installed or callable model. |
+| Storage/context | `storage`, `personal`, `summaries`, `books`: SQLite WAL and FTS5 documents, account isolation, explicit notes/deletion, bounded history and reviewed summaries. Retrieval is lexical, not neural training. |
+| Authorization | `admin`, `owner_mfa`, `execution`, `skill_access`, `tools`: Argon2id, encrypted TOTP enrollment, short-lived elevation and capability grants, explicit narrow CIDRs/literal-IP scope, audit, emergency stop. Chat cannot execute arbitrary shell or grant permissions. |
+| Training | `learning`, `curriculum`, `continual`, `checkpoints`, `export_checkpoint`, `stabilize`, training/campaign scripts: versioned splits, training-only replay, SFT/CPT/DPO, immutable parents, LoRA continuation, compatible export and reproducible candidates. |
+| Evaluation/deployment | `quality`, `assurance`, `expansion_eval`, `monitoring`, `research`, `deployment`: task/slice scoring, raw regrading, protocol hashes, regression/retention gates, verified research materialization, explicit activation/rollback receipts and bounded metrics. |
+| Installation | `install.py`, `quickstart.py`, `run.ps1`, `run.sh`, activation scripts, Docker and CI. Preserve the primary Git-clone/install.py flow and all existing profiles. |
+
+The verified current model is `Qwen/Qwen2.5-0.5B-Instruct` at revision `7ae557604adf67be50417f59c2c2f167def9a775`, `Qwen2ForCausalLM`, 494,032,768 base parameters; the existing rank-8 adapter adds 4,399,104 parameters. The vocabulary, 24 layers, context limit, runtime versions and exact artifact hashes are in `baseline.json`. The bundled `research_checkpoints/recovery-v1/research.json` contains its existing training/parameter-average lineage and original file inventory. The active adapter SHA-256 is `7e0701900b40109ee81b3dc097985cda360409006c8b717bda51830f3b6ed85d`. Its tokenizer file SHA-256 is `9c5ae00e602b8860cbd784ba82a8aa14e8feecec692e7076590d014d7b7fdafa`; the normalized semantic tokenizer signature is recorded separately. The original base weights are cached outside the repository; no original weights are bundled or replaced.
+
+The active candidate was previously selected under the owner's explicit experimental regression exception. It has NOT passed the numerical promotion gate. Existing frozen diagnostics and retention failures remain authoritative; this platform work does not retrain, promote, merge or modify any weights. No foundation initialization occurs. No existing application-data migration is needed.
+
+## Dependency-aware plan and acceptance
+
+1. **Phase 0 (this audit):** verify source inventory, baseline suite, trained weights, tokenizer compatibility and live load. Save evidence before changes.
+2. **Phase 1:** add typed capability/availability records and a trusted Python adapter protocol; bridge the existing providers without replacing them. Discover exact account-visible IDs using official APIs and local endpoints; keep public/HF references separate from configured inference. Optional credentials come only from environment; do not provision, persist or embed keys. Unknown limits, prices and features stay unknown. Restricted/historical families remain unavailable unless actually returned for the account and explicitly configured.
+3. **Phase 2 (depends on 1):** native-by-default opt-in orchestration, privacy/context/tool/cost filters, measured routing signals, bounded call budgets and cooperative cancellation/deadlines, retries/circuit breakers, independent drafts and synthesis, constrained verification and explicit provenance. Reuse retrieval and execution authorization; never execute tools from model output. Integrate CLI and existing provider factory; retain old settings/commands. Test adapters at HTTP protocol boundaries, privacy/authorization/failure handling and real unchanged-checkpoint inference.
+4. **Before Phase 3:** report actual Phase 1/2 test and integration results and open a review PR. No later-phase feature is claimed complete in this delivery. Native Windows/CPU packaging remains covered by CI.
+5. **Later dependency order:** bounded reasoning (3) before isolated coding (4); execution policies before MCP (5); existing SQLite retrieval before memory/research enhancements (6–7); capability registry before optional multimodal runtimes (8). Reviewed training improvements (9) build on existing continuation, never API outputs by default. Interpretability (10) is local-only. Security/performance (11–12) require measured integration tests; frozen benchmarks (13) precede UI exposure (14) and deployment acceptance (15).
+
+## Protection and rollback
+
+No checkpoint, tokenizer, adapter, training corpus, SQLite file, saved profile or deployment receipt is changed by Phase 1/2. Additive code runs only when explicitly selected; plain chat/install retains its established configuration. Rolling back the feature commits or choosing the original `AI_PROVIDER` restores the previous harness without touching model/data artifacts. Provider outputs are never automatically added to training. No adapters are automatically promoted.
