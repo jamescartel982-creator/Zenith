@@ -1,0 +1,27 @@
+{
+  "rows": 3672,
+  "by_entry_type": {
+    "core_behavior": 72,
+    "plugin_declaration": 292,
+    "channel_integration": 55,
+    "model_provider_identity": 90,
+    "platform_registration": 29,
+    "tool_declaration": 51,
+    "toolset_member": 55,
+    "skill_package": 339,
+    "documentation_surface": 1855,
+    "catalog_reference": 827,
+    "execution_backend": 7
+  },
+  "by_reference": {
+    "hermes": 1831,
+    "openclaw": 1841
+  },
+  "by_status": {
+    "PARTIAL": 33,
+    "NOT STARTED": 2807,
+    "BLOCKED": 832
+  },
+  "verified_new_parity_features": 0,
+  "count_semantics": "Coverage records, not a count of unique capabilities or loaded models. Declarations/docs/toolset overlap intentionally retained and labeled."
+}

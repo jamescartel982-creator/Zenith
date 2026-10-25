@@ -12,3 +12,6 @@
 model_releases/** -text
 # Inactive research checkpoint inventories also require byte-exact files.
 research_checkpoints/** -text
+
+# Preserve archived audit receipts and raw CSV bytes across all platforms.
+docs/unified-audit/snapshot/** -text

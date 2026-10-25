@@ -1,0 +1,33 @@
+{
+  "audit_only": true,
+  "repositories": {
+    "openclaw": {
+      "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+      "source_worktree_clean": true
+    },
+    "hermes": {
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "source_worktree_clean": true
+    },
+    "zenith-main": {
+      "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+      "source_worktree_clean": true
+    },
+    "zenith-pr19": {
+      "commit": "44d55d23cb946254a4a718a35a7c5432003cc01b",
+      "source_worktree_clean": true
+    },
+    "zenith-pr18": {
+      "commit": "ac989d869f2c2b961003684dc6ee7843d01d08da",
+      "source_worktree_clean": true
+    }
+  },
+  "profile_unchanged": true,
+  "selected_model_identity_unchanged": true,
+  "selected_adapter_files_unchanged": true,
+  "model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "selected_adapter_sha256": "7e0701900b40109ee81b3dc097985cda360409006c8b717bda51830f3b6ed85d",
+  "selected_adapter_tokenizer_file_sha256": "9c5ae00e602b8860cbd784ba82a8aa14e8feecec692e7076590d014d7b7fdafa",
+  "private_receipts_excluded": true
+}

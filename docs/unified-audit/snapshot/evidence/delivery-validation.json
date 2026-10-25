@@ -1,0 +1,26 @@
+{
+  "purpose": "Audit artifact integrity, not acceptance of proposed platform code",
+  "checks": {
+    "unique_matrix_ids": true,
+    "allowed_statuses": true,
+    "status_counts": true,
+    "types_match": true,
+    "csv_json_equal": true,
+    "applicability_recorded": true,
+    "all_matrix_citations_resolve": true,
+    "report_helper_citations_resolve": true,
+    "markdown_local_and_pinned_links_resolve": true,
+    "unique_destinations": true,
+    "all_file_contracts_present": true,
+    "dependency_graph_acyclic": true,
+    "all_group_tests_have_destinations": true,
+    "new_parity_not_claimed_verified": true
+  },
+  "matrix_rows": 3672,
+  "source_citation_occurrences": 4342,
+  "unique_source_files": 3874,
+  "report_pinned_source_links": 211,
+  "proposed_destinations": 421,
+  "proposed_test_destinations": 158,
+  "all_passed": true
+}

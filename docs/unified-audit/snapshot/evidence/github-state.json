@@ -1,0 +1,19 @@
+{
+  "audit_date": "2026-10-25",
+  "zenith_main": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+  "pr18": {
+    "number": 18,
+    "head": "ac989d869f2c2b961003684dc6ee7843d01d08da",
+    "state": "open",
+    "merged": false
+  },
+  "pr19": {
+    "number": 19,
+    "head": "44d55d23cb946254a4a718a35a7c5432003cc01b",
+    "state": "open",
+    "merged": false,
+    "draft": true
+  },
+  "implementation_allowed": false,
+  "reason": "Latest user requires the expanded unified audit to be completed and approved before further Zenith edits."
+}
