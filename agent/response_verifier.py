@@ -22,7 +22,7 @@ def parse_review(text):
         value = json.loads(text)
         if not isinstance(value, dict) or set(value) != {'supported', 'issues'} or type(value['supported']) is not bool or not isinstance(value['issues'], list) or len(value['issues']) > 10 or any(not isinstance(x, str) or len(x) > 500 for x in value['issues']):
             raise ValueError('Invalid review')
-        return {'status': 'model_review_passed' if value['supported'] else 'model_review_concerns', 'issues': value['issues'],
+        return {'status': 'model_review_passed' if value['supported'] and not value['issues'] else 'model_review_concerns', 'issues': value['issues'],
                 'calibrated_confidence': None, 'limitations': 'Model critique is not an independent factual benchmark or proof.'}
     except (ValueError, TypeError):
         return {'status': 'unverified', 'issues': ['Reviewer did not return valid structured feedback'], 'calibrated_confidence': None}

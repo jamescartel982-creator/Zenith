@@ -66,6 +66,11 @@ class Orchestrator:
             for record in candidates:
                 for retry in range(request.retries + 1):
                     context.check()
+                    # Selected snapshots can be stale after an earlier stage
+                    # revoked this model's inference availability.
+                    record = self.registry.get(record.key)
+                    if not record.routable:
+                        break
                     if attempts >= request.max_calls:
                         return None
                     state = self.breakers.get(record.key, {'failures': 0, 'until': 0})

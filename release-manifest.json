@@ -46,8 +46,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "size": 14312,
-      "sha256": "95b36188583bc07d1000b74eb3435d26d335e05f6de7446ae86d32f187370147",
+      "size": 14509,
+      "sha256": "c3b1a522ba9e764ace3a2ec98444485dfae8dfe9596dd30ec0829757157fe246",
       "normalization": "lf"
     },
     {
@@ -268,8 +268,8 @@
     },
     {
       "path": "agent/model_capabilities.py",
-      "size": 1775,
-      "sha256": "59bb2cd901ba271f89520be30f8874450bc7410127cafa80e9998ceb17f92791",
+      "size": 4463,
+      "sha256": "b2665d3bb99dc56b840f3f284630578311016c5a41aee912cc56eabb2262f3ab",
       "normalization": "lf"
     },
     {
@@ -298,8 +298,8 @@
     },
     {
       "path": "agent/model_registry.py",
-      "size": 11129,
-      "sha256": "af493ced8acec84a8b3ce357c45eadfc69b5c5a73decf7b330b9c0a035eb0421",
+      "size": 11224,
+      "sha256": "4409c53991eaae21bbdfc6300fadf8cecb8555d775b7077a90f1f1e369bff6e4",
       "normalization": "lf"
     },
     {
@@ -316,8 +316,8 @@
     },
     {
       "path": "agent/orchestration.py",
-      "size": 12554,
-      "sha256": "6e17aaeb54ea356607d62c6fd221aa6788760bf3bd0d4e0f134417444e7deb6e",
+      "size": 12831,
+      "sha256": "3a8597df1548c846eb287e0dadade8bf4c97a7edea2edf5f5ce17a294cdbe6d7",
       "normalization": "lf"
     },
     {
@@ -430,8 +430,8 @@
     },
     {
       "path": "agent/response_verifier.py",
-      "size": 1791,
-      "sha256": "1dcc47240fdfbd4a7a13d2c1054c59f7d71ae48d9ff6a14b339c48871d6d3ff3",
+      "size": 1815,
+      "sha256": "8ec8f61ec91264bdcf5c63cc1ffec35d3e82a4703b0c0808131efed2c3e7c8dd",
       "normalization": "lf"
     },
     {
@@ -478,8 +478,8 @@
     },
     {
       "path": "agent/task_router.py",
-      "size": 4180,
-      "sha256": "acd6135c45f39e89d5c0860e9b6dec6893161202a2e1086d1a78e8fed66db1f4",
+      "size": 4418,
+      "sha256": "7cc19687150ca383cb7fbd6b385bc1a2839d998f7cf9fef457f33b242171365f",
       "normalization": "lf"
     },
     {
@@ -1329,6 +1329,12 @@
       "normalization": "lf"
     },
     {
+      "path": "docs/platform-audit/native-inference-hardening.json",
+      "size": 4724,
+      "sha256": "7a836dde91236cc25b6fa99517d907bef6aad77ad211f9ad7ce911506d18b411",
+      "normalization": "lf"
+    },
+    {
       "path": "docs/platform-audit/native-inference.json",
       "size": 4723,
       "sha256": "ac2ce840c5c8161c413bdad0effc945fe16a5f6ed9d9cc239737129959bd458f",
@@ -1336,8 +1342,8 @@
     },
     {
       "path": "docs/platform-audit/results.md",
-      "size": 4116,
-      "sha256": "fcac7929f98a2d222e2ad25c89dcc05680f31205e086256621e11ce6c750b8c3",
+      "size": 5147,
+      "sha256": "7794891182cc0ddb13b9325bbb1c3a3d64e78ef983ce7ddc8023dabcebb27f19",
       "normalization": "lf"
     },
     {
@@ -1348,8 +1354,8 @@
     },
     {
       "path": "docs/platform-models.md",
-      "size": 11974,
-      "sha256": "358b919d32c1c46ff074e9da7750f7396b0ffc6db9b42517438aba99cda3f79c",
+      "size": 12669,
+      "sha256": "230be81ca321ac81133f8b8c0ee81eaa2796875128ebf4d071a6e6c818776cfc",
       "normalization": "lf"
     },
     {
@@ -1882,14 +1888,14 @@
     },
     {
       "path": "tests/test_model_registry.py",
-      "size": 9896,
-      "sha256": "ec789463bf0a6d075f1003acab7c08dbabc4838212092117b65a51d3dbd8d1d6",
+      "size": 12111,
+      "sha256": "13031d6e62c8ab9fbdb1bd3a8c0c90845bb6ea480b76ffdecbcdd6a51eb89769",
       "normalization": "lf"
     },
     {
       "path": "tests/test_orchestration.py",
-      "size": 14496,
-      "sha256": "48401478d0b1156c62adf14a82d45e0616a4029905e4f885f8846d34d55f70dd",
+      "size": 16452,
+      "sha256": "300f6dcbf31b96d91e632aee050f78bdc6626bb8311bd3abb229031ca6470a7a",
       "normalization": "lf"
     },
     {

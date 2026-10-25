@@ -1,6 +1,6 @@
 """Privacy/capability filters precede optional measured routing preferences."""
 from dataclasses import dataclass
-import math
+from .model_capabilities import finite_number
 
 MODES = ('native', 'fast', 'deep', 'coding', 'research', 'collaborative', 'local-only', 'security-research')
 
@@ -21,15 +21,17 @@ class RoutingRequest:
     retries: int = 1
 
     def __post_init__(self):
+        if type(self.allow_external) is not bool or type(self.require_tools) is not bool:
+            raise ValueError('Privacy and tool flags require explicit booleans')
         if self.mode not in MODES or self.effort not in {'fast', 'standard', 'deep', 'research'}:
             raise ValueError('Unknown orchestration mode or reasoning effort')
         if type(self.context_tokens) is not int or not 0 <= self.context_tokens <= 10000000:
             raise ValueError('Invalid context requirement')
         if type(self.max_output_tokens) is not int or not 1 <= self.max_output_tokens <= 4096:
             raise ValueError('Invalid output budget')
-        if not math.isfinite(self.timeout) or not 0 < self.timeout <= 600 or type(self.max_calls) is not int or not 1 <= self.max_calls <= 12 or self.retries not in {0, 1, 2}:
+        if not finite_number(self.timeout) or not 0 < self.timeout <= 600 or type(self.max_calls) is not int or not 1 <= self.max_calls <= 12 or type(self.retries) is not int or self.retries not in {0, 1, 2}:
             raise ValueError('Invalid bounded inference budget')
-        if self.max_cost_usd is not None and (not math.isfinite(self.max_cost_usd) or self.max_cost_usd < 0):
+        if self.max_cost_usd is not None and (not finite_number(self.max_cost_usd) or self.max_cost_usd < 0):
             raise ValueError('Invalid maximum cost')
 
 

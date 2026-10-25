@@ -108,3 +108,7 @@ Official protocol references checked 2026-10-25:
 - [Anthropic Messages](https://platform.claude.com/docs/en/api/messages/create)
 
 Phases 3–15 remain planned; this feature is not a claim that Zenith is GPT, Claude, Mythos, or a newly trained frontier foundation model.
+
+### Phase 1/2 review hardening
+
+Routing privacy flags require actual booleans: strings such as `"false"` are rejected rather than interpreted as consent. Retry counts require integers; budgets, prices and latency observations reject non-finite or invalid values. Discovery validates capability/availability metadata before it becomes routable; a malformed provider listing fails closed and native fallback remains available. Every draft/review/synthesis stage rechecks current availability, so an earlier access denial cannot be retried merely because a long local call outlasted the circuit-breaker timer. A review reporting issues remains a concern even if it also reports `supported: true`.

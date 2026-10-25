@@ -2,6 +2,8 @@
 
 ## 0.15.0 — Optional model registry and native-first orchestration
 
+- Harden routing consent and budgets, validate provider capability metadata, prevent retries of revoked access across long collaboration stages, and preserve uncertainty on contradictory reviews.
+
 - Audit the complete tracked source inventory, verify the existing trained adapter and tokenizer, and record the unchanged 208-test baseline.
 - Add trusted provider adapters, exact account model discovery, conservative capability/lifecycle metadata, and explicit external model opt-in.
 - Integrate bounded routing, independent drafts/synthesis, model review, cooperative deadlines, cancellation, fallback and circuit breakers with existing providers.

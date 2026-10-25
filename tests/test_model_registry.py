@@ -156,3 +156,37 @@ class RegistryTests(unittest.TestCase):
         with patch.dict(os.environ, {'ZENITH_NATIVE_PROVIDER': 'ollama', 'ZENITH_EXTERNAL_MODELS': '[]'}):
             with self.assertRaisesRegex(ValueError, 'loopback'):
                 build_registry(Settings(ollama_url='https://example.org'))
+
+    def test_capability_metadata_rejects_invalid_limits_prices_and_flags(self):
+        for fields in ({'context_window': '32768'}, {'context_window': -1}, {'max_output_tokens': True},
+                       {'tools': 'false'}, {'input_modalities': 'text'}, {'tags': ('coding', 1)},
+                       {'pricing': {'input_usd_per_million': -1, 'source': 'https://example.org/pricing'}},
+                       {'pricing': {'input_usd_per_million': float('nan'), 'source': 'https://example.org/pricing'}}):
+            with self.subTest(fields=fields), self.assertRaises(ValueError):
+                ModelCapabilities(**fields)
+
+    def test_invalid_discovery_metadata_fails_closed_before_routing(self):
+        class BadMetadata:
+            name = 'plugin'
+            def discover(self, context):
+                return [ModelRecord('plugin', 'model', 'listed', configured=True,
+                        capabilities=ModelCapabilities(context_window='invalid'))]
+            def generate(self, *args): raise AssertionError('Invalid metadata cannot invoke a model')
+        registry = ModelRegistry(); registry.register_adapter(BadMetadata())
+        key = registry.register(ModelRecord('plugin', 'model', 'listed', configured=True))
+        self.assertFalse(registry.refresh('plugin', context()))
+        self.assertFalse(registry.get(key).routable)
+
+    def test_invalid_measurements_cannot_poison_routing(self):
+        registry = ModelRegistry(); registry.register_adapter(OpenAIAdapter())
+        key = registry.register(ModelRecord('openai', 'model'))
+        for measurement in (float('nan'), float('inf'), True, '10', -1):
+            with self.subTest(measurement=measurement), self.assertRaises(ValueError):
+                registry.observe(key, measurement)
+        self.assertEqual(registry.metrics, {})
+
+    def test_model_privacy_and_availability_flags_are_not_coerced(self):
+        for fields in ({'local': 'false'}, {'configured': 1}, {'availability': 'automatically-approved'},
+                       {'lifecycle': 'probably-active'}, {'capabilities': {}}):
+            with self.subTest(fields=fields), self.assertRaises(ValueError):
+                ModelRecord('plugin', 'model', **fields)

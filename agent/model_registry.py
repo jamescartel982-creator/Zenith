@@ -5,7 +5,7 @@ import json
 import os
 import time
 from .config import Settings
-from .model_capabilities import ModelCapabilities, ModelRecord, ProviderAdapter
+from .model_capabilities import ModelCapabilities, ModelRecord, ProviderAdapter, finite_number
 from .provider_adapters.common import AdapterError, CallContext
 
 # Families are navigation metadata, not invented callable IDs or access claims.
@@ -45,7 +45,7 @@ class ModelRegistry:
         return self.records[key]
 
     def observe(self, key, latency_ms, quality=None):
-        if key not in self.records or latency_ms < 0 or (quality is not None and not 0 <= quality <= 1):
+        if key not in self.records or not finite_number(latency_ms) or not 0 <= latency_ms <= 10**12 or (quality is not None and (not finite_number(quality) or not 0 <= quality <= 1)):
             raise ValueError('Invalid measured observation')
         old = self.metrics.get(key, {})
         n = old.get('calls', 0)
