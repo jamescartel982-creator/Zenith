@@ -140,7 +140,7 @@ class Orchestrator:
             else:
                 trace['degraded'] = True
                 trace['collaboration'] = 'Only one successful authorized model; returning its draft'
-        if request.mode in {'deep', 'research'} or request.effort in {'deep', 'research'}:
+        if request.review_enabled and (request.mode in {'deep', 'research'} or request.effort in {'deep', 'research'}):
             reviewers = sorted(selected, key=lambda r: r.key == chosen.key)
             review = invoke(reviewers, review_messages(messages, completion.text), 'verification')
             if review:

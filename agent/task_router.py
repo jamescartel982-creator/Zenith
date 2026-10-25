@@ -19,9 +19,10 @@ class RoutingRequest:
     timeout: float = 120
     max_calls: int = 6
     retries: int = 1
+    review_enabled: bool = True
 
     def __post_init__(self):
-        if type(self.allow_external) is not bool or type(self.require_tools) is not bool:
+        if type(self.allow_external) is not bool or type(self.require_tools) is not bool or type(self.review_enabled) is not bool:
             raise ValueError('Privacy and tool flags require explicit booleans')
         if self.mode not in MODES or self.effort not in {'fast', 'standard', 'deep', 'research'}:
             raise ValueError('Unknown orchestration mode or reasoning effort')

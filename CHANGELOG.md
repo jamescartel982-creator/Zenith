@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.16.0 — Optional bounded reasoning
+
+- Add Fast/Standard/Deep/Research schedules, short task checklists, independent candidates, separate critique, declared arithmetic/source checks and one bounded correction/recheck cycle.
+- Share deadlines, model calls, cancellation and estimated provider costs across all reasoning stages. Preserve unverified status when review or deterministic checks cannot pass.
+- Add an owner/MFA/grant-controlled numeric Python-subset interpreter in a separate process, with no submitted imports, shell, file/network primitives, recursion or loops. Ordinary chat cannot invoke it.
+- Preserve original model/tokenizer/checkpoints/profile and SQLite schema. Record raw frozen diagnostics, including unchanged accuracy and added inference overhead.
+
 ## 0.15.0 — Optional model registry and native-first orchestration
 
 - Harden routing consent and budgets, validate provider capability metadata, prevent retries of revoked access across long collaboration stages, and preserve uncertainty on contradictory reviews.

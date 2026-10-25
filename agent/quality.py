@@ -26,7 +26,7 @@ def configuration_signature(settings,mode=None,reply_style=None):
             'temperature':settings.temperature,'mode':mode or settings.response_mode,'team_sha256':None,
             'reply_style':reply_style or settings.reply_style,'fast_max_new_tokens':settings.fast_max_new_tokens,'fast_history_turns':settings.fast_history_turns}
     fields.update(device=settings.device,cpu_threads=settings.cpu_threads)
-    if settings.provider == 'orchestrated':
+    if settings.provider in {'orchestrated', 'reasoning'}:
         import os
         fields.update(orchestration_mode=settings.orchestration_mode, reasoning_effort=settings.reasoning_effort,
                       native_model=settings.model, native_adapter=settings.adapter, ollama_model=settings.ollama_model,

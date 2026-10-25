@@ -9,7 +9,7 @@ WEIGHT_PATTERNS = ['*.json', '*.safetensors', '*.model', '*.tiktoken', 'tokenize
 
 
 def model_specs(settings):
-    if settings.provider == 'orchestrated':
+    if settings.provider in {'orchestrated', 'reasoning'}:
         from .model_registry import build_registry
         registry = build_registry(settings)
         record = registry.get(registry.native_key)

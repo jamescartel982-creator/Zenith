@@ -58,8 +58,8 @@ class Settings:
             raise ValueError('ZENITH_ABSTAIN_THRESHOLD must be between zero and one')
         if not 1 <= self.cpu_threads <= 64:
             raise ValueError("ZENITH_CPU_THREADS must be between 1 and 64")
-        if self.provider not in {"ensemble", "huggingface", "ollama", "tiny", "localserver", "orchestrated"}:
-            raise ValueError("AI_PROVIDER must be ensemble, huggingface, ollama, tiny, localserver, or orchestrated")
+        if self.provider not in {"ensemble", "huggingface", "ollama", "tiny", "localserver", "orchestrated", "reasoning"}:
+            raise ValueError("AI_PROVIDER must be ensemble, huggingface, ollama, tiny, localserver, orchestrated, or reasoning")
         from urllib.parse import urlparse
         endpoint = urlparse(self.local_server_url)
         if endpoint.scheme not in {'http', 'https'} or endpoint.hostname not in {'localhost', '127.0.0.1', '::1'} or endpoint.username or endpoint.password or endpoint.query or endpoint.fragment or any(c.isspace() for c in self.local_server_url):
@@ -77,6 +77,8 @@ class Settings:
 
     @property
     def model_name(self):
+        if self.provider == 'reasoning':
+            return 'Zenith bounded reasoning'
         if self.provider == 'orchestrated':
             return 'Zenith orchestration'
         if self.provider == 'localserver':

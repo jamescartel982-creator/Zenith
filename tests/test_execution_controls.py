@@ -150,3 +150,18 @@ class ExecutionTests(unittest.TestCase):
         token=self.agent.personal.issue_session(other['id'])
         with self.assertRaises(PermissionError):self.agent.execution.grant(self.user['id'],token,'code-audit',{'kind':'offline'})
         with self.assertRaises(PermissionError):self.agent.execution.grant(other['id'],token,'code-audit',{'kind':'offline'})
+
+    def test_restricted_python_requires_mfa_grant_and_obeys_emergency_stop(self):
+        request={'capability':'verify-python','arguments':{'source':'def twice(x):\n    return x * 2',
+            'entrypoint':'twice','cases':[{'args':[3],'expected':6}]}}
+        self.assertEqual(self.owner.post('/api/admin/execution/run',json=request).status_code,403)
+        self.enroll()
+        self.assertEqual(self.owner.post('/api/admin/execution/run',json=request).status_code,403)
+        self.assertEqual(self.owner.post('/api/admin/execution/grant',json={'capability':'verify-python','scope':{'kind':'offline'}}).status_code,200)
+        result=self.owner.post('/api/admin/execution/run',json=request)
+        self.assertEqual(result.status_code,200,result.text)
+        self.assertEqual(result.json()['result']['status'],'passed')
+        request['arguments']['source']='def twice(x):\n    return __import__("os").system("echo unsafe")'
+        self.assertEqual(self.owner.post('/api/admin/execution/run',json=request).json()['result']['status'],'rejected')
+        self.owner.post('/api/admin/execution/stop')
+        self.assertEqual(self.owner.post('/api/admin/execution/run',json=request).status_code,403)

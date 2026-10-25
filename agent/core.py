@@ -40,7 +40,7 @@ class Agent:
         self.lock=Lock()
 
     def team_info(self):
-        if self.settings.provider in {'ensemble', 'orchestrated'}:
+        if self.settings.provider in {'ensemble', 'orchestrated', 'reasoning'}:
             info=self.provider.team_info()
             if isinstance(info,dict):return info
         return {'mode':'single','members':[{'id':'primary','name':self.settings.model_name,'provider':self.settings.provider,
@@ -97,6 +97,7 @@ class Agent:
                 yield {'type':'start','response_mode':mode,'skill':skill,'reply_style':plan.requested_style,'output_token_limit':plan.max_new_tokens}
                 if restricted:self.skills.require(skill,user_id,login_token)
                 messages,sources=self._messages(text,session_id,user_id,instruction,plan)
+                if self.settings.provider == 'reasoning':self.provider.set_sources(sources)
                 direct=direct_answer(text,fast=mode=='fast')
                 quality=calibrated_assurance(self.settings,assurance(text,method=direct['method'] if direct else 'model',
                     abstained=bool(direct and direct['abstained']),sources=len(sources)),mode,plan.requested_style)
@@ -146,6 +147,7 @@ class Agent:
                 status='failed';raise
             finally:
                 lease.cancel.set()
+                if self.settings.provider == 'reasoning':self.provider.set_sources([])
                 try:
                     if provider_stream is not None and callable(getattr(provider_stream,'close',None)):provider_stream.close()
                 finally:
