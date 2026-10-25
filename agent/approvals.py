@@ -52,7 +52,7 @@ class Approvals:
             if row is None:
                 raise LookupError('Approval not found')
             task = db.execute('SELECT * FROM platform_tasks WHERE id=?', (row['task_id'],)).fetchone()
-            if row['status'] != 'pending' or row['expires'] <= time.time() or task['status'] != 'waiting_approval' or task['cancel_requested']:
+            if row['status'] != 'pending' or row['expires'] <= time.time() or task['status'] != 'waiting_approval' or task['cancel_requested'] or task['auth_revision'] != actor.revision:
                 raise PermissionError('Approval is no longer pending')
             self.permissions.require_tool(actor, row['tool'])
             status = 'approved' if approved else 'denied'

@@ -61,7 +61,11 @@ class Permissions:
             raise PermissionError('Platform tools are disabled')
         return self.execution.require_session(actor.user_id, actor.session_hash, capability)
 
-    def revoke(self, actor):
+    def revoke(self, actor, audit=None):
         self.validate(actor)
         with self.store.connect() as db:
+            db.execute('BEGIN IMMEDIATE')
+            self.validate(actor, db)
             db.execute('UPDATE platform_identities SET revision=revision+1 WHERE user_id=?', (actor.user_id,))
+            if audit is not None:
+                audit.append('authority-revoked', {'user_id': actor.user_id}, db)

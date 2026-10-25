@@ -143,8 +143,11 @@ class ExecutionControls:
         if row is None:raise PermissionError('Current owner MFA, session and explicit active capability required')
         return json.loads(row['scope'])
 
-    def execute_session(self,user_id,session_hash,capability,arguments):
-        return self._execute(user_id,capability,arguments,lambda:self.require_session(user_id,session_hash,capability))
+    def execute_session(self,user_id,session_hash,capability,arguments,authority_check=None):
+        def require():
+            if authority_check is not None:authority_check()
+            return self.require_session(user_id,session_hash,capability)
+        return self._execute(user_id,capability,arguments,require)
 
     def _execute(self,user_id,capability,arguments,require):
         target=''

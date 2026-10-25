@@ -39,6 +39,8 @@ class PlatformConfig:
             raise ValueError('Enable ZENITH_PLATFORM_ENABLED before platform subfeatures')
         if self.tools_enabled and not self.runtime_enabled:
             raise ValueError('Platform tools require the bounded runtime')
+        if self.memory_enabled:
+            raise ValueError('Scoped project retrieval is not implemented in this pilot; leave its flag off')
         if self.per_user_pending > self.max_pending:
             raise ValueError('Per-account capacity cannot exceed total capacity')
 

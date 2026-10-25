@@ -22,7 +22,7 @@ from agent.platform_migrations import migrate
 from agent.platform_repository import backup, canonical
 from agent.redaction import Redactor
 from agent.storage import Store
-from scripts.platform_protection import capture, compare
+from scripts.platform_protection import capture, compare, check_destination
 
 
 class FoundationTests(unittest.TestCase):
@@ -72,7 +72,7 @@ class FoundationTests(unittest.TestCase):
 
     def test_invalid_flags_and_quotas_fail_closed(self):
         for kwargs in [dict(tools_enabled=True), dict(enabled=True, tools_enabled=True),
-                       dict(enabled=1), dict(max_pending=0), dict(task_seconds=True), dict(per_user_pending=33)]:
+                       dict(enabled=1), dict(max_pending=0), dict(task_seconds=True), dict(per_user_pending=33), dict(enabled=True,memory_enabled=True)]:
             with self.assertRaises(ValueError):
                 PlatformConfig(**kwargs)
         with patch.dict(os.environ, {'ZENITH_PLATFORM_ENABLED': 'perhaps'}):
@@ -83,7 +83,7 @@ class FoundationTests(unittest.TestCase):
     def test_secret_redaction_and_rejection_are_not_silent_argument_changes(self):
         r = Redactor(['literal-canary-123456'])
         for text in ['literal-canary-123456', 'sk-'+'a'*32, 'hf_'+'a'*30,
-                     'Bearer '+'a'*32, 'password=verylongpassword', 'zenith-admin-'+'a'*43]:
+                     'Bearer '+'a'*32, 'password=verylongpassword', 'zenith-admin-'+'a'*43, 'https://user:privatevalue@example.org']:
             self.assertNotEqual(r.text(text), text)
             with self.assertRaises(ValueError):
                 r.require_clean(text)
@@ -92,6 +92,9 @@ class FoundationTests(unittest.TestCase):
             canonical({'n': float('nan')})
         with self.assertRaises(ValueError):
             canonical({'s': 'large'}, 2)
+        deep = {}; deep['nested'] = deep
+        with self.assertRaises(ValueError):
+            canonical(deep)
 
     def test_audit_chain_detects_tampering_and_external_anchor_detects_truncation(self):
         migrate(self.store); chain = AuditChain(self.store)
@@ -128,6 +131,14 @@ class FoundationTests(unittest.TestCase):
         self.assertTrue(compare(first, dict(first, source_commit='future code commit')))
         (path/'weights.bin').write_bytes(b'changed')
         self.assertFalse(compare(first, capture(settings)))
+        for output in (path/'new-receipt.json', path/'weights.bin'):
+            with self.assertRaises(ValueError):check_destination(settings,Path(self.folder.name)/'profile.env',output)
+
+    def test_protection_receipt_also_works_without_git_in_an_installed_environment(self):
+        with patch('scripts.platform_protection.subprocess.run', side_effect=FileNotFoundError):
+            receipt = capture(Settings(adapter=''))
+        self.assertIsNone(receipt['source_commit'])
+        self.assertEqual(receipt['adapter_files'], {})
 
 
 class PermissionTests(unittest.TestCase):

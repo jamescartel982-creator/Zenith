@@ -38,6 +38,7 @@ jobs:
           cache-dependency-path: pyproject.toml
       - run: python -m pip install -e ".[test]"
       - run: python -m unittest discover -s tests -v
+      - run: python -m scripts.smoke_platform
       - run: zenith --version
       - run: zenith catalog --validate
       - run: zenith skills validate
@@ -107,6 +108,7 @@ jobs:
           .venv/bin/python -I -m scripts.check_research_checkpoint --bundle research_checkpoints/recovery-v1
           .venv/bin/python -I -m scripts.smoke_candidate_activation --bundle research_checkpoints/recovery-v1
           .venv/bin/python -I -m scripts.smoke_orchestration --bundle research_checkpoints/recovery-v1
+          .venv/bin/python -I -m scripts.platform_benchmark --output "$RUNNER_TEMP/zenith-platform-native.json" --samples 1
           .venv/bin/python scripts/smoke_server.py
           .venv/bin/python scripts/smoke_easy_launch.py
           .venv/bin/python scripts/smoke_installed.py
@@ -148,6 +150,8 @@ jobs:
           .venv/Scripts/python.exe -I -m scripts.smoke_candidate_activation --bundle research_checkpoints/recovery-v1
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           .venv/Scripts/python.exe -I -m scripts.smoke_orchestration --bundle research_checkpoints/recovery-v1
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          .venv/Scripts/python.exe -I -m scripts.platform_benchmark --output "$env:RUNNER_TEMP/zenith-platform-native.json" --samples 1
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           .venv/Scripts/python.exe scripts/smoke_server.py
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }

@@ -108,6 +108,7 @@ class TaskStore:
             db.execute("UPDATE platform_tasks SET status='running',lease_owner=?,lease_until=?,updated=?,version=version+1 WHERE id=?",
                        (worker, now + self.config.lease_seconds, now, row['id']))
             append_event(db, row['id'], row['user_id'], 'running', {'status': 'running'})
+            self.audit.append('task-state', {'task_id': row['id'], 'user_id': row['user_id'], 'status': 'running'}, db)
         return self.internal(row['id'])
 
     def fenced(self, db, task_id, worker, allow_cancel=False):
@@ -135,8 +136,11 @@ class TaskStore:
         with self.store.connect() as db:
             db.execute('BEGIN IMMEDIATE')
             row = self.fenced(db, task_id, worker, allow_cancel=True)
+            if status == 'completed' and row['deadline'] <= time.time():
+                status, result, error = 'failed', None, 'deadline-exceeded'
             if row['cancel_requested']:
-                status, result, error = 'cancelled', None, 'cancel-requested'
+                uncertain = db.execute("SELECT 1 FROM platform_receipts WHERE task_id=? AND status='started'", (task_id,)).fetchone()
+                status, result, error = ('needs_reconciliation', None, 'cancelled-with-uncertain-effect') if uncertain else ('cancelled', None, 'cancel-requested')
             self._state(db, row, status, error, result)
 
     def cancel(self, actor, task_id):

@@ -2,6 +2,7 @@
 import argparse
 import hashlib
 import json
+import os
 from pathlib import Path
 import subprocess
 
@@ -16,6 +17,12 @@ def fingerprint(path):
 
 def capture(settings, profile=None):
     root = Path(__file__).resolve().parents[1]
+    try:
+        result=subprocess.run(['git','-C',str(root),'rev-parse','HEAD'],text=True,
+                              stdout=subprocess.PIPE,stderr=subprocess.DEVNULL,check=False)
+        commit=result.stdout.strip() if result.returncode==0 else None
+    except OSError:
+        commit=None
     adapter = Path(settings.adapter).expanduser() if settings.adapter else None
     files = {}
     if adapter:
@@ -28,8 +35,7 @@ def capture(settings, profile=None):
                 files[str(path.relative_to(adapter))] = fingerprint(path)
     return {
         'format': 1,
-        'source_commit': subprocess.check_output(
-            ['git', '-C', str(root), 'rev-parse', 'HEAD'], text=True).strip(),
+        'source_commit': commit,
         'model': settings.model, 'revision': settings.revision,
         'adapter_files': files,
         'profile_sha256': fingerprint(profile) if profile and Path(profile).is_file() else None,
@@ -42,6 +48,13 @@ def compare(before, after):
         'model', 'revision', 'adapter_files', 'profile_sha256'))
 
 
+def check_destination(settings, profile, output):
+    output = Path(output).expanduser().resolve()
+    if output.exists() or output == Path(profile).resolve() or (settings.adapter and output.is_relative_to(Path(settings.adapter).resolve())):
+        raise ValueError('Use a new output file outside protected profile/model paths')
+    return output
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', required=True)
@@ -50,14 +63,15 @@ def main():
     from agent.config import Settings
     from agent.paths import config_file
     settings = Settings()
-    output = Path(args.output).expanduser().resolve()
     profile = config_file().resolve()
-    if output == profile or (settings.adapter and output.is_relative_to(Path(settings.adapter).resolve())):
-        parser.error('Receipts must be outside protected profile/model paths')
+    try:output=check_destination(settings,profile,args.output)
+    except ValueError as exc:parser.error(str(exc))
     receipt = capture(settings, profile)
     if args.compare and not compare(json.loads(Path(args.compare).read_text()), receipt):
         parser.error('Protected model or profile changed')
-    output.write_text(json.dumps(receipt, indent=2) + '\n')
+    descriptor=os.open(output,os.O_CREAT|os.O_EXCL|os.O_WRONLY,0o600)
+    with os.fdopen(descriptor,'w',encoding='utf-8') as handle:
+        handle.write(json.dumps(receipt, indent=2) + '\n')
     print('Protection receipt written; no model files changed.')
 
 

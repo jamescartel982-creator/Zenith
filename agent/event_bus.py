@@ -29,7 +29,7 @@ class EventBus:
             if await disconnected():
                 return
             try:
-                batch = self.read(actor, task_id, after)
+                batch = await asyncio.to_thread(self.read, actor, task_id, after)
             except (PermissionError, LookupError):
                 yield 'event: error\ndata: {"code":"access-expired"}\n\n'
                 return

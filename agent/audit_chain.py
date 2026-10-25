@@ -1,10 +1,9 @@
 """Metadata-only HMAC audit chain. Export anchors separately to detect truncation."""
 import hashlib
 import hmac
-import json
 import os
-from pathlib import Path
 import secrets
+import stat
 import time
 
 from .platform_repository import canonical
@@ -29,7 +28,7 @@ class AuditChain:
                 handle.write(secrets.token_bytes(32))
                 handle.flush()
                 os.fsync(handle.fileno())
-        if path.is_symlink() or (os.name != 'nt' and path.stat().st_mode & 0o077):
+        if path.is_symlink() or not stat.S_ISREG(path.stat().st_mode) or (os.name != 'nt' and path.stat().st_mode & 0o077):
             raise ValueError('Audit key must be a private regular file')
         for _ in range(50):
             self.key = path.read_bytes()
