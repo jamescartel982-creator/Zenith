@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "license": "Apache-2.0",
+  "provenance": "Authored Zenith integration fixtures; not a held-out general intelligence benchmark",
+  "native_prompt": "Explain how rain forms in one short sentence.",
+  "native_check": "Nonempty completed response; record exact output parity without treating it as correctness",
+  "owned_tool_workflow": ["sha256 pasted hello", "inspect-url pasted HTTPS URL"],
+  "security_slices": ["cross-account", "session-expiry", "grant-revocation", "emergency-stop", "approval-argument-swap", "secret-canary", "unknown-effect-reconciliation"],
+  "scope": "Temporary local data and explicitly owned loopback fixtures only",
+  "training_eligible": false
+}

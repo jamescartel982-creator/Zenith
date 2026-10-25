@@ -120,19 +120,50 @@ class ExecutionControls:
         return grant['scope']
 
     def execute(self,user_id,token,capability,arguments):
+        return self._execute(user_id,capability,arguments,lambda:self.require(user_id,token,capability))
+
+    def require_session(self,user_id,session_hash,capability):
+        """Server-internal digest path for durable tasks; never expose hashes to models.
+
+        Tasks cannot store raw cookies. Re-check the same owner, MFA, elevation,
+        capability, session expiry and emergency controls using their stored digest.
+        """
+        if capability not in CAPABILITIES:raise ValueError('Unknown capability')
+        now=time.time()
+        with self.store.connect() as db:
+            row=db.execute('''SELECT g.scope FROM execution_grants g
+                JOIN login_sessions s ON s.token_hash=g.token_hash AND s.user_id=g.user_id
+                JOIN admin_owner o ON o.user_id=g.user_id
+                JOIN admin_elevations e ON e.token_hash=g.token_hash AND e.user_id=g.user_id
+                JOIN owner_mfa m ON m.user_id=g.user_id AND m.enabled=1
+                JOIN owner_mfa_sessions v ON v.token_hash=g.token_hash AND v.user_id=g.user_id
+                JOIN execution_state x ON x.singleton=1 AND x.stopped=0
+                WHERE g.user_id=? AND g.token_hash=? AND g.capability=?
+                AND g.expires>? AND s.expires>? AND e.expires>? AND v.expires>?''',
+                (user_id,session_hash,capability,now,now,now,now)).fetchone()
+        if row is None:raise PermissionError('Current owner MFA, session and explicit active capability required')
+        return json.loads(row['scope'])
+
+    def execute_session(self,user_id,session_hash,capability,arguments,authority_check=None):
+        def require():
+            if authority_check is not None:authority_check()
+            return self.require_session(user_id,session_hash,capability)
+        return self._execute(user_id,capability,arguments,require)
+
+    def _execute(self,user_id,capability,arguments,require):
         target=''
         try:
-            scope=self.require(user_id,token,capability)
+            scope=require()
             if not isinstance(arguments,dict):raise ValueError('Tool arguments must be an object')
             if capability in {'calculator','sha256','decode-base64','code-audit','inspect-url'}:
                 if set(arguments)!={'text'} or not isinstance(arguments['text'],str) or len(arguments['text'])>12000:
                     raise ValueError('Supply bounded text only')
                 from .tools import run_tool
-                self.require(user_id,token,capability)
+                require()
                 result=run_tool(capability,arguments['text'])
             elif capability == 'verify-python':
                 from .verification import run_restricted_tests
-                self.require(user_id,token,capability)
+                require()
                 result=run_restricted_tests(arguments)
             elif capability in {'tcp-connect','tls-certificate'}:
                 if set(arguments)!={'host','port'}:raise ValueError('Supply only host and port')
@@ -140,7 +171,7 @@ class ExecutionControls:
                 addresses=authorized_addresses(host,port,scope)
                 target=str(host)+':'+str(port)
                 # Connect to the validated numeric address; never resolve again or follow redirects.
-                self.require(user_id,token,capability)
+                require()
                 with socket.create_connection((addresses[0],port),timeout=3) as connection:
                     if capability=='tls-certificate':
                         with ssl.create_default_context().wrap_socket(connection,server_hostname=host) as secure:
@@ -149,7 +180,7 @@ class ExecutionControls:
                     else:result={'reachable':True,'address':addresses[0],'port':port}
             else:raise ValueError('Capability is not implemented')
             # Revocation during a bounded I/O step discards the result and stops a plan.
-            self.require(user_id,token,capability)
+            require()
             self._audit(user_id,capability,'completed',target)
             return result
         except (ValueError,PermissionError,OSError) as exc:

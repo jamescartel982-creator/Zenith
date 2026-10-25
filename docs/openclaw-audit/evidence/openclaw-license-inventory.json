@@ -1,0 +1,1309 @@
+{
+  "license_files": [
+    {
+      "path": "LICENSE",
+      "opening": [
+        "MIT License",
+        "",
+        "Copyright (c) 2026 OpenClaw Foundation",
+        "",
+        "Permission is hereby granted, free of charge, to any person obtaining a copy",
+        "of this software and associated documentation files (the \"Software\"), to deal",
+        "in the Software without restriction, including without limitation the rights",
+        "to use, copy, modify, merge, publish, distribute, sublicense, and/or sell"
+      ]
+    },
+    {
+      "path": "apps/macos/Sources/OpenClaw/Resources/DeviceModels/LICENSE.apple-device-identifiers.txt",
+      "opening": [
+        "MIT License",
+        "",
+        "Copyright (c) 2021 Kyle Seongwoo Jun",
+        "",
+        "Permission is hereby granted, free of charge, to any person obtaining a copy",
+        "of this software and associated documentation files (the \"Software\"), to deal",
+        "in the Software without restriction, including without limitation the rights",
+        "to use, copy, modify, merge, publish, distribute, sublicense, and/or sell"
+      ]
+    },
+    {
+      "path": "apps/macos/Sources/OpenClaw/Resources/DeviceModels/NOTICE.md",
+      "opening": [
+        "# Apple device identifier mappings",
+        "",
+        "This directory includes model identifier \u2192 human-readable name mappings derived from the open-source project:",
+        "",
+        "- `kyle-seongwoo-jun/apple-device-identifiers`",
+        "  - iOS mapping pinned to commit `8e7388b29da046183f5d976eb74dbb2f2acda955`",
+        "  - macOS mapping pinned to commit `98ca75324f7a88c1649eb5edfc266ef47b7b8193`",
+        ""
+      ]
+    },
+    {
+      "path": "apps/macos/Sources/OpenClaw/Resources/ProviderIcons/NOTICE.md",
+      "opening": [
+        "# Third-party provider artwork notices",
+        "",
+        "This directory ships with the OpenClaw macOS app. Brand names and logos remain",
+        "trademarks of their respective owners and are used solely to identify the",
+        "corresponding products and services.",
+        "",
+        "## Simple Icons (CC0-1.0)",
+        ""
+      ]
+    },
+    {
+      "path": "apps/swabble/LICENSE",
+      "opening": [
+        "MIT License",
+        "",
+        "Copyright (c) 2026 OpenClaw Foundation",
+        "",
+        "Permission is hereby granted, free of charge, to any person obtaining a copy",
+        "of this software and associated documentation files (the \"Software\"), to deal",
+        "in the Software without restriction, including without limitation the rights",
+        "to use, copy, modify, merge, publish, distribute, sublicense, and/or sell"
+      ]
+    },
+    {
+      "path": "extensions/facetime/LICENSE",
+      "opening": [
+        "MIT License",
+        "",
+        "Copyright (c) 2026 OpenClaw Foundation",
+        "",
+        "Permission is hereby granted, free of charge, to any person obtaining a copy",
+        "of this software and associated documentation files (the \"Software\"), to deal",
+        "in the Software without restriction, including without limitation the rights",
+        "to use, copy, modify, merge, publish, distribute, sublicense, and/or sell"
+      ]
+    },
+    {
+      "path": "extensions/slack/skills/_vendor/slack-skills-plugin.LICENSE",
+      "opening": [
+        "The MIT License (MIT)",
+        "",
+        "Copyright (c) 2020- Slack Technologies, LLC",
+        "",
+        "Permission is hereby granted, free of charge, to any person obtaining a copy",
+        "of this software and associated documentation files (the \"Software\"), to deal",
+        "in the Software without restriction, including without limitation the rights",
+        "to use, copy, modify, merge, publish, distribute, sublicense, and/or sell"
+      ]
+    },
+    {
+      "path": "extensions/typesafe/LICENSE",
+      "opening": [
+        "MIT License",
+        "",
+        "Copyright (c) 2026 OpenClaw Foundation",
+        "",
+        "Permission is hereby granted, free of charge, to any person obtaining a copy",
+        "of this software and associated documentation files (the \"Software\"), to deal",
+        "in the Software without restriction, including without limitation the rights",
+        "to use, copy, modify, merge, publish, distribute, sublicense, and/or sell"
+      ]
+    },
+    {
+      "path": "packages/ai/LICENSE",
+      "opening": [
+        "MIT License",
+        "",
+        "Copyright (c) 2026 OpenClaw Foundation",
+        "",
+        "Permission is hereby granted, free of charge, to any person obtaining a copy",
+        "of this software and associated documentation files (the \"Software\"), to deal",
+        "in the Software without restriction, including without limitation the rights",
+        "to use, copy, modify, merge, publish, distribute, sublicense, and/or sell"
+      ]
+    },
+    {
+      "path": "packages/gateway-client/LICENSE",
+      "opening": [
+        "MIT License",
+        "",
+        "Copyright (c) 2026 OpenClaw Foundation",
+        "",
+        "Permission is hereby granted, free of charge, to any person obtaining a copy",
+        "of this software and associated documentation files (the \"Software\"), to deal",
+        "in the Software without restriction, including without limitation the rights",
+        "to use, copy, modify, merge, publish, distribute, sublicense, and/or sell"
+      ]
+    },
+    {
+      "path": "packages/gateway-protocol/LICENSE",
+      "opening": [
+        "MIT License",
+        "",
+        "Copyright (c) 2026 OpenClaw Foundation",
+        "",
+        "Permission is hereby granted, free of charge, to any person obtaining a copy",
+        "of this software and associated documentation files (the \"Software\"), to deal",
+        "in the Software without restriction, including without limitation the rights",
+        "to use, copy, modify, merge, publish, distribute, sublicense, and/or sell"
+      ]
+    },
+    {
+      "path": "packages/mermaid-renderer/native/NOTICE.txt",
+      "opening": [
+        "Third-party notices for the bundled Mermaid renderer",
+        "",
+        "The following upstream license texts accompany the bundled diagram engine and its dependencies.",
+        "",
+        "",
+        "========================================================================",
+        "Chevrotain",
+        "========================================================================"
+      ]
+    },
+    {
+      "path": "scripts/lib/codex-live-docker-security/LICENSE",
+      "opening": [
+        "",
+        "                                 Apache License",
+        "                           Version 2.0, January 2004",
+        "                        https://www.apache.org/licenses/",
+        "",
+        "   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION",
+        "",
+        "   1. Definitions."
+      ]
+    },
+    {
+      "path": "scripts/lib/codex-live-docker-security/NOTICE",
+      "opening": [
+        "Docker",
+        "Copyright 2012-2017 Docker, Inc.",
+        "",
+        "This product includes software developed at Docker, Inc. (https://www.docker.com).",
+        "",
+        "This product contains software (https://github.com/creack/pty) developed",
+        "by Keith Rarick, licensed under the MIT License.",
+        ""
+      ]
+    },
+    {
+      "path": "skills/skill-creator/license.txt",
+      "opening": [
+        "",
+        "                                 Apache License",
+        "                           Version 2.0, January 2004",
+        "                        http://www.apache.org/licenses/",
+        "",
+        "   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION",
+        "",
+        "   1. Definitions."
+      ]
+    },
+    {
+      "path": "src/agents/blobster-fixtures/LICENSE.txt",
+      "opening": [
+        "MIT License",
+        "",
+        "Copyright (c) 2026 OpenClaw Foundation",
+        "",
+        "Permission is hereby granted, free of charge, to any person obtaining a copy",
+        "of this software and associated documentation files (the \"Software\"), to deal",
+        "in the Software without restriction, including without limitation the rights",
+        "to use, copy, modify, merge, publish, distribute, sublicense, and/or sell"
+      ]
+    },
+    {
+      "path": "ui/public/cloud-provider-icons/LICENSE-devicon",
+      "opening": [
+        "The MIT License (MIT)",
+        "",
+        "Copyright (c) 2015 konpa",
+        "",
+        "Permission is hereby granted, free of charge, to any person obtaining a copy of",
+        "this software and associated documentation files (the \"Software\"), to deal in",
+        "the Software without restriction, including without limitation the rights to",
+        "use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of"
+      ]
+    },
+    {
+      "path": "ui/public/cloud-provider-icons/LICENSE-simple-icons",
+      "opening": [
+        "# CC0 1.0 Universal",
+        "",
+        "## Statement of Purpose",
+        "",
+        "The laws of most jurisdictions throughout the world automatically confer exclusive Copyright and Related Rights (defined below) upon the creator and subsequent owner(s) (each and all, an \u201cowner\u201d) of an original work of authorship and/or a database (each, a \u201cWork\u201d).",
+        "",
+        "Certain owners wish to permanently relinquish those rights to a Work for the purpose of contributing to a commons of creative, cultural and scientific works (\u201cCommons\u201d) that the public can reliably and without fear of later claims of infringement build upon, modify, incorporate in other works, reuse and redistribute as freely as possible in any form whatsoever and for any purposes, including without limitation commercial purposes. These owners may contribute to the Commons to promote the ideal of a free culture and the further production of creative, cultural and scientific works, or to gain reputation or greater distribution for their Work in part through the use and efforts of others.",
+        ""
+      ]
+    },
+    {
+      "path": "ui/public/fonts/symbols-nerd-font-LICENSE.txt",
+      "opening": [
+        "The MIT License (MIT)",
+        "",
+        "Copyright (c) 2014 Ryan L McIntyre",
+        "",
+        "Permission is hereby granted, free of charge, to any person obtaining a copy",
+        "of this software and associated documentation files (the \"Software\"), to deal",
+        "in the Software without restriction, including without limitation the rights",
+        "to use, copy, modify, merge, publish, distribute, sublicense, and/or sell"
+      ]
+    }
+  ],
+  "package_declarations": [
+    {
+      "path": "package.json",
+      "name": "openclaw",
+      "license": "MIT"
+    },
+    {
+      "path": "ui/package.json",
+      "name": "openclaw-control-ui",
+      "license": null
+    },
+    {
+      "path": "src/claws/fixtures/delegating-agent/package.json",
+      "name": "@acme/delegating-agent",
+      "license": null
+    },
+    {
+      "path": "examples/ai-chat/package.json",
+      "name": "@openclaw/example-ai-chat",
+      "license": null
+    },
+    {
+      "path": "examples/inline-incident/package.json",
+      "name": "openclaw-inline-incident-example",
+      "license": null
+    },
+    {
+      "path": "tools/solid-lint/package.json",
+      "name": "@openclaw/solid-lint",
+      "license": null
+    },
+    {
+      "path": "extensions/bifrost/package.json",
+      "name": "@openclaw/bifrost-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/gradium/package.json",
+      "name": "@openclaw/gradium-speech",
+      "license": null
+    },
+    {
+      "path": "extensions/tts-local-cli/package.json",
+      "name": "@openclaw/tts-local-cli",
+      "license": null
+    },
+    {
+      "path": "extensions/agent-guidance/package.json",
+      "name": "@openclaw/agent-guidance",
+      "license": null
+    },
+    {
+      "path": "extensions/gmi/package.json",
+      "name": "@openclaw/gmi-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/deepseek/package.json",
+      "name": "@openclaw/deepseek-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/omlx/package.json",
+      "name": "@openclaw/omlx-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/exa/package.json",
+      "name": "@openclaw/exa-plugin",
+      "license": null
+    },
+    {
+      "path": "extensions/facetime/package.json",
+      "name": "@openclaw/facetime",
+      "license": "MIT"
+    },
+    {
+      "path": "extensions/mcp-events/package.json",
+      "name": "@openclaw/mcp-events",
+      "license": null
+    },
+    {
+      "path": "extensions/cohere/package.json",
+      "name": "@openclaw/cohere-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/anthropic/package.json",
+      "name": "@openclaw/anthropic-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/codex/package.json",
+      "name": "@openclaw/codex",
+      "license": null
+    },
+    {
+      "path": "extensions/clickclack/package.json",
+      "name": "@openclaw/clickclack",
+      "license": null
+    },
+    {
+      "path": "extensions/venice/package.json",
+      "name": "@openclaw/venice-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/code-mode-quickjs/package.json",
+      "name": "@openclaw/code-mode-quickjs",
+      "license": null
+    },
+    {
+      "path": "extensions/groq/package.json",
+      "name": "@openclaw/groq-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/vydra/package.json",
+      "name": "@openclaw/vydra-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/elevenlabs/package.json",
+      "name": "@openclaw/elevenlabs-speech",
+      "license": null
+    },
+    {
+      "path": "extensions/diffs-language-pack/package.json",
+      "name": "@openclaw/diffs-language-pack",
+      "license": null
+    },
+    {
+      "path": "extensions/baseten/package.json",
+      "name": "@openclaw/baseten-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/matrix/package.json",
+      "name": "@openclaw/matrix",
+      "license": null
+    },
+    {
+      "path": "extensions/twitch/package.json",
+      "name": "@openclaw/twitch",
+      "license": null
+    },
+    {
+      "path": "extensions/cloudflare-ai-gateway/package.json",
+      "name": "@openclaw/cloudflare-ai-gateway-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/github/package.json",
+      "name": "@openclaw/github",
+      "license": null
+    },
+    {
+      "path": "extensions/zalo/package.json",
+      "name": "@openclaw/zalo",
+      "license": null
+    },
+    {
+      "path": "extensions/beam/package.json",
+      "name": "@openclaw/beam",
+      "license": null
+    },
+    {
+      "path": "extensions/synthetic/package.json",
+      "name": "@openclaw/synthetic-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/feishu/package.json",
+      "name": "@openclaw/feishu",
+      "license": null
+    },
+    {
+      "path": "extensions/subq/package.json",
+      "name": "@openclaw/subq",
+      "license": null
+    },
+    {
+      "path": "extensions/zalouser/package.json",
+      "name": "@openclaw/zalouser",
+      "license": null
+    },
+    {
+      "path": "extensions/xai/package.json",
+      "name": "@openclaw/xai-plugin",
+      "license": null
+    },
+    {
+      "path": "extensions/brave/package.json",
+      "name": "@openclaw/brave-plugin",
+      "license": null
+    },
+    {
+      "path": "extensions/mattermost/package.json",
+      "name": "@openclaw/mattermost",
+      "license": null
+    },
+    {
+      "path": "extensions/huggingface/package.json",
+      "name": "@openclaw/huggingface-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/logbook/package.json",
+      "name": "@openclaw/logbook",
+      "license": null
+    },
+    {
+      "path": "extensions/openshell/package.json",
+      "name": "@openclaw/openshell-sandbox",
+      "license": null
+    },
+    {
+      "path": "extensions/chutes/package.json",
+      "name": "@openclaw/chutes-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/memory-wiki/package.json",
+      "name": "@openclaw/memory-wiki",
+      "license": null
+    },
+    {
+      "path": "extensions/session-share/package.json",
+      "name": "@openclaw/session-share",
+      "license": null
+    },
+    {
+      "path": "extensions/muse/package.json",
+      "name": "@openclaw/muse",
+      "license": null
+    },
+    {
+      "path": "extensions/copilot-proxy/package.json",
+      "name": "@openclaw/copilot-proxy",
+      "license": null
+    },
+    {
+      "path": "extensions/googlechat/package.json",
+      "name": "@openclaw/googlechat",
+      "license": null
+    },
+    {
+      "path": "extensions/lmstudio/package.json",
+      "name": "@openclaw/lmstudio-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/imessage/package.json",
+      "name": "@openclaw/imessage",
+      "license": null
+    },
+    {
+      "path": "extensions/github-copilot/package.json",
+      "name": "@openclaw/github-copilot-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/onnx/package.json",
+      "name": "@openclaw/onnx",
+      "license": null
+    },
+    {
+      "path": "extensions/whatsapp/package.json",
+      "name": "@openclaw/whatsapp",
+      "license": null
+    },
+    {
+      "path": "extensions/typesafe/package.json",
+      "name": "@openclaw/typesafe",
+      "license": null
+    },
+    {
+      "path": "extensions/abliteration/package.json",
+      "name": "@openclaw/abliteration-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/longcat/package.json",
+      "name": "@openclaw/longcat-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/qa-channel/package.json",
+      "name": "@openclaw/qa-channel",
+      "license": null
+    },
+    {
+      "path": "extensions/openai/package.json",
+      "name": "@openclaw/openai-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/fish-audio-speech/package.json",
+      "name": "@openclaw/fish-audio-speech",
+      "license": null
+    },
+    {
+      "path": "extensions/migrate-hermes/package.json",
+      "name": "@openclaw/migrate-hermes",
+      "license": null
+    },
+    {
+      "path": "extensions/memory-lancedb/package.json",
+      "name": "@openclaw/memory-lancedb",
+      "license": null
+    },
+    {
+      "path": "extensions/together/package.json",
+      "name": "@openclaw/together-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/anthropic-vertex/package.json",
+      "name": "@openclaw/anthropic-vertex-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/voice-call/package.json",
+      "name": "@openclaw/voice-call",
+      "license": null
+    },
+    {
+      "path": "extensions/google-meet/package.json",
+      "name": "@openclaw/google-meet",
+      "license": null
+    },
+    {
+      "path": "extensions/arcee/package.json",
+      "name": "@openclaw/arcee-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/lobster/package.json",
+      "name": "@openclaw/lobster",
+      "license": null
+    },
+    {
+      "path": "extensions/file-transfer/package.json",
+      "name": "@openclaw/file-transfer",
+      "license": null
+    },
+    {
+      "path": "extensions/mxc/package.json",
+      "name": "@openclaw/mxc-sandbox",
+      "license": null
+    },
+    {
+      "path": "extensions/voyage/package.json",
+      "name": "@openclaw/voyage-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/agentsapi/package.json",
+      "name": "@openclaw/agentsapi",
+      "license": null
+    },
+    {
+      "path": "extensions/llama-cpp/package.json",
+      "name": "@openclaw/llama-cpp-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/irc/package.json",
+      "name": "@openclaw/irc",
+      "license": null
+    },
+    {
+      "path": "extensions/clawrouter/package.json",
+      "name": "@openclaw/clawrouter",
+      "license": null
+    },
+    {
+      "path": "extensions/image-generation-core/package.json",
+      "name": "@openclaw/image-generation-core",
+      "license": null
+    },
+    {
+      "path": "extensions/openrouter/package.json",
+      "name": "@openclaw/openrouter-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/fal/package.json",
+      "name": "@openclaw/fal-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/novita/package.json",
+      "name": "@openclaw/novita-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/alibaba/package.json",
+      "name": "@openclaw/alibaba-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/featherless/package.json",
+      "name": "@openclaw/featherless-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/tencent/package.json",
+      "name": "@openclaw/tencent-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/volcengine/package.json",
+      "name": "@openclaw/volcengine-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/llm-task/package.json",
+      "name": "@openclaw/llm-task",
+      "license": null
+    },
+    {
+      "path": "extensions/diffs/package.json",
+      "name": "@openclaw/diffs",
+      "license": null
+    },
+    {
+      "path": "extensions/visitor-access/package.json",
+      "name": "@openclaw/visitor-access",
+      "license": null
+    },
+    {
+      "path": "extensions/requesty/package.json",
+      "name": "@openclaw/requesty-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/acpx/package.json",
+      "name": "@openclaw/acpx",
+      "license": null
+    },
+    {
+      "path": "extensions/autoreview/package.json",
+      "name": "@openclaw/autoreview",
+      "license": null
+    },
+    {
+      "path": "extensions/cloudflare/package.json",
+      "name": "@openclaw/cloudflare",
+      "license": null
+    },
+    {
+      "path": "extensions/onepassword/package.json",
+      "name": "@openclaw/onepassword",
+      "license": null
+    },
+    {
+      "path": "extensions/web-readability/package.json",
+      "name": "@openclaw/web-readability-plugin",
+      "license": null
+    },
+    {
+      "path": "extensions/qianfan/package.json",
+      "name": "@openclaw/qianfan-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/discord/package.json",
+      "name": "@openclaw/discord",
+      "license": null
+    },
+    {
+      "path": "extensions/nvidia/package.json",
+      "name": "@openclaw/nvidia-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/deepgram/package.json",
+      "name": "@openclaw/deepgram-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/kilocode/package.json",
+      "name": "@openclaw/kilocode-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/comfy/package.json",
+      "name": "@openclaw/comfy-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/xiaomi/package.json",
+      "name": "@openclaw/xiaomi-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/byteplus/package.json",
+      "name": "@openclaw/byteplus-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/x/package.json",
+      "name": "@openclaw/x",
+      "license": null
+    },
+    {
+      "path": "extensions/opencode/package.json",
+      "name": "@openclaw/opencode-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/team-reports/package.json",
+      "name": "@openclaw/team-reports",
+      "license": null
+    },
+    {
+      "path": "extensions/policy/package.json",
+      "name": "@openclaw/policy",
+      "license": null
+    },
+    {
+      "path": "extensions/mcp-relay/package.json",
+      "name": "@openclaw/mcp-relay",
+      "license": null
+    },
+    {
+      "path": "extensions/firecrawl/package.json",
+      "name": "@openclaw/firecrawl-plugin",
+      "license": null
+    },
+    {
+      "path": "extensions/raft/package.json",
+      "name": "@openclaw/raft",
+      "license": null
+    },
+    {
+      "path": "extensions/qa-lab/package.json",
+      "name": "@openclaw/qa-lab",
+      "license": null
+    },
+    {
+      "path": "extensions/sglang/package.json",
+      "name": "@openclaw/sglang-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/duckduckgo/package.json",
+      "name": "@openclaw/duckduckgo-plugin",
+      "license": null
+    },
+    {
+      "path": "extensions/qwen/package.json",
+      "name": "@openclaw/qwen-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/teams-meetings/package.json",
+      "name": "@openclaw/teams-meetings",
+      "license": null
+    },
+    {
+      "path": "extensions/zoom-meetings/package.json",
+      "name": "@openclaw/zoom-meetings",
+      "license": null
+    },
+    {
+      "path": "extensions/line/package.json",
+      "name": "@openclaw/line",
+      "license": null
+    },
+    {
+      "path": "extensions/telegram/package.json",
+      "name": "@openclaw/telegram",
+      "license": null
+    },
+    {
+      "path": "extensions/amazon-bedrock/package.json",
+      "name": "@openclaw/amazon-bedrock-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/google/package.json",
+      "name": "@openclaw/google-plugin",
+      "license": null
+    },
+    {
+      "path": "extensions/diagnostics-otel/package.json",
+      "name": "@openclaw/diagnostics-otel",
+      "license": null
+    },
+    {
+      "path": "extensions/copilot/package.json",
+      "name": "@openclaw/copilot",
+      "license": null
+    },
+    {
+      "path": "extensions/diagnostics-prometheus/package.json",
+      "name": "@openclaw/diagnostics-prometheus",
+      "license": null
+    },
+    {
+      "path": "extensions/imap/package.json",
+      "name": "@openclaw/imap",
+      "license": null
+    },
+    {
+      "path": "extensions/meta/package.json",
+      "name": "@openclaw/meta-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/microsoft-foundry/package.json",
+      "name": "@openclaw/microsoft-foundry",
+      "license": null
+    },
+    {
+      "path": "extensions/litellm/package.json",
+      "name": "@openclaw/litellm-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/msteams/package.json",
+      "name": "@openclaw/msteams",
+      "license": null
+    },
+    {
+      "path": "extensions/crabbox/package.json",
+      "name": "@openclaw/crabbox-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/reef/package.json",
+      "name": "@openclaw/reef",
+      "license": null
+    },
+    {
+      "path": "extensions/buzz/package.json",
+      "name": "@openclaw/buzz",
+      "license": null
+    },
+    {
+      "path": "extensions/searxng/package.json",
+      "name": "@openclaw/searxng-plugin",
+      "license": null
+    },
+    {
+      "path": "extensions/a2a/package.json",
+      "name": "@openclaw/a2a",
+      "license": null
+    },
+    {
+      "path": "extensions/canvas/package.json",
+      "name": "@openclaw/canvas-plugin",
+      "license": null
+    },
+    {
+      "path": "extensions/zai/package.json",
+      "name": "@openclaw/zai-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/document-extract/package.json",
+      "name": "@openclaw/document-extract-plugin",
+      "license": null
+    },
+    {
+      "path": "extensions/tokenjuice/package.json",
+      "name": "@openclaw/tokenjuice",
+      "license": null
+    },
+    {
+      "path": "extensions/radius/package.json",
+      "name": "@openclaw/radius-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/levanto/package.json",
+      "name": "@openclaw/levanto",
+      "license": null
+    },
+    {
+      "path": "extensions/cua-computer/package.json",
+      "name": "@openclaw/cua-computer",
+      "license": null
+    },
+    {
+      "path": "extensions/browser/package.json",
+      "name": "@openclaw/browser-plugin",
+      "license": null
+    },
+    {
+      "path": "extensions/minimax/package.json",
+      "name": "@openclaw/minimax-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/ollama/package.json",
+      "name": "@openclaw/ollama-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/perplexity/package.json",
+      "name": "@openclaw/perplexity-plugin",
+      "license": null
+    },
+    {
+      "path": "extensions/nostr/package.json",
+      "name": "@openclaw/nostr",
+      "license": null
+    },
+    {
+      "path": "extensions/sms/package.json",
+      "name": "@openclaw/sms",
+      "license": null
+    },
+    {
+      "path": "extensions/stepfun/package.json",
+      "name": "@openclaw/stepfun-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/fireworks/package.json",
+      "name": "@openclaw/fireworks-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/inworld/package.json",
+      "name": "@openclaw/inworld-speech",
+      "license": null
+    },
+    {
+      "path": "extensions/amazon-bedrock-mantle/package.json",
+      "name": "@openclaw/amazon-bedrock-mantle-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/moonshot/package.json",
+      "name": "@openclaw/moonshot-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/kie/package.json",
+      "name": "@openclaw/kie-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/mistral/package.json",
+      "name": "@openclaw/mistral-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/slack-huddles/package.json",
+      "name": "@openclaw/slack-huddles",
+      "license": null
+    },
+    {
+      "path": "extensions/kimi-coding/package.json",
+      "name": "@openclaw/kimi-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/pixverse/package.json",
+      "name": "@openclaw/pixverse-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/synology-chat/package.json",
+      "name": "@openclaw/synology-chat",
+      "license": null
+    },
+    {
+      "path": "extensions/cerebras/package.json",
+      "name": "@openclaw/cerebras-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/deepinfra/package.json",
+      "name": "@openclaw/deepinfra-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/memory-core/package.json",
+      "name": "@openclaw/memory-core",
+      "license": null
+    },
+    {
+      "path": "extensions/microsoft/package.json",
+      "name": "@openclaw/microsoft-speech",
+      "license": null
+    },
+    {
+      "path": "extensions/oc-path/package.json",
+      "name": "@openclaw/oc-path",
+      "license": null
+    },
+    {
+      "path": "extensions/vercel-ai-gateway/package.json",
+      "name": "@openclaw/vercel-ai-gateway-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/parallel/package.json",
+      "name": "@openclaw/parallel-plugin",
+      "license": null
+    },
+    {
+      "path": "extensions/nextcloud-talk/package.json",
+      "name": "@openclaw/nextcloud-talk",
+      "license": null
+    },
+    {
+      "path": "extensions/tavily/package.json",
+      "name": "@openclaw/tavily-plugin",
+      "license": null
+    },
+    {
+      "path": "extensions/advisor/package.json",
+      "name": "@openclaw/advisor",
+      "license": null
+    },
+    {
+      "path": "extensions/vault/package.json",
+      "name": "@openclaw/vault",
+      "license": null
+    },
+    {
+      "path": "extensions/tlon/package.json",
+      "name": "@openclaw/tlon",
+      "license": null
+    },
+    {
+      "path": "extensions/workboard/package.json",
+      "name": "@openclaw/workboard",
+      "license": null
+    },
+    {
+      "path": "extensions/senseaudio/package.json",
+      "name": "@openclaw/senseaudio-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/azure-speech/package.json",
+      "name": "@openclaw/azure-speech",
+      "license": null
+    },
+    {
+      "path": "extensions/migrate-claude/package.json",
+      "name": "@openclaw/migrate-claude",
+      "license": null
+    },
+    {
+      "path": "extensions/opencode-go/package.json",
+      "name": "@openclaw/opencode-go-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/runway/package.json",
+      "name": "@openclaw/runway-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/bonjour/package.json",
+      "name": "@openclaw/bonjour",
+      "license": null
+    },
+    {
+      "path": "extensions/geolocation/package.json",
+      "name": "@openclaw/geolocation-plugin",
+      "license": null
+    },
+    {
+      "path": "extensions/linux-node/package.json",
+      "name": "@openclaw/linux-node",
+      "license": null
+    },
+    {
+      "path": "extensions/apple-fm/package.json",
+      "name": "@openclaw/apple-fm-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/vllm/package.json",
+      "name": "@openclaw/vllm-provider",
+      "license": null
+    },
+    {
+      "path": "extensions/admin-http-rpc/package.json",
+      "name": "@openclaw/admin-http-rpc",
+      "license": null
+    },
+    {
+      "path": "extensions/signal/package.json",
+      "name": "@openclaw/signal",
+      "license": null
+    },
+    {
+      "path": "extensions/slack/package.json",
+      "name": "@openclaw/slack",
+      "license": null
+    },
+    {
+      "path": "packages/plugin-sdk/package.json",
+      "name": "@openclaw/plugin-sdk",
+      "license": null
+    },
+    {
+      "path": "packages/llm-core/package.json",
+      "name": "@openclaw/llm-core",
+      "license": null
+    },
+    {
+      "path": "packages/worker-runtime/package.json",
+      "name": "@openclaw/worker-runtime",
+      "license": null
+    },
+    {
+      "path": "packages/sdk/package.json",
+      "name": "@openclaw/sdk",
+      "license": null
+    },
+    {
+      "path": "packages/acp-core/package.json",
+      "name": "@openclaw/acp-core",
+      "license": null
+    },
+    {
+      "path": "packages/gateway-client/package.json",
+      "name": "@openclaw/gateway-client",
+      "license": "MIT"
+    },
+    {
+      "path": "packages/workboard-contract/package.json",
+      "name": "@openclaw/workboard-contract",
+      "license": null
+    },
+    {
+      "path": "packages/normalization-core/package.json",
+      "name": "@openclaw/normalization-core",
+      "license": null
+    },
+    {
+      "path": "packages/ai/package.json",
+      "name": "@openclaw/ai",
+      "license": "MIT"
+    },
+    {
+      "path": "packages/model-catalog-core/package.json",
+      "name": "@openclaw/model-catalog-core",
+      "license": null
+    },
+    {
+      "path": "packages/media-core/package.json",
+      "name": "@openclaw/media-core",
+      "license": null
+    },
+    {
+      "path": "packages/terminal-core/package.json",
+      "name": "@openclaw/terminal-core",
+      "license": null
+    },
+    {
+      "path": "packages/mermaid-renderer/package.json",
+      "name": "@openclaw/mermaid-renderer",
+      "license": null
+    },
+    {
+      "path": "packages/gateway-protocol/package.json",
+      "name": "@openclaw/gateway-protocol",
+      "license": "MIT"
+    },
+    {
+      "path": "packages/markdown-core/package.json",
+      "name": "@openclaw/markdown-core",
+      "license": null
+    },
+    {
+      "path": "packages/media-generation-core/package.json",
+      "name": "@openclaw/media-generation-core",
+      "license": null
+    },
+    {
+      "path": "packages/tool-call-repair/package.json",
+      "name": "@openclaw/tool-call-repair",
+      "license": null
+    },
+    {
+      "path": "packages/retry/package.json",
+      "name": "@openclaw/retry",
+      "license": null
+    },
+    {
+      "path": "packages/agent-core/package.json",
+      "name": "@openclaw/agent-core",
+      "license": null
+    },
+    {
+      "path": "packages/media-understanding-common/package.json",
+      "name": "@openclaw/media-understanding-common",
+      "license": null
+    },
+    {
+      "path": "packages/net-policy/package.json",
+      "name": "@openclaw/net-policy",
+      "license": null
+    },
+    {
+      "path": "packages/memory-host-sdk/package.json",
+      "name": "@openclaw/memory-host-sdk",
+      "license": null
+    },
+    {
+      "path": "packages/session-url-contract/package.json",
+      "name": "@openclaw/session-url-contract",
+      "license": null
+    },
+    {
+      "path": "packages/plugin-package-contract/package.json",
+      "name": "@openclaw/plugin-package-contract",
+      "license": null
+    },
+    {
+      "path": "test/fixtures/web-output-provider/package.json",
+      "name": "qa-web-output",
+      "license": null
+    },
+    {
+      "path": "test/fixtures/claws/project-v1/package.json",
+      "name": "golden-claw",
+      "license": null
+    },
+    {
+      "path": ".github/release/vercel-cli/package.json",
+      "name": "openclaw-release-vercel-cli",
+      "license": null
+    },
+    {
+      "path": ".github/release/clawhub-cli/package.json",
+      "name": "openclaw-release-clawhub-cli",
+      "license": null
+    },
+    {
+      "path": ".github/actions/setup-security-review/package.json",
+      "name": "openclaw-security-review-runtime",
+      "license": null
+    },
+    {
+      "path": "qa/convex-credential-broker/package.json",
+      "name": "@openclaw/qa-convex-credential-broker",
+      "license": null
+    },
+    {
+      "path": "scripts/cloudflare/package.json",
+      "name": "openclaw-cloudflare-template",
+      "license": null
+    }
+  ],
+  "scope": "Source-only declared licenses, not a complete resolved dependency SBOM or legal clearance."
+}

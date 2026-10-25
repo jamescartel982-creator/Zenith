@@ -573,6 +573,9 @@ def create_app(settings=None, agent=None, catalog=None):
             raise HTTPException(404, 'Turn not found in this conversation')
         return {'saved': True, 'approved': body.approved}
 
+    if settings.platform.enabled:
+        from .gateway import install_platform
+        install_platform(app, agent, settings.platform, authenticate, signed_in)
     app.mount('/static', StaticFiles(directory=WEB), name='static')
     return app
 

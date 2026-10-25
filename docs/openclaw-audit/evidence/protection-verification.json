@@ -1,0 +1,15 @@
+{
+  "original_worktree_head": "ac989d869f2c2b961003684dc6ee7843d01d08da",
+  "original_worktree_head_unchanged": true,
+  "original_worktree_clean": true,
+  "profile_unchanged": true,
+  "selected_adapter_all_file_hashes_unchanged": true,
+  "selected_adapter_files_verified": 11,
+  "adapter_weights_sha256": "7e0701900b40109ee81b3dc097985cda360409006c8b717bda51830f3b6ed85d",
+  "adapter_tokenizer_file_sha256": "9c5ae00e602b8860cbd784ba82a8aa14e8feecec692e7076590d014d7b7fdafa",
+  "zenith_main_clone_clean": true,
+  "openclaw_clone_clean": true,
+  "implementation_performed": false,
+  "model_training_performed": false,
+  "limits": "Hash protection covers the selected adapter files and saved profile plus Git-tracked source; no claim that every historical private database/checkpoint was individually rehashed."
+}

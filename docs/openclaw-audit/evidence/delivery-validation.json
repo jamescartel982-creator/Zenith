@@ -1,0 +1,10 @@
+{
+  "reports": 8,
+  "source_citations_validated": 173,
+  "local_crosslinks_validated": 17,
+  "planned_destination_files": 65,
+  "dependency_groups": 36,
+  "dependency_graph_acyclic": true,
+  "tracked_code_and_selected_model_unchanged": true,
+  "scope": "Artifact consistency/source anchors and preservation checks only, not tests of proposed subsystems."
+}
