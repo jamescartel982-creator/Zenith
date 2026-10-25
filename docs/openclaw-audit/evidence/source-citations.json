@@ -1,0 +1,1213 @@
+[
+  {
+    "report": "BENCHMARK_PLAN.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "scripts/smoke_orchestration.py",
+    "line": 1
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "package.json",
+    "line": 2517
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "openclaw.mjs",
+    "line": 1
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/entry.ts",
+    "line": 133
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/cli/run-main.ts",
+    "line": 103
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/cli/gateway-cli/run.ts",
+    "line": 926
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/gateway/server.ts",
+    "line": 25
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/gateway/server-start.ts",
+    "line": 19
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/gateway/server-http.ts",
+    "line": 17
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/gateway/server/ws-connection.ts",
+    "line": 44
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/gateway/server/ws-connection/message-handler.ts",
+    "line": 87
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "packages/gateway-protocol/src/schema/frames.ts",
+    "line": 34
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/gateway/server-methods.ts",
+    "line": 263
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/config/config.ts",
+    "line": 1
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/config/io.factory.ts",
+    "line": 24
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/config/io.read-helpers.ts",
+    "line": 1
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/config/io.runtime.ts",
+    "line": 99
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/config/zod-schema.ts",
+    "line": 7
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/config/zod-schema.root-shape.ts",
+    "line": 41
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/config/validation.ts",
+    "line": 44
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/config/io.write.ts",
+    "line": 117
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/config/mutate.ts",
+    "line": 179
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "packages/agent-core/src/agent.ts",
+    "line": 158
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "packages/agent-core/src/agent-loop.ts",
+    "line": 86
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "packages/agent-core/src/agent-loop.ts",
+    "line": 483
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "packages/agent-core/src/agent-loop-tool-execution.ts",
+    "line": 45
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "packages/agent-core/src/agent-loop-tool-execution.ts",
+    "line": 305
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/agents/agent-tools.ts",
+    "line": 1
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/agents/agent-tools.turn-authority.ts",
+    "line": 34
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/agents/agent-tool-availability.ts",
+    "line": 70
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/agents/agent-tools.before-tool-call.wrapper.ts",
+    "line": 1
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/agents/admitted-run-context.ts",
+    "line": 93
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/agents/subagents/spawn/subagent-spawn.ts",
+    "line": 69
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/agents/subagents/registry/subagent-registry.ts",
+    "line": 188
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "extensions/memory-core/index.ts",
+    "line": 1
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "extensions/memory-core/src/memory/manager.ts",
+    "line": 55
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "extensions/memory-core/src/memory/manager-search-orchestration.ts",
+    "line": 1
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "extensions/memory-core/src/memory/hybrid.ts",
+    "line": 59
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "extensions/memory-core/src/memory/embeddings.ts",
+    "line": 1
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "package.json",
+    "line": 6
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/state/openclaw-state-db-admission.ts",
+    "line": 1
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "extensions/memory-lancedb/lancedb-store.ts",
+    "line": 1
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/plugins/discovery.ts",
+    "line": 1107
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/plugins/manifest.ts",
+    "line": 1
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/plugins/loader.ts",
+    "line": 18
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/plugins/loader-runtime-load.ts",
+    "line": 191
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/plugins/loader-module-runtime.ts",
+    "line": 1
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/skills/loading/workspace-skill-loader.ts",
+    "line": 1
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/skills/loading/skill-precedence.ts",
+    "line": 1
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/skills/loading/skill-prompt-limits.ts",
+    "line": 1
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "extensions/ollama/index.ts",
+    "line": 1
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "extensions/ollama/provider-discovery.ts",
+    "line": 1
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/channels/plugins/types.plugin.ts",
+    "line": 48
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "extensions/telegram/index.ts",
+    "line": 1
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "extensions/telegram/src/channel.ts",
+    "line": 356
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "extensions/slack/index.ts",
+    "line": 1
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/channels/message/ingress-drain.ts",
+    "line": 118
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/cron/service.ts",
+    "line": 31
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/cron/store.ts",
+    "line": 1
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/cron/schedule.ts",
+    "line": 213
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/cron/run-authority.ts",
+    "line": 19
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/infra/agent-events.ts",
+    "line": 1
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "extensions/browser/openclaw.plugin.json",
+    "line": 1
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "extensions/browser/src/browser-tool.ts",
+    "line": 206
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "extensions/browser/browser-control-auth.ts",
+    "line": 1
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "extensions/browser/src/browser/ssrf-policy-helpers.ts",
+    "line": 1
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/agents/tools/computer-tool.ts",
+    "line": 175
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "ui/src/main.ts",
+    "line": 1
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "ui/package.json",
+    "line": 1
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/gateway/auth.ts",
+    "line": 1
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/gateway/operator-scopes.ts",
+    "line": 1
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/gateway/http-endpoint-helpers.ts",
+    "line": 47
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/gateway/tools-invoke-http.ts",
+    "line": 1
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/agents/sandbox/config.ts",
+    "line": 233
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/agents/sandbox/config.ts",
+    "line": 99
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/security/external-content.ts",
+    "line": 1
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/audit/audit-event-writer.ts",
+    "line": 1
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/audit/audit-event-store.ts",
+    "line": 1
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/logging/redact.ts",
+    "line": 1
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "SECURITY.md",
+    "line": 1
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "LICENSE",
+    "line": 1
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "THIRD_PARTY_NOTICES.md",
+    "line": 1
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "skills/skill-creator/license.txt",
+    "line": 1
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "scripts/lib/codex-live-docker-security/LICENSE",
+    "line": 1
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "packages/mermaid-renderer/native/NOTICE.txt",
+    "line": 1
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "ui/public/cloud-provider-icons/LICENSE-simple-icons",
+    "line": 1
+  },
+  {
+    "report": "OPENCLAW_REVERSE_ENGINEERING.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "apps/macos/Sources/OpenClaw/Resources/ProviderIcons/NOTICE.md",
+    "line": 1
+  },
+  {
+    "report": "SECURITY_THREAT_MODEL.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/server.py",
+    "line": 1
+  },
+  {
+    "report": "SECURITY_THREAT_MODEL.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/admin.py",
+    "line": 1
+  },
+  {
+    "report": "SECURITY_THREAT_MODEL.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/owner_mfa.py",
+    "line": 1
+  },
+  {
+    "report": "SECURITY_THREAT_MODEL.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/execution.py",
+    "line": 1
+  },
+  {
+    "report": "SECURITY_THREAT_MODEL.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/gateway/http-endpoint-helpers.ts",
+    "line": 1
+  },
+  {
+    "report": "SECURITY_THREAT_MODEL.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/agents/sandbox/config.ts",
+    "line": 1
+  },
+  {
+    "report": "SECURITY_THREAT_MODEL.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "SECURITY.md",
+    "line": 1
+  },
+  {
+    "report": "SECURITY_THREAT_MODEL.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/security/external-content.ts",
+    "line": 1
+  },
+  {
+    "report": "ZENITH_CURRENT_ARCHITECTURE.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/__init__.py",
+    "line": 1
+  },
+  {
+    "report": "ZENITH_CURRENT_ARCHITECTURE.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "pyproject.toml",
+    "line": 1
+  },
+  {
+    "report": "ZENITH_CURRENT_ARCHITECTURE.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "research_checkpoints/recovery-v1/research.json",
+    "line": 1
+  },
+  {
+    "report": "ZENITH_CURRENT_ARCHITECTURE.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/checkpoints.py",
+    "line": 64
+  },
+  {
+    "report": "ZENITH_CURRENT_ARCHITECTURE.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/deployment.py",
+    "line": 1
+  },
+  {
+    "report": "ZENITH_CURRENT_ARCHITECTURE.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/tiny.py",
+    "line": 56
+  },
+  {
+    "report": "ZENITH_CURRENT_ARCHITECTURE.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/core.py",
+    "line": 27
+  },
+  {
+    "report": "ZENITH_CURRENT_ARCHITECTURE.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/core.py",
+    "line": 73
+  },
+  {
+    "report": "ZENITH_CURRENT_ARCHITECTURE.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/efficiency.py",
+    "line": 36
+  },
+  {
+    "report": "ZENITH_CURRENT_ARCHITECTURE.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/providers.py",
+    "line": 339
+  },
+  {
+    "report": "ZENITH_CURRENT_ARCHITECTURE.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/transport.py",
+    "line": 1
+  },
+  {
+    "report": "ZENITH_CURRENT_ARCHITECTURE.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/model_registry.py",
+    "line": 23
+  },
+  {
+    "report": "ZENITH_CURRENT_ARCHITECTURE.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/orchestration.py",
+    "line": 14
+  },
+  {
+    "report": "ZENITH_CURRENT_ARCHITECTURE.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/server.py",
+    "line": 124
+  },
+  {
+    "report": "ZENITH_CURRENT_ARCHITECTURE.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/storage.py",
+    "line": 10
+  },
+  {
+    "report": "ZENITH_CURRENT_ARCHITECTURE.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/personal.py",
+    "line": 16
+  },
+  {
+    "report": "ZENITH_CURRENT_ARCHITECTURE.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/summaries.py",
+    "line": 1
+  },
+  {
+    "report": "ZENITH_CURRENT_ARCHITECTURE.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/skills.py",
+    "line": 1
+  },
+  {
+    "report": "ZENITH_CURRENT_ARCHITECTURE.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/skill_access.py",
+    "line": 7
+  },
+  {
+    "report": "ZENITH_CURRENT_ARCHITECTURE.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/execution.py",
+    "line": 9
+  },
+  {
+    "report": "ZENITH_CURRENT_ARCHITECTURE.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/monitoring.py",
+    "line": 11
+  },
+  {
+    "report": "ZENITH_CURRENT_ARCHITECTURE.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/continual.py",
+    "line": 61
+  },
+  {
+    "report": "ZENITH_CURRENT_ARCHITECTURE.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/provider_adapters/openai_adapter.py",
+    "line": 58
+  },
+  {
+    "report": "ZENITH_CURRENT_ARCHITECTURE.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/provider_adapters/anthropic_adapter.py",
+    "line": 69
+  },
+  {
+    "report": "ZENITH_CURRENT_ARCHITECTURE.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/model_capabilities.py",
+    "line": 90
+  },
+  {
+    "report": "ZENITH_CURRENT_ARCHITECTURE.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/personal.py",
+    "line": 12
+  },
+  {
+    "report": "ZENITH_CURRENT_ARCHITECTURE.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/admin.py",
+    "line": 31
+  },
+  {
+    "report": "ZENITH_CURRENT_ARCHITECTURE.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/owner_mfa.py",
+    "line": 29
+  },
+  {
+    "report": "ZENITH_CURRENT_ARCHITECTURE.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/server.py",
+    "line": 139
+  },
+  {
+    "report": "ZENITH_CURRENT_ARCHITECTURE.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/storage.py",
+    "line": 34
+  },
+  {
+    "report": "ZENITH_CURRENT_ARCHITECTURE.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/personal.py",
+    "line": 92
+  },
+  {
+    "report": "ZENITH_CURRENT_ARCHITECTURE.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/storage.py",
+    "line": 150
+  },
+  {
+    "report": "ZENITH_CURRENT_ARCHITECTURE.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "README.md",
+    "line": 1
+  },
+  {
+    "report": "ZENITH_CURRENT_ARCHITECTURE.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "install.py",
+    "line": 1
+  },
+  {
+    "report": "ZENITH_CURRENT_ARCHITECTURE.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "Dockerfile",
+    "line": 1
+  },
+  {
+    "report": "ZENITH_CURRENT_ARCHITECTURE.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/server.py",
+    "line": 1
+  },
+  {
+    "report": "ZENITH_CURRENT_ARCHITECTURE.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": ".github/workflows/tests.yml",
+    "line": 1
+  },
+  {
+    "report": "CAPABILITY_GAP_MATRIX.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/gateway/server-start.ts",
+    "line": 1
+  },
+  {
+    "report": "CAPABILITY_GAP_MATRIX.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "packages/agent-core/src/agent-loop.ts",
+    "line": 1
+  },
+  {
+    "report": "CAPABILITY_GAP_MATRIX.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/core.py",
+    "line": 1
+  },
+  {
+    "report": "CAPABILITY_GAP_MATRIX.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/server.py",
+    "line": 1
+  },
+  {
+    "report": "CAPABILITY_GAP_MATRIX.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/providers.py",
+    "line": 1
+  },
+  {
+    "report": "CAPABILITY_GAP_MATRIX.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/model_registry.py",
+    "line": 1
+  },
+  {
+    "report": "CAPABILITY_GAP_MATRIX.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/orchestration.py",
+    "line": 1
+  },
+  {
+    "report": "CAPABILITY_GAP_MATRIX.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/provider_adapters/openai_adapter.py",
+    "line": 1
+  },
+  {
+    "report": "CAPABILITY_GAP_MATRIX.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/plugins/types.ts",
+    "line": 1
+  },
+  {
+    "report": "CAPABILITY_GAP_MATRIX.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "extensions/memory-core/src/memory/manager.ts",
+    "line": 1
+  },
+  {
+    "report": "CAPABILITY_GAP_MATRIX.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/skills/loading/workspace-skill-loader.ts",
+    "line": 1
+  },
+  {
+    "report": "CAPABILITY_GAP_MATRIX.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/storage.py",
+    "line": 1
+  },
+  {
+    "report": "CAPABILITY_GAP_MATRIX.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/personal.py",
+    "line": 1
+  },
+  {
+    "report": "CAPABILITY_GAP_MATRIX.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/summaries.py",
+    "line": 1
+  },
+  {
+    "report": "CAPABILITY_GAP_MATRIX.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/skills.py",
+    "line": 1
+  },
+  {
+    "report": "CAPABILITY_GAP_MATRIX.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/agents/agent-tools.turn-authority.ts",
+    "line": 1
+  },
+  {
+    "report": "CAPABILITY_GAP_MATRIX.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/agents/sandbox/config.ts",
+    "line": 1
+  },
+  {
+    "report": "CAPABILITY_GAP_MATRIX.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/security/external-content.ts",
+    "line": 1
+  },
+  {
+    "report": "CAPABILITY_GAP_MATRIX.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/execution.py",
+    "line": 1
+  },
+  {
+    "report": "CAPABILITY_GAP_MATRIX.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/admin.py",
+    "line": 1
+  },
+  {
+    "report": "CAPABILITY_GAP_MATRIX.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/owner_mfa.py",
+    "line": 1
+  },
+  {
+    "report": "CAPABILITY_GAP_MATRIX.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/skill_access.py",
+    "line": 1
+  },
+  {
+    "report": "CAPABILITY_GAP_MATRIX.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/channels/plugins/types.plugin.ts",
+    "line": 1
+  },
+  {
+    "report": "CAPABILITY_GAP_MATRIX.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/cron/store.ts",
+    "line": 1
+  },
+  {
+    "report": "CAPABILITY_GAP_MATRIX.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "extensions/browser/src/browser-tool.ts",
+    "line": 1
+  },
+  {
+    "report": "CAPABILITY_GAP_MATRIX.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/agents/tools/computer-tool.ts",
+    "line": 1
+  },
+  {
+    "report": "CAPABILITY_GAP_MATRIX.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "ui/src/main.ts",
+    "line": 1
+  },
+  {
+    "report": "CAPABILITY_GAP_MATRIX.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/browser.py",
+    "line": 1
+  },
+  {
+    "report": "CAPABILITY_GAP_MATRIX.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/web/app.js",
+    "line": 1
+  },
+  {
+    "report": "CAPABILITY_GAP_MATRIX.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/continual.py",
+    "line": 1
+  },
+  {
+    "report": "CAPABILITY_GAP_MATRIX.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/checkpoints.py",
+    "line": 1
+  },
+  {
+    "report": "CAPABILITY_GAP_MATRIX.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/deployment.py",
+    "line": 1
+  },
+  {
+    "report": "CAPABILITY_GAP_MATRIX.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "install.py",
+    "line": 1
+  },
+  {
+    "report": "CAPABILITY_GAP_MATRIX.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "Dockerfile",
+    "line": 1
+  },
+  {
+    "report": "ZENITH_INTEGRATION_ARCHITECTURE.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/core.py",
+    "line": 1
+  },
+  {
+    "report": "ZENITH_INTEGRATION_ARCHITECTURE.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/providers.py",
+    "line": 1
+  },
+  {
+    "report": "ZENITH_INTEGRATION_ARCHITECTURE.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/server.py",
+    "line": 1
+  },
+  {
+    "report": "ZENITH_INTEGRATION_ARCHITECTURE.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/storage.py",
+    "line": 1
+  },
+  {
+    "report": "ZENITH_INTEGRATION_ARCHITECTURE.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/execution.py",
+    "line": 1
+  },
+  {
+    "report": "ZENITH_INTEGRATION_ARCHITECTURE.md",
+    "repository": "jamescartel982-creator/Zenith",
+    "commit": "e6963d9c6f45c196ae2e301819ae1ae093b35c41",
+    "path": "agent/owner_mfa.py",
+    "line": 1
+  },
+  {
+    "report": "ZENITH_INTEGRATION_ARCHITECTURE.md",
+    "repository": "openclaw/openclaw",
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "src/agents/agent-tools.turn-authority.ts",
+    "line": 1
+  }
+]

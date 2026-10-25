@@ -106,6 +106,16 @@ Source APIs have access, pagination, and rate limits. A repository may require d
 
 The native-first [model registry and orchestrator](docs/platform-models.md) extend the existing providers with account-scoped discovery, explicit hybrid routing, collaborative drafts and model review. Ordinary installation and chat keep their existing configuration; external providers require separately configured credentials and explicit opt-in. No model weights or tokenizer are changed. See the [repository audit](docs/platform-audit/README.md) and [measured results](docs/platform-audit/results.md).
 
+## Optional supervised tasks
+
+The optional [supervised task pilot](docs/platform/operations.md) adds authenticated
+queued local chat, fixed diagnostic plans, exact-action network approvals, durable
+task events and audit verification. It is disabled by default and preserves the
+existing installation, provider, weights, tokenizer and data. See its
+[implementation boundaries](docs/platform/architecture.md) and
+[measured results](docs/platform/benchmark-results.md); autonomous tools, plugins
+and browser/channel automation are not included in this stage.
+
 ## Verify and update
 
 After activation:
