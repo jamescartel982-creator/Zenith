@@ -1,0 +1,1440 @@
+{
+  "status": "proposal_only",
+  "groups": {
+    "F00": {
+      "dependencies": [],
+      "title": "Preservation and baseline",
+      "rollback": "No feature enabled; no changes to weights or saved profile."
+    },
+    "F01": {
+      "dependencies": [
+        "F00"
+      ],
+      "title": "Configuration and additive schema",
+      "rollback": "Disable platform_enabled; leave new tables intact and old schema unchanged."
+    },
+    "F02": {
+      "dependencies": [
+        "F01"
+      ],
+      "title": "Redaction",
+      "rollback": "Disable platform routes/export; retain redaction on stored evidence."
+    },
+    "F03": {
+      "dependencies": [
+        "F01",
+        "F02"
+      ],
+      "title": "Permissions",
+      "rollback": "Revoke platform grants and disable new tools; retain current owner/MFA paths."
+    },
+    "F04": {
+      "dependencies": [
+        "F03"
+      ],
+      "title": "Action approvals",
+      "rollback": "Deny pending approvals; never execute stale approved actions on rollback."
+    },
+    "F05": {
+      "dependencies": [
+        "F01",
+        "F03"
+      ],
+      "title": "Durable tasks",
+      "rollback": "Stop admission; cancel/drain and fence outstanding leases; retain task receipts."
+    },
+    "F06": {
+      "dependencies": [
+        "F05"
+      ],
+      "title": "Durable events",
+      "rollback": "Stop subscribers; preserve terminal/approval events and replay cursors."
+    },
+    "F07": {
+      "dependencies": [
+        "F02",
+        "F04",
+        "F06"
+      ],
+      "title": "Audit chain",
+      "rollback": "Stop new effects on audit failure; retain chain, key and external anchor references."
+    },
+    "F08": {
+      "dependencies": [
+        "F04",
+        "F05",
+        "F06",
+        "F07"
+      ],
+      "title": "Tool runtime",
+      "rollback": "Set platform_runtime_enabled=false; cancel/drain; old text path continues."
+    },
+    "F09": {
+      "dependencies": [
+        "F08"
+      ],
+      "title": "Structured model turns",
+      "rollback": "Set platform_tools_enabled=false; restore existing text-only adapter behavior."
+    },
+    "F10": {
+      "dependencies": [
+        "F08",
+        "F09"
+      ],
+      "title": "Async gateway",
+      "rollback": "Disable platform routes; retain legacy chat/admin routes and stored data."
+    },
+    "F11": {
+      "dependencies": [
+        "F10"
+      ],
+      "title": "Application lifecycle",
+      "rollback": "Stop platform workers before closing DB; legacy app remains usable."
+    },
+    "F12": {
+      "dependencies": [
+        "F11"
+      ],
+      "title": "CLI integration",
+      "rollback": "Disable opt-in commands; retain existing installer/run/chat commands."
+    },
+    "F13": {
+      "dependencies": [
+        "F08",
+        "F10"
+      ],
+      "title": "Multi-agent",
+      "rollback": "Disable child creation, cancel/drain children; preserve parent receipts."
+    },
+    "F14": {
+      "dependencies": [
+        "F01",
+        "F03"
+      ],
+      "title": "Scoped lexical retrieval",
+      "rollback": "Disable private ingestion/search; retain encrypted-at-rest storage policy and ACLs."
+    },
+    "F15": {
+      "dependencies": [
+        "F14"
+      ],
+      "title": "Optional semantic retrieval",
+      "rollback": "Disable embeddings; use scoped lexical fallback; keep source documents intact."
+    },
+    "F16": {
+      "dependencies": [
+        "F14",
+        "F09"
+      ],
+      "title": "Memory context",
+      "rollback": "Disable new context assembly; existing PersonalStore/summaries remain unchanged."
+    },
+    "F17": {
+      "dependencies": [
+        "F03",
+        "F07"
+      ],
+      "title": "Plugin manifests",
+      "rollback": "Disable registry activation; retain approved artifact provenance."
+    },
+    "F18": {
+      "dependencies": [
+        "F17",
+        "F28",
+        "F08"
+      ],
+      "title": "Plugin workers",
+      "rollback": "Stop workers; revoke activation; never fall back to in-host import."
+    },
+    "F19": {
+      "dependencies": [
+        "F17",
+        "F16"
+      ],
+      "title": "Skill packages",
+      "rollback": "Disable package layer; retain existing built-in validated skills."
+    },
+    "F20": {
+      "dependencies": [
+        "F05",
+        "F06",
+        "F04"
+      ],
+      "title": "Scheduler",
+      "rollback": "Pause all jobs; fence leases and revoke standing grants; do not rerun missed writes."
+    },
+    "F21": {
+      "dependencies": [
+        "F05",
+        "F04",
+        "F07"
+      ],
+      "title": "Outbox",
+      "rollback": "Pause deliveries; mark uncertain sends for reconciliation; do not blindly retry."
+    },
+    "F22": {
+      "dependencies": [
+        "F10",
+        "F21"
+      ],
+      "title": "Channel interface",
+      "rollback": "Disable channel ingress, revoke pairings/worker credentials; retain receipts."
+    },
+    "F23": {
+      "dependencies": [
+        "F22"
+      ],
+      "title": "Telegram subset",
+      "rollback": "Disable Telegram ingress/outbox and revoke bot connection; retain dedup state."
+    },
+    "F24": {
+      "dependencies": [
+        "F22"
+      ],
+      "title": "Slack subset",
+      "rollback": "Disable Slack ingress/outbox and revoke connection; retain replay receipts."
+    },
+    "F25": {
+      "dependencies": [
+        "F22"
+      ],
+      "title": "Discord subset",
+      "rollback": "Disable Discord ingress/outbox and revoke connection; retain replay receipts."
+    },
+    "F26": {
+      "dependencies": [
+        "F28",
+        "F29",
+        "F04",
+        "F10"
+      ],
+      "title": "Browser worker",
+      "rollback": "Close isolated contexts; disable browser tools and egress; remove derived temporary profiles."
+    },
+    "F27": {
+      "dependencies": [
+        "F26"
+      ],
+      "title": "Computer VM",
+      "rollback": "Power down disposable VM and revoke transport; never redirect to real host desktop."
+    },
+    "F28": {
+      "dependencies": [
+        "F03",
+        "F04",
+        "F07"
+      ],
+      "title": "Sandbox broker",
+      "rollback": "Deny new execution; cancel/kill workers; no unsandboxed fallback."
+    },
+    "F29": {
+      "dependencies": [
+        "F28"
+      ],
+      "title": "Sandbox policy",
+      "rollback": "Revoke image/egress approvals; drain workers; keep text-only operation."
+    },
+    "F30": {
+      "dependencies": [
+        "F10",
+        "F16",
+        "F20",
+        "F22"
+      ],
+      "title": "Dashboard",
+      "rollback": "Hide platform panels; retain current chat/logo and API compatibility."
+    },
+    "F31": {
+      "dependencies": [
+        "F06",
+        "F02"
+      ],
+      "title": "Metrics and tracing",
+      "rollback": "Disable exports/instrumentation; retain current local metrics behavior."
+    },
+    "F32": {
+      "dependencies": [
+        "F10",
+        "F13",
+        "F15",
+        "F18",
+        "F23",
+        "F24",
+        "F25",
+        "F26",
+        "F31"
+      ],
+      "title": "Acceptance harness",
+      "rollback": "Disable release gate only by explicit reviewed policy; keep baseline evidence immutable."
+    },
+    "F33": {
+      "dependencies": [
+        "F01"
+      ],
+      "title": "Optional packaging",
+      "rollback": "Use existing base install; uninstall optional extras only after workers drain."
+    },
+    "F34": {
+      "dependencies": [
+        "F32",
+        "F33"
+      ],
+      "title": "Documentation and notices",
+      "rollback": "Preserve release evidence and attribution; revert code only with compatible documented flags."
+    },
+    "F35": {
+      "dependencies": [
+        "F10",
+        "F03"
+      ],
+      "title": "Optional read-only bridge",
+      "rollback": "Disable bridge; revoke sidecar credentials; native operation remains independent."
+    }
+  },
+  "topological_order": [
+    "F00",
+    "F01",
+    "F02",
+    "F33",
+    "F03",
+    "F04",
+    "F05",
+    "F14",
+    "F06",
+    "F15",
+    "F07",
+    "F20",
+    "F31",
+    "F08",
+    "F17",
+    "F21",
+    "F28",
+    "F09",
+    "F18",
+    "F29",
+    "F10",
+    "F16",
+    "F11",
+    "F13",
+    "F19",
+    "F22",
+    "F26",
+    "F35",
+    "F12",
+    "F23",
+    "F24",
+    "F25",
+    "F27",
+    "F30",
+    "F32",
+    "F34"
+  ],
+  "files": [
+    {
+      "id": "F00.1",
+      "group": "F00",
+      "path": "scripts/platform_protection.py",
+      "change": "new",
+      "dependencies": [],
+      "expected_behavior": "Read-only capture of commit, approved file hashes and model lineage; no private profile dump. Compare before/after; never mutate checkpoint.",
+      "tests": [
+        "tests/test_platform_protection.py"
+      ],
+      "flag": "none",
+      "rollback": "No feature enabled; no changes to weights or saved profile."
+    },
+    {
+      "id": "F01.1",
+      "group": "F01",
+      "path": "agent/platform_config.py",
+      "change": "new",
+      "dependencies": [
+        "F00"
+      ],
+      "expected_behavior": "Validated opt-in flags, quotas and dependency availability; fail closed for unavailable worker backends.",
+      "tests": [
+        "tests/test_platform_config.py"
+      ],
+      "flag": "all default false",
+      "rollback": "Disable platform_enabled; leave new tables intact and old schema unchanged."
+    },
+    {
+      "id": "F01.2",
+      "group": "F01",
+      "path": "agent/config.py",
+      "change": "modify",
+      "dependencies": [
+        "F00"
+      ],
+      "expected_behavior": "Append backwards-compatible platform settings only; preserve existing Settings positional/default behavior and current provider selection.",
+      "tests": [
+        "tests/test_platform_config.py",
+        "tests/test_config.py"
+      ],
+      "flag": "platform_enabled",
+      "rollback": "Disable platform_enabled; leave new tables intact and old schema unchanged."
+    },
+    {
+      "id": "F01.3",
+      "group": "F01",
+      "path": ".env.example",
+      "change": "modify",
+      "dependencies": [
+        "F00"
+      ],
+      "expected_behavior": "Commented examples without secrets, default-off flags and local-only admission.",
+      "tests": [
+        "tests/test_platform_config.py"
+      ],
+      "flag": "platform_enabled",
+      "rollback": "Disable platform_enabled; leave new tables intact and old schema unchanged."
+    },
+    {
+      "id": "F01.4",
+      "group": "F01",
+      "path": "agent/platform_migrations.py",
+      "change": "new",
+      "dependencies": [
+        "F00"
+      ],
+      "expected_behavior": "Own platform_schema_migrations and additive platform_* tables through existing SQLite connection; versioned atomic migrations, no legacy column changes.",
+      "tests": [
+        "tests/test_platform_migrations.py"
+      ],
+      "flag": "platform_enabled",
+      "rollback": "Disable platform_enabled; leave new tables intact and old schema unchanged."
+    },
+    {
+      "id": "F01.5",
+      "group": "F01",
+      "path": "agent/platform_repository.py",
+      "change": "new",
+      "dependencies": [
+        "F00"
+      ],
+      "expected_behavior": "Bounded transactional queries, ACL join helpers, consistent SQLite backup/restore preflight; never open duplicate memory DB.",
+      "tests": [
+        "tests/test_platform_migrations.py",
+        "tests/test_platform_repository.py"
+      ],
+      "flag": "platform_enabled",
+      "rollback": "Disable platform_enabled; leave new tables intact and old schema unchanged."
+    },
+    {
+      "id": "F02.1",
+      "group": "F02",
+      "path": "agent/redaction.py",
+      "change": "new",
+      "dependencies": [
+        "F01"
+      ],
+      "expected_behavior": "Redact known token/credential forms before model/log/tool egress; output quotas and sensitive-field allowlist.",
+      "tests": [
+        "tests/test_platform_redaction.py"
+      ],
+      "flag": "platform_enabled",
+      "rollback": "Disable platform routes/export; retain redaction on stored evidence."
+    },
+    {
+      "id": "F03.1",
+      "group": "F03",
+      "path": "agent/permissions.py",
+      "change": "new",
+      "dependencies": [
+        "F01",
+        "F02"
+      ],
+      "expected_behavior": "Server-derived ActorContext; per-tool role/target policies, revisions and strict subset delegation; no model-created permissions.",
+      "tests": [
+        "tests/test_platform_permissions.py",
+        "tests/test_platform_security.py"
+      ],
+      "flag": "platform_tools_enabled",
+      "rollback": "Revoke platform grants and disable new tools; retain current owner/MFA paths."
+    },
+    {
+      "id": "F03.2",
+      "group": "F03",
+      "path": "agent/execution.py",
+      "change": "modify",
+      "dependencies": [
+        "F01",
+        "F02"
+      ],
+      "expected_behavior": "Add adapter hook to live grant/MFA/emergency checks for platform effects; preserve seven legacy fixed capabilities and APIs.",
+      "tests": [
+        "tests/test_execution.py",
+        "tests/test_platform_security.py"
+      ],
+      "flag": "platform_tools_enabled",
+      "rollback": "Revoke platform grants and disable new tools; retain current owner/MFA paths."
+    },
+    {
+      "id": "F04.1",
+      "group": "F04",
+      "path": "agent/approvals.py",
+      "change": "new",
+      "dependencies": [
+        "F03"
+      ],
+      "expected_behavior": "One-use action approvals bind actor, target, tool version, canonical argument digest and expiry; mutate-after-approval denied.",
+      "tests": [
+        "tests/test_platform_approvals.py",
+        "tests/test_platform_security.py"
+      ],
+      "flag": "platform_tools_enabled",
+      "rollback": "Deny pending approvals; never execute stale approved actions on rollback."
+    },
+    {
+      "id": "F05.1",
+      "group": "F05",
+      "path": "agent/task_store.py",
+      "change": "new",
+      "dependencies": [
+        "F01",
+        "F03"
+      ],
+      "expected_behavior": "Scoped task/checkpoint/lease records, compare-and-swap transitions, durable tool receipts and unknown-effect reconciliation.",
+      "tests": [
+        "tests/test_platform_tasks.py",
+        "tests/test_platform_recovery.py"
+      ],
+      "flag": "platform_runtime_enabled",
+      "rollback": "Stop admission; cancel/drain and fence outstanding leases; retain task receipts."
+    },
+    {
+      "id": "F06.1",
+      "group": "F06",
+      "path": "agent/event_bus.py",
+      "change": "new",
+      "dependencies": [
+        "F05"
+      ],
+      "expected_behavior": "Transactional sequenced scoped events with bounded live queues/replay; backpressure cannot lose terminal/approval records.",
+      "tests": [
+        "tests/test_platform_events.py",
+        "tests/test_platform_recovery.py"
+      ],
+      "flag": "platform_runtime_enabled",
+      "rollback": "Stop subscribers; preserve terminal/approval events and replay cursors."
+    },
+    {
+      "id": "F07.1",
+      "group": "F07",
+      "path": "agent/audit_chain.py",
+      "change": "new",
+      "dependencies": [
+        "F02",
+        "F04",
+        "F06"
+      ],
+      "expected_behavior": "Metadata HMAC chain, protected external key references and periodic external anchors; deny high-impact effects if receipt persistence fails.",
+      "tests": [
+        "tests/test_platform_audit.py",
+        "tests/test_platform_security.py"
+      ],
+      "flag": "platform_tools_enabled",
+      "rollback": "Stop new effects on audit failure; retain chain, key and external anchor references."
+    },
+    {
+      "id": "F08.1",
+      "group": "F08",
+      "path": "agent/tool_protocol.py",
+      "change": "new",
+      "dependencies": [
+        "F04",
+        "F05",
+        "F06",
+        "F07"
+      ],
+      "expected_behavior": "Strict typed tool proposals/results, bounded JSON Schema subset, versioning/effect class/usage/error types; reject unknown fields and names.",
+      "tests": [
+        "tests/test_platform_tool_protocol.py"
+      ],
+      "flag": "platform_tools_enabled",
+      "rollback": "Set platform_runtime_enabled=false; cancel/drain; old text path continues."
+    },
+    {
+      "id": "F08.2",
+      "group": "F08",
+      "path": "agent/tool_registry.py",
+      "change": "new",
+      "dependencies": [
+        "F04",
+        "F05",
+        "F06",
+        "F07"
+      ],
+      "expected_behavior": "Resolve approved exact tool versions/dependencies; availability separate from authorization; validate args before policy and execution.",
+      "tests": [
+        "tests/test_platform_tool_registry.py",
+        "tests/test_platform_security.py"
+      ],
+      "flag": "platform_tools_enabled",
+      "rollback": "Set platform_runtime_enabled=false; cancel/drain; old text path continues."
+    },
+    {
+      "id": "F08.3",
+      "group": "F08",
+      "path": "agent/runtime.py",
+      "change": "new",
+      "dependencies": [
+        "F04",
+        "F05",
+        "F06",
+        "F07"
+      ],
+      "expected_behavior": "Bounded plan-act-observe loop, approval waits, per-effect rechecks, quota/deadline/cancel propagation and durable transitions.",
+      "tests": [
+        "tests/test_platform_runtime.py",
+        "tests/test_platform_recovery.py",
+        "tests/integration/test_platform_runtime.py"
+      ],
+      "flag": "platform_runtime_enabled",
+      "rollback": "Set platform_runtime_enabled=false; cancel/drain; old text path continues."
+    },
+    {
+      "id": "F09.1",
+      "group": "F09",
+      "path": "agent/model_capabilities.py",
+      "change": "modify",
+      "dependencies": [
+        "F08"
+      ],
+      "expected_behavior": "Add optional structured-turn capability/protocol without changing existing ProviderAdapter implementers; unknown support remains unknown.",
+      "tests": [
+        "tests/test_platform_model_turns.py"
+      ],
+      "flag": "platform_tools_enabled",
+      "rollback": "Set platform_tools_enabled=false; restore existing text-only adapter behavior."
+    },
+    {
+      "id": "F09.2",
+      "group": "F09",
+      "path": "agent/providers.py",
+      "change": "modify",
+      "dependencies": [
+        "F08"
+      ],
+      "expected_behavior": "Optional generate_turn adapter around current factories; serialize existing HF model; no replacement tokenizer/loading behavior.",
+      "tests": [
+        "tests/test_platform_model_turns.py",
+        "tests/integration/test_platform_native.py"
+      ],
+      "flag": "platform_tools_enabled",
+      "rollback": "Set platform_tools_enabled=false; restore existing text-only adapter behavior."
+    },
+    {
+      "id": "F09.3",
+      "group": "F09",
+      "path": "agent/provider_adapters/openai_adapter.py",
+      "change": "modify",
+      "dependencies": [
+        "F08"
+      ],
+      "expected_behavior": "Explicit tool-turn request/result conversion with schema and account capability validation; retain old text rejection path.",
+      "tests": [
+        "tests/test_platform_model_turns.py",
+        "tests/integration/test_platform_providers.py"
+      ],
+      "flag": "platform_tools_enabled",
+      "rollback": "Set platform_tools_enabled=false; restore existing text-only adapter behavior."
+    },
+    {
+      "id": "F09.4",
+      "group": "F09",
+      "path": "agent/provider_adapters/anthropic_adapter.py",
+      "change": "modify",
+      "dependencies": [
+        "F08"
+      ],
+      "expected_behavior": "Explicit content/tool-use block conversion and bounded usage/cancellation; retain old text contract.",
+      "tests": [
+        "tests/test_platform_model_turns.py",
+        "tests/integration/test_platform_providers.py"
+      ],
+      "flag": "platform_tools_enabled",
+      "rollback": "Set platform_tools_enabled=false; restore existing text-only adapter behavior."
+    },
+    {
+      "id": "F09.5",
+      "group": "F09",
+      "path": "agent/provider_adapters/local_adapter.py",
+      "change": "modify",
+      "dependencies": [
+        "F08"
+      ],
+      "expected_behavior": "Negotiate local tool protocol; unsupported HF/Ollama endpoints remain text-only; strict native JSON proposal experiment separately gated.",
+      "tests": [
+        "tests/test_platform_model_turns.py",
+        "tests/integration/test_platform_native.py"
+      ],
+      "flag": "platform_tools_enabled; native_json_tools_enabled",
+      "rollback": "Set platform_tools_enabled=false; restore existing text-only adapter behavior."
+    },
+    {
+      "id": "F10.1",
+      "group": "F10",
+      "path": "agent/gateway.py",
+      "change": "new",
+      "dependencies": [
+        "F08",
+        "F09"
+      ],
+      "expected_behavior": "Optional authenticated /api/platform tasks/events/approval/memory routes; bounded async admission, explicit unavailable/busy errors.",
+      "tests": [
+        "tests/test_platform_gateway.py",
+        "tests/integration/test_platform_gateway.py"
+      ],
+      "flag": "platform_enabled",
+      "rollback": "Disable platform routes; retain legacy chat/admin routes and stored data."
+    },
+    {
+      "id": "F11.1",
+      "group": "F11",
+      "path": "agent/server.py",
+      "change": "modify",
+      "dependencies": [
+        "F10"
+      ],
+      "expected_behavior": "Mount new router with existing auth dependencies and startup/drain hooks; keep all legacy endpoints/cookies/schema.",
+      "tests": [
+        "tests/test_server.py",
+        "tests/test_platform_gateway.py",
+        "tests/integration/test_platform_gateway.py"
+      ],
+      "flag": "platform_enabled",
+      "rollback": "Stop platform workers before closing DB; legacy app remains usable."
+    },
+    {
+      "id": "F11.2",
+      "group": "F11",
+      "path": "agent/core.py",
+      "change": "modify",
+      "dependencies": [
+        "F10"
+      ],
+      "expected_behavior": "Opt-in runtime submission/context adapter only; default text generation and lock/save lifecycle remain unchanged.",
+      "tests": [
+        "tests/test_platform_compatibility.py",
+        "tests/integration/test_platform_native.py"
+      ],
+      "flag": "platform_runtime_enabled",
+      "rollback": "Stop platform workers before closing DB; legacy app remains usable."
+    },
+    {
+      "id": "F12.1",
+      "group": "F12",
+      "path": "agent/commands.py",
+      "change": "modify",
+      "dependencies": [
+        "F11"
+      ],
+      "expected_behavior": "Explicit opt-in task inspect/cancel and registry status commands; no implicit tool activation from chat commands.",
+      "tests": [
+        "tests/test_platform_commands.py"
+      ],
+      "flag": "platform_enabled",
+      "rollback": "Disable opt-in commands; retain existing installer/run/chat commands."
+    },
+    {
+      "id": "F13.1",
+      "group": "F13",
+      "path": "agent/multi_agent.py",
+      "change": "new",
+      "dependencies": [
+        "F08",
+        "F10"
+      ],
+      "expected_behavior": "Child identity/workspace lifecycle with strict subset delegated capability scopes, step/token budgets and parent cancellation.",
+      "tests": [
+        "tests/test_platform_multi_agent.py",
+        "tests/integration/test_platform_multi_agent.py"
+      ],
+      "flag": "platform_multi_agent_enabled",
+      "rollback": "Disable child creation, cancel/drain children; preserve parent receipts."
+    },
+    {
+      "id": "F14.1",
+      "group": "F14",
+      "path": "agent/retrieval.py",
+      "change": "new",
+      "dependencies": [
+        "F01",
+        "F03"
+      ],
+      "expected_behavior": "Private account/project documents and FTS in additive tables; ACL before rank/content, provenance, expiration/dedup/deletion.",
+      "tests": [
+        "tests/test_platform_retrieval.py",
+        "tests/test_platform_security.py",
+        "tests/integration/test_platform_memory.py"
+      ],
+      "flag": "platform_memory_enabled",
+      "rollback": "Disable private ingestion/search; retain encrypted-at-rest storage policy and ACLs."
+    },
+    {
+      "id": "F15.1",
+      "group": "F15",
+      "path": "agent/semantic_memory.py",
+      "change": "new",
+      "dependencies": [
+        "F14"
+      ],
+      "expected_behavior": "Optional revision-pinned embeddings with licensed model and derived index version; lexical fallback and complete deletion.",
+      "tests": [
+        "tests/test_platform_semantic_memory.py",
+        "tests/integration/test_platform_memory.py"
+      ],
+      "flag": "platform_embeddings_enabled",
+      "rollback": "Disable embeddings; use scoped lexical fallback; keep source documents intact."
+    },
+    {
+      "id": "F16.1",
+      "group": "F16",
+      "path": "agent/context_manager.py",
+      "change": "new",
+      "dependencies": [
+        "F14",
+        "F09"
+      ],
+      "expected_behavior": "Bounded quoted context from existing PersonalStore/summaries plus scoped retrieval; no duplicate database or summary authority.",
+      "tests": [
+        "tests/test_platform_context.py",
+        "tests/integration/test_platform_native.py"
+      ],
+      "flag": "platform_memory_enabled",
+      "rollback": "Disable new context assembly; existing PersonalStore/summaries remain unchanged."
+    },
+    {
+      "id": "F17.1",
+      "group": "F17",
+      "path": "agent/plugins/__init__.py",
+      "change": "new",
+      "dependencies": [
+        "F03",
+        "F07"
+      ],
+      "expected_behavior": "Package marker only; no eager imports or plugin execution.",
+      "tests": [
+        "tests/test_platform_plugins.py"
+      ],
+      "flag": "platform_plugins_enabled",
+      "rollback": "Disable registry activation; retain approved artifact provenance."
+    },
+    {
+      "id": "F17.2",
+      "group": "F17",
+      "path": "agent/plugins/manifest.py",
+      "change": "new",
+      "dependencies": [
+        "F03",
+        "F07"
+      ],
+      "expected_behavior": "Bounded declarative manifests, artifact SHA pinning, path/archive validation, requested-capability display and reapproval on change.",
+      "tests": [
+        "tests/test_platform_plugins.py",
+        "tests/test_platform_security.py"
+      ],
+      "flag": "platform_plugins_enabled",
+      "rollback": "Disable registry activation; retain approved artifact provenance."
+    },
+    {
+      "id": "F17.3",
+      "group": "F17",
+      "path": "agent/plugins/registry.py",
+      "change": "new",
+      "dependencies": [
+        "F03",
+        "F07"
+      ],
+      "expected_behavior": "Metadata-only discovery/approval/availability records; signatures are provenance only; no in-host untrusted import.",
+      "tests": [
+        "tests/test_platform_plugins.py",
+        "tests/test_platform_security.py"
+      ],
+      "flag": "platform_plugins_enabled",
+      "rollback": "Disable registry activation; retain approved artifact provenance."
+    },
+    {
+      "id": "F18.1",
+      "group": "F18",
+      "path": "agent/plugins/worker.py",
+      "change": "new",
+      "dependencies": [
+        "F17",
+        "F28",
+        "F08"
+      ],
+      "expected_behavior": "Sandbox worker framed JSON discovery/invoke protocol; capability mediation, output/CPU quotas, cancellation and crash cleanup.",
+      "tests": [
+        "tests/test_platform_plugin_worker.py",
+        "tests/integration/test_platform_plugin_worker.py"
+      ],
+      "flag": "platform_plugins_enabled",
+      "rollback": "Stop workers; revoke activation; never fall back to in-host import."
+    },
+    {
+      "id": "F19.1",
+      "group": "F19",
+      "path": "agent/skill_packages.py",
+      "change": "new",
+      "dependencies": [
+        "F17",
+        "F16"
+      ],
+      "expected_behavior": "Hash-pinned bounded skill text/resources, source attribution and injection labels; installation never grants execution authority.",
+      "tests": [
+        "tests/test_platform_skill_packages.py",
+        "tests/test_platform_security.py"
+      ],
+      "flag": "platform_skill_packages_enabled",
+      "rollback": "Disable package layer; retain existing built-in validated skills."
+    },
+    {
+      "id": "F19.2",
+      "group": "F19",
+      "path": "agent/skills.py",
+      "change": "modify",
+      "dependencies": [
+        "F17",
+        "F16"
+      ],
+      "expected_behavior": "Optional approved package resource adapter; preserve built-in profiles and commands; never load executable skill code.",
+      "tests": [
+        "tests/test_platform_skill_packages.py"
+      ],
+      "flag": "platform_skill_packages_enabled",
+      "rollback": "Disable package layer; retain existing built-in validated skills."
+    },
+    {
+      "id": "F19.3",
+      "group": "F19",
+      "path": "agent/skill_access.py",
+      "change": "modify",
+      "dependencies": [
+        "F17",
+        "F16"
+      ],
+      "expected_behavior": "Apply existing protected profile access to optional skills; tool permissions remain separately enforced.",
+      "tests": [
+        "tests/test_platform_skill_packages.py",
+        "tests/test_platform_security.py"
+      ],
+      "flag": "platform_skill_packages_enabled",
+      "rollback": "Disable package layer; retain existing built-in validated skills."
+    },
+    {
+      "id": "F20.1",
+      "group": "F20",
+      "path": "agent/scheduler.py",
+      "change": "new",
+      "dependencies": [
+        "F05",
+        "F06",
+        "F04"
+      ],
+      "expected_behavior": "Persist UTC at/interval jobs, lease claims, overlap/misfire policies; read-only initial jobs with distinct standing authority.",
+      "tests": [
+        "tests/test_platform_scheduler.py",
+        "tests/test_platform_recovery.py",
+        "tests/integration/test_platform_scheduler.py"
+      ],
+      "flag": "platform_scheduler_enabled",
+      "rollback": "Pause all jobs; fence leases and revoke standing grants; do not rerun missed writes."
+    },
+    {
+      "id": "F21.1",
+      "group": "F21",
+      "path": "agent/outbox.py",
+      "change": "new",
+      "dependencies": [
+        "F05",
+        "F04",
+        "F07"
+      ],
+      "expected_behavior": "Atomic intent/receipt records, bounded retries, idempotency where supported; uncertain accepted writes need reconciliation.",
+      "tests": [
+        "tests/test_platform_outbox.py",
+        "tests/test_platform_recovery.py"
+      ],
+      "flag": "platform_channels_enabled",
+      "rollback": "Pause deliveries; mark uncertain sends for reconciliation; do not blindly retry."
+    },
+    {
+      "id": "F22.1",
+      "group": "F22",
+      "path": "agent/channels/__init__.py",
+      "change": "new",
+      "dependencies": [
+        "F10",
+        "F21"
+      ],
+      "expected_behavior": "Package marker; no import-time credential reads or network connections.",
+      "tests": [
+        "tests/test_platform_channels.py"
+      ],
+      "flag": "platform_channels_enabled",
+      "rollback": "Disable channel ingress, revoke pairings/worker credentials; retain receipts."
+    },
+    {
+      "id": "F22.2",
+      "group": "F22",
+      "path": "agent/channels/base.py",
+      "change": "new",
+      "dependencies": [
+        "F10",
+        "F21"
+      ],
+      "expected_behavior": "Authenticated ingress/dedup and explicit sender/chat/thread-to-account pairing; per-channel output approval.",
+      "tests": [
+        "tests/test_platform_channels.py",
+        "tests/test_platform_security.py"
+      ],
+      "flag": "platform_channels_enabled",
+      "rollback": "Disable channel ingress, revoke pairings/worker credentials; retain receipts."
+    },
+    {
+      "id": "F23.1",
+      "group": "F23",
+      "path": "agent/channels/telegram.py",
+      "change": "new",
+      "dependencies": [
+        "F22"
+      ],
+      "expected_behavior": "Minimal owned-bot webhook inbound/text outbound; verify configured webhook secret and pairing; unconfigured means unavailable.",
+      "tests": [
+        "tests/test_platform_telegram.py",
+        "tests/e2e/test_platform_channels.py"
+      ],
+      "flag": "platform_telegram_enabled",
+      "rollback": "Disable Telegram ingress/outbox and revoke bot connection; retain dedup state."
+    },
+    {
+      "id": "F24.1",
+      "group": "F24",
+      "path": "agent/channels/slack.py",
+      "change": "new",
+      "dependencies": [
+        "F22"
+      ],
+      "expected_behavior": "Minimal signed timestamp-bounded Slack ingress and approved text send; replay protection and explicit account scopes.",
+      "tests": [
+        "tests/test_platform_slack.py",
+        "tests/e2e/test_platform_channels.py"
+      ],
+      "flag": "platform_slack_enabled",
+      "rollback": "Disable Slack ingress/outbox and revoke connection; retain replay receipts."
+    },
+    {
+      "id": "F25.1",
+      "group": "F25",
+      "path": "agent/channels/discord.py",
+      "change": "new",
+      "dependencies": [
+        "F22"
+      ],
+      "expected_behavior": "Minimal verified interaction webhook and approved text reply; Ed25519 validation and pairing; no voice claims.",
+      "tests": [
+        "tests/test_platform_discord.py",
+        "tests/e2e/test_platform_channels.py"
+      ],
+      "flag": "platform_discord_enabled",
+      "rollback": "Disable Discord ingress/outbox and revoke connection; retain replay receipts."
+    },
+    {
+      "id": "F26.1",
+      "group": "F26",
+      "path": "agent/browser_automation.py",
+      "change": "new",
+      "dependencies": [
+        "F28",
+        "F29",
+        "F04",
+        "F10"
+      ],
+      "expected_behavior": "Isolated Playwright worker/profile; policy-checked egress and action approval; no host browser cookies/profile import.",
+      "tests": [
+        "tests/test_platform_browser.py",
+        "tests/e2e/test_platform_browser.py",
+        "tests/test_platform_security.py"
+      ],
+      "flag": "platform_browser_enabled",
+      "rollback": "Close isolated contexts; disable browser tools and egress; remove derived temporary profiles."
+    },
+    {
+      "id": "F27.1",
+      "group": "F27",
+      "path": "agent/computer_automation.py",
+      "change": "new",
+      "dependencies": [
+        "F26"
+      ],
+      "expected_behavior": "VM desktop transport with input/display limits and explicit approval; unsupported until compatible backend E2E passes.",
+      "tests": [
+        "tests/test_platform_computer.py",
+        "tests/e2e/test_platform_computer.py"
+      ],
+      "flag": "platform_computer_enabled",
+      "rollback": "Power down disposable VM and revoke transport; never redirect to real host desktop."
+    },
+    {
+      "id": "F28.1",
+      "group": "F28",
+      "path": "agent/sandbox.py",
+      "change": "new",
+      "dependencies": [
+        "F03",
+        "F04",
+        "F07"
+      ],
+      "expected_behavior": "Broker contract, image allowlist, isolated filesystem paths and resource/network requirements; missing backend denies code execution.",
+      "tests": [
+        "tests/test_platform_sandbox.py",
+        "tests/test_platform_security.py"
+      ],
+      "flag": "platform_sandbox_enabled",
+      "rollback": "Deny new execution; cancel/kill workers; no unsandboxed fallback."
+    },
+    {
+      "id": "F28.2",
+      "group": "F28",
+      "path": "agent/sandbox_docker.py",
+      "change": "new",
+      "dependencies": [
+        "F03",
+        "F04",
+        "F07"
+      ],
+      "expected_behavior": "Rootless container lifecycle, no socket mount into workers, readonly root/nonroot/cap-drop/seccomp/quotas, kill/drain cleanup.",
+      "tests": [
+        "tests/test_platform_sandbox.py",
+        "tests/e2e/test_platform_sandbox.py"
+      ],
+      "flag": "platform_sandbox_enabled",
+      "rollback": "Deny new execution; cancel/kill workers; no unsandboxed fallback."
+    },
+    {
+      "id": "F29.1",
+      "group": "F29",
+      "path": "config/sandbox-policy.example.json",
+      "change": "new",
+      "dependencies": [
+        "F28"
+      ],
+      "expected_behavior": "Document approved immutable image digests, no-network default and explicit quotas; no embedded secrets/host mounts.",
+      "tests": [
+        "tests/test_platform_sandbox.py"
+      ],
+      "flag": "platform_sandbox_enabled",
+      "rollback": "Revoke image/egress approvals; drain workers; keep text-only operation."
+    },
+    {
+      "id": "F29.2",
+      "group": "F29",
+      "path": "agent/egress_policy.py",
+      "change": "new",
+      "dependencies": [
+        "F28"
+      ],
+      "expected_behavior": "Broker-owned DNS/redirect/subresource and IPv4/IPv6 target enforcement; block metadata/private/loopback by default.",
+      "tests": [
+        "tests/test_platform_egress.py",
+        "tests/e2e/test_platform_browser.py"
+      ],
+      "flag": "platform_browser_enabled",
+      "rollback": "Revoke image/egress approvals; drain workers; keep text-only operation."
+    },
+    {
+      "id": "F30.1",
+      "group": "F30",
+      "path": "agent/web/platform.js",
+      "change": "new",
+      "dependencies": [
+        "F10",
+        "F16",
+        "F20",
+        "F22"
+      ],
+      "expected_behavior": "Optional task/approval/memory/job/connection panels; explicit availability and model attribution; escape untrusted text.",
+      "tests": [
+        "tests/test_platform_ui.py",
+        "tests/e2e/test_platform_workflows.py"
+      ],
+      "flag": "platform_enabled",
+      "rollback": "Hide platform panels; retain current chat/logo and API compatibility."
+    },
+    {
+      "id": "F30.2",
+      "group": "F30",
+      "path": "agent/web/index.html",
+      "change": "modify",
+      "dependencies": [
+        "F10",
+        "F16",
+        "F20",
+        "F22"
+      ],
+      "expected_behavior": "Preserve logo and chat markup; mount optional platform panel only when enabled.",
+      "tests": [
+        "tests/test_platform_ui.py",
+        "tests/e2e/test_platform_workflows.py"
+      ],
+      "flag": "platform_enabled",
+      "rollback": "Hide platform panels; retain current chat/logo and API compatibility."
+    },
+    {
+      "id": "F30.3",
+      "group": "F30",
+      "path": "agent/web/app.js",
+      "change": "modify",
+      "dependencies": [
+        "F10",
+        "F16",
+        "F20",
+        "F22"
+      ],
+      "expected_behavior": "Load optional panel adapter without changing existing login/chat/SSE flow; no credentials in model prompts.",
+      "tests": [
+        "tests/test_platform_ui.py",
+        "tests/e2e/test_platform_workflows.py"
+      ],
+      "flag": "platform_enabled",
+      "rollback": "Hide platform panels; retain current chat/logo and API compatibility."
+    },
+    {
+      "id": "F30.4",
+      "group": "F30",
+      "path": "agent/web/style.css",
+      "change": "modify",
+      "dependencies": [
+        "F10",
+        "F16",
+        "F20",
+        "F22"
+      ],
+      "expected_behavior": "Add scoped panel styles; preserve current layout/branding and mobile chat behavior.",
+      "tests": [
+        "tests/test_platform_ui.py",
+        "tests/e2e/test_platform_workflows.py"
+      ],
+      "flag": "platform_enabled",
+      "rollback": "Hide platform panels; retain current chat/logo and API compatibility."
+    },
+    {
+      "id": "F31.1",
+      "group": "F31",
+      "path": "agent/telemetry.py",
+      "change": "new",
+      "dependencies": [
+        "F06",
+        "F02"
+      ],
+      "expected_behavior": "Task/span metrics and optional redacted OpenTelemetry export; unknown tokens/cost remain unknown.",
+      "tests": [
+        "tests/test_platform_telemetry.py",
+        "tests/test_platform_redaction.py"
+      ],
+      "flag": "platform_telemetry_enabled; exports disabled",
+      "rollback": "Disable exports/instrumentation; retain current local metrics behavior."
+    },
+    {
+      "id": "F31.2",
+      "group": "F31",
+      "path": "agent/monitoring.py",
+      "change": "modify",
+      "dependencies": [
+        "F06",
+        "F02"
+      ],
+      "expected_behavior": "Adapter for platform metadata into current bounded per-account monitoring; no unbounded raw prompt traces.",
+      "tests": [
+        "tests/test_platform_telemetry.py",
+        "tests/test_platform_security.py"
+      ],
+      "flag": "platform_telemetry_enabled",
+      "rollback": "Disable exports/instrumentation; retain current local metrics behavior."
+    },
+    {
+      "id": "F32.1",
+      "group": "F32",
+      "path": "scripts/platform_benchmark.py",
+      "change": "new",
+      "dependencies": [
+        "F10",
+        "F13",
+        "F15",
+        "F18",
+        "F23",
+        "F24",
+        "F25",
+        "F26",
+        "F31"
+      ],
+      "expected_behavior": "Paired baseline/candidate workload runner; fixture/config hashes, timings, outcomes and honest unavailable results.",
+      "tests": [
+        "tests/test_platform_benchmark.py",
+        "tests/e2e/test_platform_workflows.py"
+      ],
+      "flag": "manual evaluation only",
+      "rollback": "Disable release gate only by explicit reviewed policy; keep baseline evidence immutable."
+    },
+    {
+      "id": "F32.2",
+      "group": "F32",
+      "path": "agent/evaluation/platform-v1.json",
+      "change": "new",
+      "dependencies": [
+        "F10",
+        "F13",
+        "F15",
+        "F18",
+        "F23",
+        "F24",
+        "F25",
+        "F26",
+        "F31"
+      ],
+      "expected_behavior": "Frozen licensed deterministic workload definitions, slices, scoring and owned-lab scope; no training reuse.",
+      "tests": [
+        "tests/test_platform_benchmark.py"
+      ],
+      "flag": "manual evaluation only",
+      "rollback": "Disable release gate only by explicit reviewed policy; keep baseline evidence immutable."
+    },
+    {
+      "id": "F32.3",
+      "group": "F32",
+      "path": ".github/workflows/platform.yml",
+      "change": "new",
+      "dependencies": [
+        "F10",
+        "F13",
+        "F15",
+        "F18",
+        "F23",
+        "F24",
+        "F25",
+        "F26",
+        "F31"
+      ],
+      "expected_behavior": "Windows/Linux compatibility plus Linux container/security gates; real integration jobs explicitly gated by dependencies/credentials.",
+      "tests": [
+        "tests/test_platform_benchmark.py",
+        "tests/e2e/test_platform_sandbox.py"
+      ],
+      "flag": "opt-in CI workflow",
+      "rollback": "Disable release gate only by explicit reviewed policy; keep baseline evidence immutable."
+    },
+    {
+      "id": "F33.1",
+      "group": "F33",
+      "path": "pyproject.toml",
+      "change": "modify",
+      "dependencies": [
+        "F01"
+      ],
+      "expected_behavior": "Optional extras for platform/browser/sandbox/telemetry; keep base Python/CPU installation and existing extras. Pin after dependency/license review.",
+      "tests": [
+        "tests/test_platform_installation.py"
+      ],
+      "flag": "optional extras only",
+      "rollback": "Use existing base install; uninstall optional extras only after workers drain."
+    },
+    {
+      "id": "F33.2",
+      "group": "F33",
+      "path": "install.py",
+      "change": "modify",
+      "dependencies": [
+        "F01"
+      ],
+      "expected_behavior": "Optional named extras installation and availability diagnostics; existing --mode local and virtualenv path remain unchanged.",
+      "tests": [
+        "tests/test_platform_installation.py"
+      ],
+      "flag": "optional installer argument",
+      "rollback": "Use existing base install; uninstall optional extras only after workers drain."
+    },
+    {
+      "id": "F34.1",
+      "group": "F34",
+      "path": "THIRD_PARTY_NOTICES.md",
+      "change": "new",
+      "dependencies": [
+        "F32",
+        "F33"
+      ],
+      "expected_behavior": "Per-adaptation OpenClaw commit/path/hash and MIT/scoped notices; selected Python package/model licenses, no asset relicensing.",
+      "tests": [
+        "tests/test_platform_release.py"
+      ],
+      "flag": "release metadata only",
+      "rollback": "Preserve release evidence and attribution; revert code only with compatible documented flags."
+    },
+    {
+      "id": "F34.2",
+      "group": "F34",
+      "path": "docs/platform/architecture.md",
+      "change": "new",
+      "dependencies": [
+        "F32",
+        "F33"
+      ],
+      "expected_behavior": "Implemented boundaries, flags, data migration and API contracts; unavailable items explicitly listed.",
+      "tests": [
+        "tests/test_platform_release.py"
+      ],
+      "flag": "release metadata only",
+      "rollback": "Preserve release evidence and attribution; revert code only with compatible documented flags."
+    },
+    {
+      "id": "F34.3",
+      "group": "F34",
+      "path": "docs/platform/operations.md",
+      "change": "new",
+      "dependencies": [
+        "F32",
+        "F33"
+      ],
+      "expected_behavior": "Credential/MFA management, backups, key anchors, drain/revoke/rollback and Windows/Linux optional backend instructions.",
+      "tests": [
+        "tests/test_platform_release.py"
+      ],
+      "flag": "release metadata only",
+      "rollback": "Preserve release evidence and attribution; revert code only with compatible documented flags."
+    },
+    {
+      "id": "F34.4",
+      "group": "F34",
+      "path": "docs/platform/benchmark-results.md",
+      "change": "new",
+      "dependencies": [
+        "F32",
+        "F33"
+      ],
+      "expected_behavior": "Actual measured paired results and source/config hashes; retain baseline and failures, never estimates as results.",
+      "tests": [
+        "tests/test_platform_release.py"
+      ],
+      "flag": "release metadata only",
+      "rollback": "Preserve release evidence and attribution; revert code only with compatible documented flags."
+    },
+    {
+      "id": "F35.1",
+      "group": "F35",
+      "path": "agent/openclaw_bridge.py",
+      "change": "new",
+      "dependencies": [
+        "F10",
+        "F03"
+      ],
+      "expected_behavior": "Deferred narrow read-only status/metadata bridge with pinned negotiated protocol, scope filtering and explicit credentials; not full compatibility.",
+      "tests": [
+        "tests/test_platform_openclaw_bridge.py",
+        "tests/integration/test_platform_openclaw_bridge.py"
+      ],
+      "flag": "platform_openclaw_bridge_enabled",
+      "rollback": "Disable bridge; revoke sidecar credentials; native operation remains independent."
+    }
+  ]
+}

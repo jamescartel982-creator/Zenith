@@ -70,7 +70,7 @@ class Agent:
         messages.append({'role':'user','content':text})
         return messages,sources
 
-    def stream_answer(self,text,session_id,user_id=None,response_mode=None,skill=None,reply_style=None,login_token=None):
+    def stream_answer(self,text,session_id,user_id=None,response_mode=None,skill=None,reply_style=None,login_token=None,privacy_filter=None):
         from .assurance import normalize_input,direct_answer,assurance,calibrated_assurance
         from .skills import skill_instruction
         from .skill_access import parse_skill_command
@@ -97,6 +97,8 @@ class Agent:
                 yield {'type':'start','response_mode':mode,'skill':skill,'reply_style':plan.requested_style,'output_token_limit':plan.max_new_tokens}
                 if restricted:self.skills.require(skill,user_id,login_token)
                 messages,sources=self._messages(text,session_id,user_id,instruction,plan)
+                if privacy_filter:
+                    messages=privacy_filter(messages);sources=privacy_filter(sources)
                 if self.settings.provider == 'reasoning':self.provider.set_sources(sources)
                 direct=direct_answer(text,fast=mode=='fast')
                 quality=calibrated_assurance(self.settings,assurance(text,method=direct['method'] if direct else 'model',
@@ -118,6 +120,7 @@ class Agent:
                         provider_stream=iter([(response,used)])
                     try:
                         for chunk,used in provider_stream:
+                            if lease.cancel.is_set():return
                             if restricted:self.skills.require(skill,user_id,login_token)
                             if not isinstance(chunk,str):raise RuntimeError('The model returned invalid text')
                             if not chunk:continue
@@ -129,9 +132,12 @@ class Agent:
                         lease.cancel.set()
                         if callable(getattr(provider_stream,'close',None)):provider_stream.close()
                 response=''.join(pieces).strip()
+                if privacy_filter:
+                    response=privacy_filter(response);used=privacy_filter(used)
                 if not response:raise RuntimeError('The model returned an empty answer')
                 trace=None if direct else getattr(self.provider,'last_deliberation',None)
                 if not isinstance(trace,dict):trace=None
+                if privacy_filter and trace:trace=privacy_filter(trace)
                 label=getattr(self.provider,'last_model_label',None)
                 model='Zenith built-in checks' if direct else label if isinstance(label,str) and label else self.settings.model_name
                 usage={'input_tokens':0,'output_tokens':0,'total_tokens':0,'model_calls':0,'source':'model-not-called','finish_reason':'stop'} if direct else reported_usage(getattr(self.provider,'last_usage',None))

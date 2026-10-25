@@ -10,8 +10,8 @@
     },
     {
       "path": ".env.example",
-      "size": 3200,
-      "sha256": "3926f7a0c50773f95a6c69f821ec24fb0718b2e2ddbce4a6185be5f1c9bb1387",
+      "size": 3536,
+      "sha256": "22fa5a8dfbd79ab8d98e7d8dc38fa33974e7d707a4863e758c7f7d34d2488198",
       "normalization": "lf"
     },
     {
@@ -28,8 +28,8 @@
     },
     {
       "path": ".github/workflows/tests.yml",
-      "size": 7151,
-      "sha256": "050ebd06f88927c9ff23825f54967e3d3007f8d1be9f40166dcb1ea80f5185bb",
+      "size": 7599,
+      "sha256": "b56b8626bee475a7e0697b29e140161a9bccd3800518ad16bdd71db3434cad13",
       "normalization": "lf"
     },
     {
@@ -70,14 +70,20 @@
     },
     {
       "path": "README.md",
-      "size": 11556,
-      "sha256": "24ea87df8ed10e16da8dba9a46d32fb79b6ed125ce3bae5070e8f2cf8b58358f",
+      "size": 12112,
+      "sha256": "9ff22815d0f168b7c7b816e1998e240d5e7d8311fe3a7d2a646934469767cfd1",
       "normalization": "lf"
     },
     {
       "path": "Start Zenith.cmd",
       "size": 471,
       "sha256": "7e92e89955fcba401f826c441ee90b6acbfdc55f82501fdf854e7841c4618417",
+      "normalization": "lf"
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.md",
+      "size": 1241,
+      "sha256": "6262f1e14f4b03644e2857f732cbb8ede956ff671a49ea5f641d809dce14055a",
       "normalization": "lf"
     },
     {
@@ -111,9 +117,21 @@
       "normalization": "lf"
     },
     {
+      "path": "agent/approvals.py",
+      "size": 4680,
+      "sha256": "263599170e5a99b8107c144ec5ee4390c7f2b0df93a991bf94785304cc8616fd",
+      "normalization": "lf"
+    },
+    {
       "path": "agent/assurance.py",
       "size": 5635,
       "sha256": "05d329e5758a842181663075365ddeec3707092c83eb8561d32044b792ed73d1",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/audit_chain.py",
+      "size": 4171,
+      "sha256": "918c08b6f71042c758af2a6d4495784aa8e49503302c15c511b1994fff9bde6e",
       "normalization": "lf"
     },
     {
@@ -178,8 +196,8 @@
     },
     {
       "path": "agent/config.py",
-      "size": 6440,
-      "sha256": "82fd899d9ee486b9364be67188d824af7df8ad74feee172afbe34eb0082eb0fa",
+      "size": 6720,
+      "sha256": "3b6183f9c70d4d1d8b5c5c8c5002f9cbdd7bd42d9371bf7a2d542e2e5e889e19",
       "normalization": "lf"
     },
     {
@@ -190,8 +208,8 @@
     },
     {
       "path": "agent/core.py",
-      "size": 11601,
-      "sha256": "50556e9bf1147bc4dd7bd665ecd2d2b386000054e480f88e50e17fa9d9ac9897",
+      "size": 11989,
+      "sha256": "f787d1c70053ec20a878a2d5822ddb9038763af961e2b58e3db589874bb7a66e",
       "normalization": "lf"
     },
     {
@@ -231,6 +249,12 @@
       "normalization": "lf"
     },
     {
+      "path": "agent/evaluation/platform-v1.json",
+      "size": 692,
+      "sha256": "ed3260099f0513f3e63e4f0be35e0b13a67234d1a9520abf1da5cd18fea3dcf4",
+      "normalization": "lf"
+    },
+    {
       "path": "agent/evaluation/reasoning-v1.json",
       "size": 525,
       "sha256": "07b366ccd0afee5a649bec2720ce57c8d8a2a5d81cf48da1b95903c595023d6a",
@@ -243,9 +267,15 @@
       "normalization": "lf"
     },
     {
+      "path": "agent/event_bus.py",
+      "size": 2526,
+      "sha256": "51983d3360762e18b6710b4b9c4ea696ca28be9c5e2fe5e735a3f2145274a718",
+      "normalization": "lf"
+    },
+    {
       "path": "agent/execution.py",
-      "size": 11764,
-      "sha256": "cf3720341fc7e09c017b7c5e8ca0c65835df9619211ba38ed58a86fb3c82e677",
+      "size": 13522,
+      "sha256": "c54003e026cb998e8d288975e597bc574d4f4d88b52d5b7ec69eeae18304c799",
       "normalization": "lf"
     },
     {
@@ -258,6 +288,12 @@
       "path": "agent/export_checkpoint.py",
       "size": 3406,
       "sha256": "9907512c639b124d9849826f69dcca9dbc8650501f5d441106a6702d2a548604",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/gateway.py",
+      "size": 6922,
+      "sha256": "65e0f4c7d60a511deffc6d491346db9375f0c5e078bec2d89f96482cd0934a57",
       "normalization": "lf"
     },
     {
@@ -345,6 +381,12 @@
       "normalization": "lf"
     },
     {
+      "path": "agent/permissions.py",
+      "size": 3220,
+      "sha256": "b1e929ba35a17b7b945da53315149f1f5dd82ff9ebb226f1f5ef531bef862d1e",
+      "normalization": "lf"
+    },
+    {
       "path": "agent/personal.py",
       "size": 10328,
       "sha256": "032d1fd6969cfbf379a37369b51b87e11df36af90da13161d1f6342cc13d4cab",
@@ -354,6 +396,24 @@
       "path": "agent/planning.py",
       "size": 3228,
       "sha256": "0be687e2534d4f323fd3b6d6c32b4aaf4b1d0f17ad7dcf29c5a7f20257796cb6",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/platform_config.py",
+      "size": 2516,
+      "sha256": "c5177d488383de1fec797b22b4b43c087c081faea62634ba01eea33d1bb76a43",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/platform_migrations.py",
+      "size": 3651,
+      "sha256": "2f2634ed1e8b133f6180f2c527ca747945f954b02d93a37c523057f96d1bc46d",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/platform_repository.py",
+      "size": 1867,
+      "sha256": "0478f58b34906746e86d334a4312a59eee916f1799acb27450d89575cf382d46",
       "normalization": "lf"
     },
     {
@@ -411,6 +471,12 @@
       "normalization": "lf"
     },
     {
+      "path": "agent/redaction.py",
+      "size": 1244,
+      "sha256": "5ef82f1ee664b90e1682333fe00ec675ec0b2af5afabf84c62d963fe43f0e696",
+      "normalization": "lf"
+    },
+    {
       "path": "agent/registry.py",
       "size": 5608,
       "sha256": "0184783f69b3f5d9af7be93c7141db54b480cb77299efeccac061c89eb3a65b7",
@@ -459,9 +525,15 @@
       "normalization": "lf"
     },
     {
+      "path": "agent/runtime.py",
+      "size": 13500,
+      "sha256": "0c737e649082207280a540717e1853d4c965ab54d9af42c6ac6a8b3bf66ceb22",
+      "normalization": "lf"
+    },
+    {
       "path": "agent/server.py",
-      "size": 31219,
-      "sha256": "6621026f1638cdc3c64e5b25207960408478a28b774642ec34df808ac90f4f70",
+      "size": 31380,
+      "sha256": "7523376ea712d04ac27106127a3abdb5c036741e878bb58eac063934d73ae7c9",
       "normalization": "lf"
     },
     {
@@ -507,9 +579,27 @@
       "normalization": "lf"
     },
     {
+      "path": "agent/task_store.py",
+      "size": 8987,
+      "sha256": "c89ce5fbbab107580423934209c85b67ab0d4c973242485ee65e9737045d765e",
+      "normalization": "lf"
+    },
+    {
       "path": "agent/tiny.py",
       "size": 4544,
       "sha256": "0a03f50c99706d545559f07c33ac710ada40b2d06e8f015c89e359840a620389",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/tool_protocol.py",
+      "size": 2222,
+      "sha256": "4b5384e5c9707e2da6004bce623f85aa238c09f1eafefe262850b418bf7ae2f8",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/tool_registry.py",
+      "size": 1361,
+      "sha256": "a9d2f9f5fbda3ca9e7f3ea17f4665d90bd7636b46538aa01118aa4c75a2fcd11",
       "normalization": "lf"
     },
     {
@@ -1347,6 +1437,126 @@
       "normalization": "lf"
     },
     {
+      "path": "docs/openclaw-audit/README.md",
+      "size": 1766,
+      "sha256": "33542b4f09befba6747035c888deaa104afa74a1cb290c27b339f4cffe54b0ed",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/openclaw-audit/evidence/delivery-validation.json",
+      "size": 357,
+      "sha256": "fe8e33994ade6289f0eaa598dee747233ec5b325fec804e0bb5aa81225319cc2",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/openclaw-audit/evidence/implementation-plan.json",
+      "size": 45820,
+      "sha256": "633cd88f8218d4f87aa566b9ab2a02f5f67ec31bb5c0eb02791e21ec526d16ac",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/openclaw-audit/evidence/openclaw-inventory-summary.json",
+      "size": 5488,
+      "sha256": "95e1db316d1be81bb6fabd0035926d3f5e62c6710da3cfce5cadf23c61208203",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/openclaw-audit/evidence/openclaw-license-inventory.json",
+      "size": 37545,
+      "sha256": "e6c1d34d64ebf0ee70b2558ecb0f3de2adaee3373dbb196a204c3eea0902d6de",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/openclaw-audit/evidence/openclaw-package-summary.json",
+      "size": 5492,
+      "sha256": "e259596ada380409a137a9bb8f81087bad5a52b3d7592a3887af007fd83c0217",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/openclaw-audit/evidence/protection-verification.json",
+      "size": 812,
+      "sha256": "486602b8aa410a2af400f78d37b599eedc5a023b93772e55a6d5e518b417b7d8",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/openclaw-audit/evidence/source-citations.json",
+      "size": 37177,
+      "sha256": "7bbd89d2d119154dfcebb5ba3965937d369f2f52798177ace6ea59bad7a26afc",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/openclaw-audit/evidence/zenith-baseline-inference.json",
+      "size": 4724,
+      "sha256": "bcae028e0dd0c86870cd78a776aaa148150d495a32b7034207d5a5a478ce4ff4",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/openclaw-audit/evidence/zenith-baseline-tests.log",
+      "size": 39192,
+      "sha256": "b1715fa9e5aab2e54f383674c87c1688d794b0e6e25ff9ba86e445ca7c24a422",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/openclaw-audit/evidence/zenith-main-inventory-summary.json",
+      "size": 1605,
+      "sha256": "aa8c0bd386d5b4e66fa60bcc82606c0012c759315283ae756a5d173613689213",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/openclaw-audit/evidence/zenith-model-verification.json",
+      "size": 3780,
+      "sha256": "24fe1d4acf23488a8cf243be274a4f35508c3595e78c85151312904edfbc58c4",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/openclaw-audit/reports/BENCHMARK_PLAN.md",
+      "size": 12228,
+      "sha256": "14432d9d1117a4de4bd68f5580b0150a6d662508cf0ad678fee83eb6597434af",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/openclaw-audit/reports/CAPABILITY_GAP_MATRIX.md",
+      "size": 11835,
+      "sha256": "1d363165c94bc2eed658b23b72338d900d3fd8c3ed27fbaee7c097cd8646be78",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/openclaw-audit/reports/FILE_BY_FILE_IMPLEMENTATION_PLAN.md",
+      "size": 27961,
+      "sha256": "7d2acb12015438af3a8572381882f9148a23e1866e1dff6b71a4606c34fd1c50",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/openclaw-audit/reports/IMPLEMENTATION_ROADMAP.md",
+      "size": 11433,
+      "sha256": "205f80a8974fa9258d3b50e6ec7c5635f5f1cadbc4044a9f42b42e5c98c59558",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/openclaw-audit/reports/OPENCLAW_REVERSE_ENGINEERING.md",
+      "size": 26962,
+      "sha256": "4d0670f6927ae86b703db5271cd2cdaa2f6e7add0a9e77a86fb886c00b958299",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/openclaw-audit/reports/SECURITY_THREAT_MODEL.md",
+      "size": 13572,
+      "sha256": "f45f7311beea63718b4cc10025ad38d3713189476eabb6d68a68de09c3a70961",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/openclaw-audit/reports/ZENITH_CURRENT_ARCHITECTURE.md",
+      "size": 14336,
+      "sha256": "4d7d1ded74f797cda2a3392dcd7915b0b884faa6664660bc0f92a269c67c3b02",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/openclaw-audit/reports/ZENITH_INTEGRATION_ARCHITECTURE.md",
+      "size": 14376,
+      "sha256": "c239cc397d8ea12da079d5786b2ceaa07167c22c0addd2240353f8138fdf7b56",
+      "normalization": "lf"
+    },
+    {
       "path": "docs/platform-audit/README.md",
       "size": 6545,
       "sha256": "f83bbf984d947ed429adf6b0c8d63e81d51aa31f753bde003f7bfe79939c09f4",
@@ -1386,6 +1596,60 @@
       "path": "docs/platform-models.md",
       "size": 12669,
       "sha256": "230be81ca321ac81133f8b8c0ee81eaa2796875128ebf4d071a6e6c818776cfc",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/platform/architecture.md",
+      "size": 6466,
+      "sha256": "8c2490b477ca676c26d199cf289c7b4c2ba34878bf0de7c28c656055e1a89eb0",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/platform/base-protection.json",
+      "size": 942,
+      "sha256": "f006c5d2d658922efe159df5653775e211d8923f84e684999681007394a0fc05",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/platform/benchmark-results.md",
+      "size": 5240,
+      "sha256": "39c42eacd49aa34d6531b8b195982711947eb072f37d3f5ddb43417cc3c2484e",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/platform/bundle-smoke.json",
+      "size": 3044,
+      "sha256": "cca22f79a7735ac55f808e854a404c5c192ff8a2e232097f1b4f92d4cc252e2a",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/platform/http-smoke.json",
+      "size": 145,
+      "sha256": "0e64e400ff2505f768af2b1c0655acfb7146e2dc0a1cf4ac48c61b38d3b07ac7",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/platform/native-smoke.json",
+      "size": 6212,
+      "sha256": "6d97f7a0c44ed209593ce6aecbd0c101d45c938c66f5c127087a5d154b46916d",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/platform/operations.md",
+      "size": 7153,
+      "sha256": "81eedf238b41ca8e60c23382dd71d7dc39431539593707f29652048d54965e6e",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/platform/package-smoke.json",
+      "size": 562,
+      "sha256": "95fcfd89564faebe35e80b6ec9e2268e2fa73a78d0d51f689e75ac066173b957",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/platform/tests.log",
+      "size": 45471,
+      "sha256": "b41fac7fc293611847f75163934dfd4bf5ccb26f5552505af647cb6afbc4435e",
       "normalization": "lf"
     },
     {
@@ -1440,6 +1704,30 @@
       "path": "docs/training-roadmap.md",
       "size": 3153,
       "sha256": "e3a8e7651f7cf42946c6720dcd57bb937e4979c7c03948aba5e21e2dd44aa82b",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/unified-platform/integration-http.json",
+      "size": 145,
+      "sha256": "0e64e400ff2505f768af2b1c0655acfb7146e2dc0a1cf4ac48c61b38d3b07ac7",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/unified-platform/integration-native.json",
+      "size": 4730,
+      "sha256": "e244088547b008fe85e2bc9b8a6e8d60a75b5bc1ef4f72aa73e17618fb9dea3e",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/unified-platform/integration-tests.log",
+      "size": 48589,
+      "sha256": "ec9d3bc3079959fb0cca3eaf0aa9d61417284c8c8d3b39eea05bbc6af85398c8",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/unified-platform/integration-validation.md",
+      "size": 1209,
+      "sha256": "5e4b6adf8463e72670d1af56cb68c07a66b79446f36c87453060b5fe34943783",
       "normalization": "lf"
     },
     {
@@ -1737,6 +2025,18 @@
       "normalization": "lf"
     },
     {
+      "path": "scripts/platform_benchmark.py",
+      "size": 8621,
+      "sha256": "ddab90a462d8a5348a0371daefaf47f722e752420a40cdea0796aca6859834a1",
+      "normalization": "lf"
+    },
+    {
+      "path": "scripts/platform_protection.py",
+      "size": 3108,
+      "sha256": "cbd2bfd46a438d4dc65c88860bc4bd5dd6794e05194eb68df803edd7e4c329d0",
+      "normalization": "lf"
+    },
+    {
       "path": "scripts/prepare_expansion_curriculum.py",
       "size": 25681,
       "sha256": "b0fb7c431474bf5556343befd780a1fe9dbacd24ee244c08bb22e4f32311c9dc",
@@ -1830,6 +2130,12 @@
       "path": "scripts/smoke_orchestration.py",
       "size": 4440,
       "sha256": "5fc0ae6d9c68e18692f33099cd634457f8480dfaa2112b812d66f9744e14b037",
+      "normalization": "lf"
+    },
+    {
+      "path": "scripts/smoke_platform.py",
+      "size": 3689,
+      "sha256": "f8e6bdbb3a77595b225b3069c8c36a70c3c7bf15f37dc37faa9eb66d17bf5fc6",
       "normalization": "lf"
     },
     {
@@ -1968,6 +2274,30 @@
       "path": "tests/test_personal.py",
       "size": 8235,
       "sha256": "946b2dbde17a4dd4c974ceb9df6dcbe67fea87b411e9b0030b28bad68262b932",
+      "normalization": "lf"
+    },
+    {
+      "path": "tests/test_platform_benchmark.py",
+      "size": 2226,
+      "sha256": "9967b78eef1ad01ffae40590d95af3bb7c527c6ff34672e38858e593905448bc",
+      "normalization": "lf"
+    },
+    {
+      "path": "tests/test_platform_foundation.py",
+      "size": 10792,
+      "sha256": "fc0b674bffec6a2f723a5850d623c24280b4fb8988bd5b79d0d38cfc9e72f00b",
+      "normalization": "lf"
+    },
+    {
+      "path": "tests/test_platform_runtime.py",
+      "size": 14947,
+      "sha256": "8e8245b4241702223a60d7f3fb150f6b967f06922d9e14703625aab68df1711f",
+      "normalization": "lf"
+    },
+    {
+      "path": "tests/test_platform_tasks.py",
+      "size": 7968,
+      "sha256": "8c99bcdc11ae5c8c9e0fc0cf13227b8349e1a44e0c630ca02f608c568aa25a33",
       "normalization": "lf"
     },
     {

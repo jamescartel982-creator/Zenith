@@ -1,0 +1,11 @@
+{
+  "wheel": "zenith_local-0.15.0-py3-none-any.whl",
+  "wheel_sha256": "2e99fa6d5c6c57bcf83d45f25b1b5bae31846dc00a370b904d8be801016fb683",
+  "installation": "pip --no-deps --target, imported with isolated interpreter outside checkout; dependencies reused from existing environment",
+  "installed_file_integrity_passed": true,
+  "hashed_files_checked": 131,
+  "unhashed_metadata_or_generated_files": 106,
+  "supervised_task_completed": true,
+  "actual_model_calls_for_package_smoke": 0,
+  "windows_installation": "not run locally; covered by updated CI matrix"
+}

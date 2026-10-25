@@ -44,6 +44,9 @@ class Settings:
     reasoning_effort: str = field(default_factory=lambda: os.getenv('ZENITH_REASONING_EFFORT', 'standard'))
     allow_external: bool = field(default_factory=lambda: os.getenv('ZENITH_ALLOW_EXTERNAL', '').lower() in {'1', 'true', 'yes'})
 
+    # Appended to preserve old positional callers and all native inference defaults.
+    platform: 'PlatformConfig' = field(default_factory=lambda: _platform_config())
+
     def __post_init__(self):
         from .task_router import MODES
         if self.orchestration_mode not in MODES or self.reasoning_effort not in {'fast', 'standard', 'deep', 'research'}:
@@ -86,3 +89,8 @@ class Settings:
         if self.provider == "ensemble":
             return "Zenith model team"
         return self.ollama_model if self.provider == "ollama" else self.tiny_checkpoint if self.provider == "tiny" else self.model
+
+
+def _platform_config():
+    from .platform_config import PlatformConfig
+    return PlatformConfig.from_env()

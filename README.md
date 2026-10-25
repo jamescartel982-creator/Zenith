@@ -109,6 +109,15 @@ The native-first [model registry and orchestrator](docs/platform-models.md) exte
 ## Optional bounded reasoning
 
 Use `zenith reason "Explain this problem." --effort standard`, or explicitly choose Fast, Deep or Research effort. The [reasoning guide](docs/reasoning/README.md) describes candidate generation, separate review, exact arithmetic checks and owner-authorized restricted numeric code tests. All passes share a bounded budget; weights and existing installation settings are preserved. See [actual diagnostic results](docs/reasoning/native-diagnostics.json); the small native model does not reliably produce structured reviews, and no general quality or speed improvement is claimed.
+## Optional supervised tasks
+
+The optional [supervised task pilot](docs/platform/operations.md) adds authenticated
+queued local chat, fixed diagnostic plans, exact-action network approvals, durable
+task events and audit verification. It is disabled by default and preserves the
+existing installation, provider, weights, tokenizer and data. See its
+[implementation boundaries](docs/platform/architecture.md) and
+[measured results](docs/platform/benchmark-results.md); autonomous tools, plugins
+and browser/channel automation are not included in this stage.
 
 ## Verify and update
 
