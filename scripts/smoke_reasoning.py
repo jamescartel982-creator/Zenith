@@ -37,7 +37,7 @@ def check():
             'baseline_ms':round(original_ms,3),'reasoning':trace,'usage':result.usage})
     if previous is not None and inventory(settings.adapter)!=previous:raise AssertionError('Original checkpoint changed')
     if (profile.read_bytes() if profile.exists() else None)!=profile_bytes:raise AssertionError('Saved profile changed')
-    return {'schema_version':1,'suite_sha256':hashlib.sha256(suite_bytes).hexdigest(),'model':settings.model,'revision':settings.revision,
+    report = {'schema_version':1,'suite_sha256':hashlib.sha256(suite_bytes).hexdigest(),'model':settings.model,'revision':settings.revision,
         'adapter_sha256':previous['adapter_model.safetensors']['sha256'] if previous else None,'device':str(provider.model.device),
         'cold_load_seconds':round(cold,3),'configuration':{'temperature':0,'max_output_tokens':64,'cpu_threads':settings.cpu_threads,'reasoning_effort':'standard'},
         'baseline_correct':sum(r['baseline_passed'] for r in rows),'reasoning_correct':sum(r['reasoning_passed'] for r in rows),'cases':len(rows),
@@ -46,6 +46,9 @@ def check():
             'One sample per task/path; no statistically supported performance gain is claimed.',
             'Arithmetic constraints and model-review tokens are harness costs, not additional model training.',
             'No GPU, paid API, TTFT, calibrated confidence or general Python sandbox results are claimed.']}
+    report['configuration_sha256']=hashlib.sha256(json.dumps({'settings':report['configuration'],'model':report['model'],
+        'revision':report['revision'],'adapter_sha256':report['adapter_sha256'],'suite_sha256':report['suite_sha256']},sort_keys=True).encode()).hexdigest()
+    return report
 
 
 def main():

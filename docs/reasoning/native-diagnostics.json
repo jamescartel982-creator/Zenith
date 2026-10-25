@@ -1,0 +1,363 @@
+{
+  "schema_version": 1,
+  "suite_sha256": "07b366ccd0afee5a649bec2720ce57c8d8a2a5d81cf48da1b95903c595023d6a",
+  "model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "adapter_sha256": "7e0701900b40109ee81b3dc097985cda360409006c8b717bda51830f3b6ed85d",
+  "device": "cpu",
+  "cold_load_seconds": 7.634,
+  "configuration": {
+    "temperature": 0,
+    "max_output_tokens": 64,
+    "cpu_threads": 3,
+    "reasoning_effort": "standard"
+  },
+  "baseline_correct": 2,
+  "reasoning_correct": 2,
+  "cases": 3,
+  "results": [
+    {
+      "id": "addition",
+      "expected": "4",
+      "baseline_response": "4",
+      "reasoning_response": "4",
+      "baseline_passed": true,
+      "reasoning_passed": true,
+      "baseline_ms": 872.921,
+      "reasoning": {
+        "mode": "reasoning",
+        "effort": "standard",
+        "schedule": {
+          "max_calls": 4,
+          "candidates": 1,
+          "plan": false,
+          "review": true,
+          "correction_rounds": 1,
+          "complex_task": false,
+          "output_tokens": 64
+        },
+        "plan": null,
+        "members": [
+          {
+            "id": "huggingface:Qwen/Qwen2.5-0.5B-Instruct",
+            "provider": "huggingface",
+            "model": "Qwen/Qwen2.5-0.5B-Instruct",
+            "stage": "candidate",
+            "attempt": 1,
+            "status": "ok",
+            "latency_ms": 568.91,
+            "usage": {
+              "input_tokens": 37,
+              "output_tokens": 2,
+              "total_tokens": 39,
+              "source": "model-tokenizer",
+              "model_calls": 1,
+              "finish_reason": "stop"
+            },
+            "routing_stage": "draft"
+          },
+          {
+            "id": "huggingface:Qwen/Qwen2.5-0.5B-Instruct",
+            "provider": "huggingface",
+            "model": "Qwen/Qwen2.5-0.5B-Instruct",
+            "stage": "review",
+            "attempt": 1,
+            "status": "ok",
+            "latency_ms": 5856.17,
+            "usage": {
+              "input_tokens": 200,
+              "output_tokens": 29,
+              "total_tokens": 229,
+              "source": "model-tokenizer",
+              "model_calls": 1,
+              "finish_reason": "stop"
+            },
+            "routing_stage": "draft"
+          }
+        ],
+        "calls": 2,
+        "candidate_count": 1,
+        "correction_selected": false,
+        "abstained": false,
+        "verification": {
+          "status": "unverified",
+          "checks": [
+            {
+              "status": "passed",
+              "kind": "exact-arithmetic",
+              "expected": "4",
+              "issue": null
+            }
+          ],
+          "review": {
+            "status": "unverified",
+            "issues": [
+              "Reviewer did not return valid structured feedback"
+            ],
+            "calibrated_confidence": null,
+            "reviewer": "huggingface:Qwen/Qwen2.5-0.5B-Instruct"
+          },
+          "calibrated_confidence": null
+        },
+        "uncertainty": "Checks cover only declared constraints; model review and citation membership do not establish general factual truth.",
+        "answer_member": "huggingface:Qwen/Qwen2.5-0.5B-Instruct",
+        "answer_stage": "candidate",
+        "elapsed_ms": 6426.649,
+        "training_eligible": true,
+        "estimated_provider_cost_usd": 0.0,
+        "models_merged": false
+      },
+      "usage": {
+        "model_calls": 2,
+        "reported_calls": 2,
+        "source": "sum-of-provider-reports",
+        "finish_reason": "stop",
+        "input_tokens": 237,
+        "output_tokens": 31,
+        "total_tokens": 268
+      }
+    },
+    {
+      "id": "fraction",
+      "expected": "0.75",
+      "baseline_response": "0.75",
+      "reasoning_response": "0.75",
+      "baseline_passed": true,
+      "reasoning_passed": true,
+      "baseline_ms": 1405.501,
+      "reasoning": {
+        "mode": "reasoning",
+        "effort": "standard",
+        "schedule": {
+          "max_calls": 4,
+          "candidates": 1,
+          "plan": false,
+          "review": true,
+          "correction_rounds": 1,
+          "complex_task": false,
+          "output_tokens": 64
+        },
+        "plan": null,
+        "members": [
+          {
+            "id": "huggingface:Qwen/Qwen2.5-0.5B-Instruct",
+            "provider": "huggingface",
+            "model": "Qwen/Qwen2.5-0.5B-Instruct",
+            "stage": "candidate",
+            "attempt": 1,
+            "status": "ok",
+            "latency_ms": 1081.88,
+            "usage": {
+              "input_tokens": 38,
+              "output_tokens": 5,
+              "total_tokens": 43,
+              "source": "model-tokenizer",
+              "model_calls": 1,
+              "finish_reason": "stop"
+            },
+            "routing_stage": "draft"
+          },
+          {
+            "id": "huggingface:Qwen/Qwen2.5-0.5B-Instruct",
+            "provider": "huggingface",
+            "model": "Qwen/Qwen2.5-0.5B-Instruct",
+            "stage": "review",
+            "attempt": 1,
+            "status": "ok",
+            "latency_ms": 5368.11,
+            "usage": {
+              "input_tokens": 204,
+              "output_tokens": 26,
+              "total_tokens": 230,
+              "source": "model-tokenizer",
+              "model_calls": 1,
+              "finish_reason": "stop"
+            },
+            "routing_stage": "draft"
+          },
+          {
+            "id": "huggingface:Qwen/Qwen2.5-0.5B-Instruct",
+            "provider": "huggingface",
+            "model": "Qwen/Qwen2.5-0.5B-Instruct",
+            "stage": "correction",
+            "attempt": 1,
+            "status": "ok",
+            "latency_ms": 1937.4,
+            "usage": {
+              "input_tokens": 191,
+              "output_tokens": 5,
+              "total_tokens": 196,
+              "source": "model-tokenizer",
+              "model_calls": 1,
+              "finish_reason": "stop"
+            },
+            "routing_stage": "draft"
+          },
+          {
+            "id": "huggingface:Qwen/Qwen2.5-0.5B-Instruct",
+            "provider": "huggingface",
+            "model": "Qwen/Qwen2.5-0.5B-Instruct",
+            "stage": "correction_review",
+            "attempt": 1,
+            "status": "ok",
+            "latency_ms": 5611.51,
+            "usage": {
+              "input_tokens": 204,
+              "output_tokens": 26,
+              "total_tokens": 230,
+              "source": "model-tokenizer",
+              "model_calls": 1,
+              "finish_reason": "stop"
+            },
+            "routing_stage": "draft"
+          }
+        ],
+        "calls": 4,
+        "candidate_count": 1,
+        "correction_selected": true,
+        "abstained": false,
+        "verification": {
+          "status": "unverified",
+          "checks": [
+            {
+              "status": "passed",
+              "kind": "exact-arithmetic",
+              "expected": "0.75",
+              "issue": null
+            }
+          ],
+          "review": {
+            "status": "model_review_concerns",
+            "issues": [
+              "The user asked for a decimal value, but the candidate returned an integer."
+            ],
+            "calibrated_confidence": null,
+            "limitations": "Model critique is not an independent factual benchmark or proof.",
+            "reviewer": "huggingface:Qwen/Qwen2.5-0.5B-Instruct"
+          },
+          "calibrated_confidence": null
+        },
+        "uncertainty": "Checks cover only declared constraints; model review and citation membership do not establish general factual truth.",
+        "answer_member": "huggingface:Qwen/Qwen2.5-0.5B-Instruct",
+        "answer_stage": "correction",
+        "elapsed_ms": 14001.91,
+        "training_eligible": true,
+        "estimated_provider_cost_usd": 0.0,
+        "models_merged": false
+      },
+      "usage": {
+        "model_calls": 4,
+        "reported_calls": 4,
+        "source": "sum-of-provider-reports",
+        "finish_reason": "stop",
+        "input_tokens": 637,
+        "output_tokens": 62,
+        "total_tokens": 699
+      }
+    },
+    {
+      "id": "json-format",
+      "expected": "{\"ok\":true}",
+      "baseline_response": "{\"ok\": true}",
+      "reasoning_response": "{\"ok\": true}",
+      "baseline_passed": false,
+      "reasoning_passed": false,
+      "baseline_ms": 1571.346,
+      "reasoning": {
+        "mode": "reasoning",
+        "effort": "standard",
+        "schedule": {
+          "max_calls": 4,
+          "candidates": 1,
+          "plan": false,
+          "review": true,
+          "correction_rounds": 1,
+          "complex_task": false,
+          "output_tokens": 64
+        },
+        "plan": null,
+        "members": [
+          {
+            "id": "huggingface:Qwen/Qwen2.5-0.5B-Instruct",
+            "provider": "huggingface",
+            "model": "Qwen/Qwen2.5-0.5B-Instruct",
+            "stage": "candidate",
+            "attempt": 1,
+            "status": "ok",
+            "latency_ms": 1167.83,
+            "usage": {
+              "input_tokens": 37,
+              "output_tokens": 6,
+              "total_tokens": 43,
+              "source": "model-tokenizer",
+              "model_calls": 1,
+              "finish_reason": "stop"
+            },
+            "routing_stage": "draft"
+          },
+          {
+            "id": "huggingface:Qwen/Qwen2.5-0.5B-Instruct",
+            "provider": "huggingface",
+            "model": "Qwen/Qwen2.5-0.5B-Instruct",
+            "stage": "review",
+            "attempt": 1,
+            "status": "ok",
+            "latency_ms": 4796.6,
+            "usage": {
+              "input_tokens": 205,
+              "output_tokens": 22,
+              "total_tokens": 227,
+              "source": "model-tokenizer",
+              "model_calls": 1,
+              "finish_reason": "stop"
+            },
+            "routing_stage": "draft"
+          }
+        ],
+        "calls": 2,
+        "candidate_count": 1,
+        "correction_selected": false,
+        "abstained": false,
+        "verification": {
+          "status": "unverified",
+          "checks": [],
+          "review": {
+            "status": "unverified",
+            "issues": [
+              "Reviewer did not return valid structured feedback"
+            ],
+            "calibrated_confidence": null,
+            "reviewer": "huggingface:Qwen/Qwen2.5-0.5B-Instruct"
+          },
+          "calibrated_confidence": null
+        },
+        "uncertainty": "Checks cover only declared constraints; model review and citation membership do not establish general factual truth.",
+        "answer_member": "huggingface:Qwen/Qwen2.5-0.5B-Instruct",
+        "answer_stage": "candidate",
+        "elapsed_ms": 5965.122,
+        "training_eligible": true,
+        "estimated_provider_cost_usd": 0.0,
+        "models_merged": false
+      },
+      "usage": {
+        "model_calls": 2,
+        "reported_calls": 2,
+        "source": "sum-of-provider-reports",
+        "finish_reason": "stop",
+        "input_tokens": 242,
+        "output_tokens": 28,
+        "total_tokens": 270
+      }
+    }
+  ],
+  "weights_unchanged": true,
+  "profile_unchanged": true,
+  "external_calls": 0,
+  "limitations": [
+    "Small public authored fixture; not a broad reasoning/coding benchmark or evidence of frontier parity.",
+    "One sample per task/path; no statistically supported performance gain is claimed.",
+    "Arithmetic constraints and model-review tokens are harness costs, not additional model training.",
+    "No GPU, paid API, TTFT, calibrated confidence or general Python sandbox results are claimed."
+  ],
+  "configuration_sha256": "b2192d56304bf35f49153f58c351479082269fcb1c6fe4c0e5dc739c72b48f69"
+}
