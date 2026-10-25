@@ -1,0 +1,45 @@
+{
+  "date": "2026-10-25",
+  "approved_audit": "../unified-audit/snapshot/README.md",
+  "merged_prs": [
+    18,
+    19
+  ],
+  "overall_parity": "PARTIAL",
+  "foundation_weights_changed": false,
+  "default_model_preserved": true,
+  "training_performed": false,
+  "automatic_promotion": false,
+  "this_milestone": {
+    "name": "Ephemeral offline Python execution",
+    "status": "VERIFIED",
+    "acceptance": "See sandbox-smoke.json and validation.md for the exact tested supported environment",
+    "default_enabled": false,
+    "reference_matrix_rows_advanced_but_not_fully_satisfied": [
+      "F00036",
+      "F00037",
+      "F00056",
+      "F00057"
+    ],
+    "scope": "One controlled local Linux Docker daemon, builtin seccomp, cgroup v2, pinned reviewed image, one execution slot per server process",
+    "remaining": "No host workspaces, general shell/Git, remote/network execution, automatic model tool calling or full reference-equivalent backend parity",
+    "verification_limit": "Only the stated finite Linux Docker Python backend and authenticated task contract; overall group/parity remains PARTIAL"
+  },
+  "remaining_groups": {
+    "G01": "PARTIAL: existing owner controls and worker scrubbing; full secret broker/plugins remain",
+    "G02": "PARTIAL: isolated Python verified narrowly; shell/files/Git/workspaces remain",
+    "G03": "NOT STARTED: autonomous typed model/tool loop; existing text/reasoning remains",
+    "G04": "PARTIAL: supervised HTTP/SSE tasks; WebSocket/session expansion remains",
+    "G05": "NOT STARTED: scoped project retrieval expansion; existing memory preserved",
+    "G06": "NOT STARTED: reviewed skill learning expansion; existing training preserved",
+    "G07": "NOT STARTED: plugin/skill/MCP framework",
+    "G08": "NOT STARTED: permission-isolated supervisor/subagents",
+    "G09": "NOT STARTED/BLOCKED: channels require transport-specific access and tests",
+    "G10": "NOT STARTED: schedules/triggers/hooks",
+    "G11": "NOT STARTED/BLOCKED: browser/computer/remote controls",
+    "G12": "NOT STARTED/BLOCKED: media/hardware/service dependencies",
+    "G13": "PARTIAL: existing provider registry; additional provider/research contracts remain",
+    "G14": "NOT STARTED/BLOCKED: new client controls and platform-specific applications",
+    "G15": "PARTIAL: existing install/CI preserved; full platform release/benchmark acceptance remains"
+  }
+}

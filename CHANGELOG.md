@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.17.0 — Reviewed runtime integration and isolated Python
+
+- Merge bounded reasoning and supervised tasks, preserving both CI paths and live session-based numeric verification.
+- Add opt-in ephemeral offline Linux-container Python with owner MFA, capability grants, exact queued approvals, quotas, cancellation, cleanup and no host fallback.
+- Add real Docker/account task acceptance probes to CI and preserve ordinary Windows/Linux installation and native-model inference.
+- Archive the approved unified OpenClaw/Hermes audit and report remaining capabilities without claiming full parity. Original weights, tokenizer, adapter, profiles and legacy data remain unchanged.
+
 ## 0.16.0 — Optional bounded reasoning
 
 - Add Fast/Standard/Deep/Research schedules, short task checklists, independent candidates, separate critique, declared arithmetic/source checks and one bounded correction/recheck cycle.
