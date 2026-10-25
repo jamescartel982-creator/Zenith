@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.15.0 — Optional model registry and native-first orchestration
+
+- Audit the complete tracked source inventory, verify the existing trained adapter and tokenizer, and record the unchanged 208-test baseline.
+- Add trusted provider adapters, exact account model discovery, conservative capability/lifecycle metadata, and explicit external model opt-in.
+- Integrate bounded routing, independent drafts/synthesis, model review, cooperative deadlines, cancellation, fallback and circuit breakers with existing providers.
+- Preserve model provenance and exclude external-output conversations from training export. Keep restricted tool execution behind existing MFA, grants, scope and emergency stop.
+- Preserve the original model, tokenizer, checkpoints, profiles, data and Git-clone installation flow. No retraining, model promotion or later-phase capability is claimed.
+
 ## 0.14.1 — Terminal installation options
 
 - Restore the Git clone, `install.py --mode local`, and terminal-chat launcher instructions as the primary setup flow; keep the standalone bootstrap optional.

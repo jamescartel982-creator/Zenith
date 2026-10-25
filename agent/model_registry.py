@@ -101,9 +101,9 @@ class ModelRegistry:
         return True
 
     def public(self):
-        return {'native_key': self.native_key, 'models': [r.public() for r in self.records.values()],
+        return {'native_key': self.native_key, 'models': [r.public() for r in list(self.records.values())],
                 'families': {p: [{'name': f, 'availability': 'requires exact account-discovered model ID'} for f in families] for p, families in FAMILIES.items()},
-                'discovery': self.discovery_status, 'metrics': self.metrics,
+                'discovery': dict(self.discovery_status), 'metrics': dict(self.metrics),
                 'modality_execution': 'text-only in Phase 1/2; capability metadata does not install a multimodal runtime'}
 
 

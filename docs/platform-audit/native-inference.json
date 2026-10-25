@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "purpose": "Native harness compatibility smoke, not a frontier capability or speed benchmark",
+  "cases_sha256": "0dd80ef5a4a9ac32506b063c7195e585878d21d77663d07d4111a672b1ffa9a6",
+  "model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "adapter_sha256": "7e0701900b40109ee81b3dc097985cda360409006c8b717bda51830f3b6ed85d",
+  "settings": {
+    "temperature": 0,
+    "max_new_tokens": 32,
+    "cpu_threads": 3,
+    "offline": true
+  },
+  "device": "cpu",
+  "cold_load_seconds": 5.526,
+  "results": [
+    {
+      "id": "arithmetic",
+      "prompt": "What is 2 plus 2? Answer with just the digit.",
+      "baseline_response": "4",
+      "routed_response": "4",
+      "exact_match": true,
+      "expected_answer_passed": true,
+      "baseline_ms": 737.847,
+      "routed_ms": 742.87,
+      "usage": {
+        "model_calls": 1,
+        "reported_calls": 1,
+        "source": "sum-of-provider-reports",
+        "finish_reason": "stop",
+        "input_tokens": 43,
+        "output_tokens": 2,
+        "total_tokens": 45
+      },
+      "trace": {
+        "mode": "native",
+        "members": [
+          {
+            "id": "huggingface:Qwen/Qwen2.5-0.5B-Instruct",
+            "provider": "huggingface",
+            "model": "Qwen/Qwen2.5-0.5B-Instruct",
+            "stage": "draft",
+            "attempt": 1,
+            "status": "ok",
+            "latency_ms": 741.33,
+            "usage": {
+              "input_tokens": 43,
+              "output_tokens": 2,
+              "total_tokens": 45,
+              "source": "model-tokenizer",
+              "model_calls": 1,
+              "finish_reason": "stop"
+            }
+          }
+        ],
+        "verification": {
+          "status": "not_requested",
+          "calibrated_confidence": null
+        },
+        "deadline_semantics": "cooperative; checked between I/O reads and generation steps; model loading and blocking I/O can delay cancellation",
+        "external_allowed": false,
+        "estimated_provider_cost_usd": 0.0,
+        "degraded": false,
+        "models_merged": false,
+        "answer_member": "huggingface:Qwen/Qwen2.5-0.5B-Instruct",
+        "answer_stage": "draft",
+        "selected_members": [
+          "huggingface:Qwen/Qwen2.5-0.5B-Instruct"
+        ],
+        "calls": 1,
+        "training_eligible": true
+      }
+    },
+    {
+      "id": "geography",
+      "prompt": "What is the capital of France? Answer with just the city.",
+      "baseline_response": "Paris",
+      "routed_response": "Paris",
+      "exact_match": true,
+      "expected_answer_passed": true,
+      "baseline_ms": 682.508,
+      "routed_ms": 571.788,
+      "usage": {
+        "model_calls": 1,
+        "reported_calls": 1,
+        "source": "sum-of-provider-reports",
+        "finish_reason": "stop",
+        "input_tokens": 42,
+        "output_tokens": 2,
+        "total_tokens": 44
+      },
+      "trace": {
+        "mode": "native",
+        "members": [
+          {
+            "id": "huggingface:Qwen/Qwen2.5-0.5B-Instruct",
+            "provider": "huggingface",
+            "model": "Qwen/Qwen2.5-0.5B-Instruct",
+            "stage": "draft",
+            "attempt": 1,
+            "status": "ok",
+            "latency_ms": 571.58,
+            "usage": {
+              "input_tokens": 42,
+              "output_tokens": 2,
+              "total_tokens": 44,
+              "source": "model-tokenizer",
+              "model_calls": 1,
+              "finish_reason": "stop"
+            }
+          }
+        ],
+        "verification": {
+          "status": "not_requested",
+          "calibrated_confidence": null
+        },
+        "deadline_semantics": "cooperative; checked between I/O reads and generation steps; model loading and blocking I/O can delay cancellation",
+        "external_allowed": false,
+        "estimated_provider_cost_usd": 0.0,
+        "degraded": false,
+        "models_merged": false,
+        "answer_member": "huggingface:Qwen/Qwen2.5-0.5B-Instruct",
+        "answer_stage": "draft",
+        "selected_members": [
+          "huggingface:Qwen/Qwen2.5-0.5B-Instruct"
+        ],
+        "calls": 1,
+        "training_eligible": true
+      }
+    }
+  ],
+  "external_api_calls": 0,
+  "weights_unchanged": true,
+  "profile_unchanged": true,
+  "limitations": [
+    "Two probes do not establish broad quality, instruction following or reasoning accuracy.",
+    "One warm sample per prompt/path; no statistically supported performance improvement is claimed.",
+    "No GPU available; VRAM, GPU utilization, provider pricing and proprietary-model inference were not measured.",
+    "Orchestration buffers complete replies; routed latency is not streaming time to first token."
+  ]
+}

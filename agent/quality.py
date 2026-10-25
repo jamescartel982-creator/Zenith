@@ -29,6 +29,8 @@ def configuration_signature(settings,mode=None,reply_style=None):
     if settings.provider == 'orchestrated':
         import os
         fields.update(orchestration_mode=settings.orchestration_mode, reasoning_effort=settings.reasoning_effort,
+                      native_model=settings.model, native_adapter=settings.adapter, ollama_model=settings.ollama_model,
+                      local_server_model=settings.local_server_model, tiny_checkpoint=settings.tiny_checkpoint,
                       allow_external=settings.allow_external, native_provider=os.getenv('ZENITH_NATIVE_PROVIDER','huggingface'),
                       external_models_sha256=hashlib.sha256(os.getenv('ZENITH_EXTERNAL_MODELS','[]').encode()).hexdigest())
     if settings.team_config:

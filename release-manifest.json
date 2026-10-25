@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "version": "0.14.1",
+  "version": "0.15.0",
   "files": [
     {
       "path": ".dockerignore",
@@ -10,8 +10,8 @@
     },
     {
       "path": ".env.example",
-      "size": 2245,
-      "sha256": "c6636fc12ce9284473877befb88128569f1635c47bc0031e51fb666606ead8b5",
+      "size": 3200,
+      "sha256": "3926f7a0c50773f95a6c69f821ec24fb0718b2e2ddbce4a6185be5f1c9bb1387",
       "normalization": "lf"
     },
     {
@@ -28,8 +28,8 @@
     },
     {
       "path": ".github/workflows/tests.yml",
-      "size": 6699,
-      "sha256": "32f69ad6d32e6d1f42fecb16924d8b87ea0bcd2c73dee4e30296a90130a0410f",
+      "size": 6971,
+      "sha256": "5e29bb10de47683279d9ceaf6698ff03d9968226768ea0a976ebee54cb717885",
       "normalization": "lf"
     },
     {
@@ -46,8 +46,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "size": 13440,
-      "sha256": "adb7acdba45f73ebc7080257b2d5127c5fcb6176a831c0677ee5e8c8db378a8c",
+      "size": 14312,
+      "sha256": "95b36188583bc07d1000b74eb3435d26d335e05f6de7446ae86d32f187370147",
       "normalization": "lf"
     },
     {
@@ -70,8 +70,8 @@
     },
     {
       "path": "README.md",
-      "size": 10405,
-      "sha256": "d27639f32c4ab7ca358185b3b78638f317dc551e67854b58df9217329627e20b",
+      "size": 10945,
+      "sha256": "c73aea31d413313a1ae3e239e520a03f507f86d02a4097208837f769ee72f971",
       "normalization": "lf"
     },
     {
@@ -95,7 +95,7 @@
     {
       "path": "agent/__init__.py",
       "size": 105,
-      "sha256": "c3f80e7591e595fd82edfa9c9bb1311f891691c0a773f4598cc3e319a03ebd52",
+      "sha256": "3e5da0a0441d5abeedffbd15199eb655e2b9e1e30de22c7fbbd979851bd39b92",
       "normalization": "lf"
     },
     {
@@ -172,14 +172,14 @@
     },
     {
       "path": "agent/commands.py",
-      "size": 4365,
-      "sha256": "04f6ead9ed1b177108c6b9be19a7a6de4543cb44289ad0c7fcfb33c1beb7a8fd",
+      "size": 4592,
+      "sha256": "70fe9fe1cec7cc95c7741a9fe0a7e3d6db2b7b9c46f63ad2de6833314f8a63b8",
       "normalization": "lf"
     },
     {
       "path": "agent/config.py",
-      "size": 5625,
-      "sha256": "2ce9cf163c42dfffc5664730390535c2d36b6ae7aee0945a89d4b6f0028ece1a",
+      "size": 6329,
+      "sha256": "b39d468339474bf88b1ff883f13ae28ce908708283a1c47ea9cb765c2aa83e8e",
       "normalization": "lf"
     },
     {
@@ -190,8 +190,8 @@
     },
     {
       "path": "agent/core.py",
-      "size": 11274,
-      "sha256": "8780305340ec37c42717aa7520f8e924d1d003464032a8a6c841005fd20677e3",
+      "size": 11409,
+      "sha256": "dbe29b4dee92a718e17a1258daf5a1b96920d7fadac0ca9376b57aa5aad7bfca",
       "normalization": "lf"
     },
     {
@@ -267,6 +267,18 @@
       "normalization": "lf"
     },
     {
+      "path": "agent/model_capabilities.py",
+      "size": 1775,
+      "sha256": "59bb2cd901ba271f89520be30f8874450bc7410127cafa80e9998ceb17f92791",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/model_federation.py",
+      "size": 693,
+      "sha256": "1b7070e96bbdf847a22e7f690034a9f33399db8f41a91bacb31022310e9080ab",
+      "normalization": "lf"
+    },
+    {
       "path": "agent/model_packs/zenith-27b.json",
       "size": 9654,
       "sha256": "ca533ddbb934287abe26097d75535c942e6d7c7b7f331b226cb97cca288592bf",
@@ -285,15 +297,27 @@
       "normalization": "lf"
     },
     {
+      "path": "agent/model_registry.py",
+      "size": 11129,
+      "sha256": "af493ced8acec84a8b3ce357c45eadfc69b5c5a73decf7b330b9c0a035eb0421",
+      "normalization": "lf"
+    },
+    {
       "path": "agent/models.py",
-      "size": 5813,
-      "sha256": "edfdd42975067ee50c8d9a967078d5903b33fc070a993f5ee9e3bc2904d00e29",
+      "size": 6109,
+      "sha256": "0d598c3048ba8a1dea7d026ef56d81604d7bf580392a3c21a51edd90a2ca905a",
       "normalization": "lf"
     },
     {
       "path": "agent/monitoring.py",
       "size": 9028,
       "sha256": "4f41cb74f86284e92221596f59fcf58f79e33bd8f5e41ccf1e5be205300041ff",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/orchestration.py",
+      "size": 12554,
+      "sha256": "6e17aaeb54ea356607d62c6fd221aa6788760bf3bd0d4e0f134417444e7deb6e",
       "normalization": "lf"
     },
     {
@@ -327,15 +351,45 @@
       "normalization": "lf"
     },
     {
+      "path": "agent/provider_adapters/__init__.py",
+      "size": 86,
+      "sha256": "7b6b201cbf9dc240568a7a6ddc0a6b6e85b1fd605b65ca99f15ccd869572a37d",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/provider_adapters/anthropic_adapter.py",
+      "size": 4558,
+      "sha256": "dfc3cf2d55444127f37179fce953efce3fc0fb910b78067c6d074f45f0d1b261",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/provider_adapters/common.py",
+      "size": 3923,
+      "sha256": "b23a4162a22602ca043ff8b39bdd5d66bd6b2e4eeabe1bddc25bdc261509b450",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/provider_adapters/local_adapter.py",
+      "size": 3909,
+      "sha256": "e2e56cc768eed3e2356a7c48ddd3795c60a85d5618a107d6e27b28954039684a",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/provider_adapters/openai_adapter.py",
+      "size": 3593,
+      "sha256": "1c9c41bdb074b1173c32c1a54d599f28fcc3bad1c40c65e8e4fe158a7b1631a0",
+      "normalization": "lf"
+    },
+    {
       "path": "agent/providers.py",
-      "size": 18135,
-      "sha256": "c2afdb6be908f529edc218114226544b4ca790dd589b20016588a976dbc89779",
+      "size": 18281,
+      "sha256": "a164ab8f51938116d0168d8b7b5ff4aebbd14e574daad7aaff3e7cb3ceada29c",
       "normalization": "lf"
     },
     {
       "path": "agent/quality.py",
-      "size": 13684,
-      "sha256": "27a67e91e9a82644b2f70a642e5ac505042885a547cb14fcbc1cbfd56539ce6d",
+      "size": 14345,
+      "sha256": "6f7266e785500db18ab195f89ee7bb68613b67f220490e4991b9b2cfba100495",
       "normalization": "lf"
     },
     {
@@ -375,6 +429,12 @@
       "normalization": "lf"
     },
     {
+      "path": "agent/response_verifier.py",
+      "size": 1791,
+      "sha256": "1dcc47240fdfbd4a7a13d2c1054c59f7d71ae48d9ff6a14b339c48871d6d3ff3",
+      "normalization": "lf"
+    },
+    {
       "path": "agent/server.py",
       "size": 31219,
       "sha256": "6621026f1638cdc3c64e5b25207960408478a28b774642ec34df808ac90f4f70",
@@ -406,14 +466,20 @@
     },
     {
       "path": "agent/storage.py",
-      "size": 9166,
-      "sha256": "64f9b3f68b20a42b3a189cc1593df352f1e03df07f247a6932d8960a631134bc",
+      "size": 9873,
+      "sha256": "4b0bcef884d12df9edb7c1f07ef16c39ef8647f1208c885081cd801b4d1ee4c1",
       "normalization": "lf"
     },
     {
       "path": "agent/summaries.py",
       "size": 2543,
       "sha256": "e37b1d0d21e2964fc32f28bde86d2825a834d174651ab66387d1d6b7b5f88e79",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/task_router.py",
+      "size": 4180,
+      "sha256": "acd6135c45f39e89d5c0860e9b6dec6893161202a2e1086d1a78e8fed66db1f4",
       "normalization": "lf"
     },
     {
@@ -1251,6 +1317,42 @@
       "normalization": "lf"
     },
     {
+      "path": "docs/platform-audit/README.md",
+      "size": 6545,
+      "sha256": "f83bbf984d947ed429adf6b0c8d63e81d51aa31f753bde003f7bfe79939c09f4",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/platform-audit/baseline.json",
+      "size": 3979,
+      "sha256": "79fbe93fa385dbe9778aa76d7c89008d3f5e8f9cdf9344d2892338ab89696bec",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/platform-audit/native-inference.json",
+      "size": 4723,
+      "sha256": "ac2ce840c5c8161c413bdad0effc945fe16a5f6ed9d9cc239737129959bd458f",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/platform-audit/results.md",
+      "size": 4116,
+      "sha256": "fcac7929f98a2d222e2ad25c89dcc05680f31205e086256621e11ce6c750b8c3",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/platform-audit/source-inventory.json",
+      "size": 177964,
+      "sha256": "86737a3a0b5573dc401120f69d0868928a5c15180b598fc0e3e309f35485f87a",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/platform-models.md",
+      "size": 11974,
+      "sha256": "358b919d32c1c46ff074e9da7750f7396b0ffc6db9b42517438aba99cda3f79c",
+      "normalization": "lf"
+    },
+    {
       "path": "docs/provider-reliability.md",
       "size": 3915,
       "sha256": "8cf8293b3d8ffed1cc330268666ad6eb85b1474894548a098ef187746f13436b",
@@ -1665,6 +1767,12 @@
       "normalization": "lf"
     },
     {
+      "path": "scripts/smoke_orchestration.py",
+      "size": 4440,
+      "sha256": "5fc0ae6d9c68e18692f33099cd634457f8480dfaa2112b812d66f9744e14b037",
+      "normalization": "lf"
+    },
+    {
       "path": "scripts/smoke_quickstart.py",
       "size": 1444,
       "sha256": "511612f56aad95c37ccdf16bef16bb4a9fcd5c3a814752c5a322db64c98b6a32",
@@ -1770,6 +1878,18 @@
       "path": "tests/test_learning.py",
       "size": 4028,
       "sha256": "bec134b420101d6408d16ce62dcafeea742e6e138738f1e683842b44849b0f4f",
+      "normalization": "lf"
+    },
+    {
+      "path": "tests/test_model_registry.py",
+      "size": 9896,
+      "sha256": "ec789463bf0a6d075f1003acab7c08dbabc4838212092117b65a51d3dbd8d1d6",
+      "normalization": "lf"
+    },
+    {
+      "path": "tests/test_orchestration.py",
+      "size": 14496,
+      "sha256": "48401478d0b1156c62adf14a82d45e0616a4029905e4f885f8846d34d55f70dd",
       "normalization": "lf"
     },
     {

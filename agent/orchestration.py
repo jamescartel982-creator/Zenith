@@ -188,7 +188,7 @@ class OrchestratedProvider:
 
     def team_info(self):
         return {'mode': 'orchestrated', 'members': [{'id': r.key, 'name': r.model_id, 'provider': r.provider,
-            'model': r.model_id, 'role': 'general'} for r in self.registry.records.values() if r.routable],
+            'model': r.model_id, 'role': 'general'} for r in list(self.registry.records.values()) if r.routable],
             'synthesizer': None, 'limits': {'max_experts': 2}, 'registry': self.registry.public()}
 
 
