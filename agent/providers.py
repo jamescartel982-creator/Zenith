@@ -337,6 +337,9 @@ class LocalServerProvider:
 
 
 def make_provider(settings):
+    if settings.provider == 'reasoning':
+        from .reasoning import ReasoningProvider
+        return ReasoningProvider(settings)
     if settings.provider == 'orchestrated':
         from .orchestration import OrchestratedProvider
         return OrchestratedProvider(settings)

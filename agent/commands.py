@@ -5,6 +5,7 @@ import sys
 from . import __version__
 
 COMMANDS = {
+    'reason': ('agent.reasoning', 'Run bounded native reasoning with optional exact arithmetic checks'),
     'model-registry': ('agent.model_registry', 'Inspect runtime models or explicitly discover account-visible provider IDs'),
     'route': ('agent.orchestration', 'Run native Zenith or explicitly configured hybrid inference'),
     'chat': ('agent.cli', 'Chat in your terminal'),

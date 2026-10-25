@@ -7,6 +7,7 @@ import ssl
 import time
 
 CAPABILITIES={'calculator':'Bounded exact arithmetic offline','sha256':'Digest pasted text offline','decode-base64':'Decode pasted Base64 offline','code-audit':'Review pasted source offline','inspect-url':'Inspect URL components offline',
+              'verify-python':'Test a bounded numeric Python subset in an isolated interpreter process',
               'tcp-connect':'One TCP connectivity check to an approved host and port',
               'tls-certificate':'Verify one TLS peer certificate in approved network scope'}
 
@@ -129,6 +130,10 @@ class ExecutionControls:
                 from .tools import run_tool
                 self.require(user_id,token,capability)
                 result=run_tool(capability,arguments['text'])
+            elif capability == 'verify-python':
+                from .verification import run_restricted_tests
+                self.require(user_id,token,capability)
+                result=run_restricted_tests(arguments)
             elif capability in {'tcp-connect','tls-certificate'}:
                 if set(arguments)!={'host','port'}:raise ValueError('Supply only host and port')
                 host,port=arguments['host'],arguments['port']
