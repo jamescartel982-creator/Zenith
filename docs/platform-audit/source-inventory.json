@@ -1,0 +1,6101 @@
+{
+  "commit": "2dc28c03227cf5f2b04beea263195133a485193e",
+  "tracked_files": [
+    {
+      "path": ".dockerignore",
+      "bytes": 401,
+      "sha256": "ed5c586d778b578ab6c84bdc65ca78aed054fca0ab8ad3f1b1eb506119c0dadb"
+    },
+    {
+      "path": ".env.example",
+      "bytes": 2245,
+      "sha256": "c6636fc12ce9284473877befb88128569f1635c47bc0031e51fb666606ead8b5"
+    },
+    {
+      "path": ".gitattributes",
+      "bytes": 385,
+      "sha256": "b510c4de6e9389cbe8a07984c97f19f571984a8657e777be425b4fb417b314bc"
+    },
+    {
+      "path": ".github/workflows/evaluation.yml",
+      "bytes": 2110,
+      "sha256": "840740759d8301fe67759d55c7ef2becdf936fe82f629cf7a496d789a835b1d6",
+      "outline": []
+    },
+    {
+      "path": ".github/workflows/tests.yml",
+      "bytes": 6699,
+      "sha256": "32f69ad6d32e6d1f42fecb16924d8b87ea0bcd2c73dee4e30296a90130a0410f",
+      "outline": [
+        "    name: Container package and server",
+        "    name: Tests (${{ matrix.os }}, Python ${{ matrix.python }})",
+        "    name: Native install and inference (${{ matrix.os }})"
+      ]
+    },
+    {
+      "path": ".github/workflows/training.yml",
+      "bytes": 1481,
+      "sha256": "7d14663fb10c75c9da00b259b676bac108a1ac24372981243f6e190cf2152905",
+      "outline": []
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 557,
+      "sha256": "6d6e3cb57ff84d11f2de39e789d2018af29a3d193669b90e906aa191fe856347"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "bytes": 13440,
+      "sha256": "adb7acdba45f73ebc7080257b2d5127c5fcb6176a831c0677ee5e8c8db378a8c",
+      "outline": [
+        "# Changelog",
+        "## 0.14.1 \u2014 Terminal installation options",
+        "## 0.14.0 \u2014 Explicit candidate activation and conventional installation",
+        "## 0.13.0 \u2014 Regression repair and reversible model activation",
+        "## 0.12.1 \u2014 Diagnostic grading and promotion validation",
+        "## 0.12.0 \u2014 Verified continuation and owner execution controls",
+        "## 0.11.1 \u2014 Simple setup and launch",
+        "## 0.11.0 \u2014 Model discovery, pixel identity, and explicit environments",
+        "## 0.10.0",
+        "## 0.9.0",
+        "## 0.8.1",
+        "## 0.8.0",
+        "## 0.7.0",
+        "## 0.6.0",
+        "## 0.5.0",
+        "## 0.4.0 and earlier"
+      ]
+    },
+    {
+      "path": "Dockerfile",
+      "bytes": 1973,
+      "sha256": "bef48c8adecc28b7a6c56f8a772151547bdf09652bb4c8ca2fcf890cb704707c"
+    },
+    {
+      "path": "Install Zenith.cmd",
+      "bytes": 346,
+      "sha256": "c3f3c037360ce99d7055cf13f856932f4c74e3dbc5db6fd428a117a80f873b33"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    {
+      "path": "README.md",
+      "bytes": 10405,
+      "sha256": "d27639f32c4ab7ca358185b3b78638f317dc551e67854b58df9217329627e20b",
+      "outline": [
+        "# Zenith",
+        "## Install",
+        "[installation details](docs/local-installation.md) for updates and other runtimes.",
+        "### Runtime choices",
+        "## Workspace",
+        "## Discover and configure models",
+        "## Verify and update",
+        "## Privacy and administration",
+        "## Continued training and execution controls",
+        "## Development and limitations"
+      ]
+    },
+    {
+      "path": "Start Zenith.cmd",
+      "bytes": 487,
+      "sha256": "aa483f904333b8de1028a68a00ff9fb6e893f1e4ce1197f40cd82f1065ad0ca6"
+    },
+    {
+      "path": "activate.ps1",
+      "bytes": 647,
+      "sha256": "e15d775ce80b007d901df0c52aea02533fccd715010d3be5e917263f7fdde8e7",
+      "outline": [
+        "#requires -Version 5.1",
+        "# Dot-source so activation remains in the current PowerShell session."
+      ]
+    },
+    {
+      "path": "activate.sh",
+      "bytes": 644,
+      "sha256": "c9bdd46c3db81dfe6bf48e09ddeb5fbd05f05444741c498da44191598a077d24",
+      "outline": [
+        "#!/usr/bin/env bash",
+        "# Source this file so activation remains in the current terminal."
+      ]
+    },
+    {
+      "path": "agent/__init__.py",
+      "bytes": 105,
+      "sha256": "c3f80e7591e595fd82edfa9c9bb1311f891691c0a773f4598cc3e319a03ebd52",
+      "symbols": [],
+      "imports": []
+    },
+    {
+      "path": "agent/__main__.py",
+      "bytes": 53,
+      "sha256": "4c33226fd588d4696c6bce739f056dfd49a528d5bdf0fb72d7b6e5fde3dd1bec",
+      "symbols": [],
+      "imports": [
+        "from .commands import main"
+      ]
+    },
+    {
+      "path": "agent/admin.py",
+      "bytes": 9990,
+      "sha256": "944e2a8cd8cdda73e407753f91337fb324b6233a5f079816765a16868ff2341e",
+      "symbols": [
+        "contains_admin_code",
+        "AdminStore",
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "import hashlib",
+        "import hmac",
+        "import os",
+        "from pathlib import Path",
+        "import re",
+        "import secrets",
+        "import tempfile",
+        "import time",
+        "from .paths import zenith_home"
+      ]
+    },
+    {
+      "path": "agent/assurance.py",
+      "bytes": 5635,
+      "sha256": "05d329e5758a842181663075365ddeec3707092c83eb8561d32044b792ed73d1",
+      "symbols": [
+        "normalize_input",
+        "direct_answer",
+        "assurance",
+        "calibrated_assurance"
+      ],
+      "imports": [
+        "import re",
+        "import unicodedata",
+        "from .admin import contains_admin_code",
+        "from .tools import arithmetic_question"
+      ]
+    },
+    {
+      "path": "agent/books.py",
+      "bytes": 3771,
+      "sha256": "a2d7fa7562a250b5903587bc088f966001ec398024a68e1a5dcb6a523211b016",
+      "symbols": [
+        "BookText",
+        "import_book",
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "import hashlib",
+        "from html.parser import HTMLParser",
+        "import json",
+        "from pathlib import Path",
+        "import re",
+        "import time",
+        "import requests",
+        "from .config import Settings",
+        "from .storage import Store"
+      ]
+    },
+    {
+      "path": "agent/branding.py",
+      "bytes": 425,
+      "sha256": "8b2bd7b643928860eb59b6609a91a6c229145e99711ef909e0d2690d1b4af430",
+      "symbols": [
+        "show_banner"
+      ],
+      "imports": []
+    },
+    {
+      "path": "agent/browser.py",
+      "bytes": 691,
+      "sha256": "33fbffa97738ef850c47eecc7eb4edb6135cecc9332157ebef4fb376ef9cf988",
+      "symbols": [
+        "open_when_ready"
+      ],
+      "imports": [
+        "import time",
+        "import webbrowser"
+      ]
+    },
+    {
+      "path": "agent/catalog/github_datasets.json",
+      "bytes": 152443,
+      "sha256": "bc021d905875f15a63967c4ea4c5e8a320cf2db9de4585e37937b830eecf129e",
+      "structure": [
+        "schema_version",
+        "source",
+        "kind",
+        "generated_at",
+        "selection",
+        "entries"
+      ]
+    },
+    {
+      "path": "agent/catalog/github_models.json",
+      "bytes": 746340,
+      "sha256": "bb97c04cb3cbc9114254571aa0d9463919c4d3f7bc8eba61f26cbc404c9cfc66",
+      "structure": [
+        "schema_version",
+        "source",
+        "kind",
+        "generated_at",
+        "selection",
+        "entries"
+      ]
+    },
+    {
+      "path": "agent/catalog/huggingface_datasets.json",
+      "bytes": 339727,
+      "sha256": "83926e50fc01287449ec494f29acf088c4ca22a24710eb23cd2e00a5c080ef9e",
+      "structure": [
+        "schema_version",
+        "source",
+        "generated_at",
+        "metadata_only",
+        "weights_or_data_downloaded",
+        "license_note",
+        "kind",
+        "selection",
+        "entries"
+      ]
+    },
+    {
+      "path": "agent/catalog/huggingface_models.json",
+      "bytes": 1099918,
+      "sha256": "5495499bb337b52f0f042a5348f82c929141b3b1c2ea54cbbbda0ab551f0a06b",
+      "structure": [
+        "schema_version",
+        "source",
+        "generated_at",
+        "metadata_only",
+        "weights_or_data_downloaded",
+        "license_note",
+        "kind",
+        "selection",
+        "entries"
+      ]
+    },
+    {
+      "path": "agent/checkpoints.py",
+      "bytes": 7771,
+      "sha256": "3ddcf5804bc38cd8dbf20c59a93a3fa9444627eec82245f6bb2acbbebf5141f9",
+      "symbols": [
+        "digest",
+        "inventory",
+        "tokenizer_signature",
+        "parent_metadata",
+        "load_existing",
+        "inspect_checkpoint",
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "import hashlib",
+        "import json",
+        "import math",
+        "from pathlib import Path",
+        "import re",
+        "import time"
+      ]
+    },
+    {
+      "path": "agent/cli.py",
+      "bytes": 9049,
+      "sha256": "cab27acdc276080a8f78afc57e29a034b6d02e2c0f6810e368dc92f1cbc087d4",
+      "symbols": [
+        "TerminalSession",
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "import getpass",
+        "import sys",
+        "from uuid import uuid4",
+        "from .branding import show_banner",
+        "from .core import Agent",
+        "from .config import Settings",
+        "from .skills import get_skill",
+        "from .skill_access import parse_skill_command"
+      ]
+    },
+    {
+      "path": "agent/commands.py",
+      "bytes": 4365,
+      "sha256": "04f6ead9ed1b177108c6b9be19a7a6de4543cb44289ad0c7fcfb33c1beb7a8fd",
+      "symbols": [
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "import importlib",
+        "import sys",
+        "from . import __version__"
+      ]
+    },
+    {
+      "path": "agent/config.py",
+      "bytes": 5625,
+      "sha256": "2ce9cf163c42dfffc5664730390535c2d36b6ae7aee0945a89d4b6f0028ece1a",
+      "symbols": [
+        "Settings"
+      ],
+      "imports": [
+        "import os",
+        "from dataclasses import dataclass, field",
+        "from dotenv import load_dotenv",
+        "from .paths import config_file, default_data_dir, zenith_home"
+      ]
+    },
+    {
+      "path": "agent/continual.py",
+      "bytes": 12785,
+      "sha256": "808318633967f095d9d07f24a120e7ee2d8fd27daeb1c4a35b9df7fa59e8952a",
+      "symbols": [
+        "sequence_logprob",
+        "prepare_record",
+        "mean_loss",
+        "continue_training",
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "from collections import Counter",
+        "from datetime import datetime, timezone",
+        "import json",
+        "import math",
+        "from pathlib import Path",
+        "import random",
+        "import time",
+        "from uuid import uuid4",
+        "from .checkpoints import load_existing, inventory, digest, tokenizer_signature",
+        "from .learning import load_examples, prepare_chat_example"
+      ]
+    },
+    {
+      "path": "agent/core.py",
+      "bytes": 11274,
+      "sha256": "8780305340ec37c42717aa7520f8e924d1d003464032a8a6c841005fd20677e3",
+      "symbols": [
+        "ManagedAnswerStream",
+        "Agent",
+        "BusyError"
+      ],
+      "imports": [
+        "from threading import Lock, Event",
+        "import json",
+        "import time",
+        "import logging",
+        "from .efficiency import reply_plan, provider_limits, reported_usage, COMPACT_SYSTEM",
+        "from .storage import Store",
+        "from .providers import make_provider, SYSTEM_PROMPT",
+        "from .config import Settings"
+      ]
+    },
+    {
+      "path": "agent/curriculum.py",
+      "bytes": 8662,
+      "sha256": "ed79afeb1f04a3d6d5cb5e1a3a0ad0455e93a8db102f1e6416a019d9b90e2e99",
+      "symbols": [
+        "canonical",
+        "row_keys",
+        "validate_rows",
+        "split_rows",
+        "assert_disjoint",
+        "prepare",
+        "audit_directory",
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "from collections import defaultdict",
+        "import hashlib",
+        "import json",
+        "from pathlib import Path",
+        "import random",
+        "import re",
+        "import unicodedata",
+        "from .learning import load_examples, write_jsonl, file_sha256",
+        "from .paths import zenith_home"
+      ]
+    },
+    {
+      "path": "agent/deployment.py",
+      "bytes": 18543,
+      "sha256": "343b9bcaf5cb5aad43a9210f42adb6424dbc4d89ec0c3dec6098044e826f0800",
+      "symbols": [
+        "read_json",
+        "write_new",
+        "review",
+        "checked_review",
+        "profile_bytes",
+        "bytes_digest",
+        "replace_profile",
+        "validate_activation",
+        "activate",
+        "rollback",
+        "use_release",
+        "use_research",
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "from datetime import datetime, timezone",
+        "import hashlib",
+        "import json",
+        "import os",
+        "from pathlib import Path",
+        "import shutil",
+        "import tempfile",
+        "from uuid import uuid4",
+        "from .checkpoints import digest, inventory",
+        "from .expansion_eval import compare, validate_report",
+        "from .paths import config_file, zenith_home"
+      ]
+    },
+    {
+      "path": "agent/discovery.py",
+      "bytes": 14331,
+      "sha256": "0b23556e01291a298ed5ded7cee48dcf6ca771e941ae2f09c3f1921e31fced55",
+      "symbols": [
+        "DiscoveryError",
+        "library_path",
+        "saved_models",
+        "_text",
+        "_number",
+        "Discovery",
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "from collections import OrderedDict",
+        "from copy import deepcopy",
+        "from datetime import datetime, timezone",
+        "import json",
+        "import os",
+        "from pathlib import Path",
+        "import re",
+        "from threading import BoundedSemaphore, Lock",
+        "import time",
+        "from urllib.parse import parse_qs, quote, urlsplit",
+        "import requests",
+        "from .paths import zenith_home"
+      ]
+    },
+    {
+      "path": "agent/doctor.py",
+      "bytes": 8380,
+      "sha256": "3746c5f6126fc8f29a3d27a31dc7da70d87f0f4f46b718adff45719f30f23e8f",
+      "symbols": [
+        "inspect",
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "import importlib.metadata",
+        "import json",
+        "import platform",
+        "import os",
+        "import sqlite3",
+        "import shutil",
+        "import sys",
+        "import tempfile",
+        "from dataclasses import replace",
+        "from pathlib import Path",
+        "from .config import Settings",
+        "from .paths import config_file",
+        "from .models import model_specs, cache_status",
+        "from . import __version__"
+      ]
+    },
+    {
+      "path": "agent/efficiency.py",
+      "bytes": 3539,
+      "sha256": "f93ad9a4aff0ea677fe026b2ce1f7e38c6b1fea3867dcc2ff01e766ce7d02008",
+      "symbols": [
+        "ReplyPlan",
+        "reply_plan",
+        "provider_limits",
+        "reported_usage",
+        "combine_usage"
+      ],
+      "imports": [
+        "from contextlib import contextmanager",
+        "from dataclasses import dataclass, replace",
+        "import re",
+        "from .config import Settings",
+        "from .policy import AUTHORITY_POLICY"
+      ]
+    },
+    {
+      "path": "agent/ensemble.py",
+      "bytes": 24217,
+      "sha256": "876505852387a4e68c7358c1ccab15cdf23d6482423cfe45b922fc952d48be67",
+      "symbols": [
+        "Member",
+        "default_team_config",
+        "EnsembleProvider"
+      ],
+      "imports": [
+        "import json",
+        "import re",
+        "import gc",
+        "import sys",
+        "import time",
+        "from collections import OrderedDict",
+        "from dataclasses import dataclass, replace",
+        "from pathlib import Path",
+        "from urllib.parse import urlsplit"
+      ]
+    },
+    {
+      "path": "agent/evaluation/suite-v1.json",
+      "bytes": 4490,
+      "sha256": "8b809bdba16219bcd3bde7ccb5203c7c1937e88fe74ec8f9dbe3886c3164f67f",
+      "structure": [
+        "version",
+        "license",
+        "description",
+        "targets",
+        "cases"
+      ]
+    },
+    {
+      "path": "agent/execution.py",
+      "bytes": 11438,
+      "sha256": "b3b497c815872f04750e5dbdc7d34c14e926c930fbcd333fe7c3956d8bf2e02e",
+      "symbols": [
+        "scope_definition",
+        "authorized_addresses",
+        "ExecutionControls"
+      ],
+      "imports": [
+        "import hashlib",
+        "import ipaddress",
+        "import json",
+        "import socket",
+        "import ssl",
+        "import time"
+      ]
+    },
+    {
+      "path": "agent/expansion_eval.py",
+      "bytes": 16010,
+      "sha256": "8b18703541459b84a80614e7c9c37af3ca64ae17895bd300d70016436f1de29b",
+      "symbols": [
+        "score",
+        "evaluate",
+        "validate_report",
+        "rescore_report",
+        "compare",
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "import ast",
+        "import copy",
+        "from collections import defaultdict",
+        "import json",
+        "from pathlib import Path",
+        "import re",
+        "import time",
+        "from .checkpoints import load_existing, digest, tokenizer_signature"
+      ]
+    },
+    {
+      "path": "agent/export_checkpoint.py",
+      "bytes": 3406,
+      "sha256": "9907512c639b124d9849826f69dcca9dbc8650501f5d441106a6702d2a548604",
+      "symbols": [
+        "merge_export",
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "import json",
+        "from pathlib import Path",
+        "from .checkpoints import load_existing, inventory, tokenizer_signature"
+      ]
+    },
+    {
+      "path": "agent/integrity.py",
+      "bytes": 6614,
+      "sha256": "2b3a9a37187dba2ba16cc13b1cbdfb71c9561e0bdc4becae5c3284bb1513c08a",
+      "symbols": [
+        "file_digest",
+        "safe_source_path",
+        "source_fingerprint",
+        "report",
+        "verify_source",
+        "verify_installed",
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "import base64",
+        "import hashlib",
+        "import importlib.metadata",
+        "import json",
+        "from pathlib import Path, PurePosixPath",
+        "import re",
+        "import site",
+        "import sys",
+        "from . import __version__"
+      ]
+    },
+    {
+      "path": "agent/learning.py",
+      "bytes": 4774,
+      "sha256": "efd0dcbdaef90faf6a79337e813dfee68b1a94e8c75de7a9eac276974a38a997",
+      "symbols": [
+        "split_examples",
+        "write_jsonl",
+        "load_examples",
+        "prepare_chat_example",
+        "ChatCollator",
+        "file_sha256"
+      ],
+      "imports": [
+        "import hashlib",
+        "import json",
+        "import random",
+        "from pathlib import Path"
+      ]
+    },
+    {
+      "path": "agent/model_packs/zenith-27b.json",
+      "bytes": 9654,
+      "sha256": "ca533ddbb934287abe26097d75535c942e6d7c7b7f331b226cb97cca288592bf",
+      "structure": [
+        "schema_version",
+        "id",
+        "name",
+        "source_repo",
+        "revision",
+        "observed_at",
+        "license",
+        "source_url",
+        "recommended_file",
+        "runtime_requirements",
+        "status",
+        "file_count",
+        "total_bytes",
+        "files"
+      ]
+    },
+    {
+      "path": "agent/model_packs/zenith-9b.json",
+      "bytes": 4755,
+      "sha256": "43c06320a293229c8c35f0abc4f6bb9dd0e852e0395cac71e48dd6bcceed18a0",
+      "structure": [
+        "schema_version",
+        "id",
+        "name",
+        "source_repo",
+        "revision",
+        "observed_at",
+        "license",
+        "source_url",
+        "recommended_file",
+        "runtime_requirements",
+        "status",
+        "file_count",
+        "total_bytes",
+        "files"
+      ]
+    },
+    {
+      "path": "agent/model_packs/zenith-vision.json",
+      "bytes": 22135,
+      "sha256": "491cf84af0960edb7abde2977d2b3ee394410fc995137ccffe4caf52f8a58477",
+      "structure": [
+        "schema_version",
+        "id",
+        "name",
+        "source_repo",
+        "revision",
+        "observed_at",
+        "license",
+        "source_url",
+        "recommended_file",
+        "runtime_requirements",
+        "status",
+        "file_count",
+        "total_bytes",
+        "files"
+      ]
+    },
+    {
+      "path": "agent/models.py",
+      "bytes": 5813,
+      "sha256": "edfdd42975067ee50c8d9a967078d5903b33fc070a993f5ee9e3bc2904d00e29",
+      "symbols": [
+        "model_specs",
+        "cache_status",
+        "download",
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "import json",
+        "from pathlib import Path",
+        "from .config import Settings"
+      ]
+    },
+    {
+      "path": "agent/monitoring.py",
+      "bytes": 9028,
+      "sha256": "4f41cb74f86284e92221596f59fcf58f79e33bd8f5e41ccf1e5be205300041ff",
+      "symbols": [
+        "Monitor",
+        "system_snapshot",
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "from collections import defaultdict",
+        "import json",
+        "import platform",
+        "import time",
+        "from .quality import percentile, configuration_signature",
+        "from . import __version__"
+      ]
+    },
+    {
+      "path": "agent/owner_mfa.py",
+      "bytes": 5084,
+      "sha256": "dad53bf27647ec7239d66a5076590e20c161b02451eb870b719fa8d4c182509d",
+      "symbols": [
+        "local_key",
+        "OwnerMFA",
+        "contains_enrollment_secret"
+      ],
+      "imports": [
+        "import base64",
+        "import hashlib",
+        "import hmac",
+        "import os",
+        "from pathlib import Path",
+        "import time",
+        "import pyotp",
+        "from cryptography.fernet import Fernet"
+      ]
+    },
+    {
+      "path": "agent/packs.py",
+      "bytes": 7582,
+      "sha256": "8628e7d0d6be7c395dfca1fad4829c7f1ad86e2ee38dec485dd6e28a7a7550bc",
+      "symbols": [
+        "manifests",
+        "summaries",
+        "get_pack",
+        "destination",
+        "verify_file",
+        "download_file",
+        "select_files",
+        "configure",
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "import hashlib",
+        "import json",
+        "import os",
+        "from pathlib import Path, PurePosixPath",
+        "import shutil",
+        "import tempfile",
+        "from urllib.parse import quote",
+        "import requests",
+        "from .paths import zenith_home, config_file"
+      ]
+    },
+    {
+      "path": "agent/paths.py",
+      "bytes": 839,
+      "sha256": "153dd7b19c995d1256581afb4f328a680dfb4a45df7b94f79ae1af13c4dc309a",
+      "symbols": [
+        "zenith_home",
+        "config_file",
+        "default_data_dir"
+      ],
+      "imports": [
+        "import os",
+        "from pathlib import Path"
+      ]
+    },
+    {
+      "path": "agent/personal.py",
+      "bytes": 10328,
+      "sha256": "032d1fd6969cfbf379a37369b51b87e11df36af90da13161d1f6342cc13d4cab",
+      "symbols": [
+        "PersonalStore"
+      ],
+      "imports": [
+        "import hashlib",
+        "import hmac",
+        "import re",
+        "import secrets",
+        "import sqlite3",
+        "import time",
+        "from uuid import uuid4",
+        "from argon2 import PasswordHasher",
+        "from argon2.exceptions import VerifyMismatchError, VerificationError, InvalidHashError"
+      ]
+    },
+    {
+      "path": "agent/policy.py",
+      "bytes": 576,
+      "sha256": "ff953149dc1273d8d59496f674bb381bfa13edfc885ebfda940ac183e1da7833",
+      "symbols": [],
+      "imports": []
+    },
+    {
+      "path": "agent/providers.py",
+      "bytes": 18135,
+      "sha256": "c2afdb6be908f529edc218114226544b4ca790dd589b20016588a976dbc89779",
+      "symbols": [
+        "token_usage",
+        "hf_usage",
+        "select_device",
+        "trim_messages",
+        "HuggingFaceProvider",
+        "OllamaProvider",
+        "TinyProvider",
+        "LocalServerProvider",
+        "make_provider"
+      ],
+      "imports": [
+        "from contextlib import closing",
+        "import requests",
+        "from .policy import AUTHORITY_POLICY",
+        "from .transport import ProviderProtocolError, delta_text, final_text, json_object, ndjson_objects, sse_payloads"
+      ]
+    },
+    {
+      "path": "agent/quality.py",
+      "bytes": 13684,
+      "sha256": "27a67e91e9a82644b2f70a642e5ac505042885a547cb14fcbc1cbfd56539ce6d",
+      "symbols": [
+        "configuration_signature",
+        "percentile",
+        "score_case",
+        "summarize",
+        "run_suite",
+        "compare_reports",
+        "fit_calibration",
+        "apply_calibration",
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "from collections import defaultdict",
+        "from dataclasses import replace",
+        "import hashlib",
+        "import json",
+        "import math",
+        "from pathlib import Path",
+        "import platform",
+        "import re",
+        "import statistics",
+        "import tempfile",
+        "import time",
+        "from uuid import uuid4",
+        "from .config import Settings",
+        "from .paths import zenith_home",
+        "from . import __version__"
+      ]
+    },
+    {
+      "path": "agent/registry.py",
+      "bytes": 5608,
+      "sha256": "0184783f69b3f5d9af7be93c7141db54b480cb77299efeccac061c89eb3a65b7",
+      "symbols": [
+        "Catalog"
+      ],
+      "imports": [
+        "import json",
+        "from datetime import datetime",
+        "from pathlib import Path",
+        "from urllib.parse import urlparse"
+      ]
+    },
+    {
+      "path": "agent/research.py",
+      "bytes": 2013,
+      "sha256": "528b53e089ddf1f162db4df7b396e4c3719240e5369db8e1966ad0b79bae5b4b",
+      "symbols": [
+        "verify_bundle",
+        "materialize"
+      ],
+      "imports": [
+        "import json",
+        "from pathlib import Path",
+        "import shutil",
+        "import tempfile",
+        "from .checkpoints import inventory",
+        "from .integrity import safe_source_path"
+      ]
+    },
+    {
+      "path": "agent/resources/skills-v1.json",
+      "bytes": 43865,
+      "sha256": "dbbeb982eeb4fd0b7b86e94fb764c3c8f98fc92ad4aef345b05d47cb0d0c2d3d",
+      "structure": [
+        "schema_version",
+        "curated_on",
+        "notice",
+        "skills",
+        "resources",
+        "taxonomy"
+      ]
+    },
+    {
+      "path": "agent/resources/source-checks-v1.json",
+      "bytes": 4862,
+      "sha256": "8f00d399b20223177f1de240a052630759047c3523eadd8c52d8a29208aa4e5c",
+      "structure": [
+        "version",
+        "references"
+      ]
+    },
+    {
+      "path": "agent/resources/sources-v1.json",
+      "bytes": 3136,
+      "sha256": "11dc13848edf51e80d4443a6999ff21f61dd88f5c04b8db71f7d80affd77bad9",
+      "structure": [
+        "version",
+        "scope",
+        "training_text_policy",
+        "sources"
+      ]
+    },
+    {
+      "path": "agent/resources/starter-v1.jsonl",
+      "bytes": 66441,
+      "sha256": "ab7a78911785a7e836f8c4e57eb6d5454162571f31a13586da52d597bcc8e1f1"
+    },
+    {
+      "path": "agent/server.py",
+      "bytes": 31219,
+      "sha256": "6621026f1638cdc3c64e5b25207960408478a28b774642ec34df808ac90f4f70",
+      "symbols": [
+        "ManagedStreamingResponse",
+        "ChatRequest",
+        "ReviewRequest",
+        "SkillCommandRequest",
+        "LoginRequest",
+        "RegisterRequest",
+        "MemoryRequest",
+        "AdminUnlockRequest",
+        "MFASetupRequest",
+        "MFAConfirmRequest",
+        "CapabilityGrantRequest",
+        "ExecutionRequest",
+        "ExecutionPlanRequest",
+        "AdminModeRequest",
+        "AdminToolRequest",
+        "HumanReviewRequest",
+        "HumanResolution",
+        "create_app",
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "import hmac",
+        "import logging",
+        "import time",
+        "from threading import Lock",
+        "from pathlib import Path",
+        "from typing import Literal",
+        "from uuid import UUID",
+        "from fastapi import Depends, FastAPI, Header, HTTPException, Query, Request, Response",
+        "from fastapi.responses import FileResponse, StreamingResponse",
+        "from fastapi.staticfiles import StaticFiles",
+        "from pydantic import BaseModel, Field",
+        "from .config import Settings",
+        "from .core import Agent, BusyError",
+        "from .skill_access import SkillAccessDenied, ConversationAccessDenied",
+        "from .registry import Catalog",
+        "from .discovery import Discovery, DiscoveryError",
+        "from . import __version__"
+      ]
+    },
+    {
+      "path": "agent/setup.py",
+      "bytes": 3686,
+      "sha256": "55fa68e2fafbaf3b182b5c251c69b570b01131a71be1174ec0dea9fcf6a14863",
+      "symbols": [
+        "write_configuration",
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "from pathlib import Path",
+        "from .paths import config_file, zenith_home"
+      ]
+    },
+    {
+      "path": "agent/skill_access.py",
+      "bytes": 4555,
+      "sha256": "76d94e0a50ed08eee8468744d24682942f32e379916628f1447a721749201502",
+      "symbols": [
+        "SkillAccessDenied",
+        "ConversationAccessDenied",
+        "parse_skill_command",
+        "SkillAccess"
+      ],
+      "imports": [
+        "import hashlib",
+        "from .skills import get_skill, list_skills"
+      ]
+    },
+    {
+      "path": "agent/skills.py",
+      "bytes": 10747,
+      "sha256": "8f7249fe401ed2c545ee90ce50ac1a495f68374b48bb050ff0a672b39ae8e68c",
+      "symbols": [
+        "_text",
+        "_texts",
+        "_records",
+        "validate_library",
+        "_library",
+        "_filter",
+        "list_skills",
+        "list_resources",
+        "get_skill",
+        "skills_library",
+        "skill_instruction",
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "from copy import deepcopy",
+        "from datetime import date",
+        "from functools import lru_cache",
+        "from importlib.resources import files",
+        "import json",
+        "import re",
+        "from urllib.parse import urlsplit"
+      ]
+    },
+    {
+      "path": "agent/stabilize.py",
+      "bytes": 4963,
+      "sha256": "59405efa8b7fe0e87eea181f36328855854c768a905dd7df468ff8d377b66198",
+      "symbols": [
+        "stabilize",
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "import json",
+        "from pathlib import Path",
+        "import shutil",
+        "import time",
+        "from .checkpoints import parent_metadata, inventory, digest"
+      ]
+    },
+    {
+      "path": "agent/storage.py",
+      "bytes": 9166,
+      "sha256": "64f9b3f68b20a42b3a189cc1593df352f1e03df07f247a6932d8960a631134bc",
+      "symbols": [
+        "Store"
+      ],
+      "imports": [
+        "import json",
+        "import sqlite3",
+        "from contextlib import contextmanager",
+        "from datetime import datetime, timezone",
+        "from pathlib import Path",
+        "from uuid import uuid4"
+      ]
+    },
+    {
+      "path": "agent/summaries.py",
+      "bytes": 2543,
+      "sha256": "e37b1d0d21e2964fc32f28bde86d2825a834d174651ab66387d1d6b7b5f88e79",
+      "symbols": [
+        "initialize",
+        "current",
+        "summarize"
+      ],
+      "imports": [
+        "import json",
+        "import time",
+        "from .core import BusyError"
+      ]
+    },
+    {
+      "path": "agent/tiny.py",
+      "bytes": 4544,
+      "sha256": "0a03f50c99706d545559f07c33ac710ada40b2d06e8f015c89e359840a620389",
+      "symbols": [
+        "encode",
+        "decode",
+        "TinyConfig",
+        "Block",
+        "TinyLM",
+        "save_checkpoint",
+        "load_checkpoint"
+      ],
+      "imports": [
+        "from dataclasses import asdict, dataclass",
+        "import torch",
+        "from torch import nn",
+        "from torch.nn import functional as F"
+      ]
+    },
+    {
+      "path": "agent/tools.py",
+      "bytes": 6546,
+      "sha256": "c082d0faa55fe51380e028138f4a2042f730b44e9f7698190cb29623306d6ed9",
+      "symbols": [
+        "calculate",
+        "arithmetic_question",
+        "code_audit",
+        "run_tool"
+      ],
+      "imports": [
+        "import ast",
+        "import base64",
+        "from decimal import Decimal, localcontext",
+        "from fractions import Fraction",
+        "import hashlib",
+        "import ipaddress",
+        "import re",
+        "from urllib.parse import urlsplit"
+      ]
+    },
+    {
+      "path": "agent/transport.py",
+      "bytes": 3816,
+      "sha256": "5d17bff8baf1a3705d92cf95c3b2b73f816e8caf362a44327abb6a2303ddb6ef",
+      "symbols": [
+        "ProviderProtocolError",
+        "stream_lines",
+        "json_object",
+        "ndjson_objects",
+        "sse_payloads",
+        "final_text",
+        "delta_text"
+      ],
+      "imports": [
+        "import json"
+      ]
+    },
+    {
+      "path": "agent/web/app.js",
+      "bytes": 59031,
+      "sha256": "aac7efbf2dca466c9f9ca8561e933ade99baf002ac78bfa063302eea07a1a597"
+    },
+    {
+      "path": "agent/web/index.html",
+      "bytes": 19223,
+      "sha256": "17a6031687da2c6ee05a8212eaee9d3d710456c36aeba75c7c65c7a69d34dbf1"
+    },
+    {
+      "path": "agent/web/style.css",
+      "bytes": 29203,
+      "sha256": "ecee18677e09219361f548f6c6fcd1ed09b1bca8ab8931a5effc23f1e46c9c75"
+    },
+    {
+      "path": "agent/web/zenith-banner.png",
+      "bytes": 637599,
+      "sha256": "48f637a72a0f431db0b124f050377106713937b0846f688f23d06151af735dda"
+    },
+    {
+      "path": "agent/web/zenith-mark.svg",
+      "bytes": 411,
+      "sha256": "7ec6dae68c6ee1acf649d64331350aca35375a3cca2263129549c2dc437e5729"
+    },
+    {
+      "path": "assets/zenith-banner.png",
+      "bytes": 637599,
+      "sha256": "48f637a72a0f431db0b124f050377106713937b0846f688f23d06151af735dda"
+    },
+    {
+      "path": "compose.yaml",
+      "bytes": 1064,
+      "sha256": "6b740d9693d6dd4dafb68c924454755f387ee29032897d12cd54db5a5f9a40e7",
+      "outline": []
+    },
+    {
+      "path": "config/team.example.json",
+      "bytes": 645,
+      "sha256": "9c075b83ee745ec23f95b591308630f7d3dc6fb6526548835f2f46a0decfcf0a",
+      "structure": [
+        "version",
+        "max_experts",
+        "max_parallel",
+        "round_timeout_seconds",
+        "max_proposal_chars",
+        "max_cached_models",
+        "synthesizer",
+        "critic",
+        "members"
+      ]
+    },
+    {
+      "path": "config/zenith-packs-team.example.json",
+      "bytes": 690,
+      "sha256": "94fb5f0a19726f6cb6aee32cefbb8df7609b2f4bd2a8c2008022dad69da71b7c",
+      "structure": [
+        "version",
+        "max_experts",
+        "max_parallel",
+        "max_cached_models",
+        "round_timeout_seconds",
+        "max_proposal_chars",
+        "synthesizer",
+        "critic",
+        "members"
+      ]
+    },
+    {
+      "path": "docs/MODEL_CARD.md",
+      "bytes": 4124,
+      "sha256": "dcdf7b157075cc133aff277470e142d6b6e2fa7d6b203bc289bd9fae84e6faea",
+      "outline": [
+        "# Zenith model card",
+        "## Historical 0.12 pilot"
+      ]
+    },
+    {
+      "path": "docs/admin.md",
+      "bytes": 4539,
+      "sha256": "370113318fe77573321023892d255e554685a9af1f2c0ab3656c406374d6811c",
+      "outline": [
+        "# Owner access and Devil mode",
+        "## Devil mode",
+        "## Additional execution controls"
+      ]
+    },
+    {
+      "path": "docs/benchmark-gates.md",
+      "bytes": 2835,
+      "sha256": "ae0190e00dcc6b7b3508a13fb16d52a561a9165101906a50ea4cfb9266f16659",
+      "outline": [
+        "# Diagnostic grading and promotion checks",
+        "## Recovery status observed in the working session"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/activation-v014/activation-inference-rollback.json",
+      "bytes": 224,
+      "sha256": "4782f7d8ef4665b2acbc91bdd2ba4427eaff707a71b9b0af9cf3518475931bcb",
+      "structure": [
+        "setup_cli_verified",
+        "activation_status",
+        "numeric_gate_passed",
+        "regression_override",
+        "inference",
+        "restricted_tools_enabled",
+        "rollback_verified"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/activation-v014/workspace-activation.json",
+      "bytes": 1891,
+      "sha256": "5af3ce77ac0ef9ec13d913ffce76e637913fe6275a09e5cebbc9b5c07428c878",
+      "structure": [
+        "id",
+        "activation_status",
+        "numeric_gate_passed",
+        "regression_override",
+        "base_model",
+        "base_revision",
+        "tokenizer_sha256",
+        "inference_smoke_answer",
+        "network_tools_enabled",
+        "comparisons",
+        "scope",
+        "operator_approved_activation",
+        "checkpoint_weight_sha256",
+        "original_checkpoint_overwritten",
+        "automatic_promotion",
+        "old_failed_reports_modified"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/continuation-v1/candidate-benchmark.json",
+      "bytes": 22246,
+      "sha256": "d86b6ecb97a5ed7c4669a762ee32381753a5834b79d18691777c2ce39f4cb23e",
+      "structure": [
+        "schema_version",
+        "checkpoint",
+        "production_base_only",
+        "checkpoint_files",
+        "base_model",
+        "base_revision",
+        "tokenizer_sha256",
+        "model_parameters",
+        "suite_sha256",
+        "max_new_tokens",
+        "temperature",
+        "device",
+        "gpu_utilization",
+        "elapsed_seconds",
+        "accuracy",
+        "slices",
+        "results",
+        "limitations",
+        "scoring_version",
+        "rescored_from_saved_outputs",
+        "original_report_sha256"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/continuation-v1/candidate-final-test.json",
+      "bytes": 217,
+      "sha256": "aa737ee0aaf52218f0b09bb01d4692f15a87a9e5ee3b74bc33d8c5eb46be7754",
+      "structure": [
+        "base_model",
+        "adapter",
+        "examples",
+        "skipped",
+        "target_tokens",
+        "mean_target_loss"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/continuation-v1/candidate-phase1-benchmark.json",
+      "bytes": 22252,
+      "sha256": "c97e4396f987440a3cf946b46118e3cd43dcd12edb7e175fcd45ce1709e02b2b",
+      "structure": [
+        "schema_version",
+        "checkpoint",
+        "production_base_only",
+        "checkpoint_files",
+        "base_model",
+        "base_revision",
+        "tokenizer_sha256",
+        "model_parameters",
+        "suite_sha256",
+        "max_new_tokens",
+        "temperature",
+        "device",
+        "gpu_utilization",
+        "elapsed_seconds",
+        "accuracy",
+        "slices",
+        "results",
+        "limitations",
+        "scoring_version",
+        "rescored_from_saved_outputs",
+        "original_report_sha256"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/continuation-v1/comparison.json",
+      "bytes": 332,
+      "sha256": "0a01418fe1b6d51feda96d19cf43cdeda891bec7823c0dc925b23c964399bb1b",
+      "structure": [
+        "parent_accuracy",
+        "candidate_accuracy",
+        "production_accuracy",
+        "regressed_slices",
+        "numeric_gate_passed",
+        "human_review_required",
+        "deployment_approved",
+        "automatic_promotion"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/continuation-v1/dataset/historical-train-replay.jsonl",
+      "bytes": 44526,
+      "sha256": "1f5a7418aef0cb309339c1a3bbf79480d83b01559e087ff0308609c89ed5f12d"
+    },
+    {
+      "path": "docs/benchmarks/continuation-v1/dataset/manifest.json",
+      "bytes": 3311,
+      "sha256": "1ac1736e010d972b7b7d38e2792cbab88e2f6c92c5d274dc448e7c97298a572e",
+      "structure": [
+        "schema_version",
+        "source_sha256",
+        "source_snapshot",
+        "seed",
+        "quality",
+        "files",
+        "final_test_used_for_training",
+        "automatic_promotion",
+        "limitations",
+        "replay"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/continuation-v1/dataset/source.jsonl",
+      "bytes": 88784,
+      "sha256": "25d52526aaba34bff5df81d7b850910fcc9d84de43425cb137e617c5defb601e"
+    },
+    {
+      "path": "docs/benchmarks/continuation-v1/dataset/test.jsonl",
+      "bytes": 17143,
+      "sha256": "008baa4d44941f94c367ae8a9a4d4236e4f0b8376dd48c20b9bc9e29e3dd6f71"
+    },
+    {
+      "path": "docs/benchmarks/continuation-v1/dataset/train.jsonl",
+      "bytes": 99030,
+      "sha256": "2b594ee1946717fa2f900df48017e2c278982fbf3024e3509c133a72e2b04799"
+    },
+    {
+      "path": "docs/benchmarks/continuation-v1/dataset/validation.jsonl",
+      "bytes": 17137,
+      "sha256": "9972c5532ab37e6add03fc018be42e3ffe20636bce5ec0cdf9ac33c13731556b"
+    },
+    {
+      "path": "docs/benchmarks/continuation-v1/experiment.json",
+      "bytes": 1802,
+      "sha256": "ee739a5a37d86fc5e59b918534412ca529910284dafaf18f923ba80e29ab2049",
+      "structure": [
+        "base_parameters",
+        "trained_adapter_parameters",
+        "optimizer_steps",
+        "input_tokens_seen",
+        "target_tokens_seen",
+        "accepted_training_seconds",
+        "replay_steps",
+        "original_checkpoint_unchanged",
+        "architecture_unchanged",
+        "tokenizer_unchanged",
+        "gpu_utilization",
+        "gpu_reason",
+        "candidate_adapter_bytes",
+        "held_out_target_loss_before",
+        "held_out_target_loss_after",
+        "comparison",
+        "published",
+        "production_changed",
+        "aborted_run",
+        "scoring_correction",
+        "weights_not_committed",
+        "reproduction",
+        "reproduction_training_seconds",
+        "reproduction_optimizer_steps"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/continuation-v1/export-report.json",
+      "bytes": 3937,
+      "sha256": "429d0d8db56f7e80d106ab4a462aabfaa8ffa5dff953cae395c81e8af3ea0cfe",
+      "structure": [
+        "schema_version",
+        "parent",
+        "parent_files",
+        "base_model",
+        "base_revision",
+        "architecture_unchanged",
+        "tokenizer_sha256",
+        "maximum_merge_logit_error",
+        "merge_and_reload_verified",
+        "export_files",
+        "export_bytes",
+        "published",
+        "deployment_approved",
+        "automatic_promotion",
+        "notice"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/continuation-v1/parent-base-audit.json",
+      "bytes": 5917,
+      "sha256": "ba23128dbab8d879b85da93f18c113cd6247363a626a8b01d423b159ba9e9471",
+      "structure": [
+        "base_model",
+        "base_revision",
+        "architecture",
+        "model_type",
+        "base_parameters",
+        "base_files",
+        "base_snapshot",
+        "total_parameters_with_adapter",
+        "trainable_parameters",
+        "layers",
+        "hidden_size",
+        "attention_heads",
+        "kv_heads",
+        "context_limit",
+        "embedding_vocabulary",
+        "tokenizer_size",
+        "tokenizer_sha256",
+        "checkpoint_format",
+        "framework",
+        "parent",
+        "parent_files",
+        "training_history",
+        "original_checkpoints_modified",
+        "random_initialization_used",
+        "hardware",
+        "loaded_successfully",
+        "inference",
+        "inspection_seconds"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/continuation-v1/parent-benchmark.json",
+      "bytes": 23237,
+      "sha256": "417a16a6a1ab8819c6ce21a046c69ba282eb290e98b481212f13edb9e74e77d2",
+      "structure": [
+        "schema_version",
+        "checkpoint",
+        "production_base_only",
+        "checkpoint_files",
+        "base_model",
+        "base_revision",
+        "tokenizer_sha256",
+        "model_parameters",
+        "suite_sha256",
+        "max_new_tokens",
+        "temperature",
+        "device",
+        "gpu_utilization",
+        "elapsed_seconds",
+        "accuracy",
+        "slices",
+        "results",
+        "limitations",
+        "scoring_version",
+        "rescored_from_saved_outputs",
+        "original_report_sha256"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/continuation-v1/parent-final-test.json",
+      "bytes": 203,
+      "sha256": "8cce1ca1527a62d764d6a721a28fd17f30db83939ab7e27c704eb97640445ae7",
+      "structure": [
+        "base_model",
+        "adapter",
+        "examples",
+        "skipped",
+        "target_tokens",
+        "mean_target_loss"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/continuation-v1/parent-inspection.json",
+      "bytes": 4528,
+      "sha256": "4dc2809e567cd20e2b6b4d587a164c8820b218147a26cc1991085d1b4f4eac45",
+      "structure": [
+        "base_model",
+        "base_revision",
+        "architecture",
+        "model_type",
+        "base_parameters",
+        "total_parameters_with_adapter",
+        "trainable_parameters",
+        "layers",
+        "hidden_size",
+        "attention_heads",
+        "kv_heads",
+        "context_limit",
+        "embedding_vocabulary",
+        "tokenizer_size",
+        "tokenizer_sha256",
+        "checkpoint_format",
+        "framework",
+        "parent",
+        "parent_files",
+        "training_history",
+        "original_checkpoints_modified",
+        "random_initialization_used",
+        "hardware",
+        "loaded_successfully",
+        "inference",
+        "inspection_seconds"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/continuation-v1/phase1-training.json",
+      "bytes": 10197,
+      "sha256": "b0873fe85c16baffb8885b25ced3d7c4a584fe817e6ddfbf8a53e4410008cb7c",
+      "structure": [
+        "schema_version",
+        "run_id",
+        "base_model",
+        "base_revision",
+        "parent",
+        "parent_files",
+        "parent_training_report_sha256",
+        "tokenizer_sha256",
+        "architecture",
+        "objective",
+        "seed",
+        "learning_rate",
+        "max_length",
+        "train_examples",
+        "eval_examples",
+        "dataset_manifest_sha256",
+        "dataset_files",
+        "skipped",
+        "baseline",
+        "final",
+        "training",
+        "original_checkpoints_modified",
+        "weights_reinitialized",
+        "automatic_promotion",
+        "promoted",
+        "final_test_used_for_training",
+        "evaluation_pending"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/continuation-v1/phase2-training.json",
+      "bytes": 19714,
+      "sha256": "4dcc7333cb89285e0fc5f1c0eff410eb651865656fd80e7f91d7458bfa0ea78e",
+      "structure": [
+        "schema_version",
+        "run_id",
+        "base_model",
+        "base_revision",
+        "parent",
+        "parent_files",
+        "parent_training_report_sha256",
+        "tokenizer_sha256",
+        "architecture",
+        "objective",
+        "seed",
+        "start_offset",
+        "optimizer_state_resumed",
+        "learning_rate",
+        "max_length",
+        "train_examples",
+        "eval_examples",
+        "dataset_manifest_sha256",
+        "dataset_files",
+        "skipped",
+        "baseline",
+        "final",
+        "training",
+        "original_checkpoints_modified",
+        "weights_reinitialized",
+        "automatic_promotion",
+        "promoted",
+        "final_test_used_for_training",
+        "evaluation_pending"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/continuation-v1/production-benchmark.json",
+      "bytes": 24448,
+      "sha256": "08c20198120247ed2200796347fce338c22427ae92e0b2a231a63c14ca0254c7",
+      "structure": [
+        "schema_version",
+        "checkpoint",
+        "production_base_only",
+        "checkpoint_files",
+        "base_model",
+        "base_revision",
+        "tokenizer_sha256",
+        "model_parameters",
+        "suite_sha256",
+        "max_new_tokens",
+        "temperature",
+        "device",
+        "gpu_utilization",
+        "elapsed_seconds",
+        "accuracy",
+        "slices",
+        "results",
+        "limitations",
+        "scoring_version",
+        "rescored_from_saved_outputs",
+        "original_report_sha256"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/continuation-v1/raw-candidate-benchmark-v1.json",
+      "bytes": 22099,
+      "sha256": "622de0d06583c165e08ce40be6d26c42236a0af88d48a37a76b9c2616dcd0db1",
+      "structure": [
+        "schema_version",
+        "checkpoint",
+        "production_base_only",
+        "checkpoint_files",
+        "base_model",
+        "base_revision",
+        "tokenizer_sha256",
+        "model_parameters",
+        "suite_sha256",
+        "max_new_tokens",
+        "temperature",
+        "device",
+        "gpu_utilization",
+        "elapsed_seconds",
+        "accuracy",
+        "slices",
+        "results",
+        "limitations"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/continuation-v1/raw-parent-benchmark-v1.json",
+      "bytes": 23076,
+      "sha256": "8206510be8f10fd53ae516b856a7adfaa1cc4d78657b2e57b86790c325cc12c2",
+      "structure": [
+        "schema_version",
+        "checkpoint",
+        "production_base_only",
+        "checkpoint_files",
+        "base_model",
+        "base_revision",
+        "tokenizer_sha256",
+        "model_parameters",
+        "suite_sha256",
+        "max_new_tokens",
+        "temperature",
+        "device",
+        "gpu_utilization",
+        "elapsed_seconds",
+        "accuracy",
+        "slices",
+        "results",
+        "limitations"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/continuation-v1/raw-production-benchmark-v1.json",
+      "bytes": 24287,
+      "sha256": "10a18ef6696355574c904ed8c66362b23f0435fbb7b7249d1c7d7ad670975393",
+      "structure": [
+        "schema_version",
+        "checkpoint",
+        "production_base_only",
+        "checkpoint_files",
+        "base_model",
+        "base_revision",
+        "tokenizer_sha256",
+        "model_parameters",
+        "suite_sha256",
+        "max_new_tokens",
+        "temperature",
+        "device",
+        "gpu_utilization",
+        "elapsed_seconds",
+        "accuracy",
+        "slices",
+        "results",
+        "limitations"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/continuation-v1/reproducibility.json",
+      "bytes": 246,
+      "sha256": "fb3472e5bf2eadbecd4a665eb71a61c363eca4e56a66f743d4281c2e9a1df11a",
+      "structure": [
+        "identical_tensor_keys",
+        "bitwise_equal_weights",
+        "maximum_tensor_difference",
+        "tensor_count",
+        "primary_candidate",
+        "reproduced_candidate"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/continuation-v1/weight-update.json",
+      "bytes": 363,
+      "sha256": "98626a6102146c0c6aec81403f054b7b983878d2d3a27b741c060c209054fe72",
+      "structure": [
+        "tensor_keys_preserved",
+        "tensor_shapes_preserved",
+        "changed_tensors",
+        "tensor_count",
+        "maximum_absolute_update",
+        "parent_weight_sha256",
+        "candidate_weight_sha256"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/application-promotion-review.json",
+      "bytes": 4207,
+      "sha256": "7e849eee533c97449e94bbac57c114379bacbba8a2a8f1e3e316d7225767c9f8",
+      "structure": [
+        "schema_version",
+        "candidate",
+        "checkpoint_files",
+        "base_model",
+        "base_revision",
+        "tokenizer_sha256",
+        "candidate_report",
+        "baseline_reports",
+        "comparisons",
+        "numeric_gate_passed",
+        "diagnostic_passed",
+        "diagnostic_cases",
+        "human_review_required",
+        "deployment_approved",
+        "automatic_promotion",
+        "limitations"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/candidate-fresh-transfer.json",
+      "bytes": 15312,
+      "sha256": "c754210985ac203c689c0dfd9894dd448bb661fbbeba7d4fc7da533d62509b6c",
+      "structure": [
+        "schema_version",
+        "scoring_version",
+        "checkpoint",
+        "production_base_only",
+        "checkpoint_files",
+        "base_model",
+        "base_revision",
+        "tokenizer_sha256",
+        "model_parameters",
+        "suite_sha256",
+        "max_new_tokens",
+        "temperature",
+        "system_prompt",
+        "system_prompt_sha256",
+        "device",
+        "gpu_utilization",
+        "elapsed_seconds",
+        "accuracy",
+        "slices",
+        "results",
+        "limitations",
+        "heldout_target_loss",
+        "heldout_rows",
+        "heldout_target_tokens",
+        "dataset_manifest_sha256",
+        "test_sha256",
+        "training_prompt_overlap",
+        "final_test_used_for_training",
+        "training_partitions_checked"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/candidate-holdout-before-preference.json",
+      "bytes": 11449,
+      "sha256": "609e9147463760d4fb65b38299318101894e54b11e62a952a1423534d43f2ce2",
+      "structure": [
+        "schema_version",
+        "scoring_version",
+        "checkpoint",
+        "production_base_only",
+        "checkpoint_files",
+        "base_model",
+        "base_revision",
+        "tokenizer_sha256",
+        "model_parameters",
+        "suite_sha256",
+        "max_new_tokens",
+        "temperature",
+        "device",
+        "gpu_utilization",
+        "elapsed_seconds",
+        "accuracy",
+        "slices",
+        "results",
+        "limitations",
+        "retained_target_loss",
+        "retained_rows",
+        "retained_test_sha256",
+        "retained_target_tokens",
+        "heldout_target_loss",
+        "heldout_rows",
+        "heldout_target_tokens",
+        "dataset_manifest_sha256",
+        "test_sha256",
+        "training_prompt_overlap",
+        "final_test_used_for_training"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/dataset-v2/historical-train-replay.jsonl",
+      "bytes": 233252,
+      "sha256": "25f1a52bb31f78b8dd2e7c04e2bfcc2f8701fe1badf879d80bdc65614ed2d698"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/dataset-v2/manifest.json",
+      "bytes": 2613,
+      "sha256": "3ef2c4b8c9381c41dee3dab2eaab4cc83d3ec8b88e378d6c4781ffff6dfeb7f3",
+      "structure": [
+        "schema_version",
+        "source_sha256",
+        "source_snapshot",
+        "seed",
+        "quality",
+        "files",
+        "final_test_used_for_training",
+        "automatic_promotion",
+        "limitations",
+        "replay"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/dataset-v2/source.jsonl",
+      "bytes": 60858,
+      "sha256": "14a0ca7340b54cc60f810e838ebbc60370688585a526fe5e034ee5d7eb18a7dd"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/dataset-v2/test.jsonl",
+      "bytes": 10691,
+      "sha256": "58ade51e3af352ef9084ab5512ec29d36c81b26ec037cf988076d05bd52de795"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/dataset-v2/train.jsonl",
+      "bytes": 272744,
+      "sha256": "0f17ebc0e762b2ff050cf112edb4b391f86c38ad92818385d6be60d156415b58"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/dataset-v2/validation.jsonl",
+      "bytes": 10675,
+      "sha256": "879a1d5893706085af4a16251292c479617f38f6f8ea531015dbf7996124cfad"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/dataset-v3/historical-train-replay.jsonl",
+      "bytes": 274096,
+      "sha256": "8f147ad394832d045351679215bab08dc79671dfef01d2de83cfd8cfea8bc6ee"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/dataset-v3/manifest.json",
+      "bytes": 2827,
+      "sha256": "e171619482266f67a3725435331d2397ee13dd17751f39b358d056c0b88c97d0",
+      "structure": [
+        "schema_version",
+        "source_sha256",
+        "source_snapshot",
+        "seed",
+        "quality",
+        "files",
+        "final_test_used_for_training",
+        "automatic_promotion",
+        "limitations",
+        "replay"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/dataset-v3/source.jsonl",
+      "bytes": 39809,
+      "sha256": "1235481d352dde0238585668134f51cf5b9201a2f9ec8b019671500c545870fc"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/dataset-v3/test.jsonl",
+      "bytes": 6591,
+      "sha256": "48e194c07aa4c1dba57a7cb66e1255de7a59fd312aaeac9f14add7298569cbe0"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/dataset-v3/train.jsonl",
+      "bytes": 300588,
+      "sha256": "5475180ecbeae771b41018ec5486a8d64bc745701a08d5269def8eeaf8f13f39"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/dataset-v3/validation.jsonl",
+      "bytes": 6726,
+      "sha256": "37bf15bf8c71c276c8ec92f0aa56d1782471d9b85eb0c6f53d09dce6f1bf0b0b"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/dataset/historical-train-replay.jsonl",
+      "bytes": 100590,
+      "sha256": "e129439d56d333fac5d88ded0d9357140162578712816cc4938022c51f16aafe"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/dataset/manifest.json",
+      "bytes": 2885,
+      "sha256": "19831b08acf1a56c63fc13d3b0e0327e69eb64671841de547f9dbb4244922010",
+      "structure": [
+        "schema_version",
+        "source_sha256",
+        "source_snapshot",
+        "seed",
+        "quality",
+        "files",
+        "final_test_used_for_training",
+        "automatic_promotion",
+        "limitations",
+        "replay"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/dataset/source.jsonl",
+      "bytes": 205271,
+      "sha256": "9c3fd70bab7eefef1c347accc5dc5cdcce799457009bfc1e40d49e88ad71853a"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/dataset/test.jsonl",
+      "bytes": 38755,
+      "sha256": "bd01d46ddbae84ce9fcd8fe2bbf0aad6b58f0dab9a0e245cd71dce02c8406825"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/dataset/train.jsonl",
+      "bytes": 228468,
+      "sha256": "7bafa1100d334a4fa519149cf1ec6aff03fd6cd5c7fac219b71cdd9300f9c644"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/dataset/validation.jsonl",
+      "bytes": 38638,
+      "sha256": "4c3d5f78bdb60eac8f2c4ea26f7ef5494306c3e090184341d820bc7b5ad52f4e"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/fresh-transfer-comparison.json",
+      "bytes": 1453,
+      "sha256": "b953c5ad276ce9172d9bec95299b3bd9967928728c01cfb00d62ca202ebf78e4",
+      "structure": [
+        "comparisons",
+        "automatic_promotion",
+        "deployment_approved"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/fresh-transfer-freeze.json",
+      "bytes": 562,
+      "sha256": "328f05b1da484850515f99b8fba94b3a4c1dc5c13f3588863b6de95c22111168",
+      "structure": [
+        "created_utc",
+        "source_sha256",
+        "suite_sha256",
+        "cases",
+        "frozen_before_preference_gradient_updates",
+        "source_last_modified_utc",
+        "freeze_basis",
+        "fresh_targets_not_used_for_gradient_updates"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/immediate-parent-application-diagnostics.json",
+      "bytes": 23911,
+      "sha256": "bb95c4278118dc4f5ae946f24a43a372ad53d5f6d968c1a97244b6c7e2af0f60",
+      "structure": [
+        "schema_version",
+        "scoring_version",
+        "checkpoint",
+        "production_base_only",
+        "checkpoint_files",
+        "base_model",
+        "base_revision",
+        "tokenizer_sha256",
+        "model_parameters",
+        "suite_sha256",
+        "max_new_tokens",
+        "temperature",
+        "system_prompt",
+        "system_prompt_sha256",
+        "device",
+        "gpu_utilization",
+        "elapsed_seconds",
+        "accuracy",
+        "slices",
+        "results",
+        "limitations"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/immediate-parent-fresh-transfer.json",
+      "bytes": 15469,
+      "sha256": "1680873d275de092321c513a7e68efad57fe6a45244e36c4496c61c4a99761b6",
+      "structure": [
+        "schema_version",
+        "scoring_version",
+        "checkpoint",
+        "production_base_only",
+        "checkpoint_files",
+        "base_model",
+        "base_revision",
+        "tokenizer_sha256",
+        "model_parameters",
+        "suite_sha256",
+        "max_new_tokens",
+        "temperature",
+        "system_prompt",
+        "system_prompt_sha256",
+        "device",
+        "gpu_utilization",
+        "elapsed_seconds",
+        "accuracy",
+        "slices",
+        "results",
+        "limitations",
+        "heldout_target_loss",
+        "heldout_rows",
+        "heldout_target_tokens",
+        "dataset_manifest_sha256",
+        "test_sha256",
+        "training_prompt_overlap",
+        "final_test_used_for_training",
+        "training_partitions_checked"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/original-parent-benchmark.json",
+      "bytes": 23405,
+      "sha256": "9361eec075388ac89eaf2d6b339a70f93c9c23cb393c75311e12e1d7d2afd4ab",
+      "structure": [
+        "schema_version",
+        "checkpoint",
+        "production_base_only",
+        "checkpoint_files",
+        "base_model",
+        "base_revision",
+        "tokenizer_sha256",
+        "model_parameters",
+        "suite_sha256",
+        "max_new_tokens",
+        "temperature",
+        "device",
+        "gpu_utilization",
+        "elapsed_seconds",
+        "accuracy",
+        "slices",
+        "results",
+        "limitations",
+        "scoring_version",
+        "rescored_from_saved_outputs",
+        "original_report_sha256",
+        "scoring_correction"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/parameter-mean-application-diagnostics.json",
+      "bytes": 23667,
+      "sha256": "a2b1a033d1408b9b46a2353102e60e3465df35e106c8e60ce027912c600263fe",
+      "structure": [
+        "schema_version",
+        "scoring_version",
+        "checkpoint",
+        "production_base_only",
+        "checkpoint_files",
+        "base_model",
+        "base_revision",
+        "tokenizer_sha256",
+        "model_parameters",
+        "suite_sha256",
+        "max_new_tokens",
+        "temperature",
+        "system_prompt",
+        "system_prompt_sha256",
+        "device",
+        "gpu_utilization",
+        "elapsed_seconds",
+        "accuracy",
+        "slices",
+        "results",
+        "limitations"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/parameter-mean-history.json",
+      "bytes": 169924,
+      "sha256": "09e55168ec0eb8b7c7ef61e5ce2d9a8bc3832db229e679c28d50b3ee3dbce428",
+      "structure": [
+        "schema_version",
+        "base_model",
+        "base_revision",
+        "tokenizer_sha256",
+        "parent",
+        "parent_files",
+        "parent_training_report_sha256",
+        "train_examples",
+        "training",
+        "inherited_training_history",
+        "transformation",
+        "objective",
+        "weights_reinitialized",
+        "original_checkpoints_modified",
+        "promoted",
+        "automatic_promotion",
+        "evaluation_pending"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/parameter-mean-legacy-diagnostics.json",
+      "bytes": 22325,
+      "sha256": "53c4b6f816d5ddf5e4df48f683262ec61e552a3ef71d9a177045f4753f0d3dc0",
+      "structure": [
+        "schema_version",
+        "scoring_version",
+        "checkpoint",
+        "production_base_only",
+        "checkpoint_files",
+        "base_model",
+        "base_revision",
+        "tokenizer_sha256",
+        "model_parameters",
+        "suite_sha256",
+        "max_new_tokens",
+        "temperature",
+        "device",
+        "gpu_utilization",
+        "elapsed_seconds",
+        "accuracy",
+        "slices",
+        "results",
+        "limitations"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/parameter-mean-retention.json",
+      "bytes": 422,
+      "sha256": "a514aa6c35f13d2b6dceb81919fa56683722576af0605c988b96dbfc9efeadd6",
+      "structure": [
+        "checkpoint",
+        "retained_target_loss",
+        "retained_rows",
+        "test_sha256",
+        "retained_target_tokens",
+        "gradient_updates",
+        "previous_trained_reference_loss",
+        "loss_definition"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/parent-benchmark.json",
+      "bytes": 22414,
+      "sha256": "13c2f083f23575edf944862271f3d6cff6386fc3333d948abf9a5f0d73c235ac",
+      "structure": [
+        "schema_version",
+        "checkpoint",
+        "production_base_only",
+        "checkpoint_files",
+        "base_model",
+        "base_revision",
+        "tokenizer_sha256",
+        "model_parameters",
+        "suite_sha256",
+        "max_new_tokens",
+        "temperature",
+        "device",
+        "gpu_utilization",
+        "elapsed_seconds",
+        "accuracy",
+        "slices",
+        "results",
+        "limitations",
+        "scoring_version",
+        "rescored_from_saved_outputs",
+        "original_report_sha256",
+        "scoring_correction"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/parent-holdout.json",
+      "bytes": 10939,
+      "sha256": "c0d9be9f3db46d4a3295249ddf461aaae4da9a36731f6cf7f0b5b020b7a1b432",
+      "structure": [
+        "schema_version",
+        "scoring_version",
+        "checkpoint",
+        "production_base_only",
+        "checkpoint_files",
+        "base_model",
+        "base_revision",
+        "tokenizer_sha256",
+        "model_parameters",
+        "suite_sha256",
+        "max_new_tokens",
+        "temperature",
+        "device",
+        "gpu_utilization",
+        "elapsed_seconds",
+        "accuracy",
+        "slices",
+        "results",
+        "limitations",
+        "heldout_target_loss",
+        "heldout_rows",
+        "heldout_target_tokens",
+        "dataset_manifest_sha256",
+        "test_sha256",
+        "training_prompt_overlap",
+        "final_test_used_for_training"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/phase1-benchmark.json",
+      "bytes": 22784,
+      "sha256": "c19a8fa5b1a33d3ff29e7da7ea6d042651ce0e935ca12baa8ef390e93cb29658",
+      "structure": [
+        "schema_version",
+        "scoring_version",
+        "checkpoint",
+        "production_base_only",
+        "checkpoint_files",
+        "base_model",
+        "base_revision",
+        "tokenizer_sha256",
+        "model_parameters",
+        "suite_sha256",
+        "max_new_tokens",
+        "temperature",
+        "device",
+        "gpu_utilization",
+        "elapsed_seconds",
+        "accuracy",
+        "slices",
+        "results",
+        "limitations",
+        "rescored_from_saved_outputs",
+        "scoring_correction",
+        "original_report_sha256"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/phase1-comparison.json",
+      "bytes": 469,
+      "sha256": "c966577d4ae5ef4a31a80d29741646d9bfc9601b956769fe241a396fcdfe46cf",
+      "structure": [
+        "parent_accuracy",
+        "candidate_accuracy",
+        "production_accuracy",
+        "regressed_slices",
+        "regressed_cases",
+        "numeric_gate_passed",
+        "human_review_required",
+        "deployment_approved",
+        "automatic_promotion"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/phase1-training.json",
+      "bytes": 36766,
+      "sha256": "b729e8de107314224db3c2490bc5111791dfc96a42dd27771736d2d9e66f5248",
+      "structure": [
+        "schema_version",
+        "run_id",
+        "base_model",
+        "base_revision",
+        "parent",
+        "parent_files",
+        "parent_training_report_sha256",
+        "tokenizer_sha256",
+        "architecture",
+        "objective",
+        "seed",
+        "start_offset",
+        "optimizer_state_resumed",
+        "learning_rate",
+        "max_length",
+        "train_examples",
+        "eval_examples",
+        "dataset_manifest_sha256",
+        "dataset_files",
+        "skipped",
+        "baseline",
+        "final",
+        "training",
+        "original_checkpoints_modified",
+        "weights_reinitialized",
+        "automatic_promotion",
+        "promoted",
+        "final_test_used_for_training",
+        "evaluation_pending"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/phase2-benchmark.json",
+      "bytes": 22612,
+      "sha256": "91d0263b71bd85876a66d1d09f345d6c239a01ca3ce505a2b2d4bec74f3cde81",
+      "structure": [
+        "schema_version",
+        "scoring_version",
+        "checkpoint",
+        "production_base_only",
+        "checkpoint_files",
+        "base_model",
+        "base_revision",
+        "tokenizer_sha256",
+        "model_parameters",
+        "suite_sha256",
+        "max_new_tokens",
+        "temperature",
+        "device",
+        "gpu_utilization",
+        "elapsed_seconds",
+        "accuracy",
+        "slices",
+        "results",
+        "limitations",
+        "rescored_from_saved_outputs",
+        "scoring_correction",
+        "original_report_sha256"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/phase2-comparison.json",
+      "bytes": 385,
+      "sha256": "9dacfa0915129d2604501377069bcfd66d729b0a7c599eabad3865fc3b894455",
+      "structure": [
+        "parent_accuracy",
+        "candidate_accuracy",
+        "production_accuracy",
+        "regressed_slices",
+        "regressed_cases",
+        "numeric_gate_passed",
+        "human_review_required",
+        "deployment_approved",
+        "automatic_promotion"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/phase2-training.json",
+      "bytes": 55760,
+      "sha256": "c9f69574ce219809daa7a6d561038f465640d081318a46ad215cd97bba80d9a6",
+      "structure": [
+        "schema_version",
+        "run_id",
+        "base_model",
+        "base_revision",
+        "parent",
+        "parent_files",
+        "parent_training_report_sha256",
+        "tokenizer_sha256",
+        "architecture",
+        "objective",
+        "seed",
+        "start_offset",
+        "optimizer_state_resumed",
+        "learning_rate",
+        "max_length",
+        "train_examples",
+        "eval_examples",
+        "dataset_manifest_sha256",
+        "dataset_files",
+        "skipped",
+        "baseline",
+        "final",
+        "training",
+        "original_checkpoints_modified",
+        "weights_reinitialized",
+        "automatic_promotion",
+        "promoted",
+        "final_test_used_for_training",
+        "evaluation_pending"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/phase3-benchmark.json",
+      "bytes": 22912,
+      "sha256": "1f50966b97ef3b731643e0c82d6972e8eeb6601e794b0c51d389a6dbd2c667a8",
+      "structure": [
+        "schema_version",
+        "scoring_version",
+        "checkpoint",
+        "production_base_only",
+        "checkpoint_files",
+        "base_model",
+        "base_revision",
+        "tokenizer_sha256",
+        "model_parameters",
+        "suite_sha256",
+        "max_new_tokens",
+        "temperature",
+        "device",
+        "gpu_utilization",
+        "elapsed_seconds",
+        "accuracy",
+        "slices",
+        "results",
+        "limitations",
+        "rescored_from_saved_outputs",
+        "scoring_correction",
+        "original_report_sha256"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/phase3-comparison.json",
+      "bytes": 336,
+      "sha256": "36dd7f63839cb05248194098a8349351889175d5667aac6424eeb2135cb42739",
+      "structure": [
+        "parent_accuracy",
+        "candidate_accuracy",
+        "production_accuracy",
+        "regressed_slices",
+        "regressed_cases",
+        "numeric_gate_passed",
+        "human_review_required",
+        "deployment_approved",
+        "automatic_promotion"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/phase3-training.json",
+      "bytes": 76885,
+      "sha256": "74a601470eeee744cc45333623b7a683bd5f04ae4a6c216fa353c9159bede459",
+      "structure": [
+        "schema_version",
+        "run_id",
+        "base_model",
+        "base_revision",
+        "parent",
+        "parent_files",
+        "parent_training_report_sha256",
+        "tokenizer_sha256",
+        "architecture",
+        "objective",
+        "seed",
+        "start_offset",
+        "optimizer_state_resumed",
+        "learning_rate",
+        "max_length",
+        "train_examples",
+        "eval_examples",
+        "dataset_manifest_sha256",
+        "dataset_files",
+        "skipped",
+        "baseline",
+        "final",
+        "training",
+        "original_checkpoints_modified",
+        "weights_reinitialized",
+        "automatic_promotion",
+        "promoted",
+        "final_test_used_for_training",
+        "evaluation_pending"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/phase4-benchmark.json",
+      "bytes": 22482,
+      "sha256": "f624ca82dd50169010131be6ea3f418782b40adbef19c6f9c103b5d575e920b0",
+      "structure": [
+        "schema_version",
+        "scoring_version",
+        "checkpoint",
+        "production_base_only",
+        "checkpoint_files",
+        "base_model",
+        "base_revision",
+        "tokenizer_sha256",
+        "model_parameters",
+        "suite_sha256",
+        "max_new_tokens",
+        "temperature",
+        "device",
+        "gpu_utilization",
+        "elapsed_seconds",
+        "accuracy",
+        "slices",
+        "results",
+        "limitations"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/phase4-training.json",
+      "bytes": 100534,
+      "sha256": "ae9006640275e58ed808b86d0584797c55c46be82a0aeed8e712a1361ff2388e",
+      "structure": [
+        "schema_version",
+        "run_id",
+        "base_model",
+        "base_revision",
+        "parent",
+        "parent_files",
+        "parent_training_report_sha256",
+        "tokenizer_sha256",
+        "architecture",
+        "objective",
+        "seed",
+        "start_offset",
+        "optimizer_state_resumed",
+        "learning_rate",
+        "max_length",
+        "replay_fraction",
+        "train_examples",
+        "eval_examples",
+        "dataset_manifest_sha256",
+        "dataset_files",
+        "skipped",
+        "baseline",
+        "final",
+        "training",
+        "original_checkpoints_modified",
+        "weights_reinitialized",
+        "automatic_promotion",
+        "promoted",
+        "final_test_used_for_training",
+        "evaluation_pending"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/phase5-benchmark.json",
+      "bytes": 22504,
+      "sha256": "96cbe2a8e1403cfe1bf1764ac44301c2aa538453347b3d2cc367b9eb02843ce4",
+      "structure": [
+        "schema_version",
+        "scoring_version",
+        "checkpoint",
+        "production_base_only",
+        "checkpoint_files",
+        "base_model",
+        "base_revision",
+        "tokenizer_sha256",
+        "model_parameters",
+        "suite_sha256",
+        "max_new_tokens",
+        "temperature",
+        "device",
+        "gpu_utilization",
+        "elapsed_seconds",
+        "accuracy",
+        "slices",
+        "results",
+        "limitations"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/phase5-training.json",
+      "bytes": 127355,
+      "sha256": "dffdee67e7c3244960e2fee61d5fac88ef34340302982f2d6b3b0a276caabd27",
+      "structure": [
+        "schema_version",
+        "run_id",
+        "base_model",
+        "base_revision",
+        "parent",
+        "parent_files",
+        "parent_training_report_sha256",
+        "tokenizer_sha256",
+        "architecture",
+        "objective",
+        "seed",
+        "start_offset",
+        "optimizer_state_resumed",
+        "learning_rate",
+        "max_length",
+        "replay_fraction",
+        "train_examples",
+        "eval_examples",
+        "dataset_manifest_sha256",
+        "dataset_files",
+        "skipped",
+        "baseline",
+        "final",
+        "training",
+        "original_checkpoints_modified",
+        "weights_reinitialized",
+        "automatic_promotion",
+        "promoted",
+        "final_test_used_for_training",
+        "evaluation_pending"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/phase6-benchmark.json",
+      "bytes": 22627,
+      "sha256": "4e4c4feb577634adb773dd9f25e2941bf703b72fe1d39b1a295b6e0174e0d6e8",
+      "structure": [
+        "schema_version",
+        "scoring_version",
+        "checkpoint",
+        "production_base_only",
+        "checkpoint_files",
+        "base_model",
+        "base_revision",
+        "tokenizer_sha256",
+        "model_parameters",
+        "suite_sha256",
+        "max_new_tokens",
+        "temperature",
+        "device",
+        "gpu_utilization",
+        "elapsed_seconds",
+        "accuracy",
+        "slices",
+        "results",
+        "limitations"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/phase6-training.json",
+      "bytes": 151788,
+      "sha256": "29529f32a9a625b65b8bfcd429fb76813a5c2e92ebbfa17d6b445132df2c313f",
+      "structure": [
+        "schema_version",
+        "run_id",
+        "base_model",
+        "base_revision",
+        "parent",
+        "parent_files",
+        "parent_training_report_sha256",
+        "tokenizer_sha256",
+        "architecture",
+        "objective",
+        "seed",
+        "start_offset",
+        "optimizer_state_resumed",
+        "learning_rate",
+        "max_length",
+        "replay_fraction",
+        "train_examples",
+        "eval_examples",
+        "dataset_manifest_sha256",
+        "dataset_files",
+        "skipped",
+        "baseline",
+        "final",
+        "training",
+        "original_checkpoints_modified",
+        "weights_reinitialized",
+        "automatic_promotion",
+        "promoted",
+        "final_test_used_for_training",
+        "evaluation_pending"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/preference-dataset/historical-train-replay.jsonl",
+      "bytes": 87196,
+      "sha256": "fe7efdc4d8719d1426fb905377137d9ef567254615657408c4e6fe44d1470e78"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/preference-dataset/manifest.json",
+      "bytes": 2805,
+      "sha256": "f4ecab07e498102d78204a437d401f6f5ab89a40468486260df24b0415cdbdf5",
+      "structure": [
+        "schema_version",
+        "source_sha256",
+        "source_snapshot",
+        "seed",
+        "quality",
+        "files",
+        "final_test_used_for_training",
+        "automatic_promotion",
+        "limitations",
+        "replay"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/preference-dataset/source.jsonl",
+      "bytes": 38618,
+      "sha256": "d2c1e9867dff8f6ef88a83729fd68fdcc5a3d4d252dc1bd3b728244f8f1ac47c"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/preference-dataset/test.jsonl",
+      "bytes": 6500,
+      "sha256": "5d8b18f21a1b8b4a911d574a6a6eac8e3878938f685aa77bf0a64bca74cc191d"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/preference-dataset/train.jsonl",
+      "bytes": 112840,
+      "sha256": "ad602ac043f96aa264ec8c424e64689e9ee2c627b5005121e622fe149a7d4c56"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/preference-dataset/validation.jsonl",
+      "bytes": 6474,
+      "sha256": "70fdc1a1195043a44688e6342e4beb6ef1b0c8944137f0cd999bf52fe128cff6"
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/previous-trained-application-diagnostics.json",
+      "bytes": 24050,
+      "sha256": "d1e7e58fab31a82060f8b1b8c7e8d2b248aff0ac890e86fa564156ff48fe7e10",
+      "structure": [
+        "schema_version",
+        "scoring_version",
+        "checkpoint",
+        "production_base_only",
+        "checkpoint_files",
+        "base_model",
+        "base_revision",
+        "tokenizer_sha256",
+        "model_parameters",
+        "suite_sha256",
+        "max_new_tokens",
+        "temperature",
+        "system_prompt",
+        "system_prompt_sha256",
+        "device",
+        "gpu_utilization",
+        "elapsed_seconds",
+        "accuracy",
+        "slices",
+        "results",
+        "limitations"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/previous-trained-fresh-transfer.json",
+      "bytes": 15084,
+      "sha256": "32de88b96fc5b749406bb777ab23721a7bcc4951d983c5b98d1d820013068198",
+      "structure": [
+        "schema_version",
+        "scoring_version",
+        "checkpoint",
+        "production_base_only",
+        "checkpoint_files",
+        "base_model",
+        "base_revision",
+        "tokenizer_sha256",
+        "model_parameters",
+        "suite_sha256",
+        "max_new_tokens",
+        "temperature",
+        "system_prompt",
+        "system_prompt_sha256",
+        "device",
+        "gpu_utilization",
+        "elapsed_seconds",
+        "accuracy",
+        "slices",
+        "results",
+        "limitations",
+        "heldout_target_loss",
+        "heldout_rows",
+        "heldout_target_tokens",
+        "dataset_manifest_sha256",
+        "test_sha256",
+        "training_prompt_overlap",
+        "final_test_used_for_training",
+        "training_partitions_checked"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/production-application-diagnostics.json",
+      "bytes": 25788,
+      "sha256": "b3f3ebc1e3a7afefe79e135be7f1d43a2a95016203eba031c223461a9bf4ed45",
+      "structure": [
+        "schema_version",
+        "scoring_version",
+        "checkpoint",
+        "production_base_only",
+        "checkpoint_files",
+        "base_model",
+        "base_revision",
+        "tokenizer_sha256",
+        "model_parameters",
+        "suite_sha256",
+        "max_new_tokens",
+        "temperature",
+        "system_prompt",
+        "system_prompt_sha256",
+        "device",
+        "gpu_utilization",
+        "elapsed_seconds",
+        "accuracy",
+        "slices",
+        "results",
+        "limitations"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/production-benchmark.json",
+      "bytes": 24616,
+      "sha256": "0c45a6a127af9c389209057c288cf696bd41b66702a8b7daece8457fdb719fb1",
+      "structure": [
+        "schema_version",
+        "checkpoint",
+        "production_base_only",
+        "checkpoint_files",
+        "base_model",
+        "base_revision",
+        "tokenizer_sha256",
+        "model_parameters",
+        "suite_sha256",
+        "max_new_tokens",
+        "temperature",
+        "device",
+        "gpu_utilization",
+        "elapsed_seconds",
+        "accuracy",
+        "slices",
+        "results",
+        "limitations",
+        "scoring_version",
+        "rescored_from_saved_outputs",
+        "original_report_sha256",
+        "scoring_correction"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/production-fresh-transfer.json",
+      "bytes": 16771,
+      "sha256": "5c4c93d3f0d2c72e7df476d373a87c60d00529f09cd2565141227e77272595b3",
+      "structure": [
+        "schema_version",
+        "scoring_version",
+        "checkpoint",
+        "production_base_only",
+        "checkpoint_files",
+        "base_model",
+        "base_revision",
+        "tokenizer_sha256",
+        "model_parameters",
+        "suite_sha256",
+        "max_new_tokens",
+        "temperature",
+        "system_prompt",
+        "system_prompt_sha256",
+        "device",
+        "gpu_utilization",
+        "elapsed_seconds",
+        "accuracy",
+        "slices",
+        "results",
+        "limitations",
+        "heldout_target_loss",
+        "heldout_rows",
+        "heldout_target_tokens",
+        "dataset_manifest_sha256",
+        "test_sha256",
+        "training_prompt_overlap",
+        "final_test_used_for_training",
+        "training_partitions_checked"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/production-holdout-before-preference.json",
+      "bytes": 12336,
+      "sha256": "a69f2ce2b8562c7a653804e0005f9e98fa1f357d00a67655c87ea281f36c695d",
+      "structure": [
+        "schema_version",
+        "scoring_version",
+        "checkpoint",
+        "production_base_only",
+        "checkpoint_files",
+        "base_model",
+        "base_revision",
+        "tokenizer_sha256",
+        "model_parameters",
+        "suite_sha256",
+        "max_new_tokens",
+        "temperature",
+        "device",
+        "gpu_utilization",
+        "elapsed_seconds",
+        "accuracy",
+        "slices",
+        "results",
+        "limitations",
+        "heldout_target_loss",
+        "heldout_rows",
+        "heldout_target_tokens",
+        "dataset_manifest_sha256",
+        "test_sha256",
+        "training_prompt_overlap",
+        "final_test_used_for_training"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/raw-v4b-benchmark-v2.json",
+      "bytes": 22481,
+      "sha256": "3bb21b3df2ac59a04b8b0a34979ec9878f58fdeb38ab8062f69e23ad7d0d16ea",
+      "structure": [
+        "schema_version",
+        "scoring_version",
+        "checkpoint",
+        "production_base_only",
+        "checkpoint_files",
+        "base_model",
+        "base_revision",
+        "tokenizer_sha256",
+        "model_parameters",
+        "suite_sha256",
+        "max_new_tokens",
+        "temperature",
+        "device",
+        "gpu_utilization",
+        "elapsed_seconds",
+        "accuracy",
+        "slices",
+        "results",
+        "limitations"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/raw-v5b-benchmark-v2.json",
+      "bytes": 22309,
+      "sha256": "4cc227fa792d211cc06ae886309701806d94959af965b09a5f1eafe134384a07",
+      "structure": [
+        "schema_version",
+        "scoring_version",
+        "checkpoint",
+        "production_base_only",
+        "checkpoint_files",
+        "base_model",
+        "base_revision",
+        "tokenizer_sha256",
+        "model_parameters",
+        "suite_sha256",
+        "max_new_tokens",
+        "temperature",
+        "device",
+        "gpu_utilization",
+        "elapsed_seconds",
+        "accuracy",
+        "slices",
+        "results",
+        "limitations"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/raw-v6b-benchmark-v2.json",
+      "bytes": 22624,
+      "sha256": "24e1dbd2b1d2e8b26efd1570b432007a2a462df4183da1b880d52d44f7a0f042",
+      "structure": [
+        "schema_version",
+        "scoring_version",
+        "checkpoint",
+        "production_base_only",
+        "checkpoint_files",
+        "base_model",
+        "base_revision",
+        "tokenizer_sha256",
+        "model_parameters",
+        "suite_sha256",
+        "max_new_tokens",
+        "temperature",
+        "device",
+        "gpu_utilization",
+        "elapsed_seconds",
+        "accuracy",
+        "slices",
+        "results",
+        "limitations"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/research-checkpoint-loading.json",
+      "bytes": 435,
+      "sha256": "8a96dd68533e37aa6af1bd016a118ae6697060f2cfe15454d1a81a4d84bc68b6",
+      "structure": [
+        "loaded_successfully",
+        "base_model",
+        "base_revision",
+        "base_parameters",
+        "tokenizer_sha256",
+        "inference",
+        "checkpoint_bytes",
+        "production_profile_changed",
+        "restricted_tools_enabled",
+        "approved_for_local_activation"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/training-summary.json",
+      "bytes": 525,
+      "sha256": "c87208b8572b348246d2eabe2866a95c5308cbd4b29d4209c088ed073a64b970",
+      "structure": [
+        "optimizer_steps",
+        "input_tokens_seen",
+        "target_tokens_seen",
+        "train_runtime",
+        "scope",
+        "gpu_utilization",
+        "gpu_utilization_reason",
+        "candidate_status",
+        "adapter_parameters",
+        "base_parameters",
+        "original_checkpoints_modified"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/used-builders/evaluate_transfer_v2.py",
+      "bytes": 5094,
+      "sha256": "916a9182acc608d3b06abf424af2d985a63f632f00b50330bac1c2b0827cc983",
+      "symbols": [
+        "evaluate",
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "import json",
+        "from pathlib import Path",
+        "from agent.curriculum import row_keys, canonical, audit_directory",
+        "from agent.learning import load_examples"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/recovery-v1/used-builders/prepare_stability_curriculum.py",
+      "bytes": 7382,
+      "sha256": "60501c5abc105566280fd187ef52163d28bbcc9d83bf14cac069549fa7224659",
+      "symbols": [
+        "build",
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "import ast",
+        "import json",
+        "from pathlib import Path",
+        "from agent.checkpoints import digest",
+        "from agent.curriculum import prepare, row_keys, canonical, assert_disjoint",
+        "from agent.learning import load_examples, write_jsonl"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/v0.6/README.md",
+      "bytes": 1432,
+      "sha256": "3a6fc5447409bf95d84b5854cce4a0e8f149769b3d472ccc319e36d2ef5f5e94",
+      "outline": [
+        "# Public development evidence"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/v0.6/baseline.json",
+      "bytes": 7429,
+      "sha256": "652c5803f394d67777da6fbd4291270c59c57a098ae65d0c8e43f389792f2213",
+      "structure": [
+        "mode",
+        "model",
+        "revision",
+        "python",
+        "cpu_threads",
+        "max_new_tokens",
+        "loading_seconds",
+        "suite_sha256",
+        "results",
+        "temperature",
+        "context_tokens",
+        "note"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/v0.6/browser-report.json",
+      "bytes": 392,
+      "sha256": "e0f48ff300a51c40654d65cdfc0ab339c10140c32919d1b767b72d956a1457bc",
+      "structure": [
+        "browser_errors",
+        "desktop",
+        "mobile",
+        "streaming_before_complete",
+        "observed_first_text_seconds_including_cold_load",
+        "real_cpu_memory_answer",
+        "admin_code_not_in_chat",
+        "owner_unlock_and_tools",
+        "local_human_review_roundtrip",
+        "logout_clears_private_views"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/v0.6/controlled-candidate.json",
+      "bytes": 54227,
+      "sha256": "54d288215e3a51e7f1de77696f07c931152c34acd0e6c26fc2d95806f0aa06cf",
+      "structure": [
+        "schema_version",
+        "purpose",
+        "suite_sha256",
+        "model",
+        "revision",
+        "adapter",
+        "provider",
+        "python",
+        "cpu_threads",
+        "max_new_tokens",
+        "temperature",
+        "context_tokens",
+        "response_mode",
+        "cold_start_ms",
+        "results",
+        "slices",
+        "configuration_sha256",
+        "calibration",
+        "limitations",
+        "comparison"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/v0.6/controlled-fast.json",
+      "bytes": 51861,
+      "sha256": "0fa8fbf399aa972bf895ec0191d6a6c5a8f07d58c44eee3e3737feaf37368db9",
+      "structure": [
+        "schema_version",
+        "purpose",
+        "suite_sha256",
+        "model",
+        "revision",
+        "adapter",
+        "provider",
+        "python",
+        "cpu_threads",
+        "max_new_tokens",
+        "temperature",
+        "context_tokens",
+        "response_mode",
+        "cold_start_ms",
+        "results",
+        "slices",
+        "configuration_sha256",
+        "calibration",
+        "limitations",
+        "comparison"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/v0.6/euclid.json",
+      "bytes": 811,
+      "sha256": "761dc749090ff4309e579aaf94ae34f4cd00aabb1a4645f245eba5507b6e8768",
+      "structure": [
+        "book",
+        "title",
+        "source_url",
+        "catalog_url",
+        "source_sha256",
+        "snapshot_file",
+        "source_bytes",
+        "extracted_characters",
+        "chunks",
+        "new_documents",
+        "rights_note",
+        "used_for_weight_training",
+        "purpose"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/v0.6/frozen-pilot-dataset/manifest.json",
+      "bytes": 2306,
+      "sha256": "5737f71110938bb71c0bfff9c832d07d41ab40f2a039d0919e86aa4d00dda358",
+      "structure": [
+        "schema_version",
+        "source_sha256",
+        "seed",
+        "quality",
+        "files",
+        "final_test_used_for_training",
+        "automatic_promotion",
+        "limitations",
+        "source_snapshot"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/v0.6/frozen-pilot-dataset/source.jsonl",
+      "bytes": 66543,
+      "sha256": "daa610fef4524115a3c5708d10c2a8ed5d3c6dcdf228175ce19f7e598bfcf0ad"
+    },
+    {
+      "path": "docs/benchmarks/v0.6/frozen-pilot-dataset/test.jsonl",
+      "bytes": 7607,
+      "sha256": "f23c6fb3a8c86fe0bf1e138f1256738d4c49462011de1d7eff47fb9823874e2f"
+    },
+    {
+      "path": "docs/benchmarks/v0.6/frozen-pilot-dataset/train.jsonl",
+      "bytes": 30607,
+      "sha256": "deb58757bc2567792835ca2ae52a3138c9896cd7b48632980560046d8fa3ba5e"
+    },
+    {
+      "path": "docs/benchmarks/v0.6/frozen-pilot-dataset/validation.jsonl",
+      "bytes": 7651,
+      "sha256": "5f0e54ce4777bf1abd479c24d9c8c2133540ed697a2d99e99455514f84fde95d"
+    },
+    {
+      "path": "docs/benchmarks/v0.6/test-baseline.json",
+      "bytes": 167,
+      "sha256": "23deccccc7df3fa057a356b40e93f311df6e161802da6b07b5ff653d4c498080",
+      "structure": [
+        "base_model",
+        "adapter",
+        "examples",
+        "skipped",
+        "target_tokens",
+        "mean_target_loss"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/v0.6/test-candidate.json",
+      "bytes": 194,
+      "sha256": "0fc4a86aba9fffc8a16ee8001e87e921d025b768215bd2555c27e2f4f012b695",
+      "structure": [
+        "base_model",
+        "adapter",
+        "examples",
+        "skipped",
+        "target_tokens",
+        "mean_target_loss"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/v0.6/training-report.json",
+      "bytes": 1852,
+      "sha256": "cb8837b80cd7d60b578d2c515341478657afecd5b15fa0b3365b354683e50332",
+      "structure": [
+        "base_model",
+        "base_revision",
+        "train_sha256",
+        "eval_sha256",
+        "train_examples",
+        "eval_examples",
+        "skipped",
+        "baseline",
+        "final",
+        "training",
+        "parameters",
+        "automatic_promotion",
+        "final_test_sha256",
+        "final_test_used_for_training",
+        "promoted",
+        "decision"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/v0.7/README.md",
+      "bytes": 1779,
+      "sha256": "138f7f2f5b64cdf18e0a7923d8ad185876336ddb84ae40a4f47be545d847b733",
+      "outline": [
+        "# Efficiency and regression evidence"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/v0.7/browser-report.json",
+      "bytes": 353,
+      "sha256": "40aa8d12c0d39616a4cfbc085479eba6a75d11a972c367946f29af3dc79365e0",
+      "structure": [
+        "desktop",
+        "mobile",
+        "five_components",
+        "real_cpu_answer",
+        "streaming_before_complete",
+        "reported_usage_visible",
+        "stop_cancelled_and_no_partial_history",
+        "logout_clears_metrics",
+        "javascript_errors",
+        "model_median_ms"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/v0.7/comparison.json",
+      "bytes": 838,
+      "sha256": "123d2f6b9dbf546bd5a0d378eea5b63029c7a0c0275aecc136e3f377aafd2b45",
+      "structure": [
+        "cases",
+        "before_total_p50_ms",
+        "after_total_p50_ms",
+        "before_first_text_p50_ms",
+        "after_first_text_p50_ms",
+        "prompt_tokens_before",
+        "prompt_tokens_after",
+        "reply_text_tokens_before",
+        "reply_text_tokens_after",
+        "total_latency_change_fraction",
+        "limitations"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/v0.7/diagnostic.json",
+      "bytes": 61846,
+      "sha256": "cef16aa7bb4854e72a4b2232347b938e3c38d4d481ed530e44c38303c8b3c1f4",
+      "structure": [
+        "schema_version",
+        "purpose",
+        "suite_sha256",
+        "model",
+        "revision",
+        "adapter",
+        "provider",
+        "python",
+        "cpu_threads",
+        "max_new_tokens",
+        "temperature",
+        "context_tokens",
+        "response_mode",
+        "reply_style",
+        "cold_start_ms",
+        "results",
+        "slices",
+        "configuration_sha256",
+        "calibration",
+        "limitations",
+        "comparison"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/v0.7/speed-after.json",
+      "bytes": 4942,
+      "sha256": "939b66bfbf8f67e10d6cd7cd3b288a09537ff63032ba148dcfb7c1e73104accd",
+      "structure": [
+        "model",
+        "revision",
+        "temperature",
+        "cpu_threads",
+        "max_new_tokens",
+        "context_tokens",
+        "cold_warmup_ms",
+        "response_token_measure",
+        "results"
+      ]
+    },
+    {
+      "path": "docs/benchmarks/v0.7/speed-before.json",
+      "bytes": 4294,
+      "sha256": "933de84328a6e382f61230e2351c81291c9a6bd3a5310ca42c94e16cfd9e3ccb",
+      "structure": [
+        "model",
+        "revision",
+        "temperature",
+        "cpu_threads",
+        "max_new_tokens",
+        "context_tokens",
+        "cold_warmup_ms",
+        "response_token_measure",
+        "results"
+      ]
+    },
+    {
+      "path": "docs/continued-training.md",
+      "bytes": 10182,
+      "sha256": "c14e92f46f0b18affdb81eb3558afcb181cd56de4f298eda99a3b8fb9e13f121",
+      "outline": [
+        "# Continued training of the existing Zenith checkpoint",
+        "## What actually exists",
+        "## Actual experiment and decision",
+        "## Curriculum and data isolation",
+        "## Reproduce a continuation",
+        "## Merge/export and rollback"
+      ]
+    },
+    {
+      "path": "docs/deployment.md",
+      "bytes": 8505,
+      "sha256": "dee716ede18b8c89f9b9fd60752f0ac25cf60c9b3e6957505a092e97e54f5652",
+      "outline": [
+        "# Deploy Zenith",
+        "## Your computer",
+        "## Docker / a server",
+        "## Owner workspace in Docker",
+        "## Hugging Face Docker Space",
+        "## Authentication and JSON API",
+        "## Troubleshooting"
+      ]
+    },
+    {
+      "path": "docs/engineering.md",
+      "bytes": 18625,
+      "sha256": "c284cbe353ccf5e27b727960b6b3c9419ba57f37a7b9be21c0276ef6806d671c",
+      "outline": [
+        "# Zenith engineering standards",
+        "## Implemented boundaries",
+        "## Development review checklists",
+        "### AI systems foundations",
+        "### Machine learning foundations",
+        "### Deep learning",
+        "### LLM architecture",
+        "### Tokenization and context",
+        "### Prompt and context design",
+        "### Retrieval-augmented generation",
+        "### Embeddings and semantic search",
+        "### Fine-tuning and adapters",
+        "### AI data engineering",
+        "### Model evaluation",
+        "### Calibration and abstention",
+        "### AI governance and responsible use",
+        "### AI application security",
+        "### MLOps and model lifecycle",
+        "### Inference performance",
+        "### Quantization and compression",
+        "### Distributed training",
+        "### Computer vision",
+        "### Speech and audio AI",
+        "### Multimodal systems",
+        "### Recommender systems",
+        "### Reinforcement learning",
+        "### AI research and reproducibility",
+        "## Reference bibliography"
+      ]
+    },
+    {
+      "path": "docs/execution-controls.md",
+      "bytes": 6954,
+      "sha256": "ec97b2ef79d33984b768dca5021c5fe29ee7bf8f4c765e37080c0696348ee82f",
+      "outline": [
+        "# Owner authentication and restricted execution",
+        "## Authentication and MFA",
+        "## Explicit capabilities and scopes",
+        "## API and bounded plans",
+        "## Memory remains external"
+      ]
+    },
+    {
+      "path": "docs/integrity.md",
+      "bytes": 2875,
+      "sha256": "c1acef221ddb5a81d7b31e13d38809d04bb29af967e3d21242abedd8213dbebd",
+      "outline": [
+        "# Check the release files",
+        "## Source checkout or ZIP",
+        "## Installed wheel"
+      ]
+    },
+    {
+      "path": "docs/local-installation.md",
+      "bytes": 14250,
+      "sha256": "7cb7a2bc367ab74877a2ae11df930cdcc90b0f82016049872e608e7c2643dafe",
+      "outline": [
+        "# Install, run, and upgrade Zenith locally",
+        "## Quick setup",
+        "## Requirements",
+        "## Windows PowerShell",
+        "## Linux",
+        "## Activate the environment",
+        "# Windows PowerShell; execution policy changes only for this process.",
+        "# Linux Bash",
+        "## Mode and runtime choices",
+        "## Saved settings and data",
+        "## Diagnostics and offline use",
+        "## Upgrade",
+        "## Common problems",
+        "## Release file checks"
+      ]
+    },
+    {
+      "path": "docs/memory.md",
+      "bytes": 3330,
+      "sha256": "b05b81353b6f1280638811c11f1a6a6987b8674cb89e508ebcf466a1fd4c0ea9",
+      "outline": [
+        "# Accounts, welcome greetings, and memory",
+        "## What Zenith remembers",
+        "## Conversation ownership",
+        "## Interface and answer quality"
+      ]
+    },
+    {
+      "path": "docs/model-discovery.md",
+      "bytes": 6001,
+      "sha256": "a48f37ba238b3c3108cf426df08858f04bc1cccd0069fc7ed9182ae47093bcec",
+      "outline": [
+        "# Discover and save model sources",
+        "## Terminal discovery",
+        "## Save a model reference",
+        "## Run a compatible model",
+        "## Offline behavior and failures",
+        "## API references"
+      ]
+    },
+    {
+      "path": "docs/model-packs.md",
+      "bytes": 7727,
+      "sha256": "7ae8947a8fd2601079d21d818b0c8d46a56a352b20e3eec4a2246144873a04d3",
+      "outline": [
+        "# Zenith model packs: complete inventories and local inference",
+        "## Use the installed command",
+        "## Run GGUF text chat locally",
+        "## Let the three local runtimes collaborate",
+        "## Vision and specialized runtimes",
+        "## Branding and attribution"
+      ]
+    },
+    {
+      "path": "docs/model-promotion.md",
+      "bytes": 6729,
+      "sha256": "810d0a407b70075161a81e27424350c104bea8b087153cc1a48a3c54174c745d",
+      "outline": [
+        "# Model review, activation, and rollback",
+        "## Activate the experimental checkpoint explicitly",
+        "## Review a candidate",
+        "## Explicit local activation",
+        "## Source-release bundles",
+        "## Rollback",
+        "[server-side execution controls](execution-controls.md). Local audit files are"
+      ]
+    },
+    {
+      "path": "docs/model-recovery.md",
+      "bytes": 8321,
+      "sha256": "b44f2fb2938a90104f5bcb8b12d3f4005b924861f2a6770cf260ecda4087ffdb",
+      "outline": [
+        "# Continued-learning recovery study",
+        "## Recorded development results",
+        "## Evidence and reproduction",
+        "[Promotion controls](model-promotion.md) reject missing cases, altered scores,",
+        "## Application-policy comparison and research snapshot"
+      ]
+    },
+    {
+      "path": "docs/model-team.md",
+      "bytes": 9429,
+      "sha256": "6a941adf040394a1e44c7053f8ed8538e7579fbf869cf04f73280a94f0f4fa75",
+      "outline": [
+        "# Model catalog and team",
+        "## Selection and meaning",
+        "## Real collaboration",
+        "## Configure your team",
+        "## Import selected dataset text",
+        "## Refresh and validate"
+      ]
+    },
+    {
+      "path": "docs/provider-reliability.md",
+      "bytes": 3915,
+      "sha256": "8cf8293b3d8ffed1cc330268666ad6eb85b1474894548a098ef187746f13436b",
+      "outline": [
+        "# Model provider reliability",
+        "## Completion is explicit",
+        "## Transport bounds and cleanup",
+        "## Reproduce the checks"
+      ]
+    },
+    {
+      "path": "docs/quality-and-training.md",
+      "bytes": 9284,
+      "sha256": "3531f26172d1005defb20f9590ac944f3ccc8bc58893277a8c83d2aa705f4148",
+      "outline": [
+        "# Quality goals, data, evaluation, and uncertainty",
+        "## Defined task and baseline",
+        "## Fast responses",
+        "## Versioned data and isolated tests",
+        "## Training and broad resources",
+        "## Calibration, abstention, and handoff"
+      ]
+    },
+    {
+      "path": "docs/skills.md",
+      "bytes": 9273,
+      "sha256": "0b6617098976d47dc3d8c024f7bb9d8bfeda2ea439ae22e2e4866f836382b0f7",
+      "outline": [
+        "# Built-in skill commands and owner-only security",
+        "## Activate a skill with a command",
+        "## Owner-only security activation",
+        "## Terminal metadata commands",
+        "## API behavior",
+        "## Public conversation skills",
+        "## Owner-only security skills",
+        "## Maintaining the system"
+      ]
+    },
+    {
+      "path": "docs/system.md",
+      "bytes": 7394,
+      "sha256": "1cf43eed13ae375fc951b9cdf9c98825ac14a247668836ac7272b29aaf3b91d2",
+      "outline": [
+        "# Zenith's five components",
+        "## Shorter replies and less token work",
+        "## Usage and cancellation",
+        "## Private performance monitoring and regression watch"
+      ]
+    },
+    {
+      "path": "docs/training-roadmap.md",
+      "bytes": 3153,
+      "sha256": "e3a8e7651f7cf42946c6720dcd57bb937e4979c7c03948aba5e21e2dd44aa82b",
+      "outline": [
+        "# A bounded two-week improvement plan"
+      ]
+    },
+    {
+      "path": "docs/upstream.md",
+      "bytes": 2039,
+      "sha256": "2b47873315d6a5ec4435dd4e112a6c190121dd5c9d49dd9a111d9902b6bcc085",
+      "outline": [
+        "# Upstream references and licenses"
+      ]
+    },
+    {
+      "path": "docs/validation.md",
+      "bytes": 32262,
+      "sha256": "c1aec65b7ef40876a7a67e6fcf0feec63022d16930941d2133448e6556061207",
+      "outline": [
+        "# Validation performed",
+        "## Local installation update (0.4)",
+        "## Automated checks",
+        "## Real inference and browser",
+        "## Training and adapters",
+        "## Docker",
+        "## Versions used",
+        "## Catalog and model-team extension",
+        "## Memory and requested model packs (0.5)",
+        "## Streaming, quality workflow, and owner tools (0.6)",
+        "## Five-component system view and efficiency (0.7)",
+        "## Complete file verification and deployment consistency (0.8)",
+        "## Provider response integrity (0.8.1)",
+        "## Curated AI and cybersecurity learning library (0.9)",
+        "## Built-in commands and owner-only security activation (0.10)",
+        "## Model discovery, pixel identity, and activation (0.11)",
+        "## Simplified installation and browser launch (0.11.1)",
+        "## Continued-training candidate (0.12.0)"
+      ]
+    },
+    {
+      "path": "hf-model-card/README.md",
+      "bytes": 1314,
+      "sha256": "2daba92ed15cb03e178b182911dea0c6bbe99a68423e56c60223efc0686faa85",
+      "outline": [
+        "# Zenith LoRA \u2014 model card template"
+      ]
+    },
+    {
+      "path": "install.ps1",
+      "bytes": 657,
+      "sha256": "1ef5a12336be83c7e4dc59f2f0dd93f5e659cbb5210c8b6a9b786c3739cb881f",
+      "outline": [
+        "#requires -Version 5.1"
+      ]
+    },
+    {
+      "path": "install.py",
+      "bytes": 8263,
+      "sha256": "7b11f85d41dccf92ed8b04cdaf7561ce4ba186b5b7e095c87174a7ba76076429",
+      "symbols": [
+        "environment_python",
+        "run",
+        "configured_provider",
+        "configured_needs_hf",
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "import os",
+        "from pathlib import Path",
+        "import subprocess",
+        "import sys",
+        "import venv",
+        "from agent.branding import show_banner"
+      ]
+    },
+    {
+      "path": "install.sh",
+      "bytes": 517,
+      "sha256": "7d345731fd700bc3ad53e1d9b2f95b8b610c7c41caa36434e7afa2fcc0bda1bb",
+      "outline": [
+        "#!/usr/bin/env bash"
+      ]
+    },
+    {
+      "path": "pyproject.toml",
+      "bytes": 1101,
+      "sha256": "2c3fc5595abcda4c944b58d95571bf3b26fe6323b2d2da77e1dd7221cae9b49c",
+      "outline": [
+        "[build-system]",
+        "[project]",
+        "[project.optional-dependencies]",
+        "[project.scripts]",
+        "[tool.setuptools.packages.find]",
+        "[tool.setuptools.dynamic]",
+        "[tool.setuptools.package-data]"
+      ]
+    },
+    {
+      "path": "quickstart.py",
+      "bytes": 8573,
+      "sha256": "81a1d0b72aed3b6b682ebd8bc2b6b6d73ff8a8e420ced318500dfcc1b0663326",
+      "symbols": [
+        "relative_path",
+        "verify_source",
+        "download_archive",
+        "extract_archive",
+        "prepare_source",
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "import hashlib",
+        "import json",
+        "from pathlib import Path, PurePosixPath",
+        "import re",
+        "import shutil",
+        "import stat",
+        "import subprocess",
+        "import sys",
+        "import tempfile",
+        "from urllib.parse import quote",
+        "from urllib.request import Request, urlopen",
+        "import zipfile"
+      ]
+    },
+    {
+      "path": "release-manifest.json",
+      "bytes": 71691,
+      "sha256": "a6be9ed304b88f3355a01ed5af432363bacec0d73ec5c67098f22e59bd208a2e",
+      "structure": [
+        "schema_version",
+        "version",
+        "files",
+        "manifest_self_excluded",
+        "scope",
+        "text_line_endings",
+        "external_weights",
+        "privacy"
+      ]
+    },
+    {
+      "path": "requirements-data.txt",
+      "bytes": 35,
+      "sha256": "970f1bda1a36688bb4045984c60cf1d1e7bd365a8b960172592e1922846217f2"
+    },
+    {
+      "path": "requirements-hf.txt",
+      "bytes": 25,
+      "sha256": "84cddc35b3c1c8a5eb027399661d9d6a13d04b12d39a935ca1fb68e34e2b9691"
+    },
+    {
+      "path": "requirements-local.txt",
+      "bytes": 92,
+      "sha256": "3da0d45d036025bfdecacac2d141e6c729f95923492205234b046acc59259f93"
+    },
+    {
+      "path": "requirements-train.txt",
+      "bytes": 41,
+      "sha256": "ce357427d8adf392469ae86d8534480663c94a5cbce2b94cdb48860bcfe6d079"
+    },
+    {
+      "path": "requirements.txt",
+      "bytes": 130,
+      "sha256": "85c7bc32634346c60060884faca5259f48e378120bf9d04478bac05adb3d18be"
+    },
+    {
+      "path": "research_checkpoints/recovery-v1/LICENSE",
+      "bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    {
+      "path": "research_checkpoints/recovery-v1/README.md",
+      "bytes": 2950,
+      "sha256": "910510edd70a3055b4b00d00c632769a7b27db80b5a65a9dcb677082f4ac8602",
+      "outline": [
+        "# Zenith continued-learning research snapshot"
+      ]
+    },
+    {
+      "path": "research_checkpoints/recovery-v1/checkpoint/README.md",
+      "bytes": 5206,
+      "sha256": "6b95375f507809c480d15e683ecaf6c69fe91a26adef775e1ce4032df12c7d56",
+      "outline": [
+        "# Model Card for Model ID",
+        "## Model Details",
+        "### Model Description",
+        "### Model Sources [optional]",
+        "## Uses",
+        "### Direct Use",
+        "[More Information Needed]",
+        "### Downstream Use [optional]",
+        "[More Information Needed]",
+        "### Out-of-Scope Use",
+        "[More Information Needed]",
+        "## Bias, Risks, and Limitations",
+        "[More Information Needed]",
+        "### Recommendations",
+        "## How to Get Started with the Model",
+        "[More Information Needed]",
+        "## Training Details",
+        "### Training Data",
+        "[More Information Needed]",
+        "### Training Procedure",
+        "#### Preprocessing [optional]",
+        "[More Information Needed]",
+        "#### Training Hyperparameters",
+        "#### Speeds, Sizes, Times [optional]",
+        "[More Information Needed]",
+        "## Evaluation",
+        "### Testing Data, Factors & Metrics",
+        "#### Testing Data",
+        "[More Information Needed]",
+        "#### Factors",
+        "[More Information Needed]",
+        "#### Metrics",
+        "[More Information Needed]",
+        "### Results",
+        "[More Information Needed]",
+        "#### Summary",
+        "## Model Examination [optional]",
+        "[More Information Needed]",
+        "## Environmental Impact",
+        "## Technical Specifications [optional]",
+        "### Model Architecture and Objective",
+        "[More Information Needed]",
+        "### Compute Infrastructure",
+        "[More Information Needed]",
+        "#### Hardware",
+        "[More Information Needed]",
+        "#### Software",
+        "[More Information Needed]",
+        "## Citation [optional]",
+        "[More Information Needed]",
+        "[More Information Needed]",
+        "## Glossary [optional]",
+        "[More Information Needed]",
+        "## More Information [optional]",
+        "[More Information Needed]",
+        "## Model Card Authors [optional]",
+        "[More Information Needed]",
+        "## Model Card Contact",
+        "[More Information Needed]",
+        "### Framework versions"
+      ]
+    },
+    {
+      "path": "research_checkpoints/recovery-v1/checkpoint/adapter_config.json",
+      "bytes": 1056,
+      "sha256": "b2b82c8e8e8b43d7a2ed48a1d4ff92e4e139bb9916acfefdd299bafa4c7a2595",
+      "structure": [
+        "alora_invocation_tokens",
+        "alpha_pattern",
+        "arrow_config",
+        "auto_mapping",
+        "base_model_name_or_path",
+        "bias",
+        "corda_config",
+        "ensure_weight_tying",
+        "eva_config",
+        "exclude_modules",
+        "fan_in_fan_out",
+        "inference_mode",
+        "init_lora_weights",
+        "layer_replication",
+        "layers_pattern",
+        "layers_to_transform",
+        "loftq_config",
+        "lora_alpha",
+        "lora_bias",
+        "lora_dropout",
+        "megatron_config",
+        "megatron_core",
+        "modules_to_save",
+        "peft_type",
+        "peft_version",
+        "qalora_group_size",
+        "r",
+        "rank_pattern",
+        "revision",
+        "target_modules",
+        "target_parameters",
+        "task_type",
+        "trainable_token_indices",
+        "use_dora",
+        "use_qalora",
+        "use_rslora"
+      ]
+    },
+    {
+      "path": "research_checkpoints/recovery-v1/checkpoint/added_tokens.json",
+      "bytes": 605,
+      "sha256": "58b54bbe36fc752f79a24a271ef66a0a0830054b4dfad94bde757d851968060b",
+      "structure": [
+        "</tool_call>",
+        "<tool_call>",
+        "<|box_end|>",
+        "<|box_start|>",
+        "<|endoftext|>",
+        "<|file_sep|>",
+        "<|fim_middle|>",
+        "<|fim_pad|>",
+        "<|fim_prefix|>",
+        "<|fim_suffix|>",
+        "<|im_end|>",
+        "<|im_start|>",
+        "<|image_pad|>",
+        "<|object_ref_end|>",
+        "<|object_ref_start|>",
+        "<|quad_end|>",
+        "<|quad_start|>",
+        "<|repo_name|>",
+        "<|video_pad|>",
+        "<|vision_end|>",
+        "<|vision_pad|>",
+        "<|vision_start|>"
+      ]
+    },
+    {
+      "path": "research_checkpoints/recovery-v1/checkpoint/chat_template.jinja",
+      "bytes": 2507,
+      "sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f"
+    },
+    {
+      "path": "research_checkpoints/recovery-v1/checkpoint/merges.txt",
+      "bytes": 1671853,
+      "sha256": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5"
+    },
+    {
+      "path": "research_checkpoints/recovery-v1/checkpoint/special_tokens_map.json",
+      "bytes": 613,
+      "sha256": "76862e765266b85aa9459767e33cbaf13970f327a0e88d1c65846c2ddd3a1ecd",
+      "structure": [
+        "additional_special_tokens",
+        "eos_token",
+        "pad_token"
+      ]
+    },
+    {
+      "path": "research_checkpoints/recovery-v1/checkpoint/tokenizer.json",
+      "bytes": 11421896,
+      "sha256": "9c5ae00e602b8860cbd784ba82a8aa14e8feecec692e7076590d014d7b7fdafa",
+      "structure": [
+        "version",
+        "truncation",
+        "padding",
+        "added_tokens",
+        "normalizer",
+        "pre_tokenizer",
+        "post_processor",
+        "decoder",
+        "model"
+      ]
+    },
+    {
+      "path": "research_checkpoints/recovery-v1/checkpoint/tokenizer_config.json",
+      "bytes": 4686,
+      "sha256": "0a04a9d7d4a62b28482bdfe726c122756de85714fb64166ace92ae75b8f57614",
+      "structure": [
+        "add_bos_token",
+        "add_prefix_space",
+        "added_tokens_decoder",
+        "additional_special_tokens",
+        "bos_token",
+        "clean_up_tokenization_spaces",
+        "eos_token",
+        "errors",
+        "extra_special_tokens",
+        "model_max_length",
+        "pad_token",
+        "split_special_tokens",
+        "tokenizer_class",
+        "unk_token"
+      ]
+    },
+    {
+      "path": "research_checkpoints/recovery-v1/checkpoint/training_report.json",
+      "bytes": 169924,
+      "sha256": "09e55168ec0eb8b7c7ef61e5ce2d9a8bc3832db229e679c28d50b3ee3dbce428",
+      "structure": [
+        "schema_version",
+        "base_model",
+        "base_revision",
+        "tokenizer_sha256",
+        "parent",
+        "parent_files",
+        "parent_training_report_sha256",
+        "train_examples",
+        "training",
+        "inherited_training_history",
+        "transformation",
+        "objective",
+        "weights_reinitialized",
+        "original_checkpoints_modified",
+        "promoted",
+        "automatic_promotion",
+        "evaluation_pending"
+      ]
+    },
+    {
+      "path": "research_checkpoints/recovery-v1/checkpoint/vocab.json",
+      "bytes": 2776833,
+      "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+      "structure": [
+        "!",
+        "\"",
+        "#",
+        "$",
+        "%",
+        "&",
+        "'",
+        "(",
+        ")",
+        "*",
+        "+",
+        ",",
+        "-",
+        ".",
+        "/",
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        ":",
+        ";",
+        "<",
+        "=",
+        ">",
+        "?",
+        "@",
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H"
+      ]
+    },
+    {
+      "path": "research_checkpoints/recovery-v1/evaluation/candidate.json",
+      "bytes": 23667,
+      "sha256": "a2b1a033d1408b9b46a2353102e60e3465df35e106c8e60ce027912c600263fe",
+      "structure": [
+        "schema_version",
+        "scoring_version",
+        "checkpoint",
+        "production_base_only",
+        "checkpoint_files",
+        "base_model",
+        "base_revision",
+        "tokenizer_sha256",
+        "model_parameters",
+        "suite_sha256",
+        "max_new_tokens",
+        "temperature",
+        "system_prompt",
+        "system_prompt_sha256",
+        "device",
+        "gpu_utilization",
+        "elapsed_seconds",
+        "accuracy",
+        "slices",
+        "results",
+        "limitations"
+      ]
+    },
+    {
+      "path": "research_checkpoints/recovery-v1/evaluation/fresh-transfer.json",
+      "bytes": 15312,
+      "sha256": "c754210985ac203c689c0dfd9894dd448bb661fbbeba7d4fc7da533d62509b6c",
+      "structure": [
+        "schema_version",
+        "scoring_version",
+        "checkpoint",
+        "production_base_only",
+        "checkpoint_files",
+        "base_model",
+        "base_revision",
+        "tokenizer_sha256",
+        "model_parameters",
+        "suite_sha256",
+        "max_new_tokens",
+        "temperature",
+        "system_prompt",
+        "system_prompt_sha256",
+        "device",
+        "gpu_utilization",
+        "elapsed_seconds",
+        "accuracy",
+        "slices",
+        "results",
+        "limitations",
+        "heldout_target_loss",
+        "heldout_rows",
+        "heldout_target_tokens",
+        "dataset_manifest_sha256",
+        "test_sha256",
+        "training_prompt_overlap",
+        "final_test_used_for_training",
+        "training_partitions_checked"
+      ]
+    },
+    {
+      "path": "research_checkpoints/recovery-v1/evaluation/immediate-parent.json",
+      "bytes": 23911,
+      "sha256": "bb95c4278118dc4f5ae946f24a43a372ad53d5f6d968c1a97244b6c7e2af0f60",
+      "structure": [
+        "schema_version",
+        "scoring_version",
+        "checkpoint",
+        "production_base_only",
+        "checkpoint_files",
+        "base_model",
+        "base_revision",
+        "tokenizer_sha256",
+        "model_parameters",
+        "suite_sha256",
+        "max_new_tokens",
+        "temperature",
+        "system_prompt",
+        "system_prompt_sha256",
+        "device",
+        "gpu_utilization",
+        "elapsed_seconds",
+        "accuracy",
+        "slices",
+        "results",
+        "limitations"
+      ]
+    },
+    {
+      "path": "research_checkpoints/recovery-v1/evaluation/previous-trained.json",
+      "bytes": 24050,
+      "sha256": "d1e7e58fab31a82060f8b1b8c7e8d2b248aff0ac890e86fa564156ff48fe7e10",
+      "structure": [
+        "schema_version",
+        "scoring_version",
+        "checkpoint",
+        "production_base_only",
+        "checkpoint_files",
+        "base_model",
+        "base_revision",
+        "tokenizer_sha256",
+        "model_parameters",
+        "suite_sha256",
+        "max_new_tokens",
+        "temperature",
+        "system_prompt",
+        "system_prompt_sha256",
+        "device",
+        "gpu_utilization",
+        "elapsed_seconds",
+        "accuracy",
+        "slices",
+        "results",
+        "limitations"
+      ]
+    },
+    {
+      "path": "research_checkpoints/recovery-v1/evaluation/production.json",
+      "bytes": 25788,
+      "sha256": "b3f3ebc1e3a7afefe79e135be7f1d43a2a95016203eba031c223461a9bf4ed45",
+      "structure": [
+        "schema_version",
+        "scoring_version",
+        "checkpoint",
+        "production_base_only",
+        "checkpoint_files",
+        "base_model",
+        "base_revision",
+        "tokenizer_sha256",
+        "model_parameters",
+        "suite_sha256",
+        "max_new_tokens",
+        "temperature",
+        "system_prompt",
+        "system_prompt_sha256",
+        "device",
+        "gpu_utilization",
+        "elapsed_seconds",
+        "accuracy",
+        "slices",
+        "results",
+        "limitations"
+      ]
+    },
+    {
+      "path": "research_checkpoints/recovery-v1/evaluation/retention.json",
+      "bytes": 422,
+      "sha256": "a514aa6c35f13d2b6dceb81919fa56683722576af0605c988b96dbfc9efeadd6",
+      "structure": [
+        "checkpoint",
+        "retained_target_loss",
+        "retained_rows",
+        "test_sha256",
+        "retained_target_tokens",
+        "gradient_updates",
+        "previous_trained_reference_loss",
+        "loss_definition"
+      ]
+    },
+    {
+      "path": "research_checkpoints/recovery-v1/research.json",
+      "bytes": 5577,
+      "sha256": "0a527884e87e84f4d5ed38b46851c1a8781eea47b0e3f5fe875079a8f5086e62",
+      "structure": [
+        "schema_version",
+        "id",
+        "checkpoint",
+        "approved_for_local_activation",
+        "automatic_promotion",
+        "base_model",
+        "base_revision",
+        "files",
+        "base_weights_bundled",
+        "license",
+        "status",
+        "checkpoint_files",
+        "weight_parts",
+        "weight_file",
+        "evaluation",
+        "experimental_activation_available"
+      ]
+    },
+    {
+      "path": "research_checkpoints/recovery-v1/weights/adapter-001.bin",
+      "bytes": 6291456,
+      "sha256": "6451caba78467a8e319d4b5e68d870e247b3b584023cf33040563d42184f35d8"
+    },
+    {
+      "path": "research_checkpoints/recovery-v1/weights/adapter-002.bin",
+      "bytes": 6291456,
+      "sha256": "d46d7b2a4cc6426654159d7d12e876a3f7e137dfa5ac6a855d4a297d60424f3e"
+    },
+    {
+      "path": "research_checkpoints/recovery-v1/weights/adapter-003.bin",
+      "bytes": 5057224,
+      "sha256": "dd1630b6102e9e5e895fe4245a4bc0a1b25a3df393e02d8421d5a67b98b3375a"
+    },
+    {
+      "path": "run.ps1",
+      "bytes": 498,
+      "sha256": "5c4a355fa66e6e32f9a17d4bfa66017cd28d66fa547b5d899df9bf9cae45d00e",
+      "outline": [
+        "#requires -Version 5.1"
+      ]
+    },
+    {
+      "path": "run.sh",
+      "bytes": 309,
+      "sha256": "9f012a57345b899445280757cd5ce12b2c80cbd6e644601b5e23ba7c4b80c0fd",
+      "outline": [
+        "#!/usr/bin/env bash"
+      ]
+    },
+    {
+      "path": "scripts/__init__.py",
+      "bytes": 59,
+      "sha256": "439c1abda3d3f657db12fcfabcb3297fce7fd7c72308b91be3aab49e80761e8f",
+      "symbols": [],
+      "imports": []
+    },
+    {
+      "path": "scripts/build_model_release.py",
+      "bytes": 4257,
+      "sha256": "fbe2f50f3b4041faa998fa8cd1aa5070987d21ea095d4bfbf8b27c1bfabcb5c2",
+      "symbols": [
+        "build",
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "import json",
+        "from pathlib import Path",
+        "import shutil",
+        "import tempfile",
+        "from agent.checkpoints import inventory",
+        "from agent.deployment import review"
+      ]
+    },
+    {
+      "path": "scripts/build_release_manifest.py",
+      "bytes": 2083,
+      "sha256": "4601b23da9d711fc2e9f1dbf03f74535546b2a8aec1851a987a60f61e16edb02",
+      "symbols": [
+        "build_manifest",
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "import json",
+        "from pathlib import Path",
+        "import subprocess",
+        "from agent import __version__",
+        "from agent.integrity import MANIFEST_NAME, source_fingerprint, safe_source_path"
+      ]
+    },
+    {
+      "path": "scripts/catalog.py",
+      "bytes": 1006,
+      "sha256": "f2c1bc6fd34c04ca5dabda3a5c3692abd6d26d22651a4615d54ceb2c01c627f4",
+      "symbols": [
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "import json",
+        "from agent.registry import Catalog"
+      ]
+    },
+    {
+      "path": "scripts/check_model_release.py",
+      "bytes": 1895,
+      "sha256": "3705f936334a3e2d78d45957c88ad82d74a6fcdde9114852bdcb9442193f2cad",
+      "symbols": [
+        "check",
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "import json",
+        "from pathlib import Path",
+        "from agent.checkpoints import inventory",
+        "from agent.integrity import safe_source_path",
+        "from agent.expansion_eval import evaluate, compare"
+      ]
+    },
+    {
+      "path": "scripts/check_research_checkpoint.py",
+      "bytes": 1845,
+      "sha256": "3df9775c6260d07212a5c7fa804f5260bf23605b3c96c894c6757ac1675d6662",
+      "symbols": [
+        "check",
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "import json",
+        "from pathlib import Path",
+        "from agent.checkpoints import inspect_checkpoint"
+      ]
+    },
+    {
+      "path": "scripts/evaluate.py",
+      "bytes": 2542,
+      "sha256": "9a37dd91aec56b9f5b9bfebba3603c4121cbd7b4850caa45122e7d263dbe06d0",
+      "symbols": [
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "import json",
+        "from pathlib import Path",
+        "from agent.config import Settings",
+        "from agent.learning import load_examples, prepare_chat_example, ChatCollator"
+      ]
+    },
+    {
+      "path": "scripts/evaluate_recovery_holdout.py",
+      "bytes": 7136,
+      "sha256": "ed7b5e1b6a57c1bbaa5bfd00c5c88f72475609f78ba6001735e5e53de67661a7",
+      "symbols": [
+        "evaluate",
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "import json",
+        "from pathlib import Path",
+        "from agent.checkpoints import load_existing, digest",
+        "from agent.continual import prepare_record, mean_loss",
+        "from agent.curriculum import audit_directory, row_keys, canonical",
+        "from agent.learning import load_examples"
+      ]
+    },
+    {
+      "path": "scripts/evaluate_transfer_v2.py",
+      "bytes": 5308,
+      "sha256": "6870c7a70c3e4a2785e46a47e6d00fd8938fe9117f3144adea6c7f71c1f231da",
+      "symbols": [
+        "evaluate",
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "import json",
+        "from pathlib import Path",
+        "from agent.curriculum import row_keys, canonical, audit_directory",
+        "from agent.learning import load_examples"
+      ]
+    },
+    {
+      "path": "scripts/export_training_data.py",
+      "bytes": 1596,
+      "sha256": "12b4c286fd581c410fcde1957a2570d24db82b987b2bca61e04a97c732501c69",
+      "symbols": [
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "import json",
+        "from pathlib import Path",
+        "from agent.config import Settings",
+        "from agent.storage import Store",
+        "from agent.learning import split_examples, write_jsonl, file_sha256"
+      ]
+    },
+    {
+      "path": "scripts/import_dataset.py",
+      "bytes": 5088,
+      "sha256": "530ee671f2c1026eabba7a7804a02fb8e9d5a44f001cf5426a90697cbd4a0cc5",
+      "symbols": [
+        "github_rows",
+        "ingest",
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "import csv",
+        "import io",
+        "import json",
+        "from itertools import islice",
+        "from pathlib import Path, PurePosixPath",
+        "from urllib.parse import quote",
+        "import requests",
+        "from agent.config import Settings",
+        "from agent.registry import Catalog",
+        "from agent.storage import Store"
+      ]
+    },
+    {
+      "path": "scripts/materialize_research_checkpoint.py",
+      "bytes": 482,
+      "sha256": "10fec333ab71e8c982ff376908701e0f91f29184dbabff8b2a471347091cd741",
+      "symbols": [
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "import json",
+        "from pathlib import Path",
+        "from agent.research import materialize"
+      ]
+    },
+    {
+      "path": "scripts/prepare_expansion_curriculum.py",
+      "bytes": 25681,
+      "sha256": "b0fb7c431474bf5556343befd780a1fe9dbacd24ee244c08bb22e4f32311c9dc",
+      "symbols": [
+        "build",
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "import json",
+        "from pathlib import Path",
+        "from agent.checkpoints import digest",
+        "from agent.curriculum import prepare"
+      ]
+    },
+    {
+      "path": "scripts/prepare_preference_repair.py",
+      "bytes": 7497,
+      "sha256": "8f83fdef0398340486c837ce05ca068375ed907f6fa08e697e476cf96d1c811d",
+      "symbols": [
+        "build",
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "import json",
+        "from pathlib import Path",
+        "import random",
+        "from agent.checkpoints import digest",
+        "from agent.curriculum import prepare, row_keys, canonical, assert_disjoint",
+        "from agent.learning import load_examples, write_jsonl"
+      ]
+    },
+    {
+      "path": "scripts/prepare_recovery_curriculum.py",
+      "bytes": 7484,
+      "sha256": "3b01131957fed392194b9005aa925f032f148dc9f953b5a3405d7d088503b8fc",
+      "symbols": [
+        "build",
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "import json",
+        "from pathlib import Path",
+        "from agent.checkpoints import digest",
+        "from agent.curriculum import prepare, assert_disjoint, row_keys",
+        "from agent.learning import load_examples, write_jsonl"
+      ]
+    },
+    {
+      "path": "scripts/prepare_stability_curriculum.py",
+      "bytes": 7374,
+      "sha256": "4818a65022c292768ec5cac45519fb6b5a584c1e457c8256ca789d4ee7fe22b8",
+      "symbols": [
+        "build",
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "import ast",
+        "import json",
+        "from pathlib import Path",
+        "from agent.checkpoints import digest",
+        "from agent.curriculum import prepare, row_keys, canonical, assert_disjoint",
+        "from agent.learning import load_examples, write_jsonl"
+      ]
+    },
+    {
+      "path": "scripts/prepare_transfer_curriculum.py",
+      "bytes": 6796,
+      "sha256": "c3241169f46eee5ffe501792465482c2f56fd66c9e5a3b66b57fa7ef2f4af988",
+      "symbols": [
+        "build",
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "import json",
+        "from pathlib import Path",
+        "from agent.checkpoints import digest",
+        "from agent.curriculum import prepare, row_keys, canonical, assert_disjoint",
+        "from agent.learning import load_examples, write_jsonl"
+      ]
+    },
+    {
+      "path": "scripts/refresh_github_catalog.py",
+      "bytes": 21749,
+      "sha256": "292ca164e274c117e62af2d1774fb5221f8fa7aaaf68495eff6b3829b8721dd2",
+      "symbols": [
+        "eligible",
+        "fetch",
+        "infer_task",
+        "gather",
+        "validate",
+        "main"
+      ],
+      "imports": [
+        "from __future__ import annotations",
+        "import argparse",
+        "from datetime import datetime, timezone",
+        "import hashlib",
+        "import json",
+        "import os",
+        "from pathlib import Path",
+        "import re",
+        "import time",
+        "import requests"
+      ]
+    },
+    {
+      "path": "scripts/refresh_huggingface_catalog.py",
+      "bytes": 17791,
+      "sha256": "bcdedb0d6a98f3ea98ae10b414bf0394aaf4c697fab83015157e0e4b1b7049ee",
+      "symbols": [
+        "utc_now",
+        "api_get",
+        "as_list",
+        "normalize_api_row",
+        "fetch_pages",
+        "read_sources",
+        "observed",
+        "unique_rows",
+        "checkpoint_type",
+        "model_entry",
+        "dataset_score",
+        "dataset_entry",
+        "build_catalogs",
+        "validate_catalog",
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "from datetime import datetime, timezone",
+        "import json",
+        "import math",
+        "from pathlib import Path",
+        "import re",
+        "import time",
+        "import requests"
+      ]
+    },
+    {
+      "path": "scripts/run_continuation_campaign.py",
+      "bytes": 2890,
+      "sha256": "8628b29978fbaba2edcf1bad32b9e4721e26f57e31e8a08bb2654f7f749849f8",
+      "symbols": [
+        "run",
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "import json",
+        "from pathlib import Path",
+        "import subprocess",
+        "import sys",
+        "from agent.checkpoints import inventory"
+      ]
+    },
+    {
+      "path": "scripts/run_training_campaign.py",
+      "bytes": 4713,
+      "sha256": "45c6cc5718003953dfb06bb135f352458b1176574513825826e8ef3e3b79b418",
+      "symbols": [
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "import json",
+        "import os",
+        "from pathlib import Path",
+        "import subprocess",
+        "import sys",
+        "from agent.curriculum import prepare, RESOURCE_ROOT",
+        "from agent.paths import zenith_home"
+      ]
+    },
+    {
+      "path": "scripts/sample_tiny.py",
+      "bytes": 1096,
+      "sha256": "1afbbae92c5f69168f7e010fe322179188f49825c8650d3d14727b7369de61c3",
+      "symbols": [
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "from agent.config import Settings"
+      ]
+    },
+    {
+      "path": "scripts/smoke_candidate_activation.py",
+      "bytes": 3038,
+      "sha256": "6f9b589e4cb54dcc4fd7376902e2cbd5d164f8d3e250affdac31c42710ade8b5",
+      "symbols": [
+        "check",
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "import json",
+        "import os",
+        "from pathlib import Path",
+        "import subprocess",
+        "import sys",
+        "import tempfile"
+      ]
+    },
+    {
+      "path": "scripts/smoke_container.py",
+      "bytes": 4965,
+      "sha256": "2272ff338a48deec648cf4ec9ec31135849d48247ce8acf67eaf3a672a700366",
+      "symbols": [
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "import hashlib",
+        "import json",
+        "import os",
+        "from pathlib import Path",
+        "import secrets",
+        "import socket",
+        "import subprocess",
+        "import time",
+        "import requests"
+      ]
+    },
+    {
+      "path": "scripts/smoke_easy_launch.py",
+      "bytes": 2785,
+      "sha256": "7f41ff6b10c7b379128662a370728c5dd6a612a112e6158a3545822589e3d81d",
+      "symbols": [
+        "main"
+      ],
+      "imports": [
+        "import json",
+        "import os",
+        "from pathlib import Path",
+        "import socket",
+        "import subprocess",
+        "import sys",
+        "import tempfile",
+        "import time"
+      ]
+    },
+    {
+      "path": "scripts/smoke_installed.py",
+      "bytes": 2971,
+      "sha256": "0172e413fba00ef326c734473b57a852eeea5546ac6fa1ca821bee39c05a38d9",
+      "symbols": [
+        "main"
+      ],
+      "imports": [
+        "import json",
+        "import os",
+        "from pathlib import Path",
+        "import subprocess",
+        "import sys",
+        "import tempfile"
+      ]
+    },
+    {
+      "path": "scripts/smoke_model_release.py",
+      "bytes": 1935,
+      "sha256": "9933e7a56f36369b34eba72f541d3e9cdc0616ab4367bcf226787af717f330ae",
+      "symbols": [
+        "check",
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "import json",
+        "from pathlib import Path",
+        "import tempfile",
+        "from agent.config import Settings",
+        "from agent.deployment import use_release, rollback",
+        "from agent.providers import HuggingFaceProvider, SYSTEM_PROMPT"
+      ]
+    },
+    {
+      "path": "scripts/smoke_quickstart.py",
+      "bytes": 1444,
+      "sha256": "511612f56aad95c37ccdf16bef16bb4a9fcd5c3a814752c5a322db64c98b6a32",
+      "symbols": [
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "import os",
+        "from pathlib import Path",
+        "import subprocess",
+        "import sys",
+        "import tempfile"
+      ]
+    },
+    {
+      "path": "scripts/smoke_server.py",
+      "bytes": 1890,
+      "sha256": "73c64d9f8c370bf6859983acd42a0d59d51df191275411f8bcee0fe9a4d2944b",
+      "symbols": [
+        "main"
+      ],
+      "imports": [
+        "import os",
+        "from pathlib import Path",
+        "import socket",
+        "import subprocess",
+        "import sys",
+        "import tempfile",
+        "import time",
+        "from urllib.request import urlopen",
+        "import json"
+      ]
+    },
+    {
+      "path": "scripts/train_lora.py",
+      "bytes": 7216,
+      "sha256": "bbb81a4f8ae90d790c6765d8f25e39a01a42d99498f63ef5538805c08fff6a26",
+      "symbols": [
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "import json",
+        "from pathlib import Path",
+        "from agent.config import Settings",
+        "from agent.paths import zenith_home",
+        "from agent.learning import load_examples, prepare_chat_example, ChatCollator, file_sha256"
+      ]
+    },
+    {
+      "path": "scripts/train_tiny.py",
+      "bytes": 4015,
+      "sha256": "9928bd616a0e48d079255f209b4290cd6394232810f78af3e58c74e2863199e8",
+      "symbols": [
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "import json",
+        "from dataclasses import asdict",
+        "from pathlib import Path",
+        "from agent.paths import zenith_home"
+      ]
+    },
+    {
+      "path": "scripts/upload_to_huggingface.py",
+      "bytes": 1092,
+      "sha256": "507b761fb7ba4495764e108b5228342cfc1aff01d6b9612261f6a261d9772882",
+      "symbols": [
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "from pathlib import Path"
+      ]
+    },
+    {
+      "path": "self_improving_ai_agent_starter.zip",
+      "bytes": 11796,
+      "sha256": "2804be76f5e17353e05ab5d8757fa8aae78a14a035255cdf0603a5a8ddc4254a"
+    },
+    {
+      "path": "start.sh",
+      "bytes": 201,
+      "sha256": "4ae98ac9ecb6717ba6e7051dd1cc16632ee7e21f1609756617a894e4587db942",
+      "outline": [
+        "#!/usr/bin/env bash"
+      ]
+    },
+    {
+      "path": "tests/test_chat.py",
+      "bytes": 5654,
+      "sha256": "a216574818bb883a94c4428f04a73024ed12d7eb097e2cda185115e283492e1e",
+      "symbols": [
+        "ChatTests",
+        "ProviderTests"
+      ],
+      "imports": [
+        "import tempfile",
+        "import unittest",
+        "from uuid import uuid4",
+        "from unittest.mock import Mock",
+        "from fastapi.testclient import TestClient",
+        "from agent.config import Settings",
+        "from agent.core import Agent",
+        "from agent.server import create_app",
+        "from agent.providers import trim_messages, OllamaProvider"
+      ]
+    },
+    {
+      "path": "tests/test_continuation.py",
+      "bytes": 11018,
+      "sha256": "5f4ed8b2cbef8d01f7134e60b63a5974161e6de8199a9715d18bfa57233bd3b9",
+      "symbols": [
+        "Tokenizer",
+        "ContinuationTests"
+      ],
+      "imports": [
+        "import json",
+        "import copy",
+        "from pathlib import Path",
+        "import tempfile",
+        "import unittest",
+        "from unittest.mock import patch",
+        "from agent.checkpoints import parent_metadata",
+        "from agent.continual import prepare_record, sequence_logprob",
+        "from agent.expansion_eval import score, compare, rescore_report",
+        "from scripts.prepare_expansion_curriculum import build",
+        "from agent.learning import load_examples",
+        "from agent.curriculum import audit_directory, assert_disjoint, row_keys"
+      ]
+    },
+    {
+      "path": "tests/test_deployment.py",
+      "bytes": 10794,
+      "sha256": "d7b5fcaddd5ef1541c391b931e73ab36e081ea26cdeb78831807451d3ba372ef",
+      "symbols": [
+        "DeploymentTests"
+      ],
+      "imports": [
+        "import copy",
+        "import json",
+        "from pathlib import Path",
+        "import tempfile",
+        "import unittest",
+        "from types import SimpleNamespace",
+        "from unittest.mock import patch",
+        "from agent.checkpoints import inventory, digest",
+        "from agent.expansion_eval import rescore_report",
+        "from agent.deployment import review, activate, rollback, checked_review, validate_activation, use_release, use_research"
+      ]
+    },
+    {
+      "path": "tests/test_discovery.py",
+      "bytes": 11496,
+      "sha256": "3aebebf7b2ceb9d395a6fd9f725c498929de8c09154649618de355bf9275b12d",
+      "symbols": [
+        "Response",
+        "DiscoveryTests"
+      ],
+      "imports": [
+        "import contextlib",
+        "import importlib.util",
+        "import io",
+        "import json",
+        "import os",
+        "from pathlib import Path",
+        "import subprocess",
+        "import tempfile",
+        "import unittest",
+        "from unittest.mock import patch",
+        "from fastapi.testclient import TestClient",
+        "from agent.config import Settings",
+        "from agent.core import Agent",
+        "from agent.discovery import Discovery, DiscoveryError, LIMIT, main, saved_models",
+        "from agent.registry import Catalog",
+        "from agent.server import create_app"
+      ]
+    },
+    {
+      "path": "tests/test_easy_install.py",
+      "bytes": 9421,
+      "sha256": "e6ecdcc895c6c021d9abd4ff1b97cddd8fa5e1ba984cd58fe4f6ae09777353af",
+      "symbols": [
+        "bootstrap",
+        "EasyInstallTests"
+      ],
+      "imports": [
+        "import contextlib",
+        "import importlib.util",
+        "import io",
+        "import json",
+        "import os",
+        "import shlex",
+        "from pathlib import Path",
+        "import subprocess",
+        "import sys",
+        "import tempfile",
+        "from threading import Event",
+        "from types import SimpleNamespace",
+        "import unittest",
+        "from unittest.mock import patch",
+        "from agent.browser import open_when_ready"
+      ]
+    },
+    {
+      "path": "tests/test_ensemble.py",
+      "bytes": 12907,
+      "sha256": "b9e05ad990187d119ac7dbcbc879d29bb773ca68f099de60392db4cab2b0cda2",
+      "symbols": [
+        "fixture_config",
+        "FakeProvider",
+        "EnsembleTests",
+        "LocalServerTeamTests"
+      ],
+      "imports": [
+        "import copy",
+        "import json",
+        "import tempfile",
+        "import unittest",
+        "from pathlib import Path",
+        "from agent.config import Settings",
+        "from agent.ensemble import EnsembleProvider, default_team_config"
+      ]
+    },
+    {
+      "path": "tests/test_execution_controls.py",
+      "bytes": 10198,
+      "sha256": "186b9a200824b48147d95f25c9680b591b75c667e22b7e6e1717498bbcf9913e",
+      "symbols": [
+        "ExecutionTests"
+      ],
+      "imports": [
+        "import hashlib",
+        "import json",
+        "from pathlib import Path",
+        "import secrets",
+        "import socket",
+        "import tempfile",
+        "import time",
+        "import unittest",
+        "from unittest.mock import Mock, patch",
+        "import pyotp",
+        "from fastapi.testclient import TestClient",
+        "from agent.config import Settings",
+        "from agent.core import Agent",
+        "from agent.server import create_app",
+        "from agent.personal import PersonalStore",
+        "from agent.execution import authorized_addresses, scope_definition"
+      ]
+    },
+    {
+      "path": "tests/test_installation.py",
+      "bytes": 10791,
+      "sha256": "950b2c8bb5dea3564b07063b72b9a280c4cb03b3d560a9d9cddc602773822e7c",
+      "symbols": [
+        "InstallationTests"
+      ],
+      "imports": [
+        "import contextlib",
+        "import importlib.util",
+        "import io",
+        "import json",
+        "import os",
+        "from pathlib import Path",
+        "import subprocess",
+        "import sys",
+        "import tempfile",
+        "import unittest",
+        "from unittest.mock import patch",
+        "from agent.commands import main as command_main, COMMANDS",
+        "from agent.config import Settings",
+        "from agent.doctor import inspect",
+        "from agent.models import cache_status, model_specs",
+        "from agent.paths import config_file, default_data_dir, zenith_home",
+        "from agent.setup import write_configuration"
+      ]
+    },
+    {
+      "path": "tests/test_integrity.py",
+      "bytes": 5498,
+      "sha256": "3ddc3e37a3bdfaf47f75757c0c3d198b39b118da0ffa34f0ee317ad561c7bf93",
+      "symbols": [
+        "IntegrityTests"
+      ],
+      "imports": [
+        "import copy",
+        "import hashlib",
+        "import json",
+        "from pathlib import Path",
+        "import tempfile",
+        "from types import SimpleNamespace",
+        "import unittest",
+        "from unittest.mock import Mock, patch",
+        "from agent import __version__",
+        "from agent.integrity import file_digest, verify_source, verify_installed, safe_source_path, MANIFEST_NAME",
+        "from agent.config import Settings",
+        "from agent.doctor import inspect"
+      ]
+    },
+    {
+      "path": "tests/test_knowledge.py",
+      "bytes": 11575,
+      "sha256": "2584a4300bef75913c448174f2248b27206f26d6db2ee3cbd0b8655b5c40d9d6",
+      "symbols": [
+        "KnowledgeTests",
+        "ImportTests",
+        "StorageMigrationTests"
+      ],
+      "imports": [
+        "import json",
+        "import sqlite3",
+        "import tempfile",
+        "import unittest",
+        "from pathlib import Path",
+        "from unittest.mock import Mock, patch",
+        "from agent.config import Settings",
+        "from agent.core import Agent",
+        "from agent.storage import Store",
+        "from scripts.import_dataset import github_rows, ingest"
+      ]
+    },
+    {
+      "path": "tests/test_learning.py",
+      "bytes": 4028,
+      "sha256": "bec134b420101d6408d16ce62dcafeea742e6e138738f1e683842b44849b0f4f",
+      "symbols": [
+        "TemplateFixture",
+        "LearningTests"
+      ],
+      "imports": [
+        "import importlib.util",
+        "import tempfile",
+        "import unittest",
+        "from pathlib import Path",
+        "from agent.learning import split_examples, prepare_chat_example, ChatCollator, write_jsonl, load_examples"
+      ]
+    },
+    {
+      "path": "tests/test_packs.py",
+      "bytes": 4728,
+      "sha256": "c364ab6af0c8e0d4e865e854a9f5b6f6501c90a0d9e0a6a41535cb3a6d5df6ac",
+      "symbols": [
+        "PackTests"
+      ],
+      "imports": [
+        "import hashlib",
+        "import json",
+        "from pathlib import Path",
+        "import tempfile",
+        "import unittest",
+        "from unittest.mock import Mock, patch",
+        "from agent.packs import manifests, summaries, select_files, destination, verify_file, download_file",
+        "from agent.config import Settings",
+        "from agent.providers import LocalServerProvider"
+      ]
+    },
+    {
+      "path": "tests/test_personal.py",
+      "bytes": 8235,
+      "sha256": "946b2dbde17a4dd4c974ceb9df6dcbe67fea87b411e9b0030b28bad68262b932",
+      "symbols": [
+        "PersonalTests"
+      ],
+      "imports": [
+        "import hashlib",
+        "import json",
+        "from pathlib import Path",
+        "import tempfile",
+        "import time",
+        "import unittest",
+        "from unittest.mock import Mock",
+        "from uuid import uuid4",
+        "from fastapi.testclient import TestClient",
+        "from agent.config import Settings",
+        "from agent.core import Agent",
+        "from agent.server import create_app",
+        "from agent.personal import PersonalStore"
+      ]
+    },
+    {
+      "path": "tests/test_provider_transport.py",
+      "bytes": 13425,
+      "sha256": "d702f451c46756efa3f22d7ac6d019fad0bfbf5bfa0e661651db4b59c25bc952",
+      "symbols": [
+        "response_bytes",
+        "sse",
+        "TransportTests",
+        "RemoteProviderTests",
+        "HTTPIntegrationTests"
+      ],
+      "imports": [
+        "from dataclasses import replace",
+        "from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer",
+        "import json",
+        "import tempfile",
+        "from threading import Event, Thread",
+        "import unittest",
+        "from unittest.mock import Mock, patch",
+        "from uuid import uuid4",
+        "from fastapi.testclient import TestClient",
+        "from agent.config import Settings",
+        "from agent.core import Agent",
+        "from agent.providers import LocalServerProvider, OllamaProvider",
+        "from agent.server import create_app",
+        "from agent.transport import ProviderProtocolError, ndjson_objects, sse_payloads"
+      ]
+    },
+    {
+      "path": "tests/test_quality_admin.py",
+      "bytes": 18997,
+      "sha256": "515f060d2fd0d4c69ce1f9e8e9029d4d21f065657a1cd9058e6417202c5a9433",
+      "symbols": [
+        "AdminTests",
+        "QualityTests",
+        "CurriculumTests",
+        "StreamingTests",
+        "BookTests"
+      ],
+      "imports": [
+        "from dataclasses import replace",
+        "import copy",
+        "import hashlib",
+        "import json",
+        "from pathlib import Path",
+        "import tempfile",
+        "import time",
+        "import unittest",
+        "from unittest.mock import Mock, patch",
+        "from uuid import uuid4",
+        "from fastapi.testclient import TestClient",
+        "from agent.config import Settings",
+        "from agent.core import Agent",
+        "from agent.server import create_app",
+        "from agent.tools import calculate, run_tool",
+        "from agent.assurance import normalize_input, assurance, calibrated_assurance",
+        "from agent.curriculum import prepare, audit_directory, validate_rows, split_rows, assert_disjoint, RESOURCE_ROOT",
+        "from agent.quality import score_case, summarize, fit_calibration, apply_calibration, configuration_signature",
+        "from agent.ensemble import EnsembleProvider",
+        "from test_ensemble import fixture_config, FakeProvider"
+      ]
+    },
+    {
+      "path": "tests/test_quickstart.py",
+      "bytes": 4796,
+      "sha256": "4aa39f8478a8057bf636d637d496a1865373024e91ed47014867ffbd59a12275",
+      "symbols": [
+        "source_fixture",
+        "QuickstartTests"
+      ],
+      "imports": [
+        "import contextlib",
+        "import hashlib",
+        "import importlib.util",
+        "import io",
+        "import json",
+        "from pathlib import Path",
+        "import shutil",
+        "import subprocess",
+        "import sys",
+        "import tempfile",
+        "from types import SimpleNamespace",
+        "import unittest",
+        "from unittest.mock import patch",
+        "import zipfile"
+      ]
+    },
+    {
+      "path": "tests/test_registry.py",
+      "bytes": 9587,
+      "sha256": "dad78781251c2349c32f8ffe27b05125d0aff6372ff7f2cdf3c2c4ac2c111a88",
+      "symbols": [
+        "fixture_documents",
+        "write_documents",
+        "CatalogTests",
+        "CatalogApiTests"
+      ],
+      "imports": [
+        "import copy",
+        "import json",
+        "import tempfile",
+        "import unittest",
+        "from pathlib import Path",
+        "from unittest.mock import Mock",
+        "from uuid import uuid4",
+        "from fastapi.testclient import TestClient",
+        "from agent.config import Settings",
+        "from agent.core import Agent",
+        "from agent.registry import Catalog, EXPECTED_COUNTS",
+        "from agent.server import create_app"
+      ]
+    },
+    {
+      "path": "tests/test_research.py",
+      "bytes": 1783,
+      "sha256": "f6debc06e6d62c9af1cf5f21f04c160e51e5f0033202e21be876d3114567c792",
+      "symbols": [
+        "ResearchCheckpointTests"
+      ],
+      "imports": [
+        "import json",
+        "from pathlib import Path",
+        "import tempfile",
+        "import unittest",
+        "from agent.checkpoints import inventory",
+        "from agent.research import materialize"
+      ]
+    },
+    {
+      "path": "tests/test_skill_access.py",
+      "bytes": 14416,
+      "sha256": "80fec52f1d120d084b5e9bdafd6f2c5153548a867800f3969e3e05a57164cb18",
+      "symbols": [
+        "ProbeProvider",
+        "SkillAccessTests"
+      ],
+      "imports": [
+        "import contextlib",
+        "import hashlib",
+        "import io",
+        "import json",
+        "from pathlib import Path",
+        "import tempfile",
+        "import unittest",
+        "from unittest.mock import patch",
+        "from uuid import uuid4",
+        "from fastapi.testclient import TestClient",
+        "from agent.cli import TerminalSession, main as terminal_main",
+        "from agent.config import Settings",
+        "from agent.core import Agent",
+        "from agent.server import create_app",
+        "from agent.skill_access import SkillAccessDenied, parse_skill_command",
+        "from agent.storage import Store"
+      ]
+    },
+    {
+      "path": "tests/test_skills_library.py",
+      "bytes": 8417,
+      "sha256": "faf376f3bb9880a830401ff5cf83865a2f1a1eaa6222e371239c3a63f35cfd5f",
+      "symbols": [
+        "SkillsLibraryTests"
+      ],
+      "imports": [
+        "from copy import deepcopy",
+        "import json",
+        "import subprocess",
+        "import sys",
+        "import tempfile",
+        "import unittest",
+        "from unittest.mock import Mock, patch",
+        "from uuid import uuid4",
+        "from fastapi.testclient import TestClient",
+        "from agent.config import Settings",
+        "from agent.core import Agent",
+        "from agent.server import create_app",
+        "from agent.skills import get_skill, list_resources, list_skills, skill_instruction, skills_library, validate_library"
+      ]
+    },
+    {
+      "path": "tests/test_stabilize.py",
+      "bytes": 2582,
+      "sha256": "c89fad6c60bfdfd81d108b061e197b4c34c7dc348fd3c92c3c7bbeaa764e01da",
+      "symbols": [
+        "StabilizeTests"
+      ],
+      "imports": [
+        "import importlib.util",
+        "import json",
+        "from pathlib import Path",
+        "import tempfile",
+        "import unittest",
+        "from agent.checkpoints import inventory"
+      ]
+    },
+    {
+      "path": "tests/test_storage.py",
+      "bytes": 2117,
+      "sha256": "a07643c275a7a4749b45dfc89e12910ab3c36476c30df7d00ec01c36505f3810",
+      "symbols": [
+        "StorageTests"
+      ],
+      "imports": [
+        "import tempfile",
+        "import unittest",
+        "from agent.storage import Store"
+      ]
+    },
+    {
+      "path": "tests/test_summaries.py",
+      "bytes": 2279,
+      "sha256": "9afa11e9efa63892d0a669a021d7a0c07b0ecdc521d806bf26e7c946337255cc",
+      "symbols": [
+        "SummaryTests"
+      ],
+      "imports": [
+        "import tempfile",
+        "import unittest",
+        "from unittest.mock import Mock",
+        "from uuid import uuid4",
+        "from fastapi.testclient import TestClient",
+        "from agent.core import Agent",
+        "from agent.config import Settings",
+        "from agent.server import create_app"
+      ]
+    },
+    {
+      "path": "tests/test_system_efficiency.py",
+      "bytes": 11227,
+      "sha256": "bcd1641dd3b3100df870308324af3d53223735c21d9d6066aa8299c05bc372af",
+      "symbols": [
+        "BudgetProvider",
+        "EfficiencyTests"
+      ],
+      "imports": [
+        "import copy",
+        "from dataclasses import replace",
+        "import json",
+        "from pathlib import Path",
+        "import tempfile",
+        "import time",
+        "import unittest",
+        "from uuid import uuid4",
+        "from unittest.mock import Mock, patch",
+        "from fastapi.testclient import TestClient",
+        "from agent.config import Settings",
+        "from agent.core import Agent",
+        "from agent.efficiency import reply_plan, provider_limits, combine_usage",
+        "from agent.ensemble import EnsembleProvider",
+        "from agent.providers import LocalServerProvider, token_usage",
+        "from agent.server import create_app, ManagedStreamingResponse",
+        "from test_ensemble import fixture_config"
+      ]
+    },
+    {
+      "path": "tests/test_tiny.py",
+      "bytes": 1958,
+      "sha256": "7902a729b9c6c1c82a9be8fbb5725b55fd18e9b9e4642419577ee0dfe38ee243",
+      "symbols": [
+        "TinyTests"
+      ],
+      "imports": [
+        "import importlib.util",
+        "import tempfile",
+        "import unittest",
+        "from pathlib import Path"
+      ]
+    },
+    {
+      "path": "vendor/model-packs/NOTICE.md",
+      "bytes": 1914,
+      "sha256": "7360814fa9d3d47fd5184c32d1b8961b039681eab534058867dc858372ef45bf",
+      "outline": [
+        "# Third-party model support and reference sources"
+      ]
+    },
+    {
+      "path": "vendor/model-packs/zenith-27b/.gitattributes",
+      "bytes": 4332,
+      "sha256": "8583799b1b64feb2c0dbd21f3e4cff534143f3d4241739fb16a4c5fa75006c77"
+    },
+    {
+      "path": "vendor/model-packs/zenith-27b/README.md",
+      "bytes": 7455,
+      "sha256": "66088b22a4db15353288f45a570279f76d7d8b7f349a64dd28698b867c9bd2bb",
+      "outline": [
+        "# Read our How to [Run Qwen3.8-27B Guide!](https://unsloth.ai/docs/models/qwen3.8)",
+        "# Qwen3.8-27B",
+        "## Qwen3.8 Highlights",
+        "## Model Overview",
+        "## Best Practices",
+        "## Citation"
+      ]
+    },
+    {
+      "path": "vendor/model-packs/zenith-27b/config.json",
+      "bytes": 3760,
+      "sha256": "45d9009888b40b71af58ac82f7151393c113b4eabb870ca3c3bbd237667d18cc",
+      "structure": [
+        "architectures",
+        "image_token_id",
+        "language_model_only",
+        "model_type",
+        "mtp_num_hidden_layers",
+        "pad_token_id",
+        "text_config",
+        "tie_word_embeddings",
+        "transformers_version",
+        "unsloth_fixed",
+        "unsloth_fixed_mtp",
+        "video_token_id",
+        "vision_config",
+        "vision_end_token_id",
+        "vision_start_token_id"
+      ]
+    },
+    {
+      "path": "vendor/model-packs/zenith-9b/.gitattributes",
+      "bytes": 2628,
+      "sha256": "eaccb934c08d50e5a0b32b4faad9703c4435766a98b3c14fa8db3c8948bdd69f"
+    },
+    {
+      "path": "vendor/model-packs/zenith-9b/README.md",
+      "bytes": 10271,
+      "sha256": "0cccd62fff0829279491d340c5126e2dd2ed351fe1cb172dc4655912f1f07aff",
+      "outline": [
+        "# Qwythos-9B-Claude-Mythos-5-1M-GGUF",
+        "## Files",
+        "### Normal text weights \u2014 fixed v3 replacements",
+        "### MTP-enabled text weights \u2014 fixed v3 variants",
+        "### Vision projector \u2014 for image input",
+        "## Quick start",
+        "### llama.cpp (`llama-cli`)",
+        "### Ollama",
+        "### LM Studio / jan / KoboldCpp",
+        "### llama.cpp with MTP draft speculation",
+        "## Vision (image input)",
+        "### llama.cpp (`llama-mtmd-cli`)",
+        "### llama.cpp server (OpenAI-compatible API with images)",
+        "### LM Studio",
+        "### What vision unlocks",
+        "## Sampling recommendations",
+        "## Long context (1M tokens)",
+        "## Capabilities (from the base model card)",
+        "## Limitations",
+        "## Stay in the loop",
+        "## Support / Donate",
+        "## Provenance & licensing",
+        "## Acknowledgements"
+      ]
+    },
+    {
+      "path": "vendor/model-packs/zenith-9b/SHA256SUMS",
+      "bytes": 1312,
+      "sha256": "376665d156263c8fd456e2d6967be7812bae3a781cb4b07a5fb33b289a5083b5"
+    },
+    {
+      "path": "vendor/model-packs/zenith-9b/TEST_REPORT.md",
+      "bytes": 3721,
+      "sha256": "7f66b8f2dc2a7e1d8a63ab373d3e7d58c6c58363e9b3b3d3cb00caa38955a00a",
+      "outline": [
+        "# Qwythos GGUF v2 release verification",
+        "## Artifact manifest",
+        "## Structural checks",
+        "## Live tests"
+      ]
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/.eval_results/deep-swe.yaml",
+      "bytes": 178,
+      "sha256": "5bd7bef84ae1b57886b6190fb46dacb2f75d1e23b1c9584d36b027d1a537a7a7",
+      "outline": [
+        "    name: Model Card"
+      ]
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/.eval_results/terminal-bench-2.1.yaml",
+      "bytes": 203,
+      "sha256": "4ed5ad487bb11b9ee3406487ea56fd2af57aedb860d987272df7293bad24d377",
+      "outline": [
+        "    name: Model Card"
+      ]
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/.gitattributes",
+      "bytes": 1751,
+      "sha256": "ebd5419cfe361622a6798c35ca1c8bfeb6d3b433827863385261af45020e01f5"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/.gitignore",
+      "bytes": 69,
+      "sha256": "04eab6f6eca92634c2db9bb74cd65e740e4818d23a0ca25bcb80cae2d78a79ca"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/LICENSE",
+      "bytes": 1084,
+      "sha256": "f2c6c602815669d292889e5be8c802f2ed950653b77999b1584e8e6aed25d040"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/README.md",
+      "bytes": 6592,
+      "sha256": "5e120ab94b1f4c1c4a9096b666b1256e96331142fd2dc649c2a0ae5fc8482606",
+      "outline": [
+        "# DeepSeek-V4-Flash-Vision-Exp",
+        "## Introduction",
+        "## Repository layout",
+        "## Prompt encoding",
+        "## Minimal inference",
+        "## How to Run with vLLM",
+        "## How to Run with SGLang",
+        "## License"
+      ]
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/config.json",
+      "bytes": 2165,
+      "sha256": "6cd841bdd6702f5e2ac34671bc78047ed80817102465525ae2a41c502abbcd75",
+      "structure": [
+        "architectures",
+        "attention_bias",
+        "attention_dropout",
+        "bos_token_id",
+        "eos_token_id",
+        "expert_dtype",
+        "hc_eps",
+        "hc_mult",
+        "hc_sinkhorn_iters",
+        "head_dim",
+        "hidden_act",
+        "hidden_size",
+        "index_head_dim",
+        "index_n_heads",
+        "index_topk",
+        "initializer_range",
+        "max_position_embeddings",
+        "model_type",
+        "moe_intermediate_size",
+        "n_routed_experts",
+        "n_shared_experts",
+        "norm_topk_prob",
+        "num_attention_heads",
+        "num_experts_per_tok",
+        "num_hidden_layers",
+        "num_hash_layers",
+        "num_key_value_heads",
+        "num_nextn_predict_layers",
+        "o_groups",
+        "o_lora_rank",
+        "q_lora_rank",
+        "qk_rope_head_dim",
+        "quantization_config",
+        "rms_norm_eps",
+        "rope_scaling",
+        "rope_theta",
+        "routed_scaling_factor",
+        "scoring_func",
+        "sliding_window",
+        "swiglu_limit"
+      ]
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/encoding/README.md",
+      "bytes": 2517,
+      "sha256": "c0de71597fcce00568dbc3eb678cee6203fd3969e21fba63e6a289f321b10676",
+      "outline": [
+        "# DeepSeek-V4 text and vision encoding",
+        "## OpenAI-style messages",
+        "# non-thinking",
+        "# prompt:",
+        "# '<\uff5cbegin\u2581of\u2581sentence\uff5c><\uff5cUser\uff5c>\u7b2c\u4e00\u5f20\u56fe\\n\\n<\uff5cdeepseek_image\uff5c>\\n\\n\u6709\u4ec0\u4e48\u5185\u5bb9\uff1f<\uff5cAssistant\uff5c></think>'",
+        "# # thinking with `max` reasoning_effort",
+        "# prompt, media = encode_messages(",
+        "#     messages,",
+        "#     thinking_mode=\"thinking\",",
+        "#     reasoning_effort=\"max\",",
+        "#     return_multi_modal_data=True,",
+        "# )",
+        "# prompt:",
+        "# <\uff5cbegin\u2581of\u2581sentence\uff5c>Reasoning Effort: Beyond maximum \u2014 exhaustive, relentless, and uncompromising.\\nYou MUST reason with the utmost depth and rigor, leaving absolutely nothing to chance: exhaustively decompose the problem into its most fundamental components, trace every causal chain to its root, and resolve the underlying cause rather than any surface symptom.\\nDo not stop reasoning until you have independently verified the solution from multiple angles and are certain that no assumption remains unchecked and no error remains undiscovered.\\n\\n<\uff5cUser\uff5c>\u7b2c\u4e00\u5f20\u56fe\\n\\n<\uff5cdeepseek_image\uff5c>\\n\\n\u6709\u4ec0\u4e48\u5185\u5bb9\uff1f<\uff5cAssistant\uff5c><think>",
+        "## Compact TXT notation",
+        "## Tests"
+      ]
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/encoding/encoding_dsv4.py",
+      "bytes": 36707,
+      "sha256": "b4bbb74bbb11a9c8ada04daa30cc7de7dba3abba08e9ade06d38b51a3d0d1701",
+      "symbols": [
+        "to_json",
+        "tools_from_openai_format",
+        "tool_calls_from_openai_format",
+        "tool_calls_to_openai_format",
+        "encode_arguments_to_dsml",
+        "decode_dsml_to_arguments",
+        "render_tools",
+        "find_last_user_index",
+        "render_message",
+        "merge_tool_messages",
+        "sort_tool_results_by_call_order",
+        "_encode_messages_text",
+        "_drop_thinking_messages",
+        "parse_tagged_text",
+        "_is_image_block",
+        "_extract_image",
+        "_process_image_blocks",
+        "_validate_no_image_sp_tokens",
+        "process_image_messages",
+        "encode_messages",
+        "load_cases",
+        "encode_case",
+        "_read_until_stop",
+        "parse_tool_calls",
+        "parse_message_from_completion_text"
+      ],
+      "imports": [
+        "from typing import Any, Dict, List, Union, Optional, Tuple",
+        "import copy",
+        "import json",
+        "import re"
+      ]
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/encoding/test_encoding_dsv4.py",
+      "bytes": 6577,
+      "sha256": "76403800e683be7706387dd30fcc1244b5c0796ce9985de08a2106e9cad3ad79",
+      "symbols": [
+        "test_plain_text_prompt_is_unchanged",
+        "test_multiturn_text_prompt_is_unchanged",
+        "test_top_level_image_block_returns_matching_placeholder_and_record",
+        "test_tagged_text_matches_standard_image_content_blocks",
+        "test_tagged_text_preserves_multiple_image_order",
+        "test_txt_and_json_examples_encode_identically",
+        "test_malformed_tagged_text_is_rejected",
+        "test_nested_tool_result_preserves_image_placeholder",
+        "test_tool_role_with_image_blocks_preserves_placeholder",
+        "test_context_images_are_not_returned_as_current_media",
+        "test_user_supplied_placeholder_is_rejected",
+        "test_image_block_without_source_is_rejected"
+      ],
+      "imports": [
+        "from pathlib import Path",
+        "import pytest",
+        "from encoding_dsv4 import IMAGE_PLACEHOLDER, encode_messages, load_cases, parse_tagged_text"
+      ]
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/encoding/tests/test_input_1.json",
+      "bytes": 2748,
+      "sha256": "10e0c074c977c3a80daab758af28219c6b1c2bd7f3f5cf2890c84b361cc32897",
+      "structure": [
+        "tools",
+        "messages"
+      ]
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/encoding/tests/test_input_2.json",
+      "bytes": 526,
+      "sha256": "c44ae0db20fafff38a6021e8068d7ed6e28605d76cafd20be80b03398509f447",
+      "structure": {
+        "type": "list",
+        "length": 5
+      }
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/encoding/tests/test_input_3.json",
+      "bytes": 4546,
+      "sha256": "37bf8ef95e0411ea5f411be0b02fbafec7363438b6ccefddca0c52ec9aeaf69a",
+      "structure": {
+        "type": "list",
+        "length": 6
+      }
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/encoding/tests/test_input_4.json",
+      "bytes": 2730,
+      "sha256": "c45bbd0a1b7a2f75033d8db4ba74ee5b7653bd01114045a52f79d3b387663465",
+      "structure": {
+        "type": "list",
+        "length": 6
+      }
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/encoding/tests/test_output_1.txt",
+      "bytes": 2390,
+      "sha256": "9b366d9d2eac842a6e890594aac0b58648e5623717202b33497afadf03e26540"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/encoding/tests/test_output_2.txt",
+      "bytes": 342,
+      "sha256": "ca66b01a1ac3a204bb032c928fb607d4877171e998a50f7f89f39fa821b75665"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/encoding/tests/test_output_3.txt",
+      "bytes": 3313,
+      "sha256": "b3b1cd8748b7b90d3c6be6da3f786f12e4d70be073bd445ea162dfad4dc01a64"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/encoding/tests/test_output_4.txt",
+      "bytes": 2552,
+      "sha256": "60e1643840ba9e4aeede450feb7b0498fa66ee24e4a939d48855ce04ec6fc375"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/generation_config.json",
+      "bytes": 170,
+      "sha256": "5fccff80f55a4d455bbe516bdd552edf3e9623df95e99fbf2a3c3389fdf91af0",
+      "structure": [
+        "_from_model_config",
+        "bos_token_id",
+        "eos_token_id",
+        "do_sample",
+        "temperature",
+        "top_p",
+        "transformers_version"
+      ]
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/inference/README.md",
+      "bytes": 1874,
+      "sha256": "17cdd3cfe7f40bfe74744bc783a34dd6f1e84d61e52843a5818a495ffa9491f3",
+      "outline": [
+        "# Minimal inference",
+        "## Install",
+        "## Convert Hugging Face weights",
+        "## Run the equivalent TXT and JSON examples",
+        "## Preprocessing tests"
+      ]
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/inference/config.json",
+      "bytes": 1449,
+      "sha256": "be1af50a0a8dc4e2e096362f9cc79d821846075a45863ded0b7d9bf4512075f6",
+      "structure": [
+        "vocab_size",
+        "dim",
+        "moe_inter_dim",
+        "n_layers",
+        "n_hash_layers",
+        "n_mtp_layers",
+        "dspark_block_size",
+        "dspark_noise_token_id",
+        "dspark_target_layer_ids",
+        "dspark_markov_rank",
+        "n_heads",
+        "n_routed_experts",
+        "n_shared_experts",
+        "n_activated_experts",
+        "score_func",
+        "route_scale",
+        "norm_eps",
+        "swiglu_limit",
+        "q_lora_rank",
+        "head_dim",
+        "rope_head_dim",
+        "o_groups",
+        "o_lora_rank",
+        "window_size",
+        "original_seq_len",
+        "rope_theta",
+        "rope_factor",
+        "beta_fast",
+        "beta_slow",
+        "index_n_heads",
+        "index_head_dim",
+        "index_topk",
+        "hc_mult",
+        "hc_sinkhorn_iters",
+        "dtype",
+        "scale_fmt",
+        "expert_dtype",
+        "compress_rope_theta",
+        "compress_ratios",
+        "vision_n_layers"
+      ]
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/inference/convert.py",
+      "bytes": 7359,
+      "sha256": "9410d1be5b9835b427cd5e5c74057b7174fc1d5aa9468b905c61737205d2d89e",
+      "symbols": [
+        "cast_e2m1fn_to_e4m3fn",
+        "main"
+      ],
+      "imports": [
+        "import os",
+        "import json",
+        "import shutil",
+        "from argparse import ArgumentParser",
+        "from glob import glob",
+        "from tqdm import tqdm, trange",
+        "import torch",
+        "from safetensors.torch import safe_open, save_file"
+      ]
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/inference/examples/example_vl.txt",
+      "bytes": 234,
+      "sha256": "33a8eaca52e7268c96b71918ae983df0b7b6e1af03f8d993e1091ac41a06f25d"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/inference/examples/example_vl_harmony.json",
+      "bytes": 783,
+      "sha256": "99881aab1aa9e42fdb5c932bb3880560128a0841cadfb21bf0274309dfc7b152",
+      "structure": {
+        "type": "list",
+        "length": 1
+      }
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/inference/examples/images/carrots.jpeg",
+      "bytes": 212495,
+      "sha256": "5df896a4a07e127281c60fc957f8b3d73f4735b3258a0bf762b4383557f8fa9a"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/inference/examples/images/corn.jpeg",
+      "bytes": 56122,
+      "sha256": "251fe7ad58f44db139a6af5ed489e027eca93ae60878b83f3e709c7d6f0112a1"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/inference/generate.py",
+      "bytes": 8809,
+      "sha256": "0f0fa16440668875fa6c61d030f04ecd38151638ee8d02fe5f22d192486bdd3c",
+      "symbols": [
+        "generate",
+        "generate_batched",
+        "prepare_case",
+        "main"
+      ],
+      "imports": [
+        "import os",
+        "import json",
+        "import sys",
+        "from argparse import ArgumentParser",
+        "from typing import List",
+        "import torch",
+        "import torch.distributed as dist",
+        "from transformers import AutoTokenizer",
+        "from safetensors.torch import load_model",
+        "from model import Transformer, ModelArgs",
+        "from encoding_dsv4 import encode_case, load_cases, parse_message_from_completion_text, parse_tagged_text",
+        "from image_processor import prepare_vl_inputs"
+      ]
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/inference/image_processor.py",
+      "bytes": 7696,
+      "sha256": "cac2ff6af15207ce53d0319dc52c6ed1fa5f4fed21f75795fe0fc014632e9086",
+      "symbols": [
+        "ImageInput",
+        "grid_tokens",
+        "solve_resize_ratio",
+        "safe_resize",
+        "load_image_bytes",
+        "load_image",
+        "build_image_block",
+        "prepare_vl_inputs"
+      ],
+      "imports": [
+        "import base64",
+        "import io",
+        "import math",
+        "from dataclasses import dataclass",
+        "from urllib.request import urlopen",
+        "import numpy as np",
+        "import torch",
+        "from PIL import Image, ImageOps"
+      ]
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/inference/kernel.py",
+      "bytes": 22191,
+      "sha256": "b9e91e297c26e586a3fcdc8af304436d7d7c13159a876dc7e6fa2e76a8055a78",
+      "symbols": [
+        "fast_log2_ceil",
+        "fast_pow2",
+        "fast_round_scale",
+        "act_quant_kernel",
+        "act_quant",
+        "fp4_quant_kernel",
+        "fp4_act_quant",
+        "fp8_gemm_kernel",
+        "fp8_gemm",
+        "sparse_attn_kernel",
+        "sparse_attn",
+        "hc_split_sinkhorn_kernel",
+        "hc_split_sinkhorn",
+        "fp4_gemm_kernel",
+        "fp4_gemm"
+      ],
+      "imports": [
+        "import torch",
+        "import tilelang",
+        "import tilelang.language as T",
+        "from typing import Optional"
+      ]
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/inference/model.py",
+      "bytes": 49541,
+      "sha256": "ae8de79223d53c16edc7fa67af124ddd0212f27bddd3207bdd4cb05b48a0a1a7",
+      "symbols": [
+        "set_dtype",
+        "ModelArgs",
+        "ParallelEmbedding",
+        "linear",
+        "Linear",
+        "ColumnParallelLinear",
+        "RowParallelLinear",
+        "RMSNorm",
+        "precompute_freqs_cis",
+        "apply_rotary_emb",
+        "rotate_activation",
+        "get_window_topk_idxs",
+        "get_image_visible",
+        "get_window_topk_idxs_visible",
+        "get_compress_topk_idxs",
+        "Compressor",
+        "Indexer",
+        "Attention",
+        "Gate",
+        "Expert",
+        "MoE",
+        "Block",
+        "ParallelHead",
+        "get_dspark_topk_idxs",
+        "DSparkAttention",
+        "DSparkMarkovHead",
+        "DSparkConfidenceHead",
+        "DSparkBlock",
+        "Transformer",
+        "sample"
+      ],
+      "imports": [
+        "import math",
+        "from dataclasses import dataclass",
+        "from typing import Tuple, Optional, Literal",
+        "from functools import lru_cache",
+        "from contextlib import contextmanager",
+        "import torch",
+        "from torch import nn",
+        "import torch.nn.functional as F",
+        "import torch.distributed as dist",
+        "from kernel import act_quant, fp4_act_quant, fp8_gemm, fp4_gemm, sparse_attn, hc_split_sinkhorn",
+        "from image_processor import IMAGE, IMAGE_START, IMAGE_END",
+        "from vision import ViT, Aligner"
+      ]
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/inference/requirements.txt",
+      "bytes": 106,
+      "sha256": "39f09b1aba34d63d27383b36071b9bbc273b1b6596fb3be6127e33ea8244f99a"
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/inference/run.sh",
+      "bytes": 382,
+      "sha256": "a60e7437a5cbbd246e2ab9b7c1f7b01d3b52be61be6c1c1fa9f31b422422704b",
+      "outline": [
+        "#!/usr/bin/env bash"
+      ]
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/inference/vision.py",
+      "bytes": 4460,
+      "sha256": "a4f089069310398d42ca17fd4496cec82da64cbbfde9b0230679ce1537cc0bb1",
+      "symbols": [
+        "get_vision_cos_sin",
+        "apply_rotary",
+        "RMSNorm",
+        "PatchEmbed",
+        "Attention",
+        "MLP",
+        "Block",
+        "ViT",
+        "Aligner"
+      ],
+      "imports": [
+        "from functools import lru_cache",
+        "import torch",
+        "import torch.nn.functional as F",
+        "from torch import nn"
+      ]
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/model.safetensors.index.json",
+      "bytes": 5625861,
+      "sha256": "507977e3d3818865264e68c0fdab139aa7f3929d0d0cf693dacc47428da56395",
+      "structure": [
+        "metadata",
+        "weight_map"
+      ]
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/tokenizer.json",
+      "bytes": 6367257,
+      "sha256": "c90dfa01249db1be4245780a052ede752e1361c612ac6d08e2bdada7d599476b",
+      "structure": [
+        "version",
+        "truncation",
+        "padding",
+        "added_tokens",
+        "normalizer",
+        "pre_tokenizer",
+        "post_processor",
+        "decoder",
+        "model"
+      ]
+    },
+    {
+      "path": "vendor/model-packs/zenith-vision/tokenizer_config.json",
+      "bytes": 801,
+      "sha256": "6ac8c8dc065ed118161d02dd532749ae3f52c243deac27872134fae2f50d8547",
+      "structure": [
+        "add_bos_token",
+        "add_eos_token",
+        "bos_token",
+        "clean_up_tokenization_spaces",
+        "eos_token",
+        "legacy",
+        "model_max_length",
+        "pad_token",
+        "sp_model_kwargs",
+        "unk_token",
+        "tokenizer_class"
+      ]
+    }
+  ],
+  "active": {
+    "provider": "huggingface",
+    "model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "adapter_sha256": "7e0701900b40109ee81b3dc097985cda360409006c8b717bda51830f3b6ed85d",
+    "tokenizer_sha256": "9c5ae00e602b8860cbd784ba82a8aa14e8feecec692e7076590d014d7b7fdafa"
+  },
+  "research_bundle_verified": true,
+  "activation_validated": true
+}

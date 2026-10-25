@@ -9,6 +9,12 @@ WEIGHT_PATTERNS = ['*.json', '*.safetensors', '*.model', '*.tiktoken', 'tokenize
 
 
 def model_specs(settings):
+    if settings.provider == 'orchestrated':
+        from .model_registry import build_registry
+        registry = build_registry(settings)
+        record = registry.get(registry.native_key)
+        bound = registry.adapters[record.provider].bindings[record.key]
+        return model_specs(bound)
     if settings.provider == 'ensemble':
         from .ensemble import EnsembleProvider
         return [member.public() | {'revision': member.revision, 'adapter': member.adapter, 'base_url': member.base_url or (settings.local_server_url if member.provider == 'localserver' else settings.ollama_url)}

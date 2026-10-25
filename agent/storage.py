@@ -97,11 +97,22 @@ class Store:
 
     def approved_examples(self):
         with self.connect() as db:
+            provenance = db.execute('SELECT session_id,model,deliberation FROM turns').fetchall()
             rows = db.execute("""SELECT * FROM turns WHERE approved=1
                 AND (rating='good' OR (rating='bad' AND correction IS NOT NULL))
                 ORDER BY rowid""").fetchall()
         result = []
+        # API output rights are not conferred by a good-answer/approval button.
+        # Exclude the entire conversation, including later native turns whose
+        # input history may contain those outputs. No private DB rewrite needed.
+        blocked = set()
+        for turn in provenance:
+            trace = json.loads(turn['deliberation']) if turn['deliberation'] else {}
+            if turn['model'].startswith(('openai:', 'anthropic:')) or trace.get('training_eligible') is False:
+                blocked.add(turn['session_id'])
         for row in rows:
+            if row['session_id'] in blocked:
+                continue
             messages = json.loads(row["messages"])
             messages.append({"role": "assistant", "content": row["correction"] or row["response"]})
             result.append({"messages": messages, "prompt": row["prompt"], "source_id": row["id"], "conversation_id": row["session_id"]})
