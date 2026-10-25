@@ -5,6 +5,8 @@ import sys
 from . import __version__
 
 COMMANDS = {
+    'model-registry': ('agent.model_registry', 'Inspect runtime models or explicitly discover account-visible provider IDs'),
+    'route': ('agent.orchestration', 'Run native Zenith or explicitly configured hybrid inference'),
     'chat': ('agent.cli', 'Chat in your terminal'),
     'serve': ('agent.server', 'Start browser chat on localhost'),
     'doctor': ('agent.doctor', 'Check installation and model readiness'),

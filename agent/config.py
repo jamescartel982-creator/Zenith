@@ -40,7 +40,14 @@ class Settings:
     offline: bool = field(default_factory=lambda: os.getenv("HF_HUB_OFFLINE", "").lower() in {"1", "true", "yes"})
     temperature: float = field(default_factory=lambda: float(os.getenv("TEMPERATURE", "0.4")))
 
+    orchestration_mode: str = field(default_factory=lambda: os.getenv('ZENITH_ORCHESTRATION_MODE', 'native'))
+    reasoning_effort: str = field(default_factory=lambda: os.getenv('ZENITH_REASONING_EFFORT', 'standard'))
+    allow_external: bool = field(default_factory=lambda: os.getenv('ZENITH_ALLOW_EXTERNAL', '').lower() in {'1', 'true', 'yes'})
+
     def __post_init__(self):
+        from .task_router import MODES
+        if self.orchestration_mode not in MODES or self.reasoning_effort not in {'fast', 'standard', 'deep', 'research'}:
+            raise ValueError('Invalid orchestration mode or reasoning effort')
         if self.response_mode not in {'fast', 'thorough'}:
             raise ValueError('ZENITH_RESPONSE_MODE must be fast or thorough')
         if self.reply_style not in {'auto','brief','full'}:
@@ -51,8 +58,8 @@ class Settings:
             raise ValueError('ZENITH_ABSTAIN_THRESHOLD must be between zero and one')
         if not 1 <= self.cpu_threads <= 64:
             raise ValueError("ZENITH_CPU_THREADS must be between 1 and 64")
-        if self.provider not in {"ensemble", "huggingface", "ollama", "tiny", "localserver"}:
-            raise ValueError("AI_PROVIDER must be ensemble, huggingface, ollama, tiny, or localserver")
+        if self.provider not in {"ensemble", "huggingface", "ollama", "tiny", "localserver", "orchestrated"}:
+            raise ValueError("AI_PROVIDER must be ensemble, huggingface, ollama, tiny, localserver, or orchestrated")
         from urllib.parse import urlparse
         endpoint = urlparse(self.local_server_url)
         if endpoint.scheme not in {'http', 'https'} or endpoint.hostname not in {'localhost', '127.0.0.1', '::1'} or endpoint.username or endpoint.password or endpoint.query or endpoint.fragment or any(c.isspace() for c in self.local_server_url):
@@ -70,6 +77,8 @@ class Settings:
 
     @property
     def model_name(self):
+        if self.provider == 'orchestrated':
+            return 'Zenith orchestration'
         if self.provider == 'localserver':
             return self.local_server_model
         if self.provider == "ensemble":

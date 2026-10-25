@@ -40,7 +40,7 @@ class Agent:
         self.lock=Lock()
 
     def team_info(self):
-        if self.settings.provider=='ensemble':
+        if self.settings.provider in {'ensemble', 'orchestrated'}:
             info=self.provider.team_info()
             if isinstance(info,dict):return info
         return {'mode':'single','members':[{'id':'primary','name':self.settings.model_name,'provider':self.settings.provider,
@@ -131,7 +131,8 @@ class Agent:
                 if not response:raise RuntimeError('The model returned an empty answer')
                 trace=None if direct else getattr(self.provider,'last_deliberation',None)
                 if not isinstance(trace,dict):trace=None
-                model='Zenith built-in checks' if direct else self.settings.model_name
+                label=getattr(self.provider,'last_model_label',None)
+                model='Zenith built-in checks' if direct else label if isinstance(label,str) and label else self.settings.model_name
                 usage={'input_tokens':0,'output_tokens':0,'total_tokens':0,'model_calls':0,'source':'model-not-called','finish_reason':'stop'} if direct else reported_usage(getattr(self.provider,'last_usage',None))
                 performance.update(usage=usage,elapsed_ms=round((time.perf_counter()-started)*1000,2),first_text_ms=first_token,
                                    history_turns_sent=max(0,(len(used)-2)//2))

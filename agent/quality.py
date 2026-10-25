@@ -26,6 +26,11 @@ def configuration_signature(settings,mode=None,reply_style=None):
             'temperature':settings.temperature,'mode':mode or settings.response_mode,'team_sha256':None,
             'reply_style':reply_style or settings.reply_style,'fast_max_new_tokens':settings.fast_max_new_tokens,'fast_history_turns':settings.fast_history_turns}
     fields.update(device=settings.device,cpu_threads=settings.cpu_threads)
+    if settings.provider == 'orchestrated':
+        import os
+        fields.update(orchestration_mode=settings.orchestration_mode, reasoning_effort=settings.reasoning_effort,
+                      allow_external=settings.allow_external, native_provider=os.getenv('ZENITH_NATIVE_PROVIDER','huggingface'),
+                      external_models_sha256=hashlib.sha256(os.getenv('ZENITH_EXTERNAL_MODELS','[]').encode()).hexdigest())
     if settings.team_config:
         fields['team_sha256']=hashlib.sha256(Path(settings.team_config).read_bytes()).hexdigest()
     return hashlib.sha256(json.dumps(fields,sort_keys=True).encode()).hexdigest()
