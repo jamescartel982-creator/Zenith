@@ -6,6 +6,7 @@ This is a compatibility/latency smoke, not a quality or promotion benchmark.
 import argparse
 from dataclasses import replace
 import hashlib
+import gc
 import json
 from pathlib import Path
 import statistics
@@ -22,22 +23,49 @@ def source_hash():
     return hashlib.sha256(b'\n'.join(str(p.relative_to(root)).encode() + b':' + hashlib.sha256(p.read_bytes()).hexdigest().encode() for p in files)).hexdigest()
 
 
-def measure(samples=3):
+def measure(samples=3, bundle=None):
+    from agent.config import Settings
+    original = Settings()
+    if bundle is None:
+        if original.provider != 'huggingface' or not original.adapter:
+            raise ValueError('Select the existing trained HF adapter or an explicit verified bundle for this offline benchmark')
+        try:
+            return _measure(samples, original, original)
+        finally:
+            gc.collect()
+    from agent.research import materialize, verify_bundle
+    source, manifest = verify_bundle(bundle)
+    if manifest['base_model'] != original.model:
+        raise ValueError('The test bundle must preserve the configured base model identity')
+    with tempfile.TemporaryDirectory(prefix='zenith-platform-checkpoint-') as folder:
+        selected = replace(original, provider='huggingface', model=manifest['base_model'],
+                           revision=manifest['base_revision'], adapter=str(Path(folder)/'verified-adapter'),
+                           checkpoint_receipt='')
+        materialize(source, selected.adapter)
+        try:
+            report = _measure(samples, original, selected)
+            verify_bundle(source)
+            report['selection'] = 'explicit-byte-verified-inactive-bundle; no profile activation'
+            return report
+        finally:
+            # Release model/storage cycles before temporary safetensors cleanup on Windows.
+            gc.collect()
+
+
+def _measure(samples, original, selected):
     from fastapi.testclient import TestClient
     from agent.config import Settings
     from agent.core import Agent
     from agent.paths import config_file
     from agent.platform_config import PlatformConfig
     from agent.server import create_app
-    original = Settings()
-    if original.provider != 'huggingface' or not original.adapter:
-        raise ValueError('Select the existing trained HF adapter explicitly before this offline benchmark')
     before = capture(original, config_file())
+    selected_before = capture(selected)
     fixtures = Path(__file__).resolve().parents[1]/'agent/evaluation/platform-v1.json'
     prompt = json.loads(fixtures.read_text())['native_prompt']
     records = []
     with tempfile.TemporaryDirectory(prefix='zenith-platform-benchmark-') as folder:
-        settings = replace(original, data_dir=folder, api_token='', offline=True, allow_external=False,
+        settings = replace(selected, data_dir=folder, api_token='', offline=True, allow_external=False,
                            temperature=0, max_new_tokens=32, fast_max_new_tokens=32,
                            cpu_threads=2, platform=PlatformConfig(enabled=True, runtime_enabled=True))
         agent = Agent(settings)
@@ -82,11 +110,13 @@ def measure(samples=3):
     after = capture(original, config_file())
     if not compare(before, after):
         raise RuntimeError('Protected model/profile changed during the smoke')
+    if not compare(selected_before, capture(selected)):
+        raise RuntimeError('The selected test checkpoint changed during the smoke')
     return {'purpose': 'Actual existing-checkpoint ASGI/queued-chat compatibility and latency smoke',
             'source_commit': before['source_commit'], 'python_sources_sha256': source_hash(),
             'fixture_sha256': hashlib.sha256(fixtures.read_bytes()).hexdigest(),
-            'model': original.model, 'revision': original.revision,
-            'adapter_sha256': before['adapter_files'].get('adapter_model.safetensors'),
+            'model': selected.model, 'revision': selected.revision,
+            'adapter_sha256': selected_before['adapter_files'].get('adapter_model.safetensors'),
             'device': device, 'cpu_threads': settings.cpu_threads, 'temperature': 0, 'max_new_tokens': 32,
             'cold_load_seconds': round(cold_load, 3), 'samples': records,
             'median_end_to_end_ms': {mode: round(statistics.median(r[mode]['end_to_end_ms'] for r in records), 3)
@@ -104,6 +134,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', required=True)
     parser.add_argument('--samples', type=int, default=3)
+    parser.add_argument('--bundle', type=Path, help='Test an explicitly verified existing inactive bundle in a temporary directory; never activate it')
     args = parser.parse_args()
     if not 1 <= args.samples <= 10:
         parser.error('Choose one to ten paired smoke samples')
@@ -111,7 +142,7 @@ def main():
     from agent.paths import config_file
     try:output=check_destination(Settings(),config_file(),args.output)
     except ValueError as exc:parser.error(str(exc))
-    result = measure(args.samples)
+    result = measure(args.samples, args.bundle)
     with output.open('x',encoding='utf-8') as handle:
         handle.write(json.dumps(result, indent=2)+'\n')
     print(json.dumps({'samples': args.samples, 'medians_ms': result['median_end_to_end_ms'],

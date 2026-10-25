@@ -124,3 +124,9 @@ model or activates a candidate. Output destinations must be new and outside the
 selected adapter/profile. Protection receipts include private profile hashes;
 keep them private. The HTTP smoke uses temporary accounts and an owned loopback
 server; its arithmetic response is a deterministic check, not a neural benchmark.
+
+CI can supply `--bundle research_checkpoints/recovery-v1` explicitly when its
+temporary install profile has no active adapter. This verifies/reconstructs that
+existing inactive checkpoint in a new temporary directory for inference only,
+requires the configured base-model identity to match, verifies bytes before/after,
+and never saves activation settings or changes promotion gates.

@@ -155,6 +155,8 @@ test_memory_limits_and_context_budget (test_personal.PersonalTests.test_memory_l
 test_password_storage_cookie_logout_and_welcome_back (test_personal.PersonalTests.test_password_storage_cookie_logout_and_welcome_back) ... ok
 test_validation_and_case_insensitive_unique_usernames (test_personal.PersonalTests.test_validation_and_case_insensitive_unique_usernames) ... ok
 test_wrong_password_expiry_and_cross_site_requests_are_rejected (test_personal.PersonalTests.test_wrong_password_expiry_and_cross_site_requests_are_rejected) ... ok
+test_explicit_bundle_is_verified_twice_and_materialized_only_in_temporary_path (test_platform_benchmark.BenchmarkSelectionTests.test_explicit_bundle_is_verified_twice_and_materialized_only_in_temporary_path) ... ok
+test_wrong_base_and_missing_adapter_do_not_silently_select_another_model (test_platform_benchmark.BenchmarkSelectionTests.test_wrong_base_and_missing_adapter_do_not_silently_select_another_model) ... ok
 test_additive_migration_is_atomic_idempotent_and_old_writers_work (test_platform_foundation.FoundationTests.test_additive_migration_is_atomic_idempotent_and_old_writers_work) ... ok
 test_audit_chain_detects_tampering_and_external_anchor_detects_truncation (test_platform_foundation.FoundationTests.test_audit_chain_detects_tampering_and_external_anchor_detects_truncation) ... ok
 test_audit_concurrent_writers_and_missing_key_do_not_reset_history (test_platform_foundation.FoundationTests.test_audit_concurrent_writers_and_missing_key_do_not_reset_history) ... ok
@@ -278,6 +280,6 @@ test_attention_is_causal (test_tiny.TinyTests.test_attention_is_causal) ... ok
 test_backpropagation_checkpoint_and_generation (test_tiny.TinyTests.test_backpropagation_checkpoint_and_generation) ... ok
 
 ----------------------------------------------------------------------
-Ran 275 tests in 56.966s
+Ran 277 tests in 40.248s
 
 OK (skipped=1)

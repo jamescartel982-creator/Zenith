@@ -1,5 +1,6 @@
 """Real SQLite, legacy-writer compatibility, auth revocation and audit integrity."""
 from concurrent.futures import ThreadPoolExecutor
+from contextlib import closing
 from dataclasses import replace
 import hashlib
 import json
@@ -63,7 +64,7 @@ class FoundationTests(unittest.TestCase):
     def test_backup_includes_wal_state_without_overwriting_source_or_destination(self):
         self.store.add('s', 'one', 'two', [], 'native')
         path = backup(self.store, Path(self.folder.name)/'backup.sqlite3')
-        with sqlite3.connect(path) as db:
+        with closing(sqlite3.connect(path)) as db:
             self.assertEqual(db.execute('SELECT response FROM turns').fetchone()[0], 'two')
         with self.assertRaises(ValueError):
             backup(self.store, path)

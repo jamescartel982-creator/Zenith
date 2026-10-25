@@ -28,8 +28,8 @@
     },
     {
       "path": ".github/workflows/tests.yml",
-      "size": 7335,
-      "sha256": "9baa27df0ff3b28d64253fcdadb0fec4c7cfd01a1ff27c2957d1b9bc4a8746e3",
+      "size": 7419,
+      "sha256": "8726d7c3f06909edb2615ea4e24acbe20c7fc2d8b045ad27482d010779c77db2",
       "normalization": "lf"
     },
     {
@@ -1575,9 +1575,21 @@
       "normalization": "lf"
     },
     {
+      "path": "docs/platform/base-protection.json",
+      "size": 942,
+      "sha256": "f006c5d2d658922efe159df5653775e211d8923f84e684999681007394a0fc05",
+      "normalization": "lf"
+    },
+    {
       "path": "docs/platform/benchmark-results.md",
-      "size": 4372,
-      "sha256": "1c0ce890f5c43a8c5010a6f27936e65e2a552f1844db62d644f5a3390dfa1b30",
+      "size": 5240,
+      "sha256": "39c42eacd49aa34d6531b8b195982711947eb072f37d3f5ddb43417cc3c2484e",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/platform/bundle-smoke.json",
+      "size": 3044,
+      "sha256": "cca22f79a7735ac55f808e854a404c5c192ff8a2e232097f1b4f92d4cc252e2a",
       "normalization": "lf"
     },
     {
@@ -1594,8 +1606,8 @@
     },
     {
       "path": "docs/platform/operations.md",
-      "size": 6768,
-      "sha256": "035bc93f1aa6315e278d291f529c5e4e9d3ca483a4d11ab30d7ed1a70ff666f6",
+      "size": 7153,
+      "sha256": "81eedf238b41ca8e60c23382dd71d7dc39431539593707f29652048d54965e6e",
       "normalization": "lf"
     },
     {
@@ -1606,8 +1618,8 @@
     },
     {
       "path": "docs/platform/tests.log",
-      "size": 45053,
-      "sha256": "d2b0ed75f12b3f081c6c0b408f60db884ca8099652c33b980cc909b5a386784b",
+      "size": 45471,
+      "sha256": "b41fac7fc293611847f75163934dfd4bf5ccb26f5552505af647cb6afbc4435e",
       "normalization": "lf"
     },
     {
@@ -1936,8 +1948,8 @@
     },
     {
       "path": "scripts/platform_benchmark.py",
-      "size": 7010,
-      "sha256": "166698745190ded08c09ec94216c2153e2103e445504bd53cd6509f571b8fb2b",
+      "size": 8621,
+      "sha256": "ddab90a462d8a5348a0371daefaf47f722e752420a40cdea0796aca6859834a1",
       "normalization": "lf"
     },
     {
@@ -2181,9 +2193,15 @@
       "normalization": "lf"
     },
     {
+      "path": "tests/test_platform_benchmark.py",
+      "size": 2226,
+      "sha256": "9967b78eef1ad01ffae40590d95af3bb7c527c6ff34672e38858e593905448bc",
+      "normalization": "lf"
+    },
+    {
       "path": "tests/test_platform_foundation.py",
-      "size": 10752,
-      "sha256": "e9a98563cca2c75a41e62caf7c1cbfb5491b696045fb033dc23209fb6d33793c",
+      "size": 10792,
+      "sha256": "fc0b674bffec6a2f723a5850d623c24280b4fb8988bd5b79d0d38cfc9e72f00b",
       "normalization": "lf"
     },
     {

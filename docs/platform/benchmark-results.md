@@ -9,13 +9,20 @@ not completion of the OpenClaw roadmap. No model training or promotion occurred.
 | --- | --- |
 | Fresh unchanged-main suite | 243 run, 242 passed, one skipped; 39.139 s |
 | Foundation suite | 261 run, 260 passed, one skipped; 42.343 s |
-| Final suite | 275 run, 274 passed, one skipped; 56.966 s |
-| Newly added platform tests | 32 tests passed within the final suite |
+| Initial pilot suite | 275 run, 274 passed, one skipped; 56.966 s |
+| Final cross-platform follow-up suite | 277 run, 276 passed, one skipped; 40.248 s |
+| Newly added platform tests | 34 tests passed within the final suite |
 | Dependency consistency | `pip check`: No broken requirements found |
 | Regular wheel | Built/installed into a separate target and imported outside checkout; 131 hashed installed files verified; supervised task completed |
 | Real Uvicorn / loopback HTTP | Authenticated queued arithmetic completed, scoped SSE replay succeeded, bearer alone could not supply account/owner authority; tools stayed disabled |
 | Real owned diagnostic transport | Unit/integration fixture connected to its explicitly scoped loopback socket once, only after exact human approval |
 | Model/profile protection | Original selected adapter file inventory and saved profile unchanged; no checkpoint writes or data reset |
+
+The pinned base model's nine cached artifact hashes also match the original audit;
+see [base protection](base-protection.json). An additional actual one-pair
+[verified-bundle smoke](bundle-smoke.json) exercises CI selection without activating
+or modifying the profile. It uses the same byte-identical LoRA and is not combined
+with the three-pair latency result below.
 
 Raw [test output](tests.log), [HTTP smoke](http-smoke.json), [package smoke](package-smoke.json) and
 [native inference evidence](native-smoke.json) accompany this report. Tests use
@@ -68,3 +75,9 @@ benchmark gates have not passed merely because this suite passed.
 The existing experimental trained candidate's failed numeric quality/retention
 gates remain recorded; this work does not relabel, register, retrain or promote it.
 See [boundaries](architecture.md) and [rollback](operations.md).
+
+Cross-platform CI initially caught a backup-read connection left open by the test
+fixture and an intentionally unselected adapter in the CI profile. The fixture now
+closes the connection explicitly; CI selects an explicitly verified existing bundle
+for its temporary benchmark process, with new regression tests for selection and
+base-identity preservation. No activation or promotion check was relaxed.
