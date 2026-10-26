@@ -202,8 +202,8 @@
     },
     {
       "path": "agent/checkpoints.py",
-      "size": 7790,
-      "sha256": "5ec50b38babb8b064990fd0c96c75fac250215ea7bc4f01f55a2ff6effb9c20d",
+      "size": 7861,
+      "sha256": "3275cb8c4a1a6208a5012823487615af4a3c18dd85d8be99ee9291810ff74f85",
       "normalization": "lf"
     },
     {
@@ -376,8 +376,8 @@
     },
     {
       "path": "agent/models.py",
-      "size": 6124,
-      "sha256": "5021c345391211b8185ed346ada58aa566e36f4310dde916852d781154b3bd47",
+      "size": 6204,
+      "sha256": "7ce6590d70eb83160ecc3200c043b20c77f8bea4245d1001184caaff5bc3bd54",
       "normalization": "lf"
     },
     {
@@ -1732,8 +1732,8 @@
     },
     {
       "path": "docs/security/2026-10-26/VALIDATION.md",
-      "size": 4749,
-      "sha256": "28aa9c8889d2427bd53bf5636e7f43c6dea44099a2b5e2e1761a1225ab9814ab",
+      "size": 5206,
+      "sha256": "4b403492c7c891ee36ab930c833a15ac64d5c63b0ea99335782134ae361fe043",
       "normalization": "lf"
     },
     {
@@ -2314,8 +2314,8 @@
     },
     {
       "path": "pyproject.toml",
-      "size": 1210,
-      "sha256": "b4354d0a2e213569b25a1050105b411458cef3aab151279632661f51d339219d",
+      "size": 1270,
+      "sha256": "1365154565326cd1159e0535b0920cbdd25a3b44c2ae870256b061c75955b985",
       "normalization": "lf"
     },
     {
@@ -2338,8 +2338,8 @@
     },
     {
       "path": "requirements-local.txt",
-      "size": 97,
-      "sha256": "5746218f205a9e6b86f4755e74bdd7eac3c5eaf4dcea8e223849bf8eb9e60598",
+      "size": 120,
+      "sha256": "cd0e081d0eda14e9f2040b4e9f3e8789c98953af169762908c31f01f7a0d65fd",
       "normalization": "lf"
     },
     {
@@ -2814,6 +2814,12 @@
       "path": "tests/test_learning.py",
       "size": 4046,
       "sha256": "e7b1fbe7e86c1487e1d1370659e5c86e0e81ebbadd4947d11c7704f0685b1188",
+      "normalization": "lf"
+    },
+    {
+      "path": "tests/test_model_cache.py",
+      "size": 2148,
+      "sha256": "3b1f0779821a2bc78c7c0e478de2e000375d973139e7bb77c458b321e63ea7a3",
       "normalization": "lf"
     },
     {

@@ -70,7 +70,8 @@ def load_existing(directory, trainable=False, cpu_threads=2):
     root, adapter_config, report = parent_metadata(directory)
     base, revision = report['base_model'],report['base_revision']
     from huggingface_hub import snapshot_download
-    snapshot=Path(snapshot_download(repo_id=base,revision=revision,local_files_only=True))
+    from .models import WEIGHT_PATTERNS
+    snapshot=Path(snapshot_download(repo_id=base,revision=revision,local_files_only=True,allow_patterns=WEIGHT_PATTERNS))
     base_files=inventory(snapshot)
     weight=(snapshot/'model.safetensors').resolve()
     if weight.is_file() and re.fullmatch(r'[a-f0-9]{64}',weight.name) and digest(weight)!=weight.name:

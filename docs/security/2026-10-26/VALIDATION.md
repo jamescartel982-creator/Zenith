@@ -49,6 +49,13 @@ tokenizer files, training data, production profile or account data was replaced.
 - Base weights, adapter weights and adapter tokenizer hashes were rechecked
   against their previously recorded values; see `model-preservation.json`.
 
+Fresh-install CI identified an additional packaging dependency: the CPU Torch
+index installed setuptools 78.1.0 with three advisories. Local/training and build
+requirements now require setuptools >=84.1.0,<85 rather than hiding those
+findings. Fresh Hub 1.33 cache validation also requires matching the download's
+allow-pattern filter; cached-snapshot checks now use the same filter, including
+checkpoint inspection. CI is rerun on the corrected revision.
+
 The compatibility environment overlays updated packages on read-only access to
 the original installed dependencies, avoiding a second large Torch download.
 Python's `pip check` sees those inherited distributions; `uv pip check` does not
