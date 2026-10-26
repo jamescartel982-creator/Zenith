@@ -45,7 +45,7 @@ jobs:
           .venv/bin/python -m unittest discover -s tests -v
           .venv/bin/python -m scripts.smoke_platform
           .venv/bin/python -m scripts.smoke_server
-          .venv/bin/python -I -m scripts.smoke_installed
+          .venv/bin/python scripts/smoke_installed.py
           .venv/bin/python -I -m agent verify --source . --json
           source ./activate.sh
           python -c 'import sys; assert sys.prefix != sys.base_prefix'
