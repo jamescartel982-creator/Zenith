@@ -1,0 +1,4 @@
+cryptography>=50.0.2,<51
+requests>=2.34.2,<3
+urllib3>=2.8.0,<3
+setuptools>=84.1.0,<85

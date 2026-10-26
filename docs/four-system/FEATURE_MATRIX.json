@@ -1,0 +1,227 @@
+[
+  {
+    "id": "TA01",
+    "capability": "CLI and run orchestration",
+    "source": "[cli/main.py:37](https://github.com/TauricResearch/TradingAgents/blob/e8f5503e9b86d5c2710b0c76b1f686703968c9df/cli/main.py#L37)",
+    "source_verified": true,
+    "native_baseline": "NOT RUN at audit creation",
+    "four_way_status": "NOT STARTED",
+    "integration_strategy": "Installed CLI and headless analyze/backtest flags; cli/run.py runs the native graph."
+  },
+  {
+    "id": "TA02",
+    "capability": "Four analyst roles",
+    "source": "[tradingagents/graph/setup.py:109](https://github.com/TauricResearch/TradingAgents/blob/e8f5503e9b86d5c2710b0c76b1f686703968c9df/tradingagents/graph/setup.py#L109)",
+    "source_verified": true,
+    "native_baseline": "NOT RUN at audit creation",
+    "four_way_status": "NOT STARTED",
+    "integration_strategy": "Native market, sentiment, news and fundamentals analyst subgraphs run concurrently; retain every selected analyst."
+  },
+  {
+    "id": "TA03",
+    "capability": "Analyst tool loops",
+    "source": "[tradingagents/graph/analyst_execution.py:1](https://github.com/TauricResearch/TradingAgents/blob/e8f5503e9b86d5c2710b0c76b1f686703968c9df/tradingagents/graph/analyst_execution.py#L1)",
+    "source_verified": true,
+    "native_baseline": "NOT RUN at audit creation",
+    "four_way_status": "NOT STARTED",
+    "integration_strategy": "Native tool dispatch and bounded analyst turns; not a generic replacement loop."
+  },
+  {
+    "id": "TA04",
+    "capability": "Bull and bear research",
+    "source": "[tradingagents/agents/researchers/bull_researcher.py:1](https://github.com/TauricResearch/TradingAgents/blob/e8f5503e9b86d5c2710b0c76b1f686703968c9df/tradingagents/agents/researchers/bull_researcher.py#L1)",
+    "source_verified": true,
+    "native_baseline": "NOT RUN at audit creation",
+    "four_way_status": "NOT STARTED",
+    "integration_strategy": "Bull and bear native debate nodes feed the native research manager."
+  },
+  {
+    "id": "TA05",
+    "capability": "Research manager",
+    "source": "[tradingagents/agents/managers/research_manager.py:1](https://github.com/TauricResearch/TradingAgents/blob/e8f5503e9b86d5c2710b0c76b1f686703968c9df/tradingagents/agents/managers/research_manager.py#L1)",
+    "source_verified": true,
+    "native_baseline": "NOT RUN at audit creation",
+    "four_way_status": "NOT STARTED",
+    "integration_strategy": "ResearchPlan schema and native manager retained."
+  },
+  {
+    "id": "TA06",
+    "capability": "Trader proposal",
+    "source": "[tradingagents/agents/trader/trader.py:1](https://github.com/TauricResearch/TradingAgents/blob/e8f5503e9b86d5c2710b0c76b1f686703968c9df/tradingagents/agents/trader/trader.py#L1)",
+    "source_verified": true,
+    "native_baseline": "NOT RUN at audit creation",
+    "four_way_status": "NOT STARTED",
+    "integration_strategy": "Native proposed action, reasoning and optional levels; a proposal does not place an order."
+  },
+  {
+    "id": "TA07",
+    "capability": "Three risk debaters",
+    "source": "[tradingagents/graph/conditional_logic.py:23](https://github.com/TauricResearch/TradingAgents/blob/e8f5503e9b86d5c2710b0c76b1f686703968c9df/tradingagents/graph/conditional_logic.py#L23)",
+    "source_verified": true,
+    "native_baseline": "NOT RUN at audit creation",
+    "four_way_status": "NOT STARTED",
+    "integration_strategy": "Aggressive, conservative and neutral native risk debate routing preserved."
+  },
+  {
+    "id": "TA08",
+    "capability": "Portfolio manager",
+    "source": "[tradingagents/agents/managers/portfolio_manager.py:23](https://github.com/TauricResearch/TradingAgents/blob/e8f5503e9b86d5c2710b0c76b1f686703968c9df/tradingagents/agents/managers/portfolio_manager.py#L23)",
+    "source_verified": true,
+    "native_baseline": "NOT RUN at audit creation",
+    "four_way_status": "NOT STARTED",
+    "integration_strategy": "Native PortfolioDecision and risk debate determine the final rating."
+  },
+  {
+    "id": "TA09",
+    "capability": "Structured outputs and confidence",
+    "source": "[tradingagents/agents/schemas.py:221](https://github.com/TauricResearch/TradingAgents/blob/e8f5503e9b86d5c2710b0c76b1f686703968c9df/tradingagents/agents/schemas.py#L221)",
+    "source_verified": true,
+    "native_baseline": "NOT RUN at audit creation",
+    "four_way_status": "NOT STARTED",
+    "integration_strategy": "ResearchPlan, TraderProposal, PortfolioDecision and SentimentReport are native schemas. Sentiment confidence is qualitative; there is no universal calibrated portfolio probability."
+  },
+  {
+    "id": "TA10",
+    "capability": "Rating and abstention",
+    "source": "[tradingagents/agents/rating.py:106](https://github.com/TauricResearch/TradingAgents/blob/e8f5503e9b86d5c2710b0c76b1f686703968c9df/tradingagents/agents/rating.py#L106)",
+    "source_verified": true,
+    "native_baseline": "NOT RUN at audit creation",
+    "four_way_status": "NOT STARTED",
+    "integration_strategy": "Buy / Overweight / Hold / Underweight / Sell, or REVIEW for an unparseable result. REVIEW must never become a fabricated Hold or executable order."
+  },
+  {
+    "id": "TA11",
+    "capability": "Documented Python entry point",
+    "source": "[tradingagents/graph/trading_graph.py:167](https://github.com/TauricResearch/TradingAgents/blob/e8f5503e9b86d5c2710b0c76b1f686703968c9df/tradingagents/graph/trading_graph.py#L167)",
+    "source_verified": true,
+    "native_baseline": "NOT RUN at audit creation",
+    "four_way_status": "NOT STARTED",
+    "integration_strategy": "TradingAgentsGraph.propagate returns (final_state, signal); supported SDK example in README. No native HTTP service endpoint is present."
+  },
+  {
+    "id": "TA12",
+    "capability": "Custom local provider",
+    "source": "[tradingagents/llm_clients/openai_client.py:58](https://github.com/TauricResearch/TradingAgents/blob/e8f5503e9b86d5c2710b0c76b1f686703968c9df/tradingagents/llm_clients/openai_client.py#L58)",
+    "source_verified": true,
+    "native_baseline": "NOT RUN at audit creation",
+    "four_way_status": "NOT STARTED",
+    "integration_strategy": "llm_provider=openai_compatible; backend_url ends in /v1; optional OPENAI_COMPATIBLE_API_KEY. Both model tiers must explicitly bind to Zenith."
+  },
+  {
+    "id": "TA13",
+    "capability": "Independent provider per tier",
+    "source": "[tradingagents/llm_clients/factory.py:7](https://github.com/TauricResearch/TradingAgents/blob/e8f5503e9b86d5c2710b0c76b1f686703968c9df/tradingagents/llm_clients/factory.py#L7)",
+    "source_verified": true,
+    "native_baseline": "NOT RUN at audit creation",
+    "four_way_status": "NOT STARTED",
+    "integration_strategy": "Native quick/deep provider configuration retained. Bridge integration profile forbids an implicit external fallback."
+  },
+  {
+    "id": "TA14",
+    "capability": "Context and instrument identity",
+    "source": "[tradingagents/agents/context.py:1](https://github.com/TauricResearch/TradingAgents/blob/e8f5503e9b86d5c2710b0c76b1f686703968c9df/tradingagents/agents/context.py#L1)",
+    "source_verified": true,
+    "native_baseline": "NOT RUN at audit creation",
+    "four_way_status": "NOT STARTED",
+    "integration_strategy": "Native symbol/asset context is built for the run; preserve historical data guards."
+  },
+  {
+    "id": "TA15",
+    "capability": "Standing portfolio context",
+    "source": "[tradingagents/portfolio.py:29](https://github.com/TauricResearch/TradingAgents/blob/e8f5503e9b86d5c2710b0c76b1f686703968c9df/tradingagents/portfolio.py#L29)",
+    "source_verified": true,
+    "native_baseline": "NOT RUN at audit creation",
+    "four_way_status": "NOT STARTED",
+    "integration_strategy": "Portfolio positions and constraints are input context; no mutable cash/fill ledger is implemented."
+  },
+  {
+    "id": "TA16",
+    "capability": "Persistent decision memory",
+    "source": "[tradingagents/memory/log.py:11](https://github.com/TauricResearch/TradingAgents/blob/e8f5503e9b86d5c2710b0c76b1f686703968c9df/tradingagents/memory/log.py#L11)",
+    "source_verified": true,
+    "native_baseline": "NOT RUN at audit creation",
+    "four_way_status": "NOT STARTED",
+    "integration_strategy": "Native Markdown decision log, settlement, file locking and history selection retained, separate from Zenith/Hermes/OpenClaw memories."
+  },
+  {
+    "id": "TA17",
+    "capability": "Memory cutoff",
+    "source": "[tradingagents/memory/log.py:93](https://github.com/TauricResearch/TradingAgents/blob/e8f5503e9b86d5c2710b0c76b1f686703968c9df/tradingagents/memory/log.py#L93)",
+    "source_verified": true,
+    "native_baseline": "NOT RUN at audit creation",
+    "four_way_status": "NOT STARTED",
+    "integration_strategy": "Historical context only includes resolved outcomes known by the as_of date."
+  },
+  {
+    "id": "TA18",
+    "capability": "Checkpoint and resume",
+    "source": "[tradingagents/graph/checkpointer.py:42](https://github.com/TauricResearch/TradingAgents/blob/e8f5503e9b86d5c2710b0c76b1f686703968c9df/tradingagents/graph/checkpointer.py#L42)",
+    "source_verified": true,
+    "native_baseline": "NOT RUN at audit creation",
+    "four_way_status": "NOT STARTED",
+    "integration_strategy": "Native SQLite LangGraph checkpoints use native ticker/date/config signatures; do not rewrite them."
+  },
+  {
+    "id": "TA19",
+    "capability": "Reports",
+    "source": "[tradingagents/reporting.py:92](https://github.com/TauricResearch/TradingAgents/blob/e8f5503e9b86d5c2710b0c76b1f686703968c9df/tradingagents/reporting.py#L92)",
+    "source_verified": true,
+    "native_baseline": "NOT RUN at audit creation",
+    "four_way_status": "NOT STARTED",
+    "integration_strategy": "Native Markdown/JSON/HTML report tree is preserved. Adapter adds an authenticated envelope and owned artifact references."
+  },
+  {
+    "id": "TA20",
+    "capability": "Backtest grid",
+    "source": "[tradingagents/backtest.py:129](https://github.com/TauricResearch/TradingAgents/blob/e8f5503e9b86d5c2710b0c76b1f686703968c9df/tradingagents/backtest.py#L129)",
+    "source_verified": true,
+    "native_baseline": "NOT RUN at audit creation",
+    "four_way_status": "NOT STARTED",
+    "integration_strategy": "Independent ticker/date cells, separate memory log and settlement; repeated cells resume. This is a decision scorer, explicitly not a portfolio simulator."
+  },
+  {
+    "id": "TA21",
+    "capability": "Outcome timing",
+    "source": "[tradingagents/memory/settlement.py:52](https://github.com/TauricResearch/TradingAgents/blob/e8f5503e9b86d5c2710b0c76b1f686703968c9df/tradingagents/memory/settlement.py#L52)",
+    "source_verified": true,
+    "native_baseline": "NOT RUN at audit creation",
+    "four_way_status": "NOT STARTED",
+    "integration_strategy": "Entry is the first close strictly after the analysis date; unresolved holding periods remain pending."
+  },
+  {
+    "id": "TA22",
+    "capability": "Point-in-time input guards",
+    "source": "[tradingagents/dataflows/date_window.py:78](https://github.com/TauricResearch/TradingAgents/blob/e8f5503e9b86d5c2710b0c76b1f686703968c9df/tradingagents/dataflows/date_window.py#L78)",
+    "source_verified": true,
+    "native_baseline": "NOT RUN at audit creation",
+    "four_way_status": "NOT STARTED",
+    "integration_strategy": "Tool dates are clamped; current profiles and undated statements are withheld for historical runs; news/social/SEC filing and memory cutoffs have native tests."
+  },
+  {
+    "id": "TA23",
+    "capability": "Data vendors",
+    "source": "[tradingagents/dataflows/router.py:1](https://github.com/TauricResearch/TradingAgents/blob/e8f5503e9b86d5c2710b0c76b1f686703968c9df/tradingagents/dataflows/router.py#L1)",
+    "source_verified": true,
+    "native_baseline": "NOT RUN at audit creation",
+    "four_way_status": "NOT STARTED",
+    "integration_strategy": "Native exact vendor chains and approved tools retained: Yahoo, Alpha Vantage, SEC EDGAR, FRED, Polymarket, Reddit and StockTwits."
+  },
+  {
+    "id": "TA24",
+    "capability": "Live order execution",
+    "source": "[tradingagents/backtest.py:1](https://github.com/TauricResearch/TradingAgents/blob/e8f5503e9b86d5c2710b0c76b1f686703968c9df/tradingagents/backtest.py#L1)",
+    "source_verified": true,
+    "native_baseline": "NOT RUN at audit creation",
+    "four_way_status": "DISABLED / NOT IMPLEMENTED",
+    "integration_strategy": "No broker execution API, filled-order engine or cash ledger is implemented. README simulated-exchange wording is not evidence of an implemented executor."
+  },
+  {
+    "id": "TA25",
+    "capability": "Unmodified upstream tests",
+    "source": "[tests/test_graph_end_to_end.py:1](https://github.com/TauricResearch/TradingAgents/blob/e8f5503e9b86d5c2710b0c76b1f686703968c9df/tests/test_graph_end_to_end.py#L1)",
+    "source_verified": true,
+    "native_baseline": "NOT RUN at audit creation",
+    "four_way_status": "NOT STARTED",
+    "integration_strategy": "Graph-wiring tests use scripted models and offline vendor fixtures. They cannot prove real Zenith inference or real market data quality."
+  }
+]

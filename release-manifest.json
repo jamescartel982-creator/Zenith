@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "version": "0.17.3",
+  "version": "0.17.4",
   "files": [
     {
       "path": ".dockerignore",
@@ -16,8 +16,8 @@
     },
     {
       "path": ".gitattributes",
-      "size": 498,
-      "sha256": "8078e6ff4255f1ba4edaade55ba9763deb423e66bdb8740d14151711d352fa96",
+      "size": 520,
+      "sha256": "397d57882b3ccf03ad3b478acd17256a207118d2dd99c07d3abadd6f6ba63f7c",
       "normalization": "lf"
     },
     {
@@ -51,6 +51,12 @@
       "normalization": "lf"
     },
     {
+      "path": ".github/workflows/tradingagents-baseline.yml",
+      "size": 2404,
+      "sha256": "f737473bf7332296a50422d9f6b4a48e96e6b273eb17e7f09c19a7064f6827fd",
+      "normalization": "lf"
+    },
+    {
       "path": ".github/workflows/training.yml",
       "size": 1481,
       "sha256": "7d14663fb10c75c9da00b259b676bac108a1ac24372981243f6e190cf2152905",
@@ -64,8 +70,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "size": 17567,
-      "sha256": "7b7e95513a80de88f635c04d6aa643f6c98199a9736e1f7710a20e5161230cc0",
+      "size": 18184,
+      "sha256": "f0b7132316309c6aacaeecfc6b199c10d6db1c892a043dcc3b5c42848a76ee78",
       "normalization": "lf"
     },
     {
@@ -88,8 +94,8 @@
     },
     {
       "path": "README.md",
-      "size": 12685,
-      "sha256": "154331a06f875d933a6e27516f77a77fc4337f6ea5f4eb8ee39466a4c9723d59",
+      "size": 14569,
+      "sha256": "7dbab69b1c1d66a110086a23d8156a9c5ca9da5a308cd0f7ee0184ca76bc0627",
       "normalization": "lf"
     },
     {
@@ -125,7 +131,7 @@
     {
       "path": "agent/__init__.py",
       "size": 105,
-      "sha256": "8917449193677b9bcaa1df3af72fb5854269ba7179ac45cc80ff3bcc19ac3100",
+      "sha256": "4af6cc8de3ee46f02bbac4c47131ab9b756061490e11297d6b075c48161c76be",
       "normalization": "lf"
     },
     {
@@ -699,9 +705,39 @@
       "normalization": "lf"
     },
     {
+      "path": "assets/four-system-architecture.dot",
+      "size": 2249,
+      "sha256": "647676adaec00bcbd5f05a64fe0215febcf454c34bddb080c178115eb20b1c6f",
+      "normalization": "lf"
+    },
+    {
+      "path": "assets/four-system-architecture.svg",
+      "size": 13161,
+      "sha256": "7d6ebd10bfbe12ec8fa882a244522820b83a931a574f97c7e83a4cd7fdad615f",
+      "normalization": "lf"
+    },
+    {
+      "path": "assets/tradingagents-architecture.dot",
+      "size": 2964,
+      "sha256": "e80501d50670f6fd265466f73175d64e874f2df17ef339669d5fb65031e4c87d",
+      "normalization": "lf"
+    },
+    {
+      "path": "assets/tradingagents-architecture.svg",
+      "size": 20998,
+      "sha256": "ead58eaecdb48928ad3823033da4660e2961002a880604cba1ea08c370613561",
+      "normalization": "lf"
+    },
+    {
       "path": "assets/zenith-banner.png",
       "size": 637599,
       "sha256": "48f637a72a0f431db0b124f050377106713937b0846f688f23d06151af735dda",
+      "normalization": "raw"
+    },
+    {
+      "path": "assets/zenith-social-preview.png",
+      "size": 812539,
+      "sha256": "2c738f9cb6fa4a7240e70821577944e41169af0e63e16d1c5f28e2c584da3c5e",
       "normalization": "raw"
     },
     {
@@ -1437,6 +1473,120 @@
       "normalization": "lf"
     },
     {
+      "path": "docs/four-system/ACCEPTANCE.md",
+      "size": 3145,
+      "sha256": "addb45a658e4d26cea083490ff233e387e06acb48abf466279deee746a017a9f",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/ACCEPTANCE_MATRIX.csv",
+      "size": 2509,
+      "sha256": "f4180cf20c69fbf6de2d3509ef640e6ca7704a0bc497cb78e80b1009bcde3448",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/AUDIT.md",
+      "size": 14232,
+      "sha256": "159432fdd3cb3d1e944cc62db4c736e35731597a8c946f134d8a7fe59a79049f",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/BASELINE.md",
+      "size": 1581,
+      "sha256": "f5e923e07446c443976f95075475171d7cd97a088500b999c3f2d25028a17d5e",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/DIAGRAM_SOURCE_MAP.md",
+      "size": 4221,
+      "sha256": "66cd876ee196a728ef6bd6dc3eb98947f51be692b10340f3ebcbc3787d937889",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/FEATURE_MATRIX.csv",
+      "size": 8991,
+      "sha256": "c11ad136d9b1a32d57c0e1fd988820dafe6ed1cb4fce33d8ba7c2513260a29be",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/FEATURE_MATRIX.json",
+      "size": 13034,
+      "sha256": "af7c1403fcb3689f35e2333446755091a4ea64a9fc7bddd2cf5a7fe2497568e7",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/FILE_BY_FILE_PLAN.csv",
+      "size": 40109,
+      "sha256": "e190897bdc7e5f977d42b5fbeb3fa8a251a4fcac8f2729fdca52da182157a509",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/FILE_BY_FILE_PLAN.json",
+      "size": 57863,
+      "sha256": "e79490a1465ae716a7236ba6782dc14cae25f618a0df9a3d2bb795efbad0579e",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/FILE_BY_FILE_PLAN.md",
+      "size": 40694,
+      "sha256": "63f62e864b793c31be68abed7b389638fa761cae10f3b7d49accb2c1f936010c",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/SOURCES.json",
+      "size": 1146,
+      "sha256": "e414fd5f37b78d2605fd9d3f503cd69922dd02393da92df0b65434d56f71289d",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/THREAT_MODEL.md",
+      "size": 2706,
+      "sha256": "0976513aec2fa3d512b292a372eb6b38bb9e44f67a4608a4df5e38354544d44c",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/TradingAgents-LICENSE.txt",
+      "size": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/evidence/repository-pins.json",
+      "size": 1146,
+      "sha256": "e414fd5f37b78d2605fd9d3f503cd69922dd02393da92df0b65434d56f71289d",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/evidence/tradingagents-security-constraints.txt",
+      "size": 86,
+      "sha256": "0f08d167f874c3fd933cec063934544ca0ae92c6acbf25f194c27cce4f29e0b4",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/evidence/tradingagents-source-index.jsonl.gz",
+      "size": 47867,
+      "sha256": "a390aefd8c293d84a1f1efe4950d5259b1a087aff20dcf2947bd9b74e3b2beef",
+      "normalization": "raw"
+    },
+    {
+      "path": "docs/four-system/evidence/tradingagents-unit-requirements.txt",
+      "size": 185802,
+      "sha256": "735cc673ce6dc32665413be9b4f33f0ab08ede46889b0844f636f5c0484ac493",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/evidence/zenith-baseline.log",
+      "size": 55320,
+      "sha256": "10e05e4344a5b900f1d14a42e8015d086d044e9919419a115787f75c8b1e2eab",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/evidence/zenith-source-index.jsonl.gz",
+      "size": 55262,
+      "sha256": "d6e13a1a7007d04f5d6759d997e3c1abff65b692778941c66e999baf53dfd3f2",
+      "normalization": "raw"
+    },
+    {
       "path": "docs/integrity.md",
       "size": 2875,
       "sha256": "c1acef221ddb5a81d7b31e13d38809d04bb29af967e3d21242abedd8213dbebd",
@@ -1444,8 +1594,8 @@
     },
     {
       "path": "docs/local-installation.md",
-      "size": 14711,
-      "sha256": "f6ca85cb0e4b03f94514fe3e4612255b67edbb03bc763daad7c02791c00af897",
+      "size": 14863,
+      "sha256": "5814f0fd88190b16db95a9a7cfcdb55329508de8dc313ebe1acfd33350405943",
       "normalization": "lf"
     },
     {
@@ -1734,6 +1884,12 @@
       "path": "docs/reasoning/validation.md",
       "size": 2438,
       "sha256": "5c555416fa1c053975f58e46dc2248fee840f6a695959139c682a93ce66b011a",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/repository-presentation.md",
+      "size": 1001,
+      "sha256": "f4be3510b65b22eebea82971cbbbdbb2be3cc052837d3864788e05dc8132fd47",
       "normalization": "lf"
     },
     {
@@ -2284,14 +2440,14 @@
     },
     {
       "path": "install.py",
-      "size": 8263,
-      "sha256": "7b11f85d41dccf92ed8b04cdaf7561ce4ba186b5b7e095c87174a7ba76076429",
+      "size": 10678,
+      "sha256": "24063bee3379afb14ba2e9170e5a77e3eee8833aa48bfb3ed3ab7426c36077f8",
       "normalization": "lf"
     },
     {
       "path": "install.sh",
-      "size": 517,
-      "sha256": "7d345731fd700bc3ad53e1d9b2f95b8b610c7c41caa36434e7afa2fcc0bda1bb",
+      "size": 639,
+      "sha256": "a0227ad73801e12771981e27163b83f79597c49f23928c831467d5b6865e2b6d",
       "normalization": "lf"
     },
     {
@@ -2788,8 +2944,8 @@
     },
     {
       "path": "tests/test_easy_install.py",
-      "size": 9421,
-      "sha256": "e6ecdcc895c6c021d9abd4ff1b97cddd8fa5e1ba984cd58fe4f6ae09777353af",
+      "size": 9404,
+      "sha256": "3e32b7fd77a1c75d7282fc90e9c75dfd40543b82f00dadfd345e82ae8a3b6f3b",
       "normalization": "lf"
     },
     {
@@ -2812,8 +2968,8 @@
     },
     {
       "path": "tests/test_installation.py",
-      "size": 10791,
-      "sha256": "950b2c8bb5dea3564b07063b72b9a280c4cb03b3d560a9d9cddc602773822e7c",
+      "size": 10859,
+      "sha256": "9f1ed84c4da354755558fd85f0c6a72cf55ddf36033005b019edc7259ddf9372",
       "normalization": "lf"
     },
     {

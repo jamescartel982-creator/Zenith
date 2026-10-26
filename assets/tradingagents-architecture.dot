@@ -1,0 +1,58 @@
+digraph TradingAgents {
+graph [rankdir=TB,bgcolor="#f5efff",pad="0.35",label="TradingAgents native architecture — source audit at e8f5503e9b86\nNative workflow; Zenith connection is proposed",labelloc=t,fontname="DejaVu Sans",fontsize=18];
+node [shape=box,style="rounded,filled",fillcolor="#fff4d6",color="#ba8c43",fontname="DejaVu Sans",fontsize=11,margin="0.16,0.12"];
+edge [color="#596373",fontname="DejaVu Sans",fontsize=10];
+subgraph cluster_User {
+label="User entry"; color="#ddd4e9"; style=filled; fillcolor="#fcfaff";
+"cli" [label="CLI commands\\ncli/main.py"];
+"run" [label="Run orchestration\\ncli/run.py"];
+"backtest" [label="Backtesting\\nbacktest.py"];
+}
+subgraph cluster_Decision {
+label="Decision workflow"; color="#ddd4e9"; style=filled; fillcolor="#fcfaff";
+"graph" [label="Trading graph\\ngraph/trading_graph.py"];
+"analysts" [label="Analyst team\\nMarket \u00b7 Sentiment \u00b7 News \u00b7 Fundamentals"];
+"context" [label="Prompt context\\nagents/context.py"];
+"bullbear" [label="Bull\u2013bear debate"];
+"research" [label="Research manager"];
+"trader" [label="Trader"];
+"risk" [label="Risk debate\\nAggressive \u00b7 Conservative \u00b7 Neutral"];
+"portfolio" [label="Portfolio decision"];
+"rating" [label="Rating vocabulary\\nBuy \u00b7 Overweight \u00b7 Hold \u00b7 Underweight \u00b7 Sell \u00b7 REVIEW"];
+}
+subgraph cluster_Runtime {
+label="Runtime services"; color="#ddd4e9"; style=filled; fillcolor="#fcfaff";
+"llm" [label="LLM providers"];
+"memory" [label="Decision memory\\nmemory/log.py"];
+"reports" [label="Reports\\nreporting.py"];
+"checkpoints" [label="Run checkpoints\\ngraph/checkpointer.py"];
+}
+subgraph cluster_Data {
+label="Data access"; color="#ddd4e9"; style=filled; fillcolor="#fcfaff";
+"routing" [label="Data routing\\ndataflows/router.py"];
+"yahoo" [label="Yahoo market data"];
+"other" [label="Other data vendors\\nSEC \u00b7 FRED \u00b7 Alpha Vantage \u00b7 social / news"];
+}
+user [label="Analyst user",shape=ellipse,fillcolor="#e2efff",color="#7297cd"];
+"user" -> "cli" [label="starts analysis"];
+"cli" -> "run" [label="analysis"];
+"cli" -> "backtest" [label="dated grid"];
+"run" -> "graph" [label="native workflow"];
+"backtest" -> "graph" [label="dated analysis"];
+"graph" -> "analysts" [label="orchestrates"];
+"graph" -> "context" [label="builds context"];
+"analysts" -> "bullbear" [label="findings"];
+"bullbear" -> "research" [label="debates evidence"];
+"research" -> "trader" [label="trade plan"];
+"trader" -> "risk" [label="risk review"];
+"risk" -> "portfolio" [label="risk findings"];
+"portfolio" -> "rating" [label="uses ratings"];
+"graph" -> "llm" [label="configures clients"];
+"graph" -> "memory" [label="records / retrieves"];
+"graph" -> "reports" [label="generates"];
+"graph" -> "checkpoints" [label="resumes"];
+"analysts" -> "routing" [label="dated evidence"];
+"context" -> "routing" [label="company context"];
+"routing" -> "yahoo" [label="vendor calls"];
+"routing" -> "other" [label="vendor calls"];
+}

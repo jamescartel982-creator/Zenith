@@ -1,0 +1,36 @@
+{
+  "zenith": {
+    "commit": "c0760cbf47a25dc8fb4f9a4f6452a020f8b1c037",
+    "path": "/workspace/Zenith",
+    "tracked_files": 542,
+    "clean": true,
+    "python_files": 177,
+    "syntax_errors": []
+  },
+  "hermes": {
+    "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "path": "/workspace/zenith-runtime-bridge-audit-20261026/hermes-agent",
+    "tracked_files": 21255,
+    "clean": true,
+    "python_files": 10208,
+    "syntax_errors": null,
+    "coverage": "Pinned previous structural audit reused; not a fresh whole-tree AST pass."
+  },
+  "openclaw": {
+    "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "path": "/workspace/zenith-runtime-bridge-audit-20261026/openclaw",
+    "tracked_files": 59647,
+    "clean": true,
+    "python_files": 64,
+    "syntax_errors": null,
+    "coverage": "Pinned previous structural audit reused; not a fresh whole-tree AST pass."
+  },
+  "tradingagents": {
+    "commit": "e8f5503e9b86d5c2710b0c76b1f686703968c9df",
+    "path": "/workspace/zenith-four-system-audit-20261026/tradingagents",
+    "tracked_files": 212,
+    "clean": true,
+    "python_files": 183,
+    "syntax_errors": []
+  }
+}

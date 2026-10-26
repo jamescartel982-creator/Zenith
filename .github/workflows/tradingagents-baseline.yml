@@ -1,0 +1,54 @@
+name: Pinned TradingAgents native baseline
+on:
+  pull_request:
+    paths: ['docs/four-system/**', '.github/workflows/tradingagents-baseline.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  native-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      PIP_NO_CACHE_DIR: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          path: zenith
+      - uses: actions/checkout@v4
+        with:
+          repository: TauricResearch/TradingAgents
+          ref: e8f5503e9b86d5c2710b0c76b1f686703968c9df
+          persist-credentials: false
+          path: native-tradingagents
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Independent hash-locked upstream test environment
+        run: |
+          python -m venv "$RUNNER_TEMP/trading-venv"
+          "$RUNNER_TEMP/trading-venv/bin/python" -m pip install --upgrade 'pip>=26.2' 'setuptools>=84.1,<85' wheel
+          "$RUNNER_TEMP/trading-venv/bin/python" -m pip install --require-hashes --only-binary=:all: -r zenith/docs/four-system/evidence/tradingagents-unit-requirements.txt
+          git -C native-tradingagents archive HEAD | tar -x -C "$RUNNER_TEMP"
+          "$RUNNER_TEMP/trading-venv/bin/python" -m pip install --no-deps --no-build-isolation "$RUNNER_TEMP"
+          "$RUNNER_TEMP/trading-venv/bin/python" -m pip check
+      - name: Original default test suite (scripted models, no live-model acceptance claim)
+        working-directory: native-tradingagents
+        run: |
+          set -o pipefail
+          "$RUNNER_TEMP/trading-venv/bin/python" -m pytest -o cache_dir="$RUNNER_TEMP/pytest-cache" --junitxml="$RUNNER_TEMP/native-results.xml" 2>&1 | tee "$RUNNER_TEMP/native-tests.log"
+      - name: Verify original tracked source is unchanged
+        if: always()
+        run: |
+          test "$(git -C native-tradingagents rev-parse HEAD)" = e8f5503e9b86d5c2710b0c76b1f686703968c9df
+          git -C native-tradingagents diff --exit-code HEAD
+          test -z "$(git -C native-tradingagents status --porcelain --untracked-files=all)"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tradingagents-native-baseline
+          path: |
+            ${{ runner.temp }}/native-results.xml
+            ${{ runner.temp }}/native-tests.log
