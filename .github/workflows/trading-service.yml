@@ -1,0 +1,65 @@
+name: Native financial service contracts and measured probe
+on:
+  pull_request:
+    paths: ['integrations/trading_service/**', '.github/workflows/trading-service.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  native-service:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      ZENITH_HOME: ${{ github.workspace }}/.zenith-financial-probe
+      AI_PROVIDER: huggingface
+      HF_MODEL: Qwen/Qwen2.5-0.5B-Instruct
+      HF_REVISION: 7ae557604adf67be50417f59c2c2f167def9a775
+      ZENITH_DEVICE: cpu
+      ZENITH_CPU_THREADS: '2'
+      OMP_NUM_THREADS: '2'
+      CONTEXT_TOKENS: '2048'
+      MAX_NEW_TOKENS: '256'
+      HF_HUB_DISABLE_XET: '1'
+      TOKENIZERS_PARALLELISM: 'false'
+      PYTHONDONTWRITEBYTECODE: '1'
+      ZENITH_CHECKPOINT_RECEIPT: ''
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: TauricResearch/TradingAgents
+          ref: e8f5503e9b86d5c2710b0c76b1f686703968c9df
+          path: .native-reference/tradingagents
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: '0.12.23'
+      - name: Independently frozen model and native service environments
+        run: |
+          uv sync --project integrations/inference_service --frozen --extra local --extra test
+          uv sync --project integrations/trading_service --frozen --extra native
+      - name: Contracts, boundaries, missing-risk and worker ownership tests
+        run: uv run --project integrations/trading_service --frozen --extra native python -m unittest discover -s integrations/trading_service/tests -v
+      - name: Cache base and reconstruct unchanged inactive research artifact
+        run: |
+          uv run --project integrations/inference_service --frozen --extra local --extra test python -m agent models download
+          uv run --project integrations/inference_service --frozen --extra local --extra test python -m scripts.materialize_research_checkpoint --bundle research_checkpoints/recovery-v1 --output .financial-test-checkpoint
+      - name: Real native LangChain provider and bounded native graph measurement (not promotion)
+        env:
+          ZENITH_ADAPTER: ${{ github.workspace }}/.financial-test-checkpoint
+        run: uv run --project integrations/inference_service --frozen --extra local --extra test python integrations/trading_service/tests/integration/native_probe.py --native-python "$GITHUB_WORKSPACE/integrations/trading_service/.venv/bin/python" --source-root "$GITHUB_WORKSPACE/.native-reference/tradingagents" --output native-financial-probe.json
+      - name: Native checkout stays unchanged
+        if: always()
+        run: |
+          test "$(git -C .native-reference/tradingagents rev-parse HEAD)" = e8f5503e9b86d5c2710b0c76b1f686703968c9df
+          test -z "$(git -C .native-reference/tradingagents status --porcelain --untracked-files=all)"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: measured-native-financial-probe
+          path: native-financial-probe.json

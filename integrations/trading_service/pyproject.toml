@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=84.1,<85"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "zenith-trading-service"
+version = "0.1.0"
+requires-python = ">=3.12,<3.13"
+description = "Independent read-only financial research service over pinned native TradingAgents"
+license = "Apache-2.0"
+dependencies = ["zenith-integrations==0.2.0"]
+
+[project.optional-dependencies]
+native = ["tradingagents"]
+
+[project.scripts]
+zenith-trading = "zenith_trading_service.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.uv.sources]
+zenith-integrations = {path = "../runtime_bridge"}
+zenith-local = {path = "../.."}
+tradingagents = {git = "https://github.com/TauricResearch/TradingAgents", rev = "e8f5503e9b86d5c2710b0c76b1f686703968c9df"}

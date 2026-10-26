@@ -69,6 +69,12 @@
       "normalization": "lf"
     },
     {
+      "path": ".github/workflows/trading-service.yml",
+      "size": 3226,
+      "sha256": "056bfa3273af103d42c3950185c2d9a5ae657efc2d687e8ecb264caba73fcdb1",
+      "normalization": "lf"
+    },
+    {
       "path": ".github/workflows/tradingagents-baseline.yml",
       "size": 2404,
       "sha256": "f737473bf7332296a50422d9f6b4a48e96e6b273eb17e7f09c19a7064f6827fd",
@@ -2958,6 +2964,96 @@
       "path": "integrations/runtime_setup/setup.py",
       "size": 9225,
       "sha256": "4aed0a9a39346c7ed36428d3d18d49acfa33d8a93d2c29b28ea1bdddfe97882b",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/trading_service/.gitignore",
+      "size": 45,
+      "sha256": "02ffcd9794dc2000d8a4c246f07cceb9de94f6a5b9aa6d649a2c41d5ce103b62",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/trading_service/LICENSE",
+      "size": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/trading_service/README.md",
+      "size": 5152,
+      "sha256": "88f3d067117faad662e3f272720ac6b779cf6a9a205921499a7e0af6002aea23",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/trading_service/pyproject.toml",
+      "size": 757,
+      "sha256": "68a1a71095f61c56143482162a8ca4848af97864345197d52b0ef396ce9ccc72",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/trading_service/src/zenith_trading_service/__init__.py",
+      "size": 150,
+      "sha256": "5197bbd44cddbd5183195c3a8082dbbc7a80127dcf18475a4d987ca09f4e4367",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/trading_service/src/zenith_trading_service/cli.py",
+      "size": 3224,
+      "sha256": "b750dec267f8ba4df05e19fc4e8439bd09acb849065a7c0f6e0a574a30c7a630",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/trading_service/src/zenith_trading_service/config.py",
+      "size": 3012,
+      "sha256": "d75e8f35434508a4eac2108c6f494e41fbff16396eb514d2e235fdda985c48e9",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/trading_service/src/zenith_trading_service/contracts.py",
+      "size": 1529,
+      "sha256": "3794b39de54b1be81033ed958114d358430e123819881c24e1bd96db736ad99a",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/trading_service/src/zenith_trading_service/execution.py",
+      "size": 5731,
+      "sha256": "8045363ddbf35ac6d9f6351f9722dae3236cabeedf0ea444e55f40e6b5f72bdd",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/trading_service/src/zenith_trading_service/reports.py",
+      "size": 2180,
+      "sha256": "e63645a0282ea8629094ae3d75d219b90e52d327af9764a7898dc81763706073",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/trading_service/src/zenith_trading_service/server.py",
+      "size": 5584,
+      "sha256": "db23b7ca52732a3100d880b919ec3da0d31f848c23350a43a538001033335fd5",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/trading_service/src/zenith_trading_service/worker.py",
+      "size": 3895,
+      "sha256": "922033912c68d4c73c8434ccb317c618aa76fd156961add31da4efd112de1bd2",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/trading_service/tests/integration/native_probe.py",
+      "size": 7549,
+      "sha256": "90836985efc01ee8f843de03992c2417a50c816e0eecaa55acd8425e6d24eddb",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/trading_service/tests/test_research_service.py",
+      "size": 6447,
+      "sha256": "e137a9380bd7e12edc1d87a0520f990dc629240317e329e8b026843b1b7dc6bf",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/trading_service/uv.lock",
+      "size": 197640,
+      "sha256": "3ca4bd3ad13c913e47aa39c807e6769f207ff4ac7979e6b7f3bf54d6ac0dbb57",
       "normalization": "lf"
     },
     {
