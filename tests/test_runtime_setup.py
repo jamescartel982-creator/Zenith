@@ -131,9 +131,10 @@ class RuntimeSetupTests(unittest.TestCase):
             here.mkdir(parents=True)
             root = source / "generated-runtime"
             fake = type("Completed", (), {"stdout": "uv " + setup.PINS["uv"]})()
-            with patch.object(setup, "HERE", here), patch.object(setup.shutil, "which", return_value="uv"), patch.object(setup, "run", return_value=fake):
+            with patch.object(setup, "HERE", here), patch.object(setup.shutil, "which", return_value="uv"), patch.object(setup, "run", return_value=fake), patch.object(setup, "node_install") as node:
                 with self.assertRaisesRegex(ValueError, "outside all Git"):
                     setup.install(root)
+            node.assert_not_called()
             self.assertFalse(root.exists())
 
 

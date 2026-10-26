@@ -2254,8 +2254,8 @@
     },
     {
       "path": "integrations/runtime_setup/setup.py",
-      "size": 9215,
-      "sha256": "9530a37cf5219355b2d763e7373a842a0508951fd548c60470f3013d53811dd6",
+      "size": 9225,
+      "sha256": "4aed0a9a39346c7ed36428d3d18d49acfa33d8a93d2c29b28ea1bdddfe97882b",
       "normalization": "lf"
     },
     {
@@ -2836,8 +2836,8 @@
     },
     {
       "path": "tests/test_runtime_setup.py",
-      "size": 6941,
-      "sha256": "359eb1b17f68f628106f602be350e5f3d14069f226c08ce0250e6db74a817bf7",
+      "size": 7023,
+      "sha256": "d002f6da074b0cc1759e9acd839e7492504c87e7d7efa5f830521f91734719a5",
       "normalization": "lf"
     },
     {

@@ -107,7 +107,7 @@ def install(root):
         raise ValueError("Runtime root must not be a symlink")
     root = root.resolve()
     # Keep generated environments outside every application/source tree.
-    source_root = HERE.parents[1]
+    source_root = HERE.parents[1].resolve()
     if root == source_root or source_root in root.parents or any(
             (parent / ".git").exists() for parent in (root, *root.parents)):
         raise ValueError("Choose a runtime root outside all Git repositories")
