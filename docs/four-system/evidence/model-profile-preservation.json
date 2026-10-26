@@ -1,0 +1,11 @@
+{
+  "profile_unchanged": true,
+  "model_identity_unchanged": true,
+  "selected_adapter_and_tokenizer_files_unchanged": true,
+  "model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "adapter_model_sha256": "7e0701900b40109ee81b3dc097985cda360409006c8b717bda51830f3b6ed85d",
+  "new_training": false,
+  "activation_changed": false,
+  "private_receipts_excluded": true
+}

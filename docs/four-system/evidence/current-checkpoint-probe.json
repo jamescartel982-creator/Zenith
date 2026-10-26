@@ -1,0 +1,12 @@
+{
+  "loaded_successfully": true,
+  "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "base_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "base_parameters": 494032768,
+  "tokenizer_sha256": "221ea68122dfcfb2772276b69e62fc97ea9b13785ee069b118ee36498b19a418",
+  "inference": "4",
+  "checkpoint_bytes": 33695315,
+  "production_profile_changed": false,
+  "restricted_tools_enabled": false,
+  "approved_for_local_activation": false
+}

@@ -1,0 +1,632 @@
+[
+  {
+    "method": "POST",
+    "path": "/v1/runs/{run_id}/resolve-unknown",
+    "handler": "'run_unknown_resolution'",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server.py#L1"
+    },
+    "line": 70,
+    "status": "source registered; not live tested"
+  },
+  {
+    "method": "GET",
+    "path": "/health",
+    "handler": "self._handle_health",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server.py#L1"
+    },
+    "line": 1569,
+    "status": "source registered; not live tested"
+  },
+  {
+    "method": "GET",
+    "path": "/health/detailed",
+    "handler": "self._handle_health_detailed",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server.py#L1"
+    },
+    "line": 1570,
+    "status": "source registered; not live tested"
+  },
+  {
+    "method": "GET",
+    "path": "/v1/health",
+    "handler": "self._handle_health",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server.py#L1"
+    },
+    "line": 1571,
+    "status": "source registered; not live tested"
+  },
+  {
+    "method": "GET",
+    "path": "/v1/models",
+    "handler": "self._handle_models",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server.py#L1"
+    },
+    "line": 1572,
+    "status": "source registered; not live tested"
+  },
+  {
+    "method": "GET",
+    "path": "/api/model/options",
+    "handler": "self._handle_model_options",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server.py#L1"
+    },
+    "line": 1573,
+    "status": "source registered; not live tested"
+  },
+  {
+    "method": "GET",
+    "path": "/v1/capabilities",
+    "handler": "self._handle_capabilities",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server.py#L1"
+    },
+    "line": 1574,
+    "status": "source registered; not live tested"
+  },
+  {
+    "method": "GET",
+    "path": "/v1/skills",
+    "handler": "self._handle_skills",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server.py#L1"
+    },
+    "line": 1575,
+    "status": "source registered; not live tested"
+  },
+  {
+    "method": "GET",
+    "path": "/v1/toolsets",
+    "handler": "self._handle_toolsets",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server.py#L1"
+    },
+    "line": 1576,
+    "status": "source registered; not live tested"
+  },
+  {
+    "method": "GET",
+    "path": "/api/sessions",
+    "handler": "self._handle_list_sessions",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server.py#L1"
+    },
+    "line": 1577,
+    "status": "source registered; not live tested"
+  },
+  {
+    "method": "POST",
+    "path": "/api/sessions",
+    "handler": "self._handle_create_session",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server.py#L1"
+    },
+    "line": 1578,
+    "status": "source registered; not live tested"
+  },
+  {
+    "method": "GET",
+    "path": "/api/sessions/{session_id}",
+    "handler": "self._handle_get_session",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server.py#L1"
+    },
+    "line": 1579,
+    "status": "source registered; not live tested"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/sessions/{session_id}",
+    "handler": "self._handle_patch_session",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server.py#L1"
+    },
+    "line": 1580,
+    "status": "source registered; not live tested"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/sessions/{session_id}",
+    "handler": "self._handle_delete_session",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server.py#L1"
+    },
+    "line": 1581,
+    "status": "source registered; not live tested"
+  },
+  {
+    "method": "GET",
+    "path": "/api/sessions/{session_id}/messages",
+    "handler": "self._handle_session_messages",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server.py#L1"
+    },
+    "line": 1582,
+    "status": "source registered; not live tested"
+  },
+  {
+    "method": "POST",
+    "path": "/api/sessions/{session_id}/fork",
+    "handler": "self._handle_fork_session",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server.py#L1"
+    },
+    "line": 1583,
+    "status": "source registered; not live tested"
+  },
+  {
+    "method": "POST",
+    "path": "/api/sessions/{session_id}/chat",
+    "handler": "self._handle_session_chat",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server.py#L1"
+    },
+    "line": 1584,
+    "status": "source registered; not live tested"
+  },
+  {
+    "method": "POST",
+    "path": "/api/sessions/{session_id}/chat/stream",
+    "handler": "self._handle_session_chat_stream",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server.py#L1"
+    },
+    "line": 1585,
+    "status": "source registered; not live tested"
+  },
+  {
+    "method": "POST",
+    "path": "/api/sessions/{session_id}/model",
+    "handler": "self._handle_session_model_lock",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server.py#L1"
+    },
+    "line": 1586,
+    "status": "source registered; not live tested"
+  },
+  {
+    "method": "POST",
+    "path": "/v1/chat/completions",
+    "handler": "self._handle_chat_completions",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server.py#L1"
+    },
+    "line": 1587,
+    "status": "source registered; not live tested"
+  },
+  {
+    "method": "POST",
+    "path": "/v1/responses",
+    "handler": "self._handle_responses",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server.py#L1"
+    },
+    "line": 1588,
+    "status": "source registered; not live tested"
+  },
+  {
+    "method": "GET",
+    "path": "/v1/responses/{response_id}",
+    "handler": "self._handle_get_response",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server.py#L1"
+    },
+    "line": 1589,
+    "status": "source registered; not live tested"
+  },
+  {
+    "method": "DELETE",
+    "path": "/v1/responses/{response_id}",
+    "handler": "self._handle_delete_response",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server.py#L1"
+    },
+    "line": 1590,
+    "status": "source registered; not live tested"
+  },
+  {
+    "method": "POST",
+    "path": "/api/platforms/{platform}/events",
+    "handler": "self._handle_platform_event_callback",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server.py#L1"
+    },
+    "line": 1593,
+    "status": "source registered; not live tested"
+  },
+  {
+    "method": "GET",
+    "path": "/api/jobs",
+    "handler": "self._handle_list_jobs",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server.py#L1"
+    },
+    "line": 1594,
+    "status": "source registered; not live tested"
+  },
+  {
+    "method": "POST",
+    "path": "/api/jobs",
+    "handler": "self._handle_create_job",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server.py#L1"
+    },
+    "line": 1595,
+    "status": "source registered; not live tested"
+  },
+  {
+    "method": "GET",
+    "path": "/api/jobs/{job_id}",
+    "handler": "self._handle_get_job",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server.py#L1"
+    },
+    "line": 1596,
+    "status": "source registered; not live tested"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/jobs/{job_id}",
+    "handler": "self._handle_update_job",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server.py#L1"
+    },
+    "line": 1597,
+    "status": "source registered; not live tested"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/jobs/{job_id}",
+    "handler": "self._handle_delete_job",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server.py#L1"
+    },
+    "line": 1598,
+    "status": "source registered; not live tested"
+  },
+  {
+    "method": "POST",
+    "path": "/api/jobs/{job_id}/pause",
+    "handler": "self._handle_pause_job",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server.py#L1"
+    },
+    "line": 1599,
+    "status": "source registered; not live tested"
+  },
+  {
+    "method": "POST",
+    "path": "/api/jobs/{job_id}/resume",
+    "handler": "self._handle_resume_job",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server.py#L1"
+    },
+    "line": 1600,
+    "status": "source registered; not live tested"
+  },
+  {
+    "method": "POST",
+    "path": "/api/jobs/{job_id}/run",
+    "handler": "self._handle_run_job",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server.py#L1"
+    },
+    "line": 1601,
+    "status": "source registered; not live tested"
+  },
+  {
+    "method": "POST",
+    "path": "/api/cron/fire",
+    "handler": "self._handle_cron_fire",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server.py#L1"
+    },
+    "line": 1606,
+    "status": "source registered; not live tested"
+  },
+  {
+    "method": "POST",
+    "path": "/v1/runs",
+    "handler": "self._handle_runs",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server_runs.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server_runs.py#L1"
+    },
+    "line": 243,
+    "status": "source registered; not live tested"
+  },
+  {
+    "method": "GET",
+    "path": "/v1/runs/{run_id}",
+    "handler": "self._handle_get_run",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server_runs.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server_runs.py#L1"
+    },
+    "line": 243,
+    "status": "source registered; not live tested"
+  },
+  {
+    "method": "GET",
+    "path": "/v1/runs/{run_id}/events",
+    "handler": "self._handle_run_events",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server_runs.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server_runs.py#L1"
+    },
+    "line": 244,
+    "status": "source registered; not live tested"
+  },
+  {
+    "method": "POST",
+    "path": "/v1/runs/{run_id}/approval",
+    "handler": "self._handle_run_approval",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server_runs.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server_runs.py#L1"
+    },
+    "line": 245,
+    "status": "source registered; not live tested"
+  },
+  {
+    "method": "POST",
+    "path": "/v1/runs/{run_id}/clarify",
+    "handler": "self._handle_run_clarify",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server_runs.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server_runs.py#L1"
+    },
+    "line": 246,
+    "status": "source registered; not live tested"
+  },
+  {
+    "method": "POST",
+    "path": "/v1/runs/{run_id}/steer",
+    "handler": "self._handle_steer_run",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server_runs.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server_runs.py#L1"
+    },
+    "line": 247,
+    "status": "source registered; not live tested"
+  },
+  {
+    "method": "POST",
+    "path": "/v1/runs/{run_id}/resolve-unknown",
+    "handler": "self._handle_resolve_unknown_run",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server_runs.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server_runs.py#L1"
+    },
+    "line": 248,
+    "status": "source registered; not live tested"
+  },
+  {
+    "method": "POST",
+    "path": "/v1/runs/{run_id}/stop",
+    "handler": "self._handle_stop_run",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server_runs.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server_runs.py#L1"
+    },
+    "line": 249,
+    "status": "source registered; not live tested"
+  },
+  {
+    "method": "POST",
+    "path": "/v1/room-members/invitations",
+    "handler": "self._handle_room_member_invitation",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server_room_grants.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server_room_grants.py#L1"
+    },
+    "line": 75,
+    "status": "source registered; not live tested"
+  },
+  {
+    "method": "GET",
+    "path": "/v1/room-members/capabilities",
+    "handler": "self._handle_room_member_capabilities",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server_room_grants.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server_room_grants.py#L1"
+    },
+    "line": 76,
+    "status": "source registered; not live tested"
+  },
+  {
+    "method": "POST",
+    "path": "/v1/room-members/grants/refresh",
+    "handler": "self._handle_room_member_grant_refresh",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server_room_grants.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server_room_grants.py#L1"
+    },
+    "line": 77,
+    "status": "source registered; not live tested"
+  },
+  {
+    "method": "POST",
+    "path": "/v1/room-members/grants/revoke",
+    "handler": "self._handle_room_member_grant_revoke",
+    "source": {
+      "repository": "hermes-agent",
+      "path": "gateway/platforms/api_server_room_grants.py",
+      "line": 1,
+      "commit": "d05095663342556788cf2a198bfa7844cc7968ab",
+      "url": "https://github.com/NousResearch/hermes-agent/blob/d05095663342556788cf2a198bfa7844cc7968ab/gateway/platforms/api_server_room_grants.py#L1"
+    },
+    "line": 78,
+    "status": "source registered; not live tested"
+  }
+]

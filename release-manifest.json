@@ -1551,6 +1551,12 @@
       "normalization": "lf"
     },
     {
+      "path": "docs/four-system/MODEL_COMPATIBILITY.md",
+      "size": 2073,
+      "sha256": "7533abc3b961d7e08a82ffdfa067c0c2944e540b1064371bb8e316255b2b401f",
+      "normalization": "lf"
+    },
+    {
       "path": "docs/four-system/SOURCES.json",
       "size": 1146,
       "sha256": "e414fd5f37b78d2605fd9d3f503cd69922dd02393da92df0b65434d56f71289d",
@@ -1566,6 +1572,54 @@
       "path": "docs/four-system/TradingAgents-LICENSE.txt",
       "size": 11357,
       "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/evidence/current-checkpoint-probe.json",
+      "size": 435,
+      "sha256": "8a96dd68533e37aa6af1bd016a118ae6697060f2cfe15454d1a81a4d84bc68b6",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/evidence/dependency-declarations.json",
+      "size": 219048,
+      "sha256": "0428e106c47a58142ee785890a523f792ab1625e3650dc958860ae64132b14fc",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/evidence/feature-parity-regression-matrix.json",
+      "size": 7497647,
+      "sha256": "732dcb8a86780ce260c19bf8d57e31c3ae1da8d566052b6a628bddbd3677aa16",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/evidence/hermes-diagram-edges.json",
+      "size": 4965,
+      "sha256": "0be717489429c2c1295576542a984f08a6a3901949611b533b60bc470ecc1382",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/evidence/hermes-diagram-map.json",
+      "size": 5383,
+      "sha256": "77ecf5061bb72fbdb394dd1109e0df27f7b24d539ded4202137a17da3c3e22fc",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/evidence/hermes-http-route-inventory.json",
+      "size": 23013,
+      "sha256": "8ab56df4794cff8c8c6b1919b9991d658b1b9d4669c06041b8f4f16460a4d0b0",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/evidence/model-profile-preservation.json",
+      "size": 412,
+      "sha256": "dd2ad1750ec56f71a39cfec6694c966978cc9eeb487dd0d7131505f13951ef87",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/evidence/pinned-sources.json",
+      "size": 1422,
+      "sha256": "c43f45841310a20c42fbfe6fe3a40fdba1c9a82d4a04f4f116390df07f57f911",
       "normalization": "lf"
     },
     {
@@ -1602,6 +1656,12 @@
       "path": "docs/four-system/evidence/zenith-baseline.log",
       "size": 55320,
       "sha256": "10e05e4344a5b900f1d14a42e8015d086d044e9919419a115787f75c8b1e2eab",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/evidence/zenith-model-verification.prior.json",
+      "size": 3780,
+      "sha256": "24fe1d4acf23488a8cf243be274a4f35508c3595e78c85151312904edfbc58c4",
       "normalization": "lf"
     },
     {
