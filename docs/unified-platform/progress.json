@@ -5,7 +5,8 @@
     18,
     19,
     20,
-    21
+    21,
+    22
   ],
   "overall_parity": "PARTIAL",
   "foundation_weights_changed": false,
@@ -25,7 +26,8 @@
     ],
     "scope": "One controlled local Linux Docker daemon, builtin seccomp, cgroup v2, pinned reviewed image, one execution slot per server process",
     "remaining": "No host workspaces, general shell/Git, remote/network execution, automatic model tool calling or full reference-equivalent backend parity",
-    "verification_limit": "Only the stated finite Linux Docker Python backend and authenticated task contract; overall group/parity remains PARTIAL"
+    "verification_limit": "Only the stated finite Linux Docker Python backend and authenticated task contract; overall group/parity remains PARTIAL",
+    "controller_loss": "Independent container-owned program deadline; stopped metadata needs scoped operator reconciliation"
   },
   "remaining_groups": {
     "G01": "PARTIAL: existing owner controls and worker scrubbing; full secret broker/plugins remain",

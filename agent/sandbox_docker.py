@@ -20,7 +20,24 @@ IMAGE_ENV = frozenset({'PATH', 'LANG', 'LC_ALL', 'LC_CTYPE', 'GPG_KEY',
     'ZENITH_REPLY_STYLE', 'OMP_NUM_THREADS', 'TOKENIZERS_PARALLELISM'})
 PROXY_NAMES = ('HTTP_PROXY', 'HTTPS_PROXY', 'ALL_PROXY', 'NO_PROXY', 'FTP_PROXY',
                'http_proxy', 'https_proxy', 'all_proxy', 'no_proxy', 'ftp_proxy')
-BOOTSTRAP = "import os,sys; os.environ.clear(); source=sys.stdin.buffer.read(8193); exec(compile(source,'<zenith-sandbox>','exec'),{'__name__':'__main__'})"
+# PID 1 owns the deadline in a separate process from submitted code. The timer
+# starts before stdin is read and survives loss of the host controller/attach
+# client. Exiting the namespace init stops its remaining processes as well.
+BOOTSTRAP = """import os,subprocess,sys,threading
+os.environ.clear()
+timer=threading.Timer(int(sys.argv[1]),lambda:os._exit(124))
+timer.daemon=True
+timer.start()
+try:
+    source=sys.stdin.buffer.read(8193)
+    if len(source)>8192:
+        sys.exit(125)
+    runner="import os,sys; os.environ.clear(); exec(compile(sys.argv[1],'<zenith-sandbox>','exec'),{'__name__':'__main__'})"
+    result=subprocess.run([sys.executable,'-I','-S','-B','-u','-c',runner,source.decode('utf-8')],env={},stdin=subprocess.DEVNULL)
+    sys.exit(result.returncode)
+finally:
+    timer.cancel()
+"""
 
 
 class SandboxUnavailable(OSError):
@@ -97,6 +114,8 @@ class DockerSandbox:
                 '--cap-drop', 'ALL', '--security-opt', 'no-new-privileges=true',
                 '--pids-limit', '32', '--memory', '128m', '--memory-swap', '128m',
                 '--cpus', '0.5', '--ulimit', 'nofile=64:64', '--ulimit', 'nproc=32:32',
+                '--label', 'io.zenith.sandbox=1',
+                '--label', 'io.zenith.deadline_seconds=' + str(self.policy.seconds),
                 '--restart', 'no', '--no-healthcheck', '--stop-timeout', '1', '--log-driver', 'none',
                 '--tmpfs', '/work:rw,noexec,nosuid,nodev,size=16m,mode=1777',
                 '--tmpfs', '/tmp:rw,noexec,nosuid,nodev,size=16m,mode=1777',
@@ -104,7 +123,7 @@ class DockerSandbox:
             # Docker client proxy defaults must not become worker credentials.
             for key in PROXY_NAMES:
                 arguments.extend(['--env', key + '='])
-            arguments.extend([self.policy.image, '-I', '-S', '-B', '-u', '-c', BOOTSTRAP])
+            arguments.extend([self.policy.image, '-I', '-S', '-B', '-u', '-c', BOOTSTRAP, str(self.policy.seconds)])
             self._control(*arguments)
             created = True
             authority_check()
@@ -167,12 +186,14 @@ class DockerSandbox:
             except (ValueError, KeyError, TypeError):
                 raise SandboxUnavailable('Sandbox did not stop cleanly') from None
             authority_check()
+            if exit_code == 124:
+                raise ValueError('Sandbox wall-time budget exceeded')
             return {'status': 'completed' if exit_code == 0 else 'failed', 'exit_code': exit_code,
                 'stdout': bytes(output['stdout']).decode('utf-8', errors='replace'),
                 'stderr': bytes(output['stderr']).decode('utf-8', errors='replace'),
                 'elapsed_ms': round((time.monotonic()-started)*1000, 3),
                 'backend': 'docker-linux', 'image': self.policy.image, 'network': 'none',
-                'host_mounts': False, 'persistent_workspace': False}
+                'host_mounts': False, 'persistent_workspace': False, 'deadline_owner': 'container-pid1'}
         finally:
             # Remove even on cancellation/revocation, budget failure or create
             # timeout (the daemon may have created it before its response failed).

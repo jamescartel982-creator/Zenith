@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "version": "0.17.1",
+  "version": "0.17.2",
   "files": [
     {
       "path": ".dockerignore",
@@ -46,8 +46,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "size": 16260,
-      "sha256": "42c35962766e5e16a482548ae25db6d0de613b4b5c44702f14199b875f44b8e7",
+      "size": 16702,
+      "sha256": "03c3ca67d8c8dc8e19370481e0a12df060360e18be058124553755a2dd4d94e2",
       "normalization": "lf"
     },
     {
@@ -101,7 +101,7 @@
     {
       "path": "agent/__init__.py",
       "size": 105,
-      "sha256": "a24bbef64ac880b151b735a9458a7964ccc8977de40f2d5992f17051f7b92da0",
+      "sha256": "c2c364df378b2f741c7de6f27eca1f45a171957d8023dcc8247c65caa04c1e0b",
       "normalization": "lf"
     },
     {
@@ -538,8 +538,8 @@
     },
     {
       "path": "agent/sandbox_docker.py",
-      "size": 10731,
-      "sha256": "6823556fecd26a49f15c14ce31fbd3ff4925a85009327c768279134e9ef6919d",
+      "size": 11680,
+      "sha256": "476dc59f11346599abbc8e9eef1fcf3eb7b1e853e2e4bec5ac3f1ccc8511dd44",
       "normalization": "lf"
     },
     {
@@ -2122,8 +2122,8 @@
     },
     {
       "path": "docs/unified-platform/progress.json",
-      "size": 2408,
-      "sha256": "57342be5044e198d158fadf011b1cddda2af9f1e1203fb2d5759a69f0f297186",
+      "size": 2542,
+      "sha256": "18055052cd1467ba2c8d2d54f8b9aabeffe0a8e116ef71bae7e08666e8cb471b",
       "normalization": "lf"
     },
     {
@@ -2152,14 +2152,32 @@
     },
     {
       "path": "docs/unified-platform/sandbox.md",
-      "size": 5742,
-      "sha256": "2d64f6921cbbefdae302406a57b26dc8956dde5d2f4f284a5b6061d7ec744ba0",
+      "size": 6373,
+      "sha256": "98b5aafde2369036066e54983c55e9d185240a846c2678c9a182655691a95db5",
       "normalization": "lf"
     },
     {
       "path": "docs/unified-platform/validation.md",
       "size": 3818,
       "sha256": "28290fde4b67165607224bad3f9ea7a7dc117c0ce123c96f7a77694aaadfb35d",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/unified-platform/watchdog-smoke.json",
+      "size": 1517,
+      "sha256": "cc79c5480ec3adfcd580f26a696a3615e0407596e8217177ec687961ac28ba12",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/unified-platform/watchdog-tests.log",
+      "size": 50174,
+      "sha256": "c9fe95434813a24793750e5488e30542de0d053b2f0469df0a68970f7eddee77",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/unified-platform/watchdog-validation.md",
+      "size": 2233,
+      "sha256": "1e1e09f8903f3866fc85bd6af0773d76c7e53a38fe8492af171e037be6516c4c",
       "normalization": "lf"
     },
     {
@@ -2584,8 +2602,8 @@
     },
     {
       "path": "scripts/smoke_sandbox.py",
-      "size": 9192,
-      "sha256": "b186ec5b566dc508f7fe3a0b7f5eff7e5d4c997af2755032f8d1992d8f4ffbb1",
+      "size": 11212,
+      "sha256": "bb92ba8fabbc6f50799f4a1295a5c9bcc397a28db418dfe41be5e1a1e87c5427",
       "normalization": "lf"
     },
     {

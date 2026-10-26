@@ -65,12 +65,20 @@ request, enabled backend, MFA and capability. Ordinary chat never calls this too
   Deploy one such server process per controlled daemon; a shared multi-process
   sandbox admission service is not provided in this milestone.
 - Program wall time defaults to 10 seconds (`ZENITH_SANDBOX_SECONDS`, 1–30).
-  Docker control operations have separate five-second deadlines, so total latency
+  A separate container PID-1 supervisor enforces the deadline before reading
+  stdin and outside the submitted program. The program also stops after that
+  deadline if its host controller is forcibly killed. Docker control operations
+  have separate five-second deadlines, so total latency
   includes setup, inspection and cleanup. Combined stdout/stderr is limited to
   2048 bytes; overflow aborts execution. Docker logs are disabled.
 - Live authority and cancellation are checked during attachment. Revocation,
   emergency stop, time/output limits and failures trigger forced container
   cleanup; uncertain cleanup becomes an error requiring operator reconciliation.
+  A killed controller cannot remove its stopped container metadata: review only
+  the recorded `zenith-sandbox-*` containers labeled `io.zenith.sandbox=1`, retain
+  task receipts, and reconcile/remove the specifically owned container. Do not
+  blindly rerun a task or prune unrelated containers. Exit code 124 is reserved
+  for the supervisor deadline and is reported as a budget failure.
   Arbitrary kernel/runtime exploits are outside these finite guarantees.
 
 The output reports actual exit code, stdout/stderr, image, backend, network and
@@ -87,7 +95,7 @@ MFA, scoped grants and one-use approvals; it does not load or change models or
 production configuration. It verifies actual Python results, UID/capabilities,
 no-new-privileges, observed cgroup limits, host-file and owned-listener isolation,
 readonly root, cleared environment, ephemeral storage, cancellation/quotas,
-authorization and cleanup. These are finite regression probes, not universal
+authorization, cleanup and forced-controller-loss deadlines. These are finite regression probes, not universal
 sandbox-escape certification. Raw local results are in `sandbox-smoke.json`.
 CI repeats the full smoke against its freshly built immutable application image.
 
