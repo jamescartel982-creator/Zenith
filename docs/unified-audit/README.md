@@ -10,8 +10,8 @@ or weights are included.
 
 Current implementation: PR18 bounded reasoning and PR19 supervised tasks have
 merged. [Integration evidence](../unified-platform/integration-validation.md)
-records their combined tests. The next incremental delivery is the
-optional isolated Python tool (operations documentation ships with that feature PR). It does not
+records their combined tests. PR21 and the integration PR20 are now merged into main, including the
+[optional isolated Python tool](../unified-platform/sandbox.md). It does not
 complete general shell/workspace tools, autonomous model-driven tasks, plugins,
 channel adapters, skill learning or full reference parity. Those contracts remain
 in the matrix until independently implemented and verified.

@@ -3,9 +3,9 @@
 2026-10-25. PR18 (reasoning) and PR19 (supervised tasks) are merged into main.
 Their combined head passed all seven Windows/Linux Python3.10/3.12,
 installed-model inference and container checks before merge:
-https://github.com/jamescartel982-creator/Zenith/actions/runs/40223216020
+https://github.com/n8storm/Zenith/actions/runs/40223216020
 The diagnostic watch also passed:
-https://github.com/jamescartel982-creator/Zenith/actions/runs/40223216101
+https://github.com/n8storm/Zenith/actions/runs/40223216101
 
 ## Isolated Python milestone
 

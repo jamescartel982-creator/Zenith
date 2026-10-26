@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "version": "0.17.0",
+  "version": "0.17.1",
   "files": [
     {
       "path": ".dockerignore",
@@ -46,8 +46,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "size": 15965,
-      "sha256": "1da498841179264d1a25100c71efae51f12f402be55382f0117fb51140174978",
+      "size": 16260,
+      "sha256": "42c35962766e5e16a482548ae25db6d0de613b4b5c44702f14199b875f44b8e7",
       "normalization": "lf"
     },
     {
@@ -70,8 +70,8 @@
     },
     {
       "path": "README.md",
-      "size": 12664,
-      "sha256": "b820e50cb0f7bf20df926a5f241e7381fcadec5875bcb5a5c1988fb70b05dc3c",
+      "size": 12619,
+      "sha256": "738860297afbb6de217d8bab1b01bfe851f892505873c1dfffc56fedf3661930",
       "normalization": "lf"
     },
     {
@@ -101,7 +101,7 @@
     {
       "path": "agent/__init__.py",
       "size": 105,
-      "sha256": "7e11ba14f005e3a18812627327579297b7bfd6f3e8a1f9408d0859f72b5e594b",
+      "sha256": "a24bbef64ac880b151b735a9458a7964ccc8977de40f2d5992f17051f7b92da0",
       "normalization": "lf"
     },
     {
@@ -1408,8 +1408,8 @@
     },
     {
       "path": "docs/local-installation.md",
-      "size": 14250,
-      "sha256": "7cb7a2bc367ab74877a2ae11df930cdcc90b0f82016049872e608e7c2643dafe",
+      "size": 14711,
+      "sha256": "f6ca85cb0e4b03f94514fe3e4612255b67edbb03bc763daad7c02791c00af897",
       "normalization": "lf"
     },
     {
@@ -1720,8 +1720,8 @@
     },
     {
       "path": "docs/unified-audit/README.md",
-      "size": 1340,
-      "sha256": "846239d0d00d82713504873a814d517fab3ced697256ab45ed4b9f801848155f",
+      "size": 1353,
+      "sha256": "0fce9e23d92fc9c98abf478b3f7d5d73e73f672fae96c7af22bac0a67a316013",
       "normalization": "lf"
     },
     {
@@ -2122,8 +2122,8 @@
     },
     {
       "path": "docs/unified-platform/progress.json",
-      "size": 2392,
-      "sha256": "26be65aa2ec62c4df5ccb8a06666a9710f214c87300bb4a3c0855390fc0eee5c",
+      "size": 2408,
+      "sha256": "57342be5044e198d158fadf011b1cddda2af9f1e1203fb2d5759a69f0f297186",
       "normalization": "lf"
     },
     {
@@ -2158,20 +2158,20 @@
     },
     {
       "path": "docs/unified-platform/validation.md",
-      "size": 3848,
-      "sha256": "df71f607f452deafc745d93be13c84929c72662cf762a2c55a6fad4cd78bd15d",
+      "size": 3818,
+      "sha256": "28290fde4b67165607224bad3f9ea7a7dc117c0ce123c96f7a77694aaadfb35d",
       "normalization": "lf"
     },
     {
       "path": "docs/upstream.md",
-      "size": 2039,
-      "sha256": "2b47873315d6a5ec4435dd4e112a6c190121dd5c9d49dd9a111d9902b6bcc085",
+      "size": 2024,
+      "sha256": "59d92a7bfb94c5642653d27a6842db8613b6e0f664efb6d74fd62b6b1701f685",
       "normalization": "lf"
     },
     {
       "path": "docs/validation.md",
-      "size": 32262,
-      "sha256": "c1aec65b7ef40876a7a67e6fcf0feec63022d16930941d2133448e6556061207",
+      "size": 32232,
+      "sha256": "fa3a49b146d0c4442a42ba0aa56f5bd99796f1e22edd3b5744937835f79cb0ce",
       "normalization": "lf"
     },
     {
@@ -2206,8 +2206,8 @@
     },
     {
       "path": "quickstart.py",
-      "size": 8573,
-      "sha256": "81a1d0b72aed3b6b682ebd8bc2b6b6d73ff8a8e420ced318500dfcc1b0663326",
+      "size": 8558,
+      "sha256": "430773c950bba7a6d4f76a9d7d100567bd1ceb84fbfb2e769ae8a5e96c3fc103",
       "normalization": "lf"
     },
     {

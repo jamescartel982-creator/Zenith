@@ -63,7 +63,7 @@ def verify_source(root):
 def download_archive(destination,ref='main'):
     if not re.fullmatch(r'[A-Za-z0-9_./-]{1,200}',ref) or '..' in ref:
         raise ValueError('Invalid GitHub revision')
-    url='https://codeload.github.com/jamescartel982-creator/Zenith/zip/'+quote(ref,safe='')
+    url='https://codeload.github.com/n8storm/Zenith/zip/'+quote(ref,safe='')
     request=Request(url,headers={'User-Agent':'Zenith-terminal-installer'})
     with urlopen(request,timeout=60) as response,Path(destination).open('xb') as output:
         size=0
