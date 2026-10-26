@@ -43,8 +43,11 @@ jobs:
         run: |
           uv sync --project integrations/inference_service --frozen --extra local --extra test
           uv sync --project integrations/trading_service --frozen --extra native
+          uv pip check --python integrations/trading_service/.venv/bin/python
       - name: Contracts, boundaries, missing-risk and worker ownership tests
-        run: uv run --project integrations/trading_service --frozen --extra native python -m unittest discover -s integrations/trading_service/tests -v
+        run: |
+          uv run --project integrations/trading_service --frozen --extra native python -m unittest discover -s integrations/trading_service/tests -v
+          uv run --project integrations/trading_service --frozen --extra native python -m unittest discover -s integrations/trading_service/tests/integration -p "test_*.py" -v
       - name: Cache base and reconstruct unchanged inactive research artifact
         run: |
           uv run --project integrations/inference_service --frozen --extra local --extra test python -m agent models download

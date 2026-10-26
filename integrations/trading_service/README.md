@@ -15,7 +15,8 @@ uv run --project integrations/trading_service --frozen --extra native zenith-tra
 uv run --project integrations/trading_service --frozen --extra native zenith-trading serve --directory "$HOME/.local/share/zenith-services/trading"
 ```
 
-First initialize and start the [separate inference service](../inference_service/README.md).
+First initialize and start the [separate inference service](../inference_service/README.md)
+with `serve --queue-size 4` for the native parallel analysts.
 The private research service binds only `127.0.0.1:8783`. Its newly generated
 `bridge.key` authenticates a trusted service, not an end-user or administrator.
 Never put it in prompts, source control, logs or an untrusted browser. The bridge
@@ -74,3 +75,17 @@ Rollback: stop only this service and retain owned account state, native reports,
 checkpoints and audit ledger for reconciliation. No native source changes or
 original database migrations require reversing. Do not silently restart a
 partially completed financial job or delete its checkpoint to force a fresh run.
+
+
+The measured first native provider call returned `4` with 37 input and 2 output
+tokens. The first full graph encountered single-model admission rate limiting;
+the optional queue addresses that integration mismatch. A subsequent CPU graph
+hit its explicit 180-second deadline, so full financial acceptance remains
+unverified. The instrumented probe uses a 600-second native-job budget and
+records native LLM callback counters without persisting messages or hidden
+reasoning. Missing usage is represented by the count of responses with measured
+usage; zero known tokens does not prove zero total consumption. Tool/network
+latency and full financial quality are not inferred from these counters.
+Native dotenv loading is disabled only in this new worker profile so unrelated
+parent `.env` credentials cannot be imported. Original native launch behavior
+and source are preserved.

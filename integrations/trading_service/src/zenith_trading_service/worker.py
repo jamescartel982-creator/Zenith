@@ -35,9 +35,12 @@ def run(config_path,request_path,output):
     native=config.native_config(root,account_root,run_root,DEFAULT_CONFIG)
     if request.operation=='research':
         from tradingagents.graph.trading_graph import TradingAgentsGraph
-        graph=TradingAgentsGraph(selected_analysts=('market','social','news','fundamentals'),config=native)
+        from .metrics import NativeMetrics
+        metrics=NativeMetrics(run_root/'execution-metrics.json')
+        graph=TradingAgentsGraph(selected_analysts=('market','social','news','fundamentals'),config=native,callbacks=[metrics])
         state,signal=graph.propagate(request.tickers[0],request.dates[0],asset_type='stock')
         report=analysis_report(state,signal,request.tickers[0],request.dates[0],key)
+        report['execution_metrics']=metrics.snapshot()
     else:
         # Preserve the original dated-decision scorer. It is not an order/fill simulator.
         from tradingagents.backtest import run_backtest,summarize

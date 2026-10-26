@@ -55,7 +55,7 @@ def main(argv=None):
         backend.load()
         import uvicorn
         uvicorn.run(create_app(backend, auth,queue_size=args.queue_size), host='127.0.0.1', port=args.port, access_log=False,
-                    log_level='info', limit_concurrency=16, backlog=16, timeout_keep_alive=5)
+                    log_level='info', limit_concurrency=max(8,args.queue_size+4), backlog=16, timeout_keep_alive=5)
         return 0
     except (ValueError, OSError, ImportError, RuntimeError) as exc:
         # External model/framework errors can contain local secrets or full prompts.

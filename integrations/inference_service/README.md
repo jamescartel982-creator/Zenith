@@ -78,3 +78,13 @@ uv run --project integrations/inference_service --frozen --extra local --extra t
 Stop this service with Ctrl+C. Removing its new environment/configuration leaves
 original models, adapters, activation receipts and the ordinary Zenith app intact.
 Do not delete or roll back native checkpoint files to remove this endpoint.
+
+
+An optional `serve --queue-size 4` reserves up to four waiting requests for
+parallel native analysts while keeping exactly one model generation active.
+The default remains zero waiting slots. The queue is bounded to eight, expires
+at the configured deadline, releases disconnected/cancelled waiters and rejects
+overflow with 429. Waiting does not execute model work or consume output tokens.
+Actual concurrent SDK requests and cleanup are tested; no throughput or
+latency improvement is claimed. A queued request's wait and its subsequent
+generation each have a separate bounded deadline.

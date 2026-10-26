@@ -54,7 +54,8 @@ def create_app(executor,auth,ledger):
             ledger.transition(identifier,{'queued','running','cancel_requested'},'cancelled',error='owned_worker_cancelled')
             raise
         except NativeWorkerFailure as exc:
-            ledger.transition(identifier,{'queued','running','cancel_requested'},'failed',error='native_worker_'+exc.code)
+            ledger.transition(identifier,{'queued','running','cancel_requested'},'failed',
+                result={'execution_metrics':exc.metrics} if exc.metrics is not None else None,error='native_worker_'+exc.code)
         except Exception:
             ledger.transition(identifier,{'queued','running','cancel_requested'},'failed',error='native_research_failed')
         finally:

@@ -70,8 +70,8 @@
     },
     {
       "path": ".github/workflows/trading-service.yml",
-      "size": 3226,
-      "sha256": "056bfa3273af103d42c3950185c2d9a5ae657efc2d687e8ecb264caba73fcdb1",
+      "size": 3492,
+      "sha256": "e580a35f0afcb2437c92d781b98db8b13abc001d4c1358e6d434b768584bb9df",
       "normalization": "lf"
     },
     {
@@ -1570,8 +1570,8 @@
     },
     {
       "path": "docs/four-system/IMPLEMENTATION_STATUS.md",
-      "size": 2852,
-      "sha256": "cd78cf96349731e87c7f19e43179b98b97f91c49015ecd8f0350788613f393f5",
+      "size": 3828,
+      "sha256": "f87bbc5b086ba5e136c6a426ea1aad680edcd3692acee0af5ab6406dccef2fc5",
       "normalization": "lf"
     },
     {
@@ -1710,6 +1710,12 @@
       "path": "docs/four-system/implementation-v0.2/openclaw-source-conformance.json",
       "size": 354,
       "sha256": "f08cfce776efe6a013bf6aa4d80a76546cf1a6fb33f00dc1b84123bb1f2e4132",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/implementation-v0.3/local-queue-acceptance.json",
+      "size": 1156,
+      "sha256": "3ba2753ebecc04306fd3d9cd7304f5428778a1e35d98224918154bace5a0ac65",
       "normalization": "lf"
     },
     {
@@ -2668,8 +2674,8 @@
     },
     {
       "path": "integrations/inference_service/README.md",
-      "size": 5016,
-      "sha256": "235c260440a911a15a7c21fa9234a73b1b194e739683c07c7acfd8f943574580",
+      "size": 5607,
+      "sha256": "17c2fec44f654044ae4fa8f4f19155ff88af5e2fa688ff6b3d51bede5342812f",
       "normalization": "lf"
     },
     {
@@ -2698,8 +2704,8 @@
     },
     {
       "path": "integrations/inference_service/src/zenith_inference/cli.py",
-      "size": 3722,
-      "sha256": "1432eb38070d65751744559cae573a942bd7ced045e7f24b442263910a8d5843",
+      "size": 3744,
+      "sha256": "a5e52c8b3ea7b7126ab7d0ca2b1eec82a5c1729918044d1fa12c72af3ab0c8f2",
       "normalization": "lf"
     },
     {
@@ -2986,8 +2992,8 @@
     },
     {
       "path": "integrations/trading_service/README.md",
-      "size": 5152,
-      "sha256": "88f3d067117faad662e3f272720ac6b779cf6a9a205921499a7e0af6002aea23",
+      "size": 6091,
+      "sha256": "7a7459f9c698e23ec61c4e8b2589fd140c061368de198fd02ce9e7b9683fb76a",
       "normalization": "lf"
     },
     {
@@ -3022,8 +3028,14 @@
     },
     {
       "path": "integrations/trading_service/src/zenith_trading_service/execution.py",
-      "size": 6393,
-      "sha256": "7a5c9d21cb15389da7abcbc3a55ece74ede7cbfddf2ec3552977f2c00b21b061",
+      "size": 7125,
+      "sha256": "87bb4af69d9ca6551a69be271b5e38fb42183fd515c7cae9020b4c848c0461ad",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/trading_service/src/zenith_trading_service/metrics.py",
+      "size": 2409,
+      "sha256": "54e8ca656552519623a64e9395abae6fcace16890360cacf207b8adf679a0354",
       "normalization": "lf"
     },
     {
@@ -3034,20 +3046,26 @@
     },
     {
       "path": "integrations/trading_service/src/zenith_trading_service/server.py",
-      "size": 5770,
-      "sha256": "3bbe24b4aa67b2688af921ff941f739ec26a89420b1a6bf1822053c1f7d2e703",
+      "size": 5865,
+      "sha256": "87a4e40c57922ad66a20dc2b3938b0b8d5c4ce237848f32d4df4088c9846a18f",
       "normalization": "lf"
     },
     {
       "path": "integrations/trading_service/src/zenith_trading_service/worker.py",
-      "size": 4112,
-      "sha256": "dac583d358ccd81f6735bb26b4670d4835e45b33a069de442ea0769e6606f3e8",
+      "size": 4295,
+      "sha256": "1693aab5a6e31271bdaf5f8813583c399e136d350811aefbc81960b5dd337e34",
       "normalization": "lf"
     },
     {
       "path": "integrations/trading_service/tests/integration/native_probe.py",
       "size": 7642,
-      "sha256": "3ca14442555d992e6ee80caf174d195bf65310ba673be1c4f166814ac6b0328b",
+      "sha256": "26d8bd5f1d865bc4684b9e68261ea582e72ceb31b6b8445589df3d0d994b26a9",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/trading_service/tests/integration/test_native_metrics.py",
+      "size": 1400,
+      "sha256": "8a1cb15f7da73892f808abb33297007db4d765b6fd834a7388c77b72abe8aa2d",
       "normalization": "lf"
     },
     {

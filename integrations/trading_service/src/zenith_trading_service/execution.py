@@ -19,8 +19,9 @@ logger=logging.getLogger('zenith.trading')
 
 
 class NativeWorkerFailure(RuntimeError):
-    def __init__(self,error_type='native_research_failed'):
+    def __init__(self,error_type='native_research_failed',metrics=None):
         self.code=error_type if re.fullmatch(r'[a-zA-Z0-9_]{1,80}',error_type) else 'native_research_failed'
+        self.metrics=metrics
         super().__init__(self.code)
 
 
@@ -89,6 +90,14 @@ class NativeExecutor:
             env['PYTHONDONTWRITEBYTECODE']='1'
             process=None
             started=time.monotonic()
+            def progress():
+                path=root/'execution-metrics.json'
+                if not path.is_file():return None
+                value=read_json(path)
+                # Only bounded counters leave the private worker boundary.
+                return {key:item for key,item in value.items() if key in {
+                    'llm_calls_started','llm_calls_completed','llm_calls_failed','input_tokens','output_tokens',
+                    'responses_with_usage','active_llm_calls','elapsed_seconds'} and type(item) in {int,float} and 0<=item<=10**12}
             try:
                 creation=asyncio.create_task(asyncio.create_subprocess_exec(sys.executable,'-m','zenith_trading_service.worker',
                     '--config',str(config_path),'--request',str(request_path),'--output',str(output),
@@ -109,12 +118,14 @@ class NativeExecutor:
                     diagnostic=root/'worker-failure.json'
                     if diagnostic.is_file():
                         value=read_json(diagnostic)
-                        raise NativeWorkerFailure(value.get('error_type','native_research_failed'))
+                        raise NativeWorkerFailure(value.get('error_type','native_research_failed'),progress())
                     raise NativeWorkerFailure('native_research_failed_or_exceeded_result_budget')
                 result=read_json(output)
                 if result.get('live_orders_enabled') is not False or result.get('model')!='zenith':
                     raise NativeRefused('invalid_native_report')
                 return result
+            except TimeoutError:
+                raise NativeWorkerFailure('deadline_exceeded',progress()) from None
             finally:
                 # No admission slot is released while its owned process is still alive.
                 if process is not None:

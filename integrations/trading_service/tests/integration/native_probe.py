@@ -54,7 +54,7 @@ def run(args):
             report['provider']=native
             config={'source_root':str(args.source_root.resolve()),'state_directory':str(private/'native-state'),
                     'inference_origin':origin,'inference_key_file':str(private/'inference.key'),
-                    'deadline_seconds':180,'max_output_tokens':256}
+                    'deadline_seconds':600,'max_output_tokens':256}
             native_state=private/'native-state';native_state.mkdir(mode=0o700)
             write_private_new(native_state/'config.json',json.dumps(config))
             service_key=secrets.token_urlsafe(48)
@@ -77,7 +77,7 @@ def run(args):
                     start=time.monotonic()
                     body={'account_id':'probe','tickers':['AAPL'],'dates':['2025-01-17']}
                     response=client.post('/v1/jobs',json=body,headers={'Idempotency-Key':'fixed_native_probe'});response.raise_for_status()
-                    identifier=response.json()['id'];deadline=time.monotonic()+210
+                    identifier=response.json()['id'];deadline=time.monotonic()+630
                     while True:
                         state=client.get('/v1/jobs/'+identifier+'?account_id=probe').json()
                         if state['status'] in {'succeeded','failed','cancelled','interrupted'}:break

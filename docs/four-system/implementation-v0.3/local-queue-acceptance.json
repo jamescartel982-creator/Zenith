@@ -1,0 +1,45 @@
+{
+  "openai_sdk": "2.54.0",
+  "scripted_model": false,
+  "live_execution": false,
+  "identity_sha256": "182559bbb77dad2ac9f53be2252ef0fa8a3698851d8d47708d5264701170e13b",
+  "tokenizer_sha256": "221ea68122dfcfb2772276b69e62fc97ea9b13785ee069b118ee36498b19a418",
+  "chat": {
+    "answer": "4",
+    "usage": {
+      "completion_tokens": 2,
+      "prompt_tokens": 37,
+      "total_tokens": 39,
+      "completion_tokens_details": null,
+      "prompt_tokens_details": null
+    },
+    "seconds": 0.857736171000397
+  },
+  "stream": {
+    "answer": "4",
+    "usage_present": true
+  },
+  "tool_round_trip": {
+    "name": "add",
+    "arguments": {
+      "a": 2,
+      "b": 2
+    },
+    "answer": "The addition is 4.",
+    "executor": "explicit allowlisted test fixture; inference executed no tool"
+  },
+  "disconnect_recovery": true,
+  "bounded_queue": {
+    "requests": 4,
+    "correct_answers": 4,
+    "single_model_generation": true
+  },
+  "real_bridge_job": {
+    "status": "succeeded",
+    "answer": "4",
+    "duplicate_admission_prevented": true
+  },
+  "logout_revocation": true,
+  "original_artifacts_unchanged": true,
+  "production_profile_unchanged": true
+}
