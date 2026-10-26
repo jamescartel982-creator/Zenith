@@ -111,7 +111,7 @@ def inspect_checkpoint(directory, output=None):
     import torch
     started=time.perf_counter()
     model,tokenizer,report=load_existing(directory)
-    tokens=tokenizer.apply_chat_template([{'role':'user','content':'What is 2 plus 2? Answer briefly.'}],tokenize=True,add_generation_prompt=True,return_tensors='pt')
+    tokens=tokenizer.apply_chat_template([{'role':'user','content':'What is 2 plus 2? Answer briefly.'}],tokenize=True, return_dict=False,add_generation_prompt=True,return_tensors='pt')
     with torch.inference_mode():
         result=model.generate(tokens,attention_mask=torch.ones_like(tokens),max_new_tokens=32,do_sample=False,pad_token_id=tokenizer.eos_token_id)
     report.update(loaded_successfully=True,inference=tokenizer.decode(result[0,tokens.shape[1]:],skip_special_tokens=True),inspection_seconds=time.perf_counter()-started)

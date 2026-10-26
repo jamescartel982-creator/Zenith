@@ -1,0 +1,12 @@
+{
+  "transformers": "5.10.4",
+  "peft": "0.18.1",
+  "datasets": "5.0.1",
+  "model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "adapter_sha256": "7e0701900b40109ee81b3dc097985cda360409006c8b717bda51830f3b6ed85d",
+  "answer": "4",
+  "stream_answer": "4",
+  "training_preparation_passed": true,
+  "passed": true
+}

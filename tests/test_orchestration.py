@@ -176,7 +176,7 @@ class OrchestrationTests(unittest.TestCase):
             settings = Settings(provider='orchestrated', data_dir=folder)
             provider = OrchestratedProvider(settings, r)
             agent = Agent(settings, provider=provider)
-            client = TestClient(create_app(agent=agent, settings=settings))
+            client = TestClient(create_app(agent=agent, settings=settings), base_url="http://127.0.0.1")
             password = 'Only a test fixture password'
             user = client.post('/api/account/register', json={'username': 'owner', 'display_name': 'Owner', 'password': password}).json()['user']
             codefile = Path(folder) / 'owner-code.txt'

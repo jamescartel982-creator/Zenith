@@ -46,8 +46,14 @@ class Settings:
 
     # Appended to preserve old positional callers and all native inference defaults.
     platform: 'PlatformConfig' = field(default_factory=lambda: _platform_config())
+    allowed_hosts: tuple[str, ...] = field(default_factory=lambda: tuple(
+        host.strip().lower() for host in os.getenv('ZENITH_ALLOWED_HOSTS', 'localhost,127.0.0.1,::1').split(',') if host.strip()))
 
     def __post_init__(self):
+        from .http_security import LOCAL_HOSTS, validate_hosts
+        validate_hosts(self.allowed_hosts)
+        if any(host not in LOCAL_HOSTS for host in self.allowed_hosts) and len(self.api_token) < 32:
+            raise ValueError('Non-loopback allowed hosts require ZENITH_API_TOKEN of at least 32 characters')
         from .task_router import MODES
         if self.orchestration_mode not in MODES or self.reasoning_effort not in {'fast', 'standard', 'deep', 'research'}:
             raise ValueError('Invalid orchestration mode or reasoning effort')

@@ -99,7 +99,7 @@ class HuggingFaceProvider:
         import torch
         tokenizer, model, settings = self.tokenizer, self.model, self.settings
         def encode(items):
-            return tokenizer.apply_chat_template(items, tokenize=True, add_generation_prompt=True)
+            return tokenizer.apply_chat_template(items, tokenize=True, return_dict=False, add_generation_prompt=True)
         max_position = getattr(model.config, "max_position_embeddings", 32768)
         budget = min(settings.context_tokens, max_position - settings.max_new_tokens)
         used = trim_messages(messages, lambda items: len(encode(items)) <= budget)
@@ -126,7 +126,7 @@ class HuggingFaceProvider:
         import torch
         from transformers import TextIteratorStreamer, StoppingCriteria, StoppingCriteriaList
         tokenizer,model,settings=self.tokenizer,self.model,self.settings
-        def encode(items):return tokenizer.apply_chat_template(items,tokenize=True,add_generation_prompt=True)
+        def encode(items):return tokenizer.apply_chat_template(items,tokenize=True, return_dict=False,add_generation_prompt=True)
         maximum=getattr(model.config,'max_position_embeddings',32768)
         used=trim_messages(messages,lambda items:len(encode(items))<=min(settings.context_tokens,maximum-settings.max_new_tokens))
         ids=torch.tensor([encode(used)],device=model.device)

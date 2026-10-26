@@ -1,0 +1,48 @@
+name: Core dependency security
+on:
+  pull_request:
+    paths:
+      - requirements*.txt
+      - pyproject.toml
+      - .github/workflows/security.yml
+  push:
+    branches: [main]
+    paths:
+      - requirements*.txt
+      - pyproject.toml
+      - .github/workflows/security.yml
+  schedule:
+    - cron: '23 8 * * 1'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    name: Dependency audit (${{ matrix.extra }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        extra: [core, local-data]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --upgrade 'pip>=26.2' pip-audit==2.9.0
+      - name: Install core runtime
+        if: matrix.extra == 'core'
+        run: python -m pip install -e .
+      - name: Install local model and data runtime
+        if: matrix.extra == 'local-data'
+        run: |
+          python -m pip install 'torch>=2.6,<3' --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -e '.[local,data]'
+      - name: Audit selected installed dependencies without advisory exclusions
+        run: python -m scripts.audit_dependencies --output dependency-audit.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: dependency-audit-${{ matrix.extra }}
+          path: dependency-audit.json

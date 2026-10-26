@@ -49,9 +49,9 @@ class SkillAccessTests(unittest.TestCase):
         self.provider = ProbeProvider(self.settings)
         self.agent = Agent(self.settings, self.provider)
         self.app = create_app(self.settings, self.agent)
-        self.owner = TestClient(self.app)
-        self.other = TestClient(self.app)
-        self.guest = TestClient(self.app)
+        self.owner = TestClient(self.app, base_url="http://127.0.0.1")
+        self.other = TestClient(self.app, base_url="http://127.0.0.1")
+        self.guest = TestClient(self.app, base_url="http://127.0.0.1")
         for client, name in [(self.owner, 'owner'), (self.other, 'other')]:
             result = client.post('/api/account/register', json={'username': name, 'display_name': name, 'password': self.password})
             self.assertEqual(result.status_code, 200)
@@ -164,7 +164,7 @@ class SkillAccessTests(unittest.TestCase):
 
     def test_another_login_of_same_owner_does_not_inherit_activation(self):
         self.activate()
-        second = TestClient(self.app)
+        second = TestClient(self.app, base_url="http://127.0.0.1")
         second.post('/api/account/login', json={'username': 'owner', 'password': self.password})
         self.unlock(second)
         self.assertEqual(second.get('/api/skills/current', params={'session_id': self.session}).json()['skill'], 'general')

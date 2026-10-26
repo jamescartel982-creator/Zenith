@@ -1,6 +1,8 @@
 """Transactional, conversation-scoped storage and explicit dataset approvals."""
 import json
+import os
 import sqlite3
+import stat
 from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path
@@ -9,8 +11,32 @@ from uuid import uuid4
 
 class Store:
     def __init__(self, data_dir="data"):
-        Path(data_dir).mkdir(parents=True, exist_ok=True)
+        Path(data_dir).mkdir(parents=True, exist_ok=True, mode=0o700)
+        if os.name == 'posix':
+            directory = Path(data_dir).stat()
+            if directory.st_uid != os.getuid() or directory.st_mode & 0o022:
+                raise PermissionError('Use a data directory owned by this user and not writable by group or others')
         self.path = Path(data_dir) / "zenith.sqlite3"
+        # Pre-create privately so SQLite's WAL/SHM files inherit a private mode.
+        try:
+            descriptor = os.open(self.path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+        except FileExistsError:
+            pass
+        else:
+            os.close(descriptor)
+        if os.name == 'posix':
+            for path in (self.path, Path(str(self.path) + '-wal'), Path(str(self.path) + '-shm')):
+                try:
+                    descriptor = os.open(path, os.O_RDONLY | getattr(os, 'O_NOFOLLOW', 0))
+                except FileNotFoundError:
+                    continue
+                try:
+                    info = os.fstat(descriptor)
+                    if not stat.S_ISREG(info.st_mode) or info.st_uid != os.getuid():
+                        raise PermissionError('Zenith storage must be a regular file owned by the running user')
+                    os.fchmod(descriptor, stat.S_IMODE(info.st_mode) & 0o600)
+                finally:
+                    os.close(descriptor)
         with self.connect() as db:
             db.execute("PRAGMA journal_mode=WAL")
             db.execute("""CREATE TABLE IF NOT EXISTS turns (

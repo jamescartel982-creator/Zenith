@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.17.3 — HTTP boundaries and dependency hardening
+
+- Reject untrusted Host headers, cross-site browser API requests, oversized/chunked request bodies and slow body uploads before routing.
+- Remove submitted values from validation responses and restrict POSIX SQLite database/sidecar permissions without changing stored data.
+- Require explicit allowed hosts and a strong server token for non-loopback host names. Public reverse-proxy deployments must set `ZENITH_ALLOWED_HOSTS`.
+- Raise cryptography, Transformers, PEFT, datasets and fsspec security floors. Explicitly retain list/tensor chat-template outputs across the Transformers update, preserving existing checkpoints and training preparation.
+- Add security regressions, dependency monitoring and deployment guidance. Existing model weights, tokenizer, adapter and production profile remain unchanged.
+
 ## 0.17.2 — Container-owned execution deadline
 
 - Enforce an independent PID-1 deadline outside the submitted Python process, including stdin setup, so controller loss cannot leave a program running indefinitely.

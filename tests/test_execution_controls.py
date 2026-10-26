@@ -23,7 +23,7 @@ class ExecutionTests(unittest.TestCase):
         self.now=time.time()
         clock=patch('agent.owner_mfa.time.time',side_effect=lambda:self.now);clock.start();self.addCleanup(clock.stop)
         self.agent=Agent(Settings(provider='ollama',data_dir=self.folder.name),provider=Mock())
-        self.owner=TestClient(create_app(agent=self.agent,settings=self.agent.settings))
+        self.owner=TestClient(create_app(agent=self.agent,settings=self.agent.settings), base_url="http://127.0.0.1")
         self.password='owner test account password'
         self.user=self.owner.post('/api/account/register',json={'username':'owner','display_name':'Owner','password':self.password}).json()['user']
         code_path=Path(self.folder.name)/'owner-fixture.txt'

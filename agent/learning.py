@@ -80,8 +80,8 @@ def load_examples(path):
 
 def prepare_chat_example(tokenizer, messages, max_length):
     """Train on the final assistant response; ignore prompt and padding loss."""
-    full = tokenizer.apply_chat_template(messages, tokenize=True, add_generation_prompt=False)
-    prefix = tokenizer.apply_chat_template(messages[:-1], tokenize=True, add_generation_prompt=True)
+    full = tokenizer.apply_chat_template(messages, tokenize=True, return_dict=False, add_generation_prompt=False)
+    prefix = tokenizer.apply_chat_template(messages[:-1], tokenize=True, return_dict=False, add_generation_prompt=True)
     if full[:len(prefix)] != prefix:
         raise ValueError('This model chat template does not have a stable assistant prefix')
     if len(full) > max_length or len(full) <= len(prefix):

@@ -17,7 +17,7 @@ class ChatTests(unittest.TestCase):
         self.provider = Mock()
         self.provider.generate.side_effect = lambda messages: ('Model answer', messages)
         self.agent = Agent(self.settings, self.provider)
-        self.client = TestClient(create_app(self.settings, self.agent))
+        self.client = TestClient(create_app(self.settings, self.agent), base_url="http://127.0.0.1")
         self.headers = {'Authorization': 'Bearer ' + self.settings.api_token}
         self.session = str(uuid4())
 

@@ -143,7 +143,7 @@ class DiscoveryTests(unittest.TestCase):
         settings = Settings(provider='ollama', data_dir=self.folder.name, api_token='test-private-server-token')
         agent = Agent(settings, provider=object())
         app = create_app(settings, agent)
-        with TestClient(app) as client:
+        with TestClient(app, base_url="http://127.0.0.1") as client:
             self.assertEqual(client.get('/api/discovery').status_code, 401)
             headers = {'Authorization': 'Bearer ' + settings.api_token}
             self.assertEqual(client.get('/api/discovery?source=invalid', headers=headers).status_code, 422)

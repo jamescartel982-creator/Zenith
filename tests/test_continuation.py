@@ -18,7 +18,7 @@ ROOT=Path(__file__).resolve().parents[1]
 class Tokenizer:
     eos_token_id=9
     def encode(self,text,add_special_tokens=False):return [1,2,3]
-    def apply_chat_template(self,messages,tokenize=True,add_generation_prompt=False):
+    def apply_chat_template(self,messages,tokenize=True,add_generation_prompt=False,return_dict=False):
         return [1,2] if add_generation_prompt else [1,2,3,9]
 
 

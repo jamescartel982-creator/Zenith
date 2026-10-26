@@ -1,0 +1,14 @@
+{
+  "base_weights": {
+    "sha256": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+    "unchanged": true
+  },
+  "adapter_weights": {
+    "sha256": "7e0701900b40109ee81b3dc097985cda360409006c8b717bda51830f3b6ed85d",
+    "unchanged": true
+  },
+  "adapter_tokenizer": {
+    "sha256": "9c5ae00e602b8860cbd784ba82a8aa14e8feecec692e7076590d014d7b7fdafa",
+    "unchanged": true
+  }
+}
