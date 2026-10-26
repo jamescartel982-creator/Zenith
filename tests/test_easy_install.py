@@ -43,7 +43,7 @@ class EasyInstallTests(unittest.TestCase):
             with patch.object(module.venv.EnvBuilder,'create'),patch.object(module,'run') as run,patch.object(module,'configured_provider',return_value='ollama'),contextlib.redirect_stdout(io.StringIO()):
                 self.assertEqual(module.main(['--venv',folder,'--activate-candidate']),0)
                 commands=[list(map(str,c.args[0])) for c in run.call_args_list]
-                self.assertTrue(any('download.pytorch.org' in ' '.join(c) for c in commands))
+                self.assertTrue(any('torch>=2.6,<3' in c for c in commands))
                 self.assertTrue(any('setup' in c and '--activate-candidate' in c for c in commands))
                 self.assertFalse(any('--overwrite' in c for c in commands))
 

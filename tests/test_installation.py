@@ -111,7 +111,7 @@ class InstallationTests(unittest.TestCase):
         with tempfile.TemporaryDirectory(prefix='zenith install spaces ') as folder:
             target = Path(folder).resolve() / '.venv'
             for effective_provider in ['ollama', 'localserver', 'ensemble']:
-                with self.subTest(provider=effective_provider), patch.object(module.venv.EnvBuilder, 'create') as create, patch.object(module, 'run') as run, patch.object(module, 'configured_provider', return_value=effective_provider), patch.object(module, 'configured_needs_hf', return_value=False), contextlib.redirect_stdout(io.StringIO()):
+                with self.subTest(provider=effective_provider), patch.object(module.venv.EnvBuilder, 'create') as create, patch.object(module, 'run') as run, patch.object(module, 'configured_provider', return_value=effective_provider), patch.object(module, 'configured_needs_hf', return_value=False), patch.object(module, 'configured_needs_torch', return_value=False), contextlib.redirect_stdout(io.StringIO()):
                     self.assertEqual(module.main(['--mode', 'ollama', '--venv', str(target)]), 0)
                     create.assert_called_once_with(target)
                     commands = [list(map(str, call.args[0])) for call in run.call_args_list]

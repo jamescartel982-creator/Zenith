@@ -3,13 +3,13 @@ title: Zenith
 license: apache-2.0
 ---
 
-![Zenith — white pixel typography and a geometric emblem on black.](assets/zenith-banner.png)
+![Zenith — your local AI workspace.](assets/zenith-social-preview.png)
 
 # Zenith
 
-A local AI workspace for conversations, coding, research, and reviewed learning. Zenith brings open model runtimes, private memory, streamed responses, and evaluation tools into a single application for Windows and Linux.
+A local AI workspace for conversations, coding, research, and reviewed learning. Zenith brings open model runtimes, private memory, streamed responses, and evaluation tools into a single application for Windows, Linux, and supported Macs.
 
-**Release 0.17.3** · [Changelog](CHANGELOG.md) · [Installation](docs/local-installation.md) · [Model discovery](docs/model-discovery.md) · [Validation](docs/validation.md) · [Security](SECURITY.md)
+**Release 0.17.4** · [Changelog](CHANGELOG.md) · [Installation](docs/local-installation.md) · [Model discovery](docs/model-discovery.md) · [Validation](docs/validation.md) · [Security](SECURITY.md)
 
 ## Install
 
@@ -46,6 +46,23 @@ python3 install.py --mode local
 bash run.sh chat
 ```
 
+macOS (Apple Silicon, macOS 14+, native ARM64 Python 3.12):
+
+```bash
+brew install python@3.12 git
+git clone https://github.com/n8storm/Zenith.git
+cd Zenith
+bash install.sh --mode local
+bash run.sh chat
+```
+
+Homebrew must already be installed for the first command. The launcher selects
+Python 3.12 automatically. For a browser window, double-click **Install
+Zenith.command**, then **Start Zenith.command** on later visits. Intel Macs can
+install the app with `bash install.sh --mode localserver` and explicitly configure
+an independently running compatible backend; current secure native PyTorch wheels
+are ARM64-only. See [Mac support and limitations](docs/macos.md).
+
 On Debian/Ubuntu, install `python3-venv` and Git if needed. The installer creates
 and selects `.venv` automatically. No manual activation or paid API key is
 required. The configured model downloads when first used; add `--download` to
@@ -75,6 +92,31 @@ Local mode typically needs about 4–6 GB of available RAM and roughly 1 GB for 
 Optional Hermes/OpenClaw development prerequisites have a separate
 [pinned runtime setup](integrations/runtime_setup/README.md). This keeps their
 Node, Python, and protocol test SDKs separate from the standard Zenith install.
+
+## Native runtime integration status
+
+Zenith remains the primary model. Hermes, OpenClaw, and TradingAgents have been
+source-audited at pinned commits. Their original code, licenses, native state,
+and dependency environments stay separate. The four-runtime bridge and compatible
+inference sidecar are **planned, not operational**. Live trading is disabled.
+
+[Audit](docs/four-system/AUDIT.md) · [Exact implementation plan](docs/four-system/FILE_BY_FILE_PLAN.md) · [Acceptance gates](docs/four-system/ACCEPTANCE.md)
+
+![Planned four-system architecture; dashed connections are not implemented.](assets/four-system-architecture.svg)
+
+The TradingAgents diagram below maps every component in the supplied reference
+to its actual pinned source. Its native backtester scores historical decisions;
+it is not a filled-order portfolio simulator. Historical data guards cannot
+remove future knowledge already present in model weights.
+
+<details>
+<summary>TradingAgents native architecture and source map</summary>
+
+![Source-verified TradingAgents architecture.](assets/tradingagents-architecture.svg)
+
+[Component source map](docs/four-system/DIAGRAM_SOURCE_MAP.md) · [Native baseline](docs/four-system/BASELINE.md)
+
+</details>
 
 ## Workspace
 

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.17.4 — macOS installation and four-runtime audit
+
+- Select native PyPI CPU/MPS wheels on Apple Silicon instead of the Linux/Windows CPU index; reject unsupported native Intel/Rosetta installs without downgrading or changing models.
+- Add Mac launchers and Apple Silicon / Intel app CI coverage; preserve existing reasoning/orchestrated profiles during installation.
+- Add the pinned TradingAgents source audit, exact additive integration plan, native baseline workflow, architecture diagrams and repository artwork. Bridge, inference sidecar, native cross-runtime acceptance and live trading are not enabled.
+
 ## 0.17.3 — HTTP boundaries and dependency hardening
 
 - Reject untrusted Host headers, cross-site browser API requests, oversized/chunked request bodies and slow body uploads before routing.

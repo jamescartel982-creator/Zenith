@@ -39,6 +39,12 @@
       "normalization": "lf"
     },
     {
+      "path": ".github/workflows/macos.yml",
+      "size": 2422,
+      "sha256": "0a2cc46a314efd44a7cecaf366c5943112da820de6f1993516918bc7d95d2e49",
+      "normalization": "lf"
+    },
+    {
       "path": ".github/workflows/security.yml",
       "size": 1463,
       "sha256": "f5b3a727e98a3a7e8c50808a584f821daaa1800fb3ffaf0a0b8a604df439d8f9",
@@ -87,6 +93,12 @@
       "normalization": "lf"
     },
     {
+      "path": "Install Zenith.command",
+      "size": 187,
+      "sha256": "7dcb189ed4961b4eff2c47b3d3a9bea36ad701804ddae505467e722d3f59bb61",
+      "normalization": "lf"
+    },
+    {
       "path": "LICENSE",
       "size": 11357,
       "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
@@ -108,6 +120,12 @@
       "path": "Start Zenith.cmd",
       "size": 471,
       "sha256": "7e92e89955fcba401f826c441ee90b6acbfdc55f82501fdf854e7841c4618417",
+      "normalization": "lf"
+    },
+    {
+      "path": "Start Zenith.command",
+      "size": 176,
+      "sha256": "c746068a8fa67d75ba90090643d5bc0b77b7d60a43a5fbc663f3f25a50b13c9d",
       "normalization": "lf"
     },
     {
@@ -1599,6 +1617,12 @@
       "normalization": "lf"
     },
     {
+      "path": "docs/macos.md",
+      "size": 2890,
+      "sha256": "24c40c981a2dd4f61c403ee5577a9d9a547f754692a509a85c5107fab70066cd",
+      "normalization": "lf"
+    },
+    {
       "path": "docs/memory.md",
       "size": 3330,
       "sha256": "b05b81353b6f1280638811c11f1a6a6987b8674cb89e508ebcf466a1fd4c0ea9",
@@ -2988,6 +3012,12 @@
       "path": "tests/test_learning.py",
       "size": 4046,
       "sha256": "e7b1fbe7e86c1487e1d1370659e5c86e0e81ebbadd4947d11c7704f0685b1188",
+      "normalization": "lf"
+    },
+    {
+      "path": "tests/test_macos_install.py",
+      "size": 4624,
+      "sha256": "19f194610adf4252bd95a242f126e136dc14cac7424599423bae6b004f4a4afb",
       "normalization": "lf"
     },
     {

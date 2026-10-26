@@ -1,0 +1,63 @@
+name: macOS installation
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  macos:
+    name: Mac install (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-15, macos-15-intel]
+    env:
+      ZENITH_HOME: ${{ github.workspace }}/.zenith-mac-profile
+      ZENITH_DEVICE: cpu
+      HF_HUB_DISABLE_XET: '1'
+      TOKENIZERS_PARALLELISM: 'false'
+      OMP_NUM_THREADS: '2'
+      ZENITH_CPU_THREADS: '2'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: Zenith workspace
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Native Apple Silicon install
+        if: matrix.os == 'macos-15'
+        working-directory: Zenith workspace
+        run: bash install.sh --mode local
+      - name: Explicit external backend on Intel (no supported secure Torch wheel)
+        if: matrix.os == 'macos-15-intel'
+        working-directory: Zenith workspace
+        run: bash install.sh --mode localserver
+      - name: App, source and environment regression checks
+        working-directory: Zenith workspace
+        run: |
+          .venv/bin/python -m pip install 'httpx>=0.27,<1'
+          .venv/bin/python -m pip check
+          .venv/bin/python -m unittest discover -s tests -v
+          .venv/bin/python -m scripts.smoke_platform
+          .venv/bin/python -m scripts.smoke_server
+          .venv/bin/python -I -m scripts.smoke_installed
+          .venv/bin/python -I -m agent verify --source . --json
+          source ./activate.sh
+          python -c 'import sys; assert sys.prefix != sys.base_prefix'
+          deactivate
+          bash './Start Zenith.command' --help
+      - name: Real original-checkpoint inference and isolated adapter activation/rollback
+        if: matrix.os == 'macos-15'
+        working-directory: Zenith workspace
+        run: |
+          bash run.sh models download
+          bash run.sh doctor --inference
+          .venv/bin/python -I -m scripts.check_research_checkpoint --bundle research_checkpoints/recovery-v1
+          .venv/bin/python -I -m scripts.smoke_candidate_activation --bundle research_checkpoints/recovery-v1
+          .venv/bin/python -I -m scripts.smoke_orchestration --bundle research_checkpoints/recovery-v1
+          .venv/bin/python -I -m scripts.smoke_reasoning

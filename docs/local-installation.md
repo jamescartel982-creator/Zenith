@@ -1,5 +1,8 @@
 # Install, run, and upgrade Zenith locally
 
+MacBook users: see [macOS installation](macos.md) for Apple Silicon native setup,
+Finder launchers and the explicit Intel external-backend limitation.
+
 The primary installation flow is Git clone, `install.py --mode local`, and
 terminal chat through the platform launcher. The installer creates and selects
 its private `.venv` automatically.
