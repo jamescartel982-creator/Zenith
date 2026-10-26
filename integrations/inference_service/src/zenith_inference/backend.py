@@ -39,8 +39,8 @@ class NativeBackend:
         self.model_executor = None
 
     def initialize_worker(self):
-        # Configure one persistent model thread once. Reconfiguring OpenMP on
-        # changing caller/stream threads can stall CPU generation on Windows.
+        # Keep model/OpenMP configuration on one persistent owned thread.
+        # Caller and streaming threads must not reconfigure it per request.
         if self.model.device.type == 'cpu':
             import torch
             torch.set_num_threads(self.record['cpu_threads'])

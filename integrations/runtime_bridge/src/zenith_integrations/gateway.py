@@ -8,7 +8,7 @@ import anyio
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
-from agent.http_security import RequestSecurityMiddleware
+from .shared.http_boundary import PrivateAPIBoundary
 from .shared.contracts import JobRequest, GrantRequest
 from .shared.identity import ZenithIdentity
 from .shared.ledger import Conflict, Ledger
@@ -39,17 +39,8 @@ def create_app(config, identity=None, router=None, ledger=None):
                     await asyncio.gather(*list(workers.values()), return_exceptions=True)
 
     app = FastAPI(title='Zenith integration bridge', lifespan=lifespan, docs_url=None, redoc_url=None, openapi_url=None)
-    app.add_middleware(RequestSecurityMiddleware, allowed_hosts=('127.0.0.1','localhost','::1'))
+    app.add_middleware(PrivateAPIBoundary)
     app.state.ledger, app.state.router = ledger, router
-
-    @app.middleware('http')
-    async def boundary(request, call_next):
-        if request.headers.get('origin') or request.headers.get('sec-fetch-site') == 'cross-site':
-            return JSONResponse({'detail':'Browser-origin bridge requests are disabled'},status_code=403)
-        response = await call_next(request)
-        response.headers['Cache-Control'] = 'no-store'
-        response.headers['X-Content-Type-Options'] = 'nosniff'
-        return response
 
     @app.exception_handler(RequestValidationError)
     async def validation(request, exc):

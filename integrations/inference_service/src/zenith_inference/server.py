@@ -12,7 +12,7 @@ from fastapi import Depends, FastAPI, HTTPException, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse, StreamingResponse
 
-from agent.http_security import RequestSecurityMiddleware
+from zenith_integrations.shared.http_boundary import PrivateAPIBoundary
 from .chat_contract import ChatRequest
 from .limits import Cancellation, ContextExceeded, InferenceCancelled
 from .tool_calls import InvalidModelOutput, parse_output
@@ -124,18 +124,9 @@ def create_app(backend, auth, allowed_hosts=('127.0.0.1', 'localhost', '::1')):
                 with anyio.CancelScope(shield=True):
                     await anyio.to_thread.run_sync(close)
     app = FastAPI(title='Zenith inference', lifespan=lifespan, docs_url=None, redoc_url=None, openapi_url=None)
-    app.add_middleware(RequestSecurityMiddleware, allowed_hosts=tuple(allowed_hosts))
+    app.add_middleware(PrivateAPIBoundary, allowed_hosts=tuple(allowed_hosts))
     gate = asyncio.Lock()
     app.state.backend, app.state.gate = backend, gate
-
-    @app.middleware('http')
-    async def boundaries(request, call_next):
-        if request.headers.get('origin') or request.headers.get('sec-fetch-site') == 'cross-site':
-            return JSONResponse({'error': {'message': 'Browser-origin access is disabled'}}, status_code=403)
-        response = await call_next(request)
-        response.headers['Cache-Control'] = 'no-store'
-        response.headers['X-Content-Type-Options'] = 'nosniff'
-        return response
 
     @app.exception_handler(RequestValidationError)
     async def validation(request, exc):
@@ -207,13 +198,22 @@ def create_app(backend, auth, allowed_hosts=('127.0.0.1', 'localhost', '::1')):
                     await run.close()
             return OwnedStreamingResponse(stream(), run=run, media_type='text/event-stream',
                                           headers={'X-Request-ID': run.id, 'X-Accel-Buffering': 'no'})
+        async def disconnected():
+            while True:
+                message = await request.receive()
+                if message['type'] == 'http.disconnect':
+                    return
+        disconnect = asyncio.create_task(disconnected())
         try:
             while not run.future.done():
-                if await request.is_disconnected():
+                completed, _ = await asyncio.wait((run.future, disconnect), timeout=0.05,
+                                                  return_when=asyncio.FIRST_COMPLETED)
+                if disconnect in completed or run.cancel.cancelled():
                     run.cancel.event.set()
-                if run.cancel.cancelled():
-                    run.cancel.event.set()
-                await asyncio.sleep(0.01)
+                if disconnect.done() and not run.future.done():
+                    # Do not spin on a completed disconnect task while the
+                    # cooperative model worker drains its current token.
+                    await asyncio.wait((run.future,), timeout=0.05)
             message, finish, usage = run.result()
             return JSONResponse({'id': run.id, 'object': 'chat.completion', 'created': run.created, 'model': 'zenith',
                 'choices': [{'index': 0, 'message': message, 'finish_reason': finish}], 'usage': usage},
@@ -221,5 +221,8 @@ def create_app(backend, auth, allowed_hosts=('127.0.0.1', 'localhost', '::1')):
         except Exception as exc:
             return failure(exc, run.id)
         finally:
+            disconnect.cancel()
+            with suppress(asyncio.CancelledError):
+                await disconnect
             await run.close()
     return app

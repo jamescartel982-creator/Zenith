@@ -2662,8 +2662,8 @@
     },
     {
       "path": "integrations/inference_service/src/zenith_inference/backend.py",
-      "size": 8169,
-      "sha256": "660baeebeed0774c3835a8b7e59877a7036575701f970b39c1b95fdfcaa6a869",
+      "size": 8163,
+      "sha256": "8b6c3ea8c6cb6661dabd337a49a905193597cf41e743ecbe6c85dda191197353",
       "normalization": "lf"
     },
     {
@@ -2692,8 +2692,8 @@
     },
     {
       "path": "integrations/inference_service/src/zenith_inference/server.py",
-      "size": 10497,
-      "sha256": "cf0e61b44750abf0f1ff82a4def05629f80b373ce250fc747a27006cfda41fdb",
+      "size": 10746,
+      "sha256": "9be60ee76a486dc4aa36033390a47c454c18cbabeb1c5df12addae67c05517e4",
       "normalization": "lf"
     },
     {
@@ -2764,8 +2764,8 @@
     },
     {
       "path": "integrations/runtime_bridge/src/zenith_integrations/gateway.py",
-      "size": 8929,
-      "sha256": "d15f4c921a88655a60dd445844b34881fc2bf1dcf0e3ceb7294aa248aa823fd1",
+      "size": 8406,
+      "sha256": "533c9ffcf52980d1e305b6c16b48f98079c9b3c258f053a298e6725ee9ac31b0",
       "normalization": "lf"
     },
     {
@@ -2784,6 +2784,12 @@
       "path": "integrations/runtime_bridge/src/zenith_integrations/shared/contracts.py",
       "size": 1647,
       "sha256": "3071b7102df0458a079c0a19946d3475963960187642e86c7c09a942f061eaad",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/runtime_bridge/src/zenith_integrations/shared/http_boundary.py",
+      "size": 1399,
+      "sha256": "b85c884bded4d7500251d03fe5d61e92c448ddbabd644d4308706ac00a5db9b3",
       "normalization": "lf"
     },
     {
