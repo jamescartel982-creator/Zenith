@@ -1504,8 +1504,8 @@
     },
     {
       "path": "docs/four-system/AUDIT.md",
-      "size": 14232,
-      "sha256": "159432fdd3cb3d1e944cc62db4c736e35731597a8c946f134d8a7fe59a79049f",
+      "size": 14941,
+      "sha256": "fe49488406b421b2426eddb616428fb8f32e51d3373e797653bf8b9bfda9ce5b",
       "normalization": "lf"
     },
     {
@@ -1603,6 +1603,78 @@
       "size": 55262,
       "sha256": "d6e13a1a7007d04f5d6759d997e3c1abff65b692778941c66e999baf53dfd3f2",
       "normalization": "raw"
+    },
+    {
+      "path": "docs/four-system/prior-runtime-audit/01_SOURCE_AUDIT_AND_PINS.md",
+      "size": 5341,
+      "sha256": "c14dd2875618e845163afd60c63395fd689da66a79a73c88334fb52e309800de",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/prior-runtime-audit/02_HERMES_PUBLIC_INTERFACES_AND_DIAGRAM.md",
+      "size": 14689,
+      "sha256": "f0bca725ca6ab8835b8e896854f75d297ea076db447cfeef1a4d7a0b380da22e",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/prior-runtime-audit/03_OPENCLAW_PUBLIC_INTERFACES_AND_DIAGRAM.md",
+      "size": 24917,
+      "sha256": "a9f781550b1e229f06a9c0b9921b7017765c305a46dab5d14259dde460097fa7",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/prior-runtime-audit/04_FEATURE_INVENTORY_AND_MATRIX.md",
+      "size": 13096,
+      "sha256": "73e4020b479f3b412162cf2c4064b0b2dc195ffcf50415ea01a1d57c3a3b8682",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/prior-runtime-audit/05_DEPENDENCY_AND_LICENSE_COMPATIBILITY.md",
+      "size": 3505,
+      "sha256": "55464dfd04c0289929e3b3a5dbed190f9845f079279091d7673573c6ce434380",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/prior-runtime-audit/06_ADDITIVE_ARCHITECTURE_SPECIFICATION.md",
+      "size": 9990,
+      "sha256": "e36bf8aa2e7cfb3abd29f654a8ed13c994d009dc49a116904c8c80d1fcf741c4",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/prior-runtime-audit/08_SECURITY_THREAT_MODEL.md",
+      "size": 5406,
+      "sha256": "fdd5ce0f880a14a93a289b24a714165ea5c31ccd1b47c8ed6510c5ba74585cdd",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/prior-runtime-audit/09_ROLLBACK_AND_PRESERVATION.md",
+      "size": 2621,
+      "sha256": "c7e923ea7aa7cde3b2dd9404a421a1feb4d9e06be83e83422c89a55dbc21e120",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/prior-runtime-audit/12_24_7_OPERATIONS_PLAN.md",
+      "size": 3474,
+      "sha256": "214e636561265e11f455a7f3842b36f1ef7884329535927115915a333da94312",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/prior-runtime-audit/13_INCOMPATIBILITIES_AND_APPROVAL_DECISIONS.md",
+      "size": 3667,
+      "sha256": "b31ef3c126f5a0986c01d6d0351d7ffe5b9effae265cb1abf2643d812a7e29c0",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/prior-runtime-audit/14_ALL_DIAGRAM_COMPONENTS_AND_CONNECTIONS.md",
+      "size": 5119,
+      "sha256": "c624355d123c0ace17b06e2a46a7064e596bb64190b87a74b9fa61223aa7f65d",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/prior-runtime-audit/FEATURE_PARITY_REGRESSION_MATRIX.csv",
+      "size": 5642033,
+      "sha256": "e6ed77f60c2503379505ce0196e8a61d0f4e93ee206f47707bfac7e88b649d6e",
+      "normalization": "lf"
     },
     {
       "path": "docs/integrity.md",
@@ -1912,8 +1984,8 @@
     },
     {
       "path": "docs/repository-presentation.md",
-      "size": 1001,
-      "sha256": "f4be3510b65b22eebea82971cbbbdbb2be3cc052837d3864788e05dc8132fd47",
+      "size": 1670,
+      "sha256": "cfa826f90aa8ccc7e9b243925685f9430d00a2a65caadc157d8c872c3e974a8b",
       "normalization": "lf"
     },
     {
@@ -3016,8 +3088,8 @@
     },
     {
       "path": "tests/test_macos_install.py",
-      "size": 4624,
-      "sha256": "19f194610adf4252bd95a242f126e136dc14cac7424599423bae6b004f4a4afb",
+      "size": 5709,
+      "sha256": "b5da5b976c5675dcd123357f8fd9acf79fdb2410ecf807a6b10c9727ddca2d90",
       "normalization": "lf"
     },
     {

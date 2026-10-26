@@ -15,3 +15,14 @@ GitHub controls search indexing, Explore placement, stars and trending status;
 artwork and metadata cannot guarantee the Oppia screenshot's placement or counts.
 
 Reference: <https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/customizing-your-repositorys-social-media-preview>.
+
+The current GitHub integration returned **HTTP 403: Resource not accessible by
+integration** for both supported repository-description and topics updates.
+Those settings were not changed. A repository administrator can use the About
+gear on the repository home page to set this proposed description:
+
+> Local AI workspace with private memory, secure agent tools and reviewed learning. Windows, Linux and macOS installation.
+
+Suggested topics: `artificial-intelligence`, `local-ai`, `ai-assistant`, `python`,
+`llm`, `privacy`, `agent-framework`, `windows`, `linux`, `macos`, `machine-learning`.
+The README banner is delivered through the normal reviewed source change.

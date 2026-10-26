@@ -53,8 +53,25 @@ class MacInstallTests(unittest.TestCase):
 
     @unittest.skipIf(os.name == 'nt', 'POSIX .command launchers')
     def test_mac_launchers_support_help_from_another_directory(self):
+        import json
+        import shlex
         import subprocess
-        for name in ['Install Zenith.command', 'Start Zenith.command']:
-            result = subprocess.run(['bash', str(Path(__file__).resolve().parents[1] / name), '--help'], cwd=tempfile.gettempdir(), capture_output=True, text=True)
+        import sys
+        root = Path(__file__).resolve().parents[1]
+        result = subprocess.run(['bash', str(root / 'Install Zenith.command'), '--help'], cwd=tempfile.gettempdir(), capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn('usage:', result.stdout.lower())
+        # Core-only test environments need not have a checkout .venv. Exercise
+        # path/argument forwarding in a disposable environment with spaces.
+        with tempfile.TemporaryDirectory(prefix='Zenith Mac spaces ') as folder:
+            checkout = Path(folder)
+            for name in ['Start Zenith.command', 'start.sh', 'run.sh']:
+                (checkout / name).write_bytes((root / name).read_bytes())
+            python = checkout / '.venv/bin/python'
+            python.parent.mkdir(parents=True)
+            code = 'import json,sys; print(json.dumps(sys.argv[1:]))'
+            python.write_text('#!/bin/sh\nexec ' + shlex.quote(sys.executable) + ' -c ' + shlex.quote(code) + ' "$@"\n')
+            python.chmod(0o755)
+            result = subprocess.run(['bash', str(checkout / 'Start Zenith.command'), '--help'], cwd=tempfile.gettempdir(), capture_output=True, text=True)
             self.assertEqual(result.returncode, 0, result.stderr)
-            self.assertIn('usage:', result.stdout.lower())
+            self.assertEqual(json.loads(result.stdout), ['-m', 'agent', 'serve', '--open-browser', '--help'])

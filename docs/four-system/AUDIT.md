@@ -68,3 +68,14 @@ The earlier user Phase 4 instruction requires proposing a missing compatible inf
 A concrete installer bug is verified: the current CPU path sends macOS to the Linux/Windows PyTorch CPU wheel index. Apple Silicon must use the standard PyPI macOS wheel. Current PyTorch 2.14.1 publishes `macosx_14_0_arm64` wheels and no Intel macOS wheel. Keep the secure Torch floor; do not downgrade Intel users to unmaintained 2.2.2 or silently change their model. Native Apple Silicon installation and original-checkpoint inference need macOS CI; Intel supports the core app with an explicitly chosen external backend, not native HF inference. MPS is optional and physical-GPU validation remains separate.
 
 A new Zenith banner and source-derived native/proposed diagrams may be added without deleting the original logo. GitHub social previews are uploaded under repository Settings, and search/Explore placement is controlled by GitHub. No fake stars, ranking or connected-runtime claims will be added.
+
+## Reused Hermes/OpenClaw audit deliverables
+
+The [prior pinned runtime audit](prior-runtime-audit/01_SOURCE_AUDIT_AND_PINS.md),
+[public OpenClaw interfaces](prior-runtime-audit/03_OPENCLAW_PUBLIC_INTERFACES_AND_DIAGRAM.md),
+[dependency/license analysis](prior-runtime-audit/05_DEPENDENCY_AND_LICENSE_COMPATIBILITY.md)
+and [feature matrix](prior-runtime-audit/FEATURE_PARITY_REGRESSION_MATRIX.csv)
+are included for review. They describe their earlier Zenith baseline; this
+four-system audit supplies the current Zenith commit above and supersedes the
+older bridge destinations with the namespaced 87-file plan. Historical status
+and approval decisions are retained rather than rewritten as implemented work.
