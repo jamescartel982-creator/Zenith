@@ -1,5 +1,6 @@
 """Actual inference over the preserved checkpoint; no tool execution or training."""
 from dataclasses import dataclass
+from concurrent.futures import ThreadPoolExecutor
 import queue
 import threading
 
@@ -35,6 +36,18 @@ class NativeBackend:
         self.identity_hash = None
         self.load_lock = threading.Lock()
         self.generation_lock = threading.Lock()
+        self.model_executor = None
+
+    def initialize_worker(self):
+        # Configure one persistent model thread once. Reconfiguring OpenMP on
+        # changing caller/stream threads can stall CPU generation on Windows.
+        if self.model.device.type == 'cpu':
+            import torch
+            torch.set_num_threads(self.record['cpu_threads'])
+
+    def close(self):
+        if self.model_executor is not None:
+            self.model_executor.shutdown(wait=True, cancel_futures=True)
 
     def load(self):
         with self.load_lock:
@@ -71,6 +84,8 @@ class NativeBackend:
             model.requires_grad_(False)
             model.eval()
             self.record, self.model, self.tokenizer, self.identity_hash = record, model, tokenizer, signature
+            self.model_executor = ThreadPoolExecutor(max_workers=1, thread_name_prefix='zenith-model',
+                                                     initializer=self.initialize_worker)
 
     def complete(self, request, cancellation, emit=None):
         cancellation.check()
@@ -108,8 +123,6 @@ class NativeBackend:
             outputs, errors = [], []
             def generate():
                 try:
-                    if self.model.device.type == 'cpu':
-                        torch.set_num_threads(self.record['cpu_threads'])
                     with torch.inference_mode():
                         outputs.append(self.model.generate(input_ids=ids, attention_mask=torch.ones_like(ids),
                             max_new_tokens=maximum, use_cache=True, pad_token_id=self.tokenizer.pad_token_id or self.tokenizer.eos_token_id,
@@ -118,12 +131,11 @@ class NativeBackend:
                     errors.append(exc)
                     if streamer:
                         streamer.end()
+            worker = self.model_executor.submit(generate)
             if streamer:
-                worker = threading.Thread(target=generate, name='zenith-inference-generation', daemon=False)
-                worker.start()
                 completed = False
                 try:
-                    while worker.is_alive() or not streamer.text_queue.empty():
+                    while not worker.done() or not streamer.text_queue.empty():
                         cancellation.check()
                         try:
                             chunk = next(streamer)
@@ -137,9 +149,9 @@ class NativeBackend:
                 finally:
                     if not completed:
                         cancellation.event.set()
-                    worker.join()
+                    worker.result()
             else:
-                generate()
+                worker.result()
             cancellation.check()
             if errors:
                 raise RuntimeError('Verified model inference failed') from errors[0]

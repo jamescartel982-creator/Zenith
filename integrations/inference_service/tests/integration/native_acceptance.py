@@ -1,5 +1,6 @@
 """Real TCP/OpenAI SDK/account/job acceptance; never uses a scripted model."""
 import argparse
+import faulthandler
 from contextlib import contextmanager
 from dataclasses import replace
 import json
@@ -43,6 +44,9 @@ def serve(app):
 
 
 def run(output):
+    # Test-only stacks contain no request payloads or secret values. Capture a
+    # genuine platform stall instead of silently increasing timeouts or skipping.
+    faulthandler.dump_traceback_later(45, repeat=True)
     import httpx
     import openai
     from openai import OpenAI
@@ -59,6 +63,7 @@ def run(output):
     from zenith_integrations.shared.authorization import ServiceAuth
     from zenith_integrations.shared.secrets import write_private_new
     settings=Settings()
+    print('Native acceptance: loading the verified trained checkpoint', flush=True)
     profile=config_file()
     prior_profile=sha256(profile) if profile.is_file() else None
     report={'openai_sdk':openai.__version__,'scripted_model':False,'live_execution':False}
@@ -79,10 +84,12 @@ def run(output):
             check([m.id for m in client.models.list().data]==['zenith'],'Model discovery failed')
             prompt=[{'role':'user','content':'What is 2 plus 2? Answer with the number only.'}]
             started=time.perf_counter()
+            print('Native acceptance: synchronous SDK chat', flush=True)
             completion=client.chat.completions.create(model='zenith',messages=prompt,max_tokens=16,temperature=0)
             elapsed=time.perf_counter()-started
             check(completion.choices[0].message.content.strip()=='4','Real checkpoint arithmetic regression')
             report['chat']={'answer':completion.choices[0].message.content,'usage':completion.usage.model_dump(),'seconds':elapsed}
+            print('Native acceptance: streamed SDK chat', flush=True)
             chunks=list(client.chat.completions.create(model='zenith',messages=prompt,max_tokens=16,
                         stream=True,stream_options={'include_usage':True},temperature=0))
             streamed=''.join(c.choices[0].delta.content or '' for c in chunks if c.choices)
@@ -93,6 +100,7 @@ def run(output):
                 'parameters':{'type':'object','properties':{'a':{'type':'integer'},'b':{'type':'integer'}},
                               'required':['a','b'],'additionalProperties':False}}}
             question={'role':'user','content':'Use the add tool to add 2 and 2. You must call add, do not calculate directly.'}
+            print('Native acceptance: generated tool call after streaming', flush=True)
             call_response=client.chat.completions.create(model='zenith',messages=[question],tools=[tool],
                         tool_choice='required',max_tokens=128,temperature=0)
             message=call_response.choices[0].message
@@ -101,12 +109,14 @@ def run(output):
             call=message.tool_calls[0]
             check(call.function.name=='add' and json.loads(call.function.arguments)=={'a':2,'b':2},'Real tool call was incorrect')
             # The allowlisted test executor supplies the result; inference runs no tools.
+            print('Native acceptance: native tool-result conversation', flush=True)
             result=client.chat.completions.create(model='zenith',messages=[question,message.model_dump(exclude_none=True),
                 {'role':'tool','tool_call_id':call.id,'content':'4'}],tools=[tool],max_tokens=64,temperature=0)
             check('4' in (result.choices[0].message.content or ''),'Native tool-result history failed')
             report['tool_round_trip']={'name':'add','arguments':{'a':2,'b':2},'answer':result.choices[0].message.content,
                                       'executor':'explicit allowlisted test fixture; inference executed no tool'}
             # Disconnect a real streaming TCP client, then verify model admission recovers.
+            print('Native acceptance: TCP disconnect and recovery', flush=True)
             stream=client.chat.completions.create(model='zenith',messages=[{'role':'user','content':'Count from 1 to 100, one number per line.'}],
                                                  stream=True,max_tokens=256,temperature=0)
             for chunk in stream:
@@ -123,6 +133,7 @@ def run(output):
                     check(time.monotonic()<deadline,'Model worker did not recover after client disconnect')
                     time.sleep(0.05)
             report['disconnect_recovery']=True
+            print('Native acceptance: real accounts and durable jobs', flush=True)
             # Reuse original native account/session APIs in a new, isolated test profile.
             account_settings=replace(settings,data_dir=str(root/'native-account-data'),api_token='')
             native_agent=Agent(account_settings)
@@ -171,4 +182,7 @@ def run(output):
 if __name__ == '__main__':
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output',type=Path,required=True)
-    run(parser.parse_args().output)
+    try:
+        run(parser.parse_args().output)
+    finally:
+        faulthandler.cancel_dump_traceback_later()

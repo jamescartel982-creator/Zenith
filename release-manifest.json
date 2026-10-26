@@ -2662,8 +2662,8 @@
     },
     {
       "path": "integrations/inference_service/src/zenith_inference/backend.py",
-      "size": 7637,
-      "sha256": "3995d81e7795a7527bf1593be23f488ba2d07ffdc78ad50af3ba87d781ba4070",
+      "size": 8169,
+      "sha256": "660baeebeed0774c3835a8b7e59877a7036575701f970b39c1b95fdfcaa6a869",
       "normalization": "lf"
     },
     {
@@ -2692,8 +2692,8 @@
     },
     {
       "path": "integrations/inference_service/src/zenith_inference/server.py",
-      "size": 10170,
-      "sha256": "aa609d86b2b04e30ebd7d00820dfb165cc5a44cf0726371eeb485f1ab02ca751",
+      "size": 10497,
+      "sha256": "cf0e61b44750abf0f1ff82a4def05629f80b373ce250fc747a27006cfda41fdb",
       "normalization": "lf"
     },
     {
@@ -2704,8 +2704,8 @@
     },
     {
       "path": "integrations/inference_service/tests/integration/native_acceptance.py",
-      "size": 10734,
-      "sha256": "5130b1ee30087dfcba4f7fa1de57cfc1407d7a1cbeacf91474113717119776da",
+      "size": 11609,
+      "sha256": "9d6d8c9f8a9cddd5a49f5722589715eb6d21be43ca91b58d17472c51408516fa",
       "normalization": "lf"
     },
     {

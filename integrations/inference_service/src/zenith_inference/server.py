@@ -1,6 +1,6 @@
 """Private, authenticated OpenAI chat subset over Zenith's unchanged checkpoint."""
 import asyncio
-from contextlib import suppress
+from contextlib import asynccontextmanager, suppress
 import json
 import logging
 import queue
@@ -114,7 +114,16 @@ class OwnedStreamingResponse(StreamingResponse):
 
 
 def create_app(backend, auth, allowed_hosts=('127.0.0.1', 'localhost', '::1')):
-    app = FastAPI(title='Zenith inference', docs_url=None, redoc_url=None, openapi_url=None)
+    @asynccontextmanager
+    async def lifespan(app):
+        try:
+            yield
+        finally:
+            close = getattr(backend, 'close', None)
+            if close:
+                with anyio.CancelScope(shield=True):
+                    await anyio.to_thread.run_sync(close)
+    app = FastAPI(title='Zenith inference', lifespan=lifespan, docs_url=None, redoc_url=None, openapi_url=None)
     app.add_middleware(RequestSecurityMiddleware, allowed_hosts=tuple(allowed_hosts))
     gate = asyncio.Lock()
     app.state.backend, app.state.gate = backend, gate
