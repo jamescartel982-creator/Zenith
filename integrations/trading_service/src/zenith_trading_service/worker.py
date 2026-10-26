@@ -23,6 +23,7 @@ def run(config_path,request_path,output):
     if len(key)<32:
         raise ValueError('A dedicated Zenith inference credential is required')
     os.environ['OPENAI_COMPATIBLE_API_KEY']=key
+    os.environ['PYTHON_DOTENV_DISABLED']='1'
     os.environ['TRADINGAGENTS_RESULTS_DIR']=str(run_root/'reports')
     os.environ['TRADINGAGENTS_CACHE_DIR']=str(account_root/'cache')
     os.environ['TRADINGAGENTS_MEMORY_LOG_PATH']=str(account_root/'memory/trading_memory.md')
@@ -64,7 +65,10 @@ def main():
         return 0
     except Exception as exc:
         # Native exceptions may contain prompts, keys or raw vendor responses.
-        print(json.dumps({'event':'native_worker_failed','error_type':type(exc).__name__}),file=sys.stderr)
+        diagnostic={'event':'native_worker_failed','error_type':type(exc).__name__}
+        try:write_private_new(Path(args.output).parent/'worker-failure.json',json.dumps(diagnostic))
+        except (ValueError,OSError):pass
+        print(json.dumps(diagnostic),file=sys.stderr)
         return 1
 
 

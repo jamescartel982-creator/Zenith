@@ -13,7 +13,7 @@ from zenith_integrations.shared.identity import User
 from zenith_integrations.shared.ledger import Conflict
 from . import PIN
 from .contracts import ResearchRequest
-from .execution import scoped_account
+from .execution import scoped_account,NativeWorkerFailure
 
 
 def create_app(executor,auth,ledger):
@@ -53,6 +53,8 @@ def create_app(executor,auth,ledger):
         except asyncio.CancelledError:
             ledger.transition(identifier,{'queued','running','cancel_requested'},'cancelled',error='owned_worker_cancelled')
             raise
+        except NativeWorkerFailure as exc:
+            ledger.transition(identifier,{'queued','running','cancel_requested'},'failed',error='native_worker_'+exc.code)
         except Exception:
             ledger.transition(identifier,{'queued','running','cancel_requested'},'failed',error='native_research_failed')
         finally:

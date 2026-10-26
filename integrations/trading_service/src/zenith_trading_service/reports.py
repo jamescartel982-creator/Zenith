@@ -22,6 +22,7 @@ def analysis_report(state,signal,ticker,as_of,secret=''):
     return redact({'native_source_pin':PIN,'ticker':ticker,'as_of':as_of,'operation':'research',
         'model':'zenith','provider':'openai_compatible','all_native_roles_completed':not missing,
         'workflow_status':'completed' if complete else 'requires_review',
+        'financial_quality_verified':False,
         'rating':signal if complete else 'REVIEW','native_rating':signal,
         'missing_evidence':missing,'confidence':None,'confidence_note':'No calibrated probability supplied by the native graph',
         'analysts':{key:state.get(key) for key in REPORTS},

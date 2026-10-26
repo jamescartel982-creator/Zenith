@@ -7,6 +7,7 @@ import json
 import logging
 import os
 from pathlib import Path
+import re
 import signal
 import sys
 import time
@@ -15,6 +16,12 @@ from zenith_integrations.shared.secrets import read_json,write_private_new
 from zenith_integrations.shared.native_http import NativeRefused
 
 logger=logging.getLogger('zenith.trading')
+
+
+class NativeWorkerFailure(RuntimeError):
+    def __init__(self,error_type='native_research_failed'):
+        self.code=error_type if re.fullmatch(r'[a-zA-Z0-9_]{1,80}',error_type) else 'native_research_failed'
+        super().__init__(self.code)
 
 
 def scoped_account(service,account):
@@ -97,7 +104,11 @@ class NativeExecutor:
                 async with asyncio.timeout(self.config.deadline_seconds):
                     code=await process.wait()
                 if code or not output.is_file() or output.stat().st_size>1024*1024:
-                    raise NativeRefused('native_research_failed_or_exceeded_result_budget')
+                    diagnostic=root/'worker-failure.json'
+                    if diagnostic.is_file():
+                        value=read_json(diagnostic)
+                        raise NativeWorkerFailure(value.get('error_type','native_research_failed'))
+                    raise NativeWorkerFailure('native_research_failed_or_exceeded_result_budget')
                 result=read_json(output)
                 if result.get('live_orders_enabled') is not False or result.get('model')!='zenith':
                     raise NativeRefused('invalid_native_report')

@@ -16,6 +16,7 @@ def provider_probe(root,origin,key_file):
     sys.dont_write_bytecode=True
     sys.path.insert(0,str(root))
     os.environ['OPENAI_COMPATIBLE_API_KEY']=Path(key_file).read_text().strip()
+    os.environ['PYTHON_DOTENV_DISABLED']='1'
     from tradingagents.llm_clients import create_tier_client
     cfg={'llm_provider':'openai_compatible','quick_think_llm':'zenith','deep_think_llm':'zenith',
          'backend_url':origin+'/v1','temperature':0,'max_tokens':16,'llm_max_retries':0}
@@ -39,7 +40,7 @@ def run(args):
     spec=importlib.util.spec_from_file_location('service_test_helper',helper);module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
     settings=Settings();profile=config_file();profile_before=sha256(profile) if profile.is_file() else None
     import secrets
-    report={'scripted_model':False,'live_orders_enabled':False,'full_native_graph_verified':False}
+    report={'scripted_model':False,'live_orders_enabled':False,'full_native_graph_verified':False,'financial_quality_verified':False}
     with tempfile.TemporaryDirectory(prefix='Zenith native financial probe ') as folder:
         private=Path(folder);key=secrets.token_urlsafe(48);write_private_new(private/'inference.key',key)
         manifest=private/'identity.json';capture(settings,manifest)
