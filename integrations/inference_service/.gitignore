@@ -1,0 +1,6 @@
+# Generated operator configuration belongs outside the checkout.
+identity.json
+services.json
+config.json
+.runtime/
+.state/

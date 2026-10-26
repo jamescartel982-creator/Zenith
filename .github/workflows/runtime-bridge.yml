@@ -1,0 +1,58 @@
+name: Isolated inference and bridge
+on:
+  pull_request:
+    paths: ['integrations/runtime_bridge/**', 'integrations/inference_service/**', '.github/workflows/runtime-bridge.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  services:
+    name: Service contracts and real model (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-15]
+    env:
+      ZENITH_HOME: ${{ github.workspace }}/.zenith-service-tests
+      AI_PROVIDER: huggingface
+      HF_MODEL: Qwen/Qwen2.5-0.5B-Instruct
+      HF_REVISION: 7ae557604adf67be50417f59c2c2f167def9a775
+      ZENITH_DEVICE: cpu
+      ZENITH_CPU_THREADS: '2'
+      OMP_NUM_THREADS: '2'
+      CONTEXT_TOKENS: '2048'
+      MAX_NEW_TOKENS: '256'
+      HF_HUB_DISABLE_XET: '1'
+      TOKENIZERS_PARALLELISM: 'false'
+      ZENITH_CHECKPOINT_RECEIPT: ''
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: '0.12.23'
+      - name: Independent frozen inference/bridge environment
+        run: uv sync --project integrations/inference_service --frozen --extra local --extra test
+      - name: Protocol, permissions and native account regressions
+        run: |
+          uv run --project integrations/inference_service --frozen --extra local --extra test python -m unittest discover -s integrations/inference_service/tests -v
+          uv run --project integrations/inference_service --frozen --extra local --extra test python -m unittest discover -s integrations/runtime_bridge/tests -v
+      - name: Cache original base and reconstruct the exact inactive trained artifact
+        run: |
+          uv run --project integrations/inference_service --frozen --extra local --extra test python -m agent models download
+          uv run --project integrations/inference_service --frozen --extra local --extra test python -m scripts.materialize_research_checkpoint --bundle research_checkpoints/recovery-v1 --output .service-test-checkpoint
+      - name: Actual checkpoint, SDK, streaming, tools, account and job acceptance
+        env:
+          ZENITH_ADAPTER: ${{ github.workspace }}/.service-test-checkpoint
+        run: uv run --project integrations/inference_service --frozen --extra local --extra test python integrations/inference_service/tests/integration/native_acceptance.py --output native-service-acceptance.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: real-service-acceptance-${{ matrix.os }}
+          path: native-service-acceptance.json
