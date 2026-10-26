@@ -37,6 +37,23 @@ external provider:
 bash install.sh --mode localserver
 ```
 
+On Intel, the security dependencies currently build from source when a compatible
+wheel is unavailable. Install Apple's command-line tools (if absent) and the
+build prerequisites first; this does not change Zenith's model or dependency
+security floors:
+
+```bash
+xcode-select --install
+brew install rust openssl@3 pkg-config libffi
+bash install.sh --mode localserver
+```
+
+Wait for the Xcode installer to finish before running the following commands.
+If the tools are already installed, skip `xcode-select --install`. Building
+cryptography can take several minutes. These are separate host prerequisites;
+Zenith does not install them globally on your behalf. See the
+[official cryptography macOS build requirements](https://cryptography.io/en/latest/installation/#building-cryptography-on-macos).
+
 Configure and run a compatible inference backend separately. This is not a claim
 that the preserved Hugging Face model runs natively on Intel. Existing profiles
 are preserved; the effective saved backend determines required dependencies.

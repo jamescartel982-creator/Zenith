@@ -1492,14 +1492,14 @@
     },
     {
       "path": "docs/four-system/ACCEPTANCE.md",
-      "size": 3145,
-      "sha256": "addb45a658e4d26cea083490ff233e387e06acb48abf466279deee746a017a9f",
+      "size": 3203,
+      "sha256": "176eabfbcf0c4626bd7c63d26a1779500c1c6698c3674c416086da5345a421bf",
       "normalization": "lf"
     },
     {
       "path": "docs/four-system/ACCEPTANCE_MATRIX.csv",
-      "size": 2509,
-      "sha256": "f4180cf20c69fbf6de2d3509ef640e6ca7704a0bc497cb78e80b1009bcde3448",
+      "size": 2535,
+      "sha256": "582bd0f8afffb49e24d1b51131675f467bba563f984ed8ad23aaab45d59bd54b",
       "normalization": "lf"
     },
     {
@@ -1522,14 +1522,14 @@
     },
     {
       "path": "docs/four-system/FEATURE_MATRIX.csv",
-      "size": 8991,
-      "sha256": "c11ad136d9b1a32d57c0e1fd988820dafe6ed1cb4fce33d8ba7c2513260a29be",
+      "size": 11266,
+      "sha256": "cd5132b1408150b1509babf1d828f042c4778978439e83c71324cccc9380696a",
       "normalization": "lf"
     },
     {
       "path": "docs/four-system/FEATURE_MATRIX.json",
-      "size": 13034,
-      "sha256": "af7c1403fcb3689f35e2333446755091a4ea64a9fc7bddd2cf5a7fe2497568e7",
+      "size": 15259,
+      "sha256": "bb1dac0e2fe6e4e417f5ce0d553dc63013cd8ce88a1575c665651cc01ebb8b15",
       "normalization": "lf"
     },
     {
@@ -1756,8 +1756,8 @@
     },
     {
       "path": "docs/macos.md",
-      "size": 2890,
-      "sha256": "24c40c981a2dd4f61c403ee5577a9d9a547f754692a509a85c5107fab70066cd",
+      "size": 3686,
+      "sha256": "3ca4d0e21e8698ce474888fc6c2fdecdda9440ca434e6c3c59ea2fb8e6127f89",
       "normalization": "lf"
     },
     {
