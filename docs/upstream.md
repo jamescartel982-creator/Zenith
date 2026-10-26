@@ -4,7 +4,7 @@ Zenith uses maintained open-source libraries rather than copying unrelated repos
 
 | Component | Source | License / use |
 | --- | --- | --- |
-| Original Zenith starter | https://github.com/jamescartel982-creator/Zenith | Apache-2.0; original LICENSE and ZIP retained |
+| Original Zenith starter | https://github.com/n8storm/Zenith | Apache-2.0; original LICENSE and ZIP retained |
 | Qwen2.5 model family | https://github.com/QwenLM/Qwen2.5 | See each checkpoint's model card; listed defaults are Apache-2.0 |
 | Default chat weights | https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct | Apache-2.0; downloaded at runtime |
 | Coding model option | https://huggingface.co/Qwen/Qwen2.5-Coder-7B-Instruct | Apache-2.0; optional, not downloaded by default |

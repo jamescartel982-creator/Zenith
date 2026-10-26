@@ -24,7 +24,7 @@ winget install -e --id Python.Python.3.12
 Reopen PowerShell after installing Python, then run:
 
 ```powershell
-git clone https://github.com/jamescartel982-creator/Zenith.git
+git clone https://github.com/n8storm/Zenith.git
 cd Zenith
 py -3.12 install.py --mode local
 powershell -NoProfile -ExecutionPolicy Bypass -File .\run.ps1 chat
@@ -40,7 +40,7 @@ winget install -e --id Git.Git
 Linux:
 
 ```bash
-git clone https://github.com/jamescartel982-creator/Zenith.git
+git clone https://github.com/n8storm/Zenith.git
 cd Zenith
 python3 install.py --mode local
 bash run.sh chat
@@ -143,7 +143,7 @@ zenith doctor --inference
 
 `doctor --inference` tests a real response and may download the configured checkpoint. `verify` checks the installed wheel; `verify --source .` checks the source release inventory. Pip’s **“No broken requirements found” means its dependency check passed**. The installer presents that result as **“Dependencies verified. No package conflicts detected.”**
 
-To upgrade, stop Zenith, activate `.venv`, run `git pull --ff-only`, then `python -m pip install --upgrade ".[local]"`. Run `zenith setup --activate-candidate` to select the bundled experimental checkpoint. Existing configuration and conversations are preserved. Without Git, use the [source ZIP](https://github.com/jamescartel982-creator/Zenith/archive/refs/heads/main.zip) and preserve any legacy checkout `data/` directory. See [upgrade instructions](docs/local-installation.md).
+To upgrade, stop Zenith, activate `.venv`, run `git pull --ff-only`, then `python -m pip install --upgrade ".[local]"`. Run `zenith setup --activate-candidate` to select the bundled experimental checkpoint. Existing configuration and conversations are preserved. Without Git, use the [source ZIP](https://github.com/n8storm/Zenith/archive/refs/heads/main.zip) and preserve any legacy checkout `data/` directory. See [upgrade instructions](docs/local-installation.md).
 
 ## Privacy and administration
 

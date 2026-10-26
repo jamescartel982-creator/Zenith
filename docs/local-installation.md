@@ -13,7 +13,7 @@ winget install -e --id Python.Python.3.12
 Reopen PowerShell, then run:
 
 ```powershell
-git clone https://github.com/jamescartel982-creator/Zenith.git
+git clone https://github.com/n8storm/Zenith.git
 cd Zenith
 py -3.12 install.py --mode local
 powershell -NoProfile -ExecutionPolicy Bypass -File .\run.ps1 chat
@@ -49,7 +49,7 @@ The Windows and Linux installers share `install.py`, a standard-library bootstra
 
 ## Quick setup
 
-Windows users can download/extract the [source ZIP](https://github.com/jamescartel982-creator/Zenith/archive/refs/heads/main.zip), then double-click **Install Zenith.cmd**. Python 3.12 should already be installed with **Add Python to PATH** enabled. Setup installs the configured runtime, verifies dependencies and package files, downloads configured Hugging Face weights, and opens the local browser workspace. Run **Start Zenith.cmd** on later visits. Git and environment activation are optional for this flow; ZIP contents must be extracted and kept together.
+Windows users can download/extract the [source ZIP](https://github.com/n8storm/Zenith/archive/refs/heads/main.zip), then double-click **Install Zenith.cmd**. Python 3.12 should already be installed with **Add Python to PATH** enabled. Setup installs the configured runtime, verifies dependencies and package files, downloads configured Hugging Face weights, and opens the local browser workspace. Run **Start Zenith.cmd** on later visits. Git and environment activation are optional for this flow; ZIP contents must be extracted and kept together.
 
 Linux users run `bash install.sh --launch` from the extracted or cloned folder. Run `bash start.sh` on later visits. Both launchers select the private virtual environment automatically. Keep the terminal open while using Zenith; Ctrl+C stops the server. Headless systems can open the printed localhost URL manually or forward the port as appropriate for their environment.
 
@@ -65,7 +65,7 @@ The terminal equivalent on Windows is `powershell -NoProfile -ExecutionPolicy By
 - The small single model needs roughly 4–6 GB available RAM. The two-model team needs roughly 6–8 GB. CPU inference is supported; a GPU is optional.
 - Git to clone the current branch, or download/extract the branch ZIP instead.
 
-The complete project is merged into `main`. Clone `https://github.com/jamescartel982-creator/Zenith.git` using the commands in the README. If you already have the preview branch checked out, run `git fetch origin`, `git switch main`, and `git pull --ff-only`, then re-run your platform's installer.
+The complete project is merged into `main`. Clone `https://github.com/n8storm/Zenith.git` using the commands in the README. If you already have the preview branch checked out, run `git fetch origin`, `git switch main`, and `git pull --ff-only`, then re-run your platform's installer.
 
 ## Windows PowerShell
 
@@ -202,3 +202,17 @@ If you intentionally want a fresh profile, use `--overwrite-config`. To experime
 ## Release file checks
 
 After upgrading, run `zenith --version`, `zenith verify`, and `zenith verify --source PATH_TO_CHECKOUT` through your wrapper. Installed verification checks the wheel; source verification checks the complete tracked manifest and works with ZIP extraction. Editable development installs must use source verification. See [integrity checks](integrity.md) and the [changelog](../CHANGELOG.md). Existing optional calibration artifacts must match the new release configuration before use.
+
+### Repository owner update
+
+The canonical repository is now `https://github.com/n8storm/Zenith`. Existing Git
+checkouts can update their remote without recloning or changing local data:
+
+```bash
+git remote set-url origin https://github.com/n8storm/Zenith.git
+git pull --ff-only
+```
+
+Then activate the existing environment and reinstall using the upgrade steps
+above. Historical pinned audit evidence retains the recorded owner name and
+checksums; the repository identity and trained model are unchanged.

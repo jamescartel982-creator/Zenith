@@ -1,9 +1,11 @@
 {
-  "date": "2026-10-25",
+  "date": "2026-10-26",
   "approved_audit": "../unified-audit/snapshot/README.md",
   "merged_prs": [
     18,
-    19
+    19,
+    20,
+    21
   ],
   "overall_parity": "PARTIAL",
   "foundation_weights_changed": false,

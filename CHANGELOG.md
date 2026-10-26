@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.17.1 — Canonical n8storm repository
+
+- Point Git clone instructions, source ZIP links, archive bootstrapping and current project/CI references to `n8storm/Zenith`.
+- Preserve pinned historical audit snapshots, checkpoint provenance, weights, tokenizer, adapters and local configuration.
+
 ## 0.17.0 — Reviewed runtime integration and isolated Python
 
 - Merge bounded reasoning and supervised tasks, preserving both CI paths and live session-based numeric verification.
