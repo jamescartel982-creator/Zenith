@@ -1,6 +1,6 @@
 -r requirements.txt
 torch>=2.6,<3
 transformers>=5.10.4,<5.11
-peft>=0.18.1,<0.19
+peft>=0.18.1,<0.22
 accelerate>=1,<2
 setuptools>=84.1.0,<85
