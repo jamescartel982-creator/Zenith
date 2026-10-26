@@ -28,7 +28,7 @@ class HTTPBoundaryTests(unittest.TestCase):
         self.client = TestClient(create_app(self.settings, self.agent), base_url='http://127.0.0.1')
 
     def test_dns_rebinding_and_duplicate_host_are_rejected_before_api_access(self):
-        for host in ('attacker.example', 'localhost.attacker.example', '127.0.0.1.attacker.example', 'localhost@attacker.example', 'localhost:bad'):
+        for host in ('attacker.example', 'localhost.attacker.example', '127.0.0.1.attacker.example', 'localhost@attacker.example', 'localhost:bad', '[::1]attacker.example', 'localhost:'):
             with self.subTest(host=host):
                 self.assertEqual(self.client.get('/api/account', headers={'Host': host}).status_code, 400)
         self.assertEqual(self.client.get('/api/account', headers=[('Host', 'localhost'), ('Host', 'attacker.example')]).status_code, 400)

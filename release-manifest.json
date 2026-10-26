@@ -322,8 +322,8 @@
     },
     {
       "path": "agent/http_security.py",
-      "size": 4669,
-      "sha256": "055f3f58c650ff9d8b9df33952f349a57d13c2e0211ef60073393b0ed57ca3a4",
+      "size": 4683,
+      "sha256": "36fcb1409813f9d416cabcf90819fa171ad9cd59d4849e112608d107a2502fef",
       "normalization": "lf"
     },
     {
@@ -2788,8 +2788,8 @@
     },
     {
       "path": "tests/test_http_security.py",
-      "size": 9368,
-      "sha256": "df5bc28b77aac861c8b249011d9edacb460d4c72b7a2bd696b5f156b7a51d685",
+      "size": 9407,
+      "sha256": "67a84335f3781d0be114b3a56df909227424962717b76326031a8fd19b6779b5",
       "normalization": "lf"
     },
     {

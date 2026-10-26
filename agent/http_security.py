@@ -52,7 +52,7 @@ class RequestSecurityMiddleware:
             return await reject(400, 'Exactly one Host header is required')
         try:
             raw = hosts[0].decode('ascii')
-            if any(c.isspace() for c in raw) or any(c in raw for c in '/\\@?#%'):
+            if not re.fullmatch(r'(?:\[[0-9a-fA-F:.]+\]|[a-zA-Z0-9.-]+)(?::[0-9]{1,5})?', raw):
                 raise ValueError('Invalid Host')
             parsed = urlsplit('//' + raw)
             host = parsed.hostname
