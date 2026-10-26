@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.17.2 — Container-owned execution deadline
+
+- Enforce an independent PID-1 deadline outside the submitted Python process, including stdin setup, so controller loss cannot leave a program running indefinitely.
+- Label owned sandbox containers for operator reconciliation and add a real forced-controller-loss regression probe.
+- Keep source/outputs bounded, execution default off and all existing model artifacts and profile unchanged.
+
 ## 0.17.1 — Canonical n8storm repository
 
 - Point Git clone instructions, source ZIP links, archive bootstrapping and current project/CI references to `n8storm/Zenith`.

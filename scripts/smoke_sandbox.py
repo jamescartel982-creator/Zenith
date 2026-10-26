@@ -9,6 +9,7 @@ import json
 import os
 from pathlib import Path
 import socket
+import sys
 import subprocess
 import tempfile
 from threading import Event
@@ -87,6 +88,37 @@ print(sum(x*x for x in range(10)))
             return value
         with patch.object(sandbox, '_control', side_effect=controls):
             record('lifecycle-revocation-cancels-and-cleans', lambda: expect_failure(sandbox, 'import time; time.sleep(20)', 'revoked-fixture', revoke))
+    def controller_loss():
+        before=sandbox._control('ps','-a','--filter','label=io.zenith.sandbox=1','--format','{{.ID}}').split()
+        assert not before, 'Do not run the controller-loss fixture concurrently with other sandbox work'
+        code=('from agent.sandbox import SandboxPolicy; from agent.sandbox_docker import DockerSandbox; '
+            + 'DockerSandbox(SandboxPolicy(True,'+repr(image)+',seconds=2)).run('
+            + repr('import time; time.sleep(45)')+',lambda:None)')
+        controller=subprocess.Popen([sys.executable,'-c',code],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+        identifier=None
+        try:
+            deadline=time.monotonic()+15
+            while time.monotonic()<deadline:
+                identifiers=sandbox._control('ps','-a','--filter','label=io.zenith.sandbox=1','--format','{{.ID}}').split()
+                if identifiers:
+                    assert len(identifiers)==1
+                    identifier=identifiers[0].decode()
+                    state=json.loads(sandbox._control('inspect','--format','{{json .State}}',identifier))
+                    if state['Running']:break
+                time.sleep(.1)
+            else:raise AssertionError('Owned crash fixture never started')
+            controller.kill();controller.wait(timeout=3)
+            deadline=time.monotonic()+8
+            while time.monotonic()<deadline:
+                state=json.loads(sandbox._control('inspect','--format','{{json .State}}',identifier))
+                if not state['Running']:break
+                time.sleep(.1)
+            else:raise AssertionError('Container outlived its independent program budget')
+            assert state['Status']=='exited' and state['ExitCode']==124,state
+        finally:
+            if controller.poll() is None:controller.kill();controller.wait(timeout=3)
+            if identifier:sandbox._control('rm','--force','--volumes',identifier)
+    record('container-deadline-survives-forced-controller-loss',controller_loss)
     if include_runtime:
         from agent.config import Settings
         from agent.core import Agent
