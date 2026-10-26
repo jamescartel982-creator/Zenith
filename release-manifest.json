@@ -736,14 +736,14 @@
     },
     {
       "path": "assets/tradingagents-architecture.dot",
-      "size": 2964,
-      "sha256": "e80501d50670f6fd265466f73175d64e874f2df17ef339669d5fb65031e4c87d",
+      "size": 2896,
+      "sha256": "c75c3e04c2115cbb28b3150a748fd19e7b424033aa426ebaa997eb328499792e",
       "normalization": "lf"
     },
     {
       "path": "assets/tradingagents-architecture.svg",
-      "size": 20998,
-      "sha256": "ead58eaecdb48928ad3823033da4660e2961002a880604cba1ea08c370613561",
+      "size": 22186,
+      "sha256": "1871345880bf772cd16dfd71771a7d02b9ff7d7dbc41b174dd0f12ce32a6112e",
       "normalization": "lf"
     },
     {

@@ -4,34 +4,34 @@ node [shape=box,style="rounded,filled",fillcolor="#fff4d6",color="#ba8c43",fontn
 edge [color="#596373",fontname="DejaVu Sans",fontsize=10];
 subgraph cluster_User {
 label="User entry"; color="#ddd4e9"; style=filled; fillcolor="#fcfaff";
-"cli" [label="CLI commands\\ncli/main.py"];
-"run" [label="Run orchestration\\ncli/run.py"];
-"backtest" [label="Backtesting\\nbacktest.py"];
+"cli" [label="CLI commands\ncli/main.py"];
+"run" [label="Run orchestration\ncli/run.py"];
+"backtest" [label="Backtesting\nbacktest.py"];
 }
 subgraph cluster_Decision {
 label="Decision workflow"; color="#ddd4e9"; style=filled; fillcolor="#fcfaff";
-"graph" [label="Trading graph\\ngraph/trading_graph.py"];
-"analysts" [label="Analyst team\\nMarket \u00b7 Sentiment \u00b7 News \u00b7 Fundamentals"];
-"context" [label="Prompt context\\nagents/context.py"];
-"bullbear" [label="Bull\u2013bear debate"];
+"graph" [label="Trading graph\ngraph/trading_graph.py"];
+"analysts" [label="Analyst team\nMarket · Sentiment · News · Fundamentals"];
+"context" [label="Prompt context\nagents/context.py"];
+"bullbear" [label="Bull–bear debate"];
 "research" [label="Research manager"];
 "trader" [label="Trader"];
-"risk" [label="Risk debate\\nAggressive \u00b7 Conservative \u00b7 Neutral"];
+"risk" [label="Risk debate\nAggressive · Conservative · Neutral"];
 "portfolio" [label="Portfolio decision"];
-"rating" [label="Rating vocabulary\\nBuy \u00b7 Overweight \u00b7 Hold \u00b7 Underweight \u00b7 Sell \u00b7 REVIEW"];
+"rating" [label="Rating vocabulary\nBuy · Overweight · Hold · Underweight · Sell · REVIEW"];
 }
 subgraph cluster_Runtime {
 label="Runtime services"; color="#ddd4e9"; style=filled; fillcolor="#fcfaff";
 "llm" [label="LLM providers"];
-"memory" [label="Decision memory\\nmemory/log.py"];
-"reports" [label="Reports\\nreporting.py"];
-"checkpoints" [label="Run checkpoints\\ngraph/checkpointer.py"];
+"memory" [label="Decision memory\nmemory/log.py"];
+"reports" [label="Reports\nreporting.py"];
+"checkpoints" [label="Run checkpoints\ngraph/checkpointer.py"];
 }
 subgraph cluster_Data {
 label="Data access"; color="#ddd4e9"; style=filled; fillcolor="#fcfaff";
-"routing" [label="Data routing\\ndataflows/router.py"];
+"routing" [label="Data routing\ndataflows/router.py"];
 "yahoo" [label="Yahoo market data"];
-"other" [label="Other data vendors\\nSEC \u00b7 FRED \u00b7 Alpha Vantage \u00b7 social / news"];
+"other" [label="Other data vendors\nSEC · FRED · Alpha Vantage · social / news"];
 }
 user [label="Analyst user",shape=ellipse,fillcolor="#e2efff",color="#7297cd"];
 "user" -> "cli" [label="starts analysis"];
