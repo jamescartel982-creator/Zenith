@@ -45,6 +45,12 @@
       "normalization": "lf"
     },
     {
+      "path": ".github/workflows/runtime-bridge.yml",
+      "size": 2761,
+      "sha256": "c918c6c2d6a04c68ba2e257948a9f2dbae2cf0b9682df4f925731795b090a746",
+      "normalization": "lf"
+    },
+    {
       "path": ".github/workflows/security.yml",
       "size": 1463,
       "sha256": "f5b3a727e98a3a7e8c50808a584f821daaa1800fb3ffaf0a0b8a604df439d8f9",
@@ -1551,6 +1557,12 @@
       "normalization": "lf"
     },
     {
+      "path": "docs/four-system/IMPLEMENTATION_STATUS.md",
+      "size": 2460,
+      "sha256": "4d3f45be2f034a71d1af3fadc7f3aabdbcb504a1105a0314245ba6c7075c1763",
+      "normalization": "lf"
+    },
+    {
       "path": "docs/four-system/MODEL_COMPATIBILITY.md",
       "size": 2073,
       "sha256": "7533abc3b961d7e08a82ffdfa067c0c2944e540b1064371bb8e316255b2b401f",
@@ -1669,6 +1681,12 @@
       "size": 55262,
       "sha256": "d6e13a1a7007d04f5d6759d997e3c1abff65b692778941c66e999baf53dfd3f2",
       "normalization": "raw"
+    },
+    {
+      "path": "docs/four-system/implementation-v0.1/local-native-acceptance.json",
+      "size": 1049,
+      "sha256": "52ddd587f9199433ddf0e2060c7029c86e1e557818c98440284c38a1af5f8a4a",
+      "normalization": "lf"
     },
     {
       "path": "docs/four-system/prior-runtime-audit/01_SOURCE_AUDIT_AND_PINS.md",
@@ -2610,6 +2628,204 @@
       "path": "install.sh",
       "size": 639,
       "sha256": "a0227ad73801e12771981e27163b83f79597c49f23928c831467d5b6865e2b6d",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/inference_service/.gitignore",
+      "size": 123,
+      "sha256": "40caa3abaed619f7e8258876bbd176f4d13423e0b3c574815470419e4a94c643",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/inference_service/LICENSE",
+      "size": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/inference_service/README.md",
+      "size": 5016,
+      "sha256": "235c260440a911a15a7c21fa9234a73b1b194e739683c07c7acfd8f943574580",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/inference_service/pyproject.toml",
+      "size": 1071,
+      "sha256": "22f806968bbeaa555e3d6ce8ea47e2e15066b6b0eebf2322b05a87ebdf40fec9",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/inference_service/src/zenith_inference/__init__.py",
+      "size": 95,
+      "sha256": "565a7e0578c9bbd6db94577a7122c6aca9b70ead7ec8ab7d28d53fa819526db1",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/inference_service/src/zenith_inference/backend.py",
+      "size": 8163,
+      "sha256": "8b6c3ea8c6cb6661dabd337a49a905193597cf41e743ecbe6c85dda191197353",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/inference_service/src/zenith_inference/chat_contract.py",
+      "size": 10211,
+      "sha256": "599b26cfa09a74ebe11795ccfa7c24b5c85ea6a925b11291071a7f16d08f8c00",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/inference_service/src/zenith_inference/cli.py",
+      "size": 3456,
+      "sha256": "ac52df9e4b8284c077429b164f20810846c86dc2d2c6495a1f422833e89be13b",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/inference_service/src/zenith_inference/identity.py",
+      "size": 5845,
+      "sha256": "d173305e9095d9a24b10f5f34ccce142c32e995e1f256e4e92a1f70543871aaf",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/inference_service/src/zenith_inference/limits.py",
+      "size": 980,
+      "sha256": "5a26c87c9ca727f5630fe7fd5c1b2e6d7a52636d6d30b0455404e0ebbd6667ca",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/inference_service/src/zenith_inference/server.py",
+      "size": 10746,
+      "sha256": "9be60ee76a486dc4aa36033390a47c454c18cbabeb1c5df12addae67c05517e4",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/inference_service/src/zenith_inference/tool_calls.py",
+      "size": 2936,
+      "sha256": "c1dc731eca0cfcd3e8b9b0accf27e32bbc14fdd737cba70478e1d7a5de29e057",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/inference_service/tests/integration/native_acceptance.py",
+      "size": 11609,
+      "sha256": "9d6d8c9f8a9cddd5a49f5722589715eb6d21be43ca91b58d17472c51408516fa",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/inference_service/tests/test_service.py",
+      "size": 8885,
+      "sha256": "6368955357706a5fecaa68f1fc35e9ba1779e3cf2d9ab19e5f442090898f66be",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/inference_service/uv.lock",
+      "size": 79158,
+      "sha256": "44ed096b5d77323a5c9028d9893ab4ba37c97f3135f2abe4695d2519bf1972cf",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/runtime_bridge/.gitignore",
+      "size": 123,
+      "sha256": "40caa3abaed619f7e8258876bbd176f4d13423e0b3c574815470419e4a94c643",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/runtime_bridge/LICENSE",
+      "size": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/runtime_bridge/README.md",
+      "size": 4108,
+      "sha256": "0d0ddee01c8522a1a521487411595137ddf0f88614e668adac04698e02129da1",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/runtime_bridge/pyproject.toml",
+      "size": 526,
+      "sha256": "1db6719715ddf277c04abaabffda3f35f9112b184386fb85b9ceb881ba64c1af",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/runtime_bridge/src/zenith_integrations/__init__.py",
+      "size": 101,
+      "sha256": "a360b45591bc0581dc786ef9e2e1b08f5084aaef39a9a0afd71e99e4a9b9a564",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/runtime_bridge/src/zenith_integrations/cli.py",
+      "size": 2567,
+      "sha256": "996986fc9f75df857f50047ac8b591fbec4a40c2d2f6eb4a7443f0558720cdfa",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/runtime_bridge/src/zenith_integrations/config.py",
+      "size": 1158,
+      "sha256": "854972ebdde227321b3f83222862cf691c66a26ce2509296c6b306093e172ac4",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/runtime_bridge/src/zenith_integrations/gateway.py",
+      "size": 8406,
+      "sha256": "533c9ffcf52980d1e305b6c16b48f98079c9b3c258f053a298e6725ee9ac31b0",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/runtime_bridge/src/zenith_integrations/shared/__init__.py",
+      "size": 85,
+      "sha256": "36a349c0d8b1f2a210ee2b848fb0808eb9d68db1f8fa6a827bfbddde4aef039e",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/runtime_bridge/src/zenith_integrations/shared/authorization.py",
+      "size": 4093,
+      "sha256": "3b1d564d2d0f82e601d7acf0bf5b7395ae6ae1fe6ecd96c97170c9cc4bfaf897",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/runtime_bridge/src/zenith_integrations/shared/contracts.py",
+      "size": 1647,
+      "sha256": "3071b7102df0458a079c0a19946d3475963960187642e86c7c09a942f061eaad",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/runtime_bridge/src/zenith_integrations/shared/http_boundary.py",
+      "size": 1399,
+      "sha256": "b85c884bded4d7500251d03fe5d61e92c448ddbabd644d4308706ac00a5db9b3",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/runtime_bridge/src/zenith_integrations/shared/identity.py",
+      "size": 2247,
+      "sha256": "4ed7338d2274e0b18fc44573443f78b487b224e7fb9e4d1614ef1908d00adf90",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/runtime_bridge/src/zenith_integrations/shared/ledger.py",
+      "size": 9308,
+      "sha256": "a0e741627e92e33a62d9ccd0a7887351062d965c3ad48f53e44e26ef6ea1ce3c",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/runtime_bridge/src/zenith_integrations/shared/router.py",
+      "size": 2752,
+      "sha256": "0b4b733e758e75c40ceff8ee3479d5d6d4be9e261cafd5048a838296be92911e",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/runtime_bridge/src/zenith_integrations/shared/secrets.py",
+      "size": 1736,
+      "sha256": "e530492625b1af4fe9160e4da2c68c9a92aaf6df4ac449871f9fe1d06f502757",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/runtime_bridge/tests/test_bridge.py",
+      "size": 9127,
+      "sha256": "0f0575cd0bd37f2f290436b7067a56724ee30a4d164d8021a7164a6320b2fed6",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/runtime_bridge/uv.lock",
+      "size": 70966,
+      "sha256": "68ca19c85075a700fad377ac6b2f9b958386a1d80c3a3498162e9b89f0550783",
       "normalization": "lf"
     },
     {

@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=84.1,<85"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "zenith-inference"
+version = "0.1.0"
+requires-python = ">=3.12,<3.13"
+description = "Read-only OpenAI-compatible inference for the preserved Zenith checkpoint"
+license = "Apache-2.0"
+dependencies = ["zenith-local==0.17.4", "zenith-integrations==0.1.0"]
+
+[project.optional-dependencies]
+local = ["zenith-local[local]==0.17.4", "torch>=2.6,<3"]
+test = ["openai==2.54.0"]
+
+[project.scripts]
+zenith-inference = "zenith_inference.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.uv.sources]
+zenith-local = {path = "../.."}
+zenith-integrations = {path = "../runtime_bridge"}
+torch = {index = "pytorch-cpu", marker = "sys_platform != 'darwin'"}
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[tool.uv]
+environments = ["sys_platform == 'linux' and platform_machine == 'x86_64'", "sys_platform == 'win32' and platform_machine == 'AMD64'", "sys_platform == 'darwin' and platform_machine == 'arm64'"]
