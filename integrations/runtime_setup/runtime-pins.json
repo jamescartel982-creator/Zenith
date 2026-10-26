@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "uv": "0.12.23",
+  "python": "3.14.8",
+  "node": "26.12.1",
+  "npm": "11.17.0",
+  "pnpm": "12.15.0",
+  "upstream": {
+    "zenith": {"repository": "https://github.com/n8storm/Zenith", "commit": "f1dbab49f915d4c74b57e560aafac7e51efde373", "python": ">=3.10", "recommended_python": "3.12"},
+    "hermes": {"repository": "https://github.com/NousResearch/hermes-agent", "commit": "d05095663342556788cf2a198bfa7844cc7968ab", "python": ">=3.14,<3.15", "node": ">=26", "npm": "<11.10.0 || >=11.17.0", "dependency_lock": "uv.lock"},
+    "openclaw": {"repository": "https://github.com/openclaw/openclaw", "commit": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f", "node": ">=24.22.1 <25 || >=26.12.1", "dependency_lock": "pnpm-lock.yaml", "package_manager_integrity": "sha512.b3951d6d6ff4a9f13dc7cf56cd28d2b8eb37dbcc9c68e52e1e1191873ea9f82a017287ab50baadc5ccc494f036c67c0e47eb13608c2fa36f47711b61ea128e61"}
+  },
+  "node_archives": {
+    "linux-x64": {"suffix": "tar.xz", "sha256": "6170b2d474e1c626f43cff3adc118df9fe3b573258a4fc3d850c8dbc6b079bbd"},
+    "linux-arm64": {"suffix": "tar.xz", "sha256": "42aa04922591ee5d4dbc7740d452621acf28508239daa512f5ee8c47ee224fdb"},
+    "win-x64": {"suffix": "zip", "sha256": "b3efd5c70cba3308ed46e7e699a9b8aac075bbc6b027fcb39c84c31acc25e2b4"},
+    "win-arm64": {"suffix": "zip", "sha256": "34567581ee63967b37afb6b7a0cc63a2d550a43d5d838adb75982d7e356f2e2c"},
+    "darwin-x64": {"suffix": "tar.gz", "sha256": "b85c2ea4420ad0bc4abf2dc6cf1f55130ed681f1cabf60cf3f526e4c9e2712ff"},
+    "darwin-arm64": {"suffix": "tar.gz", "sha256": "1901d539912c02afa10d1cc126943a8855a7eedebe830119463470db5e6c59e8"}
+  }
+}

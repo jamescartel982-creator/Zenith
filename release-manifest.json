@@ -27,6 +27,12 @@
       "normalization": "lf"
     },
     {
+      "path": ".github/workflows/integration-prerequisites.yml",
+      "size": 1427,
+      "sha256": "4f441513b84cb3da00c5c4e7fed436b1b61a72659220ef1bb63d02686e02a4ec",
+      "normalization": "lf"
+    },
+    {
       "path": ".github/workflows/tests.yml",
       "size": 7809,
       "sha256": "fe9491f90076a6940738a0532dfba68e1a554078cbe0f31f04cdc447bad364c4",
@@ -70,8 +76,8 @@
     },
     {
       "path": "README.md",
-      "size": 12619,
-      "sha256": "738860297afbb6de217d8bab1b01bfe851f892505873c1dfffc56fedf3661930",
+      "size": 12658,
+      "sha256": "1bcf38153d170dc2b7aca940b35b4e57e313cfdec36a6cb3b55d335930f3f061",
       "normalization": "lf"
     },
     {
@@ -2217,6 +2223,42 @@
       "normalization": "lf"
     },
     {
+      "path": "integrations/runtime_setup/README.md",
+      "size": 7002,
+      "sha256": "60103e410aba9f7c272f6b4608751fccafac9af005b2aff06e4e2048b88f70dd",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/runtime_setup/VALIDATION.md",
+      "size": 2425,
+      "sha256": "ecbb5e10f47a876e1aa8678d7581ec05a3d2ba9f1654429cb158187cd0c150b9",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/runtime_setup/requirements-test.in",
+      "size": 191,
+      "sha256": "0c751fa2087a35176b9cebd1353c7092848171ac8dbc0f77086cc59f1d97b8c3",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/runtime_setup/requirements-test.txt",
+      "size": 33066,
+      "sha256": "5e3acf71becb413a836c13a0d3830a07f4b30f060c9ab6ed60721438fa2225e5",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/runtime_setup/runtime-pins.json",
+      "size": 1650,
+      "sha256": "ae0d1f4a717622d4efcede07ee805ac13649affe909838fbefdab6b521c2ef3c",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/runtime_setup/setup.py",
+      "size": 9225,
+      "sha256": "4aed0a9a39346c7ed36428d3d18d49acfa33d8a93d2c29b28ea1bdddfe97882b",
+      "normalization": "lf"
+    },
+    {
       "path": "pyproject.toml",
       "size": 1101,
       "sha256": "2c3fc5595abcda4c944b58d95571bf3b26fe6323b2d2da77e1dd7221cae9b49c",
@@ -2790,6 +2832,12 @@
       "path": "tests/test_research.py",
       "size": 1783,
       "sha256": "f6debc06e6d62c9af1cf5f21f04c160e51e5f0033202e21be876d3114567c792",
+      "normalization": "lf"
+    },
+    {
+      "path": "tests/test_runtime_setup.py",
+      "size": 7023,
+      "sha256": "d002f6da074b0cc1759e9acd839e7492504c87e7d7efa5f830521f91734719a5",
       "normalization": "lf"
     },
     {

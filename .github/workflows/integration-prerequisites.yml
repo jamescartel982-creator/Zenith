@@ -1,0 +1,42 @@
+name: Isolated integration prerequisites
+on:
+  pull_request:
+    paths:
+      - integrations/runtime_setup/**
+      - tests/test_runtime_setup.py
+      - .github/workflows/integration-prerequisites.yml
+  push:
+    branches: [main]
+    paths:
+      - integrations/runtime_setup/**
+      - tests/test_runtime_setup.py
+      - .github/workflows/integration-prerequisites.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  prerequisites:
+    name: Real runtime and SDK install (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned bootstrap tooling
+        run: python -m pip install uv==0.12.23
+      - name: Validate setup boundaries
+        run: python -m unittest discover -s tests -p test_runtime_setup.py -v
+      - name: Install and verify isolated runtimes and test SDKs
+        run: python integrations/runtime_setup/setup.py --root "${{ runner.temp }}/zenith-integration-runtimes" --install
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: integration-prerequisites-${{ matrix.os }}
+          path: ${{ runner.temp }}/zenith-integration-runtimes/receipt.json
+          if-no-files-found: warn
