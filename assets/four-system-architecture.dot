@@ -1,0 +1,26 @@
+digraph FourSystems {
+ graph [rankdir=TB,bgcolor="#f5efff",pad="0.4",label="Zenith four-system integration plan\nDashed lines are NOT implemented or deployed",labelloc=t,fontname="DejaVu Sans",fontsize=18];
+ node [shape=box,style="rounded,filled",fillcolor="#e2efff",color="#7297cd",fontname="DejaVu Sans",margin="0.2,0.14"];
+ edge [fontname="DejaVu Sans",fontsize=10,color="#596373"];
+ zenith [label="Existing Zenith app + default model\nOriginal weights / tokenizer / adapters / private data"];
+ bridge [label="PROPOSED: authenticated integration bridge\nScoped jobs · approvals · cancellation · audit",style="rounded,dashed,filled"];
+ inference [label="PROPOSED: compatible inference sidecar\nRequires approval + tool-call compatibility tests",style="rounded,dashed,filled"];
+ hermes [label="Pinned Hermes runtime\nNative tools / skills / memory / sessions"];
+ claw [label="Pinned OpenClaw runtime\nGateway / channels / devices / native state"];
+ trading [label="Pinned TradingAgents service (proposed)\nNative analysts → research → trader → risk → portfolio"];
+ paper [label="PROPOSED: separate backtest / paper controls\nPoint-in-time evidence + isolated paper ledger",style="rounded,dashed,filled"];
+ reports [label="PROPOSED: approved report delivery\nExact report + recipient + configured channel",style="rounded,dashed,filled"];
+ denied [label="LIVE ORDERS DISABLED\nNo broker credentials or live execution route",fillcolor="#ffe1e1",color="#b74f5b"];
+ zenith -> bridge [style=dashed,label="planned jobs / structured reports"];
+ zenith -> inference [style=dashed,label="immutable model read"];
+ bridge -> hermes [style=dashed,label="supporting tasks only"];
+ bridge -> claw [style=dashed,label="paired scoped gateway"];
+ bridge -> trading [style=dashed,label="native risk chain required"];
+ hermes -> inference [style=dashed,label="Zenith default"];
+ claw -> inference [style=dashed,label="Zenith default"];
+ trading -> inference [style=dashed,label="supported OpenAI-compatible client"];
+ trading -> paper [style=dashed];
+ trading -> reports [style=dashed,label="validated research report"];
+ reports -> claw [style=dashed,label="explicit delivery approval"];
+ trading -> denied [arrowhead=tee,color="#b74f5b",label="denied"];
+}

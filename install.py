@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""Install Zenith in an isolated virtual environment on Windows or Linux.
+"""Install Zenith in an isolated environment on Windows, Linux or macOS.
 
 Uses only the standard library until dependencies are installed. No activation,
 administrator privileges, global PATH edits, or model download are required.
 """
 import argparse
 import os
+import platform
 from pathlib import Path
 import subprocess
 import sys
@@ -13,6 +14,33 @@ import venv
 from agent.branding import show_banner
 
 ROOT = Path(__file__).resolve().parent
+
+
+class UnsupportedRuntimeError(RuntimeError):
+    """An actionable platform limitation, with no automatic model substitution."""
+
+
+def validate_torch_platform():
+    if platform.system() != 'Darwin':
+        return
+    if platform.machine().lower() not in {'arm64', 'aarch64'}:
+        raise UnsupportedRuntimeError(
+            'Current secure PyTorch wheels require Apple Silicon and native ARM64 Python on macOS. '
+            'On Intel Macs, explicitly select --mode localserver or --mode ollama and configure that backend. '
+            'On Apple Silicon under Rosetta, use native ARM64 Python 3.12. No model or dependency is downgraded.')
+    release = platform.mac_ver()[0]
+    if release and int(release.split('.')[0]) < 14:
+        raise UnsupportedRuntimeError('The supported native macOS runtime requires macOS 14 or newer. Use a configured external backend on older systems.')
+
+
+def torch_install_command(python, runtime='cpu'):
+    validate_torch_platform()
+    command = [python, '-m', 'pip', 'install', 'torch>=2.6,<3']
+    # macOS wheels on PyPI contain the native CPU/MPS build. The dedicated
+    # CPU index supplies Linux/Windows wheels, not the macOS ARM64 runtime.
+    if runtime == 'cpu' and platform.system() != 'Darwin':
+        command += ['--index-url', 'https://download.pytorch.org/whl/cpu']
+    return command
 
 
 def environment_python(directory):
@@ -45,6 +73,12 @@ def configured_needs_hf(python):
         cwd=ROOT, text=True, encoding='utf-8').strip() == '1'
 
 
+def configured_needs_torch(python):
+    return subprocess.check_output(
+        [str(python), '-c', 'from agent.models import model_specs; from agent.config import Settings; print(int(any(s["provider"] in {"huggingface","tiny"} for s in model_specs(Settings()))))'],
+        cwd=ROOT, text=True, encoding='utf-8').strip() == '1'
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--mode', choices=['local', 'ensemble', 'ollama', 'localserver'], default='local')
@@ -61,6 +95,14 @@ def main(argv=None):
         parser.error('--activate-candidate uses --mode local')
     if sys.version_info < (3, 10):
         parser.error('Python 3.10+ is required; Python 3.12 is recommended')
+    # Reject a fresh unsupported native install before creating an environment
+    # or saving a profile. Existing profiles still determine their own backend.
+    from agent.paths import config_file
+    if args.mode in {'local', 'ensemble'} and not (config_file().exists() or (ROOT / '.env').exists() or os.getenv('AI_PROVIDER')):
+        try:
+            validate_torch_platform()
+        except UnsupportedRuntimeError as exc:
+            parser.error(str(exc))
     show_banner()
     target = args.venv.expanduser().resolve()
     python = environment_python(target)
@@ -83,14 +125,17 @@ def main(argv=None):
         # Explicit candidate selection installs its HF runtime even when the
         # previous profile uses Ollama/ensemble. Activation backs up that profile.
         provider = 'huggingface' if args.activate_candidate else configured_provider(python)
-        if provider not in {'huggingface', 'ensemble', 'ollama', 'tiny', 'localserver'}:
+        if provider not in {'huggingface', 'ensemble', 'ollama', 'tiny', 'localserver', 'orchestrated', 'reasoning'}:
             raise RuntimeError('Unexpected provider configuration')
-        needs_hf = provider == 'huggingface' or (provider == 'ensemble' and configured_needs_hf(python))
-        needs_torch = needs_hf or provider == 'tiny'
+        composite = provider in {'ensemble', 'orchestrated', 'reasoning'}
+        needs_hf = provider == 'huggingface' or (composite and configured_needs_hf(python))
+        needs_torch = needs_hf or provider == 'tiny' or (composite and configured_needs_torch(python))
+        if needs_torch:
+            validate_torch_platform()
         if needs_torch and args.runtime == 'cpu':
-            run([python, '-m', 'pip', 'install', 'torch>=2.6,<3', '--index-url', 'https://download.pytorch.org/whl/cpu'])
-        elif provider == 'tiny':
-            run([python, '-m', 'pip', 'install', 'torch>=2.6,<3'])
+            run(torch_install_command(python, args.runtime))
+        elif needs_torch and not needs_hf:
+            run(torch_install_command(python, 'auto'))
         if needs_hf:
             run([python, '-m', 'pip', 'install', '--upgrade', str(ROOT) + '[local]'])
         run([python, '-m', 'pip', 'check'])
@@ -111,10 +156,13 @@ def main(argv=None):
     except KeyboardInterrupt:
         print('\nSetup interrupted. Rerun the same installer to continue.', file=sys.stderr)
         return 130
+    except UnsupportedRuntimeError as exc:
+        print('Installation stopped: ' + str(exc), file=sys.stderr)
+        return 1
     except (subprocess.CalledProcessError, OSError, RuntimeError) as exc:
         print(f'Installation stopped: {type(exc).__name__}. Review the preceding error, fix it, and rerun the same command.', file=sys.stderr)
         if creating_environment or not python.exists():
-            print('On Debian/Ubuntu, install python3-venv. On Windows, install Python 3.12 from python.org or winget.', file=sys.stderr)
+            print('Install Python 3.12 (native ARM64 on Apple Silicon). On Debian/Ubuntu also install python3-venv.', file=sys.stderr)
         return 1
     print('\nZenith is ready. Its isolated environment is selected automatically by the launchers.')
     if target == ROOT / '.venv':

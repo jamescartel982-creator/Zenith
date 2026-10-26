@@ -1,0 +1,16 @@
+# Acceptance gates
+
+A source match or scripted native graph test is not real-system integration. None of the blocked gates is waived.
+
+- **A01 Real Zenith invokes native TradingAgents analysis — BLOCKED.** Missing approved bridge/model endpoint; no fake substitute. Acceptance: All four native analyst reports, two research sides, researcher manager, trader, three risk sides and portfolio decision complete on real model.
+- **A02 TradingAgents uses Zenith through OpenAI-compatible provider — BLOCKED.** Zenith raw compatible endpoint missing; tool/schema support unverified. Acceptance: Protocol/auth/message/tool calls and final report pass using the unchanged model and tokenizer; no paid/model fallback.
+- **A03 All native roles and debates — SOURCE VERIFIED / SCRIPTED BASELINE PASSED / REAL MODEL PENDING.** The unchanged default upstream suite passed (see BASELINE.md); scripted graph tests are separate from real-model acceptance. Acceptance: Unmodified upstream suite plus real-role trace with final risk manager complete; absence of a node fails.
+- **A04 Historical backtests — PARTIAL SOURCE VERIFIED.** Native cutoff guards exist; full text archival and model-knowledge cutoff are not established. Acceptance: Poison future news, filings, quotes and resolved memories; as-of tool dates held; fill-after-date and unavailable coverage remain explicit.
+- **A05 Hermes/OpenClaw no regression — BLOCKED.** Full native environments/suites and live configured services not established. Acceptance: Original native suites, state hashes, native sessions/skills/schedules/subagents and pre/post behavior tests.
+- **A06 Structured report to Zenith — NOT STARTED.** New authenticated service/report envelope is proposed. Acceptance: JSON schema/account isolation; native rating/risk text/source ids; null confidence rather than invented probability.
+- **A07 OpenClaw approved delivery — BLOCKED.** No configured paired Gateway/channel/recipient authorization. Acceptance: Real dedicated test channel delivery with exact report approval, native acknowledgement, duplicate/lost-ack and revocation tests.
+- **A08 No live orders — NOT ENABLED / ACCEPTANCE PENDING.** No broker execution will be added; supporting profiles also need secret/egress isolation. Acceptance: Reject live mode, prompt bypass, forged grants, broker URLs and replay; a valid paper decision still cannot reach a real broker.
+- **A09 Paper simulation — NOT STARTED.** Native backtest is not a fill/cash simulator. Acceptance: Decimal cash/positions, explicit fee/slippage/fill rules, invariants, rollback and native risk REVIEW fail-closed.
+- **A10 Persistent jobs/restart/security — NOT STARTED.** New ledger/native worker integration pending. Acceptance: Crash recovery, cancellation, quotas, no secret leakage, no cross-account reports/state and independent service restart.
+
+Run isolated native baselines first, then real Zenith/provider tests, complete graph/report tests, point-in-time adversarial tests, authenticated delivery and no-live-order tests. Compare native pre/post behavior and checkpoint/state hashes. Never replace native tests with mocks or report training/benchmark gains from orchestration.

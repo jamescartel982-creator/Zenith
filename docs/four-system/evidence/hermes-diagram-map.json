@@ -1,0 +1,140 @@
+[
+  {
+    "id": "H01",
+    "diagram_component": "User",
+    "source_path": "website/docs/user-guide/features/acp.md",
+    "preservation": "External actor; authenticate in the bridge; prompt text is not owner authority."
+  },
+  {
+    "id": "H02",
+    "diagram_component": "External model services",
+    "source_path": "hermes_cli/runtime_provider.py",
+    "preservation": "Retain native providers; integration profile defaults to the unchanged Zenith artifact through an approved model adapter."
+  },
+  {
+    "id": "H03",
+    "diagram_component": "OpenAI-compatible API",
+    "source_path": "gateway/platforms/api_server.py",
+    "preservation": "Native agent API, not raw model inference; registered HTTP routes stay native."
+  },
+  {
+    "id": "H04",
+    "diagram_component": "ACP server [server.py]",
+    "source_path": "acp_adapter/server.py",
+    "preservation": "HermesACPAgent is the native ACP implementation; bridge uses documented stdio protocol."
+  },
+  {
+    "id": "H05",
+    "diagram_component": "ACP sessions [session.py]",
+    "source_path": "acp_adapter/session.py",
+    "preservation": "Native sessions persist to SessionDB; map IDs, never write its private tables."
+  },
+  {
+    "id": "H06",
+    "diagram_component": "ACP tools [tools.py]",
+    "source_path": "acp_adapter/tools.py",
+    "preservation": "Native tool-event/schema helpers, not an independent public HTTP executor."
+  },
+  {
+    "id": "H07",
+    "diagram_component": "Messaging platforms",
+    "source_path": "gateway/platforms/base.py",
+    "preservation": "External services plus native platform adapters; service access and signatures required."
+  },
+  {
+    "id": "H08",
+    "diagram_component": "CLI and TUI [console_engine.py]",
+    "source_path": "hermes_cli/console_engine.py",
+    "preservation": "Retain native CLI/TUI; Python JSON-RPC owner tui_gateway/server.py."
+  },
+  {
+    "id": "H09",
+    "diagram_component": "Desktop app [main.ts]",
+    "source_path": "apps/desktop/electron/main.ts",
+    "preservation": "Native Electron shell and platform lifecycle; not rebuilt as a Python placeholder."
+  },
+  {
+    "id": "H10",
+    "diagram_component": "Web app [App.tsx]",
+    "source_path": "web/src/App.tsx",
+    "preservation": "Native web surface; separate origin/link rather than rewriting its routes or markup."
+  },
+  {
+    "id": "H11",
+    "diagram_component": "Messaging gateway [server.py]",
+    "source_path": "gateway/run.py",
+    "preservation": "Actual gateway facade is run.py plus run_* siblings; API server is gateway/platforms/api_server.py."
+  },
+  {
+    "id": "H12",
+    "diagram_component": "Conversation loop",
+    "source_path": "agent/conversation_loop.py",
+    "preservation": "Original loop and run_agent.py facade own turns, tools and callbacks."
+  },
+  {
+    "id": "H13",
+    "diagram_component": "Model providers",
+    "source_path": "agent/turn_facade.py",
+    "preservation": "Turn preparation uses native provider/transport owners; no substitute foundation model."
+  },
+  {
+    "id": "H14",
+    "diagram_component": "Context engine [context_engine.py]",
+    "source_path": "agent/context_engine.py",
+    "preservation": "Keep native engine/plugin lifecycle and prompt-prefix semantics."
+  },
+  {
+    "id": "H15",
+    "diagram_component": "Context compression",
+    "source_path": "agent/context_compressor.py",
+    "preservation": "Native compression owns rewritten conversation state; bridge does not recompress stored native history."
+  },
+  {
+    "id": "H16",
+    "diagram_component": "Tool execution [tool_executor.py]",
+    "source_path": "agent/tool_executor.py",
+    "preservation": "Native dispatcher; transport authentication does not itself scope every internal tool."
+  },
+  {
+    "id": "H17",
+    "diagram_component": "Terminal backends [local.py]",
+    "source_path": "tools/environments/local.py",
+    "preservation": "Native local means its runtime host; containerize an integration runtime rather than assume Zenith sandbox wraps it."
+  },
+  {
+    "id": "H18",
+    "diagram_component": "Agent memory [memory_manager.py]",
+    "source_path": "agent/memory_manager.py",
+    "preservation": "Preserve native profile-scoped memory owner and optional provider lifecycle."
+  },
+  {
+    "id": "H19",
+    "diagram_component": "Session search",
+    "source_path": "tools/session_search_tool.py",
+    "preservation": "Search native SessionDB under native scope; do not merge unrelated memories."
+  },
+  {
+    "id": "H20",
+    "diagram_component": "Skills and learning",
+    "source_path": "tools/skills_tool.py",
+    "preservation": "Retain native creation/install/learning, guard and curator behavior; not a neural weight update."
+  },
+  {
+    "id": "H21",
+    "diagram_component": "Trajectory generation [trajectory.py]",
+    "source_path": "agent/trajectory.py",
+    "preservation": "Native trajectory output/provenance retained; no automatic Zenith training from it."
+  },
+  {
+    "id": "H22",
+    "diagram_component": "Subagents",
+    "source_path": "tools/delegate_tool.py",
+    "preservation": "Native children/toolsets/context remain native; cross-runtime routing is a distinct bridge task."
+  },
+  {
+    "id": "H23",
+    "diagram_component": "Cron scheduler",
+    "source_path": "cron/scheduler.py",
+    "preservation": "Native schedule/job authority and delivery retained; never schedule the same job independently in all three runtimes."
+  }
+]

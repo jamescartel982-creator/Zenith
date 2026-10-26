@@ -1,0 +1,152 @@
+[
+  {
+    "from": "User",
+    "to": "CLI/TUI",
+    "relationship": "starts conversation",
+    "meaning": "Native ownership relation; not an assertion that every box is a public API"
+  },
+  {
+    "from": "User",
+    "to": "Desktop",
+    "relationship": "uses",
+    "meaning": "Native ownership relation; not an assertion that every box is a public API"
+  },
+  {
+    "from": "User",
+    "to": "Web",
+    "relationship": "uses",
+    "meaning": "Native ownership relation; not an assertion that every box is a public API"
+  },
+  {
+    "from": "User",
+    "to": "Messaging gateway",
+    "relationship": "messages through",
+    "meaning": "Native ownership relation; not an assertion that every box is a public API"
+  },
+  {
+    "from": "Messaging platforms",
+    "to": "Messaging gateway",
+    "relationship": "deliver messages",
+    "meaning": "Native ownership relation; not an assertion that every box is a public API"
+  },
+  {
+    "from": "ACP server",
+    "to": "ACP sessions",
+    "relationship": "manages sessions",
+    "meaning": "Native ownership relation; not an assertion that every box is a public API"
+  },
+  {
+    "from": "ACP server",
+    "to": "ACP tools",
+    "relationship": "exposes tool activity",
+    "meaning": "Native ownership relation; not an assertion that every box is a public API"
+  },
+  {
+    "from": "ACP server",
+    "to": "Conversation loop",
+    "relationship": "exposes Hermes agent",
+    "meaning": "Native ownership relation; not an assertion that every box is a public API"
+  },
+  {
+    "from": "OpenAI-compatible API",
+    "to": "Conversation loop",
+    "relationship": "serves agent requests",
+    "meaning": "Native ownership relation; not an assertion that every box is a public API"
+  },
+  {
+    "from": "CLI/TUI",
+    "to": "Conversation loop",
+    "relationship": "submits turns",
+    "meaning": "Native ownership relation; not an assertion that every box is a public API"
+  },
+  {
+    "from": "Desktop",
+    "to": "Conversation loop",
+    "relationship": "accesses agent",
+    "meaning": "Native ownership relation; not an assertion that every box is a public API"
+  },
+  {
+    "from": "Web",
+    "to": "Conversation loop",
+    "relationship": "accesses native UI backend",
+    "meaning": "Native ownership relation; not an assertion that every box is a public API"
+  },
+  {
+    "from": "Messaging gateway",
+    "to": "Conversation loop",
+    "relationship": "routes turns",
+    "meaning": "Native ownership relation; not an assertion that every box is a public API"
+  },
+  {
+    "from": "External model services",
+    "to": "Model providers",
+    "relationship": "serves models",
+    "meaning": "Native ownership relation; not an assertion that every box is a public API"
+  },
+  {
+    "from": "Conversation loop",
+    "to": "Model providers",
+    "relationship": "requests completions",
+    "meaning": "Native ownership relation; not an assertion that every box is a public API"
+  },
+  {
+    "from": "Conversation loop",
+    "to": "Context engine",
+    "relationship": "manages context",
+    "meaning": "Native ownership relation; not an assertion that every box is a public API"
+  },
+  {
+    "from": "Context engine",
+    "to": "Context compression",
+    "relationship": "delegates compression",
+    "meaning": "Native ownership relation; not an assertion that every box is a public API"
+  },
+  {
+    "from": "Conversation loop",
+    "to": "Tool execution",
+    "relationship": "dispatches tools",
+    "meaning": "Native ownership relation; not an assertion that every box is a public API"
+  },
+  {
+    "from": "Tool execution",
+    "to": "Terminal backends",
+    "relationship": "runs commands",
+    "meaning": "Native ownership relation; not an assertion that every box is a public API"
+  },
+  {
+    "from": "Conversation loop",
+    "to": "Agent memory",
+    "relationship": "uses memory",
+    "meaning": "Native ownership relation; not an assertion that every box is a public API"
+  },
+  {
+    "from": "Conversation loop",
+    "to": "Session search",
+    "relationship": "searches history",
+    "meaning": "Native ownership relation; not an assertion that every box is a public API"
+  },
+  {
+    "from": "Conversation loop",
+    "to": "Skills and learning",
+    "relationship": "creates and improves",
+    "meaning": "Native ownership relation; not an assertion that every box is a public API"
+  },
+  {
+    "from": "Conversation loop",
+    "to": "Trajectory generation",
+    "relationship": "records trajectories",
+    "meaning": "Native ownership relation; not an assertion that every box is a public API"
+  },
+  {
+    "from": "Conversation loop",
+    "to": "Subagents",
+    "relationship": "spawns subagents",
+    "meaning": "Native ownership relation; not an assertion that every box is a public API"
+  },
+  {
+    "from": "Cron scheduler",
+    "to": "Messaging gateway",
+    "relationship": "delivers scheduled work",
+    "meaning": "Native ownership relation; not an assertion that every box is a public API"
+  }
+]

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "version": "0.17.3",
+  "version": "0.17.4",
   "files": [
     {
       "path": ".dockerignore",
@@ -16,8 +16,8 @@
     },
     {
       "path": ".gitattributes",
-      "size": 498,
-      "sha256": "8078e6ff4255f1ba4edaade55ba9763deb423e66bdb8740d14151711d352fa96",
+      "size": 520,
+      "sha256": "397d57882b3ccf03ad3b478acd17256a207118d2dd99c07d3abadd6f6ba63f7c",
       "normalization": "lf"
     },
     {
@@ -39,6 +39,12 @@
       "normalization": "lf"
     },
     {
+      "path": ".github/workflows/macos.yml",
+      "size": 2419,
+      "sha256": "7bcdddfcb791848865cfe6f712a09495e1eb9e6ff3256a42977df36fa5d26f4d",
+      "normalization": "lf"
+    },
+    {
       "path": ".github/workflows/security.yml",
       "size": 1463,
       "sha256": "f5b3a727e98a3a7e8c50808a584f821daaa1800fb3ffaf0a0b8a604df439d8f9",
@@ -48,6 +54,12 @@
       "path": ".github/workflows/tests.yml",
       "size": 7809,
       "sha256": "fe9491f90076a6940738a0532dfba68e1a554078cbe0f31f04cdc447bad364c4",
+      "normalization": "lf"
+    },
+    {
+      "path": ".github/workflows/tradingagents-baseline.yml",
+      "size": 2404,
+      "sha256": "f737473bf7332296a50422d9f6b4a48e96e6b273eb17e7f09c19a7064f6827fd",
       "normalization": "lf"
     },
     {
@@ -64,8 +76,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "size": 17567,
-      "sha256": "7b7e95513a80de88f635c04d6aa643f6c98199a9736e1f7710a20e5161230cc0",
+      "size": 18184,
+      "sha256": "f0b7132316309c6aacaeecfc6b199c10d6db1c892a043dcc3b5c42848a76ee78",
       "normalization": "lf"
     },
     {
@@ -81,6 +93,12 @@
       "normalization": "lf"
     },
     {
+      "path": "Install Zenith.command",
+      "size": 187,
+      "sha256": "7dcb189ed4961b4eff2c47b3d3a9bea36ad701804ddae505467e722d3f59bb61",
+      "normalization": "lf"
+    },
+    {
       "path": "LICENSE",
       "size": 11357,
       "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
@@ -88,8 +106,8 @@
     },
     {
       "path": "README.md",
-      "size": 12685,
-      "sha256": "154331a06f875d933a6e27516f77a77fc4337f6ea5f4eb8ee39466a4c9723d59",
+      "size": 14569,
+      "sha256": "7dbab69b1c1d66a110086a23d8156a9c5ca9da5a308cd0f7ee0184ca76bc0627",
       "normalization": "lf"
     },
     {
@@ -102,6 +120,12 @@
       "path": "Start Zenith.cmd",
       "size": 471,
       "sha256": "7e92e89955fcba401f826c441ee90b6acbfdc55f82501fdf854e7841c4618417",
+      "normalization": "lf"
+    },
+    {
+      "path": "Start Zenith.command",
+      "size": 176,
+      "sha256": "c746068a8fa67d75ba90090643d5bc0b77b7d60a43a5fbc663f3f25a50b13c9d",
       "normalization": "lf"
     },
     {
@@ -125,7 +149,7 @@
     {
       "path": "agent/__init__.py",
       "size": 105,
-      "sha256": "8917449193677b9bcaa1df3af72fb5854269ba7179ac45cc80ff3bcc19ac3100",
+      "sha256": "4af6cc8de3ee46f02bbac4c47131ab9b756061490e11297d6b075c48161c76be",
       "normalization": "lf"
     },
     {
@@ -699,9 +723,39 @@
       "normalization": "lf"
     },
     {
+      "path": "assets/four-system-architecture.dot",
+      "size": 2249,
+      "sha256": "647676adaec00bcbd5f05a64fe0215febcf454c34bddb080c178115eb20b1c6f",
+      "normalization": "lf"
+    },
+    {
+      "path": "assets/four-system-architecture.svg",
+      "size": 13161,
+      "sha256": "7d6ebd10bfbe12ec8fa882a244522820b83a931a574f97c7e83a4cd7fdad615f",
+      "normalization": "lf"
+    },
+    {
+      "path": "assets/tradingagents-architecture.dot",
+      "size": 2896,
+      "sha256": "c75c3e04c2115cbb28b3150a748fd19e7b424033aa426ebaa997eb328499792e",
+      "normalization": "lf"
+    },
+    {
+      "path": "assets/tradingagents-architecture.svg",
+      "size": 22186,
+      "sha256": "1871345880bf772cd16dfd71771a7d02b9ff7d7dbc41b174dd0f12ce32a6112e",
+      "normalization": "lf"
+    },
+    {
       "path": "assets/zenith-banner.png",
       "size": 637599,
       "sha256": "48f637a72a0f431db0b124f050377106713937b0846f688f23d06151af735dda",
+      "normalization": "raw"
+    },
+    {
+      "path": "assets/zenith-social-preview.png",
+      "size": 812539,
+      "sha256": "2c738f9cb6fa4a7240e70821577944e41169af0e63e16d1c5f28e2c584da3c5e",
       "normalization": "raw"
     },
     {
@@ -1437,6 +1491,258 @@
       "normalization": "lf"
     },
     {
+      "path": "docs/four-system/ACCEPTANCE.md",
+      "size": 3203,
+      "sha256": "176eabfbcf0c4626bd7c63d26a1779500c1c6698c3674c416086da5345a421bf",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/ACCEPTANCE_MATRIX.csv",
+      "size": 2535,
+      "sha256": "582bd0f8afffb49e24d1b51131675f467bba563f984ed8ad23aaab45d59bd54b",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/AUDIT.md",
+      "size": 14941,
+      "sha256": "fe49488406b421b2426eddb616428fb8f32e51d3373e797653bf8b9bfda9ce5b",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/BASELINE.md",
+      "size": 2828,
+      "sha256": "ab9d20c0b1107cd0bee55172ac0341dd6ca84971cbc640a59701be23c1d17bd1",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/DIAGRAM_SOURCE_MAP.md",
+      "size": 4221,
+      "sha256": "66cd876ee196a728ef6bd6dc3eb98947f51be692b10340f3ebcbc3787d937889",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/FEATURE_MATRIX.csv",
+      "size": 11266,
+      "sha256": "cd5132b1408150b1509babf1d828f042c4778978439e83c71324cccc9380696a",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/FEATURE_MATRIX.json",
+      "size": 15259,
+      "sha256": "bb1dac0e2fe6e4e417f5ce0d553dc63013cd8ce88a1575c665651cc01ebb8b15",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/FILE_BY_FILE_PLAN.csv",
+      "size": 40109,
+      "sha256": "e190897bdc7e5f977d42b5fbeb3fa8a251a4fcac8f2729fdca52da182157a509",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/FILE_BY_FILE_PLAN.json",
+      "size": 57863,
+      "sha256": "e79490a1465ae716a7236ba6782dc14cae25f618a0df9a3d2bb795efbad0579e",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/FILE_BY_FILE_PLAN.md",
+      "size": 40694,
+      "sha256": "63f62e864b793c31be68abed7b389638fa761cae10f3b7d49accb2c1f936010c",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/MODEL_COMPATIBILITY.md",
+      "size": 2073,
+      "sha256": "7533abc3b961d7e08a82ffdfa067c0c2944e540b1064371bb8e316255b2b401f",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/SOURCES.json",
+      "size": 1146,
+      "sha256": "e414fd5f37b78d2605fd9d3f503cd69922dd02393da92df0b65434d56f71289d",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/THREAT_MODEL.md",
+      "size": 2706,
+      "sha256": "0976513aec2fa3d512b292a372eb6b38bb9e44f67a4608a4df5e38354544d44c",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/TradingAgents-LICENSE.txt",
+      "size": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/evidence/current-checkpoint-probe.json",
+      "size": 435,
+      "sha256": "8a96dd68533e37aa6af1bd016a118ae6697060f2cfe15454d1a81a4d84bc68b6",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/evidence/dependency-declarations.json",
+      "size": 219048,
+      "sha256": "0428e106c47a58142ee785890a523f792ab1625e3650dc958860ae64132b14fc",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/evidence/feature-parity-regression-matrix.json",
+      "size": 7497647,
+      "sha256": "732dcb8a86780ce260c19bf8d57e31c3ae1da8d566052b6a628bddbd3677aa16",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/evidence/hermes-diagram-edges.json",
+      "size": 4965,
+      "sha256": "0be717489429c2c1295576542a984f08a6a3901949611b533b60bc470ecc1382",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/evidence/hermes-diagram-map.json",
+      "size": 5383,
+      "sha256": "77ecf5061bb72fbdb394dd1109e0df27f7b24d539ded4202137a17da3c3e22fc",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/evidence/hermes-http-route-inventory.json",
+      "size": 23013,
+      "sha256": "8ab56df4794cff8c8c6b1919b9991d658b1b9d4669c06041b8f4f16460a4d0b0",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/evidence/model-profile-preservation.json",
+      "size": 412,
+      "sha256": "dd2ad1750ec56f71a39cfec6694c966978cc9eeb487dd0d7131505f13951ef87",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/evidence/pinned-sources.json",
+      "size": 1422,
+      "sha256": "c43f45841310a20c42fbfe6fe3a40fdba1c9a82d4a04f4f116390df07f57f911",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/evidence/repository-pins.json",
+      "size": 1146,
+      "sha256": "e414fd5f37b78d2605fd9d3f503cd69922dd02393da92df0b65434d56f71289d",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/evidence/tradingagents-native-baseline.log",
+      "size": 12374,
+      "sha256": "4db13a63e928f7de601939fbf8662b9a74663f6ec22b861e772ae14d0c8c78fd",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/evidence/tradingagents-security-constraints.txt",
+      "size": 86,
+      "sha256": "0f08d167f874c3fd933cec063934544ca0ae92c6acbf25f194c27cce4f29e0b4",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/evidence/tradingagents-source-index.jsonl.gz",
+      "size": 47867,
+      "sha256": "a390aefd8c293d84a1f1efe4950d5259b1a087aff20dcf2947bd9b74e3b2beef",
+      "normalization": "raw"
+    },
+    {
+      "path": "docs/four-system/evidence/tradingagents-unit-requirements.txt",
+      "size": 185802,
+      "sha256": "735cc673ce6dc32665413be9b4f33f0ab08ede46889b0844f636f5c0484ac493",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/evidence/zenith-baseline.log",
+      "size": 55320,
+      "sha256": "10e05e4344a5b900f1d14a42e8015d086d044e9919419a115787f75c8b1e2eab",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/evidence/zenith-model-verification.prior.json",
+      "size": 3780,
+      "sha256": "24fe1d4acf23488a8cf243be274a4f35508c3595e78c85151312904edfbc58c4",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/evidence/zenith-source-index.jsonl.gz",
+      "size": 55262,
+      "sha256": "d6e13a1a7007d04f5d6759d997e3c1abff65b692778941c66e999baf53dfd3f2",
+      "normalization": "raw"
+    },
+    {
+      "path": "docs/four-system/prior-runtime-audit/01_SOURCE_AUDIT_AND_PINS.md",
+      "size": 5341,
+      "sha256": "c14dd2875618e845163afd60c63395fd689da66a79a73c88334fb52e309800de",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/prior-runtime-audit/02_HERMES_PUBLIC_INTERFACES_AND_DIAGRAM.md",
+      "size": 14689,
+      "sha256": "f0bca725ca6ab8835b8e896854f75d297ea076db447cfeef1a4d7a0b380da22e",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/prior-runtime-audit/03_OPENCLAW_PUBLIC_INTERFACES_AND_DIAGRAM.md",
+      "size": 24917,
+      "sha256": "a9f781550b1e229f06a9c0b9921b7017765c305a46dab5d14259dde460097fa7",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/prior-runtime-audit/04_FEATURE_INVENTORY_AND_MATRIX.md",
+      "size": 13096,
+      "sha256": "73e4020b479f3b412162cf2c4064b0b2dc195ffcf50415ea01a1d57c3a3b8682",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/prior-runtime-audit/05_DEPENDENCY_AND_LICENSE_COMPATIBILITY.md",
+      "size": 3505,
+      "sha256": "55464dfd04c0289929e3b3a5dbed190f9845f079279091d7673573c6ce434380",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/prior-runtime-audit/06_ADDITIVE_ARCHITECTURE_SPECIFICATION.md",
+      "size": 9990,
+      "sha256": "e36bf8aa2e7cfb3abd29f654a8ed13c994d009dc49a116904c8c80d1fcf741c4",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/prior-runtime-audit/08_SECURITY_THREAT_MODEL.md",
+      "size": 5406,
+      "sha256": "fdd5ce0f880a14a93a289b24a714165ea5c31ccd1b47c8ed6510c5ba74585cdd",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/prior-runtime-audit/09_ROLLBACK_AND_PRESERVATION.md",
+      "size": 2621,
+      "sha256": "c7e923ea7aa7cde3b2dd9404a421a1feb4d9e06be83e83422c89a55dbc21e120",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/prior-runtime-audit/12_24_7_OPERATIONS_PLAN.md",
+      "size": 3474,
+      "sha256": "214e636561265e11f455a7f3842b36f1ef7884329535927115915a333da94312",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/prior-runtime-audit/13_INCOMPATIBILITIES_AND_APPROVAL_DECISIONS.md",
+      "size": 3667,
+      "sha256": "b31ef3c126f5a0986c01d6d0351d7ffe5b9effae265cb1abf2643d812a7e29c0",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/prior-runtime-audit/14_ALL_DIAGRAM_COMPONENTS_AND_CONNECTIONS.md",
+      "size": 5119,
+      "sha256": "c624355d123c0ace17b06e2a46a7064e596bb64190b87a74b9fa61223aa7f65d",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/prior-runtime-audit/FEATURE_PARITY_REGRESSION_MATRIX.csv",
+      "size": 5642033,
+      "sha256": "e6ed77f60c2503379505ce0196e8a61d0f4e93ee206f47707bfac7e88b649d6e",
+      "normalization": "lf"
+    },
+    {
       "path": "docs/integrity.md",
       "size": 2875,
       "sha256": "c1acef221ddb5a81d7b31e13d38809d04bb29af967e3d21242abedd8213dbebd",
@@ -1444,8 +1750,14 @@
     },
     {
       "path": "docs/local-installation.md",
-      "size": 14711,
-      "sha256": "f6ca85cb0e4b03f94514fe3e4612255b67edbb03bc763daad7c02791c00af897",
+      "size": 14863,
+      "sha256": "5814f0fd88190b16db95a9a7cfcdb55329508de8dc313ebe1acfd33350405943",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/macos.md",
+      "size": 3686,
+      "sha256": "3ca4d0e21e8698ce474888fc6c2fdecdda9440ca434e6c3c59ea2fb8e6127f89",
       "normalization": "lf"
     },
     {
@@ -1734,6 +2046,12 @@
       "path": "docs/reasoning/validation.md",
       "size": 2438,
       "sha256": "5c555416fa1c053975f58e46dc2248fee840f6a695959139c682a93ce66b011a",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/repository-presentation.md",
+      "size": 1670,
+      "sha256": "cfa826f90aa8ccc7e9b243925685f9430d00a2a65caadc157d8c872c3e974a8b",
       "normalization": "lf"
     },
     {
@@ -2284,14 +2602,14 @@
     },
     {
       "path": "install.py",
-      "size": 8263,
-      "sha256": "7b11f85d41dccf92ed8b04cdaf7561ce4ba186b5b7e095c87174a7ba76076429",
+      "size": 10678,
+      "sha256": "24063bee3379afb14ba2e9170e5a77e3eee8833aa48bfb3ed3ab7426c36077f8",
       "normalization": "lf"
     },
     {
       "path": "install.sh",
-      "size": 517,
-      "sha256": "7d345731fd700bc3ad53e1d9b2f95b8b610c7c41caa36434e7afa2fcc0bda1bb",
+      "size": 639,
+      "sha256": "a0227ad73801e12771981e27163b83f79597c49f23928c831467d5b6865e2b6d",
       "normalization": "lf"
     },
     {
@@ -2788,8 +3106,8 @@
     },
     {
       "path": "tests/test_easy_install.py",
-      "size": 9421,
-      "sha256": "e6ecdcc895c6c021d9abd4ff1b97cddd8fa5e1ba984cd58fe4f6ae09777353af",
+      "size": 9713,
+      "sha256": "f74c703415d20ba4a7816db59bd112ad9308bb34e4b731fe02542ef1fd08b016",
       "normalization": "lf"
     },
     {
@@ -2812,8 +3130,8 @@
     },
     {
       "path": "tests/test_installation.py",
-      "size": 10791,
-      "sha256": "950b2c8bb5dea3564b07063b72b9a280c4cb03b3d560a9d9cddc602773822e7c",
+      "size": 10859,
+      "sha256": "9f1ed84c4da354755558fd85f0c6a72cf55ddf36033005b019edc7259ddf9372",
       "normalization": "lf"
     },
     {
@@ -2832,6 +3150,12 @@
       "path": "tests/test_learning.py",
       "size": 4046,
       "sha256": "e7b1fbe7e86c1487e1d1370659e5c86e0e81ebbadd4947d11c7704f0685b1188",
+      "normalization": "lf"
+    },
+    {
+      "path": "tests/test_macos_install.py",
+      "size": 5709,
+      "sha256": "b5da5b976c5675dcd123357f8fd9acf79fdb2410ecf807a6b10c9727ddca2d90",
       "normalization": "lf"
     },
     {

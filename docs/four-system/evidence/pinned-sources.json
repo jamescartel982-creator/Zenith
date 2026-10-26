@@ -1,0 +1,29 @@
+{
+  "zenith": {
+    "repository": "n8storm/Zenith",
+    "sha": "f1dbab49f915d4c74b57e560aafac7e51efde373",
+    "tree": "6e43a7622e0df2bc559bc010f331d57c4e8940dc",
+    "clone_directory": "/workspace/zenith-runtime-bridge-audit-20261026/zenith",
+    "tracked_source_clean": true,
+    "source": "New separate local Git clone of a previously fetched, verified public repository snapshot; not claimed latest HEAD",
+    "original_license": "                                 Apache License"
+  },
+  "hermes-agent": {
+    "repository": "NousResearch/hermes-agent",
+    "sha": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "tree": "45eae7cd0f96532a87e649b5b64a44c3f6fadb8e",
+    "clone_directory": "/workspace/zenith-runtime-bridge-audit-20261026/hermes-agent",
+    "tracked_source_clean": true,
+    "source": "New separate local Git clone of a previously fetched, verified public repository snapshot; not claimed latest HEAD",
+    "original_license": "MIT License"
+  },
+  "openclaw": {
+    "repository": "openclaw/openclaw",
+    "sha": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "tree": "da811cbdf19ff5e21544abee05b0b8fb96dce919",
+    "clone_directory": "/workspace/zenith-runtime-bridge-audit-20261026/openclaw",
+    "tracked_source_clean": true,
+    "source": "New separate local Git clone of a previously fetched, verified public repository snapshot; not claimed latest HEAD",
+    "original_license": "MIT License"
+  }
+}
