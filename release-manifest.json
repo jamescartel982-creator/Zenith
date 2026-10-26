@@ -45,6 +45,12 @@
       "normalization": "lf"
     },
     {
+      "path": ".github/workflows/native-source-conformance.yml",
+      "size": 1488,
+      "sha256": "abcd029c2d3183424121fa741720b0f2120ecb8dae759054e84e6500e6a071b6",
+      "normalization": "lf"
+    },
+    {
       "path": ".github/workflows/runtime-bridge.yml",
       "size": 2761,
       "sha256": "c918c6c2d6a04c68ba2e257948a9f2dbae2cf0b9682df4f925731795b090a746",
@@ -1558,14 +1564,20 @@
     },
     {
       "path": "docs/four-system/IMPLEMENTATION_STATUS.md",
-      "size": 2460,
-      "sha256": "4d3f45be2f034a71d1af3fadc7f3aabdbcb504a1105a0314245ba6c7075c1763",
+      "size": 2852,
+      "sha256": "cd78cf96349731e87c7f19e43179b98b97f91c49015ecd8f0350788613f393f5",
       "normalization": "lf"
     },
     {
       "path": "docs/four-system/MODEL_COMPATIBILITY.md",
       "size": 2073,
       "sha256": "7533abc3b961d7e08a82ffdfa067c0c2944e540b1064371bb8e316255b2b401f",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/NATIVE_CLIENTS.md",
+      "size": 6485,
+      "sha256": "81d562f927f9ae4be6a714675f20e52572d4195e97ea213638ca609688985ac7",
       "normalization": "lf"
     },
     {
@@ -1686,6 +1698,12 @@
       "path": "docs/four-system/implementation-v0.1/local-native-acceptance.json",
       "size": 1049,
       "sha256": "52ddd587f9199433ddf0e2060c7029c86e1e557818c98440284c38a1af5f8a4a",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/implementation-v0.2/openclaw-source-conformance.json",
+      "size": 354,
+      "sha256": "f08cfce776efe6a013bf6aa4d80a76546cf1a6fb33f00dc1b84123bb1f2e4132",
       "normalization": "lf"
     },
     {
@@ -2650,8 +2668,8 @@
     },
     {
       "path": "integrations/inference_service/pyproject.toml",
-      "size": 1071,
-      "sha256": "22f806968bbeaa555e3d6ce8ea47e2e15066b6b0eebf2322b05a87ebdf40fec9",
+      "size": 1109,
+      "sha256": "0e0f43ed90aa215421e2336f795f3478284742fd49b7e976f2120c4177e2a907",
       "normalization": "lf"
     },
     {
@@ -2716,8 +2734,8 @@
     },
     {
       "path": "integrations/inference_service/uv.lock",
-      "size": 79158,
-      "sha256": "44ed096b5d77323a5c9028d9893ab4ba37c97f3135f2abe4695d2519bf1972cf",
+      "size": 81866,
+      "sha256": "e0feb12374d5235b433962115fbdb1eda8da67b0ece89c1f515e4fe7ae04c7c7",
       "normalization": "lf"
     },
     {
@@ -2734,20 +2752,20 @@
     },
     {
       "path": "integrations/runtime_bridge/README.md",
-      "size": 4108,
-      "sha256": "0d0ddee01c8522a1a521487411595137ddf0f88614e668adac04698e02129da1",
+      "size": 4671,
+      "sha256": "87fe440c90f65c88986eeaf6afd902254e22b1477737343bcc45a487866e262e",
       "normalization": "lf"
     },
     {
       "path": "integrations/runtime_bridge/pyproject.toml",
-      "size": 526,
-      "sha256": "1db6719715ddf277c04abaabffda3f35f9112b184386fb85b9ceb881ba64c1af",
+      "size": 591,
+      "sha256": "57faa0450a815936db162966e00566f78b5bac9fcfaf9bf4f975f982b8828622",
       "normalization": "lf"
     },
     {
       "path": "integrations/runtime_bridge/src/zenith_integrations/__init__.py",
       "size": 101,
-      "sha256": "a360b45591bc0581dc786ef9e2e1b08f5084aaef39a9a0afd71e99e4a9b9a564",
+      "sha256": "9f61aed8ef9603055b724ed52142686bf0b136b33d47674141de745004dc5fe2",
       "normalization": "lf"
     },
     {
@@ -2766,6 +2784,60 @@
       "path": "integrations/runtime_bridge/src/zenith_integrations/gateway.py",
       "size": 8406,
       "sha256": "533c9ffcf52980d1e305b6c16b48f98079c9b3c258f053a298e6725ee9ac31b0",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/runtime_bridge/src/zenith_integrations/hermes/__init__.py",
+      "size": 82,
+      "sha256": "66770287b8b7ea6d313bc6fd8a1067e042dbd56495e9655de3839381c274944f",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/runtime_bridge/src/zenith_integrations/hermes/api_client.py",
+      "size": 5406,
+      "sha256": "69dec5ff7bd0fe55c61a7f4ec938be22cfc7ffd0aa2fec932f986f060d688b1c",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/runtime_bridge/src/zenith_integrations/hermes/event_mapper.py",
+      "size": 750,
+      "sha256": "a91592a139b80666d92def313ba22c1731520e8695b7960fce160ad300d5db56",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/runtime_bridge/src/zenith_integrations/hermes/session_bridge.py",
+      "size": 574,
+      "sha256": "576b92ab0942e411adee1eadf2dedf46244a9dd4ae5295b4023e21273a676fad",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/runtime_bridge/src/zenith_integrations/openclaw/__init__.py",
+      "size": 80,
+      "sha256": "74b69f15627f626c3d11c4ddd6a81fb9d08014e5af997d0aeaf0d442b5bbb21f",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/runtime_bridge/src/zenith_integrations/openclaw/channel_bridge.py",
+      "size": 4278,
+      "sha256": "8a3615e4fcbb0688f315e929d4bef98132f659a3dbffd022477e9ff2ad37c0d4",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/runtime_bridge/src/zenith_integrations/openclaw/event_mapper.py",
+      "size": 1260,
+      "sha256": "2090da4b4c8adb636161b93f8b32f2daad3a9ad9e744e9786c02652affe1599b",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/runtime_bridge/src/zenith_integrations/openclaw/gateway_client.py",
+      "size": 13189,
+      "sha256": "4cf4cc33087c75f9f6ef0eeaf6be7347be9c45d25976f87ef52c2c7ffedf8d52",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/runtime_bridge/src/zenith_integrations/openclaw/session_bridge.py",
+      "size": 371,
+      "sha256": "871543a576259e586062fcb4679baed680bdced5ead832963566b2deb57b1754",
       "normalization": "lf"
     },
     {
@@ -2805,6 +2877,18 @@
       "normalization": "lf"
     },
     {
+      "path": "integrations/runtime_bridge/src/zenith_integrations/shared/native_http.py",
+      "size": 4025,
+      "sha256": "ac1b062303290b07f2bee2037579a64e8bd5012291af9cc1f2f15f12f73dcd56",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/runtime_bridge/src/zenith_integrations/shared/redaction.py",
+      "size": 815,
+      "sha256": "b08ced3609c1d32d930b600faed9b7936b0db6bca670fb3ed5b773908ced698f",
+      "normalization": "lf"
+    },
+    {
       "path": "integrations/runtime_bridge/src/zenith_integrations/shared/router.py",
       "size": 2752,
       "sha256": "0b4b733e758e75c40ceff8ee3479d5d6d4be9e261cafd5048a838296be92911e",
@@ -2817,15 +2901,27 @@
       "normalization": "lf"
     },
     {
+      "path": "integrations/runtime_bridge/tests/native_source_conformance.py",
+      "size": 3534,
+      "sha256": "2fa7d616501ce994b6cfe78714527c9ebe5f721b0f34c8d6a4959a589e4c740c",
+      "normalization": "lf"
+    },
+    {
       "path": "integrations/runtime_bridge/tests/test_bridge.py",
       "size": 9127,
       "sha256": "0f0575cd0bd37f2f290436b7067a56724ee30a4d164d8021a7164a6320b2fed6",
       "normalization": "lf"
     },
     {
+      "path": "integrations/runtime_bridge/tests/test_native_clients.py",
+      "size": 14335,
+      "sha256": "4f4aa9cb8da03a817d87e29de5de4a479d83d4ba5234657b99ecd1081dcdf747",
+      "normalization": "lf"
+    },
+    {
       "path": "integrations/runtime_bridge/uv.lock",
-      "size": 70966,
-      "sha256": "68ca19c85075a700fad377ac6b2f9b958386a1d80c3a3498162e9b89f0550783",
+      "size": 75463,
+      "sha256": "27e1a0dabd264e4b4c6b1513f29f600bc1be4cf5b561a425948843b3ba015a21",
       "normalization": "lf"
     },
     {
