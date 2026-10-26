@@ -29,8 +29,8 @@ tokenizer files, training data, production profile or account data was replaced.
 
 ## Actual local checks
 
-- Complete suite on the patched compatibility environment: **334 tests run,
-  333 passed, one skipped, 44.231 seconds**.
+- Complete suite on the patched compatibility environment: **338 tests run,
+  337 passed, one skipped, 44.791 seconds**.
 - Thirteen initial focused HTTP/private-storage tests passed, followed by the
   additional writable-directory regression in the complete suite.
 - A real Uvicorn process and loopback HTTP connections passed UI/health checks,
@@ -41,7 +41,7 @@ tokenizer files, training data, production profile or account data was replaced.
   returned `4` to the fixed arithmetic prompt, and supervised training-example
   preparation passed. This is compatibility evidence, not a quality benchmark.
 - `pip check` in the compatibility environment: no broken requirements.
-- Patched dependency scan: **95 selected installed distributions, zero known
+- Patched dependency scan: **96 selected installed distributions, zero known
   advisories**, with no advisory exclusions. The count includes audit tooling;
   the original scan covered 75 distributions. Raw before/after reports are
   included. Zenith's own project is excluded from the public-package lookup;
@@ -55,6 +55,14 @@ requirements now require setuptools >=84.1.0,<85 rather than hiding those
 findings. Fresh Hub 1.33 cache validation also requires matching the download's
 allow-pattern filter; cached-snapshot checks now use the same filter, including
 checkpoint inspection. CI is rerun on the corrected revision.
+
+The newer Qwen2 tokenizer constructor also rebuilt ByteLevel components with
+different defaults and omitted extra tokens from its public special-token map.
+The compatibility loader now reads the original saved fast-tokenizer backend;
+the fingerprint canonicalizes only the renamed extra-token attribute. Changes
+to actual tokens, templates or backend data still fail identity checks. The
+original fingerprint `221ea68122dfcfb2772276b69e62fc97ea9b13785ee069b118ee36498b19a418`
+is retained. No original tokenizer files are written or converted.
 
 The compatibility environment overlays updated packages on read-only access to
 the original installed dependencies, avoiding a second large Torch download.

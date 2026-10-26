@@ -70,7 +70,7 @@ class HuggingFaceProvider:
             validate_activation(self.settings)
         try:
             import torch
-            from transformers import AutoModelForCausalLM, AutoTokenizer
+            from transformers import AutoModelForCausalLM
         except ImportError as exc:
             raise RuntimeError('Install local inference: pip install -e ".[local]"') from exc
         settings = self.settings
@@ -78,7 +78,8 @@ class HuggingFaceProvider:
         if device == "cpu":
             torch.set_num_threads(settings.cpu_threads)
         dtype = torch.float32 if device == "cpu" else torch.float16
-        tokenizer = AutoTokenizer.from_pretrained(settings.model, revision=settings.revision, trust_remote_code=False, local_files_only=settings.offline)
+        from .tokenization import load_preserved_tokenizer
+        tokenizer = load_preserved_tokenizer(settings.model, revision=settings.revision, local_files_only=settings.offline)
         if not tokenizer.chat_template:
             raise ValueError("Choose an instruction/chat model with a chat template")
         model = AutoModelForCausalLM.from_pretrained(

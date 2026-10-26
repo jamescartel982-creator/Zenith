@@ -25,8 +25,14 @@ def inventory(directory):
 
 
 def tokenizer_signature(tokenizer):
+    special_tokens = dict(tokenizer.special_tokens_map)
+    # Transformers 5 renamed this public attribute and omits it from the map.
+    # Canonicalize its name, retaining every value in the original fingerprint.
+    extra = getattr(tokenizer, 'extra_special_tokens', None)
+    if 'additional_special_tokens' not in special_tokens and isinstance(extra, list) and extra:
+        special_tokens['additional_special_tokens'] = extra
     value = {'backend': json.loads(tokenizer.backend_tokenizer.to_str()),
-             'chat_template': tokenizer.chat_template, 'special_tokens': tokenizer.special_tokens_map,
+             'chat_template': tokenizer.chat_template, 'special_tokens': special_tokens,
              'bos':tokenizer.bos_token_id,'eos':tokenizer.eos_token_id,'pad':tokenizer.pad_token_id}
     return hashlib.sha256(json.dumps(value,sort_keys=True,ensure_ascii=False).encode()).hexdigest()
 
@@ -64,7 +70,8 @@ def parent_metadata(directory):
 def load_existing(directory, trainable=False, cpu_threads=2):
     """Keep the parent's base, architecture, vocabulary and learned LoRA values."""
     import torch
-    from transformers import AutoModelForCausalLM,AutoTokenizer
+    from transformers import AutoModelForCausalLM
+    from .tokenization import load_preserved_tokenizer
     from peft import PeftModel
     torch.set_num_threads(cpu_threads)
     root, adapter_config, report = parent_metadata(directory)
@@ -76,8 +83,8 @@ def load_existing(directory, trainable=False, cpu_threads=2):
     weight=(snapshot/'model.safetensors').resolve()
     if weight.is_file() and re.fullmatch(r'[a-f0-9]{64}',weight.name) and digest(weight)!=weight.name:
         raise ValueError('Cached base weights do not match their content-addressed blob hash')
-    tokenizer = AutoTokenizer.from_pretrained(base,revision=revision,trust_remote_code=False,local_files_only=True)
-    parent_tokenizer = AutoTokenizer.from_pretrained(root,trust_remote_code=False,local_files_only=True)
+    tokenizer = load_preserved_tokenizer(base,revision=revision,local_files_only=True)
+    parent_tokenizer = load_preserved_tokenizer(root,local_files_only=True)
     if tokenizer_signature(tokenizer) != tokenizer_signature(parent_tokenizer):
         raise ValueError('Parent and base tokenizer definitions differ; explicit compatibility review is required')
     model, loading = AutoModelForCausalLM.from_pretrained(base,revision=revision,trust_remote_code=False,

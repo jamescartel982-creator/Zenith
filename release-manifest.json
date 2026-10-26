@@ -202,8 +202,8 @@
     },
     {
       "path": "agent/checkpoints.py",
-      "size": 7861,
-      "sha256": "3275cb8c4a1a6208a5012823487615af4a3c18dd85d8be99ee9291810ff74f85",
+      "size": 8261,
+      "sha256": "4b230b1ea473b57eba895c2418dcda07d52c769ac2d89ee89620b3bf7897acba",
       "normalization": "lf"
     },
     {
@@ -310,8 +310,8 @@
     },
     {
       "path": "agent/export_checkpoint.py",
-      "size": 3406,
-      "sha256": "9907512c639b124d9849826f69dcca9dbc8650501f5d441106a6702d2a548604",
+      "size": 3418,
+      "sha256": "b5dd0eb546678ae4eb27fd15a784d8bfab675d2240038d4c37e993933325839a",
       "normalization": "lf"
     },
     {
@@ -484,8 +484,8 @@
     },
     {
       "path": "agent/providers.py",
-      "size": 18452,
-      "sha256": "ea2a1fd886abbd0df3545e66fb0b0a0e109150c79883ff791ff10c5e116731a5",
+      "size": 18466,
+      "sha256": "aed049b5e0fa80113693dafef41c126a2b7196f7be2929287e4b0ffcb201433b",
       "normalization": "lf"
     },
     {
@@ -630,6 +630,12 @@
       "path": "agent/tiny.py",
       "size": 4544,
       "sha256": "0a03f50c99706d545559f07c33ac710ada40b2d06e8f015c89e359840a620389",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/tokenization.py",
+      "size": 740,
+      "sha256": "9c6a230d7d7aae1788a0355505c47bd6745953522bf3aab660f198bf1c3fe986",
       "normalization": "lf"
     },
     {
@@ -1732,8 +1738,8 @@
     },
     {
       "path": "docs/security/2026-10-26/VALIDATION.md",
-      "size": 5206,
-      "sha256": "4b403492c7c891ee36ab930c833a15ac64d5c63b0ea99335782134ae361fe043",
+      "size": 5750,
+      "sha256": "375f072c05a5718969ba4bd66c9cececa4194d317fe30cdf333791d8f4df7351",
       "normalization": "lf"
     },
     {
@@ -1758,6 +1764,12 @@
       "path": "docs/security/2026-10-26/model-preservation.json",
       "size": 398,
       "sha256": "4a22b2ce8ab76f3fc3465e5e3fe1681f17ef71a102128d8b3ebc6a75fec6574a",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/security/2026-10-26/tokenizer-preservation.json",
+      "size": 172,
+      "sha256": "99fddd7e3362cb1db94fb1e662cfa0405401835a6834f42936e930d5a6bcb806",
       "normalization": "lf"
     },
     {
@@ -2952,6 +2964,12 @@
       "path": "tests/test_tiny.py",
       "size": 1958,
       "sha256": "7902a729b9c6c1c82a9be8fbb5725b55fd18e9b9e4642419577ee0dfe38ee243",
+      "normalization": "lf"
+    },
+    {
+      "path": "tests/test_tokenizer_identity.py",
+      "size": 1553,
+      "sha256": "70cbf3164df6c689af16dda1d60c392e2026001dbf947380d025cd16302be0e2",
       "normalization": "lf"
     },
     {
