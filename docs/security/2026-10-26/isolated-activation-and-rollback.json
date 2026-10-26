@@ -1,0 +1,10 @@
+{
+  "setup_cli_verified": true,
+  "activation_status": "experimental",
+  "numeric_gate_passed": false,
+  "regression_override": true,
+  "inference": "Mars",
+  "restricted_tools_enabled": false,
+  "rollback_verified": true,
+  "scope": "isolated temporary profile; production configuration unchanged"
+}

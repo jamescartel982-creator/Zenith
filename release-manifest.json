@@ -634,8 +634,8 @@
     },
     {
       "path": "agent/tokenization.py",
-      "size": 740,
-      "sha256": "9c6a230d7d7aae1788a0355505c47bd6745953522bf3aab660f198bf1c3fe986",
+      "size": 1803,
+      "sha256": "2eae45c3b7c64357b56cb4a898ba38261b9f4b1d60411a49cd6230b7fe7b9f7d",
       "normalization": "lf"
     },
     {
@@ -1738,8 +1738,8 @@
     },
     {
       "path": "docs/security/2026-10-26/VALIDATION.md",
-      "size": 5750,
-      "sha256": "ebcf3349b169601b90661b9be39f2a6dcede445c8dfc956d4f27ef20972620b9",
+      "size": 6118,
+      "sha256": "f793850cfbc68571edaf9d444f7289b68020d3a5eaa2d230fc7bee37f22aad84",
       "normalization": "lf"
     },
     {
@@ -1752,6 +1752,12 @@
       "path": "docs/security/2026-10-26/dependencies-before.json",
       "size": 36160,
       "sha256": "afe092db9f92e0fdf7ee4b6daa3e5a45e74a0afdd51aab5502bcec3c0aea5a52",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/security/2026-10-26/isolated-activation-and-rollback.json",
+      "size": 301,
+      "sha256": "7e439bd2be1749f86708d4e9c87dae4a1af242d2b4c2bcffa455919a8fe2cf16",
       "normalization": "lf"
     },
     {
@@ -2290,8 +2296,8 @@
     },
     {
       "path": "integrations/runtime_setup/README.md",
-      "size": 7002,
-      "sha256": "60103e410aba9f7c272f6b4608751fccafac9af005b2aff06e4e2048b88f70dd",
+      "size": 7057,
+      "sha256": "669917158d644b57dc6b59427389d73f03800db6ccd75a59f7f21f55c03182a4",
       "normalization": "lf"
     },
     {
@@ -2968,8 +2974,8 @@
     },
     {
       "path": "tests/test_tokenizer_identity.py",
-      "size": 1553,
-      "sha256": "70cbf3164df6c689af16dda1d60c392e2026001dbf947380d025cd16302be0e2",
+      "size": 2135,
+      "sha256": "18cd39ec6362431a7b9982086281e1e326dc90dd55e88bf2e25b165bb65f3521",
       "normalization": "lf"
     },
     {

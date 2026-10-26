@@ -3,9 +3,18 @@ from types import SimpleNamespace
 import unittest
 
 from agent.checkpoints import tokenizer_signature
+from agent.tokenization import legacy_special_token_options
 
 
 class TokenizerIdentityTests(unittest.TestCase):
+    def test_old_empty_extra_dictionary_does_not_discard_saved_special_tokens(self):
+        options = legacy_special_token_options({'additional_special_tokens': ['<saved>'], 'extra_special_tokens': {}})
+        self.assertEqual(options, {'extra_special_tokens': ['<saved>']})
+
+    def test_explicit_new_special_token_definitions_are_not_overridden(self):
+        self.assertEqual(legacy_special_token_options({'additional_special_tokens': ['<old>'],
+            'extra_special_tokens': {'image_token': '<image>'}}), {})
+
     def fixture(self, *, modern=False, extra=None, backend='{"model":{"vocab":{"a":0}}}'):
         extra = ['<start>', '<end>'] if extra is None else extra
         values = {'backend_tokenizer': SimpleNamespace(to_str=lambda: backend),

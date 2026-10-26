@@ -29,8 +29,8 @@ tokenizer files, training data, production profile or account data was replaced.
 
 ## Actual local checks
 
-- Complete suite on the patched compatibility environment: **338 tests run,
-  337 passed, one skipped, 44.791 seconds**.
+- Complete suite on the patched compatibility environment: **340 tests run,
+  339 passed, one skipped, 42.275 seconds**.
 - Thirteen initial focused HTTP/private-storage tests passed, followed by the
   additional writable-directory regression in the complete suite.
 - A real Uvicorn process and loopback HTTP connections passed UI/health checks,
@@ -63,6 +63,11 @@ the fingerprint canonicalizes only the renamed extra-token attribute. Changes
 to actual tokens, templates or backend data still fail identity checks. The
 original fingerprint `221ea68122dfcfb2772276b69e62fc97ea9b13785ee069b118ee36498b19a418`
 is retained. No original tokenizer files are written or converted.
+Older saved adapters' empty extra-token dictionaries are handled using their
+original additional-token lists. The real installed experimental-activation,
+inference and exact rollback test passed in a temporary profile, retaining the
+failed quality gate and keeping restricted tools disabled. The production
+profile was not activated, replaced or changed by that test.
 
 The compatibility environment overlays updated packages on read-only access to
 the original installed dependencies, avoiding a second large Torch download.
