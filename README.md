@@ -61,10 +61,6 @@ regressions, verifies and caches its weights, and saves a rollback receipt.
 Existing settings and conversations are preserved. See
 [installation details](docs/local-installation.md) for updates and other runtimes.
 
-For browser chat, replace `chat` with `serve --open-browser` in the run command.
-The local address is **http://127.0.0.1:7860**; keep its terminal open and use
-Ctrl+C to stop the server.
-
 ### Runtime choices
 
 | Installer mode | Runtime | Intended use |
@@ -75,6 +71,10 @@ Ctrl+C to stop the server.
 | `--mode localserver` | A compatible local llama.cpp or vLLM server | Separately downloaded model packs |
 
 Local mode typically needs about 4–6 GB of available RAM and roughly 1 GB for weights. Append `--download` to cache the configured Hugging Face weights during installation; otherwise they download when first used. External runtimes must be installed and started separately. See [runtime setup](docs/local-installation.md) and [model packs](docs/model-packs.md).
+
+Optional Hermes/OpenClaw development prerequisites have a separate
+[pinned runtime setup](integrations/runtime_setup/README.md). This keeps their
+Node, Python, and protocol test SDKs separate from the standard Zenith install.
 
 ## Workspace
 
