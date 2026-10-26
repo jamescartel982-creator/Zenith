@@ -84,6 +84,8 @@ class NativeExecutor:
             env={key:value for key,value in os.environ.items() if key in names or key.startswith(('CODEX_NETWORK_','CODEX_PROXY_'))}
             if 'PYTHONPATH' in env:
                 env['PYTHONPATH']=os.pathsep.join(str(Path(value).resolve()) for value in env['PYTHONPATH'].split(os.pathsep) if value)
+            for name in ('NO_PROXY','no_proxy'):
+                env[name]=','.join(filter(None,(env.get(name,''),'127.0.0.1,localhost,::1')))
             env['PYTHONDONTWRITEBYTECODE']='1'
             process=None
             started=time.monotonic()

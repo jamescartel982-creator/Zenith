@@ -14,7 +14,7 @@ from fastapi.responses import JSONResponse, StreamingResponse
 
 from zenith_integrations.shared.http_boundary import PrivateAPIBoundary
 from .chat_contract import ChatRequest
-from .limits import Cancellation, ContextExceeded, InferenceCancelled
+from .limits import Admission,ModelBusy,Cancellation, ContextExceeded, InferenceCancelled
 from .tool_calls import InvalidModelOutput, parse_output
 
 logger = logging.getLogger('zenith.inference')
@@ -113,7 +113,7 @@ class OwnedStreamingResponse(StreamingResponse):
                     await self.run.close()
 
 
-def create_app(backend, auth, allowed_hosts=('127.0.0.1', 'localhost', '::1')):
+def create_app(backend, auth, allowed_hosts=('127.0.0.1', 'localhost', '::1'),queue_size=0):
     @asynccontextmanager
     async def lifespan(app):
         try:
@@ -125,7 +125,7 @@ def create_app(backend, auth, allowed_hosts=('127.0.0.1', 'localhost', '::1')):
                     await anyio.to_thread.run_sync(close)
     app = FastAPI(title='Zenith inference', lifespan=lifespan, docs_url=None, redoc_url=None, openapi_url=None)
     app.add_middleware(PrivateAPIBoundary, allowed_hosts=tuple(allowed_hosts))
-    gate = asyncio.Lock()
+    gate = Admission(queue_size,backend.limits.deadline_seconds)
     app.state.backend, app.state.gate = backend, gate
 
     @app.exception_handler(RequestValidationError)
@@ -156,16 +156,34 @@ def create_app(backend, auth, allowed_hosts=('127.0.0.1', 'localhost', '::1')):
     async def completions(request: Request, body: ChatRequest, principal=Depends(generation_identity)):
         if body.maximum and body.maximum > backend.limits.max_output_tokens:
             return error_response(400, 'invalid_request', 'admission-' + uuid.uuid4().hex)
-        if gate.locked():
-            raise HTTPException(429, 'Model is busy', headers={'Retry-After': '1'})
-        await gate.acquire()
+        async def disconnected():
+            while True:
+                message = await request.receive()
+                if message['type'] == 'http.disconnect':
+                    return
+        disconnect = asyncio.create_task(disconnected())
+        async def close_disconnect():
+            disconnect.cancel()
+            with suppress(asyncio.CancelledError):await disconnect
+        try:
+            await gate.acquire(disconnect)
+        except ModelBusy:
+            await close_disconnect()
+            raise HTTPException(429, 'Model is busy', headers={'Retry-After': '1'}) from None
+        except BaseException as exc:
+            await close_disconnect()
+            if isinstance(exc,InferenceCancelled):return failure(exc,'admission-'+uuid.uuid4().hex)
+            raise
         run = Run(backend, body, gate, principal)
         try:
             run.start()
         except BaseException:
             await run.close()
+            await close_disconnect()
             raise
         if body.stream:
+            # The streaming response takes ownership of receive from here.
+            await close_disconnect()
             def event(value):
                 return 'data: ' + json.dumps(value, ensure_ascii=False, allow_nan=False) + '\n\n'
             async def stream():
@@ -198,12 +216,6 @@ def create_app(backend, auth, allowed_hosts=('127.0.0.1', 'localhost', '::1')):
                     await run.close()
             return OwnedStreamingResponse(stream(), run=run, media_type='text/event-stream',
                                           headers={'X-Request-ID': run.id, 'X-Accel-Buffering': 'no'})
-        async def disconnected():
-            while True:
-                message = await request.receive()
-                if message['type'] == 'http.disconnect':
-                    return
-        disconnect = asyncio.create_task(disconnected())
         try:
             while not run.future.done():
                 completed, _ = await asyncio.wait((run.future, disconnect), timeout=0.05,
@@ -221,8 +233,6 @@ def create_app(backend, auth, allowed_hosts=('127.0.0.1', 'localhost', '::1')):
         except Exception as exc:
             return failure(exc, run.id)
         finally:
-            disconnect.cancel()
-            with suppress(asyncio.CancelledError):
-                await disconnect
+            await close_disconnect()
             await run.close()
     return app

@@ -47,7 +47,7 @@ def run(args):
         backend=NativeBackend(manifest,Limits(8192,256,120));backend.load()
         auth=ServiceAuth([{'id':'tradingagents','token_file':str(private/'inference.key'),
             'models':['zenith'],'capabilities':['inference.read','inference.generate']}])
-        with module.serve(inference_app(backend,auth)) as origin:
+        with module.serve(inference_app(backend,auth,queue_size=4)) as origin:
             call=[str(args.native_python),str(Path(__file__).resolve()),'--provider-only','--source-root',str(args.source_root),
                   '--inference-origin',origin,'--key-file',str(private/'inference.key')]
             native=json.loads(subprocess.check_output(call,text=True,timeout=150).strip().splitlines()[-1])

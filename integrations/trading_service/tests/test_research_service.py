@@ -9,6 +9,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 from fastapi.testclient import TestClient
 from zenith_integrations.shared.authorization import ServiceAuth,Principal
 from zenith_integrations.shared.ledger import Ledger
@@ -85,6 +86,30 @@ class ResearchContracts(unittest.TestCase):
 
 
 class WorkerOwnership(unittest.IsolatedAsyncioTestCase):
+    async def test_cancellation_during_spawn_reaps_process_without_forwarding_owner_keys(self):
+        with tempfile.TemporaryDirectory() as folder:
+            cfg=TradingConfig('/immutable/native',folder,'http://127.0.0.1:8781','/private/key')
+            executor=NativeExecutor(cfg);executor.ready=lambda:None
+            original=asyncio.create_subprocess_exec
+            admitted=asyncio.Event();release=asyncio.Event();children=[]
+            async def delayed(*args,**kwargs):
+                self.assertNotIn('ZENITH_ADMIN_CODE',kwargs['env'])
+                self.assertNotIn('OPENAI_API_KEY',kwargs['env'])
+                child=await original(sys.executable,'-c','import time;time.sleep(60)',start_new_session=os.name=='posix')
+                children.append(child);admitted.set();await release.wait();return child
+            request=ResearchRequest(account_id='alice',tickers=['AAPL'],dates=['2025-01-17'])
+            principal=Principal('bridge',frozenset({'jobs.submit'}),frozenset())
+            with patch('zenith_trading_service.execution.asyncio.create_subprocess_exec',side_effect=delayed),patch.dict(os.environ,{'ZENITH_ADMIN_CODE':'fixture-only','OPENAI_API_KEY':'fixture-only'}):
+                task=asyncio.create_task(executor.execute('owned_job',principal,request))
+                try:
+                    await asyncio.wait_for(admitted.wait(),5)
+                    task.cancel();release.set()
+                    with self.assertRaises(asyncio.CancelledError):await asyncio.wait_for(task,10)
+                    self.assertEqual(len(children),1);self.assertIsNotNone(children[0].returncode)
+                finally:
+                    release.set()
+                    for child in children:await executor.terminate(child)
+
     async def test_terminate_only_the_owned_process_and_wait_for_exit(self):
         cfg=TradingConfig('/immutable/native','/private/new','http://127.0.0.1:8781','/private/key')
         executor=NativeExecutor(cfg)

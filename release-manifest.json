@@ -2698,8 +2698,8 @@
     },
     {
       "path": "integrations/inference_service/src/zenith_inference/cli.py",
-      "size": 3456,
-      "sha256": "ac52df9e4b8284c077429b164f20810846c86dc2d2c6495a1f422833e89be13b",
+      "size": 3722,
+      "sha256": "1432eb38070d65751744559cae573a942bd7ced045e7f24b442263910a8d5843",
       "normalization": "lf"
     },
     {
@@ -2710,14 +2710,14 @@
     },
     {
       "path": "integrations/inference_service/src/zenith_inference/limits.py",
-      "size": 980,
-      "sha256": "5a26c87c9ca727f5630fe7fd5c1b2e6d7a52636d6d30b0455404e0ebbd6667ca",
+      "size": 2621,
+      "sha256": "cdd018ad9abedd89a114a0af58f85e8faf268b68a5feda51453f0297ecbfe964",
       "normalization": "lf"
     },
     {
       "path": "integrations/inference_service/src/zenith_inference/server.py",
-      "size": 10746,
-      "sha256": "9be60ee76a486dc4aa36033390a47c454c18cbabeb1c5df12addae67c05517e4",
+      "size": 11291,
+      "sha256": "587cd6a4fcfbcb5e6922945a14387189b0444687618b44b6ced15a99cac4ac50",
       "normalization": "lf"
     },
     {
@@ -2728,8 +2728,14 @@
     },
     {
       "path": "integrations/inference_service/tests/integration/native_acceptance.py",
-      "size": 11609,
-      "sha256": "9d6d8c9f8a9cddd5a49f5722589715eb6d21be43ca91b58d17472c51408516fa",
+      "size": 12312,
+      "sha256": "3598da09791318ca9a746f5608c0dedef002a09b9527ffdd710b08ff07890f8e",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/inference_service/tests/test_admission.py",
+      "size": 2426,
+      "sha256": "484df03a285e6818ca720622393eed03d78936dbd0a6d7276715100c4cc96dc6",
       "normalization": "lf"
     },
     {
@@ -3016,8 +3022,8 @@
     },
     {
       "path": "integrations/trading_service/src/zenith_trading_service/execution.py",
-      "size": 6250,
-      "sha256": "7776609b5fe3d9f989840bbe4b9f6666203da7564895970f5ae9504f8a0b0909",
+      "size": 6393,
+      "sha256": "7a5c9d21cb15389da7abcbc3a55ece74ede7cbfddf2ec3552977f2c00b21b061",
       "normalization": "lf"
     },
     {
@@ -3040,14 +3046,14 @@
     },
     {
       "path": "integrations/trading_service/tests/integration/native_probe.py",
-      "size": 7629,
-      "sha256": "5060b4453807afdaa81eeb243f95a14c0be8536c5e9e3af83cb79bfc1275813e",
+      "size": 7642,
+      "sha256": "3ca14442555d992e6ee80caf174d195bf65310ba673be1c4f166814ac6b0328b",
       "normalization": "lf"
     },
     {
       "path": "integrations/trading_service/tests/test_research_service.py",
-      "size": 6447,
-      "sha256": "e137a9380bd7e12edc1d87a0520f990dc629240317e329e8b026843b1b7dc6bf",
+      "size": 8240,
+      "sha256": "edaa6a0fc5744c0dc2c6cb62cddad2bce2e57b93f692bae7f98af6afda6f6d5f",
       "normalization": "lf"
     },
     {

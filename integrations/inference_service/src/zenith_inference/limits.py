@@ -1,5 +1,6 @@
 """Bound single-model admission; cancellation never releases a running model."""
 from dataclasses import dataclass
+import asyncio
 import threading
 import time
 
@@ -10,6 +11,49 @@ class InferenceCancelled(RuntimeError):
 
 class ContextExceeded(ValueError):
     pass
+
+
+class ModelBusy(RuntimeError):
+    pass
+
+
+class Admission:
+    """Optional bounded FIFO wait; one model worker remains the only owner."""
+    def __init__(self,queue_size=0,wait_seconds=120):
+        if type(queue_size) is not int or not 0<=queue_size<=8 or not 0.05<=wait_seconds<=900:
+            raise ValueError('Use a bounded inference queue')
+        self.queue_size,self.wait_seconds=queue_size,wait_seconds
+        self.lock=asyncio.Lock()
+        self.admitted=0
+
+    def locked(self):
+        return self.admitted>0
+
+    async def acquire(self,disconnect):
+        if self.admitted>=1+self.queue_size:
+            raise ModelBusy('The bounded model queue is full')
+        self.admitted+=1
+        waiting=asyncio.create_task(self.lock.acquire())
+        handed_off=False
+        try:
+            done,_=await asyncio.wait((waiting,disconnect),timeout=self.wait_seconds,return_when=asyncio.FIRST_COMPLETED)
+            if disconnect in done or waiting not in done:
+                raise InferenceCancelled('Client disconnected or model queue deadline expired')
+            waiting.result()
+            handed_off=True
+        finally:
+            if not handed_off:
+                waiting.cancel()
+                while not waiting.done():
+                    try:await asyncio.shield(waiting)
+                    except asyncio.CancelledError:continue
+                acquired=not waiting.cancelled() and waiting.exception() is None and waiting.result()
+                if acquired:self.lock.release()
+                self.admitted-=1
+
+    def release(self):
+        self.lock.release()
+        self.admitted-=1
 
 
 @dataclass(frozen=True)
