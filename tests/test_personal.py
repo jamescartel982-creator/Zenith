@@ -20,7 +20,7 @@ class PersonalTests(unittest.TestCase):
         self.settings = Settings(provider='huggingface', data_dir=self.folder.name)
         self.agent = Agent(self.settings, self.provider)
         self.app = create_app(self.settings, self.agent)
-        self.alice = TestClient(self.app); self.bob = TestClient(self.app)
+        self.alice = TestClient(self.app, base_url="http://127.0.0.1"); self.bob = TestClient(self.app, base_url="http://127.0.0.1")
         self.password = 'a long testing password'
 
     def register(self, client, username='alice', name='Alice'):
@@ -64,7 +64,7 @@ class PersonalTests(unittest.TestCase):
 
     def test_accounts_require_existing_server_access_when_configured(self):
         settings = Settings(provider='huggingface', data_dir=self.folder.name, api_token='a'*40)
-        client = TestClient(create_app(settings, self.agent))
+        client = TestClient(create_app(settings, self.agent), base_url="http://127.0.0.1")
         payload = {'username': 'alice', 'display_name': 'Alice', 'password': self.password}
         self.assertEqual(client.post('/api/account/register', json=payload).status_code, 401)
         self.assertEqual(client.get('/api/model-packs').status_code, 401)
@@ -84,7 +84,7 @@ class PersonalTests(unittest.TestCase):
     def test_memories_are_private_persistent_explicit_and_deletable(self):
         alice = self.register(self.alice)
         self.register(self.bob, 'bobby', 'Bob')
-        self.assertEqual(TestClient(self.app).get('/api/memories').status_code, 401)
+        self.assertEqual(TestClient(self.app, base_url="http://127.0.0.1").get('/api/memories').status_code, 401)
         result = self.alice.post('/api/memories', json={'content': 'My project is a violet telescope.'})
         identifier = result.json()['id']
         self.assertEqual(self.bob.get('/api/memories').json()['memories'], [])
@@ -102,7 +102,7 @@ class PersonalTests(unittest.TestCase):
     def test_conversation_history_feedback_and_deletion_require_ownership(self):
         self.register(self.alice); self.register(self.bob, 'bobby', 'Bob')
         session = str(uuid4()); turn = self.chat(self.alice, session).json()
-        strangers = [self.bob, TestClient(self.app)]
+        strangers = [self.bob, TestClient(self.app, base_url="http://127.0.0.1")]
         for client in strangers:
             self.assertEqual(client.get('/api/history/'+session).status_code, 404)
             self.assertEqual(client.delete('/api/history/'+session).status_code, 404)

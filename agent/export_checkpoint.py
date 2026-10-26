@@ -7,7 +7,8 @@ from .checkpoints import load_existing,inventory,tokenizer_signature
 
 def merge_export(parent,output):
     import torch
-    from transformers import AutoModelForCausalLM,AutoTokenizer
+    from transformers import AutoModelForCausalLM
+    from .tokenization import load_preserved_tokenizer
     parent=Path(parent).resolve();output=Path(output).resolve()
     if output.exists() or parent==output or parent in output.parents or output in parent.parents:
         raise ValueError('Export requires a new directory separate from every source checkpoint')
@@ -28,7 +29,7 @@ def merge_export(parent,output):
     if any(loading.get(k) for k in ['missing_keys','unexpected_keys','mismatched_keys','error_msgs']):
         raise ValueError('Export reload did not load exact trained weights')
     reloaded.eval()
-    actual_tokenizer=AutoTokenizer.from_pretrained(output,local_files_only=True,trust_remote_code=False)
+    actual_tokenizer=load_preserved_tokenizer(output,local_files_only=True)
     if tokenizer_signature(actual_tokenizer)!=details['tokenizer_sha256']:
         raise ValueError('Export tokenizer is incompatible')
     with torch.inference_mode():actual=reloaded(ids).logits[:,-1].float()

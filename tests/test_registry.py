@@ -137,7 +137,7 @@ class CatalogApiTests(unittest.TestCase):
         self.provider = Mock()
         self.provider.generate.side_effect = lambda messages: ('Fixture answer', messages)
         self.agent = Agent(self.settings, provider=self.provider)
-        self.client = TestClient(create_app(self.settings, self.agent, catalog=self.catalog))
+        self.client = TestClient(create_app(self.settings, self.agent, catalog=self.catalog), base_url="http://127.0.0.1")
         self.headers = {'Authorization': 'Bearer ' + self.settings.api_token}
 
     def test_catalog_team_and_knowledge_require_authentication(self):

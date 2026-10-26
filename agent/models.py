@@ -33,7 +33,8 @@ def cache_status(spec):
         model_path = Path(spec['model']).expanduser()
         if not model_path.is_dir():
             from huggingface_hub import snapshot_download
-            model_path = Path(snapshot_download(spec['model'], revision=spec['revision'], local_files_only=True))
+            model_path = Path(snapshot_download(spec['model'], revision=spec['revision'], local_files_only=True,
+                                                allow_patterns=WEIGHT_PATTERNS))
         missing = [name for name in ['config.json', 'tokenizer_config.json'] if not (model_path / name).is_file()]
         index = model_path / 'model.safetensors.index.json'
         if index.exists():

@@ -5,6 +5,7 @@ services:
       - "127.0.0.1:7860:7860"
     environment:
       ZENITH_API_TOKEN: ${ZENITH_API_TOKEN:?Set a random ZENITH_API_TOKEN of at least 32 characters in .env}
+      ZENITH_ALLOWED_HOSTS: ${ZENITH_ALLOWED_HOSTS:-localhost,127.0.0.1,::1}
       AI_PROVIDER: ${AI_PROVIDER:-ensemble}
       HF_MODEL: ${HF_MODEL:-Qwen/Qwen2.5-0.5B-Instruct}
       HF_REVISION: ${HF_REVISION:-7ae557604adf67be50417f59c2c2f167def9a775}

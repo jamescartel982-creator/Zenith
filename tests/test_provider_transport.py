@@ -237,7 +237,7 @@ class HTTPIntegrationTests(unittest.TestCase):
     def test_interrupted_http_stream_is_not_saved_and_next_request_recovers(self):
         settings = replace(self.settings, local_server_url=self.settings.local_server_url.replace('/complete/', '/truncated/'))
         agent = Agent(settings)
-        client = TestClient(create_app(settings, agent))
+        client = TestClient(create_app(settings, agent), base_url="http://127.0.0.1")
         session = str(uuid4())
         self.first_read.set()
         with self.assertLogs('zenith', level='ERROR'):

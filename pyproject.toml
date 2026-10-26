@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=68"]
+requires = ["setuptools>=84.1.0,<85"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -8,12 +8,12 @@ dynamic = ["version"]
 description = "Local open-model chat, reviewed learning, and an experimental from-scratch transformer"
 requires-python = ">=3.10"
 license = {text = "Apache-2.0"}
-dependencies = ["requests>=2.32,<3", "python-dotenv>=1,<2", "fastapi>=0.115,<1", "uvicorn>=0.30,<1", "argon2-cffi>=23.1,<26", "pyotp>=2.9,<3", "cryptography>=44,<48"]
+dependencies = ["requests>=2.34.2,<3", "urllib3>=2.8.0,<3", "python-dotenv>=1,<2", "fastapi>=0.115,<1", "uvicorn>=0.30,<1", "argon2-cffi>=23.1,<26", "pyotp>=2.9,<3", "cryptography>=50.0.2,<51"]
 
 [project.optional-dependencies]
-data = ["datasets>=3,<5"]
-local = ["torch>=2.6,<3", "transformers>=4.57.1,<5", "peft>=0.17,<0.19", "accelerate>=1,<2"]
-train = ["torch>=2.6,<3", "transformers>=4.57.1,<5", "peft>=0.17,<0.19", "accelerate>=1,<2", "datasets>=3,<5"]
+data = ["datasets>=5.0.1,<6", "fsspec[http]>=2026.6.0,<2027"]
+local = ["torch>=2.6,<3", "transformers>=5.10.4,<5.11", "peft>=0.18.1,<0.19", "accelerate>=1,<2", "setuptools>=84.1.0,<85"]
+train = ["torch>=2.6,<3", "transformers>=5.10.4,<5.11", "peft>=0.18.1,<0.19", "accelerate>=1,<2", "setuptools>=84.1.0,<85", "datasets>=5.0.1,<6", "fsspec[http]>=2026.6.0,<2027"]
 test = ["httpx>=0.27,<1"]
 
 [project.scripts]

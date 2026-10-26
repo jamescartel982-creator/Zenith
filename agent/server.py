@@ -11,6 +11,7 @@ from uuid import UUID
 from fastapi import Depends, FastAPI, Header, HTTPException, Query, Request, Response
 from fastapi.responses import FileResponse,StreamingResponse
 from fastapi.staticfiles import StaticFiles
+from fastapi.exceptions import RequestValidationError
 from pydantic import BaseModel, Field
 
 from .config import Settings
@@ -125,6 +126,16 @@ def create_app(settings=None, agent=None, catalog=None):
     settings = settings or Settings()
     agent = agent or Agent(settings)
     app = FastAPI(title='Zenith', version=__version__, docs_url=None, redoc_url=None)
+    from .http_security import RequestSecurityMiddleware
+    app.add_middleware(RequestSecurityMiddleware, allowed_hosts=settings.allowed_hosts)
+
+    @app.exception_handler(RequestValidationError)
+    async def invalid_request(request, exc):
+        from fastapi.responses import JSONResponse
+        # Framework defaults echo rejected inputs, including passwords and OTPs.
+        errors = [{key: error[key] for key in ('type', 'loc', 'msg') if key in error}
+                  for error in exc.errors()[:24]]
+        return JSONResponse({'detail': errors}, status_code=422)
     app.state.agent = agent
     app.state.catalog = catalog
     app.state.discovery = Discovery()

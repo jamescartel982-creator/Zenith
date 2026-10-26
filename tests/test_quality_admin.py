@@ -26,7 +26,7 @@ class AdminTests(unittest.TestCase):
         self.settings=Settings(provider='huggingface',data_dir=self.tmp.name)
         self.provider=Mock();self.provider.generate.side_effect=lambda m:('Fixture answer',m)
         self.agent=Agent(self.settings,self.provider);self.app=create_app(self.settings,self.agent)
-        self.owner=TestClient(self.app);self.other=TestClient(self.app)
+        self.owner=TestClient(self.app, base_url="http://127.0.0.1");self.other=TestClient(self.app, base_url="http://127.0.0.1")
         self.password='testing local account password'
         self.user=self.owner.post('/api/account/register',json={'username':'owner','display_name':'Owner','password':self.password}).json()['user']
         self.other.post('/api/account/register',json={'username':'other','display_name':'Other','password':self.password})
@@ -43,7 +43,7 @@ class AdminTests(unittest.TestCase):
         self.assertTrue(self.owner.get('/api/admin/status').json()['eligible'])
         self.assertFalse(self.other.get('/api/admin/status').json()['eligible'])
         self.assertEqual(self.other.post('/api/admin/unlock',json={'code':self.code}).status_code,403)
-        self.assertEqual(TestClient(self.app).post('/api/admin/unlock',json={'code':self.code}).status_code,401)
+        self.assertEqual(TestClient(self.app, base_url="http://127.0.0.1").post('/api/admin/unlock',json={'code':self.code}).status_code,401)
         with self.agent.store.connect() as db:
             row=db.execute('SELECT * FROM admin_owner').fetchone()
             self.assertNotEqual(row['code_hash'],self.code)
@@ -240,7 +240,7 @@ class StreamingTests(unittest.TestCase):
         self.assertTrue(provider.closed);self.assertFalse(agent.lock.locked());self.assertEqual(agent.store.history(session),[])
 
     def test_stream_api_authentication_busy_handling_and_private_metadata(self):
-        settings=replace(self.agent.settings,api_token='a'*40);client=TestClient(create_app(settings,self.agent));session=str(uuid4())
+        settings=replace(self.agent.settings,api_token='a'*40);client=TestClient(create_app(settings,self.agent), base_url="http://127.0.0.1");session=str(uuid4())
         payload={'session_id':session,'message':'Calculate 2 + 2?'}
         self.assertEqual(client.post('/api/chat/stream',json=payload).status_code,401)
         headers={'Authorization':'Bearer '+'a'*40}

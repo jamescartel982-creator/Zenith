@@ -25,8 +25,14 @@ def inventory(directory):
 
 
 def tokenizer_signature(tokenizer):
+    special_tokens = dict(tokenizer.special_tokens_map)
+    # Transformers 5 renamed this public attribute and omits it from the map.
+    # Canonicalize its name, retaining every value in the original fingerprint.
+    extra = getattr(tokenizer, 'extra_special_tokens', None)
+    if 'additional_special_tokens' not in special_tokens and isinstance(extra, list) and extra:
+        special_tokens['additional_special_tokens'] = extra
     value = {'backend': json.loads(tokenizer.backend_tokenizer.to_str()),
-             'chat_template': tokenizer.chat_template, 'special_tokens': tokenizer.special_tokens_map,
+             'chat_template': tokenizer.chat_template, 'special_tokens': special_tokens,
              'bos':tokenizer.bos_token_id,'eos':tokenizer.eos_token_id,'pad':tokenizer.pad_token_id}
     return hashlib.sha256(json.dumps(value,sort_keys=True,ensure_ascii=False).encode()).hexdigest()
 
@@ -64,19 +70,21 @@ def parent_metadata(directory):
 def load_existing(directory, trainable=False, cpu_threads=2):
     """Keep the parent's base, architecture, vocabulary and learned LoRA values."""
     import torch
-    from transformers import AutoModelForCausalLM,AutoTokenizer
+    from transformers import AutoModelForCausalLM
+    from .tokenization import load_preserved_tokenizer
     from peft import PeftModel
     torch.set_num_threads(cpu_threads)
     root, adapter_config, report = parent_metadata(directory)
     base, revision = report['base_model'],report['base_revision']
     from huggingface_hub import snapshot_download
-    snapshot=Path(snapshot_download(repo_id=base,revision=revision,local_files_only=True))
+    from .models import WEIGHT_PATTERNS
+    snapshot=Path(snapshot_download(repo_id=base,revision=revision,local_files_only=True,allow_patterns=WEIGHT_PATTERNS))
     base_files=inventory(snapshot)
     weight=(snapshot/'model.safetensors').resolve()
     if weight.is_file() and re.fullmatch(r'[a-f0-9]{64}',weight.name) and digest(weight)!=weight.name:
         raise ValueError('Cached base weights do not match their content-addressed blob hash')
-    tokenizer = AutoTokenizer.from_pretrained(base,revision=revision,trust_remote_code=False,local_files_only=True)
-    parent_tokenizer = AutoTokenizer.from_pretrained(root,trust_remote_code=False,local_files_only=True)
+    tokenizer = load_preserved_tokenizer(base,revision=revision,local_files_only=True)
+    parent_tokenizer = load_preserved_tokenizer(root,local_files_only=True)
     if tokenizer_signature(tokenizer) != tokenizer_signature(parent_tokenizer):
         raise ValueError('Parent and base tokenizer definitions differ; explicit compatibility review is required')
     model, loading = AutoModelForCausalLM.from_pretrained(base,revision=revision,trust_remote_code=False,
@@ -111,7 +119,7 @@ def inspect_checkpoint(directory, output=None):
     import torch
     started=time.perf_counter()
     model,tokenizer,report=load_existing(directory)
-    tokens=tokenizer.apply_chat_template([{'role':'user','content':'What is 2 plus 2? Answer briefly.'}],tokenize=True,add_generation_prompt=True,return_tensors='pt')
+    tokens=tokenizer.apply_chat_template([{'role':'user','content':'What is 2 plus 2? Answer briefly.'}],tokenize=True, return_dict=False,add_generation_prompt=True,return_tensors='pt')
     with torch.inference_mode():
         result=model.generate(tokens,attention_mask=torch.ones_like(tokens),max_new_tokens=32,do_sample=False,pad_token_id=tokenizer.eos_token_id)
     report.update(loaded_successfully=True,inference=tokenizer.decode(result[0,tokens.shape[1]:],skip_special_tokens=True),inspection_seconds=time.perf_counter()-started)

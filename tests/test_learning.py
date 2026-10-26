@@ -7,7 +7,7 @@ from agent.learning import split_examples, prepare_chat_example, ChatCollator, w
 
 class TemplateFixture:
     """A template whose prompt and EOS token boundaries are explicit."""
-    def apply_chat_template(self, messages, tokenize=True, add_generation_prompt=False):
+    def apply_chat_template(self, messages, tokenize=True, add_generation_prompt=False,return_dict=False):
         tokens = []
         for message in messages:
             tokens += [1 if message['role'] == 'user' else 2] + list(message['content'].encode()) + [0]

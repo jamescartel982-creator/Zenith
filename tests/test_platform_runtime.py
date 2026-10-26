@@ -33,7 +33,7 @@ class PlatformRuntimeTests(unittest.TestCase):
         self.app = create_app(self.settings, self.agent)
         self.service = self.app.state.platform
         self.addCleanup(self.service.stop)
-        self.client = TestClient(self.app)
+        self.client = TestClient(self.app, base_url="http://127.0.0.1")
         result = self.client.post('/api/account/register', json={
             'username': 'alice', 'display_name': 'Alice', 'password': 'long fixture password'})
         self.user = result.json()['user']; self.token = self.client.cookies.get('zenith_login')
@@ -165,7 +165,7 @@ class PlatformRuntimeTests(unittest.TestCase):
 
     def test_account_scope_session_expiry_and_shared_bearer_do_not_grant_owner(self):
         identifier = self.create({'kind': 'chat', 'message': 'Private task text.'})
-        other = TestClient(self.app)
+        other = TestClient(self.app, base_url="http://127.0.0.1")
         other.post('/api/account/register', json={'username': 'bobby', 'display_name': 'Bob', 'password': 'long fixture password'})
         for suffix in ['', '/events', '/cancel']:
             response = other.post(f'/api/platform/tasks/{identifier}{suffix}') if suffix == '/cancel' else other.get(f'/api/platform/tasks/{identifier}{suffix}')
@@ -199,7 +199,7 @@ class PlatformRuntimeTests(unittest.TestCase):
 
     def test_server_bearer_token_is_still_required_and_does_not_supply_account_authority(self):
         from dataclasses import replace
-        client = TestClient(create_app(replace(self.settings, api_token='t'*40), self.agent))
+        client = TestClient(create_app(replace(self.settings, api_token='t'*40), self.agent), base_url="http://127.0.0.1")
         self.addCleanup(client.app.state.platform.stop)
         self.assertEqual(client.get('/api/platform/status').status_code, 401)
         header = {'Authorization': 'Bearer '+'t'*40}
@@ -262,7 +262,7 @@ class PlatformRuntimeTests(unittest.TestCase):
     def test_default_install_does_not_add_platform_tables_or_routes(self):
         with tempfile.TemporaryDirectory() as folder:
             agent = Agent(Settings(provider='ollama', data_dir=folder, platform=PlatformConfig()), provider=Mock())
-            client = TestClient(create_app(agent.settings, agent))
+            client = TestClient(create_app(agent.settings, agent), base_url="http://127.0.0.1")
             self.assertEqual(client.get('/api/platform/status').status_code, 404)
             with agent.store.connect() as db:
                 self.assertFalse(db.execute("SELECT 1 FROM sqlite_master WHERE name LIKE 'platform_%'").fetchone())

@@ -72,7 +72,7 @@ def _measure(samples, original, selected):
         started = time.perf_counter(); agent.provider.load()
         cold_load = time.perf_counter()-started
         app = create_app(settings, agent)
-        with TestClient(app) as client:
+        with TestClient(app, base_url="http://127.0.0.1") as client:
             response = client.post('/api/account/register', json={'username': 'benchmark', 'display_name': 'Benchmark',
                                                                'password': 'temporary benchmark account password'})
             response.raise_for_status()

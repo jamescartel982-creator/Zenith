@@ -140,7 +140,7 @@ class EfficiencyTests(unittest.TestCase):
         with self.agent.store.connect() as db:self.assertEqual(db.execute('SELECT COUNT(*) FROM generation_metrics').fetchone()[0],1000)
 
     def test_system_components_and_metrics_obey_account_and_owner_boundaries(self):
-        app=create_app(replace(self.settings,api_token='a'*40),self.agent);alice=TestClient(app);bob=TestClient(app)
+        app=create_app(replace(self.settings,api_token='a'*40),self.agent);alice=TestClient(app, base_url="http://127.0.0.1");bob=TestClient(app, base_url="http://127.0.0.1")
         headers={'Authorization':'Bearer '+'a'*40};payload={'username':'alice','display_name':'Alice','password':'local fixture password'}
         self.assertEqual(alice.get('/api/system').status_code,401)
         self.assertEqual(alice.get('/api/metrics',headers=headers).status_code,401)

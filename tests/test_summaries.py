@@ -14,7 +14,7 @@ class SummaryTests(unittest.TestCase):
         self.provider=Mock();self.provider.generate.side_effect=lambda messages:('Build passed. Owner approval is pending.',messages)
         self.agent=Agent(Settings(provider='ollama',data_dir=self.folder.name),self.provider)
         app=create_app(self.agent.settings,self.agent)
-        self.owner=TestClient(app);self.other=TestClient(app)
+        self.owner=TestClient(app, base_url="http://127.0.0.1");self.other=TestClient(app, base_url="http://127.0.0.1")
         for client,name in [(self.owner,'owner'),(self.other,'other')]:
             client.post('/api/account/register',json={'username':name,'display_name':name,'password':'a good fixture password'})
         self.session=str(uuid4())

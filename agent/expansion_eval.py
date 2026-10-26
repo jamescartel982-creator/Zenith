@@ -94,7 +94,7 @@ def evaluate(parent,output,base_only=False,max_new_tokens=48,cases=None,system_p
     from contextlib import nullcontext
     with model.disable_adapter() if base_only else nullcontext():
         for identifier,area,prompt,scorer,expected in cases:
-            ids=tokenizer.apply_chat_template([{'role':'system','content':system_prompt},{'role':'user','content':prompt}],tokenize=True,add_generation_prompt=True,return_tensors='pt')
+            ids=tokenizer.apply_chat_template([{'role':'system','content':system_prompt},{'role':'user','content':prompt}],tokenize=True, return_dict=False,add_generation_prompt=True,return_tensors='pt')
             tick=time.perf_counter()
             with torch.inference_mode():
                 generated=model.generate(ids,attention_mask=torch.ones_like(ids),do_sample=False,max_new_tokens=max_new_tokens,pad_token_id=tokenizer.eos_token_id)

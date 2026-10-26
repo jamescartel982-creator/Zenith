@@ -91,7 +91,7 @@ class SkillsLibraryTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             settings = Settings(provider='huggingface', data_dir=directory, api_token='a' * 40)
             agent = Agent(settings, provider=Mock())
-            client = TestClient(create_app(settings, agent))
+            client = TestClient(create_app(settings, agent), base_url="http://127.0.0.1")
             self.assertEqual(client.get('/api/skills').status_code, 401)
             with patch('requests.get', side_effect=AssertionError('Unexpected fetch')), \
                     patch('requests.post', side_effect=AssertionError('Unexpected fetch')):

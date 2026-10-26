@@ -72,9 +72,10 @@ Do not point this installer at an existing unrelated environment.
 
 ## Native dependencies and baseline tests
 
-Keep three separate environments. Never install Hermes' cryptography 50.0.2
-requirement into Zenith's cryptography >=44,<48 environment. Never combine
-Hermes' `uv.lock` with Zenith's dependencies or OpenClaw's `pnpm-lock.yaml`.
+Keep three separate environments. Zenith 0.17.3 raises its cryptography floor
+to 50.0.2, but matching one library does not make the Python runtimes and full
+dependency graphs interchangeable. Never combine Hermes' `uv.lock` with
+Zenith's dependencies or OpenClaw's `pnpm-lock.yaml`.
 
 Use isolated disposable copies of the pinned sources for native installs/builds;
 retain the original audited copies and licenses unchanged. Check each copy's
