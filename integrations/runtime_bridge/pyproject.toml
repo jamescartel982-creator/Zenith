@@ -4,11 +4,14 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "zenith-integrations"
-version = "0.1.0"
+version = "0.2.0"
 requires-python = ">=3.12,<3.13"
 description = "Isolated authenticated runtime control plane for Zenith"
 license = "Apache-2.0"
 dependencies = ["zenith-local==0.17.4", "httpx>=0.28.1,<1", "jsonschema>=4.26,<5"]
+
+[project.optional-dependencies]
+native = ["websockets==15.0.1"]
 
 [project.scripts]
 zenith-bridge = "zenith_integrations.cli:main"

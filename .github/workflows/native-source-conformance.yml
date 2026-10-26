@@ -1,0 +1,38 @@
+name: Native source contract conformance
+on:
+  pull_request:
+    paths: ['integrations/runtime_bridge/**', '.github/workflows/native-source-conformance.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  openclaw-device-auth:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: openclaw/openclaw
+          ref: 2f5727b9c61c2ba9dccc3c880d9115f02cb8652f
+          path: .native-reference/openclaw
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '26.12.1'
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: '0.12.23'
+      - name: Install only the separate Python bridge environment
+        run: uv sync --project integrations/runtime_bridge --frozen --extra native
+      - name: Actual native auth function and Node signature verification
+        run: uv run --project integrations/runtime_bridge --frozen --extra native python integrations/runtime_bridge/tests/native_source_conformance.py --openclaw-root .native-reference/openclaw --node "$(command -v node)" --output native-source-conformance.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: native-source-conformance
+          path: native-source-conformance.json

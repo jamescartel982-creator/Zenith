@@ -1,0 +1,10 @@
+{
+  "source_pin": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+  "native_function": "packages/gateway-client/src/device-auth.ts:buildDeviceAuthPayloadV3",
+  "vectors": 4,
+  "payloads_match": true,
+  "node_verified_ed25519_signatures": true,
+  "native_source_unchanged": true,
+  "actual_gateway_pairing_tested": false,
+  "channel_delivery_tested": false
+}

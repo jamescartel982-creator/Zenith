@@ -1,4 +1,4 @@
-# Zenith runtime bridge 0.1
+# Zenith runtime bridge 0.2
 
 An independent control-plane package. The first implementation connects real
 Zenith inference to the unchanged Zenith account/session API. Hermes, OpenClaw
@@ -63,3 +63,14 @@ MFA and native memories remain in their original locations.
 Rollback: stop only this new bridge, retain native state/weights/receipts, and
 remove or archive only its owned environment/configuration/control ledger. Its
 emergency stop persists in that ledger. No original public API has changed.
+
+
+## Native clients (optional, gated)
+
+`uv sync --project integrations/runtime_bridge --frozen --extra native` adds
+WebSocket 15.0.1 without installing or replacing either upstream runtime.
+See [native client contracts](../../docs/four-system/NATIVE_CLIENTS.md).
+These library clients are not registered as executable public bridge backends;
+`/v1/runtimes` continues to report them unavailable until isolated native
+profiles and full acceptance are verified. Transport authentication alone does
+not authorize a native agent's filesystem, shell or network access.
