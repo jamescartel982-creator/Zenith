@@ -1,0 +1,55 @@
+{
+  "purpose": "Finite real backend probes, not universal escape resistance or model quality",
+  "image": "sha256:a33c10a97f11005523814c6eee013986119fe41f3122f444518117536675c8e1",
+  "checks": [
+    {
+      "name": "uid-caps-nnp-environment-host-files-rootfs-network-and-real-python",
+      "passed": true,
+      "elapsed_ms": 4700.075
+    },
+    {
+      "name": "ephemeral-workspace-not-reused",
+      "passed": true,
+      "elapsed_ms": 2493.253
+    },
+    {
+      "name": "wall-time-cancels-and-cleans",
+      "passed": true,
+      "elapsed_ms": 5292.39
+    },
+    {
+      "name": "output-quota-cancels-and-cleans",
+      "passed": true,
+      "elapsed_ms": 3777.124
+    },
+    {
+      "name": "lifecycle-revocation-cancels-and-cleans",
+      "passed": true,
+      "elapsed_ms": 5227.555
+    },
+    {
+      "name": "unprivileged-user-denied",
+      "passed": true,
+      "elapsed_ms": 4.314
+    },
+    {
+      "name": "real-owner-mfa-grant-exact-approval-container-task",
+      "passed": true,
+      "elapsed_ms": 5328.843
+    },
+    {
+      "name": "emergency-stop-during-approved-container-task",
+      "passed": true,
+      "elapsed_ms": 4061.701
+    },
+    {
+      "name": "emergency-stop-denies-new-task",
+      "passed": true,
+      "elapsed_ms": 6.793
+    }
+  ],
+  "all_passed": true,
+  "containers_remaining": 0,
+  "production_profile_changed": false,
+  "model_calls": 0
+}

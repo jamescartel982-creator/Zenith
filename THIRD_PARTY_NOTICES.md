@@ -17,3 +17,15 @@ copyright/license, exact commit/path/hash and applicable scoped notices. OpenCla
 root MIT license does not replace separate licenses for its assets, dependencies,
 native components or external models/services. Existing model-pack notices remain
 in `vendor/model-packs/NOTICE.md`; existing dependency and model terms still apply.
+
+## Unified Hermes / OpenClaw audit
+
+The approved source analysis is archived under docs/unified-audit/snapshot at the
+recorded commits. OpenClaw and Hermes are MIT licensed at those roots; their full
+root licenses and applicable OpenClaw third-party notices are retained in that
+audit's evidence. The native Python isolation code is an independent Zenith
+implementation of the documented boundary, not a bundled upstream runtime.
+Docker and operator-selected Python images remain optional external components;
+review their licenses, source and image contents before enabling execution.
+No upstream foundation weights, proprietary services or remote catalog packages
+are copied or activated by this change.

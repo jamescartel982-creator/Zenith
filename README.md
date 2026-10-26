@@ -119,6 +119,16 @@ existing installation, provider, weights, tokenizer and data. See its
 [measured results](docs/platform/benchmark-results.md); autonomous tools, plugins
 and browser/channel automation are not included in this stage.
 
+## Optional isolated Python
+
+The [isolated Python tool](docs/unified-platform/sandbox.md) runs explicit approved
+programs in ephemeral offline Linux containers. It requires owner MFA, a scoped
+grant, a reviewed pinned image and an explicit opt-in; queued executions also
+require exact-action approval. Missing isolation never falls back to the host.
+The [approved unified OpenClaw/Hermes audit](docs/unified-audit/README.md) tracks
+remaining work. The existing Zenith model and normal installation are preserved;
+full reference parity is not claimed.
+
 ## Verify and update
 
 After activation:

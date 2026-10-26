@@ -1,7 +1,8 @@
 """Supervised task pilot: native chat and explicit, authorized diagnostic plans.
 
-This is not an autonomous model-tool loop or general sandbox. No plugin, shell,
-browser or external channel is executable through this runtime.
+This is not an autonomous model-tool loop. Optional isolated Python uses its
+separate default-off container policy; no host shell, plugin, browser or channel
+is executable through this runtime.
 """
 import json
 import logging
@@ -54,6 +55,8 @@ class PlatformRuntime:
         return local
 
     def status(self):
+        from .sandbox import SandboxPolicy
+        sandbox = SandboxPolicy.from_env()
         return {'enabled': True, 'runtime_enabled': self.config.runtime_enabled,
                 'tools_enabled': self.config.tools_enabled, 'memory_enabled': self.config.memory_enabled,
                 'worker_running': bool(self._thread and self._thread.is_alive() and not self._stop.is_set()),
@@ -61,7 +64,7 @@ class PlatformRuntime:
                 'task_modes': (['chat'] if self.config.runtime_enabled and self.available() else []) +
                               (['diagnostics'] if self.config.runtime_enabled and self.config.tools_enabled else []),
                 'autonomous_tool_generation': False, 'project_retrieval': 'unavailable',
-                'sandbox': 'unavailable', 'plugins': 'unavailable', 'channels': 'unavailable',
+                'sandbox': 'configured-not-probed' if sandbox.enabled else 'disabled', 'plugins': 'unavailable', 'channels': 'unavailable',
                 'browser_automation': 'unavailable', 'computer_automation': 'unavailable',
                 'default_model_preserved': True}
 

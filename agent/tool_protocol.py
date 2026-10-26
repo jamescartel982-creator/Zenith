@@ -26,6 +26,9 @@ class ToolCall:
         if tool in {'tcp-connect', 'tls-certificate'}:
             if set(arguments) != {'host', 'port'} or not isinstance(arguments['host'], str) or len(arguments['host']) > 253 or type(arguments['port']) is not int or not 1 <= arguments['port'] <= 65535:
                 raise ValueError('Network tools need a bounded literal host and integer port')
+        elif tool == 'sandbox-python':
+            from .sandbox import validate_program
+            validate_program(arguments)
         elif tool == 'verify-python':
             if set(arguments) != {'source', 'entrypoint', 'cases'} or not isinstance(arguments['source'], str) or not 1 <= len(arguments['source']) <= 8192 or not isinstance(arguments['entrypoint'], str) or not arguments['entrypoint'].isidentifier() or not isinstance(arguments['cases'], list) or not 1 <= len(arguments['cases']) <= 16:
                 raise ValueError('Numeric verification needs bounded source, entrypoint and cases')

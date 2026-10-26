@@ -1,0 +1,716 @@
+[
+  {
+    "repository": "openclaw",
+    "path": ".agents/skills/update-team-server/controller/THIRD_PARTY_NOTICES.md",
+    "sha256": "7ff5cf84734e7250d3b192b04667ebf3a5a5100d370234beddc38a83d33521a8",
+    "opening": [
+      "# Third-party notices",
+      "",
+      "`gateway-suspension-contract.mjs` contains TypeBox 1.3.34.",
+      "",
+      "TypeBox",
+      "",
+      "The MIT License (MIT)"
+    ]
+  },
+  {
+    "repository": "openclaw",
+    "path": "LICENSE",
+    "sha256": "9efd316ecf1c4c60f6fd5d26433142fff2b6794d7d328e9bc6179b29bf9c82a4",
+    "opening": [
+      "MIT License",
+      "",
+      "Copyright (c) 2026 OpenClaw Foundation",
+      "",
+      "Permission is hereby granted, free of charge, to any person obtaining a copy",
+      "of this software and associated documentation files (the \"Software\"), to deal",
+      "in the Software without restriction, including without limitation the rights"
+    ]
+  },
+  {
+    "repository": "openclaw",
+    "path": "THIRD_PARTY_NOTICES.md",
+    "sha256": "3900fd8e96db8d9a38b1aa822bfa3c13e776533299d2744120f0e6ce60f60948",
+    "opening": [
+      "# Third-party notices",
+      "",
+      "This file records third-party notices for code or substantial implementation",
+      "portions incorporated into OpenClaw source, beyond normal package-manager",
+      "dependency metadata.",
+      "",
+      "## SQLite"
+    ]
+  },
+  {
+    "repository": "openclaw",
+    "path": "apps/macos/Sources/OpenClaw/Resources/DeviceModels/LICENSE.apple-device-identifiers.txt",
+    "sha256": "d0540793459c1549debd39e393b459273a9404af680ec7b29517b1b39d0a50ec",
+    "opening": [
+      "MIT License",
+      "",
+      "Copyright (c) 2021 Kyle Seongwoo Jun",
+      "",
+      "Permission is hereby granted, free of charge, to any person obtaining a copy",
+      "of this software and associated documentation files (the \"Software\"), to deal",
+      "in the Software without restriction, including without limitation the rights"
+    ]
+  },
+  {
+    "repository": "openclaw",
+    "path": "apps/macos/Sources/OpenClaw/Resources/DeviceModels/NOTICE.md",
+    "sha256": "1785ac0884e0deac5939bae8b49db075da8486380b0bd54b15eaca2c85b3259b",
+    "opening": [
+      "# Apple device identifier mappings",
+      "",
+      "This directory includes model identifier → human-readable name mappings derived from the open-source project:",
+      "",
+      "- `kyle-seongwoo-jun/apple-device-identifiers`",
+      "  - iOS mapping pinned to commit `8e7388b29da046183f5d976eb74dbb2f2acda955`",
+      "  - macOS mapping pinned to commit `98ca75324f7a88c1649eb5edfc266ef47b7b8193`"
+    ]
+  },
+  {
+    "repository": "openclaw",
+    "path": "apps/macos/Sources/OpenClaw/Resources/ProviderIcons/NOTICE.md",
+    "sha256": "359646742269ab493af0b2d62f3f5420d4320143e9f23dcd4a4ca89cf5799d91",
+    "opening": [
+      "# Third-party provider artwork notices",
+      "",
+      "This directory ships with the OpenClaw macOS app. Brand names and logos remain",
+      "trademarks of their respective owners and are used solely to identify the",
+      "corresponding products and services.",
+      "",
+      "## Simple Icons (CC0-1.0)"
+    ]
+  },
+  {
+    "repository": "openclaw",
+    "path": "apps/swabble/LICENSE",
+    "sha256": "9efd316ecf1c4c60f6fd5d26433142fff2b6794d7d328e9bc6179b29bf9c82a4",
+    "opening": [
+      "MIT License",
+      "",
+      "Copyright (c) 2026 OpenClaw Foundation",
+      "",
+      "Permission is hereby granted, free of charge, to any person obtaining a copy",
+      "of this software and associated documentation files (the \"Software\"), to deal",
+      "in the Software without restriction, including without limitation the rights"
+    ]
+  },
+  {
+    "repository": "openclaw",
+    "path": "extensions/facetime/LICENSE",
+    "sha256": "9efd316ecf1c4c60f6fd5d26433142fff2b6794d7d328e9bc6179b29bf9c82a4",
+    "opening": [
+      "MIT License",
+      "",
+      "Copyright (c) 2026 OpenClaw Foundation",
+      "",
+      "Permission is hereby granted, free of charge, to any person obtaining a copy",
+      "of this software and associated documentation files (the \"Software\"), to deal",
+      "in the Software without restriction, including without limitation the rights"
+    ]
+  },
+  {
+    "repository": "openclaw",
+    "path": "extensions/facetime/THIRD_PARTY_NOTICES.md",
+    "sha256": "68caecca634aa9921d1d23acf6e9ac4c4a123228fac17f4eab78768e1294dcda",
+    "opening": [
+      "# Third-party notices",
+      "",
+      "OpenClaw FaceTime is MIT licensed. Native helper source and its adapted",
+      "third-party notices live in `openclaw/openclaw-facetime`, which owns the signed",
+      "and notarized binary release.",
+      "",
+      "## BlackHole source used for local driver builds"
+    ]
+  },
+  {
+    "repository": "openclaw",
+    "path": "extensions/slack/skills/_vendor/slack-skills-plugin.LICENSE",
+    "sha256": "ccbd532eabd9c4a87884b19caa6738bd6541e047460a736aca3bf1ac4fd91300",
+    "opening": [
+      "The MIT License (MIT)",
+      "",
+      "Copyright (c) 2020- Slack Technologies, LLC",
+      "",
+      "Permission is hereby granted, free of charge, to any person obtaining a copy",
+      "of this software and associated documentation files (the \"Software\"), to deal",
+      "in the Software without restriction, including without limitation the rights"
+    ]
+  },
+  {
+    "repository": "openclaw",
+    "path": "extensions/typesafe/LICENSE",
+    "sha256": "73571b25326281d369087f469842c02444fe39faaecebda4d82ed21ff3a1c29d",
+    "opening": [
+      "MIT License",
+      "",
+      "Copyright (c) 2026 OpenClaw Foundation",
+      "",
+      "Permission is hereby granted, free of charge, to any person obtaining a copy",
+      "of this software and associated documentation files (the \"Software\"), to deal",
+      "in the Software without restriction, including without limitation the rights"
+    ]
+  },
+  {
+    "repository": "openclaw",
+    "path": "packages/ai/LICENSE",
+    "sha256": "9efd316ecf1c4c60f6fd5d26433142fff2b6794d7d328e9bc6179b29bf9c82a4",
+    "opening": [
+      "MIT License",
+      "",
+      "Copyright (c) 2026 OpenClaw Foundation",
+      "",
+      "Permission is hereby granted, free of charge, to any person obtaining a copy",
+      "of this software and associated documentation files (the \"Software\"), to deal",
+      "in the Software without restriction, including without limitation the rights"
+    ]
+  },
+  {
+    "repository": "openclaw",
+    "path": "packages/gateway-client/LICENSE",
+    "sha256": "9efd316ecf1c4c60f6fd5d26433142fff2b6794d7d328e9bc6179b29bf9c82a4",
+    "opening": [
+      "MIT License",
+      "",
+      "Copyright (c) 2026 OpenClaw Foundation",
+      "",
+      "Permission is hereby granted, free of charge, to any person obtaining a copy",
+      "of this software and associated documentation files (the \"Software\"), to deal",
+      "in the Software without restriction, including without limitation the rights"
+    ]
+  },
+  {
+    "repository": "openclaw",
+    "path": "packages/gateway-protocol/LICENSE",
+    "sha256": "9efd316ecf1c4c60f6fd5d26433142fff2b6794d7d328e9bc6179b29bf9c82a4",
+    "opening": [
+      "MIT License",
+      "",
+      "Copyright (c) 2026 OpenClaw Foundation",
+      "",
+      "Permission is hereby granted, free of charge, to any person obtaining a copy",
+      "of this software and associated documentation files (the \"Software\"), to deal",
+      "in the Software without restriction, including without limitation the rights"
+    ]
+  },
+  {
+    "repository": "openclaw",
+    "path": "packages/mermaid-renderer/native/NOTICE.txt",
+    "sha256": "083c9e4f71086ce2b3befbd67a507b21dab65497906172d2ed3c4cbb28fe6ba2",
+    "opening": [
+      "Third-party notices for the bundled Mermaid renderer",
+      "",
+      "The following upstream license texts accompany the bundled diagram engine and its dependencies.",
+      "",
+      "",
+      "========================================================================",
+      "Chevrotain"
+    ]
+  },
+  {
+    "repository": "openclaw",
+    "path": "scripts/lib/codex-live-docker-security/LICENSE",
+    "sha256": "7c87873291f289713ac5df48b1f2010eb6963752bbd6b530416ab99fc37914a8",
+    "opening": [
+      "",
+      "                                 Apache License",
+      "                           Version 2.0, January 2004",
+      "                        https://www.apache.org/licenses/",
+      "",
+      "   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION",
+      ""
+    ]
+  },
+  {
+    "repository": "openclaw",
+    "path": "scripts/lib/codex-live-docker-security/NOTICE",
+    "sha256": "b40ec5b16182103ef1cd69d42a21c98369e35bd483b3973902da4807c0755446",
+    "opening": [
+      "Docker",
+      "Copyright 2012-2017 Docker, Inc.",
+      "",
+      "This product includes software developed at Docker, Inc. (https://www.docker.com).",
+      "",
+      "This product contains software (https://github.com/creack/pty) developed",
+      "by Keith Rarick, licensed under the MIT License."
+    ]
+  },
+  {
+    "repository": "openclaw",
+    "path": "skills/skill-creator/license.txt",
+    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "opening": [
+      "",
+      "                                 Apache License",
+      "                           Version 2.0, January 2004",
+      "                        http://www.apache.org/licenses/",
+      "",
+      "   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION",
+      ""
+    ]
+  },
+  {
+    "repository": "openclaw",
+    "path": "src/agents/blobster-fixtures/LICENSE.txt",
+    "sha256": "9efd316ecf1c4c60f6fd5d26433142fff2b6794d7d328e9bc6179b29bf9c82a4",
+    "opening": [
+      "MIT License",
+      "",
+      "Copyright (c) 2026 OpenClaw Foundation",
+      "",
+      "Permission is hereby granted, free of charge, to any person obtaining a copy",
+      "of this software and associated documentation files (the \"Software\"), to deal",
+      "in the Software without restriction, including without limitation the rights"
+    ]
+  },
+  {
+    "repository": "openclaw",
+    "path": "ui/public/cloud-provider-icons/LICENSE-devicon",
+    "sha256": "121194741d4a915b9f5890fdd6dd95121f9b1f816517c792358d72d7c838d664",
+    "opening": [
+      "The MIT License (MIT)",
+      "",
+      "Copyright (c) 2015 konpa",
+      "",
+      "Permission is hereby granted, free of charge, to any person obtaining a copy of",
+      "this software and associated documentation files (the \"Software\"), to deal in",
+      "the Software without restriction, including without limitation the rights to"
+    ]
+  },
+  {
+    "repository": "openclaw",
+    "path": "ui/public/cloud-provider-icons/LICENSE-simple-icons",
+    "sha256": "9046848b63a5c92bff14e4accca80bd987e0623b74adf9226ce5198d312b79d5",
+    "opening": [
+      "# CC0 1.0 Universal",
+      "",
+      "## Statement of Purpose",
+      "",
+      "The laws of most jurisdictions throughout the world automatically confer exclusive Copyright and Related Rights (defined below) upon the creator and subsequent owner(s) (each and all, an “owner”) of an original work of authorship and/or a database (each, a “Work”).",
+      "",
+      "Certain owners wish to permanently relinquish those rights to a Work for the purpose of contributing to a commons of creative, cultural and scientific works (“Commons”) that the public can reliably and without fear of later claims of infringement build upon, modify, incorporate in other works, reuse and redistribute as freely as possible in any form whatsoever and for any purposes, including without limitation commercial purposes. These owners may contribute to the Commons to promote the ideal of a free culture and the further production of creative, cultural and scientific works, or to gain reputation or greater distribution for their Work in part through the use and efforts of others."
+    ]
+  },
+  {
+    "repository": "openclaw",
+    "path": "ui/public/fonts/symbols-nerd-font-LICENSE.txt",
+    "sha256": "84a7a98c82140fb12c37fe42b93805baa16024cb3e5acc599b7ffe612c55d847",
+    "opening": [
+      "The MIT License (MIT)",
+      "",
+      "Copyright (c) 2014 Ryan L McIntyre",
+      "",
+      "Permission is hereby granted, free of charge, to any person obtaining a copy",
+      "of this software and associated documentation files (the \"Software\"), to deal",
+      "in the Software without restriction, including without limitation the rights"
+    ]
+  },
+  {
+    "repository": "hermes",
+    "path": "LICENSE",
+    "sha256": "821556e6336796450ab852d375117b48a4887e71d255794fd6318d99982a5ab6",
+    "opening": [
+      "MIT License",
+      "",
+      "Copyright (c) 2025 Nous Research",
+      "",
+      "Permission is hereby granted, free of charge, to any person obtaining a copy",
+      "of this software and associated documentation files (the \"Software\"), to deal",
+      "in the Software without restriction, including without limitation the rights"
+    ]
+  },
+  {
+    "repository": "hermes",
+    "path": "apps/desktop/src/plugins/hermes-bots/LICENSE",
+    "sha256": "5f79d321c17de8ef6e5f34967dc5b484afebeeefd87180890d9741941f6b815f",
+    "opening": [
+      "MIT License",
+      "",
+      "Copyright (c) 2026 Nous Research",
+      "",
+      "Permission is hereby granted, free of charge, to any person obtaining a copy",
+      "of this software and associated documentation files (the \"Software\"), to deal",
+      "in the Software without restriction, including without limitation the rights"
+    ]
+  },
+  {
+    "repository": "hermes",
+    "path": "optional-skills/creative/ai-presenter-video/LICENSE",
+    "sha256": "5ee4e300085ba144aae1ec5b72774ef5408bd933c1f02f429359313a4251bfad",
+    "opening": [
+      "MIT License",
+      "",
+      "Copyright (c) 2026 lanshu",
+      "",
+      "Permission is hereby granted, free of charge, to any person obtaining a copy",
+      "of this software and associated documentation files (the \"Software\"), to deal",
+      "in the Software without restriction, including without limitation the rights"
+    ]
+  },
+  {
+    "repository": "hermes",
+    "path": "optional-skills/creative/anatomy/LICENSE.txt",
+    "sha256": "87c078ab9d90a3044f359e6b563d4e6afea7aa060897cf4f21618687b3856796",
+    "opening": [
+      "MIT License",
+      "",
+      "Copyright (c) 2026 Ryan",
+      "",
+      "Permission is hereby granted, free of charge, to any person obtaining a copy",
+      "of this software and associated documentation files (the \"Software\"), to deal",
+      "in the Software without restriction, including without limitation the rights"
+    ]
+  },
+  {
+    "repository": "hermes",
+    "path": "optional-skills/creative/auteur/LICENSE",
+    "sha256": "bf05f978d8f8023c8eca67afdcac26fdbaf793fbe3b742a06a74d04c793d9cf2",
+    "opening": [
+      "auteur — ported from https://github.com/agiwhitelist/auteur",
+      "Upstream snapshot: commit 9bca227df9877e60dc45d49783c8cbd885eccd9b (2026-08-06)",
+      "Upstream author / copyright holder: agiwhitelist (https://github.com/agiwhitelist)",
+      "The MIT license text below is reproduced verbatim from the upstream LICENSE.",
+      "",
+      "MIT License",
+      ""
+    ]
+  },
+  {
+    "repository": "hermes",
+    "path": "optional-skills/creative/dream-loop/LICENSE.txt",
+    "sha256": "1607e9149a254c619d0ceb4119ed9346e13048c28c1d437d80ff2837e40159da",
+    "opening": [
+      "MIT License",
+      "",
+      "Copyright (c) 2026 Anshu Chimala",
+      "",
+      "Permission is hereby granted, free of charge, to any person obtaining a copy",
+      "of this software and associated documentation files (the \"Software\"), to deal",
+      "in the Software without restriction, including without limitation the rights"
+    ]
+  },
+  {
+    "repository": "hermes",
+    "path": "optional-skills/creative/ip-as-logo/LICENSE",
+    "sha256": "ff717ba18c263ade5fdaf25a9e7545a34796af984fadcb8f01e91672abe4229e",
+    "opening": [
+      "ip-as-logo — ported from https://github.com/s1dashu/ip-as-logo-skill",
+      "Upstream snapshot: commit b1bf517c54a407452cfaca98a54668cd052f8e63 (2026-08-20)",
+      "Upstream author / copyright holder: s1dashu (https://github.com/s1dashu)",
+      "The MIT license text below is reproduced verbatim from the upstream LICENSE.",
+      "",
+      "MIT License",
+      ""
+    ]
+  },
+  {
+    "repository": "hermes",
+    "path": "optional-skills/creative/mono-color/LICENSE.txt",
+    "sha256": "2025880f6441e121c76c01bc5996e84a7498d9d5aa7222a10400d303bdd043cb",
+    "opening": [
+      "MIT License",
+      "",
+      "Copyright (c) 2026 Yan Liu",
+      "",
+      "Permission is hereby granted, free of charge, to any person obtaining a copy",
+      "of this software and associated documentation files (the \"Software\"), to deal",
+      "in the Software without restriction, including without limitation the rights"
+    ]
+  },
+  {
+    "repository": "hermes",
+    "path": "optional-skills/creative/system-atlas/LICENSE.txt",
+    "sha256": "28d538f4ce6d517ea6f04a67fc4a2bf60f69254f696ba21fa1946cc668c21767",
+    "opening": [
+      "MIT License",
+      "",
+      "Copyright (c) 2026 Harshyt Goel",
+      "",
+      "Permission is hereby granted, free of charge, to any person obtaining a copy",
+      "of this software and associated documentation files (the \"Software\"), to deal",
+      "in the Software without restriction, including without limitation the rights"
+    ]
+  },
+  {
+    "repository": "hermes",
+    "path": "optional-skills/software-development/ast-grep/LICENSE",
+    "sha256": "b083425948376611de9b92b0aeb7377e604505756ea427e541a34d9b030d4dc1",
+    "opening": [
+      "MIT License",
+      "",
+      "Copyright (c) 2026 Yeongyu Kim",
+      "",
+      "Permission is hereby granted, free of charge, to any person obtaining a copy",
+      "of this software and associated documentation files (the \"Software\"), to deal",
+      "in the Software without restriction, including without limitation the rights"
+    ]
+  },
+  {
+    "repository": "hermes",
+    "path": "optional-skills/software-development/pr-lens/LICENSE.txt",
+    "sha256": "f95e90af396c71c9a94648bd58e4f5bb2dcab4f6ac3ab7d3d2ca3f4e4f4a1ae7",
+    "opening": [
+      "MIT License",
+      "",
+      "Copyright (c) 2026 Coldtea AI",
+      "",
+      "Permission is hereby granted, free of charge, to any person obtaining a copy",
+      "of this software and associated documentation files (the \"Software\"), to deal",
+      "in the Software without restriction, including without limitation the rights"
+    ]
+  },
+  {
+    "repository": "hermes",
+    "path": "optional-skills/web-development/scrollcraft/LICENSE.txt",
+    "sha256": "dd471a27eca72488a53e6ea6fbe9392d81aa3f01e950e63fe328affb2ddfa6e3",
+    "opening": [
+      "MIT License",
+      "",
+      "Copyright (c) 2026 Nate Herk",
+      "",
+      "Permission is hereby granted, free of charge, to any person obtaining a copy",
+      "of this software and associated documentation files (the \"Software\"), to deal",
+      "in the Software without restriction, including without limitation the rights"
+    ]
+  },
+  {
+    "repository": "hermes",
+    "path": "plugins/hermes-achievements/LICENSE",
+    "sha256": "5c6bbd852eeff017e73830408977d26e4379c5f9bb6edb03fce171f81db5fe43",
+    "opening": [
+      "MIT License",
+      "",
+      "Copyright (c) 2026 Hermes Achievements contributors",
+      "",
+      "Permission is hereby granted, free of charge, to any person obtaining a copy",
+      "of this software and associated documentation files (the \"Software\"), to deal",
+      "in the Software without restriction, including without limitation the rights"
+    ]
+  },
+  {
+    "repository": "hermes",
+    "path": "plugins/security-guidance/LICENSE",
+    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "opening": [
+      "",
+      "                                 Apache License",
+      "                           Version 2.0, January 2004",
+      "                        http://www.apache.org/licenses/",
+      "",
+      "   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION",
+      ""
+    ]
+  },
+  {
+    "repository": "hermes",
+    "path": "plugins/security-guidance/NOTICE",
+    "sha256": "adc3dd09b90dd9240f56d5b9c782986028a312ab150c84a208de1a5d2b948227",
+    "opening": [
+      "Hermes Agent security-guidance plugin",
+      "=====================================",
+      "",
+      "This plugin (plugins/security-guidance/) includes work originally",
+      "published in the claude-plugins-official repository by Anthropic, PBC.,",
+      "licensed under the Apache License, Version 2.0.",
+      ""
+    ]
+  },
+  {
+    "repository": "hermes",
+    "path": "skills/creative/humanizer/LICENSE",
+    "sha256": "4ac4810254ab36d45419141aeb8e69bf50652cfafe5b2dab947d06d44e5cbf96",
+    "opening": [
+      "MIT License",
+      "",
+      "Copyright (c) 2025 Siqi Chen",
+      "",
+      "Permission is hereby granted, free of charge, to any person obtaining a copy",
+      "of this software and associated documentation files (the \"Software\"), to deal",
+      "in the Software without restriction, including without limitation the rights"
+    ]
+  },
+  {
+    "repository": "hermes",
+    "path": "skills/productivity/docx/LICENSE",
+    "sha256": "8aa3c7717d57a68490c31eef4b57b6887e892f0566ff866078ebd76113d357e2",
+    "opening": [
+      "MIT License",
+      "",
+      "Copyright (c) 2026 Nous Research",
+      "",
+      "Permission is hereby granted, free of charge, to any person obtaining a copy",
+      "of this software and associated documentation files (the \"Software\"), to deal",
+      "in the Software without restriction, including without limitation the rights"
+    ]
+  },
+  {
+    "repository": "hermes",
+    "path": "skills/productivity/pdf/LICENSE",
+    "sha256": "8aa3c7717d57a68490c31eef4b57b6887e892f0566ff866078ebd76113d357e2",
+    "opening": [
+      "MIT License",
+      "",
+      "Copyright (c) 2026 Nous Research",
+      "",
+      "Permission is hereby granted, free of charge, to any person obtaining a copy",
+      "of this software and associated documentation files (the \"Software\"), to deal",
+      "in the Software without restriction, including without limitation the rights"
+    ]
+  },
+  {
+    "repository": "hermes",
+    "path": "skills/productivity/powerpoint/LICENSE",
+    "sha256": "8aa3c7717d57a68490c31eef4b57b6887e892f0566ff866078ebd76113d357e2",
+    "opening": [
+      "MIT License",
+      "",
+      "Copyright (c) 2026 Nous Research",
+      "",
+      "Permission is hereby granted, free of charge, to any person obtaining a copy",
+      "of this software and associated documentation files (the \"Software\"), to deal",
+      "in the Software without restriction, including without limitation the rights"
+    ]
+  },
+  {
+    "repository": "hermes",
+    "path": "skills/productivity/xlsx/LICENSE",
+    "sha256": "8aa3c7717d57a68490c31eef4b57b6887e892f0566ff866078ebd76113d357e2",
+    "opening": [
+      "MIT License",
+      "",
+      "Copyright (c) 2026 Nous Research",
+      "",
+      "Permission is hereby granted, free of charge, to any person obtaining a copy",
+      "of this software and associated documentation files (the \"Software\"), to deal",
+      "in the Software without restriction, including without limitation the rights"
+    ]
+  },
+  {
+    "repository": "zenith-main",
+    "path": "LICENSE",
+    "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "opening": [
+      "                                 Apache License",
+      "                           Version 2.0, January 2004",
+      "                        http://www.apache.org/licenses/",
+      "",
+      "   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION",
+      "",
+      "   1. Definitions."
+    ]
+  },
+  {
+    "repository": "zenith-main",
+    "path": "research_checkpoints/recovery-v1/LICENSE",
+    "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "opening": [
+      "                                 Apache License",
+      "                           Version 2.0, January 2004",
+      "                        http://www.apache.org/licenses/",
+      "",
+      "   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION",
+      "",
+      "   1. Definitions."
+    ]
+  },
+  {
+    "repository": "zenith-main",
+    "path": "vendor/model-packs/NOTICE.md",
+    "sha256": "7360814fa9d3d47fd5184c32d1b8961b039681eab534058867dc858372ef45bf",
+    "opening": [
+      "# Third-party model support and reference sources",
+      "",
+      "These files are copied for local integration and reference; no upstream code is automatically executed. Complete pinned manifests live under `agent/model_packs/`. Source branding, authorship, licenses and compatibility identifiers are retained. Zenith's new integration code is separate.",
+      "",
+      "- **Zenith 27B**: N8STORM/Qwen3.8-27B-GGUF, revision `3a8bae812a24823b73a83911005f096462237582`. Model-card license: Apache-2.0; Qwen authorship and Unsloth quantization references retained. Apache-2.0 text is available in the root project LICENSE.",
+      "- **Zenith Vision**: N8STORM/DeepSeek-V4-Flash-Vision-Exp, revision `aeb503a06a451511bbe64eb42c0cce0a0f63f214`. MIT; copyright (c) 2023 DeepSeek. Full upstream LICENSE retained in `zenith-vision/LICENSE`.",
+      "- **Zenith 9B**: N8STORM/Qwythos-9B-Claude-Mythos-5-1M-GGUF, revision `82c035e532112a6c910dba87ade230948ae8a29b`. Model-card license: Apache-2.0; Qwen, Empero and quantization attribution retained. Source naming does not establish any Anthropic affiliation."
+    ]
+  },
+  {
+    "repository": "zenith-main",
+    "path": "vendor/model-packs/zenith-vision/LICENSE",
+    "sha256": "f2c6c602815669d292889e5be8c802f2ed950653b77999b1584e8e6aed25d040",
+    "opening": [
+      "MIT License",
+      "",
+      "Copyright (c) 2023 DeepSeek",
+      "",
+      "Permission is hereby granted, free of charge, to any person obtaining a copy",
+      "of this software and associated documentation files (the \"Software\"), to deal",
+      "in the Software without restriction, including without limitation the rights"
+    ]
+  },
+  {
+    "repository": "zenith-pr19",
+    "path": "LICENSE",
+    "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "opening": [
+      "                                 Apache License",
+      "                           Version 2.0, January 2004",
+      "                        http://www.apache.org/licenses/",
+      "",
+      "   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION",
+      "",
+      "   1. Definitions."
+    ]
+  },
+  {
+    "repository": "zenith-pr19",
+    "path": "THIRD_PARTY_NOTICES.md",
+    "sha256": "6262f1e14f4b03644e2857f732cbb8ede956ff671a49ea5f641d809dce14055a",
+    "opening": [
+      "# Platform architecture references",
+      "",
+      "Zenith remains licensed under its existing Apache-2.0 [LICENSE](LICENSE).",
+      "The platform design was informed by a source-level review of",
+      "[OpenClaw](https://github.com/openclaw/openclaw/tree/2f5727b9c61c2ba9dccc3c880d9115f02cb8652f),",
+      "copyright 2026 OpenClaw Foundation, MIT licensed. Immutable path/line references",
+      "and scoped notices are recorded in [the audit](docs/openclaw-audit/reports/OPENCLAW_REVERSE_ENGINEERING.md)."
+    ]
+  },
+  {
+    "repository": "zenith-pr19",
+    "path": "research_checkpoints/recovery-v1/LICENSE",
+    "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "opening": [
+      "                                 Apache License",
+      "                           Version 2.0, January 2004",
+      "                        http://www.apache.org/licenses/",
+      "",
+      "   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION",
+      "",
+      "   1. Definitions."
+    ]
+  },
+  {
+    "repository": "zenith-pr19",
+    "path": "vendor/model-packs/NOTICE.md",
+    "sha256": "7360814fa9d3d47fd5184c32d1b8961b039681eab534058867dc858372ef45bf",
+    "opening": [
+      "# Third-party model support and reference sources",
+      "",
+      "These files are copied for local integration and reference; no upstream code is automatically executed. Complete pinned manifests live under `agent/model_packs/`. Source branding, authorship, licenses and compatibility identifiers are retained. Zenith's new integration code is separate.",
+      "",
+      "- **Zenith 27B**: N8STORM/Qwen3.8-27B-GGUF, revision `3a8bae812a24823b73a83911005f096462237582`. Model-card license: Apache-2.0; Qwen authorship and Unsloth quantization references retained. Apache-2.0 text is available in the root project LICENSE.",
+      "- **Zenith Vision**: N8STORM/DeepSeek-V4-Flash-Vision-Exp, revision `aeb503a06a451511bbe64eb42c0cce0a0f63f214`. MIT; copyright (c) 2023 DeepSeek. Full upstream LICENSE retained in `zenith-vision/LICENSE`.",
+      "- **Zenith 9B**: N8STORM/Qwythos-9B-Claude-Mythos-5-1M-GGUF, revision `82c035e532112a6c910dba87ade230948ae8a29b`. Model-card license: Apache-2.0; Qwen, Empero and quantization attribution retained. Source naming does not establish any Anthropic affiliation."
+    ]
+  },
+  {
+    "repository": "zenith-pr19",
+    "path": "vendor/model-packs/zenith-vision/LICENSE",
+    "sha256": "f2c6c602815669d292889e5be8c802f2ed950653b77999b1584e8e6aed25d040",
+    "opening": [
+      "MIT License",
+      "",
+      "Copyright (c) 2023 DeepSeek",
+      "",
+      "Permission is hereby granted, free of charge, to any person obtaining a copy",
+      "of this software and associated documentation files (the \"Software\"), to deal",
+      "in the Software without restriction, including without limitation the rights"
+    ]
+  }
+]
