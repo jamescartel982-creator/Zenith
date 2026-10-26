@@ -41,7 +41,7 @@ tokenizer files, training data, production profile or account data was replaced.
   returned `4` to the fixed arithmetic prompt, and supervised training-example
   preparation passed. This is compatibility evidence, not a quality benchmark.
 - `pip check` in the compatibility environment: no broken requirements.
-- Patched dependency scan: **96 selected installed distributions, zero known
+- Patched dependency scan: **95 selected installed distributions, zero known
   advisories**, with no advisory exclusions. The count includes audit tooling;
   the original scan covered 75 distributions. Raw before/after reports are
   included. Zenith's own project is excluded from the public-package lookup;
