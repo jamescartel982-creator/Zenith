@@ -107,7 +107,9 @@ def install(root):
         raise ValueError("Runtime root must not be a symlink")
     root = root.resolve()
     # Keep generated environments outside every application/source tree.
-    if any((parent / ".git").exists() for parent in (root, *root.parents)):
+    source_root = HERE.parents[1]
+    if root == source_root or source_root in root.parents or any(
+            (parent / ".git").exists() for parent in (root, *root.parents)):
         raise ValueError("Choose a runtime root outside all Git repositories")
     marker = root / ".zenith-runtime-setup-v1"
     if root.exists() and any(root.iterdir()) and not marker.is_file():

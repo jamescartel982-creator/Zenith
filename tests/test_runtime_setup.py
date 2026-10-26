@@ -124,6 +124,18 @@ class RuntimeSetupTests(unittest.TestCase):
                     setup.install(root)
             self.assertFalse(root.exists())
 
+    def test_zip_source_without_git_metadata_is_also_protected(self):
+        with tempfile.TemporaryDirectory() as folder:
+            source = Path(folder) / "source"
+            here = source / "integrations/runtime_setup"
+            here.mkdir(parents=True)
+            root = source / "generated-runtime"
+            fake = type("Completed", (), {"stdout": "uv " + setup.PINS["uv"]})()
+            with patch.object(setup, "HERE", here), patch.object(setup.shutil, "which", return_value="uv"), patch.object(setup, "run", return_value=fake):
+                with self.assertRaisesRegex(ValueError, "outside all Git"):
+                    setup.install(root)
+            self.assertFalse(root.exists())
+
 
 if __name__ == "__main__":
     unittest.main()
