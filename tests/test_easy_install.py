@@ -23,6 +23,10 @@ def bootstrap():
     spec = importlib.util.spec_from_file_location('zenith_easy_bootstrap', ROOT / 'install.py')
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
+    # Flow tests mock package installation; platform wheel support is tested
+    # separately in test_macos_install, including explicit Intel rejection.
+    module.platform = SimpleNamespace(system=lambda: 'Linux', machine=lambda: 'x86_64',
+                                      mac_ver=lambda: ('', (), ''))
     return module
 
 

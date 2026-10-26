@@ -25,3 +25,23 @@ runtime suites have not been run in this new baseline workflow.
 See the pull request checks for actual results and the dated validation receipt
 added after runs finish. A failing baseline must be recorded, not hidden by
 rewriting upstream tests.
+
+## Measured native baseline, 2026-10-26
+
+[GitHub run 40284298753](https://github.com/n8storm/Zenith/actions/runs/40284298753)
+passed the original suite: **1,361 passed, one skipped, one deselected**, in
+**18.07 seconds** of pytest time. The skip is optional AWS Bedrock support
+(`langchain_aws` absent); the deselected integration test requires external
+services. All tracked native source stayed unchanged. The selected test-output
+receipt is `evidence/tradingagents-native-baseline.log`; the workflow artifact
+contains the full console output and JUnit XML. This result does not satisfy the
+separate real-Zenith or messaging acceptance gates.
+
+The current local Zenith suite ran **346 tests**, with **345 passing and one
+Windows-specific skip**, in **58.802 seconds**. Focused Mac platform tests also
+passed after making launcher fixtures independent of an existing checkout venv.
+The real preserved research checkpoint loaded and returned `4`; tokenizer semantic
+fingerprint remains `221ea68122dfcfb2772276b69e62fc97ea9b13785ee069b118ee36498b19a418`.
+The checkpoint probe reports `production_profile_changed: false` and
+`restricted_tools_enabled: false`. No financial-return or latency improvement is
+inferred from these software regressions.

@@ -1510,8 +1510,8 @@
     },
     {
       "path": "docs/four-system/BASELINE.md",
-      "size": 1581,
-      "sha256": "f5e923e07446c443976f95075475171d7cd97a088500b999c3f2d25028a17d5e",
+      "size": 2828,
+      "sha256": "ab9d20c0b1107cd0bee55172ac0341dd6ca84971cbc640a59701be23c1d17bd1",
       "normalization": "lf"
     },
     {
@@ -1572,6 +1572,12 @@
       "path": "docs/four-system/evidence/repository-pins.json",
       "size": 1146,
       "sha256": "e414fd5f37b78d2605fd9d3f503cd69922dd02393da92df0b65434d56f71289d",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/evidence/tradingagents-native-baseline.log",
+      "size": 12374,
+      "sha256": "4db13a63e928f7de601939fbf8662b9a74663f6ec22b861e772ae14d0c8c78fd",
       "normalization": "lf"
     },
     {
@@ -3040,8 +3046,8 @@
     },
     {
       "path": "tests/test_easy_install.py",
-      "size": 9404,
-      "sha256": "3e32b7fd77a1c75d7282fc90e9c75dfd40543b82f00dadfd345e82ae8a3b6f3b",
+      "size": 9713,
+      "sha256": "f74c703415d20ba4a7816db59bd112ad9308bb34e4b731fe02542ef1fd08b016",
       "normalization": "lf"
     },
     {
