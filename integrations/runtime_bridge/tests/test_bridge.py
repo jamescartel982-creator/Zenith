@@ -1,5 +1,6 @@
 """Native account isolation, durable job ownership and server-side grants."""
 import asyncio
+from contextlib import closing
 import json
 from pathlib import Path
 import sqlite3
@@ -41,7 +42,7 @@ class LedgerTests(unittest.TestCase):
     def test_foreign_native_database_is_never_migrated(self):
         with tempfile.TemporaryDirectory() as folder:
             path=Path(folder)/'native.sqlite3'
-            with sqlite3.connect(path) as db:
+            with closing(sqlite3.connect(path)) as db:
                 db.execute('CREATE TABLE conversations(secret TEXT)')
             path.chmod(0o600)
             before=path.read_bytes()

@@ -2794,8 +2794,8 @@
     },
     {
       "path": "integrations/runtime_bridge/src/zenith_integrations/shared/ledger.py",
-      "size": 9281,
-      "sha256": "b255a363fa9758e72a3b38a2d44a76356703ee6569f7750457a50eec0321537a",
+      "size": 9308,
+      "sha256": "a0e741627e92e33a62d9ccd0a7887351062d965c3ad48f53e44e26ef6ea1ce3c",
       "normalization": "lf"
     },
     {
@@ -2812,8 +2812,8 @@
     },
     {
       "path": "integrations/runtime_bridge/tests/test_bridge.py",
-      "size": 9087,
-      "sha256": "3438b10600d99ba31a8548e66818523dc56fb2014344af3877fc72a8d78283e8",
+      "size": 9127,
+      "sha256": "0f0575cd0bd37f2f290436b7067a56724ee30a4d164d8021a7164a6320b2fed6",
       "normalization": "lf"
     },
     {

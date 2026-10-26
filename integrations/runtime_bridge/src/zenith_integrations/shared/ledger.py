@@ -1,5 +1,5 @@
 """Own durable control ledger. Never migrates or reads native memory databases."""
-from contextlib import contextmanager
+from contextlib import closing, contextmanager
 import hashlib
 import hmac
 import json
@@ -37,7 +37,7 @@ class Ledger:
             info = self.path.stat()
             if os.name == 'posix' and (info.st_uid != os.getuid() or info.st_mode & 0o077):
                 raise ValueError('Ledger must be owner-only')
-            with sqlite3.connect(self.path.as_uri() + '?mode=ro', uri=True) as db:
+            with closing(sqlite3.connect(self.path.as_uri() + '?mode=ro', uri=True)) as db:
                 if db.execute('PRAGMA application_id').fetchone()[0] != APP_ID:
                     raise ValueError('This is not a bridge control ledger; refusing to alter it')
         with self.connect() as db:
@@ -62,7 +62,7 @@ class Ledger:
 
     @contextmanager
     def connect(self):
-        with sqlite3.connect(self.path, timeout=5, isolation_level=None) as db:
+        with closing(sqlite3.connect(self.path, timeout=5, isolation_level=None)) as db:
             db.row_factory = sqlite3.Row
             db.execute('PRAGMA foreign_keys=ON')
             yield db
