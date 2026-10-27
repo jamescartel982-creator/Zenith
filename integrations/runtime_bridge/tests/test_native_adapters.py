@@ -23,6 +23,26 @@ async def compatible_context():
 
 
 class NativeAdapters(unittest.IsolatedAsyncioTestCase):
+    async def test_small_context_requires_exact_native_build_policy_and_empty_tools(self):
+        from test_hermes_compatibility import fixture
+        with tempfile.TemporaryDirectory() as folder:
+            path,module,digest=fixture(Path(folder))
+            expected={'policy':'zenith-chat-only-v1','source_pin':'d05095663342556788cf2a198bfa7844cc7968ab','build_sha256':digest,'enabled':True,'profile_id':'profile','context_tokens':8192,'model':'zenith','provider':'custom','execution_tools':False}
+            class API:
+                def __init__(self):self.http=self;self.policy=dict(expected)
+                async def discover(self):self.capabilities={'zenith_compatibility':self.policy}
+                async def request(self,*args):return {'object':'list','platform':'api_server','data':[{'enabled':False}]}
+            async def window():return {'context_tokens':8192,'architectural_context_tokens':32768}
+            api=API();adapter=HermesChat(api,'profile',b's'*32,context_probe=window,compatibility_manifest=str(path))
+            self.assertTrue(await adapter.health())
+            for changed in ({'profile_id':'other'},{'context_tokens':32768},{'build_sha256':'0'*64},{'execution_tools':True},{'enabled':False}):
+                api.policy=expected|changed
+                self.assertFalse(await adapter.health())
+                self.assertEqual(adapter.unavailable_reason,'native_chat_compatibility_not_verified')
+            api.policy=dict(expected)
+            (Path(folder)/'agent/agent_init.py').write_text('# changed')
+            self.assertFalse(await adapter.health())
+
     async def test_hermes_native_context_floor_is_not_bypassed_or_misreported(self):
         class API:
             async def discover(self):raise AssertionError('Incompatible inference must be refused before submission')

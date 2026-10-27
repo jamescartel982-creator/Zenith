@@ -6,10 +6,11 @@ from ..shared.native_task import chat_scope, finish_cleanup
 
 
 class HermesChat:
-    def __init__(self, api, profile_id, session_key, timeout=120, context_probe=None):
+    def __init__(self, api, profile_id, session_key, timeout=120, context_probe=None, compatibility_manifest=''):
         self.api, self.profile_id, self.session_key, self.timeout = api, profile_id, session_key, timeout
         self.context_probe = context_probe
         self.unavailable_reason = None
+        self.compatibility_manifest = compatibility_manifest
 
     async def health(self):
         try:
@@ -20,10 +21,20 @@ class HermesChat:
                 return False
             # Audited Hermes custom-provider floor, agent/agent_init.py. Never
             # inflate the advertised window or substitute a larger foundation.
-            if min(limits['context_tokens'], limits['architectural_context_tokens']) < 64000:
+            window = min(limits['context_tokens'], limits['architectural_context_tokens'])
+            small_context = window < 64000
+            if small_context and not self.compatibility_manifest:
                 self.unavailable_reason = 'native_context_window_below_64000'
                 return False
             await self.api.discover()
+            if small_context:
+                from .compatibility import verify_manifest, POLICY, PIN
+                digest = verify_manifest(self.compatibility_manifest)
+                expected = {'policy':POLICY,'source_pin':PIN,'build_sha256':digest,'enabled':True,
+                    'profile_id':self.profile_id,'context_tokens':window,'model':'zenith','provider':'custom','execution_tools':False}
+                if not 4000 <= window <= 32768 or self.api.capabilities.get('zenith_compatibility') != expected:
+                    self.unavailable_reason = 'native_chat_compatibility_not_verified'
+                    return False
             tools = await self.api.http.request('GET', '/v1/toolsets')
             # The initial bridge enables conversation only, never native execution tools.
             rows = tools.get('data')

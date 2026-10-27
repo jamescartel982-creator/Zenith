@@ -29,6 +29,7 @@ class BridgeConfig:
     openclaw_private_key_file: str = ""
     openclaw_device_token_file: str = ""
     openclaw_profile_id: str = "zenith-openclaw"
+    hermes_compat_manifest_file: str = ""
 
     def __post_init__(self):
         private_origin(self.zenith_origin)
@@ -39,6 +40,8 @@ class BridgeConfig:
         if bool(self.hermes_origin) != bool(self.hermes_key_file):
             raise ValueError('Configure both Hermes origin and dedicated key handle')
         if self.hermes_origin:private_origin(self.hermes_origin)
+        if self.hermes_compat_manifest_file and not self.hermes_origin:
+            raise ValueError('A compatibility build is only meaningful for an explicit Hermes origin')
         if any((self.openclaw_url, self.openclaw_private_key_file, self.openclaw_device_token_file)) and not all((self.openclaw_url, self.openclaw_private_key_file, self.openclaw_device_token_file)):
             raise ValueError('Configure the Gateway and both already-paired device key handles')
         if self.openclaw_url:

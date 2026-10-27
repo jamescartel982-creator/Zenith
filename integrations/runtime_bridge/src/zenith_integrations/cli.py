@@ -24,6 +24,7 @@ def main(argv=None):
     init.add_argument('--hermes-origin', default='')
     init.add_argument('--hermes-key-file', type=Path)
     init.add_argument('--hermes-profile-id', default='zenith-hermes')
+    init.add_argument('--hermes-compat-manifest-file', type=Path)
     init.add_argument('--openclaw-url', default='')
     init.add_argument('--openclaw-private-key-file', type=Path)
     init.add_argument('--openclaw-device-token-file', type=Path)
@@ -48,7 +49,8 @@ def main(argv=None):
                 openclaw_url=args.openclaw_url,
                 openclaw_private_key_file=str(args.openclaw_private_key_file.expanduser().absolute()) if args.openclaw_private_key_file else '',
                 openclaw_device_token_file=str(args.openclaw_device_token_file.expanduser().absolute()) if args.openclaw_device_token_file else '',
-                openclaw_profile_id=args.openclaw_profile_id)
+                openclaw_profile_id=args.openclaw_profile_id,
+                hermes_compat_manifest_file=str(args.hermes_compat_manifest_file.expanduser().absolute()) if args.hermes_compat_manifest_file else '')
             write_private_new(directory/'audit.key',secrets.token_urlsafe(48)+'\n')
             write_private_new(directory/'config.json',json.dumps(asdict(config),indent=2)+'\n')
             print('Created separate bridge configuration. Native settings and memory stores were not changed.')

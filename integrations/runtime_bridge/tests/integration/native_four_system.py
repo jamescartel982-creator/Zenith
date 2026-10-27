@@ -89,7 +89,7 @@ def run(args):
                             measured['actual_runtime']=value['result'].get('runtime');measured['native_status']=value['result']['status']
                         elif runtime=='openclaw':measured['native_state']=value['result']['state']
                         else:
-                            native=value['report'];measured.update(all_native_roles_completed=native.get('all_native_roles_completed'), rating=native.get('rating'), financial_quality_verified=native.get('financial_quality_verified'),model=native.get('model'))
+                            native=value['report'];measured.update(all_native_roles_completed=native.get('all_native_roles_completed'), rating=native.get('rating'), financial_quality_verified=native.get('financial_quality_verified'),model=native.get('model'), execution_metrics=native.get('execution_metrics'))
                         print(runtime+': '+json.dumps(measured),flush=True)
                     account.post('/api/account/logout').raise_for_status()
                     report['logout_revokes_bridge']=bridge.get('/healthz').status_code==401

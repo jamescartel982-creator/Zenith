@@ -113,3 +113,50 @@ jobs:
         with:
           name: native-openclaw-model-acceptance
           path: native-openclaw-acceptance.json
+      - uses: actions/checkout@v4
+        with:
+          repository: NousResearch/hermes-agent
+          ref: d05095663342556788cf2a198bfa7844cc7968ab
+          path: native-hermes
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: TauricResearch/TradingAgents
+          ref: e8f5503e9b86d5c2710b0c76b1f686703968c9df
+          path: native-tradingagents
+          persist-credentials: false
+      - name: Build the approved separate Hermes chat compatibility copy
+        working-directory: zenith
+        run: python integrations/hermes_compat/build.py --source "$GITHUB_WORKSPACE/native-hermes" --output "$RUNNER_TEMP/hermes-zenith-chat"
+      - name: Install pinned independent native Python environments and test SDKs
+        run: |
+          uv python install 3.14.8
+          UV_PROJECT_ENVIRONMENT="$RUNNER_TEMP/hermes-test-venv" uv sync --project "$RUNNER_TEMP/hermes-zenith-chat" --python 3.14.8 --frozen --extra messaging --group dev --group test
+          UV_PROJECT_ENVIRONMENT="$RUNNER_TEMP/trading-test-venv" uv sync --project zenith/integrations/trading_service --python 3.12 --frozen --extra native
+      - name: Native Hermes context regression tests with original policy defaults
+        working-directory: ${{ runner.temp }}/hermes-zenith-chat
+        env:
+          ZENITH_HERMES_CHAT_ONLY: '0'
+        run: $RUNNER_TEMP/hermes-test-venv/bin/python -m pytest tests/agent/test_ollama_num_ctx.py tests/agent/test_compaction_anti_thrash.py -q
+      - name: Four real runtimes original owner MFA and unchanged Zenith model
+        working-directory: zenith
+        env:
+          AI_PROVIDER: huggingface
+          HF_MODEL: Qwen/Qwen2.5-0.5B-Instruct
+          HF_REVISION: 7ae557604adf67be50417f59c2c2f167def9a775
+          ZENITH_DEVICE: cpu
+          ZENITH_CPU_THREADS: '2'
+          OMP_NUM_THREADS: '2'
+          CONTEXT_TOKENS: '8192'
+          MAX_NEW_TOKENS: '256'
+          TOKENIZERS_PARALLELISM: 'false'
+          HF_HUB_DISABLE_XET: '1'
+          ZENITH_CHECKPOINT_RECEIPT: ''
+          ZENITH_HOME: ${{ github.workspace }}/.zenith-four-native-test
+          ZENITH_ADAPTER: ${{ github.workspace }}/zenith/.native-openclaw-adapter
+        run: uv run --project integrations/inference_service --frozen --extra local --extra test python integrations/runtime_bridge/tests/integration/launch_four_system.py --hermes-root "$RUNNER_TEMP/hermes-zenith-chat" --hermes-python "$RUNNER_TEMP/hermes-test-venv/bin/python" --openclaw-root "$GITHUB_WORKSPACE/native-openclaw" --node "$(command -v node)" --trading-python "$RUNNER_TEMP/trading-test-venv/bin/python" --trading-source "$GITHUB_WORKSPACE/native-tradingagents" --output "$GITHUB_WORKSPACE/four-system-native-acceptance.json"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: four-system-native-acceptance
+          path: four-system-native-acceptance.json

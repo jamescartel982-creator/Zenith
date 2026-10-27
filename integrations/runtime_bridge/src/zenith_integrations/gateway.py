@@ -31,7 +31,7 @@ def create_app(config, identity=None, router=None, ledger=None):
         if config.hermes_origin:
             from .hermes.api_client import HermesAPI
             from .hermes.adapter import HermesChat
-            router.adapters['hermes'] = HermesChat(HermesAPI(config.hermes_origin, config.hermes_key_file, config.hermes_profile_id), config.hermes_profile_id, session_secret, config.job_timeout, context_probe=NativeInference(config).readiness)
+            router.adapters['hermes'] = HermesChat(HermesAPI(config.hermes_origin, config.hermes_key_file, config.hermes_profile_id), config.hermes_profile_id, session_secret, config.job_timeout, context_probe=NativeInference(config).readiness, compatibility_manifest=config.hermes_compat_manifest_file)
         if config.openclaw_url:
             from .openclaw.gateway_client import GatewayClient
             from .openclaw.adapter import OpenClawChat

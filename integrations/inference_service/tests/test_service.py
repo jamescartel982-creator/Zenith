@@ -70,6 +70,8 @@ class ProtocolTests(unittest.TestCase):
             self.assertEqual(ready['context_tokens'],2048)
             self.assertEqual(ready['max_output_tokens'],256)
             self.assertIsNone(ready['architectural_context_tokens'])
+            self.assertEqual(api.post('/v1/chat/completions',json={**BODY,'reasoning_effort':'none'},headers=headers).status_code,200)
+            self.assertEqual(api.post('/v1/chat/completions',json={**BODY,'reasoning_effort':'medium'},headers=headers).status_code,400)
             row = api.post('/v1/chat/completions', json=BODY, headers=headers).json()
             self.assertEqual(row['choices'][0]['message']['content'], '4')
             self.assertEqual(row['usage']['total_tokens'], 11)

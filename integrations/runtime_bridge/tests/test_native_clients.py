@@ -44,7 +44,7 @@ class HermesContracts(unittest.IsolatedAsyncioTestCase):
                 requests.append((request.method,request.url.path))
                 if request.url.path=='/v1/capabilities':
                     return httpx.Response(200,json={'object':'hermes.api_server.capabilities','platform':'hermes-agent','model':'profile-agent',
-                        'auth':{'type':'bearer','required':True},'features':{'run_submission':True,'run_status':True,'run_stop':True,
+                        'auth':{'type':'bearer','required':True},'features':{'run_submission':True,'run_status':True,'run_stop':True,'session_model_lock':True,
                         'runs_idempotency':{'supported':True,'durable':True}},'endpoints':{
                         'runs':{'method':'POST','path':'/v1/runs'},'run_status':{'method':'GET','path':'/v1/runs/{run_id}'},
                         'run_stop':{'method':'POST','path':'/v1/runs/{run_id}/stop'}}})
