@@ -21,6 +21,13 @@ def main(argv=None):
     init.add_argument('--zenith-access-token-file', type=Path)
     init.add_argument('--trading-origin',default='')
     init.add_argument('--trading-key-file',type=Path)
+    init.add_argument('--hermes-origin', default='')
+    init.add_argument('--hermes-key-file', type=Path)
+    init.add_argument('--hermes-profile-id', default='zenith-hermes')
+    init.add_argument('--openclaw-url', default='')
+    init.add_argument('--openclaw-private-key-file', type=Path)
+    init.add_argument('--openclaw-device-token-file', type=Path)
+    init.add_argument('--openclaw-profile-id', default='zenith-openclaw')
     init.add_argument('--job-timeout',type=float,default=120)
     serve = sub.add_parser('serve')
     serve.add_argument('--directory', type=Path, required=True)
@@ -34,7 +41,14 @@ def main(argv=None):
             config = BridgeConfig(args.zenith_origin, args.inference_origin, str(args.inference_key_file.expanduser().absolute()),
                 str(directory/'control.sqlite3'), str(args.zenith_access_token_file.expanduser().absolute()) if args.zenith_access_token_file else '',
                 str(directory/'audit.key'),args.job_timeout,args.trading_origin,
-                str(args.trading_key_file.expanduser().absolute()) if args.trading_key_file else '')
+                str(args.trading_key_file.expanduser().absolute()) if args.trading_key_file else '',
+                hermes_origin=args.hermes_origin,
+                hermes_key_file=str(args.hermes_key_file.expanduser().absolute()) if args.hermes_key_file else '',
+                hermes_profile_id=args.hermes_profile_id,
+                openclaw_url=args.openclaw_url,
+                openclaw_private_key_file=str(args.openclaw_private_key_file.expanduser().absolute()) if args.openclaw_private_key_file else '',
+                openclaw_device_token_file=str(args.openclaw_device_token_file.expanduser().absolute()) if args.openclaw_device_token_file else '',
+                openclaw_profile_id=args.openclaw_profile_id)
             write_private_new(directory/'audit.key',secrets.token_urlsafe(48)+'\n')
             write_private_new(directory/'config.json',json.dumps(asdict(config),indent=2)+'\n')
             print('Created separate bridge configuration. Native settings and memory stores were not changed.')

@@ -1,0 +1,68 @@
+name: Pinned OpenClaw native runtime
+on:
+  pull_request:
+    paths: ['integrations/runtime_bridge/**', '.github/workflows/pinned-openclaw-runtime.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build-native:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: openclaw/openclaw
+          ref: 2f5727b9c61c2ba9dccc3c880d9115f02cb8652f
+          path: native-openclaw
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '26.12.1'
+      - uses: pnpm/action-setup@v4
+        with:
+          version: '12.15.0'
+          run_install: false
+      - name: Install the unmodified frozen upstream dependency tree
+        working-directory: native-openclaw
+        run: pnpm install --frozen-lockfile
+      - name: Build the complete native runtime
+        working-directory: native-openclaw
+        run: pnpm run build:docker
+      - name: Verify native CLI and unchanged tracked source
+        working-directory: native-openclaw
+        run: |
+          node openclaw.mjs --version
+          git diff --exit-code HEAD
+          test "$(git rev-parse HEAD)" = 2f5727b9c61c2ba9dccc3c880d9115f02cb8652f
+      - name: Export only generated runtime artifacts with source identity
+        shell: bash
+        run: |
+          python - <<'PY'
+          import hashlib,json,pathlib,subprocess,tarfile
+          root=pathlib.Path('native-openclaw')
+          roots=[root/name for name in ('dist','dist-runtime') if (root/name).exists()]
+          roots += sorted(root.glob('packages/*/dist'))
+          roots += sorted(root.glob('extensions/*/dist'))
+          rows=[]
+          for directory in roots:
+              for file in sorted(directory.rglob('*')):
+                  if file.is_file() and not file.is_symlink():
+                      rows.append({'path':file.relative_to(root).as_posix(),'sha256':hashlib.sha256(file.read_bytes()).hexdigest(),'bytes':file.stat().st_size})
+          with tarfile.open('openclaw-built-runtime.tgz','w:gz') as archive:
+              for directory in roots:archive.add(directory,arcname=directory.relative_to(root).as_posix())
+          record={'source_repository':'https://github.com/openclaw/openclaw',
+                  'source_commit':subprocess.check_output(['git','-C',str(root),'rev-parse','HEAD'],text=True).strip(),
+                  'node_version':subprocess.check_output(['node','--version'],text=True).strip(),
+                  'pnpm_version':subprocess.check_output(['pnpm','--version'],text=True).strip(),
+                  'archive_sha256':hashlib.sha256(pathlib.Path('openclaw-built-runtime.tgz').read_bytes()).hexdigest(),
+                  'files':rows,'native_gateway_turn_verified':False}
+          pathlib.Path('openclaw-built-runtime.json').write_text(json.dumps(record,indent=2)+'\n')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: openclaw-pinned-native-runtime
+          path: |
+            openclaw-built-runtime.tgz
+            openclaw-built-runtime.json
+          retention-days: 7

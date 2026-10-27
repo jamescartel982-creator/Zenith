@@ -51,6 +51,12 @@
       "normalization": "lf"
     },
     {
+      "path": ".github/workflows/pinned-openclaw-runtime.yml",
+      "size": 3128,
+      "sha256": "a820fd5ba0d7ba74569e0f0e63b039759f1e7dfc7cc217c54a4cf52369d485c7",
+      "normalization": "lf"
+    },
+    {
       "path": ".github/workflows/runtime-bridge.yml",
       "size": 2761,
       "sha256": "c918c6c2d6a04c68ba2e257948a9f2dbae2cf0b9682df4f925731795b090a746",
@@ -1570,8 +1576,8 @@
     },
     {
       "path": "docs/four-system/IMPLEMENTATION_STATUS.md",
-      "size": 3987,
-      "sha256": "14d7000bd4d187a4d84c9e33db31210cf7cbbbcb796bb993e740ff7a18c75da9",
+      "size": 5698,
+      "sha256": "43c5f8f9b9483a92b1fccf175f0ec4e8c118eb9de2c142035c3582dda09cfd83",
       "normalization": "lf"
     },
     {
@@ -2776,8 +2782,8 @@
     },
     {
       "path": "integrations/runtime_bridge/README.md",
-      "size": 6587,
-      "sha256": "247e97cadbe28b2fadcfe1790970af8fa04474384a622d8222d5ce8402b0a5e1",
+      "size": 9637,
+      "sha256": "a6a623f55f5dad28e71485ca54dd3e8a26132b59bb99541072e9e891bcfe7768",
       "normalization": "lf"
     },
     {
@@ -2794,26 +2800,32 @@
     },
     {
       "path": "integrations/runtime_bridge/src/zenith_integrations/cli.py",
-      "size": 2874,
-      "sha256": "67d950dd65da92339bdf0aec85e4dde588919a102a849d6e951b9366eada7bb4",
+      "size": 3932,
+      "sha256": "08f9e368110a6d4a3b5158ab426fb81b643f23306fca6b0b9f703f4b20bf5b42",
       "normalization": "lf"
     },
     {
       "path": "integrations/runtime_bridge/src/zenith_integrations/config.py",
-      "size": 1451,
-      "sha256": "90b247e98aefc9d6482b909b9c8b7ff7dde06ec43f9704119e10aadd1aeb286f",
+      "size": 2856,
+      "sha256": "2ebd7bfb9ae86e97286eff987d98e16a0a6b63e3f4fa0b150c4a2ae983277a2d",
       "normalization": "lf"
     },
     {
       "path": "integrations/runtime_bridge/src/zenith_integrations/gateway.py",
-      "size": 11897,
-      "sha256": "ede2ba78567bf74555330858d13e2e602f9eee5850c12f2b39b85d2831b231a5",
+      "size": 13159,
+      "sha256": "bbd628a8313c5116059b6ad2d23212a65ca40511c2f30941b1c04ad97fb4c316",
       "normalization": "lf"
     },
     {
       "path": "integrations/runtime_bridge/src/zenith_integrations/hermes/__init__.py",
       "size": 82,
       "sha256": "66770287b8b7ea6d313bc6fd8a1067e042dbd56495e9655de3839381c274944f",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/runtime_bridge/src/zenith_integrations/hermes/adapter.py",
+      "size": 2566,
+      "sha256": "b179b7d59e8dc160f5fce363672fa8c764f5b2d3395b6eb05ec2d62e7b158f19",
       "normalization": "lf"
     },
     {
@@ -2838,6 +2850,12 @@
       "path": "integrations/runtime_bridge/src/zenith_integrations/openclaw/__init__.py",
       "size": 80,
       "sha256": "74b69f15627f626c3d11c4ddd6a81fb9d08014e5af997d0aeaf0d442b5bbb21f",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/runtime_bridge/src/zenith_integrations/openclaw/adapter.py",
+      "size": 2924,
+      "sha256": "6e51f63de9e7c300e36c14bcc5a6f2b58e263ae73a9bbcd90d8c918c7f0f93ca",
       "normalization": "lf"
     },
     {
@@ -2907,6 +2925,12 @@
       "normalization": "lf"
     },
     {
+      "path": "integrations/runtime_bridge/src/zenith_integrations/shared/native_task.py",
+      "size": 1186,
+      "sha256": "2db52f2c7ac158a6704d4c667409a772d1e5443b4ef31ec1b69fcd8b3a5d56b1",
+      "normalization": "lf"
+    },
+    {
       "path": "integrations/runtime_bridge/src/zenith_integrations/shared/redaction.py",
       "size": 815,
       "sha256": "b08ced3609c1d32d930b600faed9b7936b0db6bca670fb3ed5b773908ced698f",
@@ -2937,6 +2961,12 @@
       "normalization": "lf"
     },
     {
+      "path": "integrations/runtime_bridge/tests/integration/native_four_system.py",
+      "size": 8067,
+      "sha256": "4f6cd694f61df38e4109add1be700b64adf5b5de88fa370efeea4777f6509c64",
+      "normalization": "lf"
+    },
+    {
       "path": "integrations/runtime_bridge/tests/native_source_conformance.py",
       "size": 3534,
       "sha256": "2fa7d616501ce994b6cfe78714527c9ebe5f721b0f34c8d6a4959a589e4c740c",
@@ -2946,6 +2976,12 @@
       "path": "integrations/runtime_bridge/tests/test_bridge.py",
       "size": 9127,
       "sha256": "0f0575cd0bd37f2f290436b7067a56724ee30a4d164d8021a7164a6320b2fed6",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/runtime_bridge/tests/test_native_adapters.py",
+      "size": 7541,
+      "sha256": "6e666c740f3de52db621e4c2b3653d33ce980d12aeaa07ebcc9e8c82100e6033",
       "normalization": "lf"
     },
     {

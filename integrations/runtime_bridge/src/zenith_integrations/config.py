@@ -22,6 +22,13 @@ class BridgeConfig:
     job_timeout: float = 120
     trading_origin: str = ""
     trading_key_file: str = ""
+    hermes_origin: str = ""
+    hermes_key_file: str = ""
+    hermes_profile_id: str = "zenith-hermes"
+    openclaw_url: str = ""
+    openclaw_private_key_file: str = ""
+    openclaw_device_token_file: str = ""
+    openclaw_profile_id: str = "zenith-openclaw"
 
     def __post_init__(self):
         private_origin(self.zenith_origin)
@@ -29,6 +36,21 @@ class BridgeConfig:
         if bool(self.trading_origin)!=bool(self.trading_key_file):
             raise ValueError('Configure both the dedicated native research origin and key handle')
         if self.trading_origin:private_origin(self.trading_origin)
+        if bool(self.hermes_origin) != bool(self.hermes_key_file):
+            raise ValueError('Configure both Hermes origin and dedicated key handle')
+        if self.hermes_origin:private_origin(self.hermes_origin)
+        if any((self.openclaw_url, self.openclaw_private_key_file, self.openclaw_device_token_file)) and not all((self.openclaw_url, self.openclaw_private_key_file, self.openclaw_device_token_file)):
+            raise ValueError('Configure the Gateway and both already-paired device key handles')
+        if self.openclaw_url:
+            parts = urlsplit(self.openclaw_url)
+            if parts.scheme not in {'ws','wss'}:
+                raise ValueError('A private WebSocket Gateway is required')
+            private_origin(('https' if parts.scheme == 'wss' else 'http') + self.openclaw_url[len(parts.scheme):])
+        if self.hermes_origin or self.openclaw_url:
+            if not self.audit_key_file:
+                raise ValueError('Private audit and session binding key required')
+            from .shared.native_http import opaque_id
+            opaque_id(self.hermes_profile_id); opaque_id(self.openclaw_profile_id)
         if not 1 <= self.job_timeout <= 900:
             raise ValueError('Job timeout must be 1–900 seconds')
 
