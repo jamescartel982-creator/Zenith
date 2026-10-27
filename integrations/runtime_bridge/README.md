@@ -70,9 +70,10 @@ emergency stop persists in that ledger. No original public API has changed.
 `uv sync --project integrations/runtime_bridge --frozen --extra native` adds
 WebSocket 15.0.1 without installing or replacing either upstream runtime.
 See [native client contracts](../../docs/four-system/NATIVE_CLIENTS.md).
-These library clients are not registered as executable public bridge backends;
-`/v1/runtimes` continues to report them unavailable until isolated native
-profiles and full acceptance are verified. Transport authentication alone does
+The optional clients can now be registered explicitly as owner-controlled chat
+backends using dedicated native profiles. They remain unconfigured by default;
+`/v1/runtimes` performs authenticated health checks rather than assuming a URL
+is connected. Transport authentication alone does
 not authorize a native agent's filesystem, shell or network access.
 
 
@@ -104,5 +105,90 @@ publication-time validation has been demonstrated. Never use this connector as
 an order signal. Neither a successful workflow nor its transport credential is
 an administrator grant for other tools.
 
-Hermes/OpenClaw clients remain optional libraries pending their actual paired,
-isolated native runtime acceptance. Merely setting a URL does not activate them.
+## Optional Hermes and OpenClaw chat backends
+
+Use a new bridge directory and add these options to `zenith-bridge init`:
+
+```text
+--hermes-origin http://127.0.0.1:8642
+--hermes-key-file <isolated Hermes profile/api.key>
+--hermes-profile-id <stable profile identifier>
+--openclaw-url ws://127.0.0.1:18789
+--openclaw-private-key-file <integration-owned Ed25519 PEM>
+--openclaw-device-token-file <already-paired read/write device token>
+--openclaw-profile-id <stable profile identifier>
+```
+
+Install the `native` extra for WebSocket transport. Profiles must be independently
+configured, pinned, authenticated and bound to loopback. Use the dedicated Zenith
+service identity in each native model-provider configuration; no provider or
+credential override is accepted from a chat request. Keep native execution tools
+disabled in this initial chat-only deployment. Hermes discovery refuses profiles
+that advertise enabled toolsets. The OpenClaw native profile must enforce
+`tools.deny: ["*"]`, disable the operator terminal, use the dedicated `zenith`
+agent with `zenith/zenith` as its sole model, and disable external fallbacks.
+Gateway transport health alone does not attest its filesystem or model policy.
+The bridge never pairs a device or receives a shared owner bootstrap token.
+
+Each job payload is exactly `{"message":"...","conversation_id":"..."}`,
+with operation `chat` or `support`. The original verified owner requests
+`jobs.submit.hermes` or `jobs.submit.openclaw`, scoped to runtime, operation,
+conversation ID and `message_sha256` (SHA-256 of the UTF-8 message). This keeps an
+approved message from authorizing a different task. Native session identifiers
+are HMAC-bound to the verified account, conversation and configured profile.
+Grants are short lived, monitored during execution and revoked on emergency
+shutdown. Native admission handles are persisted before waiting for completion.
+No lost acknowledgement is automatically retried. Unconfirmed cancellation is
+marked interrupted and must be reconciled in the native runtime.
+
+Run actual four-runtime acceptance after starting the independently installed
+native services and original Zenith inference:
+
+```bash
+python integrations/runtime_bridge/tests/integration/native_four_system.py \
+  --config /private/bridge/config.json \
+  --identity /private/inference/identity.json \
+  --directory /private/new-acceptance-state \
+  --output /private/four-system-acceptance.json
+```
+
+The command uses real native account/MFA implementations in fresh test state,
+checks all four runtime health endpoints, submits one owner-scoped job to each,
+checks duplicate admission and logout revocation, and verifies model hashes.
+It does not replace a full native test suite, financial validation, sandbox
+assessment or production soak. Results are measurements only after the command
+actually runs. Model weights and upstream implementation files remain unchanged.
+Rollback: stop the bridge, retain receipts and native state, then run the previous
+bridge version or remove the optional H/O configuration fields from an archived
+copy. Defaults and existing Zenith/trading-only configurations are compatible.
+
+### Current Hermes compatibility blocker
+
+The real pinned native runtime rejected the unchanged Zenith model: Hermes'
+`custom` provider requires 64,000 context tokens, while Zenith's actual model
+supports 32,768 and this service currently serves 8,192. The bridge reads
+**authenticated actual inference readiness** and refuses an insufficient or
+unknown window before submitting a run. `/v1/runtimes` reports
+`native_context_window_below_64000`; a listening API is not labelled a working
+agent. Do not inflate the context, swap models or mislabel another provider to
+suppress this check. See the [unapplied compatibility proposal](../../docs/four-system/proposals/HERMES_CONTEXT_COMPATIBILITY.md).
+
+The real pinned Gateway also confirmed that `suppressCommandInterpretation`
+requires administrator scope. The read/write bridge therefore omits that
+privileged field and rejects **all slash-containing text**, including URLs and
+Unicode compatibility slashes, before sending a native mutation. This is an
+explicit limitation of the initial least-privilege chat route. `commands.text:
+false` alone does not disable native commands on WebChat; it is not treated as a
+security boundary. No administrator scope was added to make a chat call pass.
+The optional native CI acceptance starts the actual pinned Gateway and original
+Zenith checkpoint, pairs a dedicated test-owned device, and exercises the
+original owner/MFA bridge. Only a measured successful run verifies that route.
+
+The owner-approved alternative is now implemented in
+[`integrations/hermes_compat`](../hermes_compat/README.md). It exports a separate
+pinned source copy, defaults off, verifies exact build/profile/context metadata,
+and leaves the original 64K rule intact outside its chat-only exception. Actual
+Hermes chat and native context regressions have passed; combined owner/MFA
+four-runtime acceptance is tracked separately. Read the
+[activation report](../../docs/four-system/ACTIVATION_REPORT.md) for the current
+workflow, quality and hosting limits.

@@ -3,6 +3,8 @@ import asyncio
 from contextlib import asynccontextmanager, suppress
 import json
 import re
+import hashlib
+import hmac
 
 import anyio
 from fastapi import FastAPI, HTTPException, Request
@@ -24,6 +26,16 @@ def create_app(config, identity=None, router=None, ledger=None):
     identity = identity or ZenithIdentity(config)
     ledger = ledger or Ledger(config.database, config.secret(config.audit_key_file).encode())
     router = router or Router(NativeInference(config))
+    if config.hermes_origin or config.openclaw_url:
+        session_secret = hmac.new(config.secret(config.audit_key_file).encode(), b'zenith-native-sessions-v1', hashlib.sha256).digest()
+        if config.hermes_origin:
+            from .hermes.api_client import HermesAPI
+            from .hermes.adapter import HermesChat
+            router.adapters['hermes'] = HermesChat(HermesAPI(config.hermes_origin, config.hermes_key_file, config.hermes_profile_id), config.hermes_profile_id, session_secret, config.job_timeout, context_probe=NativeInference(config).readiness, compatibility_manifest=config.hermes_compat_manifest_file)
+        if config.openclaw_url:
+            from .openclaw.gateway_client import GatewayClient
+            from .openclaw.adapter import OpenClawChat
+            router.adapters['openclaw'] = OpenClawChat(lambda: GatewayClient(config.openclaw_url, config.openclaw_private_key_file, config.openclaw_device_token_file), config.openclaw_profile_id, session_secret, config.job_timeout)
     if config.trading_origin:
         from .tradingagents.client import TradingResearch
         router.adapters['tradingagents']=TradingResearch(config.trading_origin,config.trading_key_file,config.job_timeout)
@@ -55,6 +67,12 @@ def create_app(config, identity=None, router=None, ledger=None):
 
     def required_scope(body):
         scope={'runtime':body.runtime,'operation':body.operation}
+        if body.runtime in {'hermes','openclaw'}:
+            from .shared.native_task import chat_scope
+            try:
+                scope.update(chat_scope(body.payload, body.operation))
+            except RuntimeError:
+                raise HTTPException(400, 'Only an explicit bounded message and conversation are enabled') from None
         if body.runtime=='tradingagents':
             if body.operation!='research' or set(body.payload)!={'ticker','as_of'} or not all(isinstance(v,str) for v in body.payload.values()):
                 raise HTTPException(400,'Only explicit read-only ticker/as_of research is enabled')
@@ -79,9 +97,9 @@ def create_app(config, identity=None, router=None, ledger=None):
                     raise PermissionError('Grant expired or was revoked')
                 if not ledger.transition(identifier, {'queued'}, 'running'):
                     return
-                if body.runtime=='tradingagents':
+                if body.runtime!='zenith':
                     def admitted(native_id,native_state=None):
-                        data={'runtime':'tradingagents','native_job_id':native_id}
+                        data={'runtime':body.runtime,'native_job_id':native_id}
                         if native_state:data['native_status']=native_state
                         row=ledger.get(identifier,actor)
                         if row and row['status'] in {'running','cancel_requested'}:
@@ -90,7 +108,7 @@ def create_app(config, identity=None, router=None, ledger=None):
                         while True:
                             await asyncio.sleep(1)
                             fresh=await identity.verify(token,owner=True)
-                            if fresh!=actor or ledger.stopped() or not ledger.allows(fresh,body.grant_id,'jobs.submit.tradingagents',required_scope(body)):
+                            if fresh!=actor or ledger.stopped() or not ledger.allows(fresh,body.grant_id,'jobs.submit.'+body.runtime,required_scope(body)):
                                 raise PermissionError('Native execution lease is no longer valid')
                     work=asyncio.create_task(adapter.execute_scoped(body.payload,actor.id,identifier,body.operation,admitted))
                     lease=asyncio.create_task(authorized())
@@ -136,6 +154,7 @@ def create_app(config, identity=None, router=None, ledger=None):
             for row in rows:
                 adapter=router.adapters.get(row['runtime'])
                 if adapter and hasattr(adapter,'health'):row['connected']=await adapter.health()
+                if adapter and getattr(adapter,'unavailable_reason',None):row['unavailable_reason']=adapter.unavailable_reason
                 if row['runtime']=='tradingagents':row['financial_review_required']=True
         return {'runtimes':rows,'primary_model':'zenith','live_execution':False}
 

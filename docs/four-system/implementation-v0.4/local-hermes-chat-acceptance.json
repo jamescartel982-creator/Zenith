@@ -1,0 +1,31 @@
+{
+  "scripted_model": false,
+  "source_pin": "d05095663342556788cf2a198bfa7844cc7968ab",
+  "compatibility_build_sha256": "debb0350fd9d2edb678867551cebc25d01d083015a7dcfe84eb3c3fc059c9459",
+  "context_tokens": 8192,
+  "architectural_context_tokens": 32768,
+  "execution_tools": false,
+  "native_status": "completed",
+  "actual_runtime": {
+    "provider": "custom",
+    "model": "zenith",
+    "route_source": "raw_request",
+    "requested": {
+      "provider": "custom",
+      "model": "zenith"
+    }
+  },
+  "answer": "4",
+  "usage": {
+    "input_tokens": 620,
+    "output_tokens": 2,
+    "runtime": {
+      "model": "zenith",
+      "provider": "custom"
+    },
+    "total_tokens": 622
+  },
+  "seconds": 9.777363389999891,
+  "original_source_unchanged": true,
+  "full_hermes_parity_verified": false
+}

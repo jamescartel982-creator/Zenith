@@ -1,0 +1,49 @@
+{
+  "source_pin": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+  "scripted_model": false,
+  "native_tools_enabled": false,
+  "external_message_sent": false,
+  "live_orders_enabled": false,
+  "native_device": {
+    "paired": true,
+    "scopes": [
+      "operator.read",
+      "operator.write"
+    ],
+    "server_version": "2026.10.7",
+    "build_id": "2026.10.7-2f5727b9c61c-2026-10-27T15-31-57.365Z"
+  },
+  "bridge_job": {
+    "status": "succeeded",
+    "seconds": 22.563238994000017,
+    "error_code": null,
+    "native_receipt": null
+  },
+  "native_final_state": "final",
+  "message": {
+    "role": "assistant",
+    "content": [
+      {
+        "type": "text",
+        "text": "none in the latest retained-input page"
+      }
+    ],
+    "timestamp": 1793115427094,
+    "openclawDisplayContent": []
+  },
+  "measured_model_calls": [
+    {
+      "prompt_tokens": 2605,
+      "completion_tokens": 8
+    }
+  ],
+  "logout_revokes_bridge": true,
+  "original_model_artifacts_unchanged": true,
+  "tracked_upstream_source_unchanged": true,
+  "native_gateway_cleanly_exited": true,
+  "github_run": "https://github.com/n8storm/Zenith/actions/runs/40530613574",
+  "answer_quality_verified": false,
+  "quality_flags": [
+    "native_context_echo"
+  ]
+}

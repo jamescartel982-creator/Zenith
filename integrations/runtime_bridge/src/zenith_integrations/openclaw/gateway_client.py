@@ -11,6 +11,7 @@ import json
 import re
 from urllib.parse import urlsplit
 import uuid
+import unicodedata
 
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
@@ -202,8 +203,14 @@ class GatewayClient:
             raise ValueError('Use an integration-owned native session key')
         if not isinstance(message,str) or not 1<=len(message)<=16000 or not re.fullmatch(r'[a-zA-Z0-9_-]{8,128}',idempotency_key):
             raise ValueError('A bounded message and stable idempotency key are required')
+        # The audited native suppressCommandInterpretation field requires admin.
+        # This client deliberately has read/write only. Until a scoped literal-
+        # input native contract exists, conservatively refuse every slash, even
+        # in prose/URLs, so text cannot invoke native directives or model changes.
+        if '/' in unicodedata.normalize('NFKC', message):
+            raise ValueError('The least-privilege Gateway chat route currently requires slash-free text')
         return await self._rpc('chat.send',{'sessionKey':session_key,'message':message,'idempotencyKey':idempotency_key,
-                                           'deliver':False,'suppressCommandInterpretation':True})
+                                           'deliver':False})
 
     async def cancel_turn(self,session_key,run_id):
         return await self._rpc('chat.abort',{'sessionKey':session_key,'runId':run_id})

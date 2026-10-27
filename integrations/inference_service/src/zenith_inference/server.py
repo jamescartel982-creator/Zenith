@@ -141,7 +141,10 @@ def create_app(backend, auth, allowed_hosts=('127.0.0.1', 'localhost', '::1'),qu
     async def readiness(request: Request):
         auth.authenticate(request, 'inference.read')
         ready = backend.model is not None and backend.identity_hash is not None
-        return JSONResponse({'ready': ready, 'identity_sha256': backend.identity_hash}, status_code=200 if ready else 503)
+        return JSONResponse({'ready': ready, 'identity_sha256': backend.identity_hash,
+            'context_tokens': backend.limits.context_tokens,
+            'architectural_context_tokens': getattr(getattr(backend.model, 'config', None), 'max_position_embeddings', None),
+            'max_output_tokens': backend.limits.max_output_tokens}, status_code=200 if ready else 503)
 
     @app.get('/v1/models')
     async def models(request: Request):

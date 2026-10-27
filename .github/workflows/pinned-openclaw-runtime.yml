@@ -1,0 +1,162 @@
+name: Pinned OpenClaw native runtime
+on:
+  pull_request:
+    paths: ['integrations/runtime_bridge/**', 'integrations/hermes_compat/**', 'integrations/inference_service/**', '.github/workflows/pinned-openclaw-runtime.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build-native:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: openclaw/openclaw
+          ref: 2f5727b9c61c2ba9dccc3c880d9115f02cb8652f
+          path: native-openclaw
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '26.12.1'
+      - uses: pnpm/action-setup@v4
+        with:
+          version: '12.15.0'
+          run_install: false
+      - name: Install the unmodified frozen upstream dependency tree
+        working-directory: native-openclaw
+        run: pnpm install --frozen-lockfile
+      - name: Build the complete native runtime
+        working-directory: native-openclaw
+        run: pnpm run build:docker
+      - name: Verify native CLI and unchanged tracked source
+        working-directory: native-openclaw
+        run: |
+          node openclaw.mjs --version
+          git diff --exit-code HEAD
+          test "$(git rev-parse HEAD)" = 2f5727b9c61c2ba9dccc3c880d9115f02cb8652f
+      - name: Export only generated runtime artifacts with source identity
+        shell: bash
+        run: |
+          python - <<'PY'
+          import hashlib,json,pathlib,subprocess,tarfile
+          root=pathlib.Path('native-openclaw')
+          roots=[root/name for name in ('dist','dist-runtime') if (root/name).exists()]
+          roots += sorted(root.glob('packages/*/dist'))
+          roots += sorted(root.glob('extensions/*/dist'))
+          rows=[]
+          for directory in roots:
+              for file in sorted(directory.rglob('*')):
+                  if file.is_file() and not file.is_symlink():
+                      rows.append({'path':file.relative_to(root).as_posix(),'sha256':hashlib.sha256(file.read_bytes()).hexdigest(),'bytes':file.stat().st_size})
+          with tarfile.open('openclaw-built-runtime.tgz','w:gz') as archive:
+              for directory in roots:archive.add(directory,arcname=directory.relative_to(root).as_posix())
+          record={'source_repository':'https://github.com/openclaw/openclaw',
+                  'source_commit':subprocess.check_output(['git','-C',str(root),'rev-parse','HEAD'],text=True).strip(),
+                  'node_version':subprocess.check_output(['node','--version'],text=True).strip(),
+                  'pnpm_version':subprocess.check_output(['pnpm','--version'],text=True).strip(),
+                  'archive_sha256':hashlib.sha256(pathlib.Path('openclaw-built-runtime.tgz').read_bytes()).hexdigest(),
+                  'files':rows,'native_gateway_turn_verified':False}
+          pathlib.Path('openclaw-built-runtime.json').write_text(json.dumps(record,indent=2)+'\n')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: openclaw-pinned-native-runtime
+          path: |
+            openclaw-built-runtime.tgz
+            openclaw-built-runtime.json
+          retention-days: 7
+      - uses: actions/checkout@v4
+        with:
+          path: zenith
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: '0.12.23'
+      - name: Install independently locked Zenith inference and test SDKs
+        run: uv sync --project zenith/integrations/inference_service --frozen --extra local --extra test
+      - name: Preserve and load the original trained checkpoint for native acceptance
+        working-directory: zenith
+        env:
+          AI_PROVIDER: huggingface
+          HF_MODEL: Qwen/Qwen2.5-0.5B-Instruct
+          HF_REVISION: 7ae557604adf67be50417f59c2c2f167def9a775
+          ZENITH_DEVICE: cpu
+          HF_HUB_DISABLE_XET: '1'
+          ZENITH_HOME: ${{ github.workspace }}/.zenith-openclaw-test
+          ZENITH_CHECKPOINT_RECEIPT: ''
+        run: |
+          uv run --project integrations/inference_service --frozen --extra local --extra test python -m agent models download
+          uv run --project integrations/inference_service --frozen --extra local --extra test python -m scripts.materialize_research_checkpoint --bundle research_checkpoints/recovery-v1 --output .native-openclaw-adapter
+      - name: Real original account MFA bridge paired Gateway and Zenith inference
+        working-directory: zenith
+        env:
+          AI_PROVIDER: huggingface
+          HF_MODEL: Qwen/Qwen2.5-0.5B-Instruct
+          HF_REVISION: 7ae557604adf67be50417f59c2c2f167def9a775
+          ZENITH_DEVICE: cpu
+          ZENITH_CPU_THREADS: '2'
+          OMP_NUM_THREADS: '2'
+          CONTEXT_TOKENS: '8192'
+          MAX_NEW_TOKENS: '256'
+          TOKENIZERS_PARALLELISM: 'false'
+          HF_HUB_DISABLE_XET: '1'
+          ZENITH_CHECKPOINT_RECEIPT: ''
+          ZENITH_HOME: ${{ github.workspace }}/.zenith-openclaw-test
+          ZENITH_ADAPTER: ${{ github.workspace }}/zenith/.native-openclaw-adapter
+        run: uv run --project integrations/inference_service --frozen --extra local --extra test python integrations/runtime_bridge/tests/integration/native_openclaw.py --native-root "$GITHUB_WORKSPACE/native-openclaw" --node "$(command -v node)" --output "$GITHUB_WORKSPACE/native-openclaw-acceptance.json"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: native-openclaw-model-acceptance
+          path: native-openclaw-acceptance.json
+      - uses: actions/checkout@v4
+        with:
+          repository: NousResearch/hermes-agent
+          ref: d05095663342556788cf2a198bfa7844cc7968ab
+          path: native-hermes
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: TauricResearch/TradingAgents
+          ref: e8f5503e9b86d5c2710b0c76b1f686703968c9df
+          path: native-tradingagents
+          persist-credentials: false
+      - name: Build the approved separate Hermes chat compatibility copy
+        working-directory: zenith
+        run: python integrations/hermes_compat/build.py --source "$GITHUB_WORKSPACE/native-hermes" --output "$RUNNER_TEMP/hermes-zenith-chat"
+      - name: Install pinned independent native Python environments and test SDKs
+        run: |
+          uv python install 3.14.8
+          UV_PROJECT_ENVIRONMENT="$RUNNER_TEMP/hermes-test-venv" uv sync --project "$RUNNER_TEMP/hermes-zenith-chat" --python 3.14.8 --frozen --extra messaging --group dev --group test
+          UV_PROJECT_ENVIRONMENT="$RUNNER_TEMP/trading-test-venv" uv sync --project zenith/integrations/trading_service --python 3.12 --frozen --extra native
+      - name: Native Hermes context regression tests with original policy defaults
+        working-directory: ${{ runner.temp }}/hermes-zenith-chat
+        env:
+          ZENITH_HERMES_CHAT_ONLY: '0'
+        run: $RUNNER_TEMP/hermes-test-venv/bin/python -m pytest tests/agent/test_ollama_num_ctx.py tests/agent/test_compaction_anti_thrash.py -q
+      - name: Four real runtimes original owner MFA and unchanged Zenith model
+        working-directory: zenith
+        env:
+          AI_PROVIDER: huggingface
+          HF_MODEL: Qwen/Qwen2.5-0.5B-Instruct
+          HF_REVISION: 7ae557604adf67be50417f59c2c2f167def9a775
+          ZENITH_DEVICE: cpu
+          ZENITH_CPU_THREADS: '2'
+          OMP_NUM_THREADS: '2'
+          CONTEXT_TOKENS: '8192'
+          MAX_NEW_TOKENS: '256'
+          TOKENIZERS_PARALLELISM: 'false'
+          HF_HUB_DISABLE_XET: '1'
+          ZENITH_CHECKPOINT_RECEIPT: ''
+          ZENITH_HOME: ${{ github.workspace }}/.zenith-four-native-test
+          ZENITH_ADAPTER: ${{ github.workspace }}/zenith/.native-openclaw-adapter
+        run: uv run --project integrations/inference_service --frozen --extra local --extra test python integrations/runtime_bridge/tests/integration/launch_four_system.py --hermes-root "$RUNNER_TEMP/hermes-zenith-chat" --hermes-python "$RUNNER_TEMP/hermes-test-venv/bin/python" --openclaw-root "$GITHUB_WORKSPACE/native-openclaw" --node "$(command -v node)" --trading-python "$RUNNER_TEMP/trading-test-venv/bin/python" --trading-source "$GITHUB_WORKSPACE/native-tradingagents" --output "$GITHUB_WORKSPACE/four-system-native-acceptance.json"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: four-system-native-acceptance
+          path: four-system-native-acceptance.json

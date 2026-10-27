@@ -1,0 +1,99 @@
+{
+  "scripted_model": false,
+  "external_message_sent": false,
+  "live_orders_enabled": false,
+  "jobs": {
+    "zenith": {
+      "status": "succeeded",
+      "seconds": 0.43761982700004864,
+      "exact_grant_required": false,
+      "duplicate_prevented": true,
+      "arithmetic_correct": true,
+      "usage": {
+        "prompt_tokens": 37,
+        "completion_tokens": 2,
+        "total_tokens": 39
+      }
+    },
+    "hermes": {
+      "status": "succeeded",
+      "seconds": 4.240994692999948,
+      "exact_grant_required": true,
+      "duplicate_prevented": true,
+      "actual_runtime": {
+        "provider": "custom",
+        "model": "zenith",
+        "route_source": "raw_request",
+        "requested": {
+          "provider": "custom",
+          "model": "zenith"
+        }
+      },
+      "native_status": "completed"
+    },
+    "openclaw": {
+      "status": "succeeded",
+      "seconds": 17.271408958000052,
+      "exact_grant_required": true,
+      "duplicate_prevented": true,
+      "native_state": "final"
+    },
+    "tradingagents": {
+      "status": "succeeded",
+      "seconds": 184.75287492300004,
+      "exact_grant_required": true,
+      "duplicate_prevented": true,
+      "all_native_roles_completed": true,
+      "rating": "REVIEW",
+      "financial_quality_verified": false,
+      "model": "zenith",
+      "execution_metrics": {
+        "llm_calls_started": 17,
+        "llm_calls_completed": 17,
+        "llm_calls_failed": 0,
+        "input_tokens": 19756,
+        "output_tokens": 1113,
+        "responses_with_usage": 17,
+        "active_llm_calls": 0,
+        "elapsed_seconds": 180.502,
+        "tool_network_time_measured": false,
+        "callbacks_scope": "native model clients, not all graph/tool events"
+      }
+    }
+  },
+  "runtimes": [
+    {
+      "runtime": "zenith",
+      "default_model": "zenith",
+      "live_execution": false,
+      "configured": true,
+      "connected": true
+    },
+    {
+      "runtime": "hermes",
+      "default_model": null,
+      "live_execution": false,
+      "configured": true,
+      "connected": true
+    },
+    {
+      "runtime": "openclaw",
+      "default_model": null,
+      "live_execution": false,
+      "configured": true,
+      "connected": true
+    },
+    {
+      "runtime": "tradingagents",
+      "default_model": null,
+      "live_execution": false,
+      "configured": true,
+      "connected": true,
+      "financial_review_required": true
+    }
+  ],
+  "logout_revokes_bridge": true,
+  "all_four_native_workflows_completed": true,
+  "original_model_artifacts_unchanged": true,
+  "github_run": "https://github.com/n8storm/Zenith/actions/runs/40534098000"
+}

@@ -129,6 +129,7 @@ class ChatRequest(StrictModel):
     tools: list[ToolSpec] | None = Field(default=None, max_length=64)
     tool_choice: str | dict[str, Any] | None = None
     parallel_tool_calls: StrictBool = True
+    reasoning_effort: Literal['none'] | None = None
     response_format: dict[str, Any] | None = None
     n: Literal[1] = 1
     stop: str | list[str] | None = None

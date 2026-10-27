@@ -51,6 +51,12 @@
       "normalization": "lf"
     },
     {
+      "path": ".github/workflows/pinned-openclaw-runtime.yml",
+      "size": 8577,
+      "sha256": "d205b43235fda7bc3c2c3f82b746ed695de9531623f1bfa2e11728b8dda1d63b",
+      "normalization": "lf"
+    },
+    {
       "path": ".github/workflows/runtime-bridge.yml",
       "size": 2761,
       "sha256": "c918c6c2d6a04c68ba2e257948a9f2dbae2cf0b9682df4f925731795b090a746",
@@ -1521,6 +1527,12 @@
       "normalization": "lf"
     },
     {
+      "path": "docs/four-system/ACTIVATION_REPORT.md",
+      "size": 5045,
+      "sha256": "67c02a03e7c9b9a7a68080fc10968aa4f94a94a44292d4243a4fbdc3bc71076c",
+      "normalization": "lf"
+    },
+    {
       "path": "docs/four-system/AUDIT.md",
       "size": 14941,
       "sha256": "fe49488406b421b2426eddb616428fb8f32e51d3373e797653bf8b9bfda9ce5b",
@@ -1570,8 +1582,8 @@
     },
     {
       "path": "docs/four-system/IMPLEMENTATION_STATUS.md",
-      "size": 3987,
-      "sha256": "14d7000bd4d187a4d84c9e33db31210cf7cbbbcb796bb993e740ff7a18c75da9",
+      "size": 10704,
+      "sha256": "bdf5aaba6dc385ac6a4b3d4c9466af12858b93fe9d8830fa86879e8f1fedc6a3",
       "normalization": "lf"
     },
     {
@@ -1725,6 +1737,24 @@
       "normalization": "lf"
     },
     {
+      "path": "docs/four-system/implementation-v0.4/four-system-native-acceptance.json",
+      "size": 2635,
+      "sha256": "06984af9269f70ab4d1507f5042e38fdc899ad50ee896a0de516b8814fd764af",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/implementation-v0.4/local-hermes-chat-acceptance.json",
+      "size": 798,
+      "sha256": "193a2c267bb0f41e5b7b6c67c35e426bcc0f5822ed698b42300c10488e9cce8b",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/implementation-v0.4/native-openclaw-acceptance.json",
+      "size": 1239,
+      "sha256": "158a8fd843d99e56ae307cb6753422b84a17b50043d94358388ddc51bcb377f5",
+      "normalization": "lf"
+    },
+    {
       "path": "docs/four-system/prior-runtime-audit/01_SOURCE_AUDIT_AND_PINS.md",
       "size": 5341,
       "sha256": "c14dd2875618e845163afd60c63395fd689da66a79a73c88334fb52e309800de",
@@ -1794,6 +1824,12 @@
       "path": "docs/four-system/prior-runtime-audit/FEATURE_PARITY_REGRESSION_MATRIX.csv",
       "size": 5642033,
       "sha256": "e6ed77f60c2503379505ce0196e8a61d0f4e93ee206f47707bfac7e88b649d6e",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/proposals/HERMES_CONTEXT_COMPATIBILITY.md",
+      "size": 3822,
+      "sha256": "4d4fad29d4b2e09e0e7d40924ed37dbf1c47ad01e53be6c7cfaee4d774d55130",
       "normalization": "lf"
     },
     {
@@ -2667,6 +2703,24 @@
       "normalization": "lf"
     },
     {
+      "path": "integrations/hermes_compat/README.md",
+      "size": 4297,
+      "sha256": "58230404c47d2899f6c3f47b23a06330e4eee26ec6d12081e07bc951c2909e00",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/hermes_compat/build.py",
+      "size": 4439,
+      "sha256": "0408a86d0169b792c785a97e7e6ed257481ead21823a06869aadde0439141f77",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/hermes_compat/zenith_chat_compat.py",
+      "size": 3753,
+      "sha256": "dc0a5c2206a7945b21749c0e0e2bea12d99450e28d177d225a0419ae85ac7a4b",
+      "normalization": "lf"
+    },
+    {
       "path": "integrations/inference_service/.gitignore",
       "size": 123,
       "sha256": "40caa3abaed619f7e8258876bbd176f4d13423e0b3c574815470419e4a94c643",
@@ -2704,8 +2758,8 @@
     },
     {
       "path": "integrations/inference_service/src/zenith_inference/chat_contract.py",
-      "size": 10211,
-      "sha256": "599b26cfa09a74ebe11795ccfa7c24b5c85ea6a925b11291071a7f16d08f8c00",
+      "size": 10263,
+      "sha256": "797a49ffdc1e220586cbfa0ede06ff00eabd7759fecfba94bf450d3c45df56af",
       "normalization": "lf"
     },
     {
@@ -2728,8 +2782,8 @@
     },
     {
       "path": "integrations/inference_service/src/zenith_inference/server.py",
-      "size": 11291,
-      "sha256": "587cd6a4fcfbcb5e6922945a14387189b0444687618b44b6ced15a99cac4ac50",
+      "size": 11545,
+      "sha256": "371ab954a982bb0932f6d5fe7948edfc392879eac86a820ba58c04088b4a62b8",
       "normalization": "lf"
     },
     {
@@ -2752,8 +2806,8 @@
     },
     {
       "path": "integrations/inference_service/tests/test_service.py",
-      "size": 8885,
-      "sha256": "6368955357706a5fecaa68f1fc35e9ba1779e3cf2d9ab19e5f442090898f66be",
+      "size": 9406,
+      "sha256": "c33237dbca6de96a2e055dc8e3e185dcdfbb1c778723b1f5f9d38a6cc5c0c3a0",
       "normalization": "lf"
     },
     {
@@ -2776,8 +2830,8 @@
     },
     {
       "path": "integrations/runtime_bridge/README.md",
-      "size": 6587,
-      "sha256": "247e97cadbe28b2fadcfe1790970af8fa04474384a622d8222d5ce8402b0a5e1",
+      "size": 11659,
+      "sha256": "5c96422c436dfc279b75e2bdf8a159b32ffa16c5c9bb7d7b9bf75b63d9cbc43a",
       "normalization": "lf"
     },
     {
@@ -2794,20 +2848,20 @@
     },
     {
       "path": "integrations/runtime_bridge/src/zenith_integrations/cli.py",
-      "size": 2874,
-      "sha256": "67d950dd65da92339bdf0aec85e4dde588919a102a849d6e951b9366eada7bb4",
+      "size": 4149,
+      "sha256": "e86e3fbc26190f057ab89037c8b7be5436bed594aabae6198f0da1012aec8008",
       "normalization": "lf"
     },
     {
       "path": "integrations/runtime_bridge/src/zenith_integrations/config.py",
-      "size": 1451,
-      "sha256": "90b247e98aefc9d6482b909b9c8b7ff7dde06ec43f9704119e10aadd1aeb286f",
+      "size": 3073,
+      "sha256": "ea58e256b72f2eb0e92d6d730640d55417cf1a7bc449ff6d2133e4ce2551ce30",
       "normalization": "lf"
     },
     {
       "path": "integrations/runtime_bridge/src/zenith_integrations/gateway.py",
-      "size": 11897,
-      "sha256": "ede2ba78567bf74555330858d13e2e602f9eee5850c12f2b39b85d2831b231a5",
+      "size": 13394,
+      "sha256": "c070d7faa6ec7ada6f109a9233268448ca04e60db0ba8604d5d06ded928a9450",
       "normalization": "lf"
     },
     {
@@ -2817,9 +2871,21 @@
       "normalization": "lf"
     },
     {
+      "path": "integrations/runtime_bridge/src/zenith_integrations/hermes/adapter.py",
+      "size": 4588,
+      "sha256": "18a0e65f6f54d40a47b3349a900b9c6f309a7acb081d3db96b43b658fbf307c3",
+      "normalization": "lf"
+    },
+    {
       "path": "integrations/runtime_bridge/src/zenith_integrations/hermes/api_client.py",
       "size": 5406,
       "sha256": "69dec5ff7bd0fe55c61a7f4ec938be22cfc7ffd0aa2fec932f986f060d688b1c",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/runtime_bridge/src/zenith_integrations/hermes/compatibility.py",
+      "size": 1179,
+      "sha256": "70d2d7426a3bcdce35cc088bd113e75f5a8825aee243750fd132cc324bf7debf",
       "normalization": "lf"
     },
     {
@@ -2841,6 +2907,12 @@
       "normalization": "lf"
     },
     {
+      "path": "integrations/runtime_bridge/src/zenith_integrations/openclaw/adapter.py",
+      "size": 4019,
+      "sha256": "3063f3a7be8eb29e02b3ff444f39414ab7d9727485db9c771d3479695d223be2",
+      "normalization": "lf"
+    },
+    {
       "path": "integrations/runtime_bridge/src/zenith_integrations/openclaw/channel_bridge.py",
       "size": 4278,
       "sha256": "8a3615e4fcbb0688f315e929d4bef98132f659a3dbffd022477e9ff2ad37c0d4",
@@ -2854,8 +2926,8 @@
     },
     {
       "path": "integrations/runtime_bridge/src/zenith_integrations/openclaw/gateway_client.py",
-      "size": 13189,
-      "sha256": "4cf4cc33087c75f9f6ef0eeaf6be7347be9c45d25976f87ef52c2c7ffedf8d52",
+      "size": 13659,
+      "sha256": "3207143500a9b5cafbb1ab84eca48a68095050ea14112a08e966420ce7c4b230",
       "normalization": "lf"
     },
     {
@@ -2907,6 +2979,12 @@
       "normalization": "lf"
     },
     {
+      "path": "integrations/runtime_bridge/src/zenith_integrations/shared/native_task.py",
+      "size": 1690,
+      "sha256": "ab62d456ac1c16eb3f1c8cdf53411bc5fcf4dab57ac35bc27fd33825c0d3c887",
+      "normalization": "lf"
+    },
+    {
       "path": "integrations/runtime_bridge/src/zenith_integrations/shared/redaction.py",
       "size": 815,
       "sha256": "b08ced3609c1d32d930b600faed9b7936b0db6bca670fb3ed5b773908ced698f",
@@ -2914,8 +2992,8 @@
     },
     {
       "path": "integrations/runtime_bridge/src/zenith_integrations/shared/router.py",
-      "size": 2752,
-      "sha256": "0b4b733e758e75c40ceff8ee3479d5d6d4be9e261cafd5048a838296be92911e",
+      "size": 2924,
+      "sha256": "73ea38192ca42e2cddb16443eb79ddd9a0386ef12bb9814f1cbf5db4249bca85",
       "normalization": "lf"
     },
     {
@@ -2937,6 +3015,24 @@
       "normalization": "lf"
     },
     {
+      "path": "integrations/runtime_bridge/tests/integration/launch_four_system.py",
+      "size": 7449,
+      "sha256": "317a1326317069165d1e0d20508e922339a74bf7d8ec428936b09e199360add0",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/runtime_bridge/tests/integration/native_four_system.py",
+      "size": 8810,
+      "sha256": "8121bb64392c7dd72359f2f2b0938851b6e130a56ff872600e78d4f560306a90",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/runtime_bridge/tests/integration/native_openclaw.py",
+      "size": 14559,
+      "sha256": "3f86d42661f723a07f1e06e6af9389e3844ec9e615fb3e07070d6789cb243f5a",
+      "normalization": "lf"
+    },
+    {
       "path": "integrations/runtime_bridge/tests/native_source_conformance.py",
       "size": 3534,
       "sha256": "2fa7d616501ce994b6cfe78714527c9ebe5f721b0f34c8d6a4959a589e4c740c",
@@ -2949,9 +3045,21 @@
       "normalization": "lf"
     },
     {
+      "path": "integrations/runtime_bridge/tests/test_hermes_compatibility.py",
+      "size": 4825,
+      "sha256": "bf25621f07802fae57550cc90ed9995c630e163eb632e2182fcea4001694047a",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/runtime_bridge/tests/test_native_adapters.py",
+      "size": 15865,
+      "sha256": "67ba3dedfdac7dbfc0a2fb729d84fb71cbd0298248092ec038a98760636ba4f0",
+      "normalization": "lf"
+    },
+    {
       "path": "integrations/runtime_bridge/tests/test_native_clients.py",
-      "size": 14335,
-      "sha256": "4f4aa9cb8da03a817d87e29de5de4a479d83d4ba5234657b99ecd1081dcdf747",
+      "size": 14603,
+      "sha256": "467378aaf13c3b68308ef6f567a2d394bbbd446a8712c9056b338ba0aa755cb6",
       "normalization": "lf"
     },
     {
