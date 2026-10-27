@@ -109,3 +109,16 @@ answering the arithmetic question. This is a functioning transport/control-flow
 integration, not verified task competence. The bridge preserves the raw native
 output, flags this known context echo for review and never marks it a verified
 answer. Full four-way workflow acceptance is now being measured separately.
+
+
+Combined acceptance passed in CI run 40534098000 (source head d2c17a8): all four
+runtimes connected simultaneously; actual jobs completed through original
+owner/MFA controls; all duplicate submissions resolved to existing jobs; logout
+revoked bridge access; model artifacts remained unchanged. Measured times:
+Zenith 0.438s, Hermes 4.241s, OpenClaw 17.271s, TradingAgents 184.753s. Native
+financial graph: 17/17 completed model calls, 19,756 input / 1,113 output tokens,
+all native roles complete, rating REVIEW. This verifies the restricted runtime
+connections and workflow control flow, not full model competence or feature
+parity. The later context-echo flag and export-path guard are separately covered
+by 26 bridge tests. The actual combined receipt is published under
+`implementation-v0.4/four-system-native-acceptance.json`.

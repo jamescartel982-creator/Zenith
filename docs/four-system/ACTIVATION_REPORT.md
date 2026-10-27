@@ -17,8 +17,15 @@ submits one account-isolated job per runtime, checks duplicate admission and
 logout revocation, and verifies unchanged model artifacts. Its report records
 blocked/failed workflows explicitly and separates model-quality flags from
 control-flow completion. It is not a feature-parity or financial certificate.
-The current combined run is pending; see PR #36's native acceptance check and
-its `four-system-native-acceptance` artifact for the measured result.
+The first combined run passed on the larger CI runner: all four authenticated
+runtimes connected, all four jobs completed, duplicate admission was prevented,
+logout revoked access and original model hashes stayed unchanged. The measured
+times were Zenith 0.438s, Hermes 4.241s, OpenClaw 17.271s and TradingAgents
+184.753s. TradingAgents completed all 17 model calls with 19,756 input and 1,113
+output tokens. This is a measured workload, not a performance improvement claim.
+See [the combined receipt](implementation-v0.4/four-system-native-acceptance.json)
+and [CI run 40534098000](https://github.com/n8storm/Zenith/actions/runs/40534098000).
+The latest-head regression checks must still pass before merge.
 
 Evidence: [Hermes native receipt](implementation-v0.4/local-hermes-chat-acceptance.json),
 [OpenClaw native receipt](implementation-v0.4/native-openclaw-acceptance.json),

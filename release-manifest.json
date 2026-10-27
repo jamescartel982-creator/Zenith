@@ -1528,8 +1528,8 @@
     },
     {
       "path": "docs/four-system/ACTIVATION_REPORT.md",
-      "size": 4485,
-      "sha256": "83669c2923570a3db96cb3104cadc94602844627d3a55d5cc8fc719b44d3c1cf",
+      "size": 5045,
+      "sha256": "67c02a03e7c9b9a7a68080fc10968aa4f94a94a44292d4243a4fbdc3bc71076c",
       "normalization": "lf"
     },
     {
@@ -1582,8 +1582,8 @@
     },
     {
       "path": "docs/four-system/IMPLEMENTATION_STATUS.md",
-      "size": 8856,
-      "sha256": "611ada481bf574b90478a6ff809dcb2252927f42842639c4ad75d3fb275659bb",
+      "size": 9690,
+      "sha256": "ece6e7b8a1d6afcd46eff42c5008ad414914840ef4d6ca2332bd19b89401ec1c",
       "normalization": "lf"
     },
     {
@@ -1734,6 +1734,12 @@
       "path": "docs/four-system/implementation-v0.3/native-graph-measurement.json",
       "size": 1337,
       "sha256": "60f502304dffa3fa5a86f296a4552d532cebd1ceb0ac51c600e87974025d90ea",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/implementation-v0.4/four-system-native-acceptance.json",
+      "size": 2635,
+      "sha256": "06984af9269f70ab4d1507f5042e38fdc899ad50ee896a0de516b8814fd764af",
       "normalization": "lf"
     },
     {
