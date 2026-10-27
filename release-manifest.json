@@ -1582,8 +1582,8 @@
     },
     {
       "path": "docs/four-system/IMPLEMENTATION_STATUS.md",
-      "size": 9690,
-      "sha256": "ece6e7b8a1d6afcd46eff42c5008ad414914840ef4d6ca2332bd19b89401ec1c",
+      "size": 10704,
+      "sha256": "bdf5aaba6dc385ac6a4b3d4c9466af12858b93fe9d8830fa86879e8f1fedc6a3",
       "normalization": "lf"
     },
     {
@@ -2872,8 +2872,8 @@
     },
     {
       "path": "integrations/runtime_bridge/src/zenith_integrations/hermes/adapter.py",
-      "size": 4240,
-      "sha256": "6477c8b88772c86fa245a566a777a8b63a6b301cbc68fc7901d097631d14cb9c",
+      "size": 4588,
+      "sha256": "18a0e65f6f54d40a47b3349a900b9c6f309a7acb081d3db96b43b658fbf307c3",
       "normalization": "lf"
     },
     {
@@ -2908,8 +2908,8 @@
     },
     {
       "path": "integrations/runtime_bridge/src/zenith_integrations/openclaw/adapter.py",
-      "size": 3651,
-      "sha256": "12055e1a2d8dc9345e987e6928faaaca7a84da8365a9fdf6bb4e8d965821ccb1",
+      "size": 4019,
+      "sha256": "3063f3a7be8eb29e02b3ff444f39414ab7d9727485db9c771d3479695d223be2",
       "normalization": "lf"
     },
     {
@@ -2980,8 +2980,8 @@
     },
     {
       "path": "integrations/runtime_bridge/src/zenith_integrations/shared/native_task.py",
-      "size": 1186,
-      "sha256": "2db52f2c7ac158a6704d4c667409a772d1e5443b4ef31ec1b69fcd8b3a5d56b1",
+      "size": 1690,
+      "sha256": "ab62d456ac1c16eb3f1c8cdf53411bc5fcf4dab57ac35bc27fd33825c0d3c887",
       "normalization": "lf"
     },
     {
@@ -3052,8 +3052,8 @@
     },
     {
       "path": "integrations/runtime_bridge/tests/test_native_adapters.py",
-      "size": 10622,
-      "sha256": "3356c495bbe248acb38b6555f0b02c0655fa9003a1c0293894a3893ffdde3d2b",
+      "size": 15865,
+      "sha256": "67ba3dedfdac7dbfc0a2fb729d84fb71cbd0298248092ec038a98760636ba4f0",
       "normalization": "lf"
     },
     {

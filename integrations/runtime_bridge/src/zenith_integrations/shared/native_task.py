@@ -2,7 +2,7 @@
 import asyncio
 import hashlib
 
-from .native_http import NativeRefused
+from .native_http import NativeRefused, UnknownExecution
 
 
 def chat_scope(payload, operation):
@@ -16,12 +16,20 @@ def chat_scope(payload, operation):
     return {'conversation_id': conversation, 'message_sha256': hashlib.sha256(message.encode()).hexdigest()}
 
 
-async def finish_cleanup(coroutine):
-    """Cancellation does not acknowledge termination until native cleanup finishes."""
-    task = asyncio.create_task(coroutine)
+async def finish_cleanup(coroutine, timeout=15):
+    """Bound cleanup and never label unconfirmed native termination as failure."""
+    task = asyncio.create_task(asyncio.wait_for(coroutine, timeout=timeout))
     while not task.done():
         try:
             await asyncio.shield(task)
         except asyncio.CancelledError:
+            # A second owner cancellation must not abandon native cleanup.
             continue
-    return task.result()
+        except Exception:
+            break
+    try:
+        return task.result()
+    except (Exception, asyncio.CancelledError):
+        # Network errors, refusals and timeout all leave native termination
+        # uncertain. Keep the persisted admission receipt for reconciliation.
+        raise UnknownExecution('Native termination was not confirmed; reconciliation is required') from None

@@ -1,4 +1,5 @@
 """Account-scoped native Hermes Runs adapter; no shell or model override inputs."""
+import asyncio
 from .api_client import HermesAPI
 from .session_bridge import session_name
 from ..shared.native_http import NativeRefused, UnknownExecution, opaque_id
@@ -48,7 +49,12 @@ class HermesChat:
         if not await self.health():
             raise NativeRefused('authenticated_tool_free_hermes_required')
         session = session_name(account_id, payload['conversation_id'], self.profile_id, self.session_key)
-        handle = await self.api.submit(payload['message'], session, job_id)
+        try:
+            handle = await self.api.submit(payload['message'], session, job_id)
+        except asyncio.CancelledError:
+            # The request may already have been accepted. Never acknowledge a
+            # confirmed cancellation or replay the bridge job without reconciliation.
+            raise UnknownExecution('Native admission was interrupted; reconcile the original job key') from None
         terminal = False
         async def stop():
             await self.api.stop(handle)

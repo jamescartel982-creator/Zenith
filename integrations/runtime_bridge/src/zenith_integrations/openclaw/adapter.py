@@ -1,4 +1,5 @@
 """Selected native Gateway chat backend; device permissions stay outside prompts."""
+import asyncio
 from .session_bridge import session_key
 from ..shared.native_http import NativeRefused, UnknownExecution, opaque_id
 from ..shared.native_task import chat_scope, finish_cleanup
@@ -33,7 +34,12 @@ class OpenClawChat:
         opaque_id(account_id); opaque_id(job_id)
         session = session_key(account_id, payload['conversation_id'], self.profile_id, self.session_secret)
         async with self.client_factory() as client:
-            admitted = await client.submit_turn(session, payload['message'], job_id)
+            try:
+                admitted = await client.submit_turn(session, payload['message'], job_id)
+            except asyncio.CancelledError:
+                # The request may already have been accepted. Never acknowledge a
+                # confirmed cancellation or replay the bridge job without reconciliation.
+                raise UnknownExecution('Native admission was interrupted; reconcile the original job key') from None
             if not isinstance(admitted, dict):
                 raise UnknownExecution('Gateway admission requires reconciliation')
             run_id = admitted.get('runId')

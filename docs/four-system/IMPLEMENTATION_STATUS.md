@@ -122,3 +122,18 @@ connections and workflow control flow, not full model competence or feature
 parity. The later context-echo flag and export-path guard are separately covered
 by 26 bridge tests. The actual combined receipt is published under
 `implementation-v0.4/four-system-native-acceptance.json`.
+
+Cancellation review follow-up: the previous head 699131e passed all sixteen CI
+jobs, including the real combined four-runtime acceptance (run 40537940441).
+Review identified two additional uncertainty windows: owner cancellation while
+a native admission response is in flight, and failure to confirm native
+termination during cleanup. Both adapters now classify interrupted admission as
+requiring reconciliation instead of confirmed cancellation. Cleanup remains
+shielded from repeated cancellation, has a 15-second budget, and normalizes
+unconfirmed termination failures to UnknownExecution while retaining any
+persisted admission receipt. There is no automatic replay or native-state
+deletion. Four focused regression tests cover both admissions, Hermes stop and
+status failures, independent OpenClaw control-connection failure, repeated
+cancellation and cleanup timeout. Fresh CI results are required before merge.
+Rollback is the additive bridge revision only; native trees and model artifacts
+are untouched.

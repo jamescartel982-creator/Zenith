@@ -12,8 +12,8 @@ from zenith_integrations.hermes.adapter import HermesChat
 from zenith_integrations.hermes.api_client import HermesRun
 from zenith_integrations.openclaw.adapter import OpenClawChat, quality_flags
 from zenith_integrations.shared.ledger import Ledger
-from zenith_integrations.shared.native_task import chat_scope
-from zenith_integrations.shared.native_http import UnknownExecution
+from zenith_integrations.shared.native_task import chat_scope, finish_cleanup
+from zenith_integrations.shared.native_http import UnknownExecution, NativeUnavailable, NativeRefused
 from zenith_integrations.shared.router import Router
 from test_bridge import IdentityFixture, ModelFixture
 
@@ -105,6 +105,114 @@ class NativeAdapters(unittest.IsolatedAsyncioTestCase):
         await adapter.execute_scoped(payload,'other','bridge_job2','chat',lambda *a:None)
         self.assertNotEqual(calls[0][0],calls[1][0]);self.assertEqual(result['result']['state'],'final')
         with self.assertRaises(RuntimeError):await adapter.execute_scoped(payload|{'session_key':'foreign'},'owner','job','chat',lambda *a:None)
+
+
+    async def test_cancel_during_native_admission_requires_reconciliation(self):
+        for runtime in ('hermes', 'openclaw'):
+            with self.subTest(runtime=runtime):
+                accepted = asyncio.Event()
+                receipts = []
+                class Native:
+                    async def __aenter__(self): return self
+                    async def __aexit__(self, *args): pass
+                    async def submit(self, *args):
+                        # The native owner has accepted, but its handle is in flight.
+                        accepted.set()
+                        await asyncio.sleep(30)
+                    submit_turn = submit
+                native = Native()
+                if runtime == 'hermes':
+                    adapter = HermesChat(native, 'profile', b's'*32)
+                    async def healthy(): return True
+                    adapter.health = healthy
+                else:
+                    adapter = OpenClawChat(lambda: native, 'profile', b's'*32)
+                task = asyncio.create_task(adapter.execute_scoped(
+                    {'message':'hello','conversation_id':'one'}, 'owner', 'bridge_job',
+                    'chat', lambda *args: receipts.append(args)))
+                await asyncio.wait_for(accepted.wait(), 1)
+                task.cancel()
+                with self.assertRaises(UnknownExecution):
+                    await asyncio.wait_for(task, 1)
+                self.assertEqual(receipts, [])
+
+    async def test_unconfirmed_hermes_cleanup_preserves_admission_receipt(self):
+        for failure_stage in ('stop', 'status'):
+            with self.subTest(failure_stage=failure_stage):
+                admitted = asyncio.Event()
+                receipts = []
+                class Native:
+                    stopped = False
+                    async def submit(self, *args):
+                        return HermesRun('native_run', 'one', 'bridge_job', 'profile')
+                    async def wait(self, *args, **kwargs):
+                        if self.stopped:
+                            raise NativeRefused('untrusted secret response must not escape')
+                        await asyncio.sleep(30)
+                    async def stop(self, *args):
+                        self.stopped = True
+                        if failure_stage == 'stop':
+                            raise NativeUnavailable('untrusted secret response must not escape')
+                adapter = HermesChat(Native(), 'profile', b's'*32)
+                async def healthy(): return True
+                adapter.health = healthy
+                def receipt(*args):
+                    receipts.append(args)
+                    admitted.set()
+                task = asyncio.create_task(adapter.execute_scoped(
+                    {'message':'hello','conversation_id':'one'}, 'owner', 'bridge_job', 'chat', receipt))
+                await asyncio.wait_for(admitted.wait(), 1)
+                task.cancel()
+                with self.assertRaises(UnknownExecution) as caught:
+                    await asyncio.wait_for(task, 1)
+                self.assertNotIn('secret', str(caught.exception))
+                self.assertEqual(receipts, [('native_run',)])
+
+    async def test_openclaw_control_connection_failure_requires_reconciliation(self):
+        admitted = asyncio.Event()
+        receipts = []
+        class Native:
+            async def __aenter__(self): return self
+            async def __aexit__(self, *args): pass
+            async def submit_turn(self, *args): return {'runId':'native_run'}
+            async def terminal(self, *args, **kwargs): await asyncio.sleep(30)
+        class Unreachable:
+            async def __aenter__(self): raise NativeUnavailable('control connection unavailable')
+            async def __aexit__(self, *args): pass
+        calls = 0
+        def client():
+            nonlocal calls
+            calls += 1
+            return Native() if calls == 1 else Unreachable()
+        def receipt(*args):
+            receipts.append(args)
+            admitted.set()
+        adapter = OpenClawChat(client, 'profile', b's'*32)
+        task = asyncio.create_task(adapter.execute_scoped(
+            {'message':'hello','conversation_id':'one'}, 'owner', 'bridge_job', 'chat', receipt))
+        await asyncio.wait_for(admitted.wait(), 1)
+        task.cancel()
+        with self.assertRaises(UnknownExecution):
+            await asyncio.wait_for(task, 1)
+        self.assertEqual(calls, 2)
+        self.assertEqual(receipts, [('native_run',)])
+
+    async def test_cleanup_is_bounded_and_survives_repeated_cancellation(self):
+        started = asyncio.Event()
+        release = asyncio.Event()
+        async def cleanup():
+            started.set()
+            await release.wait()
+            return 'confirmed'
+        task = asyncio.create_task(finish_cleanup(cleanup(), timeout=1))
+        await asyncio.wait_for(started.wait(), 1)
+        task.cancel()
+        await asyncio.sleep(0)
+        task.cancel()
+        release.set()
+        self.assertEqual(await asyncio.wait_for(task, 1), 'confirmed')
+        with self.assertRaises(UnknownExecution):
+            await finish_cleanup(asyncio.sleep(30), timeout=.02)
 
 
 class RuntimePermissions(unittest.TestCase):
