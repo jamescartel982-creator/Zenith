@@ -1576,8 +1576,8 @@
     },
     {
       "path": "docs/four-system/IMPLEMENTATION_STATUS.md",
-      "size": 5698,
-      "sha256": "43c5f8f9b9483a92b1fccf175f0ec4e8c118eb9de2c142035c3582dda09cfd83",
+      "size": 6396,
+      "sha256": "c8f7b8a98ec7e0e57afe5eba8485da6c704056d5205b7332d9a6ded4cf48bf00",
       "normalization": "lf"
     },
     {
@@ -1800,6 +1800,12 @@
       "path": "docs/four-system/prior-runtime-audit/FEATURE_PARITY_REGRESSION_MATRIX.csv",
       "size": 5642033,
       "sha256": "e6ed77f60c2503379505ce0196e8a61d0f4e93ee206f47707bfac7e88b649d6e",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/four-system/proposals/HERMES_CONTEXT_COMPATIBILITY.md",
+      "size": 3110,
+      "sha256": "7ed9a102bcf5c9cbf1b1322dc224a0922963246399d7e0d9080800a9241dee1b",
       "normalization": "lf"
     },
     {
@@ -2734,8 +2740,8 @@
     },
     {
       "path": "integrations/inference_service/src/zenith_inference/server.py",
-      "size": 11291,
-      "sha256": "587cd6a4fcfbcb5e6922945a14387189b0444687618b44b6ced15a99cac4ac50",
+      "size": 11545,
+      "sha256": "371ab954a982bb0932f6d5fe7948edfc392879eac86a820ba58c04088b4a62b8",
       "normalization": "lf"
     },
     {
@@ -2758,8 +2764,8 @@
     },
     {
       "path": "integrations/inference_service/tests/test_service.py",
-      "size": 8885,
-      "sha256": "6368955357706a5fecaa68f1fc35e9ba1779e3cf2d9ab19e5f442090898f66be",
+      "size": 9134,
+      "sha256": "3c57d94de291987e010d4020d635c447fdfd270d2b155c59ac34765355a0e8a1",
       "normalization": "lf"
     },
     {
@@ -2782,8 +2788,8 @@
     },
     {
       "path": "integrations/runtime_bridge/README.md",
-      "size": 9637,
-      "sha256": "a6a623f55f5dad28e71485ca54dd3e8a26132b59bb99541072e9e891bcfe7768",
+      "size": 10336,
+      "sha256": "5323b5db0a61396ade51ffc70fec2fdde26c29d94e71bed6a121dccb0b3983e3",
       "normalization": "lf"
     },
     {
@@ -2812,8 +2818,8 @@
     },
     {
       "path": "integrations/runtime_bridge/src/zenith_integrations/gateway.py",
-      "size": 13159,
-      "sha256": "bbd628a8313c5116059b6ad2d23212a65ca40511c2f30941b1c04ad97fb4c316",
+      "size": 13335,
+      "sha256": "2c5c83eb4838ed87ca3a57e8f0e8388214d56e9187c1c7ab687615769a91c486",
       "normalization": "lf"
     },
     {
@@ -2824,8 +2830,8 @@
     },
     {
       "path": "integrations/runtime_bridge/src/zenith_integrations/hermes/adapter.py",
-      "size": 2566,
-      "sha256": "b179b7d59e8dc160f5fce363672fa8c764f5b2d3395b6eb05ec2d62e7b158f19",
+      "size": 3407,
+      "sha256": "bf7131f8748ddca526f46e02b5d3f6145ccfa0111334a7b0eb4c24fb8c14685c",
       "normalization": "lf"
     },
     {
@@ -2938,8 +2944,8 @@
     },
     {
       "path": "integrations/runtime_bridge/src/zenith_integrations/shared/router.py",
-      "size": 2752,
-      "sha256": "0b4b733e758e75c40ceff8ee3479d5d6d4be9e261cafd5048a838296be92911e",
+      "size": 2924,
+      "sha256": "73ea38192ca42e2cddb16443eb79ddd9a0386ef12bb9814f1cbf5db4249bca85",
       "normalization": "lf"
     },
     {
@@ -2980,8 +2986,8 @@
     },
     {
       "path": "integrations/runtime_bridge/tests/test_native_adapters.py",
-      "size": 7541,
-      "sha256": "6e666c740f3de52db621e4c2b3653d33ce980d12aeaa07ebcc9e8c82100e6033",
+      "size": 8612,
+      "sha256": "09e357ced801209ace9657084c501dafbe797001d5a142acdb0a77cfc6228baa",
       "normalization": "lf"
     },
     {

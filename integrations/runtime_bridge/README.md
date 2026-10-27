@@ -161,3 +161,14 @@ actually runs. Model weights and upstream implementation files remain unchanged.
 Rollback: stop the bridge, retain receipts and native state, then run the previous
 bridge version or remove the optional H/O configuration fields from an archived
 copy. Defaults and existing Zenith/trading-only configurations are compatible.
+
+### Current Hermes compatibility blocker
+
+The real pinned native runtime rejected the unchanged Zenith model: Hermes'
+`custom` provider requires 64,000 context tokens, while Zenith's actual model
+supports 32,768 and this service currently serves 8,192. The bridge reads
+**authenticated actual inference readiness** and refuses an insufficient or
+unknown window before submitting a run. `/v1/runtimes` reports
+`native_context_window_below_64000`; a listening API is not labelled a working
+agent. Do not inflate the context, swap models or mislabel another provider to
+suppress this check. See the [unapplied compatibility proposal](../../docs/four-system/proposals/HERMES_CONTEXT_COMPATIBILITY.md).

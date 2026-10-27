@@ -66,6 +66,10 @@ class ProtocolTests(unittest.TestCase):
         with client() as api:
             headers = {'Authorization': 'Bearer ' + TOKEN}
             self.assertEqual(api.get('/v1/models', headers=headers).json()['data'][0]['id'], 'zenith')
+            ready=api.get('/readyz',headers=headers).json()
+            self.assertEqual(ready['context_tokens'],2048)
+            self.assertEqual(ready['max_output_tokens'],256)
+            self.assertIsNone(ready['architectural_context_tokens'])
             row = api.post('/v1/chat/completions', json=BODY, headers=headers).json()
             self.assertEqual(row['choices'][0]['message']['content'], '4')
             self.assertEqual(row['usage']['total_tokens'], 11)

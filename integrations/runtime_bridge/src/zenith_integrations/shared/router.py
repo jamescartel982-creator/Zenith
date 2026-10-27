@@ -8,15 +8,19 @@ class NativeInference:
     def __init__(self, config, transport=None):
         self.config, self.transport = config, transport
 
-    async def health(self):
+    async def readiness(self):
         try:
             async with httpx.AsyncClient(base_url=self.config.inference_origin, transport=self.transport,
-                    follow_redirects=False, timeout=3,
+                    follow_redirects=False, trust_env=False, timeout=3,
                     headers={'Authorization':'Bearer '+self.config.secret(self.config.inference_key_file)}) as client:
                 response = await client.get('/readyz')
-                return response.status_code == 200 and response.json().get('ready') is True
+                value=response.json()
+                return value if response.status_code == 200 and isinstance(value,dict) and value.get('ready') is True else None
         except (httpx.HTTPError, ValueError, OSError):
-            return False
+            return None
+
+    async def health(self):
+        return await self.readiness() is not None
 
     async def execute(self, payload):
         # This service generates responses; it never interprets output as commands.

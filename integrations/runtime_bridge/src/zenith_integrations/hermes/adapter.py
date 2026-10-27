@@ -6,11 +6,23 @@ from ..shared.native_task import chat_scope, finish_cleanup
 
 
 class HermesChat:
-    def __init__(self, api, profile_id, session_key, timeout=120):
+    def __init__(self, api, profile_id, session_key, timeout=120, context_probe=None):
         self.api, self.profile_id, self.session_key, self.timeout = api, profile_id, session_key, timeout
+        self.context_probe = context_probe
+        self.unavailable_reason = None
 
     async def health(self):
         try:
+            self.unavailable_reason = None
+            limits = await self.context_probe() if self.context_probe else None
+            if not isinstance(limits, dict) or type(limits.get('context_tokens')) is not int or type(limits.get('architectural_context_tokens')) is not int:
+                self.unavailable_reason = 'model_context_not_verified'
+                return False
+            # Audited Hermes custom-provider floor, agent/agent_init.py. Never
+            # inflate the advertised window or substitute a larger foundation.
+            if min(limits['context_tokens'], limits['architectural_context_tokens']) < 64000:
+                self.unavailable_reason = 'native_context_window_below_64000'
+                return False
             await self.api.discover()
             tools = await self.api.http.request('GET', '/v1/toolsets')
             # The initial bridge enables conversation only, never native execution tools.

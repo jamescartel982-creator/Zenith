@@ -18,7 +18,24 @@ from zenith_integrations.shared.router import Router
 from test_bridge import IdentityFixture, ModelFixture
 
 
+async def compatible_context():
+    return {"context_tokens":64000,"architectural_context_tokens":64000}
+
+
 class NativeAdapters(unittest.IsolatedAsyncioTestCase):
+    async def test_hermes_native_context_floor_is_not_bypassed_or_misreported(self):
+        class API:
+            async def discover(self):raise AssertionError('Incompatible inference must be refused before submission')
+        async def current_context():return {'context_tokens':8192,'architectural_context_tokens':32768}
+        adapter=HermesChat(API(),'profile',b's'*32,context_probe=current_context)
+        self.assertFalse(await adapter.health())
+        self.assertEqual(adapter.unavailable_reason,'native_context_window_below_64000')
+        with self.assertRaises(RuntimeError):
+            await adapter.execute_scoped({'message':'hello','conversation_id':'one'},'owner','job','chat',lambda *a:None)
+        adapter=HermesChat(API(),'profile',b's'*32)
+        self.assertFalse(await adapter.health())
+        self.assertEqual(adapter.unavailable_reason,'model_context_not_verified')
+
     async def test_hermes_account_binding_completion_and_no_overrides(self):
         class API:
             def __init__(self): self.http=self; self.calls=[]
@@ -27,7 +44,7 @@ class NativeAdapters(unittest.IsolatedAsyncioTestCase):
             async def submit(self,text,session,key):
                 self.calls.append((text,session,key));return HermesRun('native_run',session,key,'profile')
             async def wait(self,handle,seconds): return {'status':'completed','runtime':{'model':'zenith','provider':'custom'}}
-        api=API();adapter=HermesChat(api,'profile',b's'*32);receipts=[]
+        api=API();adapter=HermesChat(api,'profile',b's'*32,context_probe=compatible_context);receipts=[]
         payload={'message':'2+2','conversation_id':'one'}
         result=await adapter.execute_scoped(payload,'owner','bridgejob','chat',lambda *a:receipts.append(a))
         await adapter.execute_scoped(payload,'other','bridgejob2','chat',lambda *a:None)
@@ -48,7 +65,7 @@ class NativeAdapters(unittest.IsolatedAsyncioTestCase):
             async def wait(self,handle,seconds):
                 if self.stopped:return {'status':'interrupted'}
                 await asyncio.sleep(30)
-        api=API();adapter=HermesChat(api,'profile',b's'*32);event=asyncio.Event()
+        api=API();adapter=HermesChat(api,'profile',b's'*32,context_probe=compatible_context);event=asyncio.Event()
         task=asyncio.create_task(adapter.execute_scoped({'message':'hello','conversation_id':'one'},'owner','job','chat',lambda *a:event.set()))
         await event.wait();task.cancel()
         with self.assertRaises(UnknownExecution):await task

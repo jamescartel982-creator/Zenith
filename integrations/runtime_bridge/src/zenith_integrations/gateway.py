@@ -31,7 +31,7 @@ def create_app(config, identity=None, router=None, ledger=None):
         if config.hermes_origin:
             from .hermes.api_client import HermesAPI
             from .hermes.adapter import HermesChat
-            router.adapters['hermes'] = HermesChat(HermesAPI(config.hermes_origin, config.hermes_key_file, config.hermes_profile_id), config.hermes_profile_id, session_secret, config.job_timeout)
+            router.adapters['hermes'] = HermesChat(HermesAPI(config.hermes_origin, config.hermes_key_file, config.hermes_profile_id), config.hermes_profile_id, session_secret, config.job_timeout, context_probe=NativeInference(config).readiness)
         if config.openclaw_url:
             from .openclaw.gateway_client import GatewayClient
             from .openclaw.adapter import OpenClawChat
@@ -154,6 +154,7 @@ def create_app(config, identity=None, router=None, ledger=None):
             for row in rows:
                 adapter=router.adapters.get(row['runtime'])
                 if adapter and hasattr(adapter,'health'):row['connected']=await adapter.health()
+                if adapter and getattr(adapter,'unavailable_reason',None):row['unavailable_reason']=adapter.unavailable_reason
                 if row['runtime']=='tradingagents':row['financial_review_required']=True
         return {'runtimes':rows,'primary_model':'zenith','live_execution':False}
 

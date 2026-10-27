@@ -47,7 +47,7 @@ cancellation reconciliation. Both remain disabled in default configurations.
 The ordinary installer and model selection have not changed.
 
 Measured locally: original Zenith suite 346 tests run (one platform skip), bridge
-20 tests passed, inference service 13 tests passed, financial service 7 tests
+21 tests passed, inference service 13 tests passed, financial service 7 tests
 passed. Checkpoint identity verification passed. These contract/regression tests
 are not a substitute for running the separately installed native runtimes.
 
@@ -60,3 +60,14 @@ missing generated workspace link, Node proxy setup, and the workspace's 8 GB
 memory limit; those failures are retained as limitations, not passing evidence.
 The lower-concurrency native build and real four-system acceptance are pending.
 Temporary execution-session processes do not establish 24/7 production hosting.
+
+
+Actual Hermes execution failed during native agent initialization: the custom
+provider requires 64,000 context tokens, while the unchanged Zenith model has
+32,768 architectural positions and the sidecar serves 8,192. Authenticated API
+availability does not establish compatibility. The bridge now checks actual
+inference context metadata and reports this route blocked before submission.
+No window was inflated, model changed or upstream guard patched. The separate
+chat-only compatibility proposal is unapplied and awaiting an owner decision.
+Local regression results remain passing; the native full-build retry also
+exceeded 8 GB and was killed. Exact-pin native build is running in GitHub CI.
