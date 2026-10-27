@@ -2974,8 +2974,8 @@
     },
     {
       "path": "integrations/runtime_bridge/tests/integration/native_openclaw.py",
-      "size": 13196,
-      "sha256": "36c50556b2e66e7655a20222f880ebfcf9a3200299f03d8795b486f9c25cb58d",
+      "size": 14177,
+      "sha256": "c0521258edb26616be169d9245bfb8bfba47e9851db4980e8b5f89a08de48a3d",
       "normalization": "lf"
     },
     {

@@ -30,6 +30,7 @@ def profile(root, port, inference):
 async def bootstrap(url, root, owner, process):
     from cryptography.hazmat.primitives import serialization
     from websockets.asyncio.client import connect
+    import httpx
     from zenith_integrations.openclaw.gateway_client import create_device, device_payload, b64url, GatewayClient
     from zenith_integrations.shared.secrets import read_private, write_private_new
     create_device(root/'device.pem')
@@ -37,6 +38,14 @@ async def bootstrap(url, root, owner, process):
     public=private.public_key().public_bytes(serialization.Encoding.Raw,serialization.PublicFormat.Raw)
     device_id=hashlib.sha256(public).hexdigest();scopes=['operator.read','operator.write']
     deadline=time.monotonic()+90
+    async with httpx.AsyncClient(base_url=url.replace('ws://','http://'),headers={'Authorization':'Bearer '+owner},trust_env=False,timeout=3) as probe:
+        while True:
+            try:
+                ready=await probe.get('/readyz')
+                if ready.status_code==200 and ready.json().get('ready') is True:break
+            except (httpx.HTTPError,ValueError):pass
+            check(process.poll() is None and time.monotonic()<deadline,'Native Gateway readiness did not finish')
+            await asyncio.sleep(.25)
     while True:
         try:ws=await connect(url,proxy=None,open_timeout=3,max_size=1024*1024);break
         except (OSError,TimeoutError):
@@ -53,7 +62,10 @@ async def bootstrap(url, root, owner, process):
         while True:
             response=json.loads(await asyncio.wait_for(ws.recv(),30))
             if response.get('type')=='res' and response.get('id')==request_id:break
-        check(response.get('ok') is True,'Native owner device setup was refused')
+        if response.get('ok') is not True:
+            from zenith_integrations.shared.redaction import redact
+            error=redact(response.get('error',{}),(owner,))
+            raise AssertionError('Native owner device setup was refused: '+json.dumps(error))
         auth=response['payload']['auth']
         check(set(auth['scopes'])==set(scopes) and bool(auth.get('deviceToken')),'Native least-privilege device grant was not issued')
         write_private_new(root/'device.token',auth['deviceToken'])
@@ -147,6 +159,9 @@ def run(args):
                 report['original_model_artifacts_unchanged']=verify(root/'identity.json')[1]==identity
                 report['tracked_upstream_source_unchanged']=subprocess.run(['git','-C',str(source),'diff','--quiet','HEAD']).returncode==0
                 report['native_gateway_cleanly_exited']=process.returncode==0
+                if 'native_final_state' not in report:
+                    from zenith_integrations.shared.redaction import redact
+                    report['gateway_log_tail']=redact(logfile.read_text(errors='replace').splitlines()[-80:],(owner,key))
                 args.output.write_text(json.dumps(report,indent=2)+'\n')
         check(report['original_model_artifacts_unchanged'] and report['tracked_upstream_source_unchanged'],'Original artifacts changed')
     print(json.dumps(report,indent=2))
