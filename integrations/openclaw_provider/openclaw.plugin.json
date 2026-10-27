@@ -1,0 +1,9 @@
+{
+  "id": "zenith-local-context",
+  "name": "Zenith local context compatibility",
+  "categories": ["models"],
+  "providers": ["zenith"],
+  "activation": { "onStartup": true },
+  "enabledByDefault": false,
+  "configSchema": { "type": "object", "properties": {}, "additionalProperties": false }
+}

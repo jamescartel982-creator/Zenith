@@ -52,8 +52,8 @@
     },
     {
       "path": ".github/workflows/pinned-openclaw-runtime.yml",
-      "size": 8577,
-      "sha256": "d205b43235fda7bc3c2c3f82b746ed695de9531623f1bfa2e11728b8dda1d63b",
+      "size": 8779,
+      "sha256": "9a8d046dfe0bfb2b452cb82cac3fdceade632c90ec382eecd24fe1db75237dbb",
       "normalization": "lf"
     },
     {
@@ -1582,8 +1582,8 @@
     },
     {
       "path": "docs/four-system/IMPLEMENTATION_STATUS.md",
-      "size": 10704,
-      "sha256": "bdf5aaba6dc385ac6a4b3d4c9466af12858b93fe9d8830fa86879e8f1fedc6a3",
+      "size": 11663,
+      "sha256": "e31b99ee74693b2dc9ef903363f5c23c7ff7a6beb09987e798043a5eacad9aca",
       "normalization": "lf"
     },
     {
@@ -2817,6 +2817,42 @@
       "normalization": "lf"
     },
     {
+      "path": "integrations/openclaw_provider/README.md",
+      "size": 2341,
+      "sha256": "f407661f2cd66960cb539c1a2040dfe2253a4ba6d87f4d232c02721bd67f7a2e",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/openclaw_provider/index.ts",
+      "size": 782,
+      "sha256": "642836913a733b0f92749a2011d65b3a5aa96346244f2262cec0b2f87150ecc4",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/openclaw_provider/openclaw.plugin.json",
+      "size": 295,
+      "sha256": "5cd9abbbb776e2d92f54270f6880eee1edd47febd8d53b8982a0320f6b12d1f7",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/openclaw_provider/package.json",
+      "size": 184,
+      "sha256": "fc917476e9b35cc9256010d2ded936287bbeeab07fdb22a4a01aa2bd7745edd5",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/openclaw_provider/policy.mjs",
+      "size": 985,
+      "sha256": "24a5c18f2e87ea4744e787441af472d66e113785c6bb607ccf55e0c40227af2c",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/openclaw_provider/test-policy.mjs",
+      "size": 1229,
+      "sha256": "a087630567e5d5ff2b7e6aa53be133c4feeb1095cb4fddaaee25e74848f8280c",
+      "normalization": "lf"
+    },
+    {
       "path": "integrations/runtime_bridge/.gitignore",
       "size": 123,
       "sha256": "40caa3abaed619f7e8258876bbd176f4d13423e0b3c574815470419e4a94c643",
@@ -2830,8 +2866,8 @@
     },
     {
       "path": "integrations/runtime_bridge/README.md",
-      "size": 11659,
-      "sha256": "5c96422c436dfc279b75e2bdf8a159b32ffa16c5c9bb7d7b9bf75b63d9cbc43a",
+      "size": 12009,
+      "sha256": "e6dc2e5c5aed111579483ffe188cb6759e7a238ed8c723d653ffdd9b58b1a4fd",
       "normalization": "lf"
     },
     {
@@ -2908,8 +2944,8 @@
     },
     {
       "path": "integrations/runtime_bridge/src/zenith_integrations/openclaw/adapter.py",
-      "size": 4019,
-      "sha256": "3063f3a7be8eb29e02b3ff444f39414ab7d9727485db9c771d3479695d223be2",
+      "size": 4202,
+      "sha256": "527696711dc40e05edf6e7cd82b18598a7da37a1cdd7d89e7e6ce633058890d9",
       "normalization": "lf"
     },
     {
@@ -3022,14 +3058,14 @@
     },
     {
       "path": "integrations/runtime_bridge/tests/integration/native_four_system.py",
-      "size": 8810,
-      "sha256": "8121bb64392c7dd72359f2f2b0938851b6e130a56ff872600e78d4f560306a90",
+      "size": 9159,
+      "sha256": "cb72b55d08f30ab0f9cf138cc6bdc14696c5ed477803dd7cff8af8366aa814f5",
       "normalization": "lf"
     },
     {
       "path": "integrations/runtime_bridge/tests/integration/native_openclaw.py",
-      "size": 14559,
-      "sha256": "3f86d42661f723a07f1e06e6af9389e3844ec9e615fb3e07070d6789cb243f5a",
+      "size": 17501,
+      "sha256": "95439c83f5fa3185fff3c8e8cedb67d6a0fda107c2d261ac309c5fad8a32d84d",
       "normalization": "lf"
     },
     {
@@ -3060,6 +3096,12 @@
       "path": "integrations/runtime_bridge/tests/test_native_clients.py",
       "size": 14603,
       "sha256": "467378aaf13c3b68308ef6f567a2d394bbbd446a8712c9056b338ba0aa755cb6",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/runtime_bridge/tests/test_openclaw_profile.py",
+      "size": 1653,
+      "sha256": "f5d8ece31e1b5d09a9a97767b461c2b0ac707f97ace133eb96686d3f265dc3c6",
       "normalization": "lf"
     },
     {

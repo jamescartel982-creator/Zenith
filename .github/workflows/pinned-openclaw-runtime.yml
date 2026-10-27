@@ -1,7 +1,7 @@
 name: Pinned OpenClaw native runtime
 on:
   pull_request:
-    paths: ['integrations/runtime_bridge/**', 'integrations/hermes_compat/**', 'integrations/inference_service/**', '.github/workflows/pinned-openclaw-runtime.yml']
+    paths: ['integrations/openclaw_provider/**', 'integrations/runtime_bridge/**', 'integrations/hermes_compat/**', 'integrations/inference_service/**', '.github/workflows/pinned-openclaw-runtime.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -91,6 +91,9 @@ jobs:
         run: |
           uv run --project integrations/inference_service --frozen --extra local --extra test python -m agent models download
           uv run --project integrations/inference_service --frozen --extra local --extra test python -m scripts.materialize_research_checkpoint --bundle research_checkpoints/recovery-v1 --output .native-openclaw-adapter
+      - name: Zenith provider policy isolation regressions
+        working-directory: zenith
+        run: node --test integrations/openclaw_provider/test-policy.mjs
       - name: Real original account MFA bridge paired Gateway and Zenith inference
         working-directory: zenith
         env:

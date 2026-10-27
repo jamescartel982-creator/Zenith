@@ -137,3 +137,18 @@ status failures, independent OpenClaw control-connection failure, repeated
 cancellation and cleanup timeout. Fresh CI results are required before merge.
 Rollback is the additive bridge revision only; native trees and model artifacts
 are untouched.
+
+
+OpenClaw answer-quality follow-up (native evidence pending): a separate opt-in
+provider plugin now uses the pinned public SDK replay-policy hook for local
+`zenith/zenith`. The hook retains standard OpenAI-compatible sanitation and
+selects current-turn context rather than exact-entry prefix-cache retention.
+Native acceptance now fails unless addition, multiplication and exact-word
+instruction cases answer correctly, and the empty interrupted-input snapshot
+is absent from measured model calls. Known context-echo detection remains on.
+32 bridge regressions and two Node policy tests passed locally; native SDK
+loading and actual-model quality require the fresh pinned-runtime CI result.
+No upstream source, model weights, adapters, live-order routes or credentials
+were changed. Live brokerage and permanent hosting remain blocked on operator
+broker/risk details and hosting access respectively; review approval alone does
+not provide either connection.
