@@ -52,8 +52,8 @@
     },
     {
       "path": ".github/workflows/pinned-openclaw-runtime.yml",
-      "size": 3128,
-      "sha256": "a820fd5ba0d7ba74569e0f0e63b039759f1e7dfc7cc217c54a4cf52369d485c7",
+      "size": 5574,
+      "sha256": "0f85f6b9da0c72a9b7fc90c354640521da481f17266c8462d1b883d687b433ff",
       "normalization": "lf"
     },
     {
@@ -1576,8 +1576,8 @@
     },
     {
       "path": "docs/four-system/IMPLEMENTATION_STATUS.md",
-      "size": 6396,
-      "sha256": "c8f7b8a98ec7e0e57afe5eba8485da6c704056d5205b7332d9a6ded4cf48bf00",
+      "size": 7668,
+      "sha256": "872e9f634471f3fb5b3ed6098e5f7ef36db971f3de017ed882042b84533cbc11",
       "normalization": "lf"
     },
     {
@@ -2788,8 +2788,8 @@
     },
     {
       "path": "integrations/runtime_bridge/README.md",
-      "size": 10336,
-      "sha256": "5323b5db0a61396ade51ffc70fec2fdde26c29d94e71bed6a121dccb0b3983e3",
+      "size": 11112,
+      "sha256": "1d928d46218e3b9bbbe9837920d442dd4a4df23e95f4c37b5efdfe5f211ced53",
       "normalization": "lf"
     },
     {
@@ -2878,8 +2878,8 @@
     },
     {
       "path": "integrations/runtime_bridge/src/zenith_integrations/openclaw/gateway_client.py",
-      "size": 13189,
-      "sha256": "4cf4cc33087c75f9f6ef0eeaf6be7347be9c45d25976f87ef52c2c7ffedf8d52",
+      "size": 13659,
+      "sha256": "3207143500a9b5cafbb1ab84eca48a68095050ea14112a08e966420ce7c4b230",
       "normalization": "lf"
     },
     {
@@ -2968,8 +2968,14 @@
     },
     {
       "path": "integrations/runtime_bridge/tests/integration/native_four_system.py",
-      "size": 8067,
-      "sha256": "4f6cd694f61df38e4109add1be700b64adf5b5de88fa370efeea4777f6509c64",
+      "size": 8443,
+      "sha256": "b2920bb995e13b997cd8f13315d3b3c319aca58fa3ee29af57be3aea3535deb9",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/runtime_bridge/tests/integration/native_openclaw.py",
+      "size": 13196,
+      "sha256": "36c50556b2e66e7655a20222f880ebfcf9a3200299f03d8795b486f9c25cb58d",
       "normalization": "lf"
     },
     {
@@ -2992,8 +2998,8 @@
     },
     {
       "path": "integrations/runtime_bridge/tests/test_native_clients.py",
-      "size": 14335,
-      "sha256": "4f4aa9cb8da03a817d87e29de5de4a479d83d4ba5234657b99ecd1081dcdf747",
+      "size": 14577,
+      "sha256": "f979c3545f59bff9e2125f1e716428faead5d036d80cc848b55d85046e17b473",
       "normalization": "lf"
     },
     {

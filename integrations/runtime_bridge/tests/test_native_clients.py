@@ -156,7 +156,7 @@ class GatewayContracts(unittest.IsolatedAsyncioTestCase):
                 frame=json.loads(await socket.recv());observed.append(frame)
                 self.assertEqual(frame['method'],'chat.send')
                 self.assertFalse(frame['params']['deliver'])
-                self.assertTrue(frame['params']['suppressCommandInterpretation'])
+                self.assertNotIn('suppressCommandInterpretation',frame['params'])
                 event={'type':'event','event':'chat','payload':{'sessionKey':'agent:zenith:test','runId':'native_run','seq':1,'state':'final','message':{'role':'assistant','content':'Done'}}}
                 # A terminal event can arrive before its acknowledgement.
                 await socket.send(json.dumps(event))
@@ -168,6 +168,8 @@ class GatewayContracts(unittest.IsolatedAsyncioTestCase):
                     accepted=await client.submit_turn('agent:zenith:test','Hello','stable_key')
                     terminal=await client.terminal('agent:zenith:test',accepted['runId'])
                     self.assertEqual(terminal['state'],'final')
+                    for unsafe in ('/model other','hello /think high','https://example.test','／model other'):
+                        with self.assertRaises(ValueError):await client.submit_turn('agent:zenith:test',unsafe,'refused_command')
                     with self.assertRaises(NativeRefused):await client._rpc('config.set',{})
             self.assertEqual(len(observed),2)
 

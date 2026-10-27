@@ -66,3 +66,50 @@ jobs:
             openclaw-built-runtime.tgz
             openclaw-built-runtime.json
           retention-days: 7
+      - uses: actions/checkout@v4
+        with:
+          path: zenith
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: '0.12.23'
+      - name: Install independently locked Zenith inference and test SDKs
+        run: uv sync --project zenith/integrations/inference_service --frozen --extra local --extra test
+      - name: Preserve and load the original trained checkpoint for native acceptance
+        working-directory: zenith
+        env:
+          AI_PROVIDER: huggingface
+          HF_MODEL: Qwen/Qwen2.5-0.5B-Instruct
+          HF_REVISION: 7ae557604adf67be50417f59c2c2f167def9a775
+          ZENITH_DEVICE: cpu
+          HF_HUB_DISABLE_XET: '1'
+          ZENITH_HOME: ${{ github.workspace }}/.zenith-openclaw-test
+          ZENITH_CHECKPOINT_RECEIPT: ''
+        run: |
+          uv run --project integrations/inference_service --frozen --extra local --extra test python -m agent models download
+          uv run --project integrations/inference_service --frozen --extra local --extra test python -m scripts.materialize_research_checkpoint --bundle research_checkpoints/recovery-v1 --output .native-openclaw-adapter
+      - name: Real original account MFA bridge paired Gateway and Zenith inference
+        working-directory: zenith
+        env:
+          AI_PROVIDER: huggingface
+          HF_MODEL: Qwen/Qwen2.5-0.5B-Instruct
+          HF_REVISION: 7ae557604adf67be50417f59c2c2f167def9a775
+          ZENITH_DEVICE: cpu
+          ZENITH_CPU_THREADS: '2'
+          OMP_NUM_THREADS: '2'
+          CONTEXT_TOKENS: '8192'
+          MAX_NEW_TOKENS: '256'
+          TOKENIZERS_PARALLELISM: 'false'
+          HF_HUB_DISABLE_XET: '1'
+          ZENITH_CHECKPOINT_RECEIPT: ''
+          ZENITH_HOME: ${{ github.workspace }}/.zenith-openclaw-test
+          ZENITH_ADAPTER: ${{ github.workspace }}/zenith/.native-openclaw-adapter
+        run: uv run --project integrations/inference_service --frozen --extra local --extra test python integrations/runtime_bridge/tests/integration/native_openclaw.py --native-root "$GITHUB_WORKSPACE/native-openclaw" --node "$(command -v node)" --output "$GITHUB_WORKSPACE/native-openclaw-acceptance.json"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: native-openclaw-model-acceptance
+          path: native-openclaw-acceptance.json

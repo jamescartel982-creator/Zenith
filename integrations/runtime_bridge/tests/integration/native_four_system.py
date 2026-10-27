@@ -50,9 +50,11 @@ def run(args):
                 with httpx.Client(base_url=bridge_origin, cookies={'zenith_login':account.cookies['zenith_login']}, timeout=40, trust_env=False) as bridge:
                     response=bridge.get('/v1/runtimes');response.raise_for_status()
                     report['runtimes']=response.json()['runtimes']
-                    if not all(row['connected'] for row in report['runtimes']):
-                        raise AssertionError('Not all four native health checks passed')
+                    unavailable={row['runtime']:row for row in report['runtimes'] if not row['connected']}
                     for runtime in ('zenith','hermes','openclaw','tradingagents'):
+                        if runtime in unavailable:
+                            report['jobs'][runtime]={'status':'blocked','reason':unavailable[runtime].get('unavailable_reason','native_runtime_not_ready')}
+                            continue
                         operation='research' if runtime=='tradingagents' else 'chat'
                         if runtime=='zenith':payload={'model':'zenith','messages':[{'role':'user','content':'What is 2 plus 2? Answer with the number only.'}],'max_tokens':16,'temperature':0}
                         elif runtime=='tradingagents':payload={'ticker':'AAPL','as_of':'2025-01-17'}
@@ -79,7 +81,7 @@ def run(args):
                         report['jobs'][runtime]=measured
                         if state['status']!='succeeded':
                             measured['error_code']=state.get('error_code');measured['native_receipt']=state.get('native_receipt')
-                            raise AssertionError('Native '+runtime+' did not complete')
+                            continue
                         response=bridge.get('/v1/jobs/'+job_id+'/result');response.raise_for_status();value=response.json()['result']
                         if runtime=='zenith':
                             measured['arithmetic_correct']=value['choices'][0]['message']['content'].strip()=='4';measured['usage']=value['usage']
@@ -92,11 +94,12 @@ def run(args):
                     account.post('/api/account/logout').raise_for_status()
                     report['logout_revokes_bridge']=bridge.get('/healthz').status_code==401
                     if not report['logout_revokes_bridge']:raise AssertionError('Original account logout did not revoke bridge access')
-        report['all_four_native_workflows_completed']=True
+        report['all_four_native_workflows_completed']=len(report['jobs'])==4 and all(job['status']=='succeeded' for job in report['jobs'].values())
     finally:
         report['original_model_artifacts_unchanged']=verify(args.identity)[1]==identity_before
         args.output.write_text(json.dumps(report,indent=2)+'\n')
     if not report['original_model_artifacts_unchanged']:raise AssertionError('Model identity changed')
+    if not report['all_four_native_workflows_completed']:raise AssertionError('Four-system acceptance incomplete; inspect measured blockers in the report')
 
 
 if __name__=='__main__':

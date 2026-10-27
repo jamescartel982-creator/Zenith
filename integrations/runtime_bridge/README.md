@@ -172,3 +172,14 @@ unknown window before submitting a run. `/v1/runtimes` reports
 `native_context_window_below_64000`; a listening API is not labelled a working
 agent. Do not inflate the context, swap models or mislabel another provider to
 suppress this check. See the [unapplied compatibility proposal](../../docs/four-system/proposals/HERMES_CONTEXT_COMPATIBILITY.md).
+
+The real pinned Gateway also confirmed that `suppressCommandInterpretation`
+requires administrator scope. The read/write bridge therefore omits that
+privileged field and rejects **all slash-containing text**, including URLs and
+Unicode compatibility slashes, before sending a native mutation. This is an
+explicit limitation of the initial least-privilege chat route. `commands.text:
+false` alone does not disable native commands on WebChat; it is not treated as a
+security boundary. No administrator scope was added to make a chat call pass.
+The optional native CI acceptance starts the actual pinned Gateway and original
+Zenith checkpoint, pairs a dedicated test-owned device, and exercises the
+original owner/MFA bridge. Only a measured successful run verifies that route.

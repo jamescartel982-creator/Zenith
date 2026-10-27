@@ -71,3 +71,23 @@ No window was inflated, model changed or upstream guard patched. The separate
 chat-only compatibility proposal is unapplied and awaiting an owner decision.
 Local regression results remain passing; the native full-build retry also
 exceeded 8 GB and was killed. Exact-pin native build is running in GitHub CI.
+
+
+Exact-pin OpenClaw build completed in GitHub run 40438313498, with the native CLI
+reporting `OpenClaw 2026.10.7 (2f5727b)`. All 20,800 generated artifact files were
+hash-verified on retrieval. The unmodified Gateway booted here and a dedicated
+Ed25519 device reconnected using only `operator.read`/`operator.write` and native
+`device-token` authentication; actual authenticated health passed. The shared
+owner credential stays outside the bridge. Original complete audited source is
+retained; only the disposable deployment checkout uses Git sparse checkout to
+reduce memory-backed storage use.
+
+Actual chat testing found a privileged-field mismatch: native
+`suppressCommandInterpretation` requires admin. The client no longer sends that
+field, never elevates its scopes, and conservatively refuses slash-containing
+text before mutation. Native WebChat ignores `commands.text:false` for some
+commands, so that setting alone is not relied on. A subsequent local turn was
+admitted but stalled under memory pressure; cancellation acknowledgement was
+uncertain and the native receipt was retained for reconciliation. This is not a
+successful native model turn. Real paired Gateway + model + original owner/MFA
+acceptance now runs on the larger CI host; results are pending.
