@@ -19,6 +19,9 @@ def main(argv=None):
     init.add_argument('--inference-origin', default='http://127.0.0.1:8781')
     init.add_argument('--inference-key-file', type=Path, required=True)
     init.add_argument('--zenith-access-token-file', type=Path)
+    init.add_argument('--trading-origin',default='')
+    init.add_argument('--trading-key-file',type=Path)
+    init.add_argument('--job-timeout',type=float,default=120)
     serve = sub.add_parser('serve')
     serve.add_argument('--directory', type=Path, required=True)
     serve.add_argument('--port', type=int, default=8782)
@@ -30,7 +33,8 @@ def main(argv=None):
                 raise ValueError('Use a new empty private bridge directory')
             config = BridgeConfig(args.zenith_origin, args.inference_origin, str(args.inference_key_file.expanduser().absolute()),
                 str(directory/'control.sqlite3'), str(args.zenith_access_token_file.expanduser().absolute()) if args.zenith_access_token_file else '',
-                str(directory/'audit.key'))
+                str(directory/'audit.key'),args.job_timeout,args.trading_origin,
+                str(args.trading_key_file.expanduser().absolute()) if args.trading_key_file else '')
             write_private_new(directory/'audit.key',secrets.token_urlsafe(48)+'\n')
             write_private_new(directory/'config.json',json.dumps(asdict(config),indent=2)+'\n')
             print('Created separate bridge configuration. Native settings and memory stores were not changed.')

@@ -34,7 +34,7 @@ class NativeHTTP:
         if not 32<=len(token)<=512 or not token.isascii() or any(c.isspace() for c in token):
             raise ValueError('Configure a dedicated strong native profile credential')
         supplied=headers or {}
-        if set(supplied)-{'Idempotency-Key','X-Hermes-Session-Key'}:
+        if set(supplied)-{'Idempotency-Key','X-Hermes-Session-Key','X-Zenith-Account'}:
             raise ValueError('Untrusted native authentication/routing override')
         try:
             async with httpx.AsyncClient(base_url=self.origin,transport=self.transport,follow_redirects=False,trust_env=False,

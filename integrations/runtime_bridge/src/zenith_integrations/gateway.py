@@ -13,6 +13,7 @@ from .shared.contracts import JobRequest, GrantRequest
 from .shared.identity import ZenithIdentity
 from .shared.ledger import Conflict, Ledger
 from .shared.router import NativeInference, Router
+from .shared.native_http import UnknownExecution
 
 
 def public_job(row):
@@ -23,8 +24,11 @@ def create_app(config, identity=None, router=None, ledger=None):
     identity = identity or ZenithIdentity(config)
     ledger = ledger or Ledger(config.database, config.secret(config.audit_key_file).encode())
     router = router or Router(NativeInference(config))
+    if config.trading_origin:
+        from .tradingagents.client import TradingResearch
+        router.adapters['tradingagents']=TradingResearch(config.trading_origin,config.trading_key_file,config.job_timeout)
     workers = {}
-    native_gate = asyncio.Lock()
+    native_gates = {name:asyncio.Lock() for name in ('zenith','hermes','openclaw','tradingagents')}
 
     @asynccontextmanager
     async def lifespan(app):
@@ -49,9 +53,21 @@ def create_app(config, identity=None, router=None, ledger=None):
     async def current(request, owner=False):
         return await identity.verify(request.cookies.get('zenith_login',''), owner=owner)
 
+    def required_scope(body):
+        scope={'runtime':body.runtime,'operation':body.operation}
+        if body.runtime=='tradingagents':
+            if body.operation!='research' or set(body.payload)!={'ticker','as_of'} or not all(isinstance(v,str) for v in body.payload.values()):
+                raise HTTPException(400,'Only explicit read-only ticker/as_of research is enabled')
+            scope.update(body.payload)
+        return scope
+
+    def receipt(identifier,actor):
+        row=ledger.get(identifier,actor)
+        return json.loads(row['result']) if row and row['result'] else None
+
     async def execute(identifier, body, actor, token, adapter):
         try:
-            async with native_gate:
+            async with native_gates[body.runtime]:
                 if ledger.stopped():
                     ledger.transition(identifier, {'queued'}, 'cancelled', error='emergency_shutdown')
                     return
@@ -59,18 +75,48 @@ def create_app(config, identity=None, router=None, ledger=None):
                 if fresh.id != actor.id or fresh.session_hash != actor.session_hash:
                     raise PermissionError('Identity changed')
                 if body.runtime != 'zenith' and not ledger.allows(fresh, body.grant_id,
-                        'jobs.submit.'+body.runtime, {'runtime':body.runtime,'operation':body.operation}):
+                        'jobs.submit.'+body.runtime, required_scope(body)):
                     raise PermissionError('Grant expired or was revoked')
                 if not ledger.transition(identifier, {'queued'}, 'running'):
                     return
-                result = await asyncio.wait_for(adapter.execute(body.payload), timeout=config.job_timeout)
+                if body.runtime=='tradingagents':
+                    def admitted(native_id,native_state=None):
+                        data={'runtime':'tradingagents','native_job_id':native_id}
+                        if native_state:data['native_status']=native_state
+                        row=ledger.get(identifier,actor)
+                        if row and row['status'] in {'running','cancel_requested'}:
+                            ledger.transition(identifier,{row['status']},row['status'],result=data)
+                    async def authorized():
+                        while True:
+                            await asyncio.sleep(1)
+                            fresh=await identity.verify(token,owner=True)
+                            if fresh!=actor or ledger.stopped() or not ledger.allows(fresh,body.grant_id,'jobs.submit.tradingagents',required_scope(body)):
+                                raise PermissionError('Native execution lease is no longer valid')
+                    work=asyncio.create_task(adapter.execute_scoped(body.payload,actor.id,identifier,body.operation,admitted))
+                    lease=asyncio.create_task(authorized())
+                    try:
+                        completed,_=await asyncio.wait((work,lease),timeout=config.job_timeout,return_when=asyncio.FIRST_COMPLETED)
+                        if lease in completed or work not in completed:
+                            raise PermissionError('Native execution lease expired or deadline elapsed')
+                        result=work.result()
+                    finally:
+                        lease.cancel()
+                        if not work.done():work.cancel()
+                        with anyio.CancelScope(shield=True):
+                            await asyncio.gather(lease,return_exceptions=True)
+                            outcome=(await asyncio.gather(work,return_exceptions=True))[0]
+                        if isinstance(outcome,UnknownExecution):raise outcome
+                else:
+                    result = await asyncio.wait_for(adapter.execute(body.payload), timeout=config.job_timeout)
                 ledger.transition(identifier, {'running'}, 'succeeded', result=result)
+        except UnknownExecution:
+            ledger.transition(identifier,{'queued','running','cancel_requested'},'interrupted',result=receipt(identifier,actor),error='native_reconciliation_required')
         except asyncio.CancelledError:
-            ledger.transition(identifier, {'queued','running','cancel_requested'}, 'cancelled', error='operator_cancelled')
+            ledger.transition(identifier, {'queued','running','cancel_requested'}, 'cancelled', result=receipt(identifier,actor),error='operator_cancelled')
             raise
         except Exception:
             # Upstream exceptions and outputs may contain private prompts or keys.
-            ledger.transition(identifier, {'queued','running','cancel_requested'}, 'failed', error='runtime_did_not_complete')
+            ledger.transition(identifier, {'queued','running','cancel_requested'}, 'failed',result=receipt(identifier,actor), error='runtime_did_not_complete')
         finally:
             workers.pop(identifier, None)
 
@@ -86,9 +132,11 @@ def create_app(config, identity=None, router=None, ledger=None):
         for row in rows:
             row['configured'] = row.pop('connected')
             row['connected'] = False
-        native = router.adapters.get('zenith')
-        if native and hasattr(native, 'health') and not ledger.stopped():
-            rows[0]['connected'] = await native.health()
+        if not ledger.stopped():
+            for row in rows:
+                adapter=router.adapters.get(row['runtime'])
+                if adapter and hasattr(adapter,'health'):row['connected']=await adapter.health()
+                if row['runtime']=='tradingagents':row['financial_review_required']=True
         return {'runtimes':rows,'primary_model':'zenith','live_execution':False}
 
     @app.post('/v1/grants')
@@ -129,7 +177,7 @@ def create_app(config, identity=None, router=None, ledger=None):
         if body.runtime == 'zenith' and (body.payload.get('model','zenith') != 'zenith' or body.payload.get('stream') is True):
             raise HTTPException(400,'Bridge jobs use complete native Zenith responses')
         if body.runtime != 'zenith' and not ledger.allows(actor, body.grant_id,
-                'jobs.submit.'+body.runtime, {'runtime':body.runtime,'operation':body.operation}):
+                'jobs.submit.'+body.runtime, required_scope(body)):
             raise HTTPException(403,'A current capability grant for this exact runtime and operation is required')
         key = request.headers.get('idempotency-key','')
         if not re.fullmatch(r'[a-zA-Z0-9_-]{8,128}',key):
@@ -153,7 +201,11 @@ def create_app(config, identity=None, router=None, ledger=None):
         row = ledger.get(identifier, await current(request))
         if row is None:
             raise HTTPException(404,'Job not found')
-        return public_job(row)
+        result=public_job(row)
+        if row['status'] in {'failed','cancelled','interrupted'} and row['result']:
+            data=json.loads(row['result'])
+            if data.get('native_job_id'):result['native_receipt']=data
+        return result
 
     @app.get('/v1/jobs/{identifier}/result')
     async def result(identifier: str, request: Request):

@@ -4,6 +4,8 @@ import json
 import os
 from pathlib import Path
 import sys
+import signal
+import threading
 from zenith_integrations.shared.secrets import read_json,read_private,write_private_new
 from .config import TradingConfig
 from .contracts import ResearchRequest
@@ -11,9 +13,20 @@ from .reports import analysis_report
 from . import PIN
 
 
+def arm_deadline(seconds):
+    # Linux/macOS OS timer also expires when the parent service crashes. Windows
+    # fallback is cooperative with Python scheduling, not a Job Object sandbox.
+    if os.name=='posix':
+        signal.signal(signal.SIGALRM,signal.SIG_DFL)
+        signal.setitimer(signal.ITIMER_REAL,seconds)
+    else:
+        timer=threading.Timer(seconds,lambda:os._exit(124));timer.daemon=True;timer.start()
+
+
 def run(config_path,request_path,output):
     sys.dont_write_bytecode=True
     config=TradingConfig(**read_json(config_path))
+    arm_deadline(config.deadline_seconds)
     root=config.verify_source()
     request=ResearchRequest.model_validate(read_json(request_path))
     run_root=Path(output).resolve().parent

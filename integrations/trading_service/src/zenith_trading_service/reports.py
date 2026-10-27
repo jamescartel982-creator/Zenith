@@ -18,12 +18,16 @@ def analysis_report(state,signal,ticker,as_of,secret=''):
         values=state.get(section)
         if not isinstance(values,dict) or any(not isinstance(values.get(key),str) or not values[key].strip() for key in keys):
             missing.append(section)
+    flags=[]
+    if any(isinstance(state.get(key),str) and any(marker in state[key] for marker in ('<tools>','</tools>','<tool_call>','You may call one or more functions')) for key in REPORTS):
+        flags.append('prompt_protocol_echo')
     complete=not missing and signal in RATINGS
     return redact({'native_source_pin':PIN,'ticker':ticker,'as_of':as_of,'operation':'research',
         'model':'zenith','provider':'openai_compatible','all_native_roles_completed':not missing,
-        'workflow_status':'completed' if complete else 'requires_review',
+        'workflow_status':'completed' if complete and not flags else 'requires_review',
+        'quality_flags':flags,'financial_review_required':True,
         'financial_quality_verified':False,
-        'rating':signal if complete else 'REVIEW','native_rating':signal,
+        'rating':'REVIEW','native_rating':signal,
         'missing_evidence':missing,'confidence':None,'confidence_note':'No calibrated probability supplied by the native graph',
         'analysts':{key:state.get(key) for key in REPORTS},
         'research_debate':state.get('investment_debate_state'),'research_plan':state.get('investment_plan'),

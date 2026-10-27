@@ -38,7 +38,10 @@ class ResearchContracts(unittest.TestCase):
         state['investment_debate_state']={'bull_history':'bull','bear_history':'bear'}
         state['risk_debate_state']={'aggressive_history':'risk1','conservative_history':'risk2','neutral_history':'risk3'}
         report=analysis_report(state,'Hold','AAPL','2025-01-17')
-        self.assertEqual(report['rating'],'Hold');self.assertTrue(report['all_native_roles_completed'])
+        self.assertEqual(report['rating'],'REVIEW');self.assertEqual(report['native_rating'],'Hold');self.assertTrue(report['all_native_roles_completed'])
+        state['fundamentals_report']='<tools>unwanted schema echo</tools>'
+        echoed=analysis_report(state,'Buy','AAPL','2025-01-17')
+        self.assertEqual(echoed['workflow_status'],'requires_review');self.assertIn('prompt_protocol_echo',echoed['quality_flags'])
         self.assertFalse(report['point_in_time']['all_feed_availability_verified'])
 
     def test_original_defaults_not_mutated_and_all_native_model_tiers_are_zenith(self):
@@ -109,6 +112,14 @@ class WorkerOwnership(unittest.IsolatedAsyncioTestCase):
                 finally:
                     release.set()
                     for child in children:await executor.terminate(child)
+
+    @unittest.skipUnless(os.name=='posix','OS wall-clock alarm is POSIX-specific')
+    async def test_worker_deadline_survives_loss_of_parent_supervision(self):
+        process=await asyncio.create_subprocess_exec(sys.executable,'-c',
+            'from zenith_trading_service.worker import arm_deadline;import time;arm_deadline(0.1);time.sleep(60)')
+        code=await asyncio.wait_for(process.wait(),5)
+        import signal
+        self.assertEqual(code,-signal.SIGALRM)
 
     async def test_terminate_only_the_owned_process_and_wait_for_exit(self):
         cfg=TradingConfig('/immutable/native','/private/new','http://127.0.0.1:8781','/private/key')

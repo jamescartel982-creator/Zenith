@@ -1,7 +1,7 @@
 name: Native financial service contracts and measured probe
 on:
   pull_request:
-    paths: ['integrations/trading_service/**', '.github/workflows/trading-service.yml']
+    paths: ['integrations/trading_service/**', 'integrations/runtime_bridge/**', 'integrations/inference_service/**', '.github/workflows/trading-service.yml']
   workflow_dispatch:
 permissions:
   contents: read

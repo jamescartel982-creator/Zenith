@@ -4,7 +4,7 @@ from contextlib import asynccontextmanager
 import hashlib
 import json
 
-from fastapi import FastAPI,Depends,HTTPException,Request,Query
+from fastapi import FastAPI,Depends,HTTPException,Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 
@@ -80,16 +80,24 @@ def create_app(executor,auth,ledger):
             task.add_done_callback(complete)
         return {'id':row['id'],'status':row['status'],'admitted':admitted}
 
-    account_query=Query(min_length=1,max_length=128,pattern=r'^[a-zA-Z0-9_-]+$')
+    def scoped_request_account(request,query):
+        import re
+        headers=request.headers.getlist('x-zenith-account')
+        if len(headers)>1 or (headers and query is not None and headers[0]!=query):raise HTTPException(400,'account_scope_conflict')
+        value=headers[0] if headers else query
+        if not isinstance(value,str) or not re.fullmatch(r'[a-zA-Z0-9_-]{1,128}',value):raise HTTPException(400,'account_scope_required')
+        return value
     @app.get('/v1/jobs/{identifier}')
-    async def status(identifier:str,account_id:str=account_query,principal=Depends(permission('jobs.read'))):
+    async def status(identifier:str,request:Request,account_id:str|None=None,principal=Depends(permission('jobs.read'))):
+        account_id=scoped_request_account(request,account_id)
         row=ledger.get(identifier,owner(principal,account_id))
         if not row:raise HTTPException(404,'job_not_found')
         return {'id':row['id'],'status':row['status'],'error_code':row['error_code'],
                 'result':json.loads(row['result']) if row['result'] is not None else None}
 
     @app.post('/v1/jobs/{identifier}/cancel')
-    async def cancel(identifier:str,account_id:str=account_query,principal=Depends(permission('jobs.cancel'))):
+    async def cancel(identifier:str,request:Request,account_id:str|None=None,principal=Depends(permission('jobs.cancel'))):
+        account_id=scoped_request_account(request,account_id)
         row=ledger.get(identifier,owner(principal,account_id))
         if not row:raise HTTPException(404,'job_not_found')
         task=tasks.get(identifier)

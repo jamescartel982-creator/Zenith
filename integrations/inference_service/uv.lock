@@ -908,7 +908,7 @@ provides-extras = ["local", "test"]
 
 [[package]]
 name = "zenith-integrations"
-version = "0.2.0"
+version = "0.3.0"
 source = { directory = "../runtime_bridge" }
 dependencies = [
     { name = "httpx" },

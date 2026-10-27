@@ -1,4 +1,4 @@
-# Zenith runtime bridge 0.2
+# Zenith runtime bridge 0.3
 
 An independent control-plane package. The first implementation connects real
 Zenith inference to the unchanged Zenith account/session API. Hermes, OpenClaw
@@ -74,3 +74,35 @@ These library clients are not registered as executable public bridge backends;
 `/v1/runtimes` continues to report them unavailable until isolated native
 profiles and full acceptance are verified. Transport authentication alone does
 not authorize a native agent's filesystem, shell or network access.
+
+
+## Explicit read-only native financial research
+
+Once the independent [TradingAgents service](../trading_service/README.md) is
+installed and running in a verified private environment, initialize a **new**
+bridge profile with `--trading-origin http://127.0.0.1:8783`,
+`--trading-key-file <native service bridge.key>` and `--job-timeout 600`.
+These options are empty by default and never overwrite an existing profile.
+Only read-only `research` is connected through the bridge. Paper trading,
+backtest promotion and live orders remain disabled on this route.
+
+The original owner must log in, elevate and verify MFA, then explicitly request
+`jobs.submit.tradingagents` with scope `runtime=tradingagents`,
+`operation=research`, `ticker=<exact symbol>`, `as_of=<exact date>` and a lifetime
+of at most 300 seconds. Submit that grant ID in a `tradingagents/research` job
+with payload `{"ticker":"AAPL","as_of":"2025-01-17"}`. The caller cannot supply
+an account ID, credential, model or URL. The server binds the native job to the
+verified owner and persists its receipt. Grant/session revocation and emergency
+shutdown cancel the owned native job; uncertain termination is labelled
+interrupted and requires reconciliation, never replayed. Grants authorize a
+bounded execution window; their expiry cancels jobs still in progress.
+
+A completed job can contain unreviewed or poor model output. Its native rating
+is preserved for inspection, while the actionable rating remains `REVIEW`.
+Protocol echoes are flagged; no calibrated financial accuracy or full source
+publication-time validation has been demonstrated. Never use this connector as
+an order signal. Neither a successful workflow nor its transport credential is
+an administrator grant for other tools.
+
+Hermes/OpenClaw clients remain optional libraries pending their actual paired,
+isolated native runtime acceptance. Merely setting a URL does not activate them.

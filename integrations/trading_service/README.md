@@ -19,9 +19,10 @@ First initialize and start the [separate inference service](../inference_service
 with `serve --queue-size 4` for the native parallel analysts.
 The private research service binds only `127.0.0.1:8783`. Its newly generated
 `bridge.key` authenticates a trusted service, not an end-user or administrator.
-Never put it in prompts, source control, logs or an untrusted browser. The bridge
-will continue reporting TradingAgents unavailable until its account-aware
-connector, deployment and native financial acceptance gates are completed.
+Never put it in prompts, source control, logs or an untrusted browser. The bridge reports TradingAgents unavailable unless its operator explicitly
+configures the read-only connector and the native service passes readiness.
+Owner login, elevation, verified MFA and an exact short-lived grant are required.
+A configured connector is not a certificate of financial quality or host isolation.
 
 API requests use `Authorization: Bearer <private bridge.key>`:
 
@@ -89,3 +90,15 @@ latency and full financial quality are not inferred from these counters.
 Native dotenv loading is disabled only in this new worker profile so unrelated
 parent `.env` credentials cannot be imported. Original native launch behavior
 and source are preserved.
+
+
+The account-aware bridge connector is optional and independently configured.
+It forces the original verified account identity, keeps native receipts and
+cancels work on grant/session revocation. Header and query account scopes must
+agree. Native reports preserve `native_rating`; the actionable `rating` stays
+`REVIEW` until independent financial validation exists. Native model protocol
+echoes are explicit quality flags. The Linux/macOS worker has its own OS wall-
+clock alarm so loss of the parent process cannot leave it running indefinitely.
+A restarted service still marks unfinished jobs interrupted; this is not proof
+of immediate termination of a surviving worker. Windows' fallback is not a hard
+Job Object limit. Full supervisor/host isolation acceptance remains required.
