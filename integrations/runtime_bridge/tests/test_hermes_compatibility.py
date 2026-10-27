@@ -50,6 +50,15 @@ class CompatibilityTests(unittest.TestCase):
                 self.assertFalse(module.allow_small_context(agent,8192))
                 with self.assertRaises(ValueError):verify_manifest(manifest)
 
+    def test_builder_refuses_output_alias_inside_the_original_source(self):
+        path=TEMPLATE.with_name('build.py');spec=importlib.util.spec_from_file_location('compat_builder',path)
+        module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);source=root/'source';source.mkdir();(source/'original').write_text('unchanged')
+            with self.assertRaises(ValueError):module.build(source,root/'alias'/'..'/'source'/'new')
+            self.assertEqual((source/'original').read_text(),'unchanged')
+            self.assertFalse((source/'new').exists())
+
     def test_forged_manifest_is_not_a_verified_policy(self):
         with tempfile.TemporaryDirectory() as directory:
             path,module,digest=fixture(Path(directory));record=json.loads(path.read_text());record['definition']['policy']='unrestricted';path.write_text(json.dumps(record))

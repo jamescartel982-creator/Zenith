@@ -1,7 +1,7 @@
 name: Pinned OpenClaw native runtime
 on:
   pull_request:
-    paths: ['integrations/runtime_bridge/**', '.github/workflows/pinned-openclaw-runtime.yml']
+    paths: ['integrations/runtime_bridge/**', 'integrations/hermes_compat/**', 'integrations/inference_service/**', '.github/workflows/pinned-openclaw-runtime.yml']
   workflow_dispatch:
 permissions:
   contents: read

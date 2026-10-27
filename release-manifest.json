@@ -52,8 +52,8 @@
     },
     {
       "path": ".github/workflows/pinned-openclaw-runtime.yml",
-      "size": 8507,
-      "sha256": "1783fcf8c6916174d1aa52f68c556adf60ff2b3dde81672d99f14d7dcd5b6ac2",
+      "size": 8577,
+      "sha256": "d205b43235fda7bc3c2c3f82b746ed695de9531623f1bfa2e11728b8dda1d63b",
       "normalization": "lf"
     },
     {
@@ -2704,8 +2704,8 @@
     },
     {
       "path": "integrations/hermes_compat/build.py",
-      "size": 4427,
-      "sha256": "70216fff4798726c5d635adcaca790e4da66ac2d883d37bbf596d98580c7d8a5",
+      "size": 4439,
+      "sha256": "0408a86d0169b792c785a97e7e6ed257481ead21823a06869aadde0439141f77",
       "normalization": "lf"
     },
     {
@@ -3040,8 +3040,8 @@
     },
     {
       "path": "integrations/runtime_bridge/tests/test_hermes_compatibility.py",
-      "size": 4153,
-      "sha256": "3be76ce872cf16b625bd286e707cfcd6f4da069a915f260b05a07830ffcfde13",
+      "size": 4825,
+      "sha256": "bf25621f07802fae57550cc90ed9995c630e163eb632e2182fcea4001694047a",
       "normalization": "lf"
     },
     {

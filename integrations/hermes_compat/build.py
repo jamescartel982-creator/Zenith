@@ -15,7 +15,7 @@ ORIGINALS={'agent/agent_init.py':'a30e1ae93021daa9448d6a5e72747f62fc00d9e3d362f7
 
 
 def build(source,output):
-    source=Path(source).resolve();output=Path(output).absolute()
+    source=Path(source).resolve();output=Path(output).expanduser().resolve()
     if output.exists():raise ValueError('Use a new destination; existing native files must remain untouched')
     if output.is_relative_to(source):raise ValueError('Keep the compatibility copy outside the original source')
     actual=subprocess.check_output(['git','-C',str(source),'rev-parse','HEAD'],text=True).strip()
