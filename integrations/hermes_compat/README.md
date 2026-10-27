@@ -47,7 +47,9 @@ The native exception requires `custom` + `zenith`, API-server platform, loopback
 `/v1`, exactly empty selected and constructed tool lists, and a real configured
 4K–32K window. All other routes retain the original 64K rule. The native API
 advertises a policy/build digest only when its configured profile is eligible.
-The compatibility copy also records the actual post-turn agent model/provider
+Disable optional `auxiliary.title_generation.enabled` in this small-model profile
+to retain native deterministic titles without an unsupported auxiliary JSON
+completion. The compatibility copy also records the actual post-turn agent model/provider
 in committed usage metadata; it never copies requested labels into attribution.
 The audited Runs path did not forward the session model-lock option, so the
 bridge does not pretend that unsupported request field enforces a lock.
