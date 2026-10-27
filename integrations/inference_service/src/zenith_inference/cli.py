@@ -22,6 +22,7 @@ def main(argv=None):
     serve.add_argument('--context-tokens', type=int)
     serve.add_argument('--max-output-tokens', type=int)
     serve.add_argument('--deadline-seconds', type=float, default=120)
+    serve.add_argument('--queue-size',type=int,default=0,help='Optional waiting requests (0–8); one model generation remains active')
     args = parser.parse_args(argv)
     directory = args.directory.expanduser().absolute()
     try:
@@ -42,6 +43,8 @@ def main(argv=None):
             return 0
         if not 1024 <= args.port <= 65535:
             raise ValueError('Choose a non-privileged service port')
+        if not 0<=args.queue_size<=8:
+            raise ValueError('Choose a queue size from 0 to 8')
         from .backend import NativeBackend
         from .server import create_app
         record = read_json(directory / 'identity.json')
@@ -51,8 +54,8 @@ def main(argv=None):
         backend = NativeBackend(directory / 'identity.json', limits)
         backend.load()
         import uvicorn
-        uvicorn.run(create_app(backend, auth), host='127.0.0.1', port=args.port, access_log=False,
-                    log_level='info', limit_concurrency=8, backlog=16, timeout_keep_alive=5)
+        uvicorn.run(create_app(backend, auth,queue_size=args.queue_size), host='127.0.0.1', port=args.port, access_log=False,
+                    log_level='info', limit_concurrency=max(8,args.queue_size+4), backlog=16, timeout_keep_alive=5)
         return 0
     except (ValueError, OSError, ImportError, RuntimeError) as exc:
         # External model/framework errors can contain local secrets or full prompts.

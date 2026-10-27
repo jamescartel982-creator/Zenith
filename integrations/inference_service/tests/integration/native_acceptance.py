@@ -79,7 +79,7 @@ def run(output):
         report.update(identity_sha256=backend.identity_hash,tokenizer_sha256=backend.record['tokenizer_sha256'])
         auth=ServiceAuth([{'id':'acceptance','token_file':str(key_file),'models':['zenith'],
                           'capabilities':['inference.read','inference.generate']}])
-        with serve(model_app(backend,auth)) as inference:
+        with serve(model_app(backend,auth,queue_size=4)) as inference:
             client=OpenAI(base_url=inference+'/v1',api_key=key,max_retries=0,timeout=120)
             check([m.id for m in client.models.list().data]==['zenith'],'Model discovery failed')
             prompt=[{'role':'user','content':'What is 2 plus 2? Answer with the number only.'}]
@@ -133,6 +133,15 @@ def run(output):
                     check(time.monotonic()<deadline,'Model worker did not recover after client disconnect')
                     time.sleep(0.05)
             report['disconnect_recovery']=True
+            print('Native acceptance: four bounded concurrent SDK requests',flush=True)
+            from concurrent.futures import ThreadPoolExecutor
+            def queued_chat(_):
+                response=client.chat.completions.create(model='zenith',messages=prompt,max_tokens=16,temperature=0)
+                return response.choices[0].message.content.strip()
+            with ThreadPoolExecutor(max_workers=4) as callers:
+                answers=list(callers.map(queued_chat,range(4)))
+            check(answers==['4']*4,'Bounded inference queue lost or overlapped a real request')
+            report['bounded_queue']={'requests':4,'correct_answers':4,'single_model_generation':True}
             print('Native acceptance: real accounts and durable jobs', flush=True)
             # Reuse original native account/session APIs in a new, isolated test profile.
             account_settings=replace(settings,data_dir=str(root/'native-account-data'),api_token='')

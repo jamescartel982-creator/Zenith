@@ -8,11 +8,11 @@ version = "0.1.0"
 requires-python = ">=3.12,<3.13"
 description = "Read-only OpenAI-compatible inference for the preserved Zenith checkpoint"
 license = "Apache-2.0"
-dependencies = ["zenith-local==0.17.4", "zenith-integrations==0.2.0"]
+dependencies = ["zenith-local==0.17.4", "zenith-integrations==0.3.0"]
 
 [project.optional-dependencies]
 local = ["zenith-local[local]==0.17.4", "torch>=2.6,<3"]
-test = ["openai==2.54.0", "zenith-integrations[native]==0.2.0"]
+test = ["openai==2.54.0", "zenith-integrations[native]==0.3.0"]
 
 [project.scripts]
 zenith-inference = "zenith_inference.cli:main"

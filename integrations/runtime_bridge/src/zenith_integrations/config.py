@@ -20,10 +20,15 @@ class BridgeConfig:
     zenith_access_token_file: str = ''
     audit_key_file: str = ''
     job_timeout: float = 120
+    trading_origin: str = ""
+    trading_key_file: str = ""
 
     def __post_init__(self):
         private_origin(self.zenith_origin)
         private_origin(self.inference_origin)
+        if bool(self.trading_origin)!=bool(self.trading_key_file):
+            raise ValueError('Configure both the dedicated native research origin and key handle')
+        if self.trading_origin:private_origin(self.trading_origin)
         if not 1 <= self.job_timeout <= 900:
             raise ValueError('Job timeout must be 1–900 seconds')
 
