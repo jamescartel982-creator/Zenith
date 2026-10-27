@@ -1527,6 +1527,12 @@
       "normalization": "lf"
     },
     {
+      "path": "docs/four-system/ACTIVATION_REPORT.md",
+      "size": 4485,
+      "sha256": "83669c2923570a3db96cb3104cadc94602844627d3a55d5cc8fc719b44d3c1cf",
+      "normalization": "lf"
+    },
+    {
       "path": "docs/four-system/AUDIT.md",
       "size": 14941,
       "sha256": "fe49488406b421b2426eddb616428fb8f32e51d3373e797653bf8b9bfda9ce5b",
@@ -1576,8 +1582,8 @@
     },
     {
       "path": "docs/four-system/IMPLEMENTATION_STATUS.md",
-      "size": 7668,
-      "sha256": "872e9f634471f3fb5b3ed6098e5f7ef36db971f3de017ed882042b84533cbc11",
+      "size": 8856,
+      "sha256": "611ada481bf574b90478a6ff809dcb2252927f42842639c4ad75d3fb275659bb",
       "normalization": "lf"
     },
     {
@@ -1737,6 +1743,12 @@
       "normalization": "lf"
     },
     {
+      "path": "docs/four-system/implementation-v0.4/native-openclaw-acceptance.json",
+      "size": 1239,
+      "sha256": "158a8fd843d99e56ae307cb6753422b84a17b50043d94358388ddc51bcb377f5",
+      "normalization": "lf"
+    },
+    {
       "path": "docs/four-system/prior-runtime-audit/01_SOURCE_AUDIT_AND_PINS.md",
       "size": 5341,
       "sha256": "c14dd2875618e845163afd60c63395fd689da66a79a73c88334fb52e309800de",
@@ -1810,8 +1822,8 @@
     },
     {
       "path": "docs/four-system/proposals/HERMES_CONTEXT_COMPATIBILITY.md",
-      "size": 3110,
-      "sha256": "7ed9a102bcf5c9cbf1b1322dc224a0922963246399d7e0d9080800a9241dee1b",
+      "size": 3822,
+      "sha256": "4d4fad29d4b2e09e0e7d40924ed37dbf1c47ad01e53be6c7cfaee4d774d55130",
       "normalization": "lf"
     },
     {
@@ -2686,8 +2698,8 @@
     },
     {
       "path": "integrations/hermes_compat/README.md",
-      "size": 4127,
-      "sha256": "a67a095b684ef37ee76798221a26daccc996d7b6688b0b9574900ff7b22cdc2e",
+      "size": 4297,
+      "sha256": "58230404c47d2899f6c3f47b23a06330e4eee26ec6d12081e07bc951c2909e00",
       "normalization": "lf"
     },
     {
@@ -2812,8 +2824,8 @@
     },
     {
       "path": "integrations/runtime_bridge/README.md",
-      "size": 11112,
-      "sha256": "1d928d46218e3b9bbbe9837920d442dd4a4df23e95f4c37b5efdfe5f211ced53",
+      "size": 11659,
+      "sha256": "5c96422c436dfc279b75e2bdf8a159b32ffa16c5c9bb7d7b9bf75b63d9cbc43a",
       "normalization": "lf"
     },
     {
@@ -2890,8 +2902,8 @@
     },
     {
       "path": "integrations/runtime_bridge/src/zenith_integrations/openclaw/adapter.py",
-      "size": 2924,
-      "sha256": "6e51f63de9e7c300e36c14bcc5a6f2b58e263ae73a9bbcd90d8c918c7f0f93ca",
+      "size": 3651,
+      "sha256": "12055e1a2d8dc9345e987e6928faaaca7a84da8365a9fdf6bb4e8d965821ccb1",
       "normalization": "lf"
     },
     {
@@ -2998,20 +3010,20 @@
     },
     {
       "path": "integrations/runtime_bridge/tests/integration/launch_four_system.py",
-      "size": 7398,
-      "sha256": "9ad262c1de796f8065326770195c4956ddaf235988b01081371befc4ad91d6fd",
+      "size": 7449,
+      "sha256": "317a1326317069165d1e0d20508e922339a74bf7d8ec428936b09e199360add0",
       "normalization": "lf"
     },
     {
       "path": "integrations/runtime_bridge/tests/integration/native_four_system.py",
-      "size": 8494,
-      "sha256": "792fc9dc5eac452353f27b159667a491c0e8663937b9d2e384ac6b0048301c8e",
+      "size": 8810,
+      "sha256": "8121bb64392c7dd72359f2f2b0938851b6e130a56ff872600e78d4f560306a90",
       "normalization": "lf"
     },
     {
       "path": "integrations/runtime_bridge/tests/integration/native_openclaw.py",
-      "size": 14177,
-      "sha256": "c0521258edb26616be169d9245bfb8bfba47e9851db4980e8b5f89a08de48a3d",
+      "size": 14559,
+      "sha256": "3f86d42661f723a07f1e06e6af9389e3844ec9e615fb3e07070d6789cb243f5a",
       "normalization": "lf"
     },
     {
@@ -3034,8 +3046,8 @@
     },
     {
       "path": "integrations/runtime_bridge/tests/test_native_adapters.py",
-      "size": 10217,
-      "sha256": "175ffb0b62c72abb78547a9012582dad8595da6f26148d9869195f8293fbb57b",
+      "size": 10622,
+      "sha256": "3356c495bbe248acb38b6555f0b02c0655fa9003a1c0293894a3893ffdde3d2b",
       "normalization": "lf"
     },
     {

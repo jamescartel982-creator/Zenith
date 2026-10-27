@@ -4,6 +4,17 @@ from ..shared.native_http import NativeRefused, UnknownExecution, opaque_id
 from ..shared.native_task import chat_scope, finish_cleanup
 
 
+def quality_flags(message):
+    if not isinstance(message, dict):return ['native_answer_not_verified']
+    content=message.get('content')
+    if isinstance(content,list):
+        content='\n'.join(p.get('text','') for p in content if isinstance(p,dict) and p.get('type')=='text')
+    if not isinstance(content,str) or not content.strip():return ['native_answer_not_verified']
+    if content.strip().lower() in {'none in the latest retained-input page','unavailable; retained input could not be inspected'}:
+        return ['native_context_echo']
+    return []
+
+
 class OpenClawChat:
     def __init__(self, client_factory, profile_id, session_secret, timeout=120):
         self.client_factory, self.profile_id = client_factory, profile_id
@@ -49,7 +60,9 @@ class OpenClawChat:
                 if result['state'] != 'final':
                     raise NativeRefused('native_openclaw_did_not_complete')
                 # Model attribution is not invented from the requested model alias.
-                return {'runtime': 'openclaw', 'native_job_id': run_id, 'result': result}
+                flags=quality_flags(result.get('message'))
+                return {'runtime': 'openclaw', 'native_job_id': run_id, 'result': result,
+                    'quality_flags':flags,'answer_verified':False,'response_review_required':bool(flags)}
             except BaseException:
                 if not terminal:
                     await finish_cleanup(stop())

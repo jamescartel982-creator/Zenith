@@ -102,7 +102,8 @@ def run(args):
         class MeasuredBackend(NativeBackend):
             def complete(self,*args,**kwargs):
                 value=super().complete(*args,**kwargs)
-                metrics.append({'prompt_tokens':value.prompt_tokens,'completion_tokens':value.completion_tokens})
+                present=any('What is 2 plus 2?' in (m.content or '') for m in args[0].messages)
+                metrics.append({'prompt_tokens':value.prompt_tokens,'completion_tokens':value.completion_tokens,'current_question_in_request':present})
                 return value
         backend=MeasuredBackend(root/'identity.json',Limits(8192,256,120));backend.load();identity=backend.identity_hash
         key=secrets.token_urlsafe(48);write_private_new(root/'model.key',key)
@@ -147,6 +148,9 @@ def run(args):
                             check(state['status']=='succeeded','Real native OpenClaw turn failed')
                             response=bridge.get('/v1/jobs/'+job+'/result');response.raise_for_status();result=response.json()['result']['result']
                             report['native_final_state']=result['state'];report['message']=result.get('message')
+                            from zenith_integrations.openclaw.adapter import quality_flags
+                            report['quality_flags']=quality_flags(result.get('message'))
+                            report['answer_quality_verified']=False
                             check(result['state']=='final' and len(metrics)>0,'No actual Zenith inference was measured')
                             report['measured_model_calls']=metrics
                             account.post('/api/account/logout').raise_for_status()

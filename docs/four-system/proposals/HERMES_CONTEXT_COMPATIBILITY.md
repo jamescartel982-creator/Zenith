@@ -47,3 +47,16 @@ objective and is not proposed here.
 Rollback: disable the opt-in mode, stop only the compatibility runtime and retain
 its execution receipts; restart the original pinned Hermes environment/profile.
 No original model or native memory migration is involved.
+
+
+## Owner decision and implementation
+
+The owner subsequently approved the separate chat-only compatibility build.
+Implementation lives in `integrations/hermes_compat/`; the original pinned
+source is unmodified. Actual native testing also found that the canonical Runs
+path returned blank served-runtime fields, so the compatibility copy records
+actual post-turn agent model/provider attributes into committed usage metadata.
+No requested model label is substituted for this measurement. The published
+local acceptance receipt records answer `4`, served `custom/zenith`, and the
+compatibility build digest. The original 64K default and untouched native
+context tests remain in force outside the opt-in surface.

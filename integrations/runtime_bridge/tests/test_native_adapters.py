@@ -10,7 +10,7 @@ from zenith_integrations.config import BridgeConfig
 from zenith_integrations.gateway import create_app
 from zenith_integrations.hermes.adapter import HermesChat
 from zenith_integrations.hermes.api_client import HermesRun
-from zenith_integrations.openclaw.adapter import OpenClawChat
+from zenith_integrations.openclaw.adapter import OpenClawChat, quality_flags
 from zenith_integrations.shared.ledger import Ledger
 from zenith_integrations.shared.native_task import chat_scope
 from zenith_integrations.shared.native_http import UnknownExecution
@@ -108,6 +108,12 @@ class NativeAdapters(unittest.IsolatedAsyncioTestCase):
 
 
 class RuntimePermissions(unittest.TestCase):
+    def test_native_context_echo_is_not_an_answer_quality_pass(self):
+        value={'role':'assistant','content':[{'type':'text','text':'none in the latest retained-input page'}]}
+        self.assertEqual(quality_flags(value),['native_context_echo'])
+        self.assertEqual(quality_flags({'content':'4'}),[])
+        self.assertEqual(quality_flags(None),['native_answer_not_verified'])
+
     def test_exact_message_grants_owner_only_and_revocation_cancel_both_runtimes(self):
         for runtime in ('hermes','openclaw'):
             with self.subTest(runtime=runtime),tempfile.TemporaryDirectory() as folder:

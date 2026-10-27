@@ -87,7 +87,9 @@ def run(args):
                             measured['arithmetic_correct']=value['choices'][0]['message']['content'].strip()=='4';measured['usage']=value['usage']
                         elif runtime=='hermes':
                             measured['actual_runtime']=value['result'].get('runtime');measured['native_status']=value['result']['status']
-                        elif runtime=='openclaw':measured['native_state']=value['result']['state']
+                            measured['arithmetic_correct']=str(value['result'].get('output','')).strip()=='4';measured['native_run_usage']=value['result'].get('usage')
+                        elif runtime=='openclaw':
+                            measured['native_state']=value['result']['state'];measured['quality_flags']=value.get('quality_flags',[]);measured['answer_verified']=value.get('answer_verified',False)
                         else:
                             native=value['report'];measured.update(all_native_roles_completed=native.get('all_native_roles_completed'), rating=native.get('rating'), financial_quality_verified=native.get('financial_quality_verified'),model=native.get('model'), execution_metrics=native.get('execution_metrics'))
                         print(runtime+': '+json.dumps(measured),flush=True)

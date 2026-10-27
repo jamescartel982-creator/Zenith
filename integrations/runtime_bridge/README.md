@@ -183,3 +183,12 @@ security boundary. No administrator scope was added to make a chat call pass.
 The optional native CI acceptance starts the actual pinned Gateway and original
 Zenith checkpoint, pairs a dedicated test-owned device, and exercises the
 original owner/MFA bridge. Only a measured successful run verifies that route.
+
+The owner-approved alternative is now implemented in
+[`integrations/hermes_compat`](../hermes_compat/README.md). It exports a separate
+pinned source copy, defaults off, verifies exact build/profile/context metadata,
+and leaves the original 64K rule intact outside its chat-only exception. Actual
+Hermes chat and native context regressions have passed; combined owner/MFA
+four-runtime acceptance is tracked separately. Read the
+[activation report](../../docs/four-system/ACTIVATION_REPORT.md) for the current
+workflow, quality and hosting limits.

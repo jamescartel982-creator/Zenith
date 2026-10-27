@@ -91,3 +91,21 @@ admitted but stalled under memory pressure; cancellation acknowledgement was
 uncertain and the native receipt was retained for reconciliation. This is not a
 successful native model turn. Real paired Gateway + model + original owner/MFA
 acceptance now runs on the larger CI host; results are pending.
+
+
+The owner approved the isolated Hermes compatibility build. Its actual native
+chat completed in 9.777 seconds with answer `4`, 620 input / 2 output tokens and
+served `custom/zenith` metadata from the actual post-turn agent. The original
+native context regressions passed: 21 tests. All 24 bridge tests (before the new
+context-echo case) and 13 inference tests pass. Original upstream source remains
+unchanged; only a new exported compatibility copy has context/capability/runtime
+metadata changes. See `implementation-v0.4/local-hermes-chat-acceptance.json`.
+
+Real original owner/MFA -> paired OpenClaw Gateway -> Zenith inference passed in
+CI run 40530613574: 22.563 seconds, 2,605 prompt / 8 output tokens, logout
+revocation and unchanged source/model hashes. **Answer quality did not pass**:
+the native output echoed an interrupted-input context placeholder instead of
+answering the arithmetic question. This is a functioning transport/control-flow
+integration, not verified task competence. The bridge preserves the raw native
+output, flags this known context echo for review and never marks it a verified
+answer. Full four-way workflow acceptance is now being measured separately.
