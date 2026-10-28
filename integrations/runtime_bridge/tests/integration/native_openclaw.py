@@ -19,12 +19,29 @@ def check(value, message):
     if not value:raise AssertionError(message)
 
 
-def profile(root, port, inference):
-    return {'gateway':{'mode':'local','port':port,'bind':'loopback','auth':{'mode':'token','token':{'source':'env','provider':'default','id':'ZENITH_TEST_GATEWAY_TOKEN'}},'controlUi':{'enabled':False},'terminal':{'enabled':False},'nodes':{'pairing':{'sshVerify':False}},'tailscale':{'mode':'off'}},
+def projection_metrics(messages, case, question):
+    return {'case':case,
+        'current_question_in_request':any(question in (message.content or '') for message in messages),
+        'current_question_is_last_message':bool(messages) and messages[-1].role=='user' and question in (messages[-1].content or ''),
+        'empty_interrupted_snapshot':any('none in the latest retained-input page' in (message.content or '') for message in messages)}
+
+
+def case_projection_verified(metrics, case):
+    calls=[item for item in metrics if item.get('case')==case]
+    return bool(calls) and all(item['current_question_in_request'] and item['current_question_is_last_message'] and not item['empty_interrupted_snapshot'] for item in calls)
+
+
+def profile(root, port, inference, context_compatibility=True):
+    config = {'gateway':{'mode':'local','port':port,'bind':'loopback','auth':{'mode':'token','token':{'source':'env','provider':'default','id':'ZENITH_TEST_GATEWAY_TOKEN'}},'controlUi':{'enabled':False},'terminal':{'enabled':False},'nodes':{'pairing':{'sshVerify':False}},'tailscale':{'mode':'off'}},
       'models':{'mode':'replace','providers':{'zenith':{'baseUrl':inference+'/v1','api':'openai-completions','apiKey':{'source':'env','provider':'default','id':'ZENITH_TEST_MODEL_KEY'},'models':[{'id':'zenith','name':'Zenith','reasoning':False,'input':['text'],'contextWindow':8192,'maxTokens':256,'cost':{'input':0,'output':0,'cacheRead':0,'cacheWrite':0},'compat':{'supportsDeveloperRole':False,'supportsStore':False,'supportsTools':False,'supportsReasoningEffort':False,'maxTokensField':'max_tokens','requiresStringContent':True}}]}}},
       'agents':{'ownership':'explicit','defaults':{'workspace':str(root/'workspace'),'model':{'primary':'zenith/zenith','fallbacks':[]},'thinkingDefault':'off','maxConcurrent':1,'systemAgent':{'agentId':'zenith'},'skipBootstrap':True},'entries':{'zenith':{'name':'Zenith','workspace':str(root/'workspace'),'model':{'primary':'zenith/zenith','fallbacks':[]},'tools':{'deny':['*']}}}},
       'tools':{'deny':['*']},'browser':{'enabled':False},'cron':{'enabled':False},'plugins':{'enabled':False},
       'commands':{'native':False,'nativeSkills':False,'text':False,'bash':False,'config':False,'mcp':False,'plugins':False,'debug':False,'restart':False}}
+
+    if context_compatibility:
+        plugin=Path(__file__).resolve().parents[3]/'openclaw_provider'
+        config['plugins']={'enabled':True,'allow':['zenith-local-context'],'load':{'paths':[str(plugin)]},'entries':{'zenith-local-context':{'enabled':True}}}
+    return config
 
 
 async def bootstrap(url, root, owner, process):
@@ -99,11 +116,12 @@ def run(args):
     report={'source_pin':PIN,'scripted_model':False,'native_tools_enabled':False,'external_message_sent':False,'live_orders_enabled':False}
     with tempfile.TemporaryDirectory(prefix='zenith-native-openclaw-') as directory:
         root=Path(directory);root.chmod(0o700);capture(Settings(),root/'identity.json');metrics=[]
+        active_case={'case':'addition','question':'What is 2 plus 2? Answer with the number only.'}
         class MeasuredBackend(NativeBackend):
             def complete(self,*args,**kwargs):
                 value=super().complete(*args,**kwargs)
-                present=any('What is 2 plus 2?' in (m.content or '') for m in args[0].messages)
-                metrics.append({'prompt_tokens':value.prompt_tokens,'completion_tokens':value.completion_tokens,'current_question_in_request':present})
+                metrics.append({'prompt_tokens':value.prompt_tokens,'completion_tokens':value.completion_tokens,
+                    **projection_metrics(args[0].messages,active_case['case'],active_case['question'])})
                 return value
         backend=MeasuredBackend(root/'identity.json',Limits(8192,256,120));backend.load();identity=backend.identity_hash
         key=secrets.token_urlsafe(48);write_private_new(root/'model.key',key)
@@ -132,7 +150,7 @@ def run(args):
                         enrollment=account.post('/api/admin/mfa/setup',json={'password':password});enrollment.raise_for_status()
                         account.post('/api/admin/mfa/confirm',json={'otp':pyotp.TOTP(enrollment.json()['secret']).now()}).raise_for_status()
                         with httpx.Client(base_url=bridge_origin,cookies={'zenith_login':account.cookies['zenith_login']},timeout=20,trust_env=False) as bridge:
-                            payload={'message':'What is 2 plus 2? Answer with the number only.','conversation_id':'arithmetic'}
+                            payload={'message':active_case['question'],'conversation_id':'arithmetic'}
                             body={'runtime':'openclaw','operation':'chat','payload':payload}
                             check(bridge.post('/v1/jobs',json=body,headers={'Idempotency-Key':'denied_native_turn'}).status_code==403,'Owner grant was not required')
                             scope={'runtime':'openclaw','operation':'chat',**chat_scope(payload,'chat')}
@@ -148,11 +166,37 @@ def run(args):
                             check(state['status']=='succeeded','Real native OpenClaw turn failed')
                             response=bridge.get('/v1/jobs/'+job+'/result');response.raise_for_status();result=response.json()['result']['result']
                             report['native_final_state']=result['state'];report['message']=result.get('message')
-                            from zenith_integrations.openclaw.adapter import quality_flags
+                            from zenith_integrations.openclaw.adapter import quality_flags, message_text
                             report['quality_flags']=quality_flags(result.get('message'))
+                            report['arithmetic_correct']=message_text(result.get('message'))=='4'
                             report['answer_quality_verified']=False
+                            report['measured_model_calls']=metrics
+                            check(case_projection_verified(metrics,'addition'),'Native runtime projection did not preserve the active addition request')
+                            check(report['arithmetic_correct'] and not report['quality_flags'],'OpenClaw did not answer the frozen arithmetic case correctly')
+                            check(not any(item['empty_interrupted_snapshot'] for item in metrics),'Empty interrupted snapshots still reach the model')
                             check(result['state']=='final' and len(metrics)>0,'No actual Zenith inference was measured')
                             report['measured_model_calls']=metrics
+                            report['frozen_quality_cases']=[{'case':'addition','correct':report['arithmetic_correct']}]
+                            for case,question,expected in [('multiplication','What is 7 multiplied by 8? Reply with the number only.','56'),('instruction','Reply with exactly this word: ZENITH','ZENITH')]:
+                                active_case.update(case=case,question=question)
+                                task={'message':question,'conversation_id':case}
+                                scope={'runtime':'openclaw','operation':'chat',**chat_scope(task,'chat')}
+                                grant=bridge.post('/v1/grants',json={'capability':'jobs.submit.openclaw','seconds':240,'scope':scope});grant.raise_for_status()
+                                request={'runtime':'openclaw','operation':'chat','payload':task,'grant_id':grant.json()['id']}
+                                admitted=bridge.post('/v1/jobs',json=request,headers={'Idempotency-Key':'quality_case_'+case});admitted.raise_for_status()
+                                follow=admitted.json()['id'];end=time.monotonic()+200
+                                while True:
+                                    state=bridge.get('/v1/jobs/'+follow);state.raise_for_status();state=state.json()
+                                    if state['status'] not in {'queued','running'}:break
+                                    check(time.monotonic()<end,'Frozen quality case exceeded its budget');time.sleep(.2)
+                                check(state['status']=='succeeded','Frozen native quality case did not complete')
+                                result=bridge.get('/v1/jobs/'+follow+'/result');result.raise_for_status();native=result.json()['result']
+                                actual=message_text(native['result'].get('message'))
+                                projected=case_projection_verified(metrics,case)
+                                correct=actual==expected and not native['quality_flags'] and projected
+                                report['frozen_quality_cases'].append({'case':case,'correct':correct,'answer':actual,'projection_verified':projected})
+                                check(correct,'OpenClaw frozen instruction or arithmetic regression: '+case)
+                            report['answer_quality_verified']=all(case['correct'] for case in report['frozen_quality_cases'])
                             account.post('/api/account/logout').raise_for_status()
                             report['logout_revokes_bridge']=bridge.get('/healthz').status_code==401
                             check(report['logout_revokes_bridge'],'Original logout did not revoke bridge access')

@@ -90,6 +90,9 @@ def run(args):
                             measured['arithmetic_correct']=str(value['result'].get('output','')).strip()=='4';measured['native_run_usage']=value['result'].get('usage')
                         elif runtime=='openclaw':
                             measured['native_state']=value['result']['state'];measured['quality_flags']=value.get('quality_flags',[]);measured['answer_verified']=value.get('answer_verified',False)
+                            from zenith_integrations.openclaw.adapter import message_text
+                            measured['arithmetic_correct']=message_text(value['result'].get('message'))=='4'
+                            if not measured['arithmetic_correct'] or measured['quality_flags']:raise AssertionError('OpenClaw arithmetic regression')
                         else:
                             native=value['report'];measured.update(all_native_roles_completed=native.get('all_native_roles_completed'), rating=native.get('rating'), financial_quality_verified=native.get('financial_quality_verified'),model=native.get('model'), execution_metrics=native.get('execution_metrics'))
                         print(runtime+': '+json.dumps(measured),flush=True)

@@ -192,3 +192,10 @@ Hermes chat and native context regressions have passed; combined owner/MFA
 four-runtime acceptance is tracked separately. Read the
 [activation report](../../docs/four-system/ACTIVATION_REPORT.md) for the current
 workflow, quality and hosting limits.
+
+
+For the preserved small local model, the optional
+[OpenClaw provider plugin](../openclaw_provider/README.md) selects the native
+current-turn context policy. It preserves upstream source and execution
+permissions. Use the pinned-native acceptance artifact to assess the measured
+answer cases; successful transport alone is not a model-quality pass.

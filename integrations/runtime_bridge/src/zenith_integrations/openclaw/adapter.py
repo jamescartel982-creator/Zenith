@@ -5,13 +5,20 @@ from ..shared.native_http import NativeRefused, UnknownExecution, opaque_id
 from ..shared.native_task import chat_scope, finish_cleanup
 
 
-def quality_flags(message):
-    if not isinstance(message, dict):return ['native_answer_not_verified']
+def message_text(message):
+    if not isinstance(message, dict):return None
     content=message.get('content')
     if isinstance(content,list):
-        content='\n'.join(p.get('text','') for p in content if isinstance(p,dict) and p.get('type')=='text')
+        parts=[p.get('text') for p in content if isinstance(p,dict) and p.get('type')=='text']
+        if any(not isinstance(part,str) for part in parts):return None
+        content='\n'.join(parts)
+    return content if isinstance(content,str) else None
+
+
+def quality_flags(message):
+    content=message_text(message)
     if not isinstance(content,str) or not content.strip():return ['native_answer_not_verified']
-    if content.strip().lower() in {'none in the latest retained-input page','unavailable; retained input could not be inspected'}:
+    if content.strip().lower() in {'none in the latest retained-input page','unavailable; retained input could not be inspected'} or content.strip().startswith('## Temporal Context\nCurrent date:'):
         return ['native_context_echo']
     return []
 
