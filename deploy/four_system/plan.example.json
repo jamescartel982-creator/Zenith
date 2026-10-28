@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "services": {
+    "accounts": {
+      "command": ["/srv/zenith/release/.venv/bin/python", "-m", "agent", "serve", "--host", "127.0.0.1", "--port", "7860"],
+      "working_directory": "/srv/zenith/release",
+      "environment_file": "/srv/zenith/private/accounts.env",
+      "memory_max_mb": 2048,
+      "tasks_max": 256,
+      "after": []
+    },
+    "inference": {
+      "command": ["/srv/zenith/release/.venv/bin/python", "-m", "zenith_inference.cli", "serve", "--directory", "/srv/zenith/state/inference", "--port", "8781", "--context-tokens", "8192", "--queue-size", "4"],
+      "working_directory": "/srv/zenith/release",
+      "environment_file": "/srv/zenith/private/inference.env",
+      "memory_max_mb": 6144,
+      "tasks_max": 256,
+      "after": []
+    },
+    "hermes": {
+      "command": ["/srv/zenith/environments/hermes/bin/python", "-m", "gateway.run"],
+      "working_directory": "/srv/zenith/hermes-chat-compatibility",
+      "environment_file": "/srv/zenith/private/hermes.env",
+      "memory_max_mb": 2048,
+      "tasks_max": 256,
+      "after": ["inference"]
+    },
+    "openclaw": {
+      "command": ["/srv/zenith/runtime/node-v26.12.1-linux-x64/bin/node", "openclaw.mjs", "gateway", "run"],
+      "working_directory": "/srv/zenith/upstream/openclaw",
+      "environment_file": "/srv/zenith/private/openclaw.env",
+      "memory_max_mb": 3072,
+      "tasks_max": 256,
+      "after": ["inference"]
+    },
+    "tradingagents": {
+      "command": ["/srv/zenith/environments/tradingagents/bin/python", "-m", "zenith_trading_service.cli", "serve", "--directory", "/srv/zenith/state/tradingagents", "--port", "8783"],
+      "working_directory": "/srv/zenith/release",
+      "environment_file": "/srv/zenith/private/tradingagents.env",
+      "memory_max_mb": 2048,
+      "tasks_max": 256,
+      "after": ["inference"]
+    },
+    "bridge": {
+      "command": ["/srv/zenith/release/.venv/bin/python", "-m", "zenith_integrations.cli", "serve", "--directory", "/srv/zenith/state/bridge", "--port", "8782"],
+      "working_directory": "/srv/zenith/release",
+      "environment_file": "/srv/zenith/private/bridge.env",
+      "memory_max_mb": 512,
+      "tasks_max": 128,
+      "after": ["accounts", "inference", "hermes", "openclaw", "tradingagents"]
+    }
+  }
+}
