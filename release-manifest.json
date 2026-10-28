@@ -33,6 +33,12 @@
       "normalization": "lf"
     },
     {
+      "path": ".github/workflows/four-system-services.yml",
+      "size": 588,
+      "sha256": "ca0747cee9075f4c0330bf032914c52bf91223c536eda888de87a9c4e34cbdda",
+      "normalization": "lf"
+    },
+    {
       "path": ".github/workflows/integration-prerequisites.yml",
       "size": 1427,
       "sha256": "4f441513b84cb3da00c5c4e7fed436b1b61a72659220ef1bb63d02686e02a4ec",
@@ -798,6 +804,30 @@
       "path": "config/zenith-packs-team.example.json",
       "size": 690,
       "sha256": "94fb5f0a19726f6cb6aee32cefbb8df7609b2f4bd2a8c2008022dad69da71b7c",
+      "normalization": "lf"
+    },
+    {
+      "path": "deploy/four_system/README.md",
+      "size": 7187,
+      "sha256": "15347a81a731e82a61687bdbe0e4425bc0beb48e494f879bfe7ad3281df619f1",
+      "normalization": "lf"
+    },
+    {
+      "path": "deploy/four_system/plan.example.json",
+      "size": 2297,
+      "sha256": "8621f473665a38953b3146bc3f44cc58ae2e77d7073b9371cfdebfc0b3fca04f",
+      "normalization": "lf"
+    },
+    {
+      "path": "deploy/four_system/services.py",
+      "size": 10199,
+      "sha256": "290e2d5a216700e9ad205e031bf132e81d4f48f71e4237b1430dbf1026c82a0a",
+      "normalization": "lf"
+    },
+    {
+      "path": "deploy/four_system/test_services.py",
+      "size": 8220,
+      "sha256": "58502f2d8ea52bea40ea6dfce3e5cee339e34b9127ade4a9761e25b1648b03da",
       "normalization": "lf"
     },
     {
