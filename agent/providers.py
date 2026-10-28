@@ -56,13 +56,29 @@ def trim_messages(messages, fits):
     return result
 
 
+def _initialize_hf_worker(cpu_threads, device_type):
+    if device_type == 'cpu':
+        import torch
+        torch.set_num_threads(cpu_threads)
+
+
 class HuggingFaceProvider:
     def __init__(self, settings):
+        from threading import RLock
+        from .kv_cache import ScopedKVCache
         self.settings = settings
         self.model = None
         self.tokenizer = None
+        self._load_lock = RLock()
+        self._generation_lock = RLock()
+        self._generation_worker = None
+        self._prefix_cache = ScopedKVCache(getattr(settings,'kv_cache_mb',0) * 1024 * 1024)
 
     def load(self):
+        with self._load_lock:
+            self._load()
+
+    def _load(self):
         if self.model is not None:
             return
         if self.settings.checkpoint_receipt:
@@ -92,74 +108,126 @@ class HuggingFaceProvider:
                 raise ValueError("ZENITH_ADAPTER was trained on a different HF_MODEL")
             model = PeftModel.from_pretrained(model, settings.adapter, local_files_only=settings.offline)
         model.eval()
+        self._prefix_cache.clear()
         self.tokenizer, self.model = tokenizer, model
 
-    def generate(self, messages):
-        self.last_usage=None
-        self.load()
-        import torch
-        tokenizer, model, settings = self.tokenizer, self.model, self.settings
-        def encode(items):
-            return tokenizer.apply_chat_template(items, tokenize=True, return_dict=False, add_generation_prompt=True)
-        max_position = getattr(model.config, "max_position_embeddings", 32768)
-        budget = min(settings.context_tokens, max_position - settings.max_new_tokens)
-        used = trim_messages(messages, lambda items: len(encode(items)) <= budget)
-        ids = torch.tensor([encode(used)], device=model.device)
-        options = {"do_sample": settings.temperature > 0}
-        if settings.temperature == 0:
-            options.update(temperature=None, top_p=None, top_k=None)
-        if settings.temperature > 0:
-            options.update(temperature=settings.temperature, top_p=0.9)
-        with torch.inference_mode():
-            output = model.generate(
-                input_ids=ids, attention_mask=torch.ones_like(ids),
-                max_new_tokens=settings.max_new_tokens,use_cache=True,
-                pad_token_id=tokenizer.pad_token_id or tokenizer.eos_token_id, **options)
-        self.last_usage=hf_usage(model,output,ids.shape[1],settings.max_new_tokens)
-        return tokenizer.decode(output[0, ids.shape[1]:], skip_special_tokens=True).strip(), used
+    def _worker(self):
+        # The initializer holds no reference to this provider. Dropping an idle
+        # provider can therefore release its executor and loaded model normally.
+        if self._generation_worker is None:
+            from concurrent.futures import ThreadPoolExecutor
+            self._generation_worker = ThreadPoolExecutor(max_workers=1,
+                thread_name_prefix='zenith-generation', initializer=_initialize_hf_worker,
+                initargs=(self.settings.cpu_threads, self.model.device.type))
+        return self._generation_worker
 
-    def stream(self, messages, cancel):
-        """Yield text while generation runs; cancellation joins the worker before reuse."""
-        self.last_usage=None
-        self.load()
-        import queue
-        from threading import Thread
+    def close(self):
+        with self._generation_lock:
+            worker,self._generation_worker = self._generation_worker,None
+            if worker is not None:
+                worker.shutdown(wait=True,cancel_futures=True)
+            self._prefix_cache.clear()
+
+    def _prepare(self, messages, settings):
         import torch
-        from transformers import TextIteratorStreamer, StoppingCriteria, StoppingCriteriaList
-        tokenizer,model,settings=self.tokenizer,self.model,self.settings
-        def encode(items):return tokenizer.apply_chat_template(items,tokenize=True, return_dict=False,add_generation_prompt=True)
-        maximum=getattr(model.config,'max_position_embeddings',32768)
-        used=trim_messages(messages,lambda items:len(encode(items))<=min(settings.context_tokens,maximum-settings.max_new_tokens))
-        ids=torch.tensor([encode(used)],device=model.device)
-        streamer=TextIteratorStreamer(tokenizer,skip_prompt=True,skip_special_tokens=True,timeout=0.5)
+        encoded = None
+        budget = min(settings.context_tokens,
+            getattr(self.model.config,'max_position_embeddings',32768)-settings.max_new_tokens)
+        def fits(items):
+            nonlocal encoded
+            encoded=self.tokenizer.apply_chat_template(items,tokenize=True,return_dict=False,add_generation_prompt=True)
+            return len(encoded)<=budget
+        used=trim_messages(messages,fits)
+        # fits() already encoded the final retained history; do not repeat it.
+        return torch.tensor([encoded],device=self.model.device),used
+
+    def _generate(self, ids, settings, cancel=None, streamer=None, scope=None):
+        import torch
+        from transformers import StoppingCriteria,StoppingCriteriaList,DynamicCache
         class CancelGeneration(StoppingCriteria):
-            def __call__(self,*args,**kwargs):return cancel.is_set()
+            def __call__(self,*args,**kwargs):return cancel is not None and cancel.is_set()
         options={'do_sample':settings.temperature>0}
         if settings.temperature>0:options.update(temperature=settings.temperature,top_p=0.9)
         else:options.update(temperature=None,top_p=None,top_k=None)
-        errors=[]
-        def work():
+        # Explicitly scoped full-attention Qwen2 only. Other models, shared
+        # native services and anonymous requests retain uncached generation.
+        supported=(self._prefix_cache.maximum_bytes>0 and self._prefix_cache.valid_scope(scope)
+            and getattr(self.model.config,'model_type',None)=='qwen2'
+            and not getattr(self.model.config,'use_sliding_window',False))
+        reused=0
+        with torch.inference_mode():
+            if cancel is not None and cancel.is_set():return None
+            extra={}
+            if supported:
+                past,reused=self._prefix_cache.take(scope,ids[0].tolist())
+                if past is not None:extra['past_key_values']=past
+                extra['return_dict_in_generate']=True
+            result=self.model.generate(input_ids=ids,attention_mask=torch.ones_like(ids),
+                max_new_tokens=settings.max_new_tokens,use_cache=True,
+                pad_token_id=self.tokenizer.pad_token_id or self.tokenizer.eos_token_id,
+                streamer=streamer,stopping_criteria=StoppingCriteriaList([CancelGeneration()]),**extra,**options)
+            output=result.sequences if supported else result
+            # Removed cache entries are never reinserted after cancellation or
+            # failure. The final generated token is not yet in the attention cache.
+            if supported and (cancel is None or not cancel.is_set()):
+                past=result.past_key_values
+                if isinstance(past,DynamicCache):
+                    length=past.get_seq_length()
+                    if type(length) is int and 0<length<=output.shape[1]:
+                        self._prefix_cache.put(scope,output[0,:length].tolist(),past)
+            self.last_usage=hf_usage(self.model,output,ids.shape[1],settings.max_new_tokens)
+            self.last_usage.update(reused_input_tokens=reused,computed_input_tokens=ids.shape[1]-reused)
+            return output
+
+    def generate(self, messages):
+        with self._generation_lock:
+            self.last_usage=None
+            self.load()
+            settings=self.settings
+            ids,used=self._prepare(messages,settings)
+            output=self._worker().submit(self._generate,ids,settings).result()
+            return self.tokenizer.decode(output[0,ids.shape[1]:],skip_special_tokens=True).strip(),used
+
+    def stream(self, messages, cancel):
+        return self._stream(messages,cancel,None)
+
+    def stream_scoped(self, messages, cancel, scope):
+        """Internal caller supplies the authenticated user and owned conversation."""
+        return self._stream(messages,cancel,scope)
+
+    def _stream(self, messages, cancel, scope):
+        import queue
+        from transformers import TextIteratorStreamer
+        with self._generation_lock:
+            self.last_usage=None
+            self.load()
+            settings=self.settings
+            ids,used=self._prepare(messages,settings)
+            streamer=TextIteratorStreamer(self.tokenizer,skip_prompt=True,skip_special_tokens=True,timeout=0.5)
+            errors=[]
+            def work():
+                try:self._generate(ids,settings,cancel,streamer,scope)
+                except Exception as exc:
+                    errors.append(exc);streamer.end()
+            worker=self._worker().submit(work)
+            finished=False
             try:
-                if model.device.type=='cpu':torch.set_num_threads(settings.cpu_threads)
-                with torch.inference_mode():
-                    output=model.generate(input_ids=ids,attention_mask=torch.ones_like(ids),max_new_tokens=settings.max_new_tokens,use_cache=True,
-                        pad_token_id=tokenizer.pad_token_id or tokenizer.eos_token_id,streamer=streamer,
-                        stopping_criteria=StoppingCriteriaList([CancelGeneration()]),**options)
-                    self.last_usage=hf_usage(model,output,ids.shape[1],settings.max_new_tokens)
-            except Exception as exc:
-                errors.append(exc);streamer.end()
-        worker=Thread(target=work,name='zenith-generation',daemon=False);worker.start()
-        try:
-            while not cancel.is_set():
-                try:chunk=next(streamer)
-                except queue.Empty:
-                    if not worker.is_alive():break
-                    continue
-                except StopIteration:break
-                if chunk:yield chunk,used
+                while not cancel.is_set():
+                    try:chunk=next(streamer)
+                    except queue.Empty:
+                        if worker.done():break
+                        continue
+                    except StopIteration:
+                        finished=True;break
+                    if chunk and not cancel.is_set():yield chunk,used
+            finally:
+                aborted=not finished or cancel.is_set()
+                if aborted:cancel.set()
+                try:worker.result()
+                finally:
+                    if aborted or cancel.is_set():self._prefix_cache.discard(scope)
+                    cancel.set()
             if errors:raise RuntimeError('Model streaming generation failed') from errors[0]
-        finally:
-            cancel.set();worker.join()
 
 
 class OllamaProvider:

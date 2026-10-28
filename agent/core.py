@@ -114,7 +114,11 @@ class Agent:
                     elif mode=='fast' and isinstance(self.provider,EnsembleProvider):
                         provider_stream=self.provider.stream_fast(messages,lease.cancel)
                     elif not isinstance(self.provider,EnsembleProvider) and callable(getattr(type(self.provider),'stream',None)):
-                        provider_stream=self.provider.stream(messages,lease.cancel)
+                        scoped=getattr(self.provider,'stream_scoped',None)
+                        if user_id and callable(scoped):
+                            provider_stream=scoped(messages,lease.cancel,(user_id,session_id))
+                        else:
+                            provider_stream=self.provider.stream(messages,lease.cancel)
                     else:
                         response,used=self.provider.generate(messages)
                         provider_stream=iter([(response,used)])
