@@ -57,6 +57,9 @@ def reported_usage(value):
     result.update(source=str(value.get('source','provider-reported'))[:40],
                   finish_reason=value.get('finish_reason') if value.get('finish_reason') in {'stop','length'} else None,
                   model_calls=value.get('model_calls',1))
+    reused,computed=value.get('reused_input_tokens'),value.get('computed_input_tokens')
+    if type(reused) is int and type(computed) is int and reused>=0 and computed>=0 and reused+computed==result['input_tokens']:
+        result.update(reused_input_tokens=reused,computed_input_tokens=computed)
     return result
 
 

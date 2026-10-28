@@ -148,6 +148,12 @@ Source APIs have access, pagination, and rate limits. A repository may require d
 
 The native-first [model registry and orchestrator](docs/platform-models.md) extend the existing providers with account-scoped discovery, explicit hybrid routing, collaborative drafts and model review. Ordinary installation and chat keep their existing configuration; external providers require separately configured credentials and explicit opt-in. No model weights or tokenizer are changed. See the [repository audit](docs/platform-audit/README.md) and [measured results](docs/platform-audit/results.md).
 
+Authenticated Hugging Face Qwen2 conversations can reuse private attention state.
+[Measured follow-up latency and configuration](docs/benchmarks/scoped-kv/README.md)
+document roughly 9–14× gains on repeated long-context arithmetic, with unchanged weights
+and exact paired answers. Fresh requests and other providers have separate limits;
+this is not an overall platform speed claim.
+
 ## Optional bounded reasoning
 
 Use `zenith reason "Explain this problem." --effort standard`, or explicitly choose Fast, Deep or Research effort. The [reasoning guide](docs/reasoning/README.md) describes candidate generation, separate review, exact arithmetic checks and owner-authorized restricted numeric code tests. All passes share a bounded budget; weights and existing installation settings are preserved. See [actual diagnostic results](docs/reasoning/native-diagnostics.json); the small native model does not reliably produce structured reviews, and no general quality or speed improvement is claimed.

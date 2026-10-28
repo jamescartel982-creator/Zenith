@@ -1,0 +1,64 @@
+name: Scoped inference performance
+on:
+  pull_request:
+    paths: ['agent/**', 'scripts/inference_speed_benchmark.py', 'scripts/inference_speed_acceptance.py', '.github/workflows/inference-performance.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  preserved-model:
+    name: Preserved checkpoint and private KV cache (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-15]
+    defaults:
+      run:
+        shell: bash
+    env:
+      ZENITH_HOME: ${{ github.workspace }}/.zenith-performance-profile
+      AI_PROVIDER: huggingface
+      HF_MODEL: Qwen/Qwen2.5-0.5B-Instruct
+      HF_REVISION: 7ae557604adf67be50417f59c2c2f167def9a775
+      ZENITH_DEVICE: cpu
+      ZENITH_CPU_THREADS: '2'
+      OMP_NUM_THREADS: '2'
+      CONTEXT_TOKENS: '2048'
+      MAX_NEW_TOKENS: '256'
+      ZENITH_KV_CACHE_MB: '64'
+      HF_HUB_DISABLE_XET: '1'
+      TOKENIZERS_PARALLELISM: 'false'
+      ZENITH_CHECKPOINT_RECEIPT: ''
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: '0.12.23'
+      - name: Independent frozen inference environment
+        run: uv sync --project integrations/inference_service --frozen --extra local --extra test
+      - name: Reconstruct a separate exact trained artifact
+        run: |
+          set -e
+          uv run --project integrations/inference_service --frozen --extra local --extra test python -m agent models download
+          uv run --project integrations/inference_service --frozen --extra local --extra test python -m scripts.materialize_research_checkpoint --bundle research_checkpoints/recovery-v1 --output .performance-checkpoint
+      - name: Compare actual unchanged inference and verify isolation and cancellation
+        env:
+          ZENITH_ADAPTER: ${{ github.workspace }}/.performance-checkpoint
+        run: |
+          set -e
+          uv run --project integrations/inference_service --frozen --extra local --extra test zenith-inference init --directory .performance-identity
+          uv run --project integrations/inference_service --frozen --extra local --extra test python -m scripts.inference_speed_benchmark --identity .performance-identity/identity.json --output inference-performance.json --samples 1 --variant ci-paired --scoped-cache --baseline-ref 7b6bbff7a559ce29c2e3a8b2cc641b926463c1ce
+          uv run --project integrations/inference_service --frozen --extra local --extra test python -m scripts.inference_speed_acceptance inference-performance.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: preserved-model-performance-${{ matrix.os }}
+          path: inference-performance.json
