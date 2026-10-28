@@ -66,7 +66,11 @@ python3 deploy/four_system/services.py install --plan /private/platform-plan.jso
 python3 deploy/four_system/services.py status
 ```
 
-`render` creates files without contacting systemd. `install` refuses to
+`render` creates files without contacting systemd. The installer uses the user
+manager configuration directory: `$XDG_CONFIG_HOME/systemd/user` when configured,
+otherwise `~/.config/systemd/user`. Use the same XDG setting as the host user
+manager. Every runtime is checked individually; one healthy process cannot
+mask another failed service. `install` refuses to
 overwrite existing units. With `--start`, it reloads the user manager, enables
 the group at boot and requests startup, then checks all six processes are
 active. It explicitly reports `readiness_verified: false`; verify authenticated

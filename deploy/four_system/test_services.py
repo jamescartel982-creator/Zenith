@@ -18,6 +18,8 @@ spec.loader.exec_module(services)
 
 class ServiceTests(unittest.TestCase):
     def setUp(self):
+        environment = patch.dict(os.environ, {'XDG_CONFIG_HOME':''})
+        environment.start();self.addCleanup(environment.stop)
         self.temporary = tempfile.TemporaryDirectory(prefix='zenith-services-')
         self.addCleanup(self.temporary.cleanup)
         self.root = Path(self.temporary.name)
@@ -121,18 +123,45 @@ class ServiceTests(unittest.TestCase):
 
     def test_install_activation_checks_each_process_without_claiming_readiness(self):
         plan = self.root / 'plan.json';plan.write_text(json.dumps(self.plan))
-        with patch.object(services.Path, 'home', return_value=self.root), patch.object(services.subprocess, 'run') as run:
+        active = subprocess.CompletedProcess([],0,'active\n','')
+        with patch.object(services.Path, 'home', return_value=self.root), patch.object(services.subprocess, 'run',return_value=active) as run:
             self.assertEqual(services.main(['install','--plan',str(plan),'--start']),0)
-            self.assertEqual(run.call_count,3)
+            self.assertEqual(run.call_count,8)
             self.assertEqual(run.call_args_list[0].args[0],['systemctl','--user','daemon-reload'])
             self.assertEqual(run.call_args_list[1].args[0],['systemctl','--user','enable','--now',services.TARGET])
-            self.assertEqual(set(run.call_args_list[2].args[0][4:]),{'zenith-'+role+'.service' for role in services.ROLES})
+            self.assertEqual({call.args[0][3] for call in run.call_args_list[2:]},{'zenith-'+role+'.service' for role in services.ROLES})
+            self.assertTrue(all(len(call.args[0])==4 for call in run.call_args_list[2:]))
 
     def test_startup_liveness_failure_is_reported_as_failure(self):
         plan = self.root / 'plan.json';plan.write_text(json.dumps(self.plan))
-        failure = subprocess.CalledProcessError(3,['systemctl','--user','is-active'])
-        with patch.object(services.Path, 'home', return_value=self.root), patch.object(services.subprocess, 'run', side_effect=[None,None,failure]):
+        active = subprocess.CompletedProcess([],0,'active\n','')
+        failed = subprocess.CompletedProcess([],3,'failed\n','')
+        with patch.object(services.Path, 'home', return_value=self.root), patch.object(services.subprocess, 'run', side_effect=[None,None,active,failed,active,active,active,active]):
             self.assertEqual(services.main(['install','--plan',str(plan),'--start']),1)
+
+    def test_one_active_process_cannot_hide_failed_runtime_processes(self):
+        active = subprocess.CompletedProcess([],0,'active\n','')
+        inactive = subprocess.CompletedProcess([],3,'inactive\n','')
+        with patch.object(services.subprocess,'run',side_effect=[active]+[inactive]*5) as run:
+            self.assertEqual(services.main(['status']),1)
+            self.assertEqual(run.call_count,6)
+
+    def test_custom_xdg_directory_is_used_by_installer_and_native_load_path(self):
+        custom = self.root/'custom-config'
+        plan = self.root/'plan.json';plan.write_text(json.dumps(self.plan))
+        with patch.dict(os.environ,{'XDG_CONFIG_HOME':str(custom)}):
+            expected = custom/'systemd/user'
+            self.assertEqual(services.user_unit_directory(),expected)
+            with patch.object(services.subprocess,'run') as run:
+                self.assertEqual(services.main(['install','--plan',str(plan),'--directory',str(expected)]),0)
+                self.assertTrue((expected/services.TARGET).is_file())
+                run.assert_called_once_with(['systemctl','--user','daemon-reload'],check=True,timeout=30)
+            if shutil.which('systemd-analyze'):
+                result=subprocess.run(['systemd-analyze','--user','unit-paths'],capture_output=True,text=True,timeout=10)
+                self.assertEqual(result.returncode,0,result.stderr)
+                self.assertIn(str(expected),result.stdout.splitlines())
+        with patch.dict(os.environ,{'XDG_CONFIG_HOME':'relative/path'}),self.assertRaises(ValueError):
+            services.user_unit_directory()
 
     @unittest.skipUnless(shutil.which('systemd-analyze'), 'Requires native Linux systemd parser')
     def test_native_systemd_parser_accepts_all_generated_units(self):

@@ -12,6 +12,31 @@ ROLES = frozenset({'accounts', 'inference', 'bridge', 'hermes', 'openclaw', 'tra
 TARGET = 'zenith-platform.target'
 
 
+def user_unit_directory():
+    configured = os.environ.get('XDG_CONFIG_HOME', '')
+    root = Path(configured) if configured else Path.home() / '.config'
+    if not root.is_absolute():
+        raise ValueError('XDG_CONFIG_HOME must be absolute')
+    return root / 'systemd/user'
+
+
+def liveness():
+    states = {}
+    for role in sorted(ROLES):
+        try:
+            result = subprocess.run(['systemctl', '--user', 'is-active', 'zenith-' + role + '.service'],
+                capture_output=True, text=True, timeout=3)
+            state = result.stdout.strip()
+            states[role] = state if state in {'active', 'inactive', 'failed', 'activating', 'deactivating', 'reloading'} else 'unavailable'
+            if result.returncode != 0 and states[role] == 'active':
+                states[role] = 'unavailable'
+        except (OSError, subprocess.SubprocessError):
+            states[role] = 'unavailable'
+    healthy = all(state == 'active' for state in states.values())
+    print(json.dumps({'processes': states, 'all_active': healthy, 'readiness_verified': False}))
+    return 0 if healthy else 1
+
+
 def quote(value, environment_expansion=False):
     if not isinstance(value, str) or not value or any(ord(c) < 32 or ord(c) == 127 for c in value):
         raise ValueError('Service values must be nonempty single-line strings')
@@ -168,21 +193,20 @@ def main(argv=None):
         if args.action == 'status':
             if args.start or args.plan or args.directory:
                 raise ValueError('Status accepts no installation arguments')
-            names = ['zenith-' + role + '.service' for role in sorted(ROLES)]
-            return subprocess.run(['systemctl', '--user', 'is-active', *names], timeout=15).returncode
+            return liveness()
         if not args.plan or (args.action == 'render' and (not args.directory or args.start)):
             raise ValueError('Supply a plan, and an output directory for render')
         plan = json.loads(args.plan.read_text())
-        directory = args.directory or Path.home() / '.config/systemd/user'
-        if args.action == 'install' and directory.resolve() != (Path.home() / '.config/systemd/user').resolve():
+        directory = args.directory or user_unit_directory()
+        if args.action == 'install' and directory.resolve() != user_unit_directory().resolve():
             raise ValueError('Install uses the actual user unit directory; use render for previews')
         names = write_units(plan, directory)
         if args.action == 'install':
             subprocess.run(['systemctl', '--user', 'daemon-reload'], check=True, timeout=30)
             if args.start:
                 subprocess.run(['systemctl', '--user', 'enable', '--now', TARGET], check=True, timeout=180)
-                subprocess.run(['systemctl', '--user', 'is-active', '--quiet',
-                    *['zenith-' + role + '.service' for role in sorted(ROLES)]], check=True, timeout=15)
+                if liveness() != 0:
+                    raise ValueError('Not every runtime process is active')
         print(json.dumps({'units': names, 'start_requested': bool(args.start), 'readiness_verified': False, 'model_files_modified': False}))
         return 0
     except (ValueError, OSError, subprocess.SubprocessError):
