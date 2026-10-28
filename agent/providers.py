@@ -64,13 +64,15 @@ def _initialize_hf_worker(cpu_threads, device_type):
 
 class HuggingFaceProvider:
     def __init__(self, settings):
-        from threading import RLock
+        from threading import Lock, RLock
         from .kv_cache import ScopedKVCache
         self.settings = settings
         self.model = None
         self.tokenizer = None
         self._load_lock = RLock()
-        self._generation_lock = RLock()
+        # HTTP streaming may advance/close the generator on different worker
+        # threads. Unlike RLock, Lock permits its owner to transfer on a yield.
+        self._generation_lock = Lock()
         self._generation_worker = None
         self._prefix_cache = ScopedKVCache(getattr(settings,'kv_cache_mb',0) * 1024 * 1024)
 
@@ -225,7 +227,7 @@ class HuggingFaceProvider:
                 if aborted:cancel.set()
                 try:worker.result()
                 finally:
-                    if aborted or cancel.is_set():self._prefix_cache.discard(scope)
+                    if aborted or cancel.is_set() or errors:self._prefix_cache.discard(scope)
                     cancel.set()
             if errors:raise RuntimeError('Model streaming generation failed') from errors[0]
 

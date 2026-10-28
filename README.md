@@ -150,7 +150,7 @@ The native-first [model registry and orchestrator](docs/platform-models.md) exte
 
 Authenticated Hugging Face Qwen2 conversations can reuse private attention state.
 [Measured follow-up latency and configuration](docs/benchmarks/scoped-kv/README.md)
-document an 11–14× gain on repeated long-context arithmetic, with unchanged weights
+document roughly 9–14× gains on repeated long-context arithmetic, with unchanged weights
 and exact paired answers. Fresh requests and other providers have separate limits;
 this is not an overall platform speed claim.
 

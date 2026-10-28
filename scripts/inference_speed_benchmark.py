@@ -44,6 +44,13 @@ def baseline_provider(reference, settings, model, tokenizer):
     return provider,hashlib.sha256(source.encode()).hexdigest()
 
 
+def validate_selection(settings, record):
+    if (settings.provider!='huggingface' or settings.model!=record['model']
+            or settings.revision!=record['revision'] or not settings.adapter
+            or Path(settings.adapter).resolve()!=Path(record['adapter']).resolve()):
+        raise ValueError('Select the exact existing trained model, revision and adapter from the supplied identity')
+
+
 def run(identity, output, samples=3, scoped_cache=False, variant='measurement', baseline_ref=None):
     from agent.config import Settings
     from agent.paths import config_file
@@ -58,8 +65,13 @@ def run(identity, output, samples=3, scoped_cache=False, variant='measurement', 
     if output.is_relative_to(Path(record['base_directory']).resolve()):raise ValueError('Keep benchmark output outside the preserved base snapshot')
     source_files=['agent/providers.py','agent/kv_cache.py','agent/config.py','agent/core.py','agent/efficiency.py','scripts/inference_speed_benchmark.py']
     source_hashes={name:hashlib.sha256(Path(name).read_bytes()).hexdigest() for name in source_files if Path(name).is_file()}
-    if original.provider!='huggingface' or not original.adapter or Path(original.adapter).resolve()!=Path(record['adapter']).resolve():
-        raise ValueError('Select the same existing trained model as the supplied identity')
+    validate_selection(original,record)
+    from huggingface_hub import snapshot_download
+    from agent.models import WEIGHT_PATTERNS
+    selected_snapshot=Path(snapshot_download(original.model,revision=original.revision,
+        local_files_only=True,allow_patterns=WEIGHT_PATTERNS)).resolve()
+    if selected_snapshot!=Path(record['base_directory']).resolve():
+        raise ValueError('The selected cached snapshot differs from the verified checkpoint')
     config=config_file()
     profile_hash=hashlib.sha256(config.read_bytes()).hexdigest() if config.exists() else None
     settings=replace(original,offline=True,device='cpu',temperature=0,max_new_tokens=16)
@@ -68,6 +80,10 @@ def run(identity, output, samples=3, scoped_cache=False, variant='measurement', 
         raise ValueError('This revision does not support explicitly scoped KV reuse')
     fixture=fixtures();records=[]
     started=time.perf_counter();provider.load();load_seconds=time.perf_counter()-started
+    from agent.checkpoints import tokenizer_signature
+    if tokenizer_signature(provider.tokenizer)!=record['tokenizer_sha256']:
+        provider.close()
+        raise ValueError('The loaded tokenizer differs from the verified identity')
     parameters_before=parameter_hash(provider.model)
     engines={'candidate':provider};baseline_source=None
     if baseline_ref:
@@ -133,7 +149,7 @@ def run(identity, output, samples=3, scoped_cache=False, variant='measurement', 
             measure(blue,changed_scope,'context-primer',0,'candidate')
             red=[{'role':'system','content':fixture['system']},{'role':'user','content':'Project color is red. Reply with only the word red.'}]
             changed=measure(red,changed_scope,'changed-context',0,'candidate')
-            fresh=measure(red,changed_scope,'uncached-context',0,'baseline' if baseline_ref else 'candidate')
+            fresh=measure(red,None,'uncached-context',0,'baseline' if baseline_ref else 'candidate')
             isolation['changed_context_parity']=changed['response']==fresh['response']
             if not isolation['changed_context_parity']:raise RuntimeError('Changed context reused stale attention state')
             if changed_scope not in provider._prefix_cache.entries:raise RuntimeError('Cancellation probe has no active cache entry')

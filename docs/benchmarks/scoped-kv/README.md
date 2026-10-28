@@ -17,19 +17,21 @@ general intelligence or four-runtime end-to-end benchmark.
 
 | Case | Baseline median | Candidate median | Baseline / candidate |
 | --- | ---: | ---: | ---: |
-| Fresh short arithmetic | 2.250 s | 1.906 s | 1.18× |
-| Fresh project context | 11.499 s | 10.987 s | 1.05× |
-| Follow-up on that context | 16.470 s | 1.200 s | **13.73×** |
+| Fresh short arithmetic | 1.653 s | 1.757 s | 0.94× |
+| Fresh project context | 9.350 s | 8.528 s | 1.10× |
+| Follow-up on that context | 9.418 s | 0.786 s | **11.98×** |
 
 Full timings, first visible text, output-token throughput, source/configuration
 identities and actual forward-work counters are in [paired-final.json](paired-final.json).
-The earlier independent [paired-first.json](paired-first.json) measured 13.027 s
-versus 1.171 s (**11.13×**) on the follow-up, with fresh-context timing about 7%
-slower and fresh short requests essentially unchanged. Host noise and the small
-sample make fresh-request speedup claims unreliable. Neither run demonstrates a
+Earlier [paired-first.json](paired-first.json), [paired-pre-review.json](paired-pre-review.json)
+and [paired-review.json](paired-review.json) preserve all successful local paired
+trials, including the builds before review fixes. Follow-up gains ranged from
+8.97× to 13.73×. Fresh-context differences ranged from about 16% slower to 10%
+faster; short requests also varied in both directions. Host noise and the small
+sample make fresh-request speedup claims unreliable. These runs do not demonstrate a
 5,000× overall improvement, faster decode throughput, or a GPU speedup.
 
-In both runs all nine paired responses matched exactly (`4`, `READY`, `56`).
+In every run all nine paired responses matched exactly (`4`, `READY`, `56`).
 Each continuation kept 1,218 logical input tokens but reused 1,193 token positions;
 only 25 prompt positions needed computation. Including decode, a forward hook
 counted **27 versus 1,220** processed positions, with one real generation per reply.
@@ -51,6 +53,10 @@ stream completion cancelled the worker before cache admission. The fix joins
 successful work before signalling completion. Deterministic tests exercise normal
 completion, early stream closure, cancellation while joining, and errors after
 text ends. Failed exploratory timings are not counted as successful improvements.
+Review also identified a thread-owned streaming lock that could fail when HTTP
+worker threads changed. A transferable lock and cross-thread resume/close tests
+fix that lifecycle. The benchmark now binds the selected model, revision, cached
+snapshot and loaded tokenizer to the verified identity before measuring.
 
 ## Scope, memory and rollback
 
@@ -67,7 +73,7 @@ The default **64 MiB per-provider** cache retains at most eight conversations fo
 there is no background cleanup timer. Physical tensor backing storage, including
 storage retained after cropping, is charged to the budget. One generation runs
 at a time; state is removed before mutation and admitted again only on success.
-State exists only in process RAM and is cleared on close/restart. It is separate
+State exists only in process/device memory and is cleared on close/restart. It is separate
 from persistent account memory and never written to disk.
 
 Set `ZENITH_KV_CACHE_MB=0` to disable attention reuse (accepted range 0–512).
@@ -107,7 +113,7 @@ Windows and macOS ARM64. It gates correctness, preservation, work reduction,
 isolation and cancellation. Virtualized latency is reported without an arbitrary
 universal speed threshold. No GPU, remote service or paid API is required.
 
-Local validation: 360 root tests passed (one platform-specific skip), including
-14 focused cache/worker/scope regressions; 13 inference-service and 33 bridge
+Local validation: 363 root tests passed (one platform-specific skip), including
+17 focused cache/worker/scope/identity regressions; 13 inference-service and 33 bridge
 tests passed. These deterministic service tests supplement the real preserved
 model measurements above; they do not establish four-runtime performance gains.

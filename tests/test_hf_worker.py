@@ -46,6 +46,33 @@ class HFWorkerTests(unittest.TestCase):
         for _ in range(3):self.assertEqual(list(self.provider.stream([],Event())),[('OK',[])])
         self.assertEqual(len(set(identifiers)),1)
 
+    def test_http_stream_can_resume_and_finish_on_a_different_worker_thread(self):
+        def generate(ids,settings,cancel,streamer,scope):
+            streamer.put_text('first');streamer.put_text('second');streamer.end()
+        self.provider._generate=generate
+        stream=self.provider.stream([],Event())
+        self.assertEqual(next(stream),('first',[]))
+        with ThreadPoolExecutor(max_workers=1) as consumer:
+            self.assertEqual(consumer.submit(lambda:list(stream)).result(timeout=5),[('second',[])])
+        # The lock must be released for the next request, not stranded on the
+        # thread that first advanced the previous stream.
+        self.assertEqual(list(self.provider.stream([],Event())),[('first',[]),('second',[])])
+
+    def test_http_disconnect_can_close_the_stream_on_a_different_worker_thread(self):
+        cancel=Event()
+        def generate(ids,settings,cancel,streamer,scope):
+            streamer.put_text('partial')
+            if not cancel.wait(5):raise RuntimeError('Missing disconnect cancellation')
+            streamer.end()
+        self.provider._generate=generate
+        stream=self.provider.stream([],cancel)
+        self.assertEqual(next(stream),('partial',[]))
+        with ThreadPoolExecutor(max_workers=1) as consumer:
+            consumer.submit(stream.close).result(timeout=5)
+        self.assertTrue(cancel.is_set())
+        self.assertTrue(self.provider._generation_lock.acquire(blocking=False))
+        self.provider._generation_lock.release()
+
     def test_end_of_text_does_not_cancel_post_generation_cache_admission(self):
         release=Event();joining=Event();admitted=[];errors=[];cancel=Event()
         executor=ThreadPoolExecutor(max_workers=1)
@@ -115,8 +142,10 @@ class HFWorkerTests(unittest.TestCase):
         def generate(ids,settings,cancel,streamer,scope):
             streamer.end();raise RuntimeError('post-generation failure')
         self.provider._generate=generate
-        with self.assertRaisesRegex(RuntimeError,'streaming generation failed'):
-            list(self.provider.stream([],Event()))
+        with patch.object(self.provider._prefix_cache,'discard') as discard:
+            with self.assertRaisesRegex(RuntimeError,'streaming generation failed'):
+                list(self.provider.stream_scoped([],Event(),('alice','failed')))
+            discard.assert_called_once_with(('alice','failed'))
 
 
 if __name__=='__main__':unittest.main()

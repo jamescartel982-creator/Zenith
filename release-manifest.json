@@ -142,8 +142,8 @@
     },
     {
       "path": "README.md",
-      "size": 14951,
-      "sha256": "5e31800775c5f4468f6ecf2e0a96d2c0cd62039be8f4ba6ec10fe0b350ffcb03",
+      "size": 14956,
+      "sha256": "c292a4c95e084f78e8966d1b39ab092c7ac84b6fd5d9b59f8041e0f37d8c86eb",
       "normalization": "lf"
     },
     {
@@ -550,8 +550,8 @@
     },
     {
       "path": "agent/providers.py",
-      "size": 21220,
-      "sha256": "ebc0f8ac741792e8e1d605d14fd18b499b802b86615db9643ea24e25b744305a",
+      "size": 21392,
+      "sha256": "6766e89a30fa8414975b4b5c01dae921910767f2eefb1d01c9f8625abd5fa9dc",
       "normalization": "lf"
     },
     {
@@ -1414,20 +1414,32 @@
     },
     {
       "path": "docs/benchmarks/scoped-kv/README.md",
-      "size": 7037,
-      "sha256": "728211a4cd50de44090819ec1baa070e131254f25b2a2194ed2d10b300cb0165",
+      "size": 7546,
+      "sha256": "a68f4a3496af4c4ebc3699866e27f7ffd666672a6ae7ca5a0608492d13e0191a",
       "normalization": "lf"
     },
     {
       "path": "docs/benchmarks/scoped-kv/paired-final.json",
-      "size": 13606,
-      "sha256": "a62ef93b9589a15272b199bca5d7d1317699769f5963ea0eec80fb2f1add7749",
+      "size": 13575,
+      "sha256": "718d6a024109e797e33d59e776b15f6afb03e99a93081b2b9eccd6e2ef48c3f2",
       "normalization": "lf"
     },
     {
       "path": "docs/benchmarks/scoped-kv/paired-first.json",
       "size": 13240,
       "sha256": "95740801a6cbb8ea0c26edbfb387245019d72e1aa567ec2e04a59febea68e8af",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/scoped-kv/paired-pre-review.json",
+      "size": 13606,
+      "sha256": "a62ef93b9589a15272b199bca5d7d1317699769f5963ea0eec80fb2f1add7749",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/scoped-kv/paired-review.json",
+      "size": 13584,
+      "sha256": "6e50d7f06471c8316de10271eefd8695589a7ad1e49dc96ff57322168341c6cb",
       "normalization": "lf"
     },
     {
@@ -3580,8 +3592,8 @@
     },
     {
       "path": "scripts/inference_speed_benchmark.py",
-      "size": 13833,
-      "sha256": "528318b185b9f81dfcae976909b65ec34e658a8014ef13bc6746d66d77def282",
+      "size": 14692,
+      "sha256": "c4ae8294de51fd186ff6e355fbe9c1308219eb12df7962f22050fba59e98994a",
       "normalization": "lf"
     },
     {
@@ -3802,14 +3814,20 @@
     },
     {
       "path": "tests/test_hf_worker.py",
-      "size": 5757,
-      "sha256": "1c7b28ea18e83062f9e5137997d7348c42f286c5761ca15d273d69c9c1faaec5",
+      "size": 7444,
+      "sha256": "ab85f1d4262253d4fb29f271e696c6a4f0bd864ceda908f9956c4229e6f31338",
       "normalization": "lf"
     },
     {
       "path": "tests/test_http_security.py",
       "size": 9407,
       "sha256": "67a84335f3781d0be114b3a56df909227424962717b76326031a8fd19b6779b5",
+      "normalization": "lf"
+    },
+    {
+      "path": "tests/test_inference_benchmark_identity.py",
+      "size": 1044,
+      "sha256": "d071869d527093728b0d718c61ada0fd1456e68ba4e0980e46ab4d9fef4b98b0",
       "normalization": "lf"
     },
     {
