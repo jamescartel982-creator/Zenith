@@ -1,6 +1,6 @@
 import { definePluginEntry } from "openclaw/plugin-sdk/plugin-entry";
 import { buildProviderReplayFamilyHooks } from "openclaw/plugin-sdk/provider-model-shared";
-import { buildReplayPolicy } from "./policy.mjs";
+import { buildReplayPolicy, wrapStreamFn } from "./policy.mjs";
 
 const replay = buildProviderReplayFamilyHooks({ family: "openai-compatible" });
 
@@ -15,6 +15,7 @@ export default definePluginEntry({
       label: "Zenith",
       auth: [],
       buildReplayPolicy: (context) => buildReplayPolicy(context, replay.buildReplayPolicy),
+      wrapStreamFn,
     });
   },
 });

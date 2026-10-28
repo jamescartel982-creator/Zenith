@@ -1582,8 +1582,8 @@
     },
     {
       "path": "docs/four-system/IMPLEMENTATION_STATUS.md",
-      "size": 11663,
-      "sha256": "e31b99ee74693b2dc9ef903363f5c23c7ff7a6beb09987e798043a5eacad9aca",
+      "size": 12362,
+      "sha256": "2f6e620367bc3de0827f5a7a9fd37ee2a1c8c236476d124c98d0fd510a9b1654",
       "normalization": "lf"
     },
     {
@@ -2818,14 +2818,14 @@
     },
     {
       "path": "integrations/openclaw_provider/README.md",
-      "size": 2341,
-      "sha256": "f407661f2cd66960cb539c1a2040dfe2253a4ba6d87f4d232c02721bd67f7a2e",
+      "size": 2935,
+      "sha256": "8f6a5ba7cf3f0d6e338ac3d7f4e7471c2a286e04f127d90cd86ca42387671c72",
       "normalization": "lf"
     },
     {
       "path": "integrations/openclaw_provider/index.ts",
-      "size": 782,
-      "sha256": "642836913a733b0f92749a2011d65b3a5aa96346244f2262cec0b2f87150ecc4",
+      "size": 816,
+      "sha256": "a171680d62cb8c6cc44cf63495c9e3d2811ad9fbe553dfd604fd54281144921a",
       "normalization": "lf"
     },
     {
@@ -2842,14 +2842,14 @@
     },
     {
       "path": "integrations/openclaw_provider/policy.mjs",
-      "size": 985,
-      "sha256": "24a5c18f2e87ea4744e787441af472d66e113785c6bb607ccf55e0c40227af2c",
+      "size": 2170,
+      "sha256": "f82d70e40d4269e801bde83a5ea11177728429d58f1ec6f8958ff78def578cf6",
       "normalization": "lf"
     },
     {
       "path": "integrations/openclaw_provider/test-policy.mjs",
-      "size": 1229,
-      "sha256": "a087630567e5d5ff2b7e6aa53be133c4feeb1095cb4fddaaee25e74848f8280c",
+      "size": 3374,
+      "sha256": "cfd707f3b8c2c6cabe3efc19451ba086d6e1c3b0cac177231c7c91818b481e6e",
       "normalization": "lf"
     },
     {
@@ -2944,8 +2944,8 @@
     },
     {
       "path": "integrations/runtime_bridge/src/zenith_integrations/openclaw/adapter.py",
-      "size": 4202,
-      "sha256": "527696711dc40e05edf6e7cd82b18598a7da37a1cdd7d89e7e6ce633058890d9",
+      "size": 4270,
+      "sha256": "9b4a5186e3536772fe3760050536109219c4b71440b70066886987351ff0b196",
       "normalization": "lf"
     },
     {
@@ -3064,8 +3064,8 @@
     },
     {
       "path": "integrations/runtime_bridge/tests/integration/native_openclaw.py",
-      "size": 17501,
-      "sha256": "95439c83f5fa3185fff3c8e8cedb67d6a0fda107c2d261ac309c5fad8a32d84d",
+      "size": 17969,
+      "sha256": "56bc9fea89788de61788f1c065e6e12d96d839bbef9aa204c94531d6d4894f28",
       "normalization": "lf"
     },
     {
@@ -3100,8 +3100,8 @@
     },
     {
       "path": "integrations/runtime_bridge/tests/test_openclaw_profile.py",
-      "size": 1653,
-      "sha256": "f5d8ece31e1b5d09a9a97767b461c2b0ac707f97ace133eb96686d3f265dc3c6",
+      "size": 1794,
+      "sha256": "5a7ce6e2b0976ad41bfadc9b803bde0abe31da9078374b7bb4676a96f5bc2919",
       "normalization": "lf"
     },
     {

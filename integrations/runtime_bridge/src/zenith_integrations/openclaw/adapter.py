@@ -18,7 +18,7 @@ def message_text(message):
 def quality_flags(message):
     content=message_text(message)
     if not isinstance(content,str) or not content.strip():return ['native_answer_not_verified']
-    if content.strip().lower() in {'none in the latest retained-input page','unavailable; retained input could not be inspected'}:
+    if content.strip().lower() in {'none in the latest retained-input page','unavailable; retained input could not be inspected'} or content.strip().startswith('## Temporal Context\nCurrent date:'):
         return ['native_context_echo']
     return []
 

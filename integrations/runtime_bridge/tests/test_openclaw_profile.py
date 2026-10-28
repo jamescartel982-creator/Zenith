@@ -23,6 +23,7 @@ class ProfileTests(unittest.TestCase):
     def test_text_extraction_never_marks_arbitrary_answers_verified(self):
         self.assertEqual(message_text({'content':[{'type':'text','text':'4'}]}),'4')
         self.assertEqual(quality_flags({'content':'none in the latest retained-input page'}),['native_context_echo'])
+        self.assertEqual(quality_flags({'content':'## Temporal Context\nCurrent date: 2026-10-28\nTime zone: UTC'}),['native_context_echo'])
         self.assertEqual(quality_flags({'content':[{'type':'text','text':42}]}),['native_answer_not_verified'])
 
 

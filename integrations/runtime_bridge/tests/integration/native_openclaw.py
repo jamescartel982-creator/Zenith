@@ -108,7 +108,7 @@ def run(args):
             def complete(self,*args,**kwargs):
                 value=super().complete(*args,**kwargs)
                 present=any('What is 2 plus 2?' in (m.content or '') for m in args[0].messages)
-                metrics.append({'prompt_tokens':value.prompt_tokens,'completion_tokens':value.completion_tokens,'current_question_in_request':present, 'empty_interrupted_snapshot':any('none in the latest retained-input page' in (m.content or '') for m in args[0].messages)})
+                metrics.append({'prompt_tokens':value.prompt_tokens,'completion_tokens':value.completion_tokens,'current_question_in_request':present, 'current_question_is_last_message':args[0].messages[-1].role=='user' and 'What is 2 plus 2?' in (args[0].messages[-1].content or ''), 'empty_interrupted_snapshot':any('none in the latest retained-input page' in (m.content or '') for m in args[0].messages)})
                 return value
         backend=MeasuredBackend(root/'identity.json',Limits(8192,256,120));backend.load();identity=backend.identity_hash
         key=secrets.token_urlsafe(48);write_private_new(root/'model.key',key)
@@ -156,7 +156,9 @@ def run(args):
                             from zenith_integrations.openclaw.adapter import quality_flags, message_text
                             report['quality_flags']=quality_flags(result.get('message'))
                             report['arithmetic_correct']=message_text(result.get('message'))=='4'
-                            report['answer_quality_verified']=report['arithmetic_correct']
+                            report['answer_quality_verified']=False
+                            report['measured_model_calls']=metrics
+                            check(all(item['current_question_is_last_message'] for item in metrics),'Native runtime context still follows the active user request')
                             check(report['arithmetic_correct'] and not report['quality_flags'],'OpenClaw did not answer the frozen arithmetic case correctly')
                             check(not any(item['empty_interrupted_snapshot'] for item in metrics),'Empty interrupted snapshots still reach the model')
                             check(result['state']=='final' and len(metrics)>0,'No actual Zenith inference was measured')
@@ -179,6 +181,7 @@ def run(args):
                                 correct=actual==expected and not native['quality_flags']
                                 report['frozen_quality_cases'].append({'case':case,'correct':correct,'answer':actual})
                                 check(correct,'OpenClaw frozen instruction or arithmetic regression: '+case)
+                            report['answer_quality_verified']=all(case['correct'] for case in report['frozen_quality_cases'])
                             account.post('/api/account/logout').raise_for_status()
                             report['logout_revokes_bridge']=bridge.get('/healthz').status_code==401
                             check(report['logout_revokes_bridge'],'Original logout did not revoke bridge access')

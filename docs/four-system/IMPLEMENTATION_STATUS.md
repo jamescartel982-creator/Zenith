@@ -152,3 +152,14 @@ No upstream source, model weights, adapters, live-order routes or credentials
 were changed. Live brokerage and permanent hosting remain blocked on operator
 broker/risk details and hosting access respectively; review approval alone does
 not provide either connection.
+
+
+Native trial 40606994974 failed its new arithmetic gate: the empty interrupted
+snapshot was no longer the answer, but the model echoed the temporal context.
+The fix is not considered verified or mergeable from that run. The plugin now
+also uses the public native stream-wrapper hook to move only producer-tagged
+trailing runtime carriers before the active user, retaining all content/roles,
+tool compatibility and cancellation. No textual provenance is trusted. Five
+Node policy regressions pass. Native acceptance records and checks that the
+actual current question is the last model message; all three frozen cases
+must pass before answer_quality_verified can become true. Fresh CI is required.

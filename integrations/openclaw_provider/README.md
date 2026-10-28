@@ -1,7 +1,7 @@
 # Zenith local provider compatibility
 
 This optional OpenClaw provider plugin uses the public `registerProvider` and
-`buildReplayPolicy` SDK interfaces at upstream commit
+`buildReplayPolicy` / `wrapStreamFn` SDK interfaces at upstream commit
 `2f5727b9c61c2ba9dccc3c880d9115f02cb8652f`. It does not patch OpenClaw,
 change Zenith weights, switch models, execute tools, or rewrite user input.
 
@@ -13,7 +13,11 @@ This provider keeps the SDK's normal replay sanitation, but selects
 `appendOnlyRuntimeContext: false` for the explicitly configured local Zenith
 endpoint. OpenClaw then uses its native current-turn context projection rather
 than retaining empty snapshots after the user request. Nonempty current runtime
-facts remain handled by native OpenClaw code.
+facts remain handled by native OpenClaw code. A native stream wrapper moves only
+producer-tagged trailing runtime carriers before the active user request. It
+preserves every message, text, role, option and cancellation signal; it never
+infers provenance from text markers, crosses tool/operator turns, or rewrites
+the native transcript. The wrapper leaves tool-enabled contexts unchanged.
 
 Load this directory through an operator-owned OpenClaw configuration:
 
@@ -38,6 +42,9 @@ Run policy tests with `node --test integrations/openclaw_provider/test-policy.mj
 The pinned-native CI job also exercises real Gateway/model inference and frozen
 addition, multiplication and exact-instruction cases. A green unit test alone
 does not establish answer quality; consult the native acceptance artifact.
+The initial native trial removed the empty interrupted-input echo but failed
+arithmetic by echoing temporal context instead. This failure is retained in CI
+run 40606994974; the additional stream projection must pass fresh acceptance.
 Broad reasoning, trading accuracy and full upstream feature parity remain
 unverified. Known context-echo detection remains active.
 
