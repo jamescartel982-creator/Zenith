@@ -3064,8 +3064,8 @@
     },
     {
       "path": "integrations/runtime_bridge/tests/integration/native_openclaw.py",
-      "size": 17969,
-      "sha256": "56bc9fea89788de61788f1c065e6e12d96d839bbef9aa204c94531d6d4894f28",
+      "size": 18687,
+      "sha256": "e7097211ff65c73b2ede2783aa2ae3a02e6c18a69f5294031eeaac8901c72daa",
       "normalization": "lf"
     },
     {
@@ -3100,8 +3100,8 @@
     },
     {
       "path": "integrations/runtime_bridge/tests/test_openclaw_profile.py",
-      "size": 1794,
-      "sha256": "5a7ce6e2b0976ad41bfadc9b803bde0abe31da9078374b7bb4676a96f5bc2919",
+      "size": 2928,
+      "sha256": "5d3d509820b7f650947e6e92238900a5327c03561f3dc0d4dc6d259cd881f892",
       "normalization": "lf"
     },
     {
