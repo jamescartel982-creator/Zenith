@@ -7,21 +7,25 @@ license: apache-2.0
 
 # Zenith
 
-A local AI workspace for conversations, coding, research, and reviewed learning. Zenith brings open model runtimes, private memory, streamed responses, and evaluation tools into a single application for Windows, Linux, and supported Macs.
+Zenith lets you run AI models on your own computer for chat, coding, and research. It keeps conversation history and saved notes locally, and includes tools for trying different models, training candidates, and checking how they perform.
+
+It runs on Windows, Linux, and supported Macs. You can start with the included local setup or connect a runtime you already use, such as Ollama.
 
 **Release 0.17.4** · [Changelog](CHANGELOG.md) · [Installation](docs/local-installation.md) · [Model discovery](docs/model-discovery.md) · [Validation](docs/validation.md) · [Security](SECURITY.md)
 
 ## Install
 
-Run these commands in your terminal. Python 3.12 is recommended.
+Python 3.12 is recommended. The local setup doesn't need a paid API key.
 
-Windows PowerShell:
+### Windows
+
+Install Python from PowerShell:
 
 ```powershell
 winget install -e --id Python.Python.3.12
 ```
 
-Reopen PowerShell after installing Python, then run:
+Reopen PowerShell, then run:
 
 ```powershell
 git clone https://github.com/n8storm/Zenith.git
@@ -30,14 +34,13 @@ py -3.12 install.py --mode local
 powershell -NoProfile -ExecutionPolicy Bypass -File .\run.ps1 chat
 ```
 
-If PowerShell says `git` is not recognized, install Git, reopen PowerShell,
-and retry the clone command:
+If PowerShell doesn't recognize `git`, install it with the command below, reopen PowerShell, and try cloning again:
 
 ```powershell
 winget install -e --id Git.Git
 ```
 
-Linux:
+### Linux
 
 ```bash
 git clone https://github.com/n8storm/Zenith.git
@@ -46,7 +49,11 @@ python3 install.py --mode local
 bash run.sh chat
 ```
 
-macOS (Apple Silicon, macOS 14+, native ARM64 Python 3.12):
+On Debian or Ubuntu, you may need to install `python3-venv` and Git first.
+
+### macOS
+
+For Apple Silicon Macs running macOS 14 or later, use native ARM64 Python 3.12. With Homebrew already installed:
 
 ```bash
 brew install python@3.12 git
@@ -56,82 +63,47 @@ bash install.sh --mode local
 bash run.sh chat
 ```
 
-Homebrew must already be installed for the first command. The launcher selects
-Python 3.12 automatically. For a browser window, double-click **Install
-Zenith.command**, then **Start Zenith.command** on later visits. Intel Macs can
-install the app with `bash install.sh --mode localserver` and explicitly configure
-an independently running compatible backend; current secure native PyTorch wheels
-are ARM64-only. See [Mac support and limitations](docs/macos.md).
+The launcher selects Python 3.12 automatically. If you prefer a browser window, double-click **Install Zenith.command** for setup, then **Start Zenith.command** on later visits.
 
-On Debian/Ubuntu, install `python3-venv` and Git if needed. The installer creates
-and selects `.venv` automatically. No manual activation or paid API key is
-required. The configured model downloads when first used; add `--download` to
-the installer command to cache it during setup. Allow several GB of disk space
-and about 4–6 GB of available RAM for the small local model.
+On an Intel Mac, use `bash install.sh --mode localserver` and configure a compatible backend running separately. Current secure native PyTorch wheels are ARM64-only. See [Mac support and limitations](docs/macos.md).
 
-On later visits, open the Zenith folder and run the same `run.ps1 chat` or
-`bash run.sh chat` command. Type `/quit` to leave terminal chat.
+### After installation
 
-To explicitly select the combined experimental candidate, append
-`--activate-candidate` to the install command. This accepts its recorded quality
-regressions, verifies and caches its weights, and saves a rollback receipt.
-Existing settings and conversations are preserved. See
-[installation details](docs/local-installation.md) for updates and other runtimes.
+The installer creates and uses `.venv` for you. The small local model needs about 4–6 GB of available RAM, roughly 1 GB for weights, and several GB of disk space overall. It downloads on first use; add `--download` to the install command if you'd rather download it during setup.
 
-### Runtime choices
+Next time, open the Zenith folder and run the same `run.ps1 chat` or `bash run.sh chat` command. Type `/quit` to leave terminal chat.
 
-| Installer mode | Runtime | Intended use |
+You can also add `--activate-candidate` to the install command to try the combined experimental model. It has known quality regressions. Activation records your acceptance of those regressions, verifies and caches the weights, and saves a rollback receipt. Your settings and conversations are kept. See [installation details](docs/local-installation.md).
+
+### Choose a runtime
+
+| Installer mode | What it uses | When to choose it |
 | --- | --- | --- |
-| `--mode local` | A small, pinned Hugging Face instruction checkpoint | First installation and CPU use |
-| `--mode ensemble` | A configured model team with routing, review, and synthesis | Comparing collaborative response strategies |
-| `--mode ollama` | An existing local Ollama server | Models managed by Ollama |
-| `--mode localserver` | A compatible local llama.cpp or vLLM server | Separately downloaded model packs |
+| `--mode local` | A small Hugging Face instruction model pinned to a specific revision | Start here, including on CPU |
+| `--mode ensemble` | Several configured models that draft, review, and combine replies | Try different ways of working with multiple models |
+| `--mode ollama` | A local Ollama server | You already manage models with Ollama |
+| `--mode localserver` | A compatible llama.cpp or vLLM server | You have a separate server or downloaded model pack |
 
-Local mode typically needs about 4–6 GB of available RAM and roughly 1 GB for weights. Append `--download` to cache the configured Hugging Face weights during installation; otherwise they download when first used. External runtimes must be installed and started separately. See [runtime setup](docs/local-installation.md) and [model packs](docs/model-packs.md).
+Install and start external runtimes separately. See [runtime setup](docs/local-installation.md) and [model packs](docs/model-packs.md).
 
-Optional Hermes/OpenClaw development prerequisites have a separate
-[pinned runtime setup](integrations/runtime_setup/README.md). This keeps their
-Node, Python, and protocol test SDKs separate from the standard Zenith install.
+If you're working on the Hermes/OpenClaw integrations, use their separate [pinned runtime setup](integrations/runtime_setup/README.md) for Node, Python, and protocol test SDKs.
 
-## Native runtime integration status
+## What you can do
 
-Zenith remains the primary model. Hermes, OpenClaw, and TradingAgents have been
-source-audited at pinned commits. Their original code, licenses, native state,
-and dependency environments stay separate. The four-runtime bridge and compatible
-inference sidecar are **planned, not operational**. Live trading is disabled.
+- **Chat:** get streamed replies with code formatting, set response budgets, and choose Fast or Thorough processing.
+- **Keep useful context:** use local accounts and private conversation history, with notes you choose to save or forget.
+- **Find models:** search Hugging Face and GitHub, including fine-tunes, and save references to your local catalog.
+- **Switch conversation profiles:** try `/skill list`, `/skill mathematics`, `/skill status`, or `/skill off`.
+- **Manage protected profiles:** defensive security profiles require the owner account and a current private admin-code unlock.
+- **Test and train:** review examples, keep versioned data splits, train candidates, and check for regressions.
 
-[Audit](docs/four-system/AUDIT.md) · [Exact implementation plan](docs/four-system/FILE_BY_FILE_PLAN.md) · [Acceptance gates](docs/four-system/ACCEPTANCE.md)
+The System view shows how the model, interface, memory, infrastructure, data pipeline, and monitoring fit together. See [engineering](docs/engineering.md) for the implementation standards.
 
-![Planned four-system architecture; dashed connections are not implemented.](assets/four-system-architecture.svg)
+## Find and configure models
 
-The TradingAgents diagram below maps every component in the supplied reference
-to its actual pinned source. Its native backtester scores historical decisions;
-it is not a filled-order portfolio simulator. Historical data guards cannot
-remove future knowledge already present in model weights.
+Open **Browse catalog → Search online** and choose Hugging Face or GitHub. Search covers base models, fine-tunes, adapters, merges, and quantized repositories. You'll see source metadata and model lineage where the author provides them. The bundled catalog also works offline.
 
-<details>
-<summary>TradingAgents native architecture and source map</summary>
-
-![Source-verified TradingAgents architecture.](assets/tradingagents-architecture.svg)
-
-[Component source map](docs/four-system/DIAGRAM_SOURCE_MAP.md) · [Native baseline](docs/four-system/BASELINE.md)
-
-</details>
-
-## Workspace
-
-- **Conversation:** streamed replies, code formatting, response budgets, and Fast or Thorough processing modes.
-- **Memory:** local accounts, welcome-back greetings, private conversation history, and notes you explicitly choose to save or forget.
-- **Model discovery:** search Hugging Face and GitHub on demand, including fine-tuned model repositories, and save selected source references locally.
-- **Skills:** conversation profiles activated with `/skill list`, `/skill mathematics`, `/skill status`, or `/skill off`.
-- **Owner controls:** defensive security profiles require the configured owner account and a current private admin-code unlock.
-- **Learning and evaluation:** reviewed examples, versioned data splits, candidate training, regression checks, and recorded performance.
-
-The System view shows the model, interface, context and memory, infrastructure and data pipeline, and governance and monitoring components. Engineering standards are implemented in the application and documented in [engineering](docs/engineering.md).
-
-## Discover and configure models
-
-Choose **Browse catalog → Search online**, then select Hugging Face or GitHub. Public model search includes base checkpoints, fine-tunes, adapters, merges, and quantized repositories. Source metadata and lineage appear when published by the author. The bundled catalog remains available offline.
+From the terminal:
 
 ```bash
 zenith discover search --source huggingface --query Qwen
@@ -140,46 +112,66 @@ zenith discover add --source huggingface --id OWNER/MODEL
 zenith discover list
 ```
 
-Replace `OWNER/MODEL` with the actual source identifier. Saving imports metadata into your local catalog; configure a compatible provider explicitly to run the selected model. Keep its original identifier and pinned revision. Model packs provide file manifests and optional verified downloads for compatible local servers.
+Replace `OWNER/MODEL` with the model's source identifier. Adding a model saves its metadata; you'll still need to configure a compatible provider to run it. Keep the original identifier and pinned revision. Model packs include file manifests and optional verified downloads for compatible local servers.
 
-Source APIs have access, pagination, and rate limits. A repository may require different hardware, an unsupported architecture, or additional licensing permissions. Discovery does not bundle every public model, execute repository code, merge weights, or train Zenith on source content. See [discovery and compatibility](docs/model-discovery.md).
+Check a model's hardware needs, architecture, and license before using it. Source APIs also have access, pagination, and rate limits. Finding a repository doesn't run its code, merge its weights, or use its content to train Zenith. See [discovery and compatibility](docs/model-discovery.md).
 
-## Optional model orchestration
+## Optional features
 
-The native-first [model registry and orchestrator](docs/platform-models.md) extend the existing providers with account-scoped discovery, explicit hybrid routing, collaborative drafts and model review. Ordinary installation and chat keep their existing configuration; external providers require separately configured credentials and explicit opt-in. No model weights or tokenizer are changed. See the [repository audit](docs/platform-audit/README.md) and [measured results](docs/platform-audit/results.md).
+### Work with multiple models
 
-Authenticated Hugging Face Qwen2 conversations can reuse private attention state.
-[Measured follow-up latency and configuration](docs/benchmarks/scoped-kv/README.md)
-document roughly 9–14× gains on repeated long-context arithmetic, with unchanged weights
-and exact paired answers. Fresh requests and other providers have separate limits;
-this is not an overall platform speed claim.
+The [model registry and orchestrator](docs/platform-models.md) let you keep discovery scoped to an account, route requests between providers, and have models draft and review replies together. External providers need their own credentials and must be enabled explicitly. Your normal chat configuration, model weights, and tokenizer stay the same.
 
-## Optional bounded reasoning
+See the [repository audit](docs/platform-audit/README.md) and [measured results](docs/platform-audit/results.md).
 
-Use `zenith reason "Explain this problem." --effort standard`, or explicitly choose Fast, Deep or Research effort. The [reasoning guide](docs/reasoning/README.md) describes candidate generation, separate review, exact arithmetic checks and owner-authorized restricted numeric code tests. All passes share a bounded budget; weights and existing installation settings are preserved. See [actual diagnostic results](docs/reasoning/native-diagnostics.json); the small native model does not reliably produce structured reviews, and no general quality or speed improvement is claimed.
-## Optional supervised tasks
+Authenticated Hugging Face Qwen2 conversations can reuse private attention state between requests. Tests found roughly 9–14× faster follow-ups on repeated long-context arithmetic, with unchanged weights and exact paired answers. That result is specific to those tests; fresh requests and other providers have different limits. See [latency results and configuration](docs/benchmarks/scoped-kv/README.md).
 
-The optional [supervised task pilot](docs/platform/operations.md) adds authenticated
-queued local chat, fixed diagnostic plans, exact-action network approvals, durable
-task events and audit verification. It is disabled by default and preserves the
-existing installation, provider, weights, tokenizer and data. See its
-[implementation boundaries](docs/platform/architecture.md) and
-[measured results](docs/platform/benchmark-results.md); autonomous tools, plugins
-and browser/channel automation are not included in this stage.
+### Give a problem more than one pass
 
-## Optional isolated Python
+```bash
+zenith reason "Explain this problem." --effort standard
+```
 
-The [isolated Python tool](docs/unified-platform/sandbox.md) runs explicit approved
-programs in ephemeral offline Linux containers. It requires owner MFA, a scoped
-grant, a reviewed pinned image and an explicit opt-in; queued executions also
-require exact-action approval. Missing isolation never falls back to the host.
-The [approved unified OpenClaw/Hermes audit](docs/unified-audit/README.md) tracks
-remaining work. The existing Zenith model and normal installation are preserved;
-full reference parity is not claimed.
+You can also choose Fast, Deep, or Research effort. The [reasoning guide](docs/reasoning/README.md) explains how Zenith generates candidates, reviews them separately, checks exact arithmetic, and runs restricted numeric code tests with owner authorization. All passes share a fixed budget and leave weights and installation settings unchanged.
 
-## Verify and update
+The small native model still struggles to produce structured reviews. The [diagnostic results](docs/reasoning/native-diagnostics.json) don't establish a general improvement in quality or speed.
 
-After activation:
+### Queue supervised tasks
+
+The [supervised task pilot](docs/platform/operations.md) supports authenticated local chat queues, fixed diagnostic plans, approval for specific network actions, and saved task events with audit checks. It's disabled by default and keeps your current installation, provider, weights, tokenizer, and data.
+
+This stage doesn't include autonomous tools, plugins, or browser/channel automation. See [implementation boundaries](docs/platform/architecture.md) and [measured results](docs/platform/benchmark-results.md).
+
+### Run isolated Python
+
+The [isolated Python tool](docs/unified-platform/sandbox.md) runs approved programs in temporary offline Linux containers. To use it, you need owner MFA, a scoped grant, a reviewed image pinned to a specific version, and explicit opt-in. Queued runs also need approval for the exact action. If isolation isn't available, the program won't run on the host instead.
+
+The [OpenClaw/Hermes audit](docs/unified-audit/README.md) tracks the remaining work. This feature keeps the existing Zenith model and normal installation; it doesn't yet match all reference features.
+
+## Integration work in progress
+
+Zenith remains the primary model. Hermes, OpenClaw, and TradingAgents have been audited against specific source commits, with their code, licenses, state, and dependencies kept separate.
+
+The bridge between the four runtimes and the compatible inference sidecar are **planned, not operational**. Live trading is disabled.
+
+[Audit](docs/four-system/AUDIT.md) · [Implementation plan](docs/four-system/FILE_BY_FILE_PLAN.md) · [Acceptance gates](docs/four-system/ACCEPTANCE.md)
+
+![Planned four-system architecture; dashed connections are not implemented.](assets/four-system-architecture.svg)
+
+<details>
+<summary>TradingAgents architecture and source map</summary>
+
+The diagram maps each component in the reference to its pinned source. The native backtester scores historical decisions; it doesn't simulate a portfolio of filled orders. Historical data checks also can't remove future knowledge already in a model's weights.
+
+![Source-verified TradingAgents architecture.](assets/tradingagents-architecture.svg)
+
+[Component source map](docs/four-system/DIAGRAM_SOURCE_MAP.md) · [Native baseline](docs/four-system/BASELINE.md)
+
+</details>
+
+## Check your installation and update
+
+With your environment activated, run:
 
 ```bash
 zenith --version
@@ -189,40 +181,58 @@ zenith verify --source .
 zenith doctor --inference
 ```
 
-`doctor --inference` tests a real response and may download the configured checkpoint. `verify` checks the installed wheel; `verify --source .` checks the source release inventory. Pip’s **“No broken requirements found” means its dependency check passed**. The installer presents that result as **“Dependencies verified. No package conflicts detected.”**
+`doctor --inference` tries a real response and may download the configured model. `verify` checks the installed wheel; `verify --source .` checks the source release inventory.
 
-To upgrade, stop Zenith, activate `.venv`, run `git pull --ff-only`, then `python -m pip install --upgrade ".[local]"`. Run `zenith setup --activate-candidate` to select the bundled experimental checkpoint. Existing configuration and conversations are preserved. Without Git, use the [source ZIP](https://github.com/n8storm/Zenith/archive/refs/heads/main.zip) and preserve any legacy checkout `data/` directory. See [upgrade instructions](docs/local-installation.md).
+If pip says “No broken requirements found,” the dependency check passed. The installer displays this as “Dependencies verified. No package conflicts detected.”
 
-## Privacy and administration
+To update:
 
-Profiles and application data live under `%LOCALAPPDATA%\Zenith` on Windows or `~/.local/share/zenith` on Linux. `ZENITH_HOME` selects another location. Cached Hugging Face models support `HF_HUB_OFFLINE=1`; `ZENITH_DISCOVERY_OFFLINE=1` disables online discovery. Online search sends the query to the selected source; external model servers receive the context supplied to them.
+1. Stop Zenith and activate `.venv`.
+2. Run `git pull --ff-only`.
+3. Run `python -m pip install --upgrade ".[local]"`.
 
-Create a browser account, then configure the owner from your activated terminal:
+Your configuration and conversations are kept. To try the bundled experimental model, run `zenith setup --activate-candidate`; see the quality caveats below first.
+
+If you don't use Git, download the [source ZIP](https://github.com/n8storm/Zenith/archive/refs/heads/main.zip) and keep any `data/` directory from an older checkout. See [upgrade instructions](docs/local-installation.md).
+
+## Privacy and owner access
+
+Profiles and app data are stored in:
+
+- Windows: `%LOCALAPPDATA%\Zenith`
+- Linux: `~/.local/share/zenith`
+
+Set `ZENITH_HOME` to use another location. For cached Hugging Face models, `HF_HUB_OFFLINE=1` enables offline use. Set `ZENITH_DISCOVERY_OFFLINE=1` to turn off online discovery.
+
+Online searches send your query to the source you choose. External model servers receive the context you send them.
+
+To set up owner access, create a browser account, then run this in your activated terminal:
 
 ```text
 zenith admin init --username YOUR_USERNAME
 ```
 
-The unique code is created locally and kept out of model prompts and Git. Sign in as the owner and unlock Admin before explicitly activating a protected security profile. Logout, locking, code rotation, and expiry revoke that access. See [administration](docs/admin.md), [skills](docs/skills.md), and [memory](docs/memory.md). Shared deployments require the authentication and network controls in [deployment](docs/deployment.md).
+The admin code is generated locally and kept out of model prompts and Git. Sign in as the owner and unlock Admin to activate a protected security profile. Logging out, locking, rotating the code, or letting it expire revokes access.
 
-## Continued training and execution controls
+See [administration](docs/admin.md), [skills](docs/skills.md), and [memory](docs/memory.md). For a shared deployment, follow the authentication and network setup in [deployment](docs/deployment.md).
 
-The existing trained Zenith adapter can be verified and continued into a separate candidate with preserved architecture, tokenizer, and parent file hashes. The pipeline supports instruction tuning, domain-text continuation, reviewed preference pairs, historical replay, raw-model diagnostics, and local merge/export checks. It never promotes or publishes automatically.
+## Training and experimental models
 
-The recovery study continues the existing checkpoint with instruction tuning, training-only replay, and reviewed preferences. One candidate reached 24/24 on the public diagnostics, while manual review and independent tests exposed further limitations; its failed quality decision is retained. Explicit experimental activation is available through `zenith setup --activate-candidate`. Promotion now checks individual cases as well as slice scores. See [measured recovery results](docs/model-recovery.md), [activation and rollback](docs/model-promotion.md), the [original pilot](docs/continued-training.md), and the [model card](docs/MODEL_CARD.md).
+Ordinary chat doesn't update model weights. Training is a separate step, and candidates need evaluation and review before replacing a baseline.
 
-An [experimental research snapshot](research_checkpoints/recovery-v1/) includes the actual
-continued adapter weights, original tokenizer, pinned base identity, and training
-history. It is available for verification, further experiments, and explicit activation.
-Installing the package preserves your selected model; `setup --activate-candidate`
-records your exception for its known regressions. No candidate is relabeled as
-having passed quality review.
+You can continue training the existing Zenith adapter into a separate candidate while preserving its architecture, tokenizer, and parent file hashes. The pipeline supports instruction tuning, continued training on domain text, reviewed preference pairs, historical replay, raw-model diagnostics, and local merge/export checks. It doesn't promote or publish candidates automatically.
 
-Owner controls now include Argon2id password migration, authenticator-based MFA, explicit capability grants, narrow target scopes, activity records, bounded diagnostic plans, and emergency shutdown. Restricted execution starts disabled, including for the owner. Account-owned conversation summaries provide additional external context without changing weights. See [execution and memory controls](docs/execution-controls.md).
+In the recovery study, one candidate scored 24/24 on the public diagnostics but still showed problems in manual review and independent tests. It failed quality review, and that result remains recorded. Promotion checks now look at individual cases as well as scores for groups of cases.
 
-## Development and limitations
+The [experimental research snapshot](research_checkpoints/recovery-v1/) contains the continued adapter weights, original tokenizer, pinned base identity, and training history. You can inspect it, use it for further experiments, or activate it with `zenith setup --activate-candidate`. Activation records an exception for its known regressions; it doesn't mark the candidate as having passed review. Installing the package alone keeps your selected model.
 
-Zenith supports reviewed LoRA candidates and an experimental transformer trained from random weights. Training is explicit; ordinary chat does not update model weights. Evaluation and review determine whether a candidate should replace a baseline. The project does not claim comprehensive knowledge, professional certification, or performance parity with proprietary assistants. Response speed and quality depend on the configured model, hardware, context, and processing mode.
+See [recovery results](docs/model-recovery.md), [activation and rollback](docs/model-promotion.md), the [original pilot](docs/continued-training.md), and the [model card](docs/MODEL_CARD.md).
+
+Owner controls include Argon2id password migration, authenticator MFA, explicit capability grants, limited target scopes, activity records, fixed-budget diagnostic plans, and emergency shutdown. Restricted execution starts disabled, even for the owner. Conversation summaries belong to the account and add context without changing model weights. See [execution and memory controls](docs/execution-controls.md).
+
+## Development
+
+Zenith supports reviewed LoRA candidates and an experimental transformer trained from random weights. Speed and response quality depend on the model, hardware, context, and processing mode. The project doesn't claim comprehensive knowledge, professional certification, or parity with proprietary assistants.
 
 ```bash
 python -m pip install -e ".[test]"
@@ -231,4 +241,6 @@ zenith catalog --validate
 zenith skills validate
 ```
 
-See [training](docs/quality-and-training.md), [training roadmap](docs/training-roadmap.md), [benchmarks](docs/benchmarks/v0.7/), and [validation evidence](docs/validation.md). Zenith’s code is licensed under [Apache-2.0](LICENSE); third-party model, dataset, and vendored-file terms remain applicable. The original starter archive is preserved in the repository.
+See [training](docs/quality-and-training.md), the [training roadmap](docs/training-roadmap.md), [benchmarks](docs/benchmarks/v0.7/), and [validation evidence](docs/validation.md).
+
+Zenith's code is licensed under [Apache-2.0](LICENSE). Third-party models, datasets, and vendored files have their own terms. The original starter archive is also kept in the repository.
