@@ -19,6 +19,7 @@ explicitly request replacement. Keep your configured external mode on Intel Macs
 ```bash
 zenith skills recipes install --approve
 zenith skills recipes status
+zenith skills recipes optimize --approve
 zenith skills search --query "Python correctness beginner" --limit 25
 zenith skills show x-recipes-25000
 ```
@@ -94,6 +95,12 @@ Installation records the definition SHA-256 and a digest of all rendered profile
 Rendering refuses a changed definition fingerprint instead of silently changing
 an installed recipe. Keep v1 frozen: a future grammar needs its own version and
 explicit migration.
+
+New installations collect recipe table statistics so SQLite can choose a selective
+index. Existing libraries can refresh them with `zenith skills recipes optimize
+--approve`. Only planner metadata changes. See the [paired search measurements,
+limits and rollback](benchmarks/recipe-search/README.md); this is not a model
+inference speedup or a parameter expansion.
 
 Allow at least 64 MiB free disk space. The measured database was about 7.3 MiB,
 with temporary transaction/index overhead during installation. The write

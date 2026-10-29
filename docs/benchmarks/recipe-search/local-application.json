@@ -1,0 +1,20 @@
+{
+  "maintenance": {
+    "pack_id": "generated-recipes-v1",
+    "profiles": 100000,
+    "query_statistics": "collected",
+    "elapsed_ms": 41.82,
+    "recipe_content_changed": false,
+    "training_performed": false
+  },
+  "applied_to_normal_store": true,
+  "original_data_tables_unchanged": true,
+  "configuration_unchanged": true,
+  "checkpoint_unchanged": true,
+  "checkpoint_identity_sha256": "182559bbb77dad2ac9f53be2252ef0fa8a3698851d8d47708d5264701170e13b",
+  "recipes_retained": 100000,
+  "same_search_results": true,
+  "restricted_results_hidden": true,
+  "integrity_check": "ok",
+  "parameter_increase_performed": 0
+}
