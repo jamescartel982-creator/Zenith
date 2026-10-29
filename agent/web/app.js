@@ -930,6 +930,7 @@ $('open-analysis').addEventListener('click', () => {
 });
 $('analysis-form').addEventListener('submit', async event => {
   event.preventDefault(); const owner = activeUser?.id, request = ++analysisRequest;
+  $('analysis-result').replaceChildren();
   $('analysis-submit').disabled = true; $('analysis-status').textContent = 'Analyzing…';
   try {
     const delimiter = $('analysis-delimiter').value;

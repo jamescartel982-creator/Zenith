@@ -69,6 +69,11 @@ def run():
                     expect(page.locator('#analysis-result')).to_contain_text('0.5')
                     expect(page.locator('#analysis-result')).to_contain_text('1 exact duplicate')
                     assert len(provider.messages)==before
+                    page.locator('#analysis-csv').fill('duplicate,duplicate\n1,2\n')
+                    page.locator('#analysis-submit').click()
+                    expect(page.locator('#analysis-status')).to_contain_text('Column names must be unique')
+                    expect(page.locator('#analysis-result')).to_be_empty()
+                    assert len(provider.messages)==before
                     page.locator('[data-close="analysis-dialog"]').click()
                     page.locator('#open-skills').click();page.locator('#skills-query').fill('Browser fixture')
                     page.get_by_role('button',name='Use Browser fixture',exact=True).click()
@@ -90,7 +95,7 @@ def run():
         finally:
             server.should_exit=True;thread.join(10);sock.close()
             if thread.is_alive():raise RuntimeError('Test server did not terminate')
-    return {'actual_loopback_chromium':True,'csv_exact_sum_displayed':True,'csv_model_calls':0,
+    return {'actual_loopback_chromium':True,'csv_exact_sum_displayed':True,'stale_results_cleared_on_error':True,'csv_model_calls':0,
             'imported_profile_selected':True,'preferences_applied_to_model_context':True,
             'account_switch_isolated':True,'dataset_cleared_on_logout':True,'javascript_errors':errors,
             'model':'explicit fixture; no neural quality or language-generation claim', 'production_state_modified':False}

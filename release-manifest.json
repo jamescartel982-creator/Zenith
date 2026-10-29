@@ -772,8 +772,8 @@
     },
     {
       "path": "agent/web/app.js",
-      "size": 67146,
-      "sha256": "f24b69bb33278c4b4ad3475d06ac2aef5920edb1e1fc75f581c3f35f5243227f",
+      "size": 67188,
+      "sha256": "8bf2ea1ea5bf6c5e509d82a9360183da66be93bb9e7d2e7cbe12a983a658c998",
       "normalization": "lf"
     },
     {
@@ -1054,8 +1054,8 @@
     },
     {
       "path": "docs/benchmarks/productivity/browser.json",
-      "size": 399,
-      "sha256": "0f03f44a52c9384919d1e8ec3223102e3d3d27fa12f95b1e47ce70bcc5d57afc",
+      "size": 441,
+      "sha256": "02c32deb6db1b0f0b9846ba445ed6ec271c674690748a04f03c158396c4c178f",
       "normalization": "lf"
     },
     {
@@ -3796,8 +3796,8 @@
     },
     {
       "path": "scripts/smoke_productivity_ui.py",
-      "size": 6814,
-      "sha256": "75dc64521161513a614f6292a5d6a385ca10872d2d2d3bc4f2c8825908f2562d",
+      "size": 7239,
+      "sha256": "9ba16b33720e072d8609d37935a11630ebf65912c1f2508755bda99b0a09fca1",
       "normalization": "lf"
     },
     {

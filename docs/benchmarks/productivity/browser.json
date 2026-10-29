@@ -1,6 +1,7 @@
 {
   "actual_loopback_chromium": true,
   "csv_exact_sum_displayed": true,
+  "stale_results_cleared_on_error": true,
   "csv_model_calls": 0,
   "imported_profile_selected": true,
   "preferences_applied_to_model_context": true,
