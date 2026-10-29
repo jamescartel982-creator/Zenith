@@ -1,0 +1,21 @@
+{
+  "preserved_identity_sha256": "182559bbb77dad2ac9f53be2252ef0fa8a3698851d8d47708d5264701170e13b",
+  "parameter_inventory": {
+    "status": "resident-tensors-counted",
+    "total": 498431872,
+    "base": 494032768,
+    "lora": 4399104,
+    "note": "Counts resident model tensors once, including LoRA. No weights were added, trained or loaded to obtain this count."
+  },
+  "runtime_parameter_sha256": "9abde1fc20e926e8e8ba62660bf14155c3cb6c0e67bb794164a1a758278f6b60",
+  "csv_exact_decimal_sum": "0.3",
+  "csv_model_forward_calls": 0,
+  "saved_language_response": "Bonjour",
+  "real_model_calls": 1,
+  "preferences_removed": true,
+  "original_checkpoint_and_profile_unchanged": true,
+  "limitations": [
+    "One greeting verifies this configured model/task, not universal multilingual/accuracy improvement.",
+    "Skills are instruction profiles; no weights, architecture or tokenizer changed."
+  ]
+}

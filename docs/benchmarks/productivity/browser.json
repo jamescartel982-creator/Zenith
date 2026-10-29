@@ -1,0 +1,12 @@
+{
+  "actual_loopback_chromium": true,
+  "csv_exact_sum_displayed": true,
+  "csv_model_calls": 0,
+  "imported_profile_selected": true,
+  "preferences_applied_to_model_context": true,
+  "account_switch_isolated": true,
+  "dataset_cleared_on_logout": true,
+  "javascript_errors": [],
+  "model": "explicit fixture; no neural quality or language-generation claim",
+  "production_state_modified": false
+}

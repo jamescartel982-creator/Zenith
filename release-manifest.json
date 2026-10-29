@@ -40,8 +40,8 @@
     },
     {
       "path": ".github/workflows/inference-performance.yml",
-      "size": 2947,
-      "sha256": "fb9c99fc09c05e79229f2463f1569fd63507e9b56ba2a2b50045f28599acde6f",
+      "size": 3275,
+      "sha256": "3c12c2adc4a152a57b2d4cba81e2ba7d2ff55578209fbbea6c64598ccc051748",
       "normalization": "lf"
     },
     {
@@ -66,6 +66,12 @@
       "path": ".github/workflows/pinned-openclaw-runtime.yml",
       "size": 8779,
       "sha256": "9a8d046dfe0bfb2b452cb82cac3fdceade632c90ec382eecd24fe1db75237dbb",
+      "normalization": "lf"
+    },
+    {
+      "path": ".github/workflows/productivity.yml",
+      "size": 1385,
+      "sha256": "f0b46e9a6a6a16b455d3c22e29f6ae843955d41ab131b59f39ffc70f97d60e12",
       "normalization": "lf"
     },
     {
@@ -142,8 +148,8 @@
     },
     {
       "path": "README.md",
-      "size": 14956,
-      "sha256": "c292a4c95e084f78e8966d1b39ab092c7ac84b6fd5d9b59f8041e0f37d8c86eb",
+      "size": 15342,
+      "sha256": "0ddc992e05df944d879e8bad2eea7a6de4b03bde63f1ecaec1b5e9d8c0833fce",
       "normalization": "lf"
     },
     {
@@ -274,8 +280,8 @@
     },
     {
       "path": "agent/commands.py",
-      "size": 4697,
-      "sha256": "72b3b7925c22c4346d179216dbcf77d23ad2c8a5c23c80746fa9af071ae0485c",
+      "size": 4811,
+      "sha256": "ac6ad1e259b5fff9e7308b8dedcf904222e6d1e87574bc2a49a6dcac4ebfa4fc",
       "normalization": "lf"
     },
     {
@@ -292,14 +298,20 @@
     },
     {
       "path": "agent/core.py",
-      "size": 12250,
-      "sha256": "580969100f4c9de91a49bf11c41960d3f35c0ea7d0f7f92dc3a857dcf93faa61",
+      "size": 12820,
+      "sha256": "a35b7a4ad354f7233adf02656594a06f84cf676466537160674b3d870984e45b",
       "normalization": "lf"
     },
     {
       "path": "agent/curriculum.py",
       "size": 8662,
       "sha256": "ed79afeb1f04a3d6d5cb5e1a3a0ad0455e93a8db102f1e6416a019d9b90e2e99",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/data_analysis.py",
+      "size": 6258,
+      "sha256": "b7d9084504a1cd1c61d75ad827ae872100f4923564c5ebbf4fec6f6cc6c4dd85",
       "normalization": "lf"
     },
     {
@@ -417,6 +429,12 @@
       "normalization": "lf"
     },
     {
+      "path": "agent/model_metrics.py",
+      "size": 1511,
+      "sha256": "b0323a4cfe1bd22fab374756cc1422137e67f3f37ce11ccf27d9ed0bcb0565af",
+      "normalization": "lf"
+    },
+    {
       "path": "agent/model_packs/zenith-27b.json",
       "size": 9654,
       "sha256": "ca533ddbb934287abe26097d75535c942e6d7c7b7f331b226cb97cca288592bf",
@@ -448,8 +466,8 @@
     },
     {
       "path": "agent/monitoring.py",
-      "size": 9028,
-      "sha256": "4f41cb74f86284e92221596f59fcf58f79e33bd8f5e41ccf1e5be205300041ff",
+      "size": 9455,
+      "sha256": "22036dd9106e28ae49057e6ae0fe2d1718ddbd53df3a556c7e4e1c673004f7bb",
       "normalization": "lf"
     },
     {
@@ -516,6 +534,18 @@
       "path": "agent/policy.py",
       "size": 576,
       "sha256": "ff953149dc1273d8d59496f674bb381bfa13edfc885ebfda940ac183e1da7833",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/preferences.py",
+      "size": 3539,
+      "sha256": "ce3dbc553e38a830f0f4d418d81e08a637ee1326f5b7f63d6dee306882d464b6",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/productivity_gateway.py",
+      "size": 2160,
+      "sha256": "44a89756c2931632a135265e611fd8bb7f2f9d82b7a3db075fe78a855afd9b4d",
       "normalization": "lf"
     },
     {
@@ -586,8 +616,8 @@
     },
     {
       "path": "agent/resources/skills-v1.json",
-      "size": 43865,
-      "sha256": "dbbeb982eeb4fd0b7b86e94fb764c3c8f98fc92ad4aef345b05d47cb0d0c2d3d",
+      "size": 49133,
+      "sha256": "ae4f9bdcd85bad04ae1c6bd802f885c70c7faa10a6663bef9dbb25a5925c7b95",
       "normalization": "lf"
     },
     {
@@ -640,8 +670,8 @@
     },
     {
       "path": "agent/server.py",
-      "size": 32009,
-      "sha256": "64ebb7f6d7e2e09e68ee9ba3791ce3af58ba85bf235552707b736bef69db6ae2",
+      "size": 33137,
+      "sha256": "0a2ad07ec1559fad57367b7d20723abaad89a2008e9a6227d3c7470240a2c00e",
       "normalization": "lf"
     },
     {
@@ -652,14 +682,20 @@
     },
     {
       "path": "agent/skill_access.py",
-      "size": 4555,
-      "sha256": "76d94e0a50ed08eee8468744d24682942f32e379916628f1447a721749201502",
+      "size": 4876,
+      "sha256": "ec6575129d78508c5dd03f8c6822959846b513377a981b8c6b23d6814be82a7d",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/skill_catalog.py",
+      "size": 12402,
+      "sha256": "235b491a5925b5e90165840513a29bbbf451191c16706eac3d400cdb4e90339d",
       "normalization": "lf"
     },
     {
       "path": "agent/skills.py",
-      "size": 10747,
-      "sha256": "8f7249fe401ed2c545ee90ce50ac1a495f68374b48bb050ff0a672b39ae8e68c",
+      "size": 11583,
+      "sha256": "b4cf354a1b79c3c5f755b27be916381c94ed0f72e7f4ebeb399d531e26579c2e",
       "normalization": "lf"
     },
     {
@@ -736,20 +772,20 @@
     },
     {
       "path": "agent/web/app.js",
-      "size": 59031,
-      "sha256": "aac7efbf2dca466c9f9ca8561e933ade99baf002ac78bfa063302eea07a1a597",
+      "size": 67146,
+      "sha256": "f24b69bb33278c4b4ad3475d06ac2aef5920edb1e1fc75f581c3f35f5243227f",
       "normalization": "lf"
     },
     {
       "path": "agent/web/index.html",
-      "size": 19223,
-      "sha256": "17a6031687da2c6ee05a8212eaee9d3d710456c36aeba75c7c65c7a69d34dbf1",
+      "size": 22021,
+      "sha256": "906aa7221822bea8c5b77afa425533b346600b8f6154ea8ac42b20fef2588c08",
       "normalization": "lf"
     },
     {
       "path": "agent/web/style.css",
-      "size": 29203,
-      "sha256": "ecee18677e09219361f548f6c6fcd1ed09b1bca8ab8931a5effc23f1e46c9c75",
+      "size": 29486,
+      "sha256": "6aa73d527d087dfe2b879c05df5c9d9d042da316ebfb65d1816a95797b42040d",
       "normalization": "lf"
     },
     {
@@ -1014,6 +1050,24 @@
       "path": "docs/benchmarks/continuation-v1/weight-update.json",
       "size": 363,
       "sha256": "98626a6102146c0c6aec81403f054b7b983878d2d3a27b741c060c209054fe72",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/productivity/browser.json",
+      "size": 399,
+      "sha256": "0f03f44a52c9384919d1e8ec3223102e3d3d27fa12f95b1e47ce70bcc5d57afc",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/productivity/preserved-model.json",
+      "size": 902,
+      "sha256": "1485259eb2a07cae738d2c3e7fac8a87dbc04b8e1a9f4d6713b85bb091180c36",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/productivity/scale.json",
+      "size": 1753,
+      "sha256": "a0e453384038ff294502f78b1577207d59fde1664d8f4447dd1a3eb3139eaf09",
       "normalization": "lf"
     },
     {
@@ -1578,6 +1632,12 @@
       "path": "docs/engineering.md",
       "size": 18625,
       "sha256": "c284cbe353ccf5e27b727960b6b3c9419ba57f37a7b9be21c0276ef6806d671c",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/examples/analysis-checks.jsonl",
+      "size": 2238,
+      "sha256": "cbc7d7ca46c782cf937a1d9dabccd94b9a9255747d4d43c4eb21cd3af4fa8b03",
       "normalization": "lf"
     },
     {
@@ -2172,6 +2232,12 @@
       "path": "docs/platform/tests.log",
       "size": 45471,
       "sha256": "b41fac7fc293611847f75163934dfd4bf5ccb26f5552505af647cb6afbc4435e",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/productivity.md",
+      "size": 11016,
+      "sha256": "232fd67225ce4348eee92adfa83b02c9798dc3799b2e7d96a12b9e0c030e8e61",
       "normalization": "lf"
     },
     {
@@ -3645,6 +3711,12 @@
       "normalization": "lf"
     },
     {
+      "path": "scripts/productivity_benchmark.py",
+      "size": 4950,
+      "sha256": "6272ac2b21c9e36da8db7dd48b631f01886f64e0b485cdf525f8d33eca9975e0",
+      "normalization": "lf"
+    },
+    {
       "path": "scripts/refresh_github_catalog.py",
       "size": 21749,
       "sha256": "292ca164e274c117e62af2d1774fb5221f8fa7aaaf68495eff6b3829b8721dd2",
@@ -3711,9 +3783,21 @@
       "normalization": "lf"
     },
     {
+      "path": "scripts/smoke_personalized_model.py",
+      "size": 4687,
+      "sha256": "8e53802a27f8475173a83d54281d0c7c0ddf7c7405540f4e0138962eeb03cbe3",
+      "normalization": "lf"
+    },
+    {
       "path": "scripts/smoke_platform.py",
       "size": 3689,
       "sha256": "f8e6bdbb3a77595b225b3069c8c36a70c3c7bf15f37dc37faa9eb66d17bf5fc6",
+      "normalization": "lf"
+    },
+    {
+      "path": "scripts/smoke_productivity_ui.py",
+      "size": 6814,
+      "sha256": "75dc64521161513a614f6292a5d6a385ca10872d2d2d3bc4f2c8825908f2562d",
       "normalization": "lf"
     },
     {
@@ -3921,6 +4005,12 @@
       "normalization": "lf"
     },
     {
+      "path": "tests/test_productivity.py",
+      "size": 7568,
+      "sha256": "97c802ea1da40ef0e372e19e8c4836b5e9d878eae70e509c5db8349ab634c92b",
+      "normalization": "lf"
+    },
+    {
       "path": "tests/test_provider_transport.py",
       "size": 13454,
       "sha256": "ad278358d576c2dd6345d3cef835ba278aaeeb94478dde69d652f264135e8f95",
@@ -3971,13 +4061,19 @@
     {
       "path": "tests/test_skill_access.py",
       "size": 14532,
-      "sha256": "28955329ae7af7e37f6fc8b4e70f71d1473bbae030a50e701e7278b4d35c79ee",
+      "sha256": "d398fbca6154a09e04ae1633f88dd865c30d8b3d519884b3b391c41fca69952e",
+      "normalization": "lf"
+    },
+    {
+      "path": "tests/test_skill_catalog.py",
+      "size": 6710,
+      "sha256": "be6f5ec2aea1529154f659956d0c8a4e3f3b936c32d4921a45bf1e006d9f85fb",
       "normalization": "lf"
     },
     {
       "path": "tests/test_skills_library.py",
       "size": 8446,
-      "sha256": "04b63562f984d9b179ce5f27d30c435ce65af7cac3f2397d6ebbc96a3d5cbe9b",
+      "sha256": "e13763a782fc052feab5bbfddd954d4def08efbacef079f1e51667595fe57c21",
       "normalization": "lf"
     },
     {

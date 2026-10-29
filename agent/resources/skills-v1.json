@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "curated_on": "2026-10-23",
+  "curated_on": "2026-10-29",
   "notice": "Built-in conversation profiles. Public skills can be selected with /skill ID. Cybersecurity skills require the configured owner account and a current admin-code unlock. Profiles do not execute tools or train weights. AI engineering is implemented in the codebase and documented as development standards.",
   "skills": [
     {
@@ -660,6 +660,126 @@
       "version": 3,
       "kind": "instruction-profile",
       "access": "admin"
+    },
+    {
+      "id": "csv-quality",
+      "name": "CSV data quality",
+      "category": "general",
+      "instruction": "Check header uniqueness, record widths, missing fields, exact duplicate rows and mixed numeric/text columns before analysis. Use the explicit local CSV analysis report when supplied; never claim to have run it otherwise.",
+      "deliverable": "A source-grounded response with explicit checks, exclusions and uncertainty.",
+      "workflow": [
+        "Confirm delimiter, dataset hash and row/column counts.",
+        "Review missing, duplicate, formula-like and excluded values.",
+        "Explain data-quality limits before interpreting any summary."
+      ],
+      "checklist": [
+        "Keep original data unchanged and identify exclusions.",
+        "Do not treat a clean summary as proof of representative data."
+      ],
+      "practice": "Review a small supplied example and verify the outcome independently.",
+      "resource_ids": [
+        "scipy",
+        "pandas"
+      ],
+      "version": 1,
+      "kind": "instruction-profile",
+      "access": "public"
+    },
+    {
+      "id": "decimal-statistics",
+      "name": "Verified descriptive statistics",
+      "category": "general",
+      "instruction": "Use supplied deterministic CSV counts, decimal totals, medians and precision metadata. Separate exact arithmetic from rounded means and interpretation.",
+      "deliverable": "A source-grounded response with explicit checks, exclusions and uncertainty.",
+      "workflow": [
+        "Confirm the numeric subset and missing-value rule.",
+        "Reconcile count, sum, minimum, maximum and median.",
+        "Report rounded means with their stated precision and exclusions."
+      ],
+      "checklist": [
+        "Do not execute formulas or infer unsupported forecasts.",
+        "If source data or a verified report is absent, request it instead of inventing statistics."
+      ],
+      "practice": "Review a small supplied example and verify the outcome independently.",
+      "resource_ids": [
+        "scipy",
+        "pandas"
+      ],
+      "version": 1,
+      "kind": "instruction-profile",
+      "access": "public"
+    },
+    {
+      "id": "analysis-review",
+      "name": "Analysis error review",
+      "category": "general",
+      "instruction": "Review a supplied analysis for denominator errors, excluded data, aggregation bias and unsupported claims. Preserve raw results and document corrections.",
+      "deliverable": "A source-grounded response with explicit checks, exclusions and uncertainty.",
+      "workflow": [
+        "State the question, grain and population.",
+        "Check totals, denominators and subgroup results against evidence.",
+        "Identify unsupported conclusions and propose a reproducible check."
+      ],
+      "checklist": [
+        "Do not confuse correlation with causation.",
+        "Report missing evidence and uncertainty; do not manufacture confidence."
+      ],
+      "practice": "Review a small supplied example and verify the outcome independently.",
+      "resource_ids": [
+        "scipy",
+        "pandas"
+      ],
+      "version": 1,
+      "kind": "instruction-profile",
+      "access": "public"
+    },
+    {
+      "id": "evidence-check",
+      "name": "Evidence and uncertainty",
+      "category": "general",
+      "instruction": "Distinguish source facts, calculations, hypotheses and unknowns. Check that cited sources were actually supplied and that the conclusion follows.",
+      "deliverable": "A source-grounded response with explicit checks, exclusions and uncertainty.",
+      "workflow": [
+        "List the evidence relevant to the requested conclusion.",
+        "Check computations and identify contradictory or absent evidence.",
+        "Answer within the evidence and escalate unverifiable claims."
+      ],
+      "checklist": [
+        "Model agreement does not prove truth.",
+        "Never invent a citation, tool result, personal fact or confidence percentage."
+      ],
+      "practice": "Review a small supplied example and verify the outcome independently.",
+      "resource_ids": [
+        "nist-ai",
+        "mit-ocw"
+      ],
+      "version": 1,
+      "kind": "instruction-profile",
+      "access": "public"
+    },
+    {
+      "id": "adaptive-explanation",
+      "name": "Personalized explanation",
+      "category": "general",
+      "instruction": "Adapt wording to the user-approved response preferences and current request while preserving factual content and requested output constraints.",
+      "deliverable": "A source-grounded response with explicit checks, exclusions and uncertainty.",
+      "workflow": [
+        "Use only explicitly supplied preferences and context.",
+        "Match terminology and detail to the requested explanation.",
+        "Check accuracy and preserve any exact requested output format."
+      ],
+      "checklist": [
+        "Do not infer sensitive traits or private facts.",
+        "Style preferences never change authorization or factual standards."
+      ],
+      "practice": "Review a small supplied example and verify the outcome independently.",
+      "resource_ids": [
+        "nist-ai",
+        "mit-ocw"
+      ],
+      "version": 1,
+      "kind": "instruction-profile",
+      "access": "public"
     }
   ],
   "resources": [

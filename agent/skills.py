@@ -51,6 +51,24 @@ def _records(value, key, maximum):
     return rows, identifiers
 
 
+def validate_profile(profile, resource_ids):
+    if not isinstance(profile, dict) or not isinstance(profile.get("id"), str) or not _ID.fullmatch(profile["id"]):
+        raise ValueError("Invalid profile identifier")
+    for key, limit in [('name', 100), ('instruction', 700), ('deliverable', 600), ('practice', 600)]:
+        _text(profile.get(key), f'profile {key}', limit)
+    if profile.get('category') not in tuple(CATEGORIES) or profile.get('kind') != 'instruction-profile':
+        raise ValueError('Invalid profile category or kind')
+    expected_access = 'admin' if profile['category'] == 'security' else 'public'
+    if profile.get('access') != expected_access:
+        raise ValueError('Security profiles require admin access')
+    if type(profile.get('version')) is not int or profile['version'] < 1:
+        raise ValueError('Invalid profile version')
+    _texts(profile.get('workflow'), 'profile workflow', minimum=3)
+    _texts(profile.get('checklist'), 'profile checklist', minimum=2)
+    _texts(profile.get('resource_ids'), 'profile resources', maximum=4, length=40)
+    if len(set(profile['resource_ids'])) != len(profile['resource_ids']) or not set(profile['resource_ids']) <= resource_ids:
+        raise ValueError('Profile references unknown or duplicate resources')
+
 def validate_library(value):
     """Validate bundled metadata and references without network or model access."""
     if not isinstance(value, dict) or type(value.get('schema_version')) is not int or value['schema_version'] != 2:
@@ -95,20 +113,7 @@ def validate_library(value):
                 raise ValueError('Retrieved resource requires a successful HTTP status')
             _text(verification.get('page_title'), 'retrieved page title', 500)
     for profile in profiles:
-        for key, limit in [('name', 100), ('instruction', 700), ('deliverable', 600), ('practice', 600)]:
-            _text(profile.get(key), f'profile {key}', limit)
-        if profile.get('category') not in tuple(CATEGORIES) or profile.get('kind') != 'instruction-profile':
-            raise ValueError('Invalid profile category or kind')
-        expected_access = 'admin' if profile['category'] == 'security' else 'public'
-        if profile.get('access') != expected_access:
-            raise ValueError('Security profiles require admin access')
-        if type(profile.get('version')) is not int or profile['version'] < 1:
-            raise ValueError('Invalid profile version')
-        _texts(profile.get('workflow'), 'profile workflow', minimum=3)
-        _texts(profile.get('checklist'), 'profile checklist', minimum=2)
-        _texts(profile.get('resource_ids'), 'profile resources', maximum=4, length=40)
-        if len(set(profile['resource_ids'])) != len(profile['resource_ids']) or not set(profile['resource_ids']) <= resource_ids:
-            raise ValueError('Profile references unknown or duplicate resources')
+        validate_profile(profile, resource_ids)
     for label in taxonomy:
         for key in ['name', 'meaning', 'professional_alternative']:
             _text(label.get(key), f'taxonomy {key}', 600)
@@ -190,6 +195,10 @@ def skill_instruction(identifier):
 
 
 def main():
+    import sys
+    if len(sys.argv)>1 and sys.argv[1] in {'import','remove-pack','search','capacity'}:
+        from .skill_catalog import main as catalog_main
+        return catalog_main(sys.argv[1:])
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest='action', required=True)
     for name in ['list', 'resources']:
@@ -198,6 +207,8 @@ def main():
         child.add_argument('--query', default='')
     show = sub.add_parser('show')
     show.add_argument('identifier')
+    for action in ('search','capacity','import','remove-pack'):
+        sub.add_parser(action,help='Installed instruction-pack '+action+'; use '+action+' --help')
     sub.add_parser('taxonomy')
     sub.add_parser('validate')
     args = parser.parse_args()
@@ -207,7 +218,12 @@ def main():
         elif args.action == 'resources':
             value = {'resources': list_resources(args.category, args.query)}
         elif args.action == 'show':
-            value = get_skill(args.identifier)
+            try:value = get_skill(args.identifier)
+            except ValueError:
+                from .skill_catalog import SkillCatalog
+                from .config import Settings
+                from .storage import Store
+                value=SkillCatalog(Store(Settings().data_dir)).get(args.identifier)
             if value['access'] == 'admin':
                 raise ValueError('Unlock Admin in zenith chat to use security skills')
         elif args.action == 'taxonomy':

@@ -161,6 +161,9 @@ def create_app(settings=None, agent=None, catalog=None):
             raise HTTPException(401, 'Sign in to use your private memories')
         return user
 
+    from .productivity_gateway import install_productivity
+    install_productivity(app, agent, authenticate, signed_in)
+
     def administrator(request: Request, user=Depends(signed_in)):
         state = agent.admin.status(user['id'], request.cookies.get('zenith_login',''))
         if not state['eligible'] or not state['elevated']:
@@ -304,7 +307,19 @@ def create_app(settings=None, agent=None, catalog=None):
     def skills(request: Request, user=Depends(current_user)):
         from .skills import skills_library
         allowed = agent.skills.is_admin(user['id'] if user else None, request.cookies.get('zenith_login', ''))
-        return {**skills_library(include_admin=allowed), 'kind':'instruction-profiles', 'default_response_mode':settings.response_mode,'default_reply_style':settings.reply_style}
+        return {**skills_library(include_admin=allowed), 'extended_catalog':agent.skills.catalog.status(allowed), 'kind':'instruction-profiles', 'default_response_mode':settings.response_mode,'default_reply_style':settings.reply_style}
+
+    @app.get('/api/skills/search', dependencies=[Depends(authenticate)])
+    def search_skills(request: Request, query: str=Query(default='',max_length=200), category: Literal['general','security']|None=None,
+                      after: str=Query(default='',max_length=40), limit: int=Query(default=25,ge=1,le=100), user=Depends(signed_in)):
+        allowed=agent.skills.is_admin(user['id'],request.cookies.get('zenith_login',''))
+        return agent.skills.catalog.search(query,category,after,limit,allowed)
+
+    @app.get('/api/skills/profile/{identifier}', dependencies=[Depends(authenticate)])
+    def skill_profile(identifier: str,request: Request,user=Depends(signed_in)):
+        try:return agent.skills.require(identifier,user['id'],request.cookies.get('zenith_login',''))
+        except SkillAccessDenied as exc:raise HTTPException(403,str(exc)) from exc
+        except ValueError as exc:raise HTTPException(404,'Unknown skill') from exc
 
     @app.get('/api/skills/current', dependencies=[Depends(authenticate)])
     def current_skill(request: Request, session_id: UUID, user=Depends(current_user)):

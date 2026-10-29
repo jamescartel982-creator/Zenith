@@ -31,6 +31,12 @@ def parse_skill_command(text):
 class SkillAccess:
     def __init__(self, store, personal, admin):
         self.store, self.personal, self.admin = store, personal, admin
+        from .skill_catalog import SkillCatalog
+        self.catalog=SkillCatalog(store)
+
+    def lookup(self, identifier):
+        try:return get_skill(identifier)
+        except ValueError:return self.catalog.get(identifier)
 
     def is_admin(self, user_id, token):
         if not user_id or not isinstance(token, str) or not 1 <= len(token) <= 128:
@@ -39,7 +45,7 @@ class SkillAccess:
         return state['eligible'] and state['elevated']
 
     def require(self, identifier, user_id=None, token=None):
-        profile = get_skill(identifier)
+        profile = self.lookup(identifier)
         if profile['access'] == 'admin' and not self.is_admin(user_id, token):
             raise SkillAccessDenied('Security skills require your owner login and a current admin-code unlock')
         return profile
@@ -58,7 +64,7 @@ class SkillAccess:
             return 'general'
         self._conversation(session_id, user_id)
         try:
-            profile = get_skill(row['skill'])
+            profile = self.lookup(row['skill'])
         except ValueError:
             profile = None
         if profile and profile['access'] == 'public':
@@ -92,8 +98,9 @@ class SkillAccess:
         self._conversation(session_id, user_id)
         active = self.active(session_id, user_id, token)
         if action == 'status':
-            return {'type': 'skill-status', 'skill': active, 'message': 'Active skill: ' + get_skill(active)['name']}
+            return {'type': 'skill-status', 'skill': active, 'message': 'Active skill: ' + self.lookup(active)['name']}
         rows = list_skills(include_admin=self.is_admin(user_id, token))
         return {'type': 'skill-list', 'skill': active,
+                'extended_catalog': self.catalog.status(self.is_admin(user_id, token)),
                 'skills': [{'id': row['id'], 'name': row['name']} for row in rows],
                 'message': 'Use /skill ID to activate a skill. Security skills appear after owner unlock.'}

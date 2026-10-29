@@ -91,7 +91,12 @@ def system_snapshot(agent,user_id=None):
                     'Versioned task/slice evaluation and scheduled regression checks; no automatic model promotion',
                     'Model confidence remains uncalibrated without a matching validated artifact.']},
     ]
-    return {'version':__version__,'components':components,'limits':{'max_new_tokens':settings.max_new_tokens,'brief_max_new_tokens':min(settings.max_new_tokens,settings.fast_max_new_tokens),
+    from .model_metrics import parameter_inventory
+    inventories=[parameter_inventory(provider) for provider in providers]
+    for index,inventory in enumerate(inventories,1):
+        if inventory['total'] is not None:
+            components[0]['details'].append(f"Resident model instance {index}: {inventory['total']:,} tensor parameters, including {inventory['lora']:,} LoRA parameters.")
+    return {'version':__version__,'components':components,'parameter_inventory':inventories,'limits':{'max_new_tokens':settings.max_new_tokens,'brief_max_new_tokens':min(settings.max_new_tokens,settings.fast_max_new_tokens),
             'context_tokens':settings.context_tokens,'default_reply_style':settings.reply_style,'default_response_mode':settings.response_mode},
             'metrics_available':bool(user_id),'monitoring_is_local':True}
 

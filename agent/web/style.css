@@ -175,3 +175,6 @@ button{background:#121722;border-color:#35415b;color:#e9eefc}.primary{background
 .catalog-filters{grid-template-columns:repeat(3,minmax(0,1fr));align-items:end}.catalog-filters .catalog-search{grid-column:span 2}input,select{background:#0a0f19;color:#eef3ff;border-color:#35415b}.code-block{background:#06090f;border-color:#2c3c59}.code-toolbar{background:#151e2e}.input-wrap:focus-within{border-color:#a9c0f8}
 @media(max-width:700px){.header-logo{width:72px;height:44px}header{gap:8px}.catalog-filters{grid-template-columns:1fr 1fr}.catalog-filters .catalog-search{grid-column:1/-1}.welcome-banner{max-height:210px}h1{font-size:17px}}
 @media(max-width:420px){.header-logo{width:48px}header{padding-left:4%;padding-right:4%}.header-actions{gap:3px}.header-actions button{padding:6px;font-size:7px}}
+.analysis-table { overflow-x: auto; margin: 1rem 0; }
+.analysis-table table { border-collapse: collapse; width: 100%; font-size: .85rem; }
+.analysis-table td, .analysis-table th { padding: .5rem; border-bottom: 1px solid var(--border, #555); text-align: left; white-space: nowrap; }

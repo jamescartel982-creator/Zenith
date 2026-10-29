@@ -79,15 +79,15 @@ class SkillAccessTests(unittest.TestCase):
     def test_catalog_hides_security_until_owner_unlock_and_has_no_ai_subjects(self):
         for client in [self.guest, self.other, self.owner]:
             library = client.get('/api/skills').json()
-            self.assertEqual(len(library['skills']), 11)
+            self.assertEqual(len(library['skills']), 16)
             self.assertFalse(library['security_unlocked'])
             self.assertEqual({s['category'] for s in library['skills']}, {'general'})
         self.unlock()
         library = self.owner.get('/api/skills').json()
-        self.assertEqual(len(library['skills']), 27)
+        self.assertEqual(len(library['skills']), 32)
         self.assertTrue(library['security_unlocked'])
         self.assertNotIn('ai', {s['category'] for s in library['skills']})
-        self.assertEqual(len(self.other.get('/api/skills').json()['skills']), 11)
+        self.assertEqual(len(self.other.get('/api/skills').json()['skills']), 16)
 
     def test_forged_chat_and_stream_payloads_never_activate_security(self):
         for client in [self.guest, self.other, self.owner]:

@@ -1,7 +1,7 @@
 name: Scoped inference performance
 on:
   pull_request:
-    paths: ['agent/**', 'scripts/inference_speed_benchmark.py', 'scripts/inference_speed_acceptance.py', '.github/workflows/inference-performance.yml']
+    paths: ['agent/**', 'scripts/inference_speed_benchmark.py', 'scripts/inference_speed_acceptance.py', 'scripts/smoke_personalized_model.py', '.github/workflows/inference-performance.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -57,8 +57,11 @@ jobs:
           uv run --project integrations/inference_service --frozen --extra local --extra test zenith-inference init --directory .performance-identity
           uv run --project integrations/inference_service --frozen --extra local --extra test python -m scripts.inference_speed_benchmark --identity .performance-identity/identity.json --output inference-performance.json --samples 1 --variant ci-paired --scoped-cache --baseline-ref 7b6bbff7a559ce29c2e3a8b2cc641b926463c1ce
           uv run --project integrations/inference_service --frozen --extra local --extra test python -m scripts.inference_speed_acceptance inference-performance.json
+          uv run --project integrations/inference_service --frozen --extra local --extra test python -m scripts.smoke_personalized_model --identity .performance-identity/identity.json --output personalized-model-acceptance.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: preserved-model-performance-${{ matrix.os }}
-          path: inference-performance.json
+          path: |
+            inference-performance.json
+            personalized-model-acceptance.json

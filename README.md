@@ -127,6 +127,12 @@ remove future knowledge already present in model weights.
 - **Owner controls:** defensive security profiles require the configured owner account and a current private admin-code unlock.
 - **Learning and evaluation:** reviewed examples, versioned data splits, candidate training, regression checks, and recorded performance.
 
+The [productivity extension](docs/productivity.md) adds exact bounded CSV
+summaries, explicit account response preferences and a searchable library with
+capacity for 100,000 reviewed instruction profiles. The bundled library contains
+32 profiles; imported instructions are not neural training or tool permissions.
+Model size is reported from actual resident parameters when available.
+
 The System view shows the model, interface, context and memory, infrastructure and data pipeline, and governance and monitoring components. Engineering standards are implemented in the application and documented in [engineering](docs/engineering.md).
 
 ## Discover and configure models

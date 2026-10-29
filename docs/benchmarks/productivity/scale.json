@@ -1,0 +1,47 @@
+{
+  "source_commit": "fcec8993b068cc72f2ca918a8ef5680dbc9b2255",
+  "source_sha256": {
+    "agent/data_analysis.py": "b7d9084504a1cd1c61d75ad827ae872100f4923564c5ebbf4fec6f6cc6c4dd85",
+    "agent/skill_catalog.py": "235b491a5925b5e90165840513a29bbbf451191c16706eac3d400cdb4e90339d",
+    "agent/skills.py": "b4cf354a1b79c3c5f755b27be916381c94ed0f72e7f4ebeb399d531e26579c2e",
+    "agent/resources/skills-v1.json": "ae4f9bdcd85bad04ae1c6bd802f885c70c7faa10a6663bef9dbb25a5925c7b95"
+  },
+  "synthetic_profiles_for_load_test": 100000,
+  "production_profiles_added": 0,
+  "import_seconds": 8.893820368997694,
+  "search_median_ms": 0.5963039984635543,
+  "search_samples_ms": [
+    0.74890300311381,
+    1.2949219999427442,
+    0.48083999718073756,
+    0.3895170011674054,
+    0.3501520004647318,
+    0.8026819996302947,
+    0.44164000064483844,
+    0.6949519993213471,
+    0.5963039984635543
+  ],
+  "public_profile_count": 90000,
+  "restricted_profile_count": 10000,
+  "security_filter_passed": true,
+  "pagination_disjoint": true,
+  "csv_fixture_sha256": "aab308e8fd9d275b97658c5a8064c22a594cb2052cac3300b6a10f1b38c5b55d",
+  "csv_rows": 10000,
+  "csv_columns": 2,
+  "csv_median_ms": 50.233941998158116,
+  "csv_samples_ms": [
+    50.233941998158116,
+    47.850406997895334,
+    45.471143999748165,
+    51.17141800292302,
+    62.023802998737665
+  ],
+  "csv_exact_sums_verified": true,
+  "model_calls": 0,
+  "training_performed": false,
+  "limitations": [
+    "Synthetic load profiles exist only in removed test-owned state, not in the installed skill library.",
+    "No previous CSV engine baseline exists; these are measured new-path timings, not an overall model speedup.",
+    "Single CPU host; no GPU, frontier intelligence or general accuracy claim."
+  ]
+}
