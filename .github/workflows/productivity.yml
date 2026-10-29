@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 12
     env:
-      ZENITH_HOME: ${{ runner.temp }}/zenith-productivity-tests
+      ZENITH_HOME: ${{ github.workspace }}/.zenith-productivity-tests
     steps:
       - uses: actions/checkout@v4
         with:
