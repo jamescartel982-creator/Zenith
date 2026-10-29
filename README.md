@@ -222,6 +222,12 @@ Owner controls now include Argon2id password migration, authenticator-based MFA,
 
 ## Development and limitations
 
+The [2026-10-29 system audit and upgrade plan](docs/system-upgrade-audit-20261029/README.md)
+maps all forty requested capabilities to current source, measured evidence and
+implementation tasks. It includes the proposed controlled Evolution Engine,
+security boundaries and rollback design. Proposed capabilities remain unavailable
+until their own implementation and real-backend acceptance pass.
+
 Zenith supports reviewed LoRA candidates and an experimental transformer trained from random weights. Training is explicit; ordinary chat does not update model weights. Evaluation and review determine whether a candidate should replace a baseline. The project does not claim comprehensive knowledge, professional certification, or performance parity with proprietary assistants. Response speed and quality depend on the configured model, hardware, context, and processing mode.
 
 ```bash

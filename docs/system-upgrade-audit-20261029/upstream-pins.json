@@ -1,0 +1,23 @@
+[
+  {
+    "runtime": "hermes",
+    "expected_pin": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "actual_pin": "d05095663342556788cf2a198bfa7844cc7968ab",
+    "tracked_source_unchanged": true,
+    "pin_matches": true
+  },
+  {
+    "runtime": "openclaw",
+    "expected_pin": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "actual_pin": "2f5727b9c61c2ba9dccc3c880d9115f02cb8652f",
+    "tracked_source_unchanged": true,
+    "pin_matches": true
+  },
+  {
+    "runtime": "tradingagents",
+    "expected_pin": "e8f5503e9b86d5c2710b0c76b1f686703968c9df",
+    "actual_pin": "e8f5503e9b86d5c2710b0c76b1f686703968c9df",
+    "tracked_source_unchanged": true,
+    "pin_matches": true
+  }
+]
