@@ -18,6 +18,11 @@ authorization filters, then removes its temporary database and input. Those
 fixtures are not installed as production skills. Acquiring, licensing, reviewing
 and validating 100,000 useful profiles remains separate work.
 
+The optional [generated recipe library](generated-recipes.md) is a distinct,
+explicit installation of 100,000 labeled grammar combinations. It shares this
+catalog's capacity and authorization controls; it is not the synthetic load-test
+fixture or a claim of 100,000 individually validated skills.
+
 ## Analyze CSV without asking a language model to calculate
 
 In the web workspace, sign in and choose **Analyze CSV**. Paste a UTF-8 CSV,

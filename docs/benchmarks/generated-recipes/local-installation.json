@@ -1,0 +1,25 @@
+{
+  "installation": {
+    "pack_id": "generated-recipes-v1",
+    "installed": 100000,
+    "already_installed": false,
+    "definition_sha256": "ed647bb78db16958d17383670d1bc3b4c47b707465d23c65d3c5ae69c662e279",
+    "rendered_sha256": "6e75bd59fdacac7a21cbf0d563cb30ceb4c0bb479b534381524efdbe561dc735",
+    "public_recipes": 90000,
+    "admin_recipes": 10000,
+    "kind": "generated-workflow-recipes",
+    "notice": "Generated workflow recipe; not independently evaluated and not neural training.",
+    "license": "Apache-2.0",
+    "source": "locally-authored-frozen-generator-v1",
+    "independently_evaluated": 0,
+    "training_performed": false,
+    "install_seconds": 5.553
+  },
+  "durable_installation": true,
+  "original_tables_preserved": true,
+  "configuration_unchanged": true,
+  "preserved_identity_sha256": "182559bbb77dad2ac9f53be2252ef0fa8a3698851d8d47708d5264701170e13b",
+  "checkpoint_unchanged": true,
+  "database_bytes": 7749632,
+  "integrity_check": "ok"
+}

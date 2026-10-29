@@ -90,7 +90,7 @@ class Agent:
         skill=skill if skill is not None else self.skills.active(session_id,user_id,login_token)
         profile=self.skills.require(skill,user_id,login_token)
         restricted=profile['access']=='admin'
-        if profile.get('origin')=='operator-imported-instruction-profile':
+        if profile.get('origin') in {'operator-imported-instruction-profile','generated-workflow-recipe'}:
             from .skill_catalog import imported_instruction
             instruction=imported_instruction(profile)
         else:instruction=skill_instruction(skill)

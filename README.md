@@ -133,6 +133,11 @@ capacity for 100,000 reviewed instruction profiles. The bundled library contains
 32 profiles; imported instructions are not neural training or tool permissions.
 Model size is reported from actual resident parameters when available.
 
+To explicitly install **100,000 labeled generated workflow recipes**, run
+`zenith skills recipes install --approve`. They are authored template
+combinations with bounded search and owner-only security profiles; they are not
+independently learned or evaluated abilities. See [installation, use and rollback](docs/generated-recipes.md).
+
 The System view shows the model, interface, context and memory, infrastructure and data pipeline, and governance and monitoring components. Engineering standards are implemented in the application and documented in [engineering](docs/engineering.md).
 
 ## Discover and configure models

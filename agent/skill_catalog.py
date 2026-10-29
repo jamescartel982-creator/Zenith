@@ -39,14 +39,18 @@ class SkillCatalog:
     def status(self, include_admin=False):
         with self.store.connect() as db:
             count = db.execute('SELECT COUNT(*) FROM skill_pack_profiles' + ('' if include_admin else " WHERE access='public'")).fetchone()[0] if self.exists(db) else 0
-        return {'installed_profiles': count, 'capacity': CAPACITY, 'kind': 'instruction-profiles',
+        from .recipe_catalog import RecipeCatalog
+        recipes = RecipeCatalog(self.store).status(include_admin)
+        return {'installed_profiles': count + recipes['installed_profiles'], 'capacity': CAPACITY, 'kind': 'instruction-profiles',
+                'imported_profiles': count, 'generated_profiles': recipes['installed_profiles'], 'generated_notice': recipes['notice'],
                 'training_performed': False, 'search_page_limit': 100}
 
     def get(self, identifier):
         with self.store.connect() as db:
             row = db.execute('SELECT profile FROM skill_pack_profiles WHERE id=?', (identifier,)).fetchone() if self.exists(db) else None
         if row is None:
-            raise ValueError('Unknown skill')
+            from .recipe_catalog import RecipeCatalog
+            return RecipeCatalog(self.store).get(identifier)
         value = json.loads(row['profile'])
         resources = _library()['resources']
         validate_profile(value, {item['id'] for item in resources})
@@ -74,9 +78,12 @@ class SkillCatalog:
             clauses.append('skill_pack_fts MATCH ?'); values.append(' AND '.join('"' + term + '"' for term in terms))
         with self.store.connect() as db:
             if not self.exists(db):
-                return {'skills': [], 'next': None}
-            rows = db.execute('SELECT p.id,p.name,p.category,p.access,p.deliverable FROM skill_pack_profiles p' + join +
-                ' WHERE ' + ' AND '.join(clauses) + ' ORDER BY p.id LIMIT ?', (*values, limit + 1)).fetchall()
+                rows = []
+            else:
+                rows = db.execute('SELECT p.id,p.name,p.category,p.access,p.deliverable FROM skill_pack_profiles p' + join +
+                    ' WHERE ' + ' AND '.join(clauses) + ' ORDER BY p.id LIMIT ?', (*values, limit + 1)).fetchall()
+        from .recipe_catalog import RecipeCatalog
+        rows = sorted([dict(row) for row in rows] + RecipeCatalog(self.store).search_rows(query, category, after, limit + 1, include_admin), key=lambda row: row['id'])
         return {'skills': [dict(row) for row in rows[:limit]], 'next': rows[limit - 1]['id'] if len(rows) > limit else None}
 
     def install(self, path, approved=False):
@@ -119,6 +126,8 @@ class SkillCatalog:
             if db.execute('SELECT 1 FROM skill_packs WHERE id=?', (pack,)).fetchone():
                 raise ValueError('Pack already exists; never overwrite installed instructions silently')
             count = db.execute('SELECT COUNT(*) FROM skill_pack_profiles').fetchone()[0]
+            from .recipe_catalog import installed_count
+            count += installed_count(db)
             available = CAPACITY - count
             resource_ids = {item['id'] for item in _library()['resources']}
             digest = hashlib.sha256(first); added = 0; total_bytes = len(first)
