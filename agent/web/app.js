@@ -20,6 +20,12 @@ let catalogLoaded = false;
 let skillLibrary = null;
 let skillLoadRequest = 0;
 let skillStateReady = false;
+let savedPreferences = {};
+let preferenceLoadRequest = 0;
+let importedSkillRequest = 0;
+let importedSkillCursor = null;
+let analysisRequest = 0;
+let importedSkillTimer = null;
 
 function showError(message) {
   $('error').textContent = message;
@@ -493,6 +499,11 @@ async function loadAccount() {
   const previous = activeUser?.id;
   activeUser = data.user;
   if (previous !== activeUser?.id) {
+    savedPreferences = {}; preferenceLoadRequest += 1;
+    analysisRequest += 1; importedSkillRequest += 1;
+    $('imported-skill-results')?.replaceChildren(); $('skills-results').replaceChildren(); $('skills-taxonomy').replaceChildren();
+    $('analysis-csv').value = ''; $('analysis-result').replaceChildren(); $('analysis-status').textContent = '';
+    $('analysis-submit').disabled = false;
     skillLoadRequest += 1; skillLibrary = null; skillStateReady = false;
     $('skill-select').replaceChildren(new Option('General reasoning', 'general'));
     $('skill-command-status').textContent = 'Active skill: General reasoning';
@@ -512,6 +523,7 @@ async function loadAccount() {
     session = saved && /^[0-9a-f-]{36}$/i.test(saved) ? saved : crypto.randomUUID();
     rememberConversation(); showWelcome();
   } else if (!activeUser && previous) {session = crypto.randomUUID(); rememberConversation(); showWelcome();}
+  if (activeUser) await loadPreferenceControls();
 }
 async function loadConversations() {
   const list = $('conversation-list'); list.replaceChildren();
@@ -609,14 +621,19 @@ async function loadSkills() {
       }
       $('skill-select').append(group);
     }
-    $('skill-select').value = data.skills.some(skill => skill.id === current.skill) ? current.skill : 'general';
+    if (!data.skills.some(skill => skill.id === current.skill) && current.skill !== 'general') {
+      const profile = await api('/api/skills/profile/' + encodeURIComponent(current.skill));
+      if (request !== skillLoadRequest || activeSession !== session) return;
+      $('skill-select').append(new Option(profile.name, profile.id));
+    }
+    $('skill-select').value = current.skill;
     $('skill-command-status').textContent = current.message;
     $('skills-category').replaceChildren(new Option('All available skills', ''));
     for (const category of data.categories) $('skills-category').append(new Option(category.name, category.id));
     $('skills-access-note').textContent = data.security_unlocked ? 'Owner unlocked. Security skills require explicit activation and expire with this admin login.' : 'Security skills are locked. Only the configured owner can unlock Admin and activate them.';
     document.querySelector('.skills-taxonomy').hidden = !data.security_unlocked;
-    $('response-mode').value = localStorage.getItem('zenith_response_mode') || data.default_response_mode || 'fast';
-    $('reply-style').value = localStorage.getItem('zenith_reply_style') || data.default_reply_style || 'auto';
+    $('response-mode').value = localStorage.getItem(responseKey('zenith_response_mode')) || data.default_response_mode || 'fast';
+    $('reply-style').value = localStorage.getItem(responseKey('zenith_reply_style')) || savedPreferences.reply_style || data.default_reply_style || 'auto';
     if ($('skills-dialog').open) renderSkillLibrary();
   } catch (_) {
     if (request === skillLoadRequest) {
@@ -683,6 +700,8 @@ function renderSkillLibrary() {
     row.append(element('h3', '', item.name), element('p', '', item.meaning), element('p', '', item.professional_alternative));
     taxonomy.append(row);
   }
+  importedSkillRequest += 1; clearTimeout(importedSkillTimer);
+  importedSkillTimer = setTimeout(() => loadImportedSkills(true), 150);
 }
 $('open-skills').addEventListener('click', async () => {
   $('skills-dialog').showModal(); $('skills-error').textContent = '';
@@ -693,8 +712,8 @@ $('open-skills').addEventListener('click', async () => {
 $('skills-filters').addEventListener('submit', event => {event.preventDefault(); renderSkillLibrary();});
 $('skills-query').addEventListener('input', renderSkillLibrary);
 $('skills-category').addEventListener('change', renderSkillLibrary);
-$('response-mode').addEventListener('change', () => localStorage.setItem('zenith_response_mode', $('response-mode').value));
-$('reply-style').addEventListener('change', () => localStorage.setItem('zenith_reply_style', $('reply-style').value));
+$('response-mode').addEventListener('change', () => localStorage.setItem(responseKey('zenith_response_mode'), $('response-mode').value));
+$('reply-style').addEventListener('change', () => localStorage.setItem(responseKey('zenith_reply_style'), $('reply-style').value));
 function renderAdmin() {
   const elevated = !!adminState?.elevated;
   $('server-metrics').hidden = !elevated;
@@ -870,3 +889,108 @@ $('forget-summary').addEventListener('click', async () => {
   try { await api(`/api/conversations/${session}/summary`,{method:'DELETE'}); $('conversation-summary').textContent=''; }
   catch(error) { $('memory-error').textContent=error.message; }
 });
+
+function responseKey(name) { return activeUser ? name + '_' + activeUser.id : name; }
+async function loadPreferenceControls() {
+  const owner = activeUser?.id, request = ++preferenceLoadRequest;
+  if (!owner) return;
+  const result = await api('/api/preferences');
+  if (activeUser?.id !== owner || request !== preferenceLoadRequest) return;
+  savedPreferences = result.values;
+  for (const [key, fallback] of Object.entries({reply_style: 'auto', tone: 'neutral', detail: 'standard', language: 'default'})) {
+    $('preference-' + key).value = result.values[key] || fallback;
+  }
+  $('preferences-status').textContent = '';
+}
+$('preferences-form').addEventListener('submit', async event => {
+  event.preventDefault(); const owner = activeUser?.id, request = ++preferenceLoadRequest;
+  try {
+    const values = Object.fromEntries(['reply_style', 'tone', 'detail', 'language'].map(key => [key, $('preference-' + key).value]));
+    const result = await api('/api/preferences', {method: 'PUT', body: JSON.stringify({values})});
+    if (activeUser?.id !== owner || request !== preferenceLoadRequest) return;
+    savedPreferences = result.values; localStorage.removeItem(responseKey('zenith_reply_style'));
+    $('reply-style').value = result.values.reply_style || 'auto';
+    $('preferences-status').textContent = 'Saved for future answers. You can override the length in the composer.';
+  } catch (error) { if (activeUser?.id === owner) $('preferences-status').textContent = error.message; }
+});
+$('clear-preferences').addEventListener('click', async () => {
+  const owner = activeUser?.id, request = ++preferenceLoadRequest;
+  try {
+    await api('/api/preferences', {method: 'DELETE'});
+    if (activeUser?.id !== owner || request !== preferenceLoadRequest) return;
+    savedPreferences = {}; localStorage.removeItem(responseKey('zenith_reply_style'));
+    await loadPreferenceControls(); if (owner !== activeUser?.id) return;
+    $('reply-style').value = skillLibrary?.default_reply_style || 'auto';
+    $('preferences-status').textContent = 'Preferences cleared for future answers.';
+  } catch (error) { if (activeUser?.id === owner) $('preferences-status').textContent = error.message; }
+});
+$('open-analysis').addEventListener('click', () => {
+  if (!activeUser) {openAccount(); return;}
+  $('analysis-dialog').showModal(); $('analysis-status').textContent = '';
+});
+$('analysis-form').addEventListener('submit', async event => {
+  event.preventDefault(); const owner = activeUser?.id, request = ++analysisRequest;
+  $('analysis-result').replaceChildren();
+  $('analysis-submit').disabled = true; $('analysis-status').textContent = 'Analyzing…';
+  try {
+    const delimiter = $('analysis-delimiter').value;
+    const result = await api('/api/analysis/csv', {method: 'POST', body: JSON.stringify({csv_text: $('analysis-csv').value, delimiter: delimiter === 'tab' ? '\t' : delimiter})});
+    if (owner !== activeUser?.id || request !== analysisRequest) return;
+    const view = $('analysis-result'); view.replaceChildren();
+    view.append(element('p', '', `${result.rows} records · ${result.columns} columns · ${result.duplicate_rows} exact duplicate records · ${result.elapsed_ms} ms`));
+    view.append(element('p', '', `${result.formula_like_cells} formula-like cells detected; none executed. Dataset not saved.`));
+    const table = element('table'); const head = element('tr');
+    for (const text of ['Column', 'Kind', 'Present', 'Missing', 'Excluded text', 'Sum', 'Mean', 'Minimum', 'Maximum', 'Median']) head.append(element('th', '', text));
+    table.append(head);
+    for (const column of result.column_summaries) {
+      const row = element('tr');
+      for (const key of ['name', 'kind', 'present', 'missing', 'excluded_non_numeric', 'sum', 'mean', 'minimum', 'maximum', 'median']) row.append(element('td', '', String(column[key] ?? '—')));
+      table.append(row);
+    }
+    const scroll = element('div', 'analysis-table'); scroll.append(table); view.append(scroll);
+    $('analysis-status').textContent = 'Complete. Review missing values and exclusions before interpreting the results.';
+  } catch (error) { if (owner === activeUser?.id && request === analysisRequest) $('analysis-status').textContent = error.message; }
+  finally { if (request === analysisRequest) $('analysis-submit').disabled = false; }
+});
+async function loadImportedSkills(reset) {
+  let view = $('imported-skill-results');
+  if (!view) {
+    view = element('section'); view.id = 'imported-skill-results'; $('skills-results').after(view);
+  }
+  if (reset) { view.replaceChildren(); importedSkillCursor = null; }
+  const request = ++importedSkillRequest, owner = activeUser?.id;
+  if (!owner) {view.append(element('p', '', 'Sign in to search operator-imported skill packs.')); return;}
+  const query = $('skills-query').value, category = $('skills-category').value;
+  try {
+    const params = new URLSearchParams({query, limit: '25', after: reset ? '' : importedSkillCursor || ''});
+    if (category) params.set('category', category);
+    const result = await api('/api/skills/search?' + params);
+    if (request !== importedSkillRequest || owner !== activeUser?.id || query !== $('skills-query').value || category !== $('skills-category').value) return;
+    $('imported-skill-next')?.remove();
+    if (!result.skills.length && reset) view.append(element('p', '', 'No matching imported profiles installed. Built-in profiles are shown above.'));
+    for (const profile of result.skills) {
+      const card = element('article', 'skill-card');
+      card.append(element('span', 'eyebrow', 'Imported instruction profile'), element('h3', '', profile.name), element('p', '', profile.deliverable));
+      const choose = element('button', '', 'Use ' + profile.name); choose.type = 'button';
+      choose.addEventListener('click', async () => {
+        try {await runSkillCommand('/skill ' + profile.id); $('skills-dialog').close();}
+        catch (error) {$('skills-error').textContent = error.message;}
+      });
+      const details = element('button', '', 'Inspect workflow'); details.type = 'button';
+      details.addEventListener('click', async () => {
+        try {
+          const full = await api('/api/skills/profile/' + encodeURIComponent(profile.id));
+          if (owner !== activeUser?.id) return;
+          const text = element('pre', '', full.instruction + '\n\n' + [...full.workflow, ...full.checklist].join('\n'));
+          details.replaceWith(text);
+        } catch (error) {$('skills-error').textContent = error.message;}
+      });
+      card.append(choose, details); view.append(card);
+    }
+    importedSkillCursor = result.next;
+    if (result.next) {
+      const next = element('button', '', 'Next imported profiles'); next.id = 'imported-skill-next'; next.type = 'button';
+      next.addEventListener('click', () => { next.disabled = true; loadImportedSkills(false); }); view.append(next);
+    }
+  } catch (error) {if (request === importedSkillRequest && owner === activeUser?.id) $('skills-error').textContent = error.message;}
+}

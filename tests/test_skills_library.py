@@ -20,9 +20,9 @@ class SkillsLibraryTests(unittest.TestCase):
     def test_bundled_library_counts_references_and_legacy_profiles(self):
         library = skills_library(include_admin=True)
         report = validate_library(library)
-        self.assertEqual(report['profiles'], 27)
+        self.assertEqual(report['profiles'], 32)
         self.assertEqual(report['resources'], 24)
-        self.assertEqual(report['categories'], {'general': 11, 'security': 16})
+        self.assertEqual(report['categories'], {'general': 16, 'security': 16})
         self.assertEqual(len(library['taxonomy']), 6)
         self.assertTrue({'general', 'mathematics', 'science', 'history', 'ancient-math',
                          'programming', 'investing', 'day-trading', 'cybersecurity',
@@ -30,7 +30,7 @@ class SkillsLibraryTests(unittest.TestCase):
         self.assertEqual(get_skill('incident-response')['resources'][0]['publisher'], 'NIST')
 
     def test_search_categories_and_returned_data_are_isolated(self):
-        self.assertEqual(len(list_skills()), 11)
+        self.assertEqual(len(list_skills()), 16)
         with self.assertRaises(ValueError): list_skills('ai')
         self.assertEqual([s['id'] for s in list_skills('security', 'RANSOMWARE', include_admin=True)], ['ransomware-defense'])
         self.assertTrue(len(list_resources('security', include_admin=True)) == 13)
@@ -98,7 +98,7 @@ class SkillsLibraryTests(unittest.TestCase):
                 response = client.get('/api/skills', headers={'Authorization': 'Bearer ' + settings.api_token})
             self.assertEqual(response.status_code, 200)
             value = response.json()
-            self.assertEqual(value['validation']['profiles'], 11)
+            self.assertEqual(value['validation']['profiles'], 16)
             self.assertEqual(value['kind'], 'instruction-profiles')
             self.assertEqual(value['default_reply_style'], settings.reply_style)
             self.assertNotIn('api_token', value)

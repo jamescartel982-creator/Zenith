@@ -31,6 +31,8 @@ class Agent:
         from .personal import PersonalStore
         from .admin import AdminStore
         self.personal=PersonalStore(self.store);self.admin=AdminStore(self.store)
+        from .preferences import Preferences
+        self.preferences=Preferences(self.store)
         from .execution import ExecutionControls
         self.execution=ExecutionControls(self.store,self.admin)
         from .skill_access import SkillAccess
@@ -52,6 +54,8 @@ class Agent:
         system=(COMPACT_SYSTEM if plan.concise else SYSTEM_PROMPT)+'\nSelected skill: '+instruction
         if plan.concise:system+='\nReply in 1–3 short sentences unless the user requires a different format. Avoid preambles, repetition, and restating the question.'
         if user_id:
+            from .preferences import style_instruction
+            system+=style_instruction(self.preferences.get(user_id))
             from .summaries import current as conversation_summary
             saved_summary=conversation_summary(self.store,self.personal,user_id,session_id)
             if saved_summary:
@@ -84,9 +88,14 @@ class Agent:
             raise ValueError('Send skill commands through the command interface; they are not model prompts')
         if mode not in {'fast','thorough'}:raise ValueError('Choose fast or thorough response mode')
         skill=skill if skill is not None else self.skills.active(session_id,user_id,login_token)
-        restricted=self.skills.require(skill,user_id,login_token)['access']=='admin'
-        instruction=skill_instruction(skill)
-        plan=reply_plan(self.settings,text,mode,reply_style)
+        profile=self.skills.require(skill,user_id,login_token)
+        restricted=profile['access']=='admin'
+        if profile.get('origin')=='operator-imported-instruction-profile':
+            from .skill_catalog import imported_instruction
+            instruction=imported_instruction(profile)
+        else:instruction=skill_instruction(skill)
+        saved_style=self.preferences.get(user_id).get('reply_style') if user_id else None
+        plan=reply_plan(self.settings,text,mode,reply_style if reply_style is not None else saved_style)
         if not self.lock.acquire(blocking=False):raise BusyError('Zenith is answering another message. Try again shortly.')
         def events(lease):
             provider_stream=None

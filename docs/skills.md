@@ -1,6 +1,6 @@
 # Built-in skill commands and owner-only security
 
-Zenith 0.10 has **11 public conversation skills** and **16 owner-only defensive cybersecurity skills**. AI engineering is how the software is built; it has been removed from the runtime skill menu. See [engineering standards and implementation](engineering.md) for the actual code boundaries and developer review material.
+Zenith has **16 public conversation skills** and **16 owner-only defensive cybersecurity skills**. AI engineering is how the software is built; it has been removed from the runtime skill menu. See [engineering standards and implementation](engineering.md) for the actual code boundaries and developer review material. The optional [reviewed instruction-pack library](productivity.md) adds indexed imports separately from these bundled profiles.
 
 ## Activate a skill with a command
 
@@ -45,11 +45,13 @@ The local operating-system owner controls the files, database, and Python instal
 ./run.sh chat
 ```
 
-On Windows replace `./run.sh` with `powershell -NoProfile -ExecutionPolicy Bypass -File .\run.ps1`. Metadata commands do not load a model. Public listing/show commands expose public skills; the in-chat `/skill list` includes security only after owner unlock. Offline validation checks the complete installed library: 27 profiles, 24 application references, and six owner-visible terminology records. Developer documentation preserves the broader 40-reference bibliography.
+On Windows replace `./run.sh` with `powershell -NoProfile -ExecutionPolicy Bypass -File .\run.ps1`. Metadata commands do not load a model. Public listing/show commands expose public skills; the in-chat `/skill list` includes security only after owner unlock. Offline validation checks the bundled library: 32 profiles, 24 application references, and six owner-visible terminology records. Imported profiles are validated separately on import. Developer documentation preserves the broader 40-reference bibliography.
 
 ## API behavior
 
-- `GET /api/skills`: role-filtered catalog; 11 public profiles or 27 for the currently unlocked owner. A client cannot enable private results with a query flag.
+- `GET /api/skills`: role-filtered bundled catalog; 16 public profiles or 32 for the currently unlocked owner, plus imported-library status. A client cannot enable private results with a query flag.
+- `GET /api/skills/search`: signed-in, paginated imported profile search with the same owner visibility rule.
+- `GET /api/skills/profile/ID`: signed-in imported or bundled profile details after authorization.
 - `GET /api/skills/current?session_id=UUID`: current skill after conversation-ownership and expiration checks.
 - `POST /api/skills/command`: `{"session_id": "UUID", "command": "/skill ID"}`. Uses the existing server gate and login cookie. No codes or passwords belong in this payload.
 - `POST /api/chat` and `/api/chat/stream`: omitted/null `skill` resolves the saved server-side selection. An explicit skill is a per-request override and receives the same owner checks. Flags claiming admin status cannot bypass authorization.
@@ -71,6 +73,11 @@ Commands are separate from model prompts. Sending `/skill ...` or `/admin ...` t
 | `/skill books-writing` | Books and writing |
 | `/skill research` | Research literacy |
 | `/skill data-analysis` | Data analysis |
+| `/skill csv-quality` | CSV quality review |
+| `/skill decimal-statistics` | Decimal statistics |
+| `/skill analysis-review` | Analysis review |
+| `/skill evidence-check` | Evidence checking |
+| `/skill adaptive-explanation` | Adaptive explanation |
 
 ## Owner-only security skills
 

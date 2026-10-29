@@ -5,6 +5,7 @@ import sys
 from . import __version__
 
 COMMANDS = {
+    'analyze': ('agent.data_analysis', 'Summarize a bounded UTF-8 CSV locally with verified decimal arithmetic'),
     'reason': ('agent.reasoning', 'Run bounded native reasoning with optional exact arithmetic checks'),
     'model-registry': ('agent.model_registry', 'Inspect runtime models or explicitly discover account-visible provider IDs'),
     'route': ('agent.orchestration', 'Run native Zenith or explicitly configured hybrid inference'),
