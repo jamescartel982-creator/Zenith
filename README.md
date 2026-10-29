@@ -138,6 +138,10 @@ To explicitly install **100,000 labeled generated workflow recipes**, run
 combinations with bounded search and owner-only security profiles; they are not
 independently learned or evaluated abilities. See [installation, use and rollback](docs/generated-recipes.md).
 
+For an existing recipe library, `zenith skills recipes optimize --approve`
+refreshes SQLite query statistics. [Paired measurements](docs/benchmarks/recipe-search/README.md)
+show gains on selected recipe searches; model inference and parameter count stay unchanged.
+
 The System view shows the model, interface, context and memory, infrastructure and data pipeline, and governance and monitoring components. Engineering standards are implemented in the application and documented in [engineering](docs/engineering.md).
 
 ## Discover and configure models

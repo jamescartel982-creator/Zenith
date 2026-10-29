@@ -144,6 +144,44 @@ class GeneratedRecipeTests(unittest.TestCase):
         self.assertEqual(report['installed_profiles'], 100000)
         self.assertFalse(report['training_performed'])
 
+    def test_optimize_and_reset_preserve_results_history_and_other_table_statistics(self):
+        with tempfile.TemporaryDirectory() as folder:
+            store = Store(folder)
+            with self.store.connect() as source, store.connect() as target: source.backup(target)
+            catalog = SkillCatalog(store); recipes = RecipeCatalog(store)
+            before = catalog.search('Python correctness beginner')
+            digest = recipes.install(True)['rendered_sha256']
+            turn = store.add('preserved-session', 'Original prompt', 'Original answer', [], 'original-model')
+            with store.connect() as db:
+                db.execute('CREATE TABLE unrelated_analysis (id INTEGER PRIMARY KEY, label TEXT)')
+                db.execute("INSERT INTO unrelated_analysis VALUES (1,'preserve')")
+                db.execute('ANALYZE unrelated_analysis')
+                other_stats = [tuple(row) for row in db.execute("SELECT * FROM sqlite_stat1 WHERE tbl='unrelated_analysis'")]
+            with self.assertRaises(PermissionError): recipes.optimize()
+            for reset in (False, True, False):
+                result = recipes.optimize(True, reset)
+                self.assertFalse(result['recipe_content_changed'])
+                self.assertEqual(catalog.search('Python correctness beginner'), before)
+                self.assertEqual(catalog.search('x-recipes-90000')['skills'], [])
+                self.assertEqual(recipes.install(True)['rendered_sha256'], digest)
+                with store.connect() as db:
+                    self.assertEqual([tuple(row) for row in db.execute("SELECT * FROM sqlite_stat1 WHERE tbl='unrelated_analysis'")], other_stats)
+                    collected = db.execute("SELECT COUNT(*) FROM sqlite_stat1 WHERE tbl='generated_recipes'").fetchone()[0]
+                    self.assertEqual(collected > 0, not reset)
+                    self.assertEqual(db.execute('SELECT response FROM turns WHERE id=?', (turn,)).fetchone()[0], 'Original answer')
+
+    def test_optimize_requires_existing_pack_and_cli_routes_explicit_maintenance(self):
+        with tempfile.TemporaryDirectory() as folder:
+            store = Store(folder)
+            with self.assertRaisesRegex(ValueError, 'complete matching'): RecipeCatalog(store).optimize(True)
+            with store.connect() as db:
+                self.assertIsNone(db.execute("SELECT 1 FROM sqlite_master WHERE name='sqlite_stat1'").fetchone())
+        from agent.commands import main
+        output = io.StringIO()
+        with patch.dict('os.environ', {'AGENT_DATA_DIR': self.folder.name}), redirect_stdout(output):
+            self.assertEqual(main(['skills', 'recipes', 'optimize', '--approve']), 0)
+        self.assertEqual(json.loads(output.getvalue())['query_statistics'], 'collected')
+
     def test_real_http_activation_context_and_security_boundary(self):
         provider = Mock(); provider.generate.side_effect = lambda messages: ('Fixture answer.', messages)
         settings = replace(Settings(), data_dir=self.folder.name, provider='huggingface', api_token='')

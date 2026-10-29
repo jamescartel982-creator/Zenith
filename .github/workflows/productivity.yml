@@ -1,7 +1,7 @@
 name: Skills scale and analysis UI
 on:
   pull_request:
-    paths: ['agent/**', 'scripts/productivity_benchmark.py', 'scripts/generated_recipes_acceptance.py', 'scripts/smoke_productivity_ui.py', 'tests/test_productivity.py', 'tests/test_skill_catalog.py', 'tests/test_generated_recipes.py', '.github/workflows/productivity.yml']
+    paths: ['agent/**', 'scripts/productivity_benchmark.py', 'scripts/generated_recipes_acceptance.py', 'scripts/recipe_search_benchmark.py', 'scripts/smoke_productivity_ui.py', 'tests/test_productivity.py', 'tests/test_skill_catalog.py', 'tests/test_generated_recipes.py', '.github/workflows/productivity.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -15,6 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          fetch-depth: 0
           persist-credentials: false
       - uses: actions/setup-python@v5
         with:
@@ -31,6 +32,8 @@ jobs:
         run: python -m scripts.generated_recipes_acceptance --output productivity-generated.json
       - name: Actual Chromium generated label, activation and account isolation
         run: python -m scripts.smoke_productivity_ui --generated-recipes --output productivity-generated-browser.json
+      - name: Paired exact-result recipe search benchmark against pinned baseline
+        run: python -m scripts.recipe_search_benchmark --output productivity-search-plans.json --samples 9
       - uses: actions/upload-artifact@v4
         if: always()
         with:

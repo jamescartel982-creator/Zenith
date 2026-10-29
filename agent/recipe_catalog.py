@@ -178,6 +178,9 @@ class RecipeCatalog:
                 raise ValueError('Recipe definitions changed during installation; installation rolled back')
             db.execute('INSERT INTO generated_recipe_packs VALUES (?,?,?,?,?)',
                 (PACK, definition_hash, digest.hexdigest(), grammar.TOTAL, time.time()))
+            # Dimension cardinalities differ greatly (100 subjects, 4 audiences).
+            # Give SQLite actual selectivity instead of arbitrary index estimates.
+            db.execute('ANALYZE generated_recipes')
             row = self._pack(db)
             receipt = self._receipt(row, already_installed=False)
         receipt['install_seconds'] = round(time.perf_counter() - started, 3)
@@ -204,17 +207,40 @@ class RecipeCatalog:
             db.execute('DELETE FROM generated_recipe_packs')
         return count
 
+    def optimize(self, approved=False, reset=False):
+        """Refresh only recipe planner metadata; reset restores default estimates."""
+        if approved is not True:
+            raise PermissionError('Explicit local approval is required to update recipe search statistics')
+        started = time.perf_counter()
+        with self.store.connect() as db:
+            db.execute('BEGIN IMMEDIATE')
+            if not self._pack(db) or installed_count(db) != grammar.TOTAL:
+                raise ValueError('Install a complete matching recipe library before optimizing search')
+            if reset:
+                for table in ('sqlite_stat1', 'sqlite_stat4'):
+                    if db.execute("SELECT 1 FROM sqlite_master WHERE name=?", (table,)).fetchone():
+                        db.execute(f'DELETE FROM {table} WHERE tbl=?', ('generated_recipes',))
+            else:
+                db.execute('ANALYZE generated_recipes')
+        return {'pack_id': PACK, 'profiles': grammar.TOTAL,
+                'query_statistics': 'default-estimates' if reset else 'collected',
+                'elapsed_ms': round((time.perf_counter() - started) * 1000, 3),
+                'recipe_content_changed': False, 'training_performed': False}
+
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=('install', 'status', 'remove'))
+    parser.add_argument('action', choices=('install', 'status', 'remove', 'optimize'))
     parser.add_argument('--approve', action='store_true')
+    parser.add_argument('--reset', action='store_true', help='For optimize only: remove recipe statistics and restore default query estimates')
     args = parser.parse_args(argv)
+    if args.reset and args.action != 'optimize':
+        parser.error('--reset is supported only with optimize')
     from .config import Settings
     from .storage import Store
     catalog = RecipeCatalog(Store(Settings().data_dir))
     try:
-        result = catalog.install(args.approve) if args.action == 'install' else {'removed': catalog.remove(args.approve)} if args.action == 'remove' else catalog.status(include_admin=True)
+        result = catalog.optimize(args.approve, args.reset) if args.action == 'optimize' else catalog.install(args.approve) if args.action == 'install' else {'removed': catalog.remove(args.approve)} if args.action == 'remove' else catalog.status(include_admin=True)
     except (OSError, ValueError, PermissionError) as exc:
         parser.error(str(exc))
     print(json.dumps(result, indent=2, ensure_ascii=False))

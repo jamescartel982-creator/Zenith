@@ -70,8 +70,8 @@
     },
     {
       "path": ".github/workflows/productivity.yml",
-      "size": 1844,
-      "sha256": "dbf50944779ea60f2faef886650ecd32bcb45716b5024ad6d25b3e36b92d3f0d",
+      "size": 2096,
+      "sha256": "94c0ac9cecad5a021ccfb0758d39c70943f641d67e2cdf71d64eea84483457b4",
       "normalization": "lf"
     },
     {
@@ -148,8 +148,8 @@
     },
     {
       "path": "README.md",
-      "size": 15678,
-      "sha256": "409c25f68f77d40440e4e8be8720594df9f5f446dde72073f7e3ccffa9e90630",
+      "size": 15944,
+      "sha256": "493a13f65af2963798301b5fdb7f4923ccbd5c8f57d9c1e046fafb2522f69f79",
       "normalization": "lf"
     },
     {
@@ -598,8 +598,8 @@
     },
     {
       "path": "agent/recipe_catalog.py",
-      "size": 12375,
-      "sha256": "f5617f79a55c8a2b8e9c4210d52318468c2b6e063459d80bb74b6005b212a641",
+      "size": 14174,
+      "sha256": "a857c8703ce4334a0a60afe50cc1c1e6088a55b1b20378578937d542a112c53f",
       "normalization": "lf"
     },
     {
@@ -1104,6 +1104,30 @@
       "path": "docs/benchmarks/productivity/scale.json",
       "size": 1753,
       "sha256": "a0e453384038ff294502f78b1577207d59fde1664d8f4447dd1a3eb3139eaf09",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recipe-search/README.md",
+      "size": 5480,
+      "sha256": "0e6021a4429e4b0bbb88dc655a6c1ec2321b9c7a663bf19a7b6afa7481105429",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recipe-search/local-application.json",
+      "size": 627,
+      "sha256": "40130c921a14228119dbe91ea8e6494295b84019c222a6e5e1502bfc98b4835e",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recipe-search/paired-confirmation.json",
+      "size": 20504,
+      "sha256": "d3dbf56d732211d53f7ccb4ab40ba9cef935363af3d1211654afa905bd5c860f",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/recipe-search/paired-first.json",
+      "size": 12914,
+      "sha256": "e8dd753316f661d217b4c0a5d16cdc541e3aafe8342ad8af27036a900c19eef4",
       "normalization": "lf"
     },
     {
@@ -2002,8 +2026,8 @@
     },
     {
       "path": "docs/generated-recipes.md",
-      "size": 8378,
-      "sha256": "46d7a743fc455290e06a94f389b24ee0a6976182b965fb3f277e477fe6f4c5a3",
+      "size": 8785,
+      "sha256": "50228957a394086a0bd0702ef63a60460e09936363c345b16c4db765e58a36e9",
       "normalization": "lf"
     },
     {
@@ -3765,6 +3789,12 @@
       "normalization": "lf"
     },
     {
+      "path": "scripts/recipe_search_benchmark.py",
+      "size": 6742,
+      "sha256": "db82eef34d716769b4c9c2521d0cda70e33258ca7814a1516c625359b1dd6a20",
+      "normalization": "lf"
+    },
+    {
       "path": "scripts/refresh_github_catalog.py",
       "size": 21749,
       "sha256": "292ca164e274c117e62af2d1774fb5221f8fa7aaaf68495eff6b3829b8721dd2",
@@ -3946,8 +3976,8 @@
     },
     {
       "path": "tests/test_generated_recipes.py",
-      "size": 10027,
-      "sha256": "d3ca98a141dc8b941df7e890bcffdc78e2c4388ca0493b3766fd4daa0e0f7284",
+      "size": 12816,
+      "sha256": "12416c63a715d840f667aea9bb63ef37c6040c154aee809d04ed8b8f76514b85",
       "normalization": "lf"
     },
     {
