@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "source_commit": "fcec8993b068cc72f2ca918a8ef5680dbc9b2255",
+  "tracked_files_unchanged_during_audit": 715,
+  "source_tree_clean_before_document_publication": true,
+  "python_modules_parsed": 251,
+  "suites": [
+    {
+      "suite": "root",
+      "tests_run": 363,
+      "elapsed_seconds": 45.041,
+      "skipped": 1,
+      "result": "passed"
+    },
+    {
+      "suite": "inference_service",
+      "tests_run": 13,
+      "elapsed_seconds": 0.367,
+      "skipped": 0,
+      "result": "passed"
+    },
+    {
+      "suite": "runtime_bridge",
+      "tests_run": 33,
+      "elapsed_seconds": 4.013,
+      "skipped": 0,
+      "result": "passed"
+    },
+    {
+      "suite": "trading_service",
+      "tests_run": 7,
+      "elapsed_seconds": 0.5,
+      "skipped": 0,
+      "result": "passed"
+    },
+    {
+      "suite": "services",
+      "tests_run": 12,
+      "elapsed_seconds": 0.163,
+      "skipped": 0,
+      "result": "passed"
+    }
+  ],
+  "total_tests_run": 428,
+  "total_skipped": 1,
+  "package_compatibility": "81 installed distributions compatible",
+  "fresh_local_http_smoke": "passed",
+  "new_subsystem_implementations": false,
+  "fresh_gpu_benchmarks": false,
+  "fresh_full_native_four_system_run": false
+}

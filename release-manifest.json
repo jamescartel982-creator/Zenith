@@ -81,6 +81,12 @@
       "normalization": "lf"
     },
     {
+      "path": ".github/workflows/system-audit.yml",
+      "size": 679,
+      "sha256": "574f115616fa0825162258b47198009ad72c161313ad131fd12de3ae7c12d8c2",
+      "normalization": "lf"
+    },
+    {
       "path": ".github/workflows/tests.yml",
       "size": 7809,
       "sha256": "fe9491f90076a6940738a0532dfba68e1a554078cbe0f31f04cdc447bad364c4",
@@ -142,8 +148,8 @@
     },
     {
       "path": "README.md",
-      "size": 14956,
-      "sha256": "c292a4c95e084f78e8966d1b39ab092c7ac84b6fd5d9b59f8041e0f37d8c86eb",
+      "size": 15352,
+      "sha256": "eedf96175e7d8f2c23808f1134ccf6638831b4eb92ffd53504d56d5579718590",
       "normalization": "lf"
     },
     {
@@ -2262,6 +2268,162 @@
       "path": "docs/skills.md",
       "size": 9273,
       "sha256": "0b6617098976d47dc3d8c024f7bb9d8bfeda2ea439ae22e2e4866f836382b0f7",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/system-upgrade-audit-20261029/ARCHITECTURE.md",
+      "size": 9446,
+      "sha256": "541328f2ae66a63a15a6d579d2bcf172c3771f8de89641dbac27b535345215c3",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/system-upgrade-audit-20261029/AUDIT.md",
+      "size": 10392,
+      "sha256": "26194e57aa1e6ffae4e0dc7c14fd5195f7cbd45e3b0c8b84932eb24757a35053",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/system-upgrade-audit-20261029/BENCHMARKS.md",
+      "size": 10179,
+      "sha256": "3b3d827a2f588da263c32154c37ed3526dbe5b994b35793af04474694c7dcdcf",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/system-upgrade-audit-20261029/CAPABILITY_MATRIX.csv",
+      "size": 41712,
+      "sha256": "8dd45d2119a52a117107388312bdce74f76105079368a3b2664efec754be43fa",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/system-upgrade-audit-20261029/CAPABILITY_MATRIX.md",
+      "size": 27421,
+      "sha256": "a307dd9d21fe230cb93581105a601aba2c61556b0d65df79fb8454329e73427e",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/system-upgrade-audit-20261029/DEPENDENCIES.md",
+      "size": 7892,
+      "sha256": "e4ac09e04b9786514441880e6f4d237aecc4cc377631691780714a241d9f8ca7",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/system-upgrade-audit-20261029/EVOLUTION_ENGINE.md",
+      "size": 14769,
+      "sha256": "24828ff9aaaa4ff9b465a03a25eafa0508813fb2bcd8c7aef2d857f87bfccf6e",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/system-upgrade-audit-20261029/FILE_INVENTORY.md",
+      "size": 112710,
+      "sha256": "e20aa56f119569b696112aa6878464c72f80484ab20978c9b45d9a2020adc8d8",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/system-upgrade-audit-20261029/IMPLEMENTATION_PLAN.md",
+      "size": 60753,
+      "sha256": "8f814029c4eafed6ddc4faf651ef9bac6d717545ad25c0a93845e19898fae8df",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/system-upgrade-audit-20261029/MIGRATION_ROLLBACK.md",
+      "size": 6575,
+      "sha256": "f386c49604af4ebd3f8d33f6f1d9ed4ae981fe1a35d3ceaee554bb0609cf564d",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/system-upgrade-audit-20261029/README.md",
+      "size": 3847,
+      "sha256": "1f7682ddaea3f4e7a15c10f2396466e78e5af7cfaa7085249671e20e0d358bf1",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/system-upgrade-audit-20261029/ROADMAP.md",
+      "size": 10209,
+      "sha256": "5b88743d5f5ac9ccdc8f368f37765630a95011449094f1195f552af81544ed61",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/system-upgrade-audit-20261029/SECURITY.md",
+      "size": 10288,
+      "sha256": "b7ced863842f0b8cd5e0313c492fd6327b4ccd9b436670d9c3e0246db48b17c4",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/system-upgrade-audit-20261029/baseline_probe.py",
+      "size": 7500,
+      "sha256": "b1dbc1e72082657e9ac1aa0e1058e3692a7ca849c451790a08382063c211c86f",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/system-upgrade-audit-20261029/capabilities.json",
+      "size": 58991,
+      "sha256": "17a8693856841bbc8c58193d1fd51b1e2e49b845287f04268e29809fa44a7996",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/system-upgrade-audit-20261029/current-model-baseline.json",
+      "size": 51910,
+      "sha256": "925a459487f2e8677cc807452e54e276871fbc5f30edbe470dbef252d1f36035",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/system-upgrade-audit-20261029/dependency-advisories.json",
+      "size": 4572,
+      "sha256": "e9ff39a93ee7c5d9cb4e8017b7410a2287e02369a1c5cc1e4c7cedda7805ab2e",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/system-upgrade-audit-20261029/github-provenance.json",
+      "size": 1074,
+      "sha256": "619fba7296e304f65c811127283b24fd71279f0378ee98715ddb0e0360c63e6d",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/system-upgrade-audit-20261029/licenses.json",
+      "size": 2150,
+      "sha256": "e65e483e6e8b54e5a1f00e88e4c979786b85fcfcdbc640885d1fada9eb79d1f2",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/system-upgrade-audit-20261029/root-installed.txt",
+      "size": 1366,
+      "sha256": "bd6cfacfa9dd0b94c28eccbb310d5dfd220408e7260385f9879c2d18c6585289",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/system-upgrade-audit-20261029/source-inventory.json",
+      "size": 635455,
+      "sha256": "5dc9021fe4297fd2a609c049ef94ef4bfdd76d551d5a2c169c2d3f7903c24e9f",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/system-upgrade-audit-20261029/torch-upstream-advisories.json",
+      "size": 85,
+      "sha256": "aa883e9689538f24dbd2a0ef13bbe7101fa7be1685f3c55b875261e6b387eb01",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/system-upgrade-audit-20261029/torch-upstream-version.txt",
+      "size": 14,
+      "sha256": "cb4c768c4b63fc20b154157c1985323973f5d1a5fc45a134beec628e0d803b97",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/system-upgrade-audit-20261029/upstream-pins.json",
+      "size": 678,
+      "sha256": "4103b562a97d07a3738773991d716a8b81641786b6c6679229d733a5fa29643f",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/system-upgrade-audit-20261029/validation.json",
+      "size": 1235,
+      "sha256": "235d204a3ed2d68a4d14cbe90c9ed405992f4a5f42914169476499387e71ccf7",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/system-upgrade-audit-20261029/verify_report.py",
+      "size": 5162,
+      "sha256": "80f40070d70094fa34c91448c16bf9de90475c4c941dd8208dcae325f54d7e4f",
       "normalization": "lf"
     },
     {

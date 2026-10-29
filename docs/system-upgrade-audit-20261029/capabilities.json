@@ -1,0 +1,1235 @@
+{
+  "schema_version": 1,
+  "source_commit": "fcec8993b068cc72f2ca918a8ef5680dbc9b2255",
+  "scope": "Audit and proposed implementation only; destinations and tests may be future files, not installed capabilities.",
+  "capabilities": [
+    {
+      "id": 1,
+      "name": "Advanced reasoning",
+      "status": "PARTIAL",
+      "evidence": [
+        "agent/reasoning.py",
+        "agent/planning.py",
+        "agent/verification.py"
+      ],
+      "existing": "Bounded candidate/check/review/correction engine; short non-executable task checklists; exact arithmetic and authorized numeric-code verification.",
+      "work": "Add hierarchical constraint-bearing task graphs, hypothesis/evidence tracking and code/document/structured-data plans; keep call, token and deadline budgets.",
+      "destinations": [
+        "agent/plan_graph.py",
+        "agent/reasoning.py"
+      ],
+      "tests": [
+        "tests/test_reasoning.py",
+        "tests/test_plan_graph.py"
+      ],
+      "dependencies": [
+        2,
+        8,
+        10
+      ],
+      "complexity": "L",
+      "risk": "Model suggestions must never authorize execution.",
+      "flag": "ZENITH_PLAN_GRAPH_ENABLED",
+      "milestone": "M3",
+      "acceptance": "Dependency-valid plans terminate within budget; contradictory constraints and unsupported conclusions fail verification; compare native versus engine on frozen tasks.",
+      "rollback": "Disable this feature flag, drain/reconcile active effects, retain audit/receipts and previous release; restore reviewed database backup only if no newer writes would be lost. Never reset model weights or upstream state."
+    },
+    {
+      "id": 2,
+      "name": "Self-reflection and verification",
+      "status": "PARTIAL",
+      "evidence": [
+        "agent/response_verifier.py",
+        "agent/verification.py",
+        "agent/reasoning.py"
+      ],
+      "existing": "Structured model critique, alternate candidates, deterministic checks, one bounded correction; review is explicitly not factual proof.",
+      "work": "Persist claim/evidence checks and failure reasons, classify retryable failures, request missing evidence, and distinguish model opinion from independent validation.",
+      "destinations": [
+        "agent/claim_verifier.py",
+        "agent/reasoning.py"
+      ],
+      "tests": [
+        "tests/test_claim_verifier.py",
+        "tests/test_reasoning.py"
+      ],
+      "dependencies": [
+        8
+      ],
+      "complexity": "M",
+      "risk": "Self-review may reinforce an incorrect answer; avoid self-scored confidence.",
+      "flag": "ZENITH_CLAIM_VERIFICATION_ENABLED",
+      "milestone": "M2",
+      "acceptance": "Unsupported claims stay unverified; false citations fail; bounded retry stops; evaluation records reproduce the decision.",
+      "rollback": "Disable this feature flag, drain/reconcile active effects, retain audit/receipts and previous release; restore reviewed database backup only if no newer writes would be lost. Never reset model weights or upstream state."
+    },
+    {
+      "id": 3,
+      "name": "Persistent memory",
+      "status": "PARTIAL",
+      "evidence": [
+        "agent/personal.py",
+        "agent/storage.py",
+        "agent/summaries.py",
+        "agent/platform_migrations.py"
+      ],
+      "existing": "Account notes and conversation history, explicit summaries, shared lexical FTS5 corpus; reserved scoped-document tables exist but retrieval flag rejects activation.",
+      "work": "Add account/project-scoped episodic and semantic retrieval, consolidation, retention/expiration/deletion and optional separately versioned embedding index in the existing SQLite owner.",
+      "destinations": [
+        "agent/project_memory.py",
+        "agent/semantic_memory.py",
+        "agent/project_memory_migrations.py",
+        "agent/platform_config.py",
+        "agent/core.py",
+        "agent/memory_gateway.py"
+      ],
+      "tests": [
+        "tests/test_project_memory.py",
+        "tests/test_semantic_memory.py",
+        "tests/test_personal.py"
+      ],
+      "dependencies": [
+        8
+      ],
+      "complexity": "L",
+      "risk": "Cross-account leakage and persistence/deletion consistency; no automatic memory merging.",
+      "flag": "ZENITH_PLATFORM_MEMORY_ENABLED (currently rejected; enable only after acceptance)",
+      "milestone": "M2",
+      "acceptance": "Identical documents in different owners/projects never cross scopes; deletion removes index entries; held-out recall and factual consistency exceed frozen lexical baseline.",
+      "rollback": "Disable this feature flag, drain/reconcile active effects, retain audit/receipts and previous release; restore reviewed database backup only if no newer writes would be lost. Never reset model weights or upstream state."
+    },
+    {
+      "id": 4,
+      "name": "Long-context intelligence",
+      "status": "PARTIAL",
+      "evidence": [
+        "agent/core.py",
+        "agent/providers.py",
+        "agent/storage.py",
+        "agent/summaries.py"
+      ],
+      "existing": "Bounded history/context trimming, lexical retrieval, user-requested summary, exact saved tokenizer and 32K architectural ceiling.",
+      "work": "Add repository/document indexing, source-linked hierarchical summaries, retrieval ranking and context-budget allocation without changing tokenizer or architectural limits.",
+      "destinations": [
+        "agent/repository_index.py",
+        "agent/context_manager.py",
+        "agent/document_index.py",
+        "agent/core.py"
+      ],
+      "tests": [
+        "tests/test_repository_index.py",
+        "tests/test_context_manager.py"
+      ],
+      "dependencies": [
+        3,
+        18,
+        32
+      ],
+      "complexity": "L",
+      "risk": "Summary errors and source injection; compression is not an architectural context extension.",
+      "flag": "ZENITH_CONTEXT_INDEX_ENABLED",
+      "milestone": "M2",
+      "acceptance": "Retrieval spans retain file/page hashes and owners; budget never overflows; multi-document answers cite retrieved spans and report contradictions.",
+      "rollback": "Disable this feature flag, drain/reconcile active effects, retain audit/receipts and previous release; restore reviewed database backup only if no newer writes would be lost. Never reset model weights or upstream state."
+    },
+    {
+      "id": 5,
+      "name": "Dynamic model routing",
+      "status": "EXISTING",
+      "evidence": [
+        "agent/model_registry.py",
+        "agent/task_router.py",
+        "agent/orchestration.py",
+        "agent/provider_adapters/local_adapter.py"
+      ],
+      "existing": "Native-first and local-only modes, exact-ID account discovery, capability/context/cost filters, measured latency/quality preferences, bounded fallback and circuit breakers.",
+      "work": "Persist trustworthy routing measurements, add workload cohorts and validate live provider accounts where credentials exist; preserve existing text-only contracts.",
+      "destinations": [
+        "agent/routing_metrics.py",
+        "agent/task_router.py",
+        "agent/model_registry.py"
+      ],
+      "tests": [
+        "tests/test_model_registry.py",
+        "tests/test_orchestration.py",
+        "tests/test_routing_metrics.py"
+      ],
+      "dependencies": [
+        8
+      ],
+      "complexity": "M",
+      "risk": "Provider output rights, privacy, stale access and unknown pricing; API keys do not grant universal model access.",
+      "flag": "Existing AI_PROVIDER / ZENITH_ALLOW_EXTERNAL, new ZENITH_ROUTING_METRICS_ENABLED",
+      "milestone": "M2",
+      "acceptance": "Local-only emits zero external calls; inaccessible models remain unavailable; quality/cost/context constraints are obeyed under fallback.",
+      "rollback": "Disable this feature flag, drain/reconcile active effects, retain audit/receipts and previous release; restore reviewed database backup only if no newer writes would be lost. Never reset model weights or upstream state."
+    },
+    {
+      "id": 6,
+      "name": "Knowledge graph",
+      "status": "MISSING",
+      "evidence": [
+        "agent/storage.py"
+      ],
+      "existing": "Only flat source-attributed documents exist; no entity/edge graph implementation.",
+      "work": "Add scoped entities, relations, evidence spans, temporal versions, dependency edges and contradiction records; extracted assertions remain proposals until source validation.",
+      "destinations": [
+        "agent/knowledge_graph.py",
+        "agent/graph_retrieval.py",
+        "agent/graph_migrations.py"
+      ],
+      "tests": [
+        "tests/test_knowledge_graph.py",
+        "tests/test_graph_retrieval.py"
+      ],
+      "dependencies": [
+        3,
+        4,
+        18,
+        32
+      ],
+      "complexity": "L",
+      "risk": "False relations and cross-project joins; model extraction is not ground truth.",
+      "flag": "ZENITH_KNOWLEDGE_GRAPH_ENABLED",
+      "milestone": "M5",
+      "acceptance": "Every edge traces to a real versioned source; conflicting assertions remain visible; deletion cascades logically and scope filters survive adversarial queries.",
+      "rollback": "Disable this feature flag, drain/reconcile active effects, retain audit/receipts and previous release; restore reviewed database backup only if no newer writes would be lost. Never reset model weights or upstream state."
+    },
+    {
+      "id": 7,
+      "name": "Adaptive learning",
+      "status": "PARTIAL",
+      "evidence": [
+        "agent/learning.py",
+        "agent/curriculum.py",
+        "agent/continual.py",
+        "agent/stabilize.py",
+        "agent/deployment.py"
+      ],
+      "existing": "Explicit approved feedback export, licensed/grouped datasets, SFT/CPT/DPO continuation, replay, evaluation and manual candidate review.",
+      "work": "Connect feedback/failure analysis to the proposed Evolution Engine; version prompt/workflow/routing experiments and curate candidate datasets with opt-in rights.",
+      "destinations": [
+        "agent/evolution/observer.py",
+        "agent/evolution/discovery.py",
+        "agent/evolution/proposals.py",
+        "agent/curriculum.py"
+      ],
+      "tests": [
+        "tests/test_evolution_observer.py",
+        "tests/test_evolution_discovery.py",
+        "tests/test_continuation.py"
+      ],
+      "dependencies": [
+        8
+      ],
+      "complexity": "L",
+      "risk": "Test leakage, proprietary-output training and catastrophic forgetting.",
+      "flag": "ZENITH_EVOLUTION_ENABLED",
+      "milestone": "M1",
+      "acceptance": "No feedback alone changes production; repeated failure signatures generate bounded evidence-backed proposals; held-out data never enters replay/training.",
+      "rollback": "Disable this feature flag, drain/reconcile active effects, retain audit/receipts and previous release; restore reviewed database backup only if no newer writes would be lost. Never reset model weights or upstream state."
+    },
+    {
+      "id": 8,
+      "name": "Uncertainty estimation",
+      "status": "PARTIAL",
+      "evidence": [
+        "agent/assurance.py",
+        "agent/quality.py",
+        "agent/verification.py",
+        "agent/personal.py"
+      ],
+      "existing": "Explicit unknowns, method-group validation calibration, source-membership checks, human review queue; no calibrated neural confidence by default.",
+      "work": "Repair/version diagnostic scorers, add independent evidence sufficiency and source reliability checks, confidence validation under distribution shift and failed-verification escalation.",
+      "destinations": [
+        "agent/quality.py",
+        "agent/evidence_sufficiency.py",
+        "agent/evaluation/suite-v2.json"
+      ],
+      "tests": [
+        "tests/test_quality_admin.py",
+        "tests/test_evidence_sufficiency.py"
+      ],
+      "dependencies": [],
+      "complexity": "M",
+      "risk": "Bad graders produce misleading calibration; citation membership is not entailment.",
+      "flag": "Existing ZENITH_CALIBRATION_FILE plus ZENITH_EVIDENCE_CHECKS_ENABLED",
+      "milestone": "M0",
+      "acceptance": "Plural units and semantic JSON are graded by declared intent; exact-byte tasks remain strict; calibration uses disjoint validation and reports sample counts/uncertainty.",
+      "rollback": "Disable this feature flag, drain/reconcile active effects, retain audit/receipts and previous release; restore reviewed database backup only if no newer writes would be lost. Never reset model weights or upstream state."
+    },
+    {
+      "id": 9,
+      "name": "Multi-agent orchestration",
+      "status": "PARTIAL",
+      "evidence": [
+        "agent/ensemble.py",
+        "agent/model_federation.py",
+        "agent/runtime.py",
+        "integrations/runtime_bridge/src/zenith_integrations/shared/router.py"
+      ],
+      "existing": "Bounded draft/review/synthesis and explicit native-runtime delegation; no twelve-specialist executable supervisor.",
+      "work": "Add a server-owned specialist registry and supervisor with typed tasks, ownership, isolated capabilities, bounded delegation and provenance. Register each requested specialist only after its real backend works.",
+      "destinations": [
+        "agent/supervisor.py",
+        "agent/agent_registry.py",
+        "agent/task_graph.py",
+        "agent/tool_loop.py",
+        "agent/research_agent.py",
+        "agent/research_fetch.py",
+        "agent/source_verifier.py",
+        "agent/citation_manager.py",
+        "agent/data_analysis.py",
+        "agent/infrastructure_tools.py"
+      ],
+      "tests": [
+        "tests/test_supervisor.py",
+        "tests/test_agent_registry.py"
+      ],
+      "dependencies": [
+        10,
+        13,
+        15,
+        16
+      ],
+      "complexity": "XL",
+      "risk": "Delegation must not amplify permissions, recursively spawn indefinitely or duplicate effects.",
+      "flag": "ZENITH_SUPERVISOR_ENABLED",
+      "milestone": "M3",
+      "acceptance": "All 12 specialist categories have separate acceptance rows; each delegated result is validated; no child gains parent/owner capabilities implicitly.",
+      "rollback": "Disable this feature flag, drain/reconcile active effects, retain audit/receipts and previous release; restore reviewed database backup only if no newer writes would be lost. Never reset model weights or upstream state."
+    },
+    {
+      "id": 10,
+      "name": "Autonomous task planning",
+      "status": "PARTIAL",
+      "evidence": [
+        "agent/planning.py",
+        "agent/task_store.py",
+        "agent/runtime.py"
+      ],
+      "existing": "Reasoning checklists and durable supervised tasks; fixed diagnostic plans only, no executable model-generated DAG.",
+      "work": "Add versioned DAGs with dependencies, priority, explicit constraints, per-node budgets, durable checkpoints and completion contracts.",
+      "destinations": [
+        "agent/task_graph.py",
+        "agent/planning.py",
+        "agent/task_store.py"
+      ],
+      "tests": [
+        "tests/test_task_graph.py",
+        "tests/test_platform_tasks.py"
+      ],
+      "dependencies": [
+        2,
+        16
+      ],
+      "complexity": "L",
+      "risk": "Cyclic plans, unbounded goals and unsafe replay after uncertain effects.",
+      "flag": "ZENITH_TASK_GRAPHS_ENABLED",
+      "milestone": "M3",
+      "acceptance": "Cycles/invalid dependencies are rejected; progress survives restart; task completion requires explicit checks and renewed authorization at execution.",
+      "rollback": "Disable this feature flag, drain/reconcile active effects, retain audit/receipts and previous release; restore reviewed database backup only if no newer writes would be lost. Never reset model weights or upstream state."
+    },
+    {
+      "id": 11,
+      "name": "Browser automation",
+      "status": "MISSING",
+      "evidence": [
+        "agent/browser.py"
+      ],
+      "existing": "Opens the local chat URL after startup; it is not a browser automation engine.",
+      "work": "Add an independently sandboxed browser service with navigation/extraction/download bounds and approved forms. Preserve native OpenClaw browser as an explicitly selected future backend, not silently enabled.",
+      "destinations": [
+        "integrations/browser_service/pyproject.toml",
+        "integrations/browser_service/src/zenith_browser_service/server.py",
+        "agent/browser_tools.py"
+      ],
+      "tests": [
+        "integrations/browser_service/tests/test_navigation.py",
+        "integrations/browser_service/tests/test_injection.py"
+      ],
+      "dependencies": [
+        13,
+        20,
+        39
+      ],
+      "complexity": "XL",
+      "risk": "SSRF, malicious page instructions, credential extraction, downloads and consequential form submission.",
+      "flag": "ZENITH_BROWSER_ENABLED",
+      "milestone": "M4",
+      "acceptance": "Real browser fixture tests navigation/forms/downloads; redirects/private addresses and injected permissions are blocked; consequential actions require exact approval.",
+      "rollback": "Disable this feature flag, drain/reconcile active effects, retain audit/receipts and previous release; restore reviewed database backup only if no newer writes would be lost. Never reset model weights or upstream state."
+    },
+    {
+      "id": 12,
+      "name": "Computer control",
+      "status": "MISSING",
+      "evidence": [],
+      "existing": "No native Zenith screenshot/input/application automation service.",
+      "work": "Add opt-in OS-specific desktop brokers for screenshots and constrained application input. Keep upstream companion/device functionality independent and report platform gaps.",
+      "destinations": [
+        "integrations/desktop_service/src/zenith_desktop_service/server.py",
+        "agent/desktop_tools.py"
+      ],
+      "tests": [
+        "integrations/desktop_service/tests/test_permissions.py",
+        "integrations/desktop_service/tests/test_workflows.py"
+      ],
+      "dependencies": [
+        11,
+        20,
+        29
+      ],
+      "complexity": "XL",
+      "risk": "OS privileges, screen secrets, incorrect targets, irreversible UI actions; macOS TCC and Windows/Wayland limitations.",
+      "flag": "ZENITH_DESKTOP_ENABLED",
+      "milestone": "M7",
+      "acceptance": "Supported OS application fixture completes with approval; secure fields/system elevation blocked; unapproved input never occurs; cancellation/recovery retains receipts.",
+      "rollback": "Disable this feature flag, drain/reconcile active effects, retain audit/receipts and previous release; restore reviewed database backup only if no newer writes would be lost. Never reset model weights or upstream state."
+    },
+    {
+      "id": 13,
+      "name": "Terminal execution",
+      "status": "PARTIAL",
+      "evidence": [
+        "agent/execution.py",
+        "agent/restricted_python.py",
+        "agent/sandbox.py",
+        "agent/sandbox_docker.py"
+      ],
+      "existing": "Restricted numeric Python and opt-in isolated Python container; fixed diagnostics only, no general host shell.",
+      "work": "Add structured sandbox command tools, environment inspection, reviewed offline dependency installation and bounded development commands; never expose unrestricted shell.",
+      "destinations": [
+        "agent/terminal_tools.py",
+        "agent/sandbox_docker.py",
+        "agent/execution.py",
+        "agent/tool_protocol.py",
+        "agent/tool_registry.py"
+      ],
+      "tests": [
+        "tests/test_terminal_tools.py",
+        "tests/test_unified_sandbox.py"
+      ],
+      "dependencies": [
+        20
+      ],
+      "complexity": "L",
+      "risk": "Commands, package build hooks and test code are untrusted execution; no host fallback or inherited secrets.",
+      "flag": "ZENITH_TERMINAL_ENABLED",
+      "milestone": "M3",
+      "acceptance": "Real approved container enforces CPU/RAM/PID/time/output quotas, read-only source snapshots and no network; forbidden commands/packages fail before execution.",
+      "rollback": "Disable this feature flag, drain/reconcile active effects, retain audit/receipts and previous release; restore reviewed database backup only if no newer writes would be lost. Never reset model weights or upstream state."
+    },
+    {
+      "id": 14,
+      "name": "Scheduled automation",
+      "status": "PARTIAL",
+      "evidence": [
+        ".github/workflows/evaluation.yml",
+        "deploy/four_system/services.py",
+        "agent/event_bus.py"
+      ],
+      "existing": "CI diagnostic cron and process-health timer; no user task scheduler, conditional workflow engine or notification outbox.",
+      "work": "Add durable schedules, event conditions, bounded retries and approved outbox delivery. Use revocable schedule-specific authority, never expired owner cookies.",
+      "destinations": [
+        "agent/scheduler.py",
+        "agent/outbox.py",
+        "agent/scheduler_migrations.py"
+      ],
+      "tests": [
+        "tests/test_scheduler.py",
+        "tests/test_outbox.py"
+      ],
+      "dependencies": [
+        10,
+        15,
+        16
+      ],
+      "complexity": "L",
+      "risk": "Duplicate deliveries, stale permissions and effect replay; actions outside active authorization must wait for review.",
+      "flag": "ZENITH_SCHEDULER_ENABLED",
+      "milestone": "M4",
+      "acceptance": "Clock/restart tests execute due tasks once; unauthorized/expired actions wait; delivery uses stable receipts and actual configured channels.",
+      "rollback": "Disable this feature flag, drain/reconcile active effects, retain audit/receipts and previous release; restore reviewed database backup only if no newer writes would be lost. Never reset model weights or upstream state."
+    },
+    {
+      "id": 15,
+      "name": "Agent collaboration",
+      "status": "PARTIAL",
+      "evidence": [
+        "agent/ensemble.py",
+        "agent/model_federation.py",
+        "agent/event_bus.py"
+      ],
+      "existing": "Draft synthesis and owner-scoped task events; no durable inter-specialist mailbox/artifact collaboration.",
+      "work": "Add typed messages, scoped artifact handles, conflict records and independent result validation; preserve native runtime session ownership.",
+      "destinations": [
+        "agent/collaboration.py",
+        "agent/task_artifacts.py"
+      ],
+      "tests": [
+        "tests/test_collaboration.py",
+        "tests/test_task_artifacts.py"
+      ],
+      "dependencies": [
+        2,
+        10,
+        16
+      ],
+      "complexity": "L",
+      "risk": "Private data crossing agents/providers, permission laundering and duplicated external actions.",
+      "flag": "ZENITH_AGENT_COLLABORATION_ENABLED",
+      "milestone": "M3",
+      "acceptance": "Cross-owner/project messages fail; artifacts are hash-addressed; contradictory results escalate; same effect cannot be committed by two specialists.",
+      "rollback": "Disable this feature flag, drain/reconcile active effects, retain audit/receipts and previous release; restore reviewed database backup only if no newer writes would be lost. Never reset model weights or upstream state."
+    },
+    {
+      "id": 16,
+      "name": "Failure recovery",
+      "status": "PARTIAL",
+      "evidence": [
+        "agent/task_store.py",
+        "agent/runtime.py",
+        "integrations/runtime_bridge/src/zenith_integrations/shared/ledger.py"
+      ],
+      "existing": "Worker leases, durable receipts, cancellation fencing and needs-reconciliation states; uncertain native effects are not replayed.",
+      "work": "Add classified pure-operation retries and resumable DAG checkpoints; retain manual reconciliation for unknown effects and tested rollback handlers for reversible operations.",
+      "destinations": [
+        "agent/recovery.py",
+        "agent/task_store.py",
+        "agent/task_graph.py"
+      ],
+      "tests": [
+        "tests/test_recovery.py",
+        "tests/test_platform_tasks.py"
+      ],
+      "dependencies": [],
+      "complexity": "L",
+      "risk": "Exactly-once effects cannot be assumed after a network/process failure.",
+      "flag": "ZENITH_RECOVERY_ENABLED",
+      "milestone": "M1",
+      "acceptance": "Kill/restart/cancel at every admission/effect/receipt boundary; pure retries stay bounded; uncertain effects remain blocked for human reconciliation.",
+      "rollback": "Disable this feature flag, drain/reconcile active effects, retain audit/receipts and previous release; restore reviewed database backup only if no newer writes would be lost. Never reset model weights or upstream state."
+    },
+    {
+      "id": 17,
+      "name": "Autonomous coding agent",
+      "status": "MISSING",
+      "evidence": [
+        "agent/verification.py",
+        "agent/tools.py"
+      ],
+      "existing": "Pasted-code heuristics and restricted numeric tests exist; no repo patch/refactor/test loop.",
+      "work": "Add sandboxed analyze/propose/patch/test/review workflow, code generation/debug/refactor and resumable task state. Produce reviewable diffs instead of committing automatically.",
+      "destinations": [
+        "agent/coding_agent.py",
+        "agent/patch_manager.py",
+        "agent/test_runner.py",
+        "agent/task_checkpoint.py"
+      ],
+      "tests": [
+        "tests/test_coding_agent.py",
+        "tests/test_patch_manager.py",
+        "tests/integration/test_repository_fixes.py"
+      ],
+      "dependencies": [
+        13,
+        18,
+        19,
+        20
+      ],
+      "complexity": "XL",
+      "risk": "Repository tests and patches can execute arbitrary code or modify protected files.",
+      "flag": "ZENITH_CODING_AGENT_ENABLED",
+      "milestone": "M3",
+      "acceptance": "Real small-repo bugs are fixed and hidden tests pass; unrelated behavior retained; patch paths/symlinks rejected; no silent commit/push.",
+      "rollback": "Disable this feature flag, drain/reconcile active effects, retain audit/receipts and previous release; restore reviewed database backup only if no newer writes would be lost. Never reset model weights or upstream state."
+    },
+    {
+      "id": 18,
+      "name": "Repository intelligence",
+      "status": "MISSING",
+      "evidence": [
+        "agent/platform_repository.py"
+      ],
+      "existing": "platform_repository.py manages SQLite backups, not source-code repositories.",
+      "work": "Add bounded complete-repository source inventory, syntax/symbol/import/dependency indexing, impact analysis and architecture change tracking with evidence links.",
+      "destinations": [
+        "agent/repository_index.py",
+        "agent/repository_analysis.py"
+      ],
+      "tests": [
+        "tests/test_repository_index.py",
+        "tests/test_repository_analysis.py"
+      ],
+      "dependencies": [],
+      "complexity": "L",
+      "risk": "Untrusted files, symlink/path traversal, generated/vendor code and parser resource exhaustion.",
+      "flag": "ZENITH_REPOSITORY_INDEX_ENABLED",
+      "milestone": "M2",
+      "acceptance": "Index a frozen multi-language fixture without executing it; resolve supported imports/symbols, report uncertainty and identify affected files reproducibly.",
+      "rollback": "Disable this feature flag, drain/reconcile active effects, retain audit/receipts and previous release; restore reviewed database backup only if no newer writes would be lost. Never reset model weights or upstream state."
+    },
+    {
+      "id": 19,
+      "name": "Multi-language programming",
+      "status": "PARTIAL",
+      "evidence": [
+        "agent/tools.py",
+        "agent/verification.py"
+      ],
+      "existing": "Model can emit text/code; executable validation is currently limited to Python numeric subset and isolated Python.",
+      "work": "Add explicit language-toolchain adapters for Python/JS/TS/Rust/Go/C++/Java/SQL/Bash with pinned compilers or LSPs inside the sandbox, one verified platform/backend at a time.",
+      "destinations": [
+        "agent/language_tools.py",
+        "integrations/devtools/"
+      ],
+      "tests": [
+        "tests/test_language_tools.py",
+        "tests/integration/test_language_toolchains.py"
+      ],
+      "dependencies": [
+        13,
+        18,
+        20
+      ],
+      "complexity": "XL",
+      "risk": "Toolchain availability and platform-specific licensing/build hooks; text generation is not verified language mastery.",
+      "flag": "ZENITH_LANGUAGE_TOOLS_ENABLED",
+      "milestone": "M3",
+      "acceptance": "Each language compiles/lints/tests a real fixture; missing toolchains report blocked; no host package installs or network fallback.",
+      "rollback": "Disable this feature flag, drain/reconcile active effects, retain audit/receipts and previous release; restore reviewed database backup only if no newer writes would be lost. Never reset model weights or upstream state."
+    },
+    {
+      "id": 20,
+      "name": "Sandboxed code execution",
+      "status": "PARTIAL",
+      "evidence": [
+        "agent/sandbox.py",
+        "agent/sandbox_docker.py",
+        "scripts/smoke_sandbox.py"
+      ],
+      "existing": "Real Linux Docker Python execution with no network/mounts, read-only root, unprivileged user, cgroup/PID/time/output limits; default off.",
+      "work": "Extend to immutable workspace snapshots and explicit command/toolchain adapters; verify egress and artifact extraction. Use VM isolation for hostile malware, not this container.",
+      "destinations": [
+        "agent/sandbox_workspace.py",
+        "agent/sandbox_docker.py",
+        "agent/execution.py",
+        "agent/tool_protocol.py"
+      ],
+      "tests": [
+        "tests/test_sandbox_workspace.py",
+        "tests/test_unified_sandbox.py",
+        "scripts/smoke_sandbox.py"
+      ],
+      "dependencies": [],
+      "complexity": "L",
+      "risk": "Containers share the host kernel; Docker daemon/image remain trusted; no universal escape-resistance claim.",
+      "flag": "Existing ZENITH_SANDBOX_ENABLED plus ZENITH_SANDBOX_WORKSPACES_ENABLED",
+      "milestone": "M1",
+      "acceptance": "Actual containment probes enforce limits and no host secrets/mounts/network; cancellation and cleanup confirmed; failed backend never falls back to host execution.",
+      "rollback": "Disable this feature flag, drain/reconcile active effects, retain audit/receipts and previous release; restore reviewed database backup only if no newer writes would be lost. Never reset model weights or upstream state."
+    },
+    {
+      "id": 21,
+      "name": "GitHub integration",
+      "status": "PARTIAL",
+      "evidence": [
+        "agent/discovery.py",
+        "agent/registry.py"
+      ],
+      "existing": "Public reference/model metadata search; no Zenith-authored branch/commit/PR/issues/review client. Operator Codex GitHub access is separate.",
+      "work": "Add repository-scoped GitHub read/review and draft-PR integration using secret handles and exact revision approvals for writes/merges.",
+      "destinations": [
+        "agent/github_client.py",
+        "agent/github_tools.py"
+      ],
+      "tests": [
+        "tests/test_github_client.py",
+        "tests/integration/test_github_workflow.py"
+      ],
+      "dependencies": [
+        13,
+        17,
+        20
+      ],
+      "complexity": "L",
+      "risk": "Overbroad tokens, untrusted issue text, branch races and unintended publishing.",
+      "flag": "ZENITH_GITHUB_ENABLED",
+      "milestone": "M4",
+      "acceptance": "Real test-repository read/branch/draft-PR workflow with explicit approval; expected-head checks prevent stale merge; tokens never enter prompts/logs.",
+      "rollback": "Disable this feature flag, drain/reconcile active effects, retain audit/receipts and previous release; restore reviewed database backup only if no newer writes would be lost. Never reset model weights or upstream state."
+    },
+    {
+      "id": 22,
+      "name": "Software architecture agent",
+      "status": "MISSING",
+      "evidence": [
+        "agent/planning.py"
+      ],
+      "existing": "General language answers/checklists are not a source-backed architecture analysis specialist.",
+      "work": "Add API/dependency/schema/IaC analysis, design proposals and evidence-linked architecture reports as a scoped supervisor specialist.",
+      "destinations": [
+        "agent/architecture_analysis.py",
+        "agent/agent_registry.py"
+      ],
+      "tests": [
+        "tests/test_architecture_analysis.py"
+      ],
+      "dependencies": [
+        9,
+        18,
+        19
+      ],
+      "complexity": "L",
+      "risk": "Generated designs may ignore deployment constraints or propose unsafe migrations.",
+      "flag": "ZENITH_ARCHITECTURE_AGENT_ENABLED",
+      "milestone": "M3",
+      "acceptance": "Reports cite actual modules/configuration and label hypotheses; proposed API/schema changes include compatibility tests and rollback.",
+      "rollback": "Disable this feature flag, drain/reconcile active effects, retain audit/receipts and previous release; restore reviewed database backup only if no newer writes would be lost. Never reset model weights or upstream state."
+    },
+    {
+      "id": 23,
+      "name": "Security operations agent",
+      "status": "MISSING",
+      "evidence": [
+        "agent/monitoring.py"
+      ],
+      "existing": "Application performance records are not a SIEM/log-correlation engine.",
+      "work": "Add offline structured log ingestion, event normalization/correlation, triage/anomaly scoring and optional approved SIEM read adapters.",
+      "destinations": [
+        "agent/security/operations.py",
+        "agent/security/logs.py"
+      ],
+      "tests": [
+        "tests/security/test_operations.py",
+        "tests/security/test_log_injection.py"
+      ],
+      "dependencies": [
+        3,
+        8,
+        9
+      ],
+      "complexity": "L",
+      "risk": "Sensitive logs, false positives and injected log instructions; no automatic containment.",
+      "flag": "ZENITH_SECURITY_OPERATIONS_ENABLED",
+      "milestone": "M5",
+      "acceptance": "Labeled benign/attack log fixtures measure detection and false-positive rate; sources/timestamps retained; logs cannot authorize tools.",
+      "rollback": "Disable this feature flag, drain/reconcile active effects, retain audit/receipts and previous release; restore reviewed database backup only if no newer writes would be lost. Never reset model weights or upstream state."
+    },
+    {
+      "id": 24,
+      "name": "Vulnerability analysis",
+      "status": "PARTIAL",
+      "evidence": [
+        "agent/tools.py",
+        "scripts/audit_dependencies.py",
+        ".github/workflows/security.yml"
+      ],
+      "existing": "Regex pasted-source review and installed-dependency advisory scanning; no full SAST/configuration/vulnerability-validation agent.",
+      "work": "Harden advisory coverage, add pinned SAST and configuration adapters, correlate source evidence and remediation; verify authorized fixes in isolated fixtures.",
+      "destinations": [
+        "scripts/audit_dependencies.py",
+        "agent/security/vulnerabilities.py",
+        ".github/workflows/security.yml"
+      ],
+      "tests": [
+        "tests/test_dependency_audit.py",
+        "tests/security/test_vulnerabilities.py"
+      ],
+      "dependencies": [
+        8,
+        18,
+        20
+      ],
+      "complexity": "L",
+      "risk": "Advisory skips, false positives, untrusted repositories and exploit validation outside scope.",
+      "flag": "ZENITH_VULNERABILITY_ANALYSIS_ENABLED",
+      "milestone": "M0 / M5",
+      "acceptance": "Unscanned packages cannot silently produce a complete-audit result; known vulnerable fixtures detected; remediation tests pass without unauthorized network activity.",
+      "rollback": "Disable this feature flag, drain/reconcile active effects, retain audit/receipts and previous release; restore reviewed database backup only if no newer writes would be lost. Never reset model weights or upstream state."
+    },
+    {
+      "id": 25,
+      "name": "Malware analysis sandbox",
+      "status": "MISSING",
+      "evidence": [],
+      "existing": "No malware lab, behavioral analysis, YARA/file reputation or IOC extraction pipeline.",
+      "work": "Start with bounded static inspection and reports. Dynamic malware execution requires a separate disposable VM/microVM lab, controlled samples and verified isolation before activation.",
+      "destinations": [
+        "integrations/malware_lab/",
+        "agent/security/malware.py"
+      ],
+      "tests": [
+        "tests/security/test_malware_static.py",
+        "integrations/malware_lab/tests/test_isolation.py"
+      ],
+      "dependencies": [
+        20,
+        23,
+        26
+      ],
+      "complexity": "XL",
+      "risk": "Actual hostile code, sensitive artifacts, network escape and destructive side effects; blocked without stronger lab infrastructure.",
+      "flag": "ZENITH_MALWARE_STATIC_ENABLED; dynamic lab separately disabled",
+      "milestone": "M5 / M7",
+      "acceptance": "Static benign test samples produce hash/IOC evidence without execution; real dynamic-lab containment is independently reviewed; no malware deployed to third parties.",
+      "rollback": "Disable this feature flag, drain/reconcile active effects, retain audit/receipts and previous release; restore reviewed database backup only if no newer writes would be lost. Never reset model weights or upstream state."
+    },
+    {
+      "id": 26,
+      "name": "Threat intelligence",
+      "status": "MISSING",
+      "evidence": [
+        "agent/resources/sources-v1.json"
+      ],
+      "existing": "Reference links are not a CVE/ATT&CK/IOC feed ingestion or correlation engine.",
+      "work": "Add licensed versioned feed ingestion, CVE/vendor/ATT&CK mapping, IOC enrichment and campaign reports with timestamps and attribution.",
+      "destinations": [
+        "agent/security/threat_intel.py",
+        "agent/security/feeds.py"
+      ],
+      "tests": [
+        "tests/security/test_threat_intel.py"
+      ],
+      "dependencies": [
+        3,
+        6,
+        23,
+        24
+      ],
+      "complexity": "L",
+      "risk": "Stale or malicious feeds and unsupported attribution; no automatic external scans/blocking.",
+      "flag": "ZENITH_THREAT_INTEL_ENABLED",
+      "milestone": "M5",
+      "acceptance": "Known dated feed fixtures map correctly; every factual claim cites actual retrieved records; stale/contradictory intelligence remains explicit.",
+      "rollback": "Disable this feature flag, drain/reconcile active effects, retain audit/receipts and previous release; restore reviewed database backup only if no newer writes would be lost. Never reset model weights or upstream state."
+    },
+    {
+      "id": 27,
+      "name": "Authorized penetration testing",
+      "status": "PARTIAL",
+      "evidence": [
+        "agent/execution.py",
+        "agent/skill_access.py"
+      ],
+      "existing": "Owner/MFA narrow literal-IP TCP/TLS checks and security curriculum; no autonomous assessment agent or broad scanner.",
+      "work": "Add strictly scoped lab assessment plans, approved configuration tests, vulnerability/remediation validation and reports through existing execution controls.",
+      "destinations": [
+        "agent/security/assessment.py",
+        "agent/tool_registry.py"
+      ],
+      "tests": [
+        "tests/security/test_assessment_scope.py",
+        "tests/security/test_lab_assessment.py"
+      ],
+      "dependencies": [
+        9,
+        20,
+        24
+      ],
+      "complexity": "XL",
+      "risk": "Unauthorized targets, privilege amplification and destructive activity; lab/authorization references required.",
+      "flag": "ZENITH_LAB_ASSESSMENT_ENABLED",
+      "milestone": "M5",
+      "acceptance": "Allowlisted lab only; out-of-scope IP/ports denied before traffic; cancellation/revocation/approval audited; no unauthorized intrusion, credential theft or destructive tooling.",
+      "rollback": "Disable this feature flag, drain/reconcile active effects, retain audit/receipts and previous release; restore reviewed database backup only if no newer writes would be lost. Never reset model weights or upstream state."
+    },
+    {
+      "id": 28,
+      "name": "Incident response",
+      "status": "MISSING",
+      "evidence": [
+        "agent/resources/skills-v1.json"
+      ],
+      "existing": "Instructional security profiles are not an incident-response execution engine.",
+      "work": "Add evidence hashes, forensic artifact parsing, event timelines, root-cause hypotheses and containment/recovery plans with human-approved actions.",
+      "destinations": [
+        "agent/security/incident_response.py",
+        "agent/security/evidence.py"
+      ],
+      "tests": [
+        "tests/security/test_incident_response.py"
+      ],
+      "dependencies": [
+        3,
+        23,
+        26
+      ],
+      "complexity": "L",
+      "risk": "Evidence contamination, private data disclosure and irreversible containment changes.",
+      "flag": "ZENITH_INCIDENT_RESPONSE_ENABLED",
+      "milestone": "M5",
+      "acceptance": "Timeline reconstructed from a known incident fixture; provenance survives export; hypotheses labeled; containment never runs without separate authority.",
+      "rollback": "Disable this feature flag, drain/reconcile active effects, retain audit/receipts and previous release; restore reviewed database backup only if no newer writes would be lost. Never reset model weights or upstream state."
+    },
+    {
+      "id": 29,
+      "name": "Vision engine",
+      "status": "MISSING",
+      "evidence": [
+        "agent/model_packs/zenith-vision.json",
+        "integrations/inference_service/src/zenith_inference/chat_contract.py"
+      ],
+      "existing": "Vision model reference metadata exists; current inference explicitly accepts text only.",
+      "work": "Add optional compatible vision/OCR adapters for images/screenshots/charts/VQA, with bounded inputs and explicit external-data consent. Keep vision weights separate from Zenith's preserved text model.",
+      "destinations": [
+        "agent/multimodal/vision.py",
+        "agent/multimodal/ocr.py"
+      ],
+      "tests": [
+        "tests/multimodal/test_vision.py",
+        "tests/multimodal/test_ocr.py"
+      ],
+      "dependencies": [
+        8,
+        32,
+        37
+      ],
+      "complexity": "XL",
+      "risk": "Image secrets, parser exploits and hallucinated visual details; no arbitrary embedding compatibility assumptions.",
+      "flag": "ZENITH_VISION_ENABLED",
+      "milestone": "M6",
+      "acceptance": "Actual configured model/OCR processes a frozen image set; accuracy and chart/VQA limits reported; text-only install still works without dependencies.",
+      "rollback": "Disable this feature flag, drain/reconcile active effects, retain audit/receipts and previous release; restore reviewed database backup only if no newer writes would be lost. Never reset model weights or upstream state."
+    },
+    {
+      "id": 30,
+      "name": "Speech intelligence",
+      "status": "MISSING",
+      "evidence": [],
+      "existing": "No native STT/TTS/audio or speaker-aware pipeline.",
+      "work": "Add optional local/authorized STT and TTS, transcription and multilingual adapters, with separate explicit consent for speaker processing and retained audio.",
+      "destinations": [
+        "agent/multimodal/audio.py",
+        "agent/multimodal/speech.py"
+      ],
+      "tests": [
+        "tests/multimodal/test_audio.py",
+        "tests/multimodal/test_speech.py"
+      ],
+      "dependencies": [
+        8,
+        37
+      ],
+      "complexity": "XL",
+      "risk": "Audio privacy, voice rights, biometric consent and optional native dependency availability.",
+      "flag": "ZENITH_AUDIO_ENABLED",
+      "milestone": "M6",
+      "acceptance": "Real frozen clips measure word-error rate and TTS intelligibility/latency; absent backends fail clearly; authorized speaker features tested separately.",
+      "rollback": "Disable this feature flag, drain/reconcile active effects, retain audit/receipts and previous release; restore reviewed database backup only if no newer writes would be lost. Never reset model weights or upstream state."
+    },
+    {
+      "id": 31,
+      "name": "Real-time voice assistant",
+      "status": "MISSING",
+      "evidence": [],
+      "existing": "No audio streaming/turn-taking/barge-in implementation.",
+      "work": "Add authenticated voice sessions, audio buffers/VAD/turn state, streaming transcription/playback, interruption and authorized tool handoff.",
+      "destinations": [
+        "agent/voice_session.py",
+        "agent/voice_gateway.py"
+      ],
+      "tests": [
+        "tests/multimodal/test_voice_session.py",
+        "tests/integration/test_voice_turns.py"
+      ],
+      "dependencies": [
+        9,
+        16,
+        30
+      ],
+      "complexity": "XL",
+      "risk": "Cross-session audio and double effects during interruption; approvals must survive voice retries safely.",
+      "flag": "ZENITH_VOICE_ENABLED",
+      "milestone": "M7",
+      "acceptance": "Real audio turn interrupted without stale playback or duplicate tool effects; latency, memory, packet bounds and account isolation measured.",
+      "rollback": "Disable this feature flag, drain/reconcile active effects, retain audit/receipts and previous release; restore reviewed database backup only if no newer writes would be lost. Never reset model weights or upstream state."
+    },
+    {
+      "id": 32,
+      "name": "Document intelligence",
+      "status": "PARTIAL",
+      "evidence": [
+        "agent/storage.py",
+        "scripts/import_dataset.py",
+        "agent/core.py"
+      ],
+      "existing": "Plain-text shared corpus import/FTS retrieval; no PDF/Word/spreadsheet/presentation parsing.",
+      "work": "Add isolated bounded document parsers, source spans/page/sheet coordinates, extraction and project-owned retrieval. Disable macros, formula execution and embedded actions.",
+      "destinations": [
+        "agent/multimodal/documents.py",
+        "agent/document_index.py"
+      ],
+      "tests": [
+        "tests/multimodal/test_documents.py",
+        "tests/test_document_index.py"
+      ],
+      "dependencies": [
+        3,
+        20
+      ],
+      "complexity": "L",
+      "risk": "ZIP/XML bombs, malicious PDF/Office content, source injection and tenant leakage.",
+      "flag": "ZENITH_DOCUMENTS_ENABLED",
+      "milestone": "M2",
+      "acceptance": "Real representative documents extract correctly; malicious/big inputs rejected; citations resolve to exact ingested spans; deletion/ownership preserved.",
+      "rollback": "Disable this feature flag, drain/reconcile active effects, retain audit/receipts and previous release; restore reviewed database backup only if no newer writes would be lost. Never reset model weights or upstream state."
+    },
+    {
+      "id": 33,
+      "name": "Image generation",
+      "status": "MISSING",
+      "evidence": [
+        "agent/web/zenith-banner.png"
+      ],
+      "existing": "Static branding assets are not an image generation/editing engine.",
+      "work": "Add optional authorized generation/editing adapters, prompt refinement, provenance/history and local/cloud capability checks without replacing Zenith's text model.",
+      "destinations": [
+        "agent/multimodal/images.py",
+        "agent/media_history.py"
+      ],
+      "tests": [
+        "tests/multimodal/test_images.py"
+      ],
+      "dependencies": [
+        29,
+        37
+      ],
+      "complexity": "L",
+      "risk": "Provider terms, media rights, private references, credentials and large generated artifacts.",
+      "flag": "ZENITH_IMAGE_GENERATION_ENABLED",
+      "milestone": "M6",
+      "acceptance": "Actual authorized backend produces/edits an image; history records source/model/hash; unsupported models and missing credentials stay blocked.",
+      "rollback": "Disable this feature flag, drain/reconcile active effects, retain audit/receipts and previous release; restore reviewed database backup only if no newer writes would be lost. Never reset model weights or upstream state."
+    },
+    {
+      "id": 34,
+      "name": "Video intelligence",
+      "status": "MISSING",
+      "evidence": [],
+      "existing": "No frame/scene/temporal video retrieval or question-answering engine.",
+      "work": "Add sandboxed frame/audio extraction and sampled temporal summaries/search using verified vision/speech adapters; bound duration, frames and media storage.",
+      "destinations": [
+        "agent/multimodal/video.py",
+        "agent/video_index.py"
+      ],
+      "tests": [
+        "tests/multimodal/test_video.py"
+      ],
+      "dependencies": [
+        20,
+        29,
+        30,
+        32
+      ],
+      "complexity": "XL",
+      "risk": "Decoder vulnerabilities, misleading temporal summaries and resource exhaustion.",
+      "flag": "ZENITH_VIDEO_ENABLED",
+      "milestone": "M7",
+      "acceptance": "Known short videos produce correct timestamped frames/events; decoder isolated; resource limits enforced; answers cite actual frames/time ranges.",
+      "rollback": "Disable this feature flag, drain/reconcile active effects, retain audit/receipts and previous release; restore reviewed database backup only if no newer writes would be lost. Never reset model weights or upstream state."
+    },
+    {
+      "id": 35,
+      "name": "Ollama integration",
+      "status": "PARTIAL",
+      "evidence": [
+        "agent/providers.py",
+        "agent/provider_adapters/local_adapter.py",
+        "agent/model_registry.py"
+      ],
+      "existing": "Real /api/chat generation/streaming and /api/tags discovery contracts, loopback routing and context options.",
+      "work": "Add verified model-specific context/modality/tool metadata, availability monitoring and explicit lifecycle management without automatic model pulls/substitution.",
+      "destinations": [
+        "agent/provider_adapters/local_adapter.py",
+        "agent/providers.py"
+      ],
+      "tests": [
+        "tests/test_model_registry.py",
+        "tests/integration/test_ollama_native.py"
+      ],
+      "dependencies": [
+        5
+      ],
+      "complexity": "M",
+      "risk": "Installed-model metadata does not establish compatibility; engine install/model download require operator selection.",
+      "flag": "Existing AI_PROVIDER=ollama",
+      "milestone": "M2",
+      "acceptance": "An actual configured Ollama model lists, answers and respects context/cancellation; unavailable/mismatched models fail clearly.",
+      "rollback": "Disable this feature flag, drain/reconcile active effects, retain audit/receipts and previous release; restore reviewed database backup only if no newer writes would be lost. Never reset model weights or upstream state."
+    },
+    {
+      "id": 36,
+      "name": "NVIDIA/GPU optimization",
+      "status": "PARTIAL",
+      "evidence": [
+        "agent/providers.py",
+        "agent/kv_cache.py",
+        "agent/monitoring.py",
+        "scripts/inference_speed_benchmark.py"
+      ],
+      "existing": "CUDA/MPS device selection, FP16 compatible accelerator path, CPU path and measured scoped Qwen2 KV reuse; no GPU here.",
+      "work": "Add GPU telemetry/profiling and benchmark compatible attention, quantization, batching/prefix caching and optional inference servers. Treat numerical changes as separately evaluated artifacts.",
+      "destinations": [
+        "agent/performance.py",
+        "agent/gpu_metrics.py",
+        "scripts/gpu_benchmark.py"
+      ],
+      "tests": [
+        "tests/test_gpu_metrics.py",
+        "tests/integration/test_gpu_inference.py"
+      ],
+      "dependencies": [
+        8,
+        35,
+        37
+      ],
+      "complexity": "XL",
+      "risk": "VRAM exhaustion, numerical/adapter incompatibility and unsupported hardware; no universal speed claims.",
+      "flag": "ZENITH_GPU_METRICS_ENABLED; new inference backends opt-in",
+      "milestone": "M6",
+      "acceptance": "Actual GPU records TTFT/TPS/VRAM/utilization and correctness against immutable CPU baseline; CPU fallback preserved; unsupported kernels/quantization remain blocked.",
+      "rollback": "Disable this feature flag, drain/reconcile active effects, retain audit/receipts and previous release; restore reviewed database backup only if no newer writes would be lost. Never reset model weights or upstream state."
+    },
+    {
+      "id": 37,
+      "name": "Hybrid inference",
+      "status": "EXISTING",
+      "evidence": [
+        "agent/orchestration.py",
+        "agent/task_router.py",
+        "agent/provider_adapters/openai_adapter.py",
+        "agent/provider_adapters/anthropic_adapter.py"
+      ],
+      "existing": "Local/cloud text adapters, explicit external opt-in, native/local-only routing, capability filters and bounded failover with cost/latency traces.",
+      "work": "Validate authorized live accounts and persist workload-aware metrics; extend modalities only after per-provider acceptance and privacy checks.",
+      "destinations": [
+        "agent/routing_metrics.py",
+        "agent/orchestration.py"
+      ],
+      "tests": [
+        "tests/test_orchestration.py",
+        "tests/integration/test_live_providers.py"
+      ],
+      "dependencies": [
+        5,
+        8
+      ],
+      "complexity": "M",
+      "risk": "No configured API credentials here; unknown prices/access cannot be assumed; no provider-output distillation without rights.",
+      "flag": "Existing AI_PROVIDER=orchestrated and explicit external permission",
+      "milestone": "M2",
+      "acceptance": "Live account tests run only with designated credentials; local-only stays offline; fallback respects model/tool/context/cost/privacy constraints.",
+      "rollback": "Disable this feature flag, drain/reconcile active effects, retain audit/receipts and previous release; restore reviewed database backup only if no newer writes would be lost. Never reset model weights or upstream state."
+    },
+    {
+      "id": 38,
+      "name": "Training and fine-tuning",
+      "status": "PARTIAL",
+      "evidence": [
+        "agent/continual.py",
+        "agent/checkpoints.py",
+        "agent/curriculum.py",
+        "agent/deployment.py",
+        "agent/export_checkpoint.py"
+      ],
+      "existing": "Existing trained LoRA continuation SFT/CPT/DPO, grouped licensed data, replay, lineage hashes, evaluation gates, merge/reload verification and manual rollback.",
+      "work": "Add experiment tracking/trajectory curation and, where supported, separately validated QLoRA, optimizer resume and broader benchmarks. Keep original checkpoints immutable and failed gates intact.",
+      "destinations": [
+        "agent/evolution/training.py",
+        "agent/continual.py",
+        "agent/expansion_eval.py"
+      ],
+      "tests": [
+        "tests/test_continuation.py",
+        "tests/test_deployment.py",
+        "tests/integration/test_training_lineage.py"
+      ],
+      "dependencies": [
+        7,
+        8,
+        20
+      ],
+      "complexity": "XL",
+      "risk": "Forgetting, data leakage, licensing, optimizer/numerical incompatibility and unapproved deployment.",
+      "flag": "Explicit training CLI plus ZENITH_EVOLUTION_TRAINING_ENABLED",
+      "milestone": "M6",
+      "acceptance": "Start from exact verified trained parent; no random weights or parent writes; independent retention/security benchmarks pass before separately approved deployment.",
+      "rollback": "Disable this feature flag, drain/reconcile active effects, retain audit/receipts and previous release; restore reviewed database backup only if no newer writes would be lost. Never reset model weights or upstream state."
+    },
+    {
+      "id": 39,
+      "name": "MCP/plugin ecosystem",
+      "status": "PARTIAL",
+      "evidence": [
+        "agent/model_capabilities.py",
+        "agent/model_registry.py",
+        "integrations/inference_service/src/zenith_inference/chat_contract.py"
+      ],
+      "existing": "Trusted Python provider-adapter Protocol and bounded tool JSON schemas; these do not implement MCP.",
+      "work": "Add official-SDK MCP service/client, negotiated transports/resources/tools, schema validation, isolated stdio servers, approved remote origins and credential/capability mapping.",
+      "destinations": [
+        "integrations/mcp_service/pyproject.toml",
+        "integrations/mcp_service/src/zenith_mcp_service/client.py",
+        "agent/mcp_tools.py",
+        "agent/tool_registry.py",
+        "agent/tool_protocol.py"
+      ],
+      "tests": [
+        "integrations/mcp_service/tests/test_protocol.py",
+        "tests/security/test_mcp_permissions.py"
+      ],
+      "dependencies": [
+        13,
+        20
+      ],
+      "complexity": "XL",
+      "risk": "Malicious descriptions/results, package execution, SSRF/OAuth leakage and self-granted tools.",
+      "flag": "ZENITH_MCP_ENABLED",
+      "milestone": "M4",
+      "acceptance": "Official conformance/real server round trips pass; tool/resource injection cannot grant authority; schema/transport/auth failures fail closed; no uncontrolled host stdio subprocess.",
+      "rollback": "Disable this feature flag, drain/reconcile active effects, retain audit/receipts and previous release; restore reviewed database backup only if no newer writes would be lost. Never reset model weights or upstream state."
+    },
+    {
+      "id": 40,
+      "name": "Administration dashboard",
+      "status": "PARTIAL",
+      "evidence": [
+        "agent/web/index.html",
+        "agent/web/app.js",
+        "agent/server.py",
+        "agent/monitoring.py"
+      ],
+      "existing": "Existing accounts/memory/skills/admin/MFA/grants/emergency controls and response metrics UI.",
+      "work": "Extend the current interface with verified model/agent status, task progress, Evolution reviews, resource/usage metrics, training candidates and authorization history; absent sensors show unavailable.",
+      "destinations": [
+        "agent/web/app.js",
+        "agent/web/index.html",
+        "agent/evolution/gateway.py",
+        "agent/monitoring.py",
+        "agent/role_policy.py",
+        "agent/agent_policies.py",
+        "agent/role_migrations.py"
+      ],
+      "tests": [
+        "tests/test_quality_admin.py",
+        "tests/integration/test_dashboard_permissions.py"
+      ],
+      "dependencies": [
+        3,
+        5,
+        9,
+        14,
+        36,
+        38
+      ],
+      "complexity": "L",
+      "risk": "UI-only authorization is insufficient; display only capabilities actually enabled and verified.",
+      "flag": "Per-subsystem flags; ZENITH_EVOLUTION_UI_ENABLED",
+      "milestone": "M8",
+      "acceptance": "Real authenticated workflows exercise reviews/cancel/stop; cross-role APIs reject unauthorized actions; dashboards show measured data and explicit unavailable states.",
+      "rollback": "Disable this feature flag, drain/reconcile active effects, retain audit/receipts and previous release; restore reviewed database backup only if no newer writes would be lost. Never reset model weights or upstream state."
+    }
+  ]
+}

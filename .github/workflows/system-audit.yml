@@ -1,0 +1,22 @@
+name: System audit evidence
+on:
+  pull_request:
+    paths: ['docs/system-upgrade-audit-20261029/**', '.github/workflows/system-audit.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  evidence:
+    name: Pinned source coverage and forty-capability plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check original source hashes, recorded evidence and plan dependencies
+        run: python docs/system-upgrade-audit-20261029/verify_report.py

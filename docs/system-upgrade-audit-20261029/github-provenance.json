@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "audit_date": "2026-10-29",
+  "repository": "https://github.com/n8storm/Zenith",
+  "commit": "fcec8993b068cc72f2ca918a8ef5680dbc9b2255",
+  "tree": "db9408a8f50826531b71fc97af825138605ee928",
+  "main_protected": false,
+  "production_code_modified": false,
+  "model_weights_modified": false,
+  "upstream_tracked_sources_modified": false,
+  "historical_ci": [
+    {
+      "id": 40609634035,
+      "name": "Pinned OpenClaw native runtime",
+      "commit": "0a04cfc57bbed6056ae736e534d3db74a2492b81",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/n8storm/Zenith/actions/runs/40609634035"
+    },
+    {
+      "id": 40764796439,
+      "name": "Scoped inference performance",
+      "commit": "d46aa5b709d09708aefec7219f0dc1ce468ff1a8",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/n8storm/Zenith/actions/runs/40764796439"
+    }
+  ],
+  "evidence_note": "Historical runs were rechecked through GitHub; they were not newly executed during this read-only audit."
+}
