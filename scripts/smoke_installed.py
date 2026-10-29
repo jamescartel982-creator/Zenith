@@ -32,7 +32,7 @@ def main():
         verified=subprocess.check_output([str(executable),'verify','--json'],cwd=directory,text=True,encoding='utf-8')
         assert json.loads(verified)['ok']
         skills = subprocess.check_output([str(executable), 'skills', 'validate'], cwd=directory, text=True, encoding='utf-8')
-        assert json.loads(skills)['profiles'] == 27
+        assert json.loads(skills)['profiles'] == 32
         assert json.loads(skills)['resources'] == 24
         catalog = subprocess.run([str(executable), 'catalog', '--validate'], cwd=directory,
                                  text=True, encoding="utf-8", stdout=subprocess.PIPE, check=True).stdout

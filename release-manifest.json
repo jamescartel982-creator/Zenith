@@ -886,8 +886,8 @@
     },
     {
       "path": "docs/admin.md",
-      "size": 4539,
-      "sha256": "370113318fe77573321023892d255e554685a9af1f2c0ab3656c406374d6811c",
+      "size": 4622,
+      "sha256": "8558573ac5153123687f4a36f7d614c099981a14356bf611c7e8c85dca0cd97b",
       "normalization": "lf"
     },
     {
@@ -2326,8 +2326,8 @@
     },
     {
       "path": "docs/skills.md",
-      "size": 9273,
-      "sha256": "0b6617098976d47dc3d8c024f7bb9d8bfeda2ea439ae22e2e4866f836382b0f7",
+      "size": 9936,
+      "sha256": "983f93bc29aaaa2b5c2fa1abd1dfb0ad09aeed11b7a05fea9686819a44c52732",
       "normalization": "lf"
     },
     {
@@ -2339,7 +2339,7 @@
     {
       "path": "docs/training-roadmap.md",
       "size": 3153,
-      "sha256": "e3a8e7651f7cf42946c6720dcd57bb937e4979c7c03948aba5e21e2dd44aa82b",
+      "sha256": "812f5e72994ae1ff8ae0c5fd23164313de4f5f9f05528e70c1fa3e702b3ad822",
       "normalization": "lf"
     },
     {
@@ -3767,7 +3767,7 @@
     {
       "path": "scripts/smoke_installed.py",
       "size": 2971,
-      "sha256": "0172e413fba00ef326c734473b57a852eeea5546ac6fa1ca821bee39c05a38d9",
+      "sha256": "8a51e75095c9e88636f6e4305a84a32b4c4b74c107f2a350e19e34f32b8934d0",
       "normalization": "lf"
     },
     {
