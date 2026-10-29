@@ -1,7 +1,7 @@
 name: Skills scale and analysis UI
 on:
   pull_request:
-    paths: ['agent/**', 'scripts/productivity_benchmark.py', 'scripts/smoke_productivity_ui.py', 'tests/test_productivity.py', 'tests/test_skill_catalog.py', '.github/workflows/productivity.yml']
+    paths: ['agent/**', 'scripts/productivity_benchmark.py', 'scripts/generated_recipes_acceptance.py', 'scripts/smoke_productivity_ui.py', 'tests/test_productivity.py', 'tests/test_skill_catalog.py', 'tests/test_generated_recipes.py', '.github/workflows/productivity.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -27,6 +27,10 @@ jobs:
         run: python -m scripts.productivity_benchmark --output productivity-scale.json
       - name: Real account, UI, CSV, preference and skill activation workflows
         run: python -m scripts.smoke_productivity_ui --output productivity-browser.json
+      - name: Actual compact 100k generated recipe installation and persistence
+        run: python -m scripts.generated_recipes_acceptance --output productivity-generated.json
+      - name: Actual Chromium generated label, activation and account isolation
+        run: python -m scripts.smoke_productivity_ui --generated-recipes --output productivity-generated-browser.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:

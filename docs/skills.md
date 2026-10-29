@@ -42,12 +42,19 @@ The local operating-system owner controls the files, database, and Python instal
 ./run.sh skills show programming
 ./run.sh skills resources
 ./run.sh skills validate
+./run.sh skills recipes install --approve
+./run.sh skills recipes status
+./run.sh skills search --query "Python correctness beginner"
 ./run.sh chat
 ```
 
 On Windows replace `./run.sh` with `powershell -NoProfile -ExecutionPolicy Bypass -File .\run.ps1`. Metadata commands do not load a model. Public listing/show commands expose public skills; the in-chat `/skill list` includes security only after owner unlock. Offline validation checks the bundled library: 32 profiles, 24 application references, and six owner-visible terminology records. Imported profiles are validated separately on import. Developer documentation preserves the broader 40-reference bibliography.
 
 ## API behavior
+
+The optional [generated recipe library](generated-recipes.md) installs 100,000
+labeled combinations separately from curated profiles. It uses the same owner
+checks and paginated installed-library search; no recipe grants tool permissions.
 
 - `GET /api/skills`: role-filtered bundled catalog; 16 public profiles or 32 for the currently unlocked owner, plus imported-library status. A client cannot enable private results with a query flag.
 - `GET /api/skills/search`: signed-in, paginated imported profile search with the same owner visibility rule.

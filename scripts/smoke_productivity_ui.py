@@ -15,7 +15,7 @@ class FixtureProvider:
     def generate(self,messages):self.messages.append(messages);return 'Fixture answer.',messages
 
 
-def run():
+def run(generated=False):
     from playwright.sync_api import sync_playwright,expect
     import uvicorn
     from agent.config import Settings
@@ -25,13 +25,21 @@ def run():
     with tempfile.TemporaryDirectory(prefix='zenith-browser-productivity-') as folder:
         settings=replace(Settings(),provider='huggingface',data_dir=folder,api_token='')
         provider=FixtureProvider();agent=Agent(settings,provider)
-        pack=Path(folder)/'fixture.jsonl'
-        header={'kind':'zenith-skill-pack','schema_version':1,'pack_id':'browser','license':'Apache-2.0',
-                'source':'local-authored','source_revision':'synthetic-browser-test','reviewed':True}
-        profile=get_skill('general');profile.pop('resources',None)
-        profile.update(id='x-browser-fixture',name='Browser fixture',instruction='Review the explicitly supplied browser fixture.')
-        pack.write_text(json.dumps(header)+'\n'+json.dumps(profile)+'\n')
-        agent.skills.catalog.install(pack,True)
+        if generated:
+            from agent.recipe_catalog import RecipeCatalog
+            from agent.recipe_definitions_v1 import render
+            RecipeCatalog(agent.store).install(True)
+            selected=render(25000)
+            query=selected['id']
+        else:
+            pack=Path(folder)/'fixture.jsonl'
+            header={'kind':'zenith-skill-pack','schema_version':1,'pack_id':'browser','license':'Apache-2.0',
+                    'source':'local-authored','source_revision':'synthetic-browser-test','reviewed':True}
+            selected=get_skill('general');selected.pop('resources',None)
+            selected.update(id='x-browser-fixture',name='Browser fixture',instruction='Review the explicitly supplied browser fixture.')
+            pack.write_text(json.dumps(header)+'\n'+json.dumps(selected)+'\n')
+            agent.skills.catalog.install(pack,True)
+            query='Browser fixture'
         sock=socket.socket();sock.bind(('127.0.0.1',0));sock.listen(16)
         origin='http://127.0.0.1:'+str(sock.getsockname()[1])
         server=uvicorn.Server(uvicorn.Config(create_app(settings,agent),log_level='error',access_log=False))
@@ -75,14 +83,18 @@ def run():
                     expect(page.locator('#analysis-result')).to_be_empty()
                     assert len(provider.messages)==before
                     page.locator('[data-close="analysis-dialog"]').click()
-                    page.locator('#open-skills').click();page.locator('#skills-query').fill('Browser fixture')
-                    page.get_by_role('button',name='Use Browser fixture',exact=True).click()
-                    expect(page.locator('#skill-select')).to_have_value('x-browser-fixture')
+                    page.locator('#open-skills').click();page.locator('#skills-query').fill(query)
+                    if generated:
+                        expect(page.locator('#imported-skill-results')).to_contain_text('Generated workflow recipe · not independently evaluated')
+                    page.get_by_role('button',name='Use '+selected['name'],exact=True).click()
+                    expect(page.locator('#skill-select')).to_have_value(selected['id'])
                     page.locator('#prompt').fill('Explain this example briefly.')
                     page.locator('#composer').evaluate('(form) => form.requestSubmit()')
                     expect(page.locator('#messages')).to_contain_text('Fixture answer.')
                     assert 'French' in provider.messages[-1][0]['content']
                     assert 'untrusted task guidance' in provider.messages[-1][0]['content']
+                    if generated:
+                        assert 'Generated workflow recipe; not independently evaluated' in provider.messages[-1][0]['content']
                     page.locator('#open-account').click();page.locator('#logout').click()
                     expect(page.locator('#greeting')).to_contain_text('Welcome to Zenith')
                     expect(page.locator('#analysis-csv')).to_have_value('')
@@ -96,18 +108,20 @@ def run():
             server.should_exit=True;thread.join(10);sock.close()
             if thread.is_alive():raise RuntimeError('Test server did not terminate')
     return {'actual_loopback_chromium':True,'csv_exact_sum_displayed':True,'stale_results_cleared_on_error':True,'csv_model_calls':0,
-            'imported_profile_selected':True,'preferences_applied_to_model_context':True,
+            'imported_profile_selected':True,'generated_recipes_installed':100000 if generated else 0,
+            'selected_profile_kind':'generated-workflow-recipe' if generated else 'fixture-import',
+            'preferences_applied_to_model_context':True,
             'account_switch_isolated':True,'dataset_cleared_on_logout':True,'javascript_errors':errors,
             'model':'explicit fixture; no neural quality or language-generation claim', 'production_state_modified':False}
 
 
 if __name__=='__main__':
-    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',type=Path,required=True);args=parser.parse_args()
+    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',type=Path,required=True);parser.add_argument('--generated-recipes',action='store_true');args=parser.parse_args()
     from agent.config import Settings
     from agent.paths import config_file
     from scripts.platform_protection import check_destination
     try:args.output=check_destination(Settings(),config_file(),args.output)
     except ValueError as exc:parser.error(str(exc))
-    report=run()
+    report=run(args.generated_recipes)
     with args.output.open('x') as handle:json.dump(report,handle,indent=2);handle.write('\n')
     print(json.dumps(report))

@@ -957,7 +957,10 @@ async function loadImportedSkills(reset) {
   if (!view) {
     view = element('section'); view.id = 'imported-skill-results'; $('skills-results').after(view);
   }
-  if (reset) { view.replaceChildren(); importedSkillCursor = null; }
+  if (reset) {
+    view.replaceChildren(); importedSkillCursor = null;
+    if (skillLibrary?.extended_catalog?.generated_profiles) view.append(element('p', '', `${skillLibrary.extended_catalog.generated_profiles.toLocaleString()} generated workflow recipes visible to this account. These are composed instructions, not independently evaluated abilities or trained weights.`));
+  }
   const request = ++importedSkillRequest, owner = activeUser?.id;
   if (!owner) {view.append(element('p', '', 'Sign in to search operator-imported skill packs.')); return;}
   const query = $('skills-query').value, category = $('skills-category').value;
@@ -970,7 +973,7 @@ async function loadImportedSkills(reset) {
     if (!result.skills.length && reset) view.append(element('p', '', 'No matching imported profiles installed. Built-in profiles are shown above.'));
     for (const profile of result.skills) {
       const card = element('article', 'skill-card');
-      card.append(element('span', 'eyebrow', 'Imported instruction profile'), element('h3', '', profile.name), element('p', '', profile.deliverable));
+      card.append(element('span', 'eyebrow', profile.generated ? 'Generated workflow recipe · not independently evaluated' : 'Imported instruction profile'), element('h3', '', profile.name), element('p', '', profile.deliverable));
       const choose = element('button', '', 'Use ' + profile.name); choose.type = 'button';
       choose.addEventListener('click', async () => {
         try {await runSkillCommand('/skill ' + profile.id); $('skills-dialog').close();}
@@ -989,7 +992,7 @@ async function loadImportedSkills(reset) {
     }
     importedSkillCursor = result.next;
     if (result.next) {
-      const next = element('button', '', 'Next imported profiles'); next.id = 'imported-skill-next'; next.type = 'button';
+      const next = element('button', '', 'Next installed profiles'); next.id = 'imported-skill-next'; next.type = 'button';
       next.addEventListener('click', () => { next.disabled = true; loadImportedSkills(false); }); view.append(next);
     }
   } catch (error) {if (request === importedSkillRequest && owner === activeUser?.id) $('skills-error').textContent = error.message;}

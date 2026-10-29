@@ -100,7 +100,11 @@ class SkillAccess:
         if action == 'status':
             return {'type': 'skill-status', 'skill': active, 'message': 'Active skill: ' + self.lookup(active)['name']}
         rows = list_skills(include_admin=self.is_admin(user_id, token))
+        extended = self.catalog.status(self.is_admin(user_id, token))
+        message = 'Use /skill ID to activate a skill. Security skills appear after owner unlock.'
+        if extended['generated_profiles']:
+            message += f" {extended['generated_profiles']:,} generated workflow recipes are visible; search in Skills or with zenith skills search."
         return {'type': 'skill-list', 'skill': active,
-                'extended_catalog': self.catalog.status(self.is_admin(user_id, token)),
+                'extended_catalog': extended,
                 'skills': [{'id': row['id'], 'name': row['name']} for row in rows],
-                'message': 'Use /skill ID to activate a skill. Security skills appear after owner unlock.'}
+                'message': message}

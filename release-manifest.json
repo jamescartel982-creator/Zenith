@@ -40,8 +40,8 @@
     },
     {
       "path": ".github/workflows/inference-performance.yml",
-      "size": 3275,
-      "sha256": "3c12c2adc4a152a57b2d4cba81e2ba7d2ff55578209fbbea6c64598ccc051748",
+      "size": 3295,
+      "sha256": "8d17d397ad353da1a9ae5505e1b20fb3c4a7ba643d1473892b182d9399a817d8",
       "normalization": "lf"
     },
     {
@@ -70,8 +70,8 @@
     },
     {
       "path": ".github/workflows/productivity.yml",
-      "size": 1391,
-      "sha256": "69be870cfb162e6fa11aaaea07e657125782a228a19a6f0dd0fe7b9b4b163a73",
+      "size": 1844,
+      "sha256": "dbf50944779ea60f2faef886650ecd32bcb45716b5024ad6d25b3e36b92d3f0d",
       "normalization": "lf"
     },
     {
@@ -148,8 +148,8 @@
     },
     {
       "path": "README.md",
-      "size": 15342,
-      "sha256": "0ddc992e05df944d879e8bad2eea7a6de4b03bde63f1ecaec1b5e9d8c0833fce",
+      "size": 15678,
+      "sha256": "409c25f68f77d40440e4e8be8720594df9f5f446dde72073f7e3ccffa9e90630",
       "normalization": "lf"
     },
     {
@@ -298,8 +298,8 @@
     },
     {
       "path": "agent/core.py",
-      "size": 12820,
-      "sha256": "a35b7a4ad354f7233adf02656594a06f84cf676466537160674b3d870984e45b",
+      "size": 12852,
+      "sha256": "6cb7f0c4541de88acda8e10fc572fba429de1b11b856d606ca7029357fff2017",
       "normalization": "lf"
     },
     {
@@ -597,6 +597,18 @@
       "normalization": "lf"
     },
     {
+      "path": "agent/recipe_catalog.py",
+      "size": 12375,
+      "sha256": "f5617f79a55c8a2b8e9c4210d52318468c2b6e063459d80bb74b6005b212a641",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/recipe_definitions_v1.py",
+      "size": 20148,
+      "sha256": "ed647bb78db16958d17383670d1bc3b4c47b707465d23c65d3c5ae69c662e279",
+      "normalization": "lf"
+    },
+    {
       "path": "agent/redaction.py",
       "size": 1244,
       "sha256": "5ef82f1ee664b90e1682333fe00ec675ec0b2af5afabf84c62d963fe43f0e696",
@@ -682,20 +694,20 @@
     },
     {
       "path": "agent/skill_access.py",
-      "size": 4876,
-      "sha256": "ec6575129d78508c5dd03f8c6822959846b513377a981b8c6b23d6814be82a7d",
+      "size": 5122,
+      "sha256": "87eb44fc0518049d0721efc672c6446aa82957faee0e3ad9fe950675dae8faa0",
       "normalization": "lf"
     },
     {
       "path": "agent/skill_catalog.py",
-      "size": 12402,
-      "sha256": "235b491a5925b5e90165840513a29bbbf451191c16706eac3d400cdb4e90339d",
+      "size": 13070,
+      "sha256": "7d3d40b671048a2ab8986f7490dfdd407da8fa94795de96b35c3fdc0f80e3f6b",
       "normalization": "lf"
     },
     {
       "path": "agent/skills.py",
-      "size": 11583,
-      "sha256": "b4cf354a1b79c3c5f755b27be916381c94ed0f72e7f4ebeb399d531e26579c2e",
+      "size": 11843,
+      "sha256": "98274b6a259ac800238baaf43f243f83579f0f015cc3949e67346e71de45255a",
       "normalization": "lf"
     },
     {
@@ -772,8 +784,8 @@
     },
     {
       "path": "agent/web/app.js",
-      "size": 67188,
-      "sha256": "8bf2ea1ea5bf6c5e509d82a9360183da66be93bb9e7d2e7cbe12a983a658c998",
+      "size": 67582,
+      "sha256": "69a8e8d6fff955e2b6d869af6a2a26e639b2902ccd76e5fb2421d70705072865",
       "normalization": "lf"
     },
     {
@@ -1050,6 +1062,30 @@
       "path": "docs/benchmarks/continuation-v1/weight-update.json",
       "size": 363,
       "sha256": "98626a6102146c0c6aec81403f054b7b983878d2d3a27b741c060c209054fe72",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/generated-recipes/acceptance.json",
+      "size": 2206,
+      "sha256": "fe4dadc8da331d143e2b3f2cf752b214ea20acddc9ab4597991f0809d4493d2b",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/generated-recipes/browser.json",
+      "size": 538,
+      "sha256": "31d278cd15bbb968aa7dfcfad5ca75db853a00875d42595f93a79fa8a61dc734",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/generated-recipes/local-installation.json",
+      "size": 974,
+      "sha256": "f3955b2ac7f765be934c6da5b8f2ce67990d8bfec89e12f9488d1888e8cb21d0",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/generated-recipes/preserved-model.json",
+      "size": 1024,
+      "sha256": "d20c37f84f811ab1c483a1219d35a89c5e57d63fab5c7779cebe774515d983d3",
       "normalization": "lf"
     },
     {
@@ -1965,6 +2001,12 @@
       "normalization": "lf"
     },
     {
+      "path": "docs/generated-recipes.md",
+      "size": 8378,
+      "sha256": "46d7a743fc455290e06a94f389b24ee0a6976182b965fb3f277e477fe6f4c5a3",
+      "normalization": "lf"
+    },
+    {
       "path": "docs/integrity.md",
       "size": 2875,
       "sha256": "c1acef221ddb5a81d7b31e13d38809d04bb29af967e3d21242abedd8213dbebd",
@@ -2236,8 +2278,8 @@
     },
     {
       "path": "docs/productivity.md",
-      "size": 11016,
-      "sha256": "232fd67225ce4348eee92adfa83b02c9798dc3799b2e7d96a12b9e0c030e8e61",
+      "size": 11314,
+      "sha256": "740357b87af1963c6c0f5efa00b57e549c49773bd139d813541a4c30f11399e7",
       "normalization": "lf"
     },
     {
@@ -2326,8 +2368,8 @@
     },
     {
       "path": "docs/skills.md",
-      "size": 9936,
-      "sha256": "983f93bc29aaaa2b5c2fa1abd1dfb0ad09aeed11b7a05fea9686819a44c52732",
+      "size": 10310,
+      "sha256": "dd0dab44cebe22f68c682dbadcee9f8951e935f38fa5fe7562d0c5f5731bbbcc",
       "normalization": "lf"
     },
     {
@@ -3645,6 +3687,12 @@
       "normalization": "lf"
     },
     {
+      "path": "scripts/generated_recipes_acceptance.py",
+      "size": 4866,
+      "sha256": "8bace2bd16d6f5d722c217a9bcdb04e139fa464f3b1f13d0f8b04b925f8b0f96",
+      "normalization": "lf"
+    },
+    {
       "path": "scripts/import_dataset.py",
       "size": 5088,
       "sha256": "530ee671f2c1026eabba7a7804a02fb8e9d5a44f001cf5426a90697cbd4a0cc5",
@@ -3784,8 +3832,8 @@
     },
     {
       "path": "scripts/smoke_personalized_model.py",
-      "size": 4687,
-      "sha256": "8e53802a27f8475173a83d54281d0c7c0ddf7c7405540f4e0138962eeb03cbe3",
+      "size": 6283,
+      "sha256": "e09315d63e3dcab5a0c8f3334b4310a02fcbbd4dd764e4fb709aae7b4962584d",
       "normalization": "lf"
     },
     {
@@ -3796,8 +3844,8 @@
     },
     {
       "path": "scripts/smoke_productivity_ui.py",
-      "size": 7239,
-      "sha256": "9ba16b33720e072d8609d37935a11630ebf65912c1f2508755bda99b0a09fca1",
+      "size": 8180,
+      "sha256": "ab1bd7dd5fdc2b2471ffdd332122e885b7ff37ac0ec2e1d2aa70c0dd6169997e",
       "normalization": "lf"
     },
     {
@@ -3894,6 +3942,12 @@
       "path": "tests/test_execution_controls.py",
       "size": 11436,
       "sha256": "bd80b341ebface4229d31415401bb9dbbaaf4a9796ba125768270aadc8986dfc",
+      "normalization": "lf"
+    },
+    {
+      "path": "tests/test_generated_recipes.py",
+      "size": 10027,
+      "sha256": "d3ca98a141dc8b941df7e890bcffdc78e2c4388ca0493b3766fd4daa0e0f7284",
       "normalization": "lf"
     },
     {

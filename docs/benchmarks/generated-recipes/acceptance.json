@@ -1,0 +1,53 @@
+{
+  "source_commit": "a465d46973003be990206c1eb15603adfff00f5e",
+  "source_sha256": {
+    "agent/recipe_catalog.py": "f5617f79a55c8a2b8e9c4210d52318468c2b6e063459d80bb74b6005b212a641",
+    "agent/recipe_definitions_v1.py": "ed647bb78db16958d17383670d1bc3b4c47b707465d23c65d3c5ae69c662e279",
+    "agent/skill_catalog.py": "7d3d40b671048a2ab8986f7490dfdd407da8fa94795de96b35c3fdc0f80e3f6b",
+    "agent/core.py": "6cb7f0c4541de88acda8e10fc572fba429de1b11b856d606ca7029357fff2017"
+  },
+  "installation": {
+    "pack_id": "generated-recipes-v1",
+    "installed": 100000,
+    "already_installed": false,
+    "definition_sha256": "ed647bb78db16958d17383670d1bc3b4c47b707465d23c65d3c5ae69c662e279",
+    "rendered_sha256": "6e75bd59fdacac7a21cbf0d563cb30ceb4c0bb479b534381524efdbe561dc735",
+    "public_recipes": 90000,
+    "admin_recipes": 10000,
+    "kind": "generated-workflow-recipes",
+    "notice": "Generated workflow recipe; not independently evaluated and not neural training.",
+    "license": "Apache-2.0",
+    "source": "locally-authored-frozen-generator-v1",
+    "independently_evaluated": 0,
+    "training_performed": false,
+    "install_seconds": 5.44
+  },
+  "actual_database_rows": 100000,
+  "database_bytes": 7634944,
+  "queries": [
+    "algebra correctness beginner",
+    "Python compare correctness beginner",
+    "incident analysis",
+    "data quality reproducibility reviewer",
+    "x-recipes-99999"
+  ],
+  "search_samples_ms": [
+    1.418698000634322,
+    9.005815001728479,
+    1.5015249991847668,
+    15.564560002530925,
+    0.6388490000972524
+  ],
+  "search_median_ms": 1.5015249991847668,
+  "restart_persistence": true,
+  "restricted_profiles_hidden": true,
+  "pagination_disjoint": true,
+  "explicit_removal_preserved_history": true,
+  "training_performed": false,
+  "limitations": [
+    "100 x 25 x 10 x 4 authored grammar combinations, not 100000 independently evaluated capabilities.",
+    "Structural validation and indexing tests do not establish correctness of model answers.",
+    "This measurement used removed test-owned state; the separate explicit installation receipt records durable installation.",
+    "No 20T model, weight changes or 10000x general inference speedup."
+  ]
+}

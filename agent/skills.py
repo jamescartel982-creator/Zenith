@@ -196,6 +196,9 @@ def skill_instruction(identifier):
 
 def main():
     import sys
+    if len(sys.argv)>1 and sys.argv[1]=='recipes':
+        from .recipe_catalog import main as recipes_main
+        return recipes_main(sys.argv[2:])
     if len(sys.argv)>1 and sys.argv[1] in {'import','remove-pack','search','capacity'}:
         from .skill_catalog import main as catalog_main
         return catalog_main(sys.argv[1:])
@@ -209,6 +212,7 @@ def main():
     show.add_argument('identifier')
     for action in ('search','capacity','import','remove-pack'):
         sub.add_parser(action,help='Installed instruction-pack '+action+'; use '+action+' --help')
+    sub.add_parser('recipes',help='Install, inspect or remove the labeled generated workflow recipe library')
     sub.add_parser('taxonomy')
     sub.add_parser('validate')
     args = parser.parse_args()
