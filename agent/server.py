@@ -158,6 +158,8 @@ def create_app(settings=None, agent=None, catalog=None):
     app.state.discovery = Discovery(redactor=redactor)
     attempts = {}
     attempt_lock = Lock()
+    from .public_chat import ChatLimiter
+    chat_limiter = ChatLimiter()
 
     def get_catalog():
         if app.state.catalog is None:
@@ -166,6 +168,18 @@ def create_app(settings=None, agent=None, catalog=None):
 
     def authenticate(request: Request, authorization: str = Header(default='')):
         from .browser_access import COOKIE, valid
+        if settings.public_chat and not authorization and not valid(request.cookies.get(COOKIE, ''), settings.api_token):
+            user = current_user(request)
+            bootstrap = (request.method, request.url.path) in {
+                ('GET', '/api/account'), ('POST', '/api/account/register'), ('POST', '/api/account/login')}
+            from .public_chat import guest_route
+            if not bootstrap and (not user or (user.get('_guest') and not guest_route(request.method, request.url.path))):
+                raise HTTPException(401, 'Sign in to use this feature')
+            if request.method == 'POST' and request.url.path in {'/api/chat', '/api/chat/stream'}:
+                client = request.client.host if request.client else 'local'
+                if not chat_limiter.admit(client):
+                    raise HTTPException(429, 'Chat limit reached. Wait a minute and retry.', headers={'Retry-After':'60'})
+            return
         if settings.api_token and not (
             hmac.compare_digest(authorization.encode(), f'Bearer {settings.api_token}'.encode())
             or (not authorization and valid(request.cookies.get(COOKIE, ''), settings.api_token))
@@ -173,10 +187,18 @@ def create_app(settings=None, agent=None, catalog=None):
             raise HTTPException(401, 'Enter the server access token to continue', headers={'WWW-Authenticate': 'Bearer'})
 
     def current_user(request: Request):
-        return agent.personal.user_for_token(request.cookies.get('zenith_login', ''))
+        user = agent.personal.user_for_token(request.cookies.get('zenith_login', ''))
+        if user is not None:
+            return user
+        if settings.public_chat:
+            from .public_chat import COOKIE, identity
+            subject = identity(request.cookies.get(COOKIE, ''), settings.api_token)
+            if subject:
+                return {'id':subject, '_guest':True}
+        return None
 
     def signed_in(user=Depends(current_user)):
-        if user is None:
+        if user is None or user.get('_guest'):
             raise HTTPException(401, 'Sign in to use your private memories')
         return user
 
@@ -212,6 +234,9 @@ def create_app(settings=None, agent=None, catalog=None):
         token = agent.personal.issue_session(user['id'])
         response.set_cookie('zenith_login', token, max_age=7 * 86400, httponly=True,
                             secure=request.url.scheme == 'https', samesite='strict', path='/')
+        if settings.public_chat:
+            from .public_chat import COOKIE
+            response.delete_cookie(COOKIE, path='/')
         return {'user': user, 'greeting': 'Welcome back, ' + user['display_name'] + '.'}
 
     @app.post('/api/access')
@@ -234,8 +259,12 @@ def create_app(settings=None, agent=None, catalog=None):
         return {'connected': False}
 
     @app.get('/')
-    def index():
-        return FileResponse(WEB / 'index.html')
+    def index(request: Request):
+        response = FileResponse(WEB / 'index.html')
+        if settings.public_chat and current_user(request) is None:
+            from .public_chat import set_cookie
+            set_cookie(response, request, settings.api_token)
+        return response
 
     @app.get('/healthz')
     def health():
@@ -243,10 +272,20 @@ def create_app(settings=None, agent=None, catalog=None):
         loaded = info.get('model_loaded', False) if settings.provider == 'ensemble' else getattr(agent.provider, 'model', None) is not None
         return {'status': 'ok', 'version':__version__, 'provider': settings.provider, 'model': settings.model_name, 'display_name': settings.display_name,
                 'configured_members': len(info['members']), 'model_loaded': loaded,
-                'authentication_required': bool(settings.api_token)}
+                'authentication_required': bool(settings.api_token) and not settings.public_chat,
+                'public_chat': settings.public_chat}
 
     @app.get('/api/account', dependencies=[Depends(authenticate)])
-    def account(user=Depends(current_user)):
+    def account(request: Request, response: Response, user=Depends(current_user)):
+        if settings.public_chat and (user is None or user.get('_guest')):
+            from .public_chat import COOKIE, identity, issue, LIFETIME
+            subject = user['id'] if user else None
+            if subject is None:
+                cookie = issue(settings.api_token)
+                subject = identity(cookie, settings.api_token)
+                response.set_cookie(COOKIE, cookie, max_age=LIFETIME, httponly=True,
+                                    secure=request.url.scheme == 'https', samesite='strict', path='/')
+            return {'user':None, 'guest_session':subject, 'greeting':'Welcome to Zenith.'}
         return {'user': user, 'greeting': ('Welcome back, ' + user['display_name'] + '.') if user else 'Welcome to Zenith.'}
 
     @app.post('/api/account/register', dependencies=[Depends(authenticate)])
@@ -271,6 +310,9 @@ def create_app(settings=None, agent=None, catalog=None):
         token = request.cookies.get('zenith_login', '')
         agent.admin.lock(token); agent.personal.logout(token)
         response.delete_cookie('zenith_login', path='/')
+        if settings.public_chat:
+            from .public_chat import set_cookie
+            set_cookie(response, request, settings.api_token)
         return {'signed_out': True}
 
     @app.get('/api/conversations', dependencies=[Depends(authenticate)])

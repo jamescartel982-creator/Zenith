@@ -76,14 +76,25 @@ ordinary source image were verified. Direct unauthenticated origin access is
 denied. Inference also passed with the model hub offline and the persistent
 cache mounted; temporary migration credentials have been removed.
 
-At the last public check the Worker still returned the configuration error.
-**Public Worker inference remains unverified** until its runtime bindings are
-configured and a real request through the public URL succeeds. Set
-`ZENITH_BACKEND_URL` to that Railway HTTPS root and privately copy the matching
-`ZENITH_ORIGIN_SECRET` from Railway into a Worker Secret, then deploy settings.
-No Cloudflare runtime-configuration credentials are available in this workspace.
-A stopped execution workspace is not permanent backend hosting; Railway plan
-capacity and billing still determine service availability.
+The Worker runtime bindings were subsequently configured through authorized
+Cloudflare sign-in. Public health, actual model inference, streaming, secure
+cookie authentication, CSRF rejection and administrator denial passed through
+`https://zenith.jamescartel982.workers.dev`. One neural arithmetic probe returned
+an incorrect answer; subsequent direct-origin and Worker probes returned the
+expected answer. This verifies transport, not general model accuracy.
+
+For another deployment, set `ZENITH_BACKEND_URL` to its actual backend HTTPS
+root and privately copy the matching `ZENITH_ORIGIN_SECRET` into a Worker
+Secret, then deploy settings. Keep both credentials and the server API key out
+of Git and chat. A stopped execution workspace is not permanent backend hosting;
+Railway plan capacity and billing still determine service availability.
+
+To allow ordinary visitors to chat without entering the server API key, enable
+`ZENITH_PUBLIC_CHAT=1` on the Python service and redeploy. The UI hides the
+private server-access prompt and uses separate automatic guest sessions.
+Keep the strong server API key and origin secret configured: owner tools and
+privileged workflows retain their independent authorization. See
+[public chat](public-chat.md) for isolation, account behavior, limits and rollback.
 
 Official configuration references:
 [runtime variables](https://developers.cloudflare.com/workers/configuration/environment-variables/)

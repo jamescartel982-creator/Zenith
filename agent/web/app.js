@@ -343,6 +343,8 @@ async function connect() {
   showError('');
   try {
     const health = await api('/healthz');
+    $('access').hidden = health.public_chat === true;
+    if (health.public_chat) {$('access').open = false; $('token').value = '';}
     $('model').textContent = health.display_name || 'Zenith';
     $('provider').textContent = health.provider === 'huggingface' ? 'Hugging Face · local inference' : health.provider === 'tiny' ? 'Zenith Tiny · experimental' : health.provider === 'ensemble' ? 'Model team · combined answers' : health.provider === 'localserver' ? 'Local model server · no API key' : 'Ollama · local inference';
     $('status').textContent = health.provider === 'localserver' ? '● Local runtime · check with doctor' : health.model_loaded ? '● Model loaded' : '● Ready · loads on first message';
@@ -519,6 +521,10 @@ async function switchConversation(identifier) {
 async function loadAccount(data = null) {
   data = data || await api('/api/account');
   const previous = activeUser?.id;
+  if (data.guest_session && sessionStorage.getItem('zenith_guest_session') !== data.guest_session) {
+    sessionStorage.setItem('zenith_guest_session', data.guest_session);
+    session = crypto.randomUUID(); rememberConversation(); showWelcome();
+  }
   activeUser = data.user;
   if (previous !== activeUser?.id) {
     accountEpoch += 1; adminLoadRequest += 1; chatController?.abort();
