@@ -34,7 +34,7 @@ jobs:
         run: python -m unittest discover -s tests -p test_runtime_setup.py -v
       - name: Install and verify isolated runtimes and test SDKs
         run: python integrations/runtime_setup/setup.py --root "${{ runner.temp }}/zenith-integration-runtimes" --install
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: integration-prerequisites-${{ matrix.os }}

@@ -27,7 +27,7 @@ jobs:
       - run: python -m unittest discover -s tests -p test_cloudflare_origin.py -v
       - run: npm run check
       - run: python -m scripts.smoke_cloudflare --output cloudflare-local-runtime.json
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: cloudflare-local-validation

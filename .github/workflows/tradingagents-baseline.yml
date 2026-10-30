@@ -45,7 +45,7 @@ jobs:
           test "$(git -C native-tradingagents rev-parse HEAD)" = e8f5503e9b86d5c2710b0c76b1f686703968c9df
           git -C native-tradingagents diff --exit-code HEAD
           test -z "$(git -C native-tradingagents status --porcelain --untracked-files=all)"
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: tradingagents-native-baseline

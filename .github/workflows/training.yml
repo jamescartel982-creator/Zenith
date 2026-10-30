@@ -32,7 +32,7 @@ jobs:
       - run: python -m pip install '.[train]'
       - name: Train, evaluate held-out data, and compare task slices
         run: python -m scripts.run_training_campaign --output training-candidate --max-steps "$CAMPAIGN_STEPS"
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: zenith-unpromoted-starter-candidate

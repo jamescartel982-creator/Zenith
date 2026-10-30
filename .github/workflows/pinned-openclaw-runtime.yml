@@ -59,7 +59,7 @@ jobs:
                   'files':rows,'native_gateway_turn_verified':False}
           pathlib.Path('openclaw-built-runtime.json').write_text(json.dumps(record,indent=2)+'\n')
           PY
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: openclaw-pinned-native-runtime
           path: |
@@ -111,7 +111,7 @@ jobs:
           ZENITH_HOME: ${{ github.workspace }}/.zenith-openclaw-test
           ZENITH_ADAPTER: ${{ github.workspace }}/zenith/.native-openclaw-adapter
         run: uv run --project integrations/inference_service --frozen --extra local --extra test python integrations/runtime_bridge/tests/integration/native_openclaw.py --native-root "$GITHUB_WORKSPACE/native-openclaw" --node "$(command -v node)" --output "$GITHUB_WORKSPACE/native-openclaw-acceptance.json"
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: native-openclaw-model-acceptance
@@ -158,7 +158,7 @@ jobs:
           ZENITH_HOME: ${{ github.workspace }}/.zenith-four-native-test
           ZENITH_ADAPTER: ${{ github.workspace }}/zenith/.native-openclaw-adapter
         run: uv run --project integrations/inference_service --frozen --extra local --extra test python integrations/runtime_bridge/tests/integration/launch_four_system.py --hermes-root "$RUNNER_TEMP/hermes-zenith-chat" --hermes-python "$RUNNER_TEMP/hermes-test-venv/bin/python" --openclaw-root "$GITHUB_WORKSPACE/native-openclaw" --node "$(command -v node)" --trading-python "$RUNNER_TEMP/trading-test-venv/bin/python" --trading-source "$GITHUB_WORKSPACE/native-tradingagents" --output "$GITHUB_WORKSPACE/four-system-native-acceptance.json"
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: four-system-native-acceptance
