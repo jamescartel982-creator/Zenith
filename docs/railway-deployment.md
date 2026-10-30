@@ -52,10 +52,10 @@ approval receipt. Before enabling production inference:
    authentication and all owner controls. See
    [Cloudflare deployment](cloudflare-deployment.md) for runtime settings.
 
-The normal image healthcheck expects the ordinary private `zenith serve`
-entry point. When selecting the authenticated origin adapter, use a health
-probe with its origin secret and public-origin headers, as in
-`deploy/cloudflare/compose.origin.yaml`. Do not configure Railway's unauthenticated
+The Railway image healthcheck supplies origin authentication headers when
+`ZENITH_ORIGIN_SECRET` is set; also set `ZENITH_PUBLIC_ORIGIN` to the actual
+public Worker origin. Without the secret it retains the ordinary private
+`zenith serve` health probe. Do not configure Railway's unauthenticated
 HTTP probe to expect a 200 from the protected `/healthz`; verify the authenticated
 endpoint separately. No direct origin access should bypass gateway authentication.
 

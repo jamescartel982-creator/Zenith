@@ -928,8 +928,8 @@
     },
     {
       "path": "deploy/railway/Dockerfile",
-      "size": 1942,
-      "sha256": "fbb569558fcec4df9ca083f2aef9d439f214c32be9092e8d01d6f66bf7d0fc51",
+      "size": 2151,
+      "sha256": "f004308fd8c82f6a4d2ca039c060e57f999a7ed381af1c403b3e805f2d4f0772",
       "normalization": "lf"
     },
     {
@@ -2416,8 +2416,8 @@
     },
     {
       "path": "docs/railway-deployment.md",
-      "size": 5933,
-      "sha256": "6fcee9ca8a7910e4a845f9ee51cfa42f9520209f8bf9c369040465b2cc56462f",
+      "size": 5935,
+      "sha256": "96ec897adebe026b0254c29327e18be884167d4fa43836b7ccf702c16a708739",
       "normalization": "lf"
     },
     {
