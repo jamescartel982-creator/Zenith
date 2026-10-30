@@ -70,3 +70,31 @@ credentials are independent; the gateway never inserts an owner or user token.
 Cloudflare documentation retrieved 2026-10-30; Wrangler 4.156.0 resolved from npm
 on that date and requires Node >=22. Historical Python-package limitations are
 not treated as current documentation.
+
+## Follow-up: successful deploy with missing origin bindings
+
+Audited commit: `713e53695c3e5eb5a95b09d536353517b5cd137e`.
+The deployed JSON `Zenith origin is not configured` is emitted by the Worker's
+`backend()` configuration check, before contacting Python. The active Worker
+requires `ZENITH_BACKEND_URL` and `ZENITH_ORIGIN_SECRET` runtime bindings. A
+successful code upload does not establish either binding or create the backend.
+No functioning remote backend was discoverable with the current account access;
+Railway was unauthorized and no local Python listener existed. Model readiness
+was previously verified locally, separately from public network availability.
+
+Follow-up file plan (prepared before edits):
+
+| File | Change and validation | Rollback |
+| --- | --- | --- |
+| `integrations/cloudflare/worker.mjs` | Distinguish missing/invalid bindings using names only; independent `/_edge/livez`; strengthen hostname/alias loop rejection; reject upstream redirects; bounded sanitized connection/timeout errors. | Redeploy previous Worker version; preserve runtime secrets. |
+| `integrations/cloudflare/test_worker.mjs` | Missing bindings individually/together, no fetch on config errors, no secret disclosure, liveness vs readiness, direct/alias loops, redirects, real-origin health transport. | Retain tests when rolling back transport code. |
+| `scripts/smoke_cloudflare.py` | Real Wrangler run without origin bindings, followed by real Worker→Python/auth/UI/streaming acceptance in isolated state. | Stop test subprocesses; no production migration. |
+| `docs/cloudflare-deployment.md` | Exact runtime dashboard settings vs build variables, backend prerequisites, diagnostic matrix and honest verification limits. | Restore prior documentation alongside corresponding Worker release. |
+| `release-manifest.json` | Rehash changed tracked release files; verify manifest and regression suite. | Restore the manifest matching the selected source release. |
+
+No changes to model files, app/database schemas, upstream runtimes, production
+host selection, Wrangler Worker name or routes are needed for this patch.
+Live remediation remains: deploy/reconnect the **existing** Python backend with
+its preserved state, set its real HTTPS root and matching independent secret
+in runtime settings, then run public health/auth/inference checks. These steps
+require authenticated hosting access; code diagnostics do not perform them.

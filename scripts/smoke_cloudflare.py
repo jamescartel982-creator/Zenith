@@ -15,7 +15,7 @@ import time
 from uuid import uuid4
 
 
-def measure(wrangler):
+def measure(wrangler, configured=True):
     import httpx
     import uvicorn
     from agent.config import Settings
@@ -43,7 +43,8 @@ def measure(wrangler):
         config=folder/'wrangler.jsonc';config.write_text(json.dumps({'name':'zenith-local-acceptance','main':str(root/'integrations/cloudflare/worker.mjs'),
             'compatibility_date':'2026-10-30','send_metrics':False,'dev':{'ip':'127.0.0.1'}}),encoding='utf-8')
         fd=os.open(folder/'.dev.vars',os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600)
-        with os.fdopen(fd,'w') as handle:handle.write('ZENITH_BACKEND_URL='+backend+'\nZENITH_ORIGIN_SECRET='+edge+'\nZENITH_TEST_LOOPBACK=1\n')
+        with os.fdopen(fd,'w') as handle:
+            if configured:handle.write('ZENITH_BACKEND_URL='+backend+'\nZENITH_ORIGIN_SECRET='+edge+'\nZENITH_TEST_LOOPBACK=1\n')
         environment=dict(os.environ,WRANGLER_SEND_METRICS='false',CLOUDFLARE_LOAD_DEV_VARS_FROM_DOT_ENV='false')
         for name in ('CLOUDFLARE_API_TOKEN','CLOUDFLARE_API_KEY','CLOUDFLARE_EMAIL','CLOUDFLARE_ACCOUNT_ID'):environment.pop(name,None)
         command=[str(wrangler),'dev','--local','--config',str(config),'--port',str(port),'--inspector-port','0','--local-protocol','https','--show-interactive-dev-session=false']
@@ -57,12 +58,24 @@ def measure(wrangler):
                     deadline=time.monotonic()+40
                     while True:
                         try:
-                            if client.get('/_edge/healthz').status_code==200:break
+                            if client.get('/_edge/livez').status_code==200:break
                         except httpx.HTTPError:pass
                         if process.poll() is not None or time.monotonic()>deadline:
                             log.seek(0);raise RuntimeError('Local Wrangler failed: '+Redactor([key,edge]).text(log.read()[-3000:]))
                         time.sleep(.1)
-                    assert client.get('/healthz').status_code==200
+                    if not configured:
+                        for path in ('/', '/healthz', '/_edge/healthz'):
+                            result=client.get(path)
+                            assert result.status_code==503
+                            assert result.json()=={'detail':'Zenith origin is not configured','code':'origin_not_configured',
+                                'required_settings':['ZENITH_BACKEND_URL','ZENITH_ORIGIN_SECRET']}
+                            assert result.headers['cache-control']=='no-store'
+                            assert key not in result.text and edge not in result.text
+                        return {'real_wrangler_runtime':True,'missing_runtime_bindings_rejected':True,
+                            'setting_names_only':True,'independent_liveness':True}
+                    health=client.get('/healthz');assert health.status_code==200
+                    assert health.json()['status']=='ok' and health.json()['authentication_required'] is True
+                    assert client.get('/_edge/healthz').json()['backend_verified'] is False
                     assert httpx.get(backend+'/healthz',trust_env=False).status_code==403
                     page=client.get('/');page.raise_for_status();assert '<title>Zenith' in page.text
                     assert client.get('/static/app.js').text==(root/'agent/web/app.js').read_text(encoding='utf-8')
@@ -114,7 +127,9 @@ def main():
     destination=check_destination(Settings(),config_file(),args.output)
     executable=args.wrangler.resolve()
     if not executable.is_file():raise ValueError('Install the pinned test/deployment SDK with npm ci first')
+    unconfigured=measure(executable,configured=False)
     result=measure(executable)
+    result['unconfigured_gateway']=unconfigured
     with destination.open('x',encoding='utf-8') as output:json.dump(result,output,indent=2);output.write('\n')
     print(json.dumps(result,indent=2))
 

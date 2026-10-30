@@ -27,6 +27,59 @@ persistent files and process/container tool execution are not an unchanged
 Python Worker application. Uploading `requirements.txt` or only `agent/web`
 would not deploy the complete existing system.
 
+## Fix `Zenith origin is not configured`
+
+The exact error originates in `backend()` in
+`integrations/cloudflare/worker.mjs`, before any backend request. The original
+release used the same message for a missing/malformed `ZENITH_ORIGIN_SECRET`
+and a missing/unparseable `ZENITH_BACKEND_URL`. It is a Worker configuration
+failure, not evidence that Python inference was deployed or failed to load.
+
+In **Cloudflare Dashboard → Workers & Pages → zenith → Settings → Variables
+and Secrets**, add these **runtime bindings**, then select **Deploy**:
+
+| Binding | Type | Required value |
+| --- | --- | --- |
+| `ZENITH_BACKEND_URL` | Text (or Secret if the hostname is private) | The separately deployed Python origin's HTTPS root, e.g. `https://origin.example.com`. This example is not a deployed service. |
+| `ZENITH_ORIGIN_SECRET` | Secret | The same independent random 32–256 URL-safe-character secret configured on the Python origin. |
+| `ZENITH_BACKEND_TIMEOUT_MS` | Optional Text | Integer 1000–120000; default 120000. This bounds time to response headers, not total streamed inference time. |
+
+**Build → Variables and secrets**, local shell exports and `.dev.vars` do not,
+by themselves, configure the published Worker's runtime bindings. Use the
+settings of the actual deployed Worker/environment. The repository uses the
+top-level `zenith` Worker, without a named Wrangler environment. If you add
+named environments, provision bindings in each one. `keep_vars: true` preserves
+dashboard text variables across this project's deployments; it does not create
+them or deploy a Python backend.
+
+The URL must not be the public Worker URL, its custom-domain alias, a frontend
+route, an API subpath, a login page or an address redirecting back to the Worker.
+The gateway rejects its own hostname (including alternate ports/trailing dots)
+and detects authenticated requests routed back through an alias. Upstream
+redirects are rejected instead of being followed or exposing private locations.
+Inspect Cloudflare routes/custom domains/Tunnel routing as well: the origin's
+hostname must terminate at the Python service, not match a wildcard Worker route.
+
+The Python host needs the **same origin secret**, its independent existing
+`ZENITH_API_TOKEN`, the exact public Worker hostname in `ZENITH_ALLOWED_HOSTS`,
+and the `agent.cloudflare_origin` entry point described below. An unwrapped
+`zenith serve` origin does not authenticate the gateway's transport headers.
+Do not fix this by disabling the origin secret, exposing an unauthenticated
+backend, switching model providers or putting the API credential in the Worker.
+
+Investigation of source `713e53695c3e5eb5a95b09d536353517b5cd137e`
+on 2026-10-30 confirmed that the GitHub-connected Worker deploy succeeded,
+but found no running Python backend in this execution workspace. The Railway
+connection requires reauthentication, and no reachable production backend URL
+or authorized Cloudflare runtime-configuration access was available. Therefore
+**public backend availability and inference remain unverified**. A stopped or
+expired execution workspace is not permanent backend hosting. Provision or
+reconnect the actual host before supplying its URL; do not invent a URL in Git.
+
+Official configuration references:
+[runtime variables](https://developers.cloudflare.com/workers/configuration/environment-variables/)
+and [secrets](https://developers.cloudflare.com/workers/configuration/secrets/).
+
 ## Prepare the backend before publishing
 
 Use an existing continuously running Linux/Docker host with sufficient RAM,
@@ -134,8 +187,11 @@ and an opaque request ID, not request paths, bodies or credentials.
 
 ## Verify and monitor
 
-- `GET /_edge/healthz`: gateway configuration/liveness only; does not claim that
-  inference or the backend is healthy.
+- `GET /_edge/livez`: independent Worker liveness, even without origin settings.
+  A 200 response only proves that the edge code runs.
+- `GET /_edge/healthz`: gateway configuration check; 503 with setting names if
+  missing/invalid, or 200 with `backend_verified: false` if syntactically valid.
+  It does not contact the backend or establish its availability.
 - `GET /healthz`: reaches the actual Python app, reporting its version/provider
   and model-loaded state. This is not an answer-quality benchmark.
 - `/` and `/static/app.js`: must serve Zenith's original frontend.
@@ -145,6 +201,23 @@ and an opaque request ID, not request paths, bodies or credentials.
   inference on the public URL before declaring deployment successful. Check that
   restart preserves the same account/database and model identity.
 
+| Result | Meaning and next action |
+| --- | --- |
+| 503 `origin_not_configured` | Set the names listed in `required_settings` in Worker runtime settings; values are never returned. |
+| 503 `origin_secret_invalid` | Replace the malformed origin secret on both sides with the same valid independent secret. |
+| 503 `origin_url_invalid` | Use only the actual HTTPS origin root, without credentials, path, query or fragment. |
+| 503/508 `origin_loop` | The origin points/routes back to this gateway; fix the hostname and Cloudflare route. |
+| 502 `origin_unreachable` | Fetch failed; check DNS, TLS, firewall/Tunnel and the running Python service. |
+| 504 `origin_timeout` | Python did not provide headers within the configured deadline; inspect host health and logs. |
+| 502 `origin_redirect` | Origin redirected; configure the direct HTTPS service instead of a redirect/login/Worker route. |
+| `/healthz` returns 403 | Check matching secrets, exact public hostname allowlist, and the origin adapter; also check host/proxy restrictions. |
+| `/healthz` returns 200, `model_loaded: false` | Python responds, but model inference has not been demonstrated; authenticate and test a real answer. |
+
+Local tests cannot set or validate production account bindings. A build, edge
+liveness check, or configuration-only health check is insufficient for
+acceptance. After runtime configuration, verify `/healthz`, preserved account
+authentication and an actual model response through the **public** Worker URL.
+
 The local acceptance command starts **real Wrangler/Workerd and real FastAPI**:
 
 ```bash
@@ -153,7 +226,8 @@ python -m scripts.smoke_cloudflare --output /tmp/cloudflare-local.json
 
 Its model is explicitly a fixture. It verifies original UI bytes, HTTPS cookies,
 origin authentication, CSRF, owner denial, streamed/persisted secret redaction
-and disconnect. It accepts only its generated local TLS certificate for this
+and disconnect. A separate real Wrangler run omits both runtime bindings and
+checks protected 503 diagnostics plus independent liveness. It accepts only its generated local TLS certificate for this
 isolated loopback test. Public verification must use normal certificate checks.
 The CI workflow runs this acceptance plus Python/Worker tests and Wrangler
 dry-run without production credentials. Passing local tests is not proof that

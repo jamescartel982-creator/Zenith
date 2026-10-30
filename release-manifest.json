@@ -1750,14 +1750,14 @@
     },
     {
       "path": "docs/cloudflare-deployment-plan.md",
-      "size": 5894,
-      "sha256": "91bf1ee5a603ce7a8def174d4d90cebfb40ac6caaf4cf9d2df59322e93444bb2",
+      "size": 8328,
+      "sha256": "c67381c6582f92a3bc1dccb0386e55890532d7c4d34f907d079c1de1fe390963",
       "normalization": "lf"
     },
     {
       "path": "docs/cloudflare-deployment.md",
-      "size": 8803,
-      "sha256": "1f5e15a3e7a971646255a8b077bde052b642569a36fc77a786de56c49e27ea32",
+      "size": 14115,
+      "sha256": "2d0627cf5ccce78fd56b99712d47fcb3b5f47e2d736b5a3c417d77a06dc886d0",
       "normalization": "lf"
     },
     {
@@ -2998,14 +2998,14 @@
     },
     {
       "path": "integrations/cloudflare/test_worker.mjs",
-      "size": 4882,
-      "sha256": "6b1e50372d065ed03e87cafd9c855f8481cbbf5a165ac947a0b74f65ffff5407",
+      "size": 9208,
+      "sha256": "721582e360a7688d39dcd310ddb88dd81caacd4af2e3afde64836148fcc01fcc",
       "normalization": "lf"
     },
     {
       "path": "integrations/cloudflare/worker.mjs",
-      "size": 6222,
-      "sha256": "7c5e9a1bc4b9babd6e2d7c233c49e26869fa2f839100c52d5e576c3120677967",
+      "size": 8331,
+      "sha256": "c7a915bd74b905c340a9424819952a09a2424de53d86cfa404dd779146af50fb",
       "normalization": "lf"
     },
     {
@@ -3952,8 +3952,8 @@
     },
     {
       "path": "scripts/smoke_cloudflare.py",
-      "size": 7756,
-      "sha256": "bb32dbcf6814c86fb14d0de17b50062f6974fb3be3a656c88f4cd11c0010896d",
+      "size": 8915,
+      "sha256": "b75f26f09e944611070059b415ee89f6276eb9534377ed0c009cc3128e176a3e",
       "normalization": "lf"
     },
     {
