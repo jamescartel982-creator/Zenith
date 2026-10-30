@@ -94,8 +94,8 @@
     },
     {
       "path": ".github/workflows/tests.yml",
-      "size": 7809,
-      "sha256": "fe9491f90076a6940738a0532dfba68e1a554078cbe0f31f04cdc447bad364c4",
+      "size": 7977,
+      "sha256": "9dd358f099f388f39c01ab62ec52f0319239d341cd53e4a5bf52f3cc9a2d9ad4",
       "normalization": "lf"
     },
     {
@@ -924,6 +924,12 @@
       "path": "deploy/four_system/test_services.py",
       "size": 10223,
       "sha256": "8eeab8bfb55c7aa288ca393c266801f23d2287d698cbdeb6402462644d3e828d",
+      "normalization": "lf"
+    },
+    {
+      "path": "deploy/railway/Dockerfile",
+      "size": 1942,
+      "sha256": "fbb569558fcec4df9ca083f2aef9d439f214c32be9092e8d01d6f66bf7d0fc51",
       "normalization": "lf"
     },
     {
@@ -2400,6 +2406,12 @@
       "path": "docs/quality-and-training.md",
       "size": 9284,
       "sha256": "3531f26172d1005defb20f9590ac944f3ccc8bc58893277a8c83d2aa705f4148",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/railway-deployment.md",
+      "size": 4418,
+      "sha256": "d3969b319f55ef8b35fb472ca1bea81743fb41401a1c2909edfb790de8046d95",
       "normalization": "lf"
     },
     {
