@@ -18,7 +18,7 @@ jobs:
       - run: docker build -f '${{ matrix.dockerfile }}' -t zenith:ci .
       - run: docker run --rm --entrypoint zenith zenith:ci verify --json
       - run: docker run --rm --entrypoint python zenith:ci -m scripts.smoke_server
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
       - run: python -m pip install '.[test]'
@@ -39,7 +39,7 @@ jobs:
       ZENITH_HOME: ${{ github.workspace }}/.zenith-tests
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: ${{ matrix.python }}
           cache: pip
@@ -73,7 +73,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           path: Zenith workspace
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
           cache: pip

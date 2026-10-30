@@ -23,7 +23,7 @@ jobs:
           ref: e8f5503e9b86d5c2710b0c76b1f686703968c9df
           persist-credentials: false
           path: native-tradingagents
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
       - name: Independent hash-locked upstream test environment

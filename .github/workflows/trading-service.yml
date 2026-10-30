@@ -33,7 +33,7 @@ jobs:
           ref: e8f5503e9b86d5c2710b0c76b1f686703968c9df
           path: .native-reference/tradingagents
           persist-credentials: false
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
       - uses: astral-sh/setup-uv@v6
