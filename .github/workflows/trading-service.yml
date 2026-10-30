@@ -61,7 +61,7 @@ jobs:
         run: |
           test "$(git -C .native-reference/tradingagents rev-parse HEAD)" = e8f5503e9b86d5c2710b0c76b1f686703968c9df
           test -z "$(git -C .native-reference/tradingagents status --porcelain --untracked-files=all)"
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: measured-native-financial-probe

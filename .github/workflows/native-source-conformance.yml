@@ -32,7 +32,7 @@ jobs:
         run: uv sync --project integrations/runtime_bridge --frozen --extra native
       - name: Actual native auth function and Node signature verification
         run: uv run --project integrations/runtime_bridge --frozen --extra native python integrations/runtime_bridge/tests/native_source_conformance.py --openclaw-root .native-reference/openclaw --node "$(command -v node)" --output native-source-conformance.json
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: native-source-conformance
           path: native-source-conformance.json

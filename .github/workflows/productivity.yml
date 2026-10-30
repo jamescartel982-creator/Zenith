@@ -38,7 +38,7 @@ jobs:
         run: python -m scripts.smoke_public_chat_ui --output productivity-public-chat.json
       - name: Paired exact-result recipe search benchmark against pinned baseline
         run: python -m scripts.recipe_search_benchmark --output productivity-search-plans.json --samples 9
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: productivity-acceptance

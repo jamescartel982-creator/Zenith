@@ -51,7 +51,7 @@ jobs:
         env:
           ZENITH_ADAPTER: ${{ github.workspace }}/.service-test-checkpoint
         run: uv run --project integrations/inference_service --frozen --extra local --extra test python integrations/inference_service/tests/integration/native_acceptance.py --output native-service-acceptance.json
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: real-service-acceptance-${{ matrix.os }}

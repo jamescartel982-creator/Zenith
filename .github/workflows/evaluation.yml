@@ -50,7 +50,7 @@ jobs:
       - name: Rerun approved trained-checkpoint diagnostics
         if: ${{ hashFiles('model_releases/recovery-v1/release.json') != '' }}
         run: python -I -m scripts.check_model_release --bundle model_releases/recovery-v1 --output candidate-watch.json
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: zenith-diagnostic-watch
