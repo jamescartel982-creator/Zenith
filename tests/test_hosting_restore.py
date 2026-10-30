@@ -120,3 +120,17 @@ class HostingRestoreTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'without root privileges'):
                 entrypoint.start()
             operation.assert_not_called()
+
+    def test_hosted_base_cache_is_selected_on_persistent_storage(self):
+        import importlib.util
+        import os
+        from unittest.mock import patch
+        path = Path(__file__).resolve().parents[1] / 'deploy/railway/entrypoint.py'
+        spec = importlib.util.spec_from_file_location('zenith_hosting_cache_test', path)
+        entrypoint = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(entrypoint)
+        with patch.dict(os.environ, {'HF_HOME': '/ephemeral/model-cache'}):
+            cache = entrypoint.persistent_cache(self.root)
+            self.assertEqual(cache, self.root / 'huggingface')
+            self.assertTrue(cache.is_dir())
+            self.assertEqual(os.environ['HF_HOME'], str(cache))

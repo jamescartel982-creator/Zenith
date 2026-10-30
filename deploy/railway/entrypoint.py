@@ -10,6 +10,14 @@ from pathlib import Path
 import sys
 
 
+def persistent_cache(root):
+    cache = Path(root) / 'huggingface'
+    cache.mkdir(parents=True, exist_ok=True, mode=0o700)
+    # Configure before importing Settings/Transformers/Hugging Face constants.
+    os.environ['HF_HOME'] = str(cache)
+    return cache
+
+
 def start():
     from scripts.restore_hosting_state import restore
     os.umask(0o077)
@@ -21,8 +29,7 @@ def start():
     checksum = os.environ.pop('ZENITH_RESTORE_SHA256', '')
     restored = restore('/opt/zenith-hosting/state.enc', destination, key, checksum)
     del key
-    cache = root / 'huggingface'
-    cache.mkdir(parents=True, exist_ok=True, mode=0o700)
+    persistent_cache(root)
     print(json.dumps({'event':'zenith.hosting.state', 'state_restored':restored,
         'uid':os.getuid()}), flush=True)
     # Bootstrap may fetch only the same pinned, hash-checked base artifacts.

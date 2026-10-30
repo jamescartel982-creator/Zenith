@@ -36,7 +36,9 @@ approval receipt. Before enabling production inference:
    files or deploy the default base model as a substitute for the active adapter.
 3. Set the exact existing `AI_PROVIDER`, `HF_MODEL`, `HF_REVISION`,
    `ZENITH_ADAPTER`, `ZENITH_CHECKPOINT_RECEIPT`, `ZENITH_HOME`, `AGENT_DATA_DIR`
-   and model-cache mounts. Verify the receipt using the existing
+   and model-cache mounts. Set `HF_HOME=/app/data/huggingface` on the service
+   for both migration and all subsequent ordinary source deployments, so the
+   verified base files remain on the same persistent volume. Verify the receipt using the existing
    `agent.deployment.validate_activation` before starting inference.
 4. Configure independent `ZENITH_API_TOKEN` and `ZENITH_ORIGIN_SECRET` through
    Railway runtime secrets; never store them in Git, build arguments or logs.

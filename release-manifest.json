@@ -934,8 +934,8 @@
     },
     {
       "path": "deploy/railway/entrypoint.py",
-      "size": 3916,
-      "sha256": "8f65e2c83b76f838e667cd04b89d7a8becb57b8eea2f9eb15947af45df850231",
+      "size": 4114,
+      "sha256": "26ffb4810f6e3dfe86719b638a250282b6ca2064017533945aa9ce576799f436",
       "normalization": "lf"
     },
     {
@@ -2416,8 +2416,8 @@
     },
     {
       "path": "docs/railway-deployment.md",
-      "size": 6440,
-      "sha256": "5fb63b120d7a39aa6e9f5628ea039c9f2bcb6b5819e3f28a9dea80a0ec2b697f",
+      "size": 6629,
+      "sha256": "8501e53f625e5e7de268f393209d0e5b62cf77fa36be9d23e3c65bd5450e8aa6",
       "normalization": "lf"
     },
     {
@@ -4144,8 +4144,8 @@
     },
     {
       "path": "tests/test_hosting_restore.py",
-      "size": 6209,
-      "sha256": "0a9188ad3d20f7aa3f96f3096b71d95ed5cafa467c93a13ef4de955c9443bb08",
+      "size": 6952,
+      "sha256": "0f940fd1cdae4dbc79d42a0f4f3c5354db5defdb64f9bd6f6f9bb184ae58e425",
       "normalization": "lf"
     },
     {
