@@ -41,7 +41,7 @@ approval receipt. Before enabling production inference:
 4. Configure independent `ZENITH_API_TOKEN` and `ZENITH_ORIGIN_SECRET` through
    Railway runtime secrets; never store them in Git, build arguments or logs.
 5. For the Cloudflare gateway, use
-   `python -m agent.cloudflare_origin --host 0.0.0.0` as the start command. It
+   `python -m agent.cloudflare_origin --host 0.0.0.0 --require-checkpoint` as the start command. It
    reads Railway's `PORT` automatically. Include the public Worker hostname in
    `ZENITH_ALLOWED_HOSTS`, without a scheme or path.
 6. Use one process/replica for the local SQLite/model instance and disable
@@ -58,6 +58,29 @@ probe with its origin secret and public-origin headers, as in
 `deploy/cloudflare/compose.origin.yaml`. Do not configure Railway's unauthenticated
 HTTP probe to expect a 200 from the protected `/healthz`; verify the authenticated
 endpoint separately. No direct origin access should bypass gateway authentication.
+
+## Private migration when SSH file transfer is unavailable
+
+The optional `scripts.restore_hosting_state.restore` helper accepts an encrypted,
+authenticated profile archive and a pinned archive checksum. It restores into a
+new private directory, validates every file hash, refuses links/traversal, limits
+expanded size, and refuses to overwrite existing state. The archive, private
+profile/database, trained weights and decryption key must never enter Git.
+
+`deploy/railway/entrypoint.py` is an opt-in **private migration image** entry point.
+That image contains only an encrypted state bundle and model-identity metadata,
+while `ZENITH_RESTORE_KEY` and `ZENITH_RESTORE_SHA256` are supplied privately at
+runtime. The entry point restores a copy, sets private permissions, drops root
+to UID 1000, verifies the original approval receipt, downloads only the exact
+pinned base files and checks their original hashes and tokenizer signature. It
+then execs the unchanged authenticated origin, with the restore key removed from
+the new process environment. It never trains or activates a different candidate.
+
+After authenticated health and real-model checks pass, deploy the ordinary
+source image against the same volume using `--require-checkpoint`, and remove
+the temporary restore variables. The private source snapshot and rollback key
+belong in administrator-controlled storage, not public artifacts. Existing state
+is reused across restarts; no routine redeploy should restore over newer data.
 
 ## Acceptance and rollback
 

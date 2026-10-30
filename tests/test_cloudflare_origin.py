@@ -60,6 +60,23 @@ class CloudflareOriginTests(unittest.TestCase):
             with self.assertRaises(ValueError):create_origin(self.settings,self.agent,secret=edge)
         with self.assertRaises(ValueError):create_origin(replace(self.settings,api_token='',allowed_hosts=('127.0.0.1',)),self.agent,secret=self.edge)
 
+    def test_hosted_checkpoint_gate_rejects_missing_or_changed_state(self):
+        from pathlib import Path
+        from agent.checkpoints import inventory
+        with self.assertRaisesRegex(ValueError,'existing trained checkpoint'):
+            create_origin(replace(self.settings,adapter='',checkpoint_receipt=''),self.agent,secret=self.edge,require_checkpoint=True)
+        root=Path(self.settings.data_dir);adapter=root/'adapter';adapter.mkdir()
+        weights=adapter/'adapter_model.safetensors';weights.write_bytes(b'checksum fixture, not model weights')
+        receipt=root/'receipt.json'
+        receipt.write_text(json.dumps({'approved':True,'candidate':str(adapter),
+            'base_model':self.settings.model,'base_revision':self.settings.revision,'checkpoint_files':inventory(adapter)}))
+        selected=replace(self.settings,adapter=str(adapter),checkpoint_receipt=str(receipt))
+        # Checks approval and hashes; fixture provider does not claim inference.
+        create_origin(selected,self.agent,secret=self.edge,require_checkpoint=True)
+        weights.write_bytes(b'tampered fixture')
+        with self.assertRaisesRegex(ValueError,'existing trained checkpoint'):
+            create_origin(selected,self.agent,secret=self.edge,require_checkpoint=True)
+
     def test_only_authenticated_validated_client_addresses_partition_login_limits(self):
         first={**self.headers,'X-Zenith-Client-IP':'203.0.113.10'}
         for _ in range(8):self.assertEqual(self.client.post('/api/access',headers=first,json={'token':'wrong'}).status_code,401)
