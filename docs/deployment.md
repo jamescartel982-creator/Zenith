@@ -1,5 +1,9 @@
 # Deploy Zenith
 
+For the existing Cloudflare `npx wrangler deploy` failure and the optional
+authenticated edge gateway, use [Cloudflare deployment](cloudflare-deployment.md).
+The AI engine and persistent state stay on the existing Python backend.
+
 ## Your computer
 
 Use the [Windows/Linux installer](local-installation.md) and run `zenith serve` through your wrapper. Open http://127.0.0.1:7860. Loopback needs no shared server token by default. `serve --warmup` loads/exercises the first contributor before startup; otherwise the first generation loads it. `/healthz` reports process health, version, and loaded state, not guaranteed answer quality or runtime availability.

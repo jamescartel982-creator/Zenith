@@ -1,0 +1,12 @@
+{
+  "name": "zenith-cloudflare-gateway",
+  "private": true,
+  "version": "0.1.0",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "test": "node --test integrations/cloudflare/test_worker.mjs",
+    "check": "wrangler deploy --dry-run --outdir .wrangler/dry-run",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": { "wrangler": "4.156.0" }
+}

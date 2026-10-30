@@ -1,0 +1,53 @@
+{
+  "baseline_commit": "a90d9e6daf88dfc380d1a81c0951bc6947e631b8",
+  "python_tests": {
+    "count": 412,
+    "skipped": 1,
+    "seconds": 67.137,
+    "passed": true
+  },
+  "worker_tests": {
+    "count": 7,
+    "passed": true
+  },
+  "clean_npm_ci_passed": true,
+  "wrangler_dry_run_passed": true,
+  "compose_overlay_config_validated": true,
+  "wrangler_version": "4.156.0",
+  "node_version": "24.19.0",
+  "python_version": "3.12",
+  "bundle_report": "6.52 KiB; gzip 2.49 KiB",
+  "new_model_or_weights": false,
+  "production_data_changed": false,
+  "public_deployment_verified": false,
+  "required_external_configuration": [
+    "Actual HTTPS Python backend address",
+    "Runtime origin secret on both Worker and Python backend",
+    "Public Worker hostname in origin allowed-host list"
+  ],
+  "limits": [
+    "Local runtime acceptance uses an explicitly labeled fixture model.",
+    "Public DNS/TLS, actual backend availability and public model inference require a configured origin and deployment account.",
+    "The Python backend remains independently hosted with durable volumes; a Worker is not a permanent inference host."
+  ],
+  "integration_services": [
+    {
+      "name": "bridge",
+      "tests": 33,
+      "seconds": 4.291,
+      "passed": true
+    },
+    {
+      "name": "inference",
+      "tests": 13,
+      "seconds": 0.42,
+      "passed": true
+    },
+    {
+      "name": "trading",
+      "tests": 7,
+      "seconds": 0.509,
+      "passed": true
+    }
+  ]
+}

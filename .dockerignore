@@ -2,6 +2,11 @@
 .venv
 .env
 .env.*
+*.env
+config.env
+**/.dev.vars*
+**/.wrangler
+**/node_modules
 data
 artifacts
 checkpoints

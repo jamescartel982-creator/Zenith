@@ -4,8 +4,8 @@
   "files": [
     {
       "path": ".dockerignore",
-      "size": 401,
-      "sha256": "ed5c586d778b578ab6c84bdc65ca78aed054fca0ab8ad3f1b1eb506119c0dadb",
+      "size": 461,
+      "sha256": "4f21616f3b18e69b82e6a8d267f829f811792e4f644f1fb772c3b2e7cf86ac2d",
       "normalization": "lf"
     },
     {
@@ -24,6 +24,12 @@
       "path": ".github/dependabot.yml",
       "size": 257,
       "sha256": "c5d9cdc38cae054819e3ebc37071aafab3635a214628f6fa971fb74a87a9e3af",
+      "normalization": "lf"
+    },
+    {
+      "path": ".github/workflows/cloudflare.yml",
+      "size": 1205,
+      "sha256": "451fad17c28970c0de0c349a4665ead4c4a411850b10f261da6f0cb336070306",
       "normalization": "lf"
     },
     {
@@ -112,8 +118,14 @@
     },
     {
       "path": ".gitignore",
-      "size": 591,
-      "sha256": "66f054f609a54e14c2ff96819fd6f73413391bc842bf05366872d08f43d7e511",
+      "size": 626,
+      "sha256": "7ca38db0a330a12f5978d9a43180f3b527233193ecd99d5d3cc3323481e4d29a",
+      "normalization": "lf"
+    },
+    {
+      "path": ".node-version",
+      "size": 8,
+      "sha256": "7e8a2fa94951112b894a3dbe3d05efef5e9263741fa49125f0a70f40fedab4cc",
       "normalization": "lf"
     },
     {
@@ -148,8 +160,8 @@
     },
     {
       "path": "README.md",
-      "size": 15863,
-      "sha256": "992288e17f0a88cb3eb12beae0011b70e0d95c72c1083b9f72ecd48ade190ffc",
+      "size": 16114,
+      "sha256": "7ee1960d6a528bfc5ff98a00db3da3570c4eeddf4d81699c807a2f9ee6688801",
       "normalization": "lf"
     },
     {
@@ -282,6 +294,12 @@
       "path": "agent/cli.py",
       "size": 9049,
       "sha256": "cab27acdc276080a8f78afc57e29a034b6d02e2c0f6810e368dc92f1cbc087d4",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/cloudflare_origin.py",
+      "size": 4679,
+      "sha256": "6c8384aebf111573f10fa9419d9bf0d2a4278928d0dd92675f97537b9aabc159",
       "normalization": "lf"
     },
     {
@@ -622,8 +640,8 @@
     },
     {
       "path": "agent/redaction.py",
-      "size": 5412,
-      "sha256": "22ea3de5a51b42e8d782f84e7265aa9ebf712e9c56867bffb5ca8ea6726b2703",
+      "size": 5472,
+      "sha256": "5ae7b36f41042ff66c4c4b7ded57fb911022194e747f1487db3620e14b2729aa",
       "normalization": "lf"
     },
     {
@@ -879,6 +897,12 @@
       "normalization": "lf"
     },
     {
+      "path": "deploy/cloudflare/compose.origin.yaml",
+      "size": 863,
+      "sha256": "f602cd1a842b97711ee3be201daeb01183d580935a9661dd44673a8c95a240de",
+      "normalization": "lf"
+    },
+    {
       "path": "deploy/four_system/README.md",
       "size": 7479,
       "sha256": "d4eb746e09c6b45a00475b8a46a4e63173ce8873a89dbf5e5faf707549368d4e",
@@ -930,6 +954,18 @@
       "path": "docs/benchmarks/activation-v014/workspace-activation.json",
       "size": 1891,
       "sha256": "5af3ce77ac0ef9ec13d913ffce76e637913fe6275a09e5cebbc9b5c07428c878",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/cloudflare-gateway/local-runtime.json",
+      "size": 467,
+      "sha256": "41a687628b934d1600ed1855ea99df2c58b4a848994c0133f20a2cd330c73a68",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/benchmarks/cloudflare-gateway/validation.json",
+      "size": 1472,
+      "sha256": "3038690ac401f092d7a08ec3a4addf551ddc8df6c6506af5ebb304d7345b1f99",
       "normalization": "lf"
     },
     {
@@ -1713,6 +1749,18 @@
       "normalization": "lf"
     },
     {
+      "path": "docs/cloudflare-deployment-plan.md",
+      "size": 5894,
+      "sha256": "91bf1ee5a603ce7a8def174d4d90cebfb40ac6caaf4cf9d2df59322e93444bb2",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/cloudflare-deployment.md",
+      "size": 8803,
+      "sha256": "1f5e15a3e7a971646255a8b077bde052b642569a36fc77a786de56c49e27ea32",
+      "normalization": "lf"
+    },
+    {
       "path": "docs/continued-training.md",
       "size": 10182,
       "sha256": "c14e92f46f0b18affdb81eb3558afcb181cd56de4f298eda99a3b8fb9e13f121",
@@ -1720,8 +1768,8 @@
     },
     {
       "path": "docs/deployment.md",
-      "size": 8505,
-      "sha256": "dee716ede18b8c89f9b9fd60752f0ac25cf60c9b3e6957505a092e97e54f5652",
+      "size": 8736,
+      "sha256": "302059c307465da0b213b1a82c2e6f092bc6f39f9184128e28f593a0ce7b18df",
       "normalization": "lf"
     },
     {
@@ -2949,6 +2997,18 @@
       "normalization": "lf"
     },
     {
+      "path": "integrations/cloudflare/test_worker.mjs",
+      "size": 4882,
+      "sha256": "6b1e50372d065ed03e87cafd9c855f8481cbbf5a165ac947a0b74f65ffff5407",
+      "normalization": "lf"
+    },
+    {
+      "path": "integrations/cloudflare/worker.mjs",
+      "size": 6222,
+      "sha256": "7c5e9a1bc4b9babd6e2d7c233c49e26869fa2f839100c52d5e576c3120677967",
+      "normalization": "lf"
+    },
+    {
       "path": "integrations/hermes_compat/README.md",
       "size": 4297,
       "sha256": "58230404c47d2899f6c3f47b23a06330e4eee26ec6d12081e07bc951c2909e00",
@@ -3501,6 +3561,18 @@
       "normalization": "lf"
     },
     {
+      "path": "package-lock.json",
+      "size": 49524,
+      "sha256": "aeda65cda030d11c38eb4776a75a657bcf262e4a1cdd95ef27c2c3dca753dabc",
+      "normalization": "lf"
+    },
+    {
+      "path": "package.json",
+      "size": 352,
+      "sha256": "313e2188f89dcb270c07eb304a064ee49f901067b7f1cc276aaaf6783f123437",
+      "normalization": "lf"
+    },
+    {
       "path": "pyproject.toml",
       "size": 1270,
       "sha256": "1365154565326cd1159e0535b0920cbdd25a3b44c2ae870256b061c75955b985",
@@ -3879,6 +3951,12 @@
       "normalization": "lf"
     },
     {
+      "path": "scripts/smoke_cloudflare.py",
+      "size": 7756,
+      "sha256": "bb32dbcf6814c86fb14d0de17b50062f6974fb3be3a656c88f4cd11c0010896d",
+      "normalization": "lf"
+    },
+    {
       "path": "scripts/smoke_container.py",
       "size": 4965,
       "sha256": "2272ff338a48deec648cf4ec9ec31135849d48247ce8acf67eaf3a672a700366",
@@ -3984,6 +4062,12 @@
       "path": "tests/test_chat.py",
       "size": 5683,
       "sha256": "6624e8ecd9f4243b13bfdb3ffb2484f3c193bc980346efe73a9192e689b3d17e",
+      "normalization": "lf"
+    },
+    {
+      "path": "tests/test_cloudflare_origin.py",
+      "size": 4952,
+      "sha256": "256903b7404de418662785dfdf7a0e2b9129a44ae9a36e93408e11f21c965bd5",
       "normalization": "lf"
     },
     {

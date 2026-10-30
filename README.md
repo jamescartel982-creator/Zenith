@@ -194,6 +194,10 @@ full reference parity is not claimed.
 
 ## Verify and update
 
+Cloudflare deployments use the optional [authenticated edge gateway](docs/cloudflare-deployment.md)
+in front of Zenith's existing Python backend. The model and persistent state
+remain on that backend; Wrangler does not host or replace the AI engine.
+
 After activation:
 
 ```bash
