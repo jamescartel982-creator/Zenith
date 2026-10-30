@@ -13,11 +13,11 @@ jobs:
       PYTHONDONTWRITEBYTECODE: '1'
       PIP_NO_CACHE_DIR: '1'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           persist-credentials: false
           path: zenith
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           repository: TauricResearch/TradingAgents
           ref: e8f5503e9b86d5c2710b0c76b1f686703968c9df

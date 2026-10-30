@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 35
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           repository: openclaw/openclaw
           ref: 2f5727b9c61c2ba9dccc3c880d9115f02cb8652f
@@ -66,7 +66,7 @@ jobs:
             openclaw-built-runtime.tgz
             openclaw-built-runtime.json
           retention-days: 7
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           path: zenith
           persist-credentials: false
@@ -116,13 +116,13 @@ jobs:
         with:
           name: native-openclaw-model-acceptance
           path: native-openclaw-acceptance.json
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           repository: NousResearch/hermes-agent
           ref: d05095663342556788cf2a198bfa7844cc7968ab
           path: native-hermes
           persist-credentials: false
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           repository: TauricResearch/TradingAgents
           ref: e8f5503e9b86d5c2710b0c76b1f686703968c9df

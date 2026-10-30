@@ -23,7 +23,7 @@ jobs:
       OMP_NUM_THREADS: '2'
       ZENITH_CPU_THREADS: '2'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           path: Zenith workspace
       - uses: actions/setup-python@v5

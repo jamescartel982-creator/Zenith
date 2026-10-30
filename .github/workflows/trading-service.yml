@@ -24,10 +24,10 @@ jobs:
       PYTHONDONTWRITEBYTECODE: '1'
       ZENITH_CHECKPOINT_RECEIPT: ''
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           persist-credentials: false
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           repository: TauricResearch/TradingAgents
           ref: e8f5503e9b86d5c2710b0c76b1f686703968c9df
