@@ -195,6 +195,8 @@ class SecretStreamTests(unittest.TestCase):
         texts=['Normal text that should stay unchanged.', 'Prefix '+known+' suffix.',
                'Token sk-'+'A'*40+' tail.', 'Token ghp_'+'B'*36+' tail.',
                'password='+'ABCDEF12'*8+' suffix.', 'Bearer '+'D'*50+' suffix.',
+               'password=!supersecret123 suffix.', 'password=!pass,word;1234 suffix.',
+               'password="!hello$<there>123" suffix.',
                '-----BEGIN PRIVATE KEY-----\n'+'X'*120+'\n-----END PRIVATE KEY----- done.',
                'client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])']
         for text in texts:
@@ -202,6 +204,8 @@ class SecretStreamTests(unittest.TestCase):
                 stream=RedactingStream(redactor)
                 output=''.join(stream.feed(text[i:i+step]) for i in range(0,len(text),step))+stream.finish()
                 self.assertEqual(output,redactor.text(text))
+        for text in ('password=!supersecret123','password=!pass,word;1234','password="!hello$<there>123"'):
+            with self.assertRaises(ValueError):redactor.require_clean(text)
         stream=RedactingStream(redactor)
         with self.assertRaises(ValueError):stream.feed('sk-'+'x'*17000)
 

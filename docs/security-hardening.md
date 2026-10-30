@@ -24,6 +24,11 @@ Real Chromium tests supply HTML, SVG, event handlers, JavaScript links and a
 malicious stored display name. All stayed inert. CSP is additional protection,
 not a substitute for safe rendering.
 
+Review regressions additionally verify punctuation-bearing passwords across
+stream boundaries and removal of private sidebar conversation titles on
+disconnect. Login acceptance waits for actual skill hydration, and source text
+checks read UTF-8 explicitly on Windows.
+
 ## Authentication and owner boundaries
 
 The browser grant authorizes entry through a configured server gate; it does not

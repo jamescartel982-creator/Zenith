@@ -154,8 +154,8 @@
     },
     {
       "path": "SECURITY.md",
-      "size": 6775,
-      "sha256": "6307411dee409d26a2c24a6eeba5280458ffba885fd5d305bcabfd032d613f03",
+      "size": 6774,
+      "sha256": "8e40d7b49f9051fff473559326806153778ba8e57bbe225b265baacb0a4bd5aa",
       "normalization": "lf"
     },
     {
@@ -622,8 +622,8 @@
     },
     {
       "path": "agent/redaction.py",
-      "size": 5409,
-      "sha256": "073321fb121e0730d877ed5f158d538fe511484a0ddbe931744aeab910e5a382",
+      "size": 5412,
+      "sha256": "22ea3de5a51b42e8d782f84e7265aa9ebf712e9c56867bffb5ca8ea6726b2703",
       "normalization": "lf"
     },
     {
@@ -796,8 +796,8 @@
     },
     {
       "path": "agent/web/app.js",
-      "size": 70374,
-      "sha256": "09f7e06cf436ee5d8cab220a0e9d086236dc352b3dcf6f384871c5b83dda3f1e",
+      "size": 70420,
+      "sha256": "338475424cf980af0cbdc763348c20127aa85b6cb6eefea5094d6b61359f11f2",
       "normalization": "lf"
     },
     {
@@ -1570,8 +1570,8 @@
     },
     {
       "path": "docs/benchmarks/security-hardening/browser.json",
-      "size": 611,
-      "sha256": "8fe25a21101af7fc4a18329a73e9b9bc7166f3de1802331f3cf0785ef2b0ddb0",
+      "size": 669,
+      "sha256": "e5609411fac2474724ce01640e83fa23ba8500a82c5d4a40ed0739e636772f52",
       "normalization": "lf"
     },
     {
@@ -1588,8 +1588,8 @@
     },
     {
       "path": "docs/benchmarks/security-hardening/validation.json",
-      "size": 1498,
-      "sha256": "5138e6c1c701c4f354fd2a711ff28d8b153bf8a1210d396e92cabb9a6472b20d",
+      "size": 1734,
+      "sha256": "c81a5b4d334b56652c3d09a072dc50deb755f72968970aae8eb5e8b439dd2533",
       "normalization": "lf"
     },
     {
@@ -2386,8 +2386,8 @@
     },
     {
       "path": "docs/security-hardening.md",
-      "size": 9927,
-      "sha256": "87621b85aa239d29f0671cd7abb4bbec0494a7ef888d28d6e60458283d2496a1",
+      "size": 10196,
+      "sha256": "67a302f54fef564fae5a8b7ab1846dde017c34e41c40816f0c9a62abd3d2b21d",
       "normalization": "lf"
     },
     {
@@ -3868,8 +3868,8 @@
     },
     {
       "path": "scripts/security_browser_acceptance.py",
-      "size": 10770,
-      "sha256": "05a21a7335f8276cdb1cb41fa5a91cbd0a87d12d8d7682367fcc579d14bb26fc",
+      "size": 11302,
+      "sha256": "f115706d4bc2673644d625f3e3fd75f830ac9e80f064597ea1e60a89db63d4f7",
       "normalization": "lf"
     },
     {
@@ -4126,8 +4126,8 @@
     },
     {
       "path": "tests/test_platform_runtime.py",
-      "size": 16332,
-      "sha256": "baf05ee86a3222535607d92bbfa6f7d3cc8a31de97cc28bdd0acafdb824b7bff",
+      "size": 16388,
+      "sha256": "9513d7234bd37f7fdfaf80d1b96cd8e85a6b2fad3a11d97dd6a41ea2b98f8331",
       "normalization": "lf"
     },
     {
@@ -4192,8 +4192,8 @@
     },
     {
       "path": "tests/test_security_hardening.py",
-      "size": 15874,
-      "sha256": "3de04c96c4ff7f8253989b71759d8c208736b2a20fc209ddbc01f11ae5ead166",
+      "size": 16200,
+      "sha256": "2e7447825431c40af6b5ddec6765fe186fd25a8a242b1f25add69600329f7ba2",
       "normalization": "lf"
     },
     {

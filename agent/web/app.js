@@ -522,6 +522,7 @@ async function loadAccount(data = null) {
   activeUser = data.user;
   if (previous !== activeUser?.id) {
     accountEpoch += 1; adminLoadRequest += 1; chatController?.abort();
+    $('conversation-list').replaceChildren();
     savedPreferences = {}; preferenceLoadRequest += 1;
     analysisRequest += 1; importedSkillRequest += 1;
     $('imported-skill-results')?.replaceChildren(); $('skills-results').replaceChildren(); $('skills-taxonomy').replaceChildren();

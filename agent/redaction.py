@@ -9,7 +9,7 @@ PATTERNS = (
     re.compile(r'\b(?:gh[pousr]_|github_pat_)[A-Za-z0-9_]{20,}'),
     re.compile(r'(?i)\bBearer\s+[A-Za-z0-9._~+/-]{12,}'),
     re.compile(r'(?i)\bhttps?://[^\s/@:]+:[^\s/@]+@'),
-    re.compile(r'(?i)\b(?:password|api[_-]?key|secret|access[_-]?token)\s*[=:]\s*[\'"]?(?!os\.|process\.|settings\.|config\.|getenv\b|environ\b)[A-Za-z0-9._~+/=-]{8,}'),
+    re.compile(r'(?i)\b(?:password|api[_-]?key|secret|access[_-]?token)\s*[=:]\s*[\'"]?(?!<|\[REDACTED\]|os\.|process\.|settings\.|config\.|getenv\b|environ\b)[^\s\'"]{8,}'),
     re.compile(r'-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----[\s\S]*?(?:-----END [^-]+-----|$)'),
 )
 
@@ -67,7 +67,7 @@ class RedactingStream:
         re.compile(r'\b(?:sk-|hf_|zenith-admin-)[A-Za-z0-9_-]*\Z'),
         re.compile(r'\b(?:gh[pousr]_|github_pat_)[A-Za-z0-9_]*\Z'),
         re.compile(r'(?i)\bBearer\s+[A-Za-z0-9._~+/-]*\Z'),
-        re.compile(r'(?i)\b(?:password|api[_-]?key|secret|access[_-]?token)\s*(?:[=:]\s*[\'"]?[^\s\'",;]*)?\Z'),
+        re.compile(r'(?i)\b(?:password|api[_-]?key|secret|access[_-]?token)\s*(?:[=:]\s*[\'"]?[^\s\'"]*)?\Z'),
         re.compile(r'(?i)\bhttps?://[^\s]*\Z'),
         re.compile(r'-----BEGIN [A-Z -]*\Z'),
     )

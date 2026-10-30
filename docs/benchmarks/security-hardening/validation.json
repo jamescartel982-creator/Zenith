@@ -9,14 +9,14 @@
   "updated_root": {
     "tests": 407,
     "skipped": 1,
-    "seconds": 82.734,
+    "seconds": 74.294,
     "passed": true
   },
   "integration_suites": [
     {
       "name": "runtime_bridge",
       "tests": 33,
-      "seconds": 8.059,
+      "seconds": 5.143,
       "passed": true
     },
     {
@@ -47,12 +47,18 @@
     "Local service contract tests do not establish full native upstream runtime parity.",
     "One root test skipped for its existing runtime dependency condition."
   ],
-  "final_focused_tests": {
+  "installed_wheel_outside_checkout_passed": true,
+  "installed_version": "0.17.5",
+  "installed_dependency_check_passed": true,
+  "pre_review_focused_tests": {
     "tests": 67,
     "seconds": 8.433,
     "passed": true
   },
-  "installed_wheel_outside_checkout_passed": true,
-  "installed_version": "0.17.5",
-  "installed_dependency_check_passed": true
+  "review_regression_tests": {
+    "tests": 33,
+    "seconds": 11.645,
+    "passed": true,
+    "coverage": "Punctuation-bearing credentials in streaming and task persistence; real Chromium private conversation title removal."
+  }
 }

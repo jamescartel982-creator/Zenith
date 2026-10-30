@@ -131,10 +131,16 @@ def run():
                     assert page.evaluate('window.__lateOwnerResult === undefined')
                     assert page.locator('#owner-help-text').inner_text() == ''
                     assert page.evaluate("fetch('/api/admin/help').then(r => r.status)") == 403
+                    title = 'Reader confidential test title 173'
+                    page.locator('#prompt').fill(title)
+                    page.locator('#composer').evaluate('(form) => form.requestSubmit()')
+                    expect(page.locator('#messages')).to_contain_text('[REDACTED]')
+                    expect(page.locator('#conversation-list')).to_contain_text(title)
                     assert not outside, 'Untrusted output attempted a network request'
                     if not page.locator('#access').evaluate('(node) => node.open'): page.locator('#access summary').click()
                     page.locator('#clear-access').click(); expect(page.locator('#status')).to_have_text('Disconnected')
                     assert all(item['name'] not in {'zenith_access','zenith_login'} for item in page.context.cookies())
+                    assert title not in page.locator('#conversation-list').inner_text()
                     assert not errors, errors
                     native = httpx.get(origin + '/api/account', headers={'Authorization':'Bearer ' + key}, timeout=5)
                     assert native.status_code == 200
@@ -147,6 +153,7 @@ def run():
         'html_svg_and_stored_display_name_did_not_execute': True, 'unsafe_link_rejected': True,
         'inline_script_blocked_by_csp': True, 'owner_help_requires_owner_elevation': True,
         'late_owner_response_discarded_after_account_switch': True, 'disconnect_cleared_credentials': True,
+        'disconnect_cleared_private_conversation_titles': True,
         'native_bearer_compatibility': True, 'external_requests': 0, 'javascript_errors': errors,
         'production_state_modified': False}
 

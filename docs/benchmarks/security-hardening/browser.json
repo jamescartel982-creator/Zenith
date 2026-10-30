@@ -9,6 +9,7 @@
   "owner_help_requires_owner_elevation": true,
   "late_owner_response_discarded_after_account_switch": true,
   "disconnect_cleared_credentials": true,
+  "disconnect_cleared_private_conversation_titles": true,
   "native_bearer_compatibility": true,
   "external_requests": 0,
   "javascript_errors": [],

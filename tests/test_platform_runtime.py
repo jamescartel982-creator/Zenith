@@ -221,7 +221,7 @@ class PlatformRuntimeTests(unittest.TestCase):
 
     def test_secret_inputs_rejected_and_model_output_redacted_before_legacy_save(self):
         secret = 'sk-'+'a'*32
-        for message in [secret, 'password="verylongpassword"']:
+        for message in [secret, 'password="verylongpassword"', 'password=!supersecret123', 'password=!pass,word;1234']:
             self.assertEqual(self.client.post('/api/platform/tasks', json={'kind': 'chat', 'message': message}).status_code, 400)
         self.provider.generate.side_effect = lambda messages: ('Never expose '+secret, messages)
         identifier = self.create({'kind': 'chat', 'message': 'Describe a quiet forest.'})

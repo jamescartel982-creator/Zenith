@@ -50,7 +50,7 @@ Native Bearer authentication remains supported. Use HTTPS for remote clients.
 
 App HTTP responses, including rejected requests and handled internal errors,
 get a restrictive same-origin CSP, no-store, nosniff, clickjacking protection,
-no-referrer, cross-origin isolation and permissions headers. HSTS is emitted only
+no-referrer, cross-origin policies and permissions headers. HSTS is emitted only
 when the trusted ASGI scheme is HTTPS. No third-party browser scripts are needed.
 Configured literal keys and common credential formats are filtered before chat
 delivery/persistence; this cannot detect every unknown or encoded secret. CLI
