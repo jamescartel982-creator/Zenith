@@ -1,4 +1,4 @@
-"""Opt-in one-time private migration; execute the unchanged origin as UID 1000.
+"""Opt-in one-time private migration and unchanged origin, all as UID 1000.
 
 Used only by a private deployment image containing an encrypted state bundle.
 The public Dockerfile never embeds private model state or decryption keys.
@@ -13,6 +13,8 @@ import sys
 def start():
     from scripts.restore_hosting_state import restore
     os.umask(0o077)
+    if os.getuid() != 1000:
+        raise ValueError('Run the complete migration and Zenith without root privileges')
     root = Path('/app/data')
     destination = root / 'profile'
     key = os.environ.pop('ZENITH_RESTORE_KEY', '')
@@ -21,20 +23,8 @@ def start():
     del key
     cache = root / 'huggingface'
     cache.mkdir(parents=True, exist_ok=True, mode=0o700)
-    if os.getuid() == 0:
-        root.chmod(0o700)
-        os.chown(root, 1000, 1000)
-        os.chown(cache, 1000, 1000)
-        if restored:
-            for item in [destination, *destination.rglob('*')]:
-                if item.is_symlink():
-                    raise ValueError('Restored state must not contain symbolic links')
-                os.chown(item, 1000, 1000)
-        os.setgroups([])
-        os.setgid(1000)
-        os.setuid(1000)
-    if os.getuid() != 1000:
-        raise ValueError('Zenith must execute without root privileges')
+    print(json.dumps({'event':'zenith.hosting.state', 'state_restored':restored,
+        'uid':os.getuid()}), flush=True)
     # Bootstrap may fetch only the same pinned, hash-checked base artifacts.
     # Native inference runs offline after exec, with no restore key in its env.
     os.environ['HF_HUB_OFFLINE'] = '0'

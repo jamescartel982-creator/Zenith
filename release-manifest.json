@@ -934,8 +934,8 @@
     },
     {
       "path": "deploy/railway/entrypoint.py",
-      "size": 4228,
-      "sha256": "ef523ed439e18b893749430165b4b7d203299d4c16ee727364e4cc4ecb7fa283",
+      "size": 3916,
+      "sha256": "8f65e2c83b76f838e667cd04b89d7a8becb57b8eea2f9eb15947af45df850231",
       "normalization": "lf"
     },
     {
@@ -2416,8 +2416,8 @@
     },
     {
       "path": "docs/railway-deployment.md",
-      "size": 5935,
-      "sha256": "96ec897adebe026b0254c29327e18be884167d4fa43836b7ccf702c16a708739",
+      "size": 5954,
+      "sha256": "9c7a2c3f532307b1615e4603310387d63802f4654b527aa7eba638254734a8b8",
       "normalization": "lf"
     },
     {

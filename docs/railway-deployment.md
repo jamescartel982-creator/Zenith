@@ -70,8 +70,8 @@ profile/database, trained weights and decryption key must never enter Git.
 `deploy/railway/entrypoint.py` is an opt-in **private migration image** entry point.
 That image contains only an encrypted state bundle and model-identity metadata,
 while `ZENITH_RESTORE_KEY` and `ZENITH_RESTORE_SHA256` are supplied privately at
-runtime. The entry point restores a copy, sets private permissions, drops root
-to UID 1000, verifies the original approval receipt, downloads only the exact
+runtime. The entry point requires UID 1000 for the entire migration, restores
+a copy with private permissions, verifies the original approval receipt, downloads only the exact
 pinned base files and checks their original hashes and tokenizer signature. It
 then execs the unchanged authenticated origin, with the restore key removed from
 the new process environment. It never trains or activates a different candidate.
