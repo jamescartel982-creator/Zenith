@@ -76,6 +76,14 @@ pinned base files and checks their original hashes and tokenizer signature. It
 then execs the unchanged authenticated origin, with the restore key removed from
 the new process environment. It never trains or activates a different candidate.
 
+In a private migration image, explicitly create `/opt/zenith-hosting` with
+directory mode `0755`, keep the helper/identity files read-only, and make the
+encrypted archive owner-readable (`0400`, UID 1000). Set directory traversal
+after COPY operations as well: restrictive copied file modes must not become
+the helper directory's mode. Finish the image with `USER zenith`; do not chown
+the live volume from a root process. The restored profile stays `0700`, and its
+files stay `0600`.
+
 After authenticated health and real-model checks pass, deploy the ordinary
 source image against the same volume using `--require-checkpoint`, and remove
 the temporary restore variables. The private source snapshot and rollback key
