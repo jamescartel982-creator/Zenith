@@ -298,8 +298,8 @@
     },
     {
       "path": "agent/cloudflare_origin.py",
-      "size": 4679,
-      "sha256": "6c8384aebf111573f10fa9419d9bf0d2a4278928d0dd92675f97537b9aabc159",
+      "size": 5387,
+      "sha256": "b9fa709efdb9cb0106dd79b5f8a97d2573937cf799e1519437464f4c5263ef68",
       "normalization": "lf"
     },
     {
@@ -930,6 +930,12 @@
       "path": "deploy/railway/Dockerfile",
       "size": 1942,
       "sha256": "fbb569558fcec4df9ca083f2aef9d439f214c32be9092e8d01d6f66bf7d0fc51",
+      "normalization": "lf"
+    },
+    {
+      "path": "deploy/railway/entrypoint.py",
+      "size": 4228,
+      "sha256": "ef523ed439e18b893749430165b4b7d203299d4c16ee727364e4cc4ecb7fa283",
       "normalization": "lf"
     },
     {
@@ -2410,8 +2416,8 @@
     },
     {
       "path": "docs/railway-deployment.md",
-      "size": 4418,
-      "sha256": "d3969b319f55ef8b35fb472ca1bea81743fb41401a1c2909edfb790de8046d95",
+      "size": 5933,
+      "sha256": "6fcee9ca8a7910e4a845f9ee51cfa42f9520209f8bf9c369040465b2cc56462f",
       "normalization": "lf"
     },
     {
@@ -3933,6 +3939,12 @@
       "normalization": "lf"
     },
     {
+      "path": "scripts/restore_hosting_state.py",
+      "size": 5016,
+      "sha256": "f7cbd1197bb0925170e02360a212b2bee872a8eb301fce34b4f44faed5124a2d",
+      "normalization": "lf"
+    },
+    {
       "path": "scripts/run_continuation_campaign.py",
       "size": 2890,
       "sha256": "8628b29978fbaba2edcf1bad32b9e4721e26f57e31e8a08bb2654f7f749849f8",
@@ -4078,8 +4090,8 @@
     },
     {
       "path": "tests/test_cloudflare_origin.py",
-      "size": 4952,
-      "sha256": "256903b7404de418662785dfdf7a0e2b9129a44ae9a36e93408e11f21c965bd5",
+      "size": 6233,
+      "sha256": "9a5f4d400f1b6e901a3645f3ef8d4f57c602fbe2fdae98ae3a16b3216e0f8e4c",
       "normalization": "lf"
     },
     {
@@ -4128,6 +4140,12 @@
       "path": "tests/test_hf_worker.py",
       "size": 7444,
       "sha256": "ab85f1d4262253d4fb29f271e696c6a4f0bd864ceda908f9956c4229e6f31338",
+      "normalization": "lf"
+    },
+    {
+      "path": "tests/test_hosting_restore.py",
+      "size": 5421,
+      "sha256": "4bdf3d4b2cc656ac3ee0937a70ec92691d93ed329de44868cf70b48181c35ca9",
       "normalization": "lf"
     },
     {
