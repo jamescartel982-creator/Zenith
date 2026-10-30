@@ -4603,6 +4603,12 @@
       "size": 801,
       "sha256": "6ac8c8dc065ed118161d02dd532749ae3f52c243deac27872134fae2f50d8547",
       "normalization": "lf"
+    },
+    {
+      "path": "wrangler.jsonc",
+      "size": 303,
+      "sha256": "f939d4738d92095d69be0c893be689e476a3379e78590ac3b84b7f900e23941d",
+      "normalization": "lf"
     }
   ],
   "manifest_self_excluded": true,
