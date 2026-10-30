@@ -1,0 +1,11 @@
+# Opt in with the existing compose.yaml and same Compose project/volumes.
+# A private HTTPS reverse proxy or named Cloudflare Tunnel reaches port 7860.
+services:
+  zenith:
+    command: ["python", "-m", "agent.cloudflare_origin", "--host", "0.0.0.0", "--port", "7860"]
+    environment:
+      ZENITH_ORIGIN_SECRET: ${ZENITH_ORIGIN_SECRET:?Set a separate random origin secret}
+      ZENITH_ALLOWED_HOSTS: ${ZENITH_ALLOWED_HOSTS:?Include the exact public Worker hostname}
+      ZENITH_PUBLIC_ORIGIN: ${ZENITH_PUBLIC_ORIGIN:?Set the public HTTPS Worker origin}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import os,urllib.request; r=urllib.request.Request('http://127.0.0.1:7860/healthz',headers={'X-Zenith-Origin-Secret':os.environ['ZENITH_ORIGIN_SECRET'],'X-Zenith-Public-Origin':os.environ['ZENITH_PUBLIC_ORIGIN']}); urllib.request.urlopen(r,timeout=4)"]

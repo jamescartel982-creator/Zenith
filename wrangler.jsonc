@@ -1,0 +1,11 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "zenith",
+  "main": "integrations/cloudflare/worker.mjs",
+  "compatibility_date": "2026-10-30",
+  "workers_dev": true,
+  "preview_urls": false,
+  "keep_vars": true,
+  "send_metrics": false,
+  "observability": { "enabled": false }
+}

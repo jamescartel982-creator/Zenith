@@ -7,6 +7,9 @@ config.env
 !.env.example
 *.pem
 *.key
+.dev.vars*
+.wrangler/
+node_modules
 
 # Python
 __pycache__/

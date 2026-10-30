@@ -24,7 +24,8 @@ class Redactor:
             'ZENITH_API_TOKEN', 'OPENAI_API_KEY', 'ANTHROPIC_API_KEY',
             'HF_TOKEN', 'HUGGING_FACE_HUB_TOKEN', 'GITHUB_TOKEN', 'GH_TOKEN',
             'AZURE_OPENAI_API_KEY', 'GEMINI_API_KEY', 'GOOGLE_API_KEY',
-            'AWS_SECRET_ACCESS_KEY', 'AWS_SESSION_TOKEN')])
+            'AWS_SECRET_ACCESS_KEY', 'AWS_SESSION_TOKEN', 'ZENITH_ORIGIN_SECRET',
+            'CLOUDFLARE_API_TOKEN')])
 
     def value(self, value):
         if isinstance(value, str): return self.text(value)

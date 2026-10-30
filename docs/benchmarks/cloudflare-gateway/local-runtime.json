@@ -1,0 +1,14 @@
+{
+  "real_wrangler_runtime": true,
+  "real_python_app": true,
+  "model": "explicit fixture; no neural quality claim",
+  "frontend_bytes_preserved": true,
+  "direct_origin_denied": true,
+  "cookie_authentication": true,
+  "server_and_owner_gates_preserved": true,
+  "streamed_response_and_persistence_redacted": true,
+  "csrf_rejected": true,
+  "disconnect_revoked_access": true,
+  "public_deployment_verified": false,
+  "production_data_or_weights_modified": false
+}
