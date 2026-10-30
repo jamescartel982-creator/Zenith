@@ -6,12 +6,16 @@ on:
   workflow_dispatch:
 jobs:
   container:
-    name: Container package and server
+    name: Container package and server (${{ matrix.dockerfile }})
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        dockerfile: [Dockerfile, deploy/railway/Dockerfile]
     steps:
       - uses: actions/checkout@v4
-      - run: docker build -t zenith:ci .
+      - run: docker build -f '${{ matrix.dockerfile }}' -t zenith:ci .
       - run: docker run --rm --entrypoint zenith zenith:ci verify --json
       - run: docker run --rm --entrypoint python zenith:ci -m scripts.smoke_server
       - uses: actions/setup-python@v5

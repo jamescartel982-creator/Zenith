@@ -94,8 +94,8 @@
     },
     {
       "path": ".github/workflows/tests.yml",
-      "size": 7809,
-      "sha256": "fe9491f90076a6940738a0532dfba68e1a554078cbe0f31f04cdc447bad364c4",
+      "size": 7977,
+      "sha256": "9dd358f099f388f39c01ab62ec52f0319239d341cd53e4a5bf52f3cc9a2d9ad4",
       "normalization": "lf"
     },
     {
@@ -924,6 +924,12 @@
       "path": "deploy/four_system/test_services.py",
       "size": 10223,
       "sha256": "8eeab8bfb55c7aa288ca393c266801f23d2287d698cbdeb6402462644d3e828d",
+      "normalization": "lf"
+    },
+    {
+      "path": "deploy/railway/Dockerfile",
+      "size": 1942,
+      "sha256": "fbb569558fcec4df9ca083f2aef9d439f214c32be9092e8d01d6f66bf7d0fc51",
       "normalization": "lf"
     },
     {
@@ -2403,6 +2409,12 @@
       "normalization": "lf"
     },
     {
+      "path": "docs/railway-deployment.md",
+      "size": 4114,
+      "sha256": "dad102d0097c2e6e13531efb2b00d41a20d09fcaeca8deadaef039a3b6cac348",
+      "normalization": "lf"
+    },
+    {
       "path": "docs/reasoning/README.md",
       "size": 7807,
       "sha256": "f5f88a4b813fba2999275a90beb797e021ce9f7a318432838675b2c8c2902024",
@@ -3582,6 +3594,12 @@
       "path": "quickstart.py",
       "size": 8558,
       "sha256": "430773c950bba7a6d4f76a9d7d100567bd1ceb84fbfb2e769ae8a5e96c3fc103",
+      "normalization": "lf"
+    },
+    {
+      "path": "railway.json",
+      "size": 269,
+      "sha256": "260cc52a5a5f45e218bae04d6a992acb368f647e3629bc123e58965ef0e2a6b4",
       "normalization": "lf"
     },
     {
