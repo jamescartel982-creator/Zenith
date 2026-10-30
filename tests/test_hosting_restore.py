@@ -107,3 +107,16 @@ class HostingRestoreTests(unittest.TestCase):
             restore(self.archive, self.destination, self.key, checksum)
         self.assertFalse(self.destination.exists())
         self.assertEqual(list(self.root.glob('.zenith-state-*')), [])
+
+    def test_privileged_hosting_entrypoint_refuses_before_restoring_state(self):
+        import importlib.util
+        from unittest.mock import patch
+        path = Path(__file__).resolve().parents[1] / 'deploy/railway/entrypoint.py'
+        spec = importlib.util.spec_from_file_location('zenith_hosting_entrypoint_test', path)
+        entrypoint = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(entrypoint)
+        with patch.object(entrypoint.os, 'getuid', return_value=0, create=True), \
+                patch.object(entrypoint.os, 'umask'), patch('scripts.restore_hosting_state.restore') as operation:
+            with self.assertRaisesRegex(ValueError, 'without root privileges'):
+                entrypoint.start()
+            operation.assert_not_called()

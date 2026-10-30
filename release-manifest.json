@@ -4144,8 +4144,8 @@
     },
     {
       "path": "tests/test_hosting_restore.py",
-      "size": 5421,
-      "sha256": "4bdf3d4b2cc656ac3ee0937a70ec92691d93ed329de44868cf70b48181c35ca9",
+      "size": 6209,
+      "sha256": "0a9188ad3d20f7aa3f96f3096b71d95ed5cafa467c93a13ef4de955c9443bb08",
       "normalization": "lf"
     },
     {
