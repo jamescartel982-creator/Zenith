@@ -83,6 +83,10 @@ def run():
                         page.locator('#account-submit').click()
                         expect(page.locator('#greeting')).to_contain_text('Welcome back,')
                         expect(page.locator('#account-dialog')).not_to_be_visible()
+                        # Greeting and dialog closure precede connect()'s skill
+                        # hydration. Wait for the completed login, not a delay.
+                        expect(page.locator('#account-submit')).to_be_enabled()
+                        page.wait_for_function('() => skillStateReady')
                     login('owner1'); expect(page.locator('#open-admin')).to_be_visible()
                     page.locator('#prompt').fill('Show the supplied security test answer.')
                     page.locator('#composer').evaluate('(form) => form.requestSubmit()')

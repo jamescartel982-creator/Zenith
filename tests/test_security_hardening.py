@@ -118,7 +118,7 @@ class HTTPHardeningTests(unittest.TestCase):
         self.assertEqual(self.client.get('/api/admin/help').status_code,403)
         owner.post('/api/admin/lock').raise_for_status()
         self.assertEqual(owner.get('/api/admin/help').status_code,403)
-        self.assertNotIn('zenith admin',Path('README.md').read_text())
+        self.assertNotIn('zenith admin',Path('README.md').read_text(encoding='utf-8'))
         self.assertNotIn('zenith admin',self.client.get('/').text)
         self.assertEqual(self.client.get('/openapi.json').status_code,404)
 

@@ -3868,8 +3868,8 @@
     },
     {
       "path": "scripts/security_browser_acceptance.py",
-      "size": 10458,
-      "sha256": "6d2e1e6735fcaf72c116f0ee3efc4f904f27ecdd0e0d337d4a1c71e6f1b4c1f7",
+      "size": 10770,
+      "sha256": "05a21a7335f8276cdb1cb41fa5a91cbd0a87d12d8d7682367fcc579d14bb26fc",
       "normalization": "lf"
     },
     {
@@ -4192,8 +4192,8 @@
     },
     {
       "path": "tests/test_security_hardening.py",
-      "size": 15858,
-      "sha256": "1eab52f35295ca16211194d82baec8704499fcdb6f9b8699e74d049ff31d9ad9",
+      "size": 15874,
+      "sha256": "3de04c96c4ff7f8253989b71759d8c208736b2a20fc209ddbc01f11ae5ead166",
       "normalization": "lf"
     },
     {
