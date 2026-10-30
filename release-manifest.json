@@ -2998,14 +2998,14 @@
     },
     {
       "path": "integrations/cloudflare/test_worker.mjs",
-      "size": 9208,
-      "sha256": "721582e360a7688d39dcd310ddb88dd81caacd4af2e3afde64836148fcc01fcc",
+      "size": 9593,
+      "sha256": "7eaf9237cbd4be56e2efa70a796db49c50bfb9617a76bfe0bcb02fa2f545dcac",
       "normalization": "lf"
     },
     {
       "path": "integrations/cloudflare/worker.mjs",
-      "size": 8331,
-      "sha256": "c7a915bd74b905c340a9424819952a09a2424de53d86cfa404dd779146af50fb",
+      "size": 8358,
+      "sha256": "112cd014747bde91380ea376b4358009cc5bde9807478372d0bbb9b564855792",
       "normalization": "lf"
     },
     {

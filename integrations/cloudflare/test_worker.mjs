@@ -79,6 +79,12 @@ test('backend redirects cannot leak private locations or produce browser loops',
     const data=await result.json();assert.equal(data.code,'origin_redirect');assert.ok(!JSON.stringify(data).includes(key));
   }
 });
+test('conditional static-file responses preserve HTTP 304 semantics',async()=>{
+  const result=await handle(request('/static/app.js',{headers:{'If-None-Match':'"fixture"'}}),env,
+    async()=>new Response(null,{status:304,headers:{ETag:'"fixture"'}}));
+  assert.equal(result.status,304);assert.equal(result.headers.get('etag'),'"fixture"');
+  assert.equal(await result.text(),'');
+});
 test('backend health reaches the actual origin and does not imply model readiness',async()=>{
   const result=await handle(request('/healthz'),env,async upstream=>{
     assert.equal(upstream.url,'https://origin.example/healthz');

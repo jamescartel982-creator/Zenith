@@ -98,7 +98,7 @@ export async function handle(request, env, fetchOrigin = fetch) {
     } catch {
       throw new Rejection(controller.signal.aborted ? 504 : 502, 'Zenith backend is unavailable', controller.signal.aborted ? 'origin_timeout' : 'origin_unreachable');
     } finally { clearTimeout(timer); request.signal.removeEventListener('abort', cancel); }
-    if (upstream.status >= 300 && upstream.status < 400) {
+    if (upstream.status >= 300 && upstream.status < 400 && upstream.status !== 304) {
       await upstream.body?.cancel();
       throw new Rejection(502, 'Zenith backend must serve requests without redirects', 'origin_redirect');
     }
