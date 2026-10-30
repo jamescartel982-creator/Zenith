@@ -27,6 +27,9 @@ class ManagedAnswerStream:
 class Agent:
     def __init__(self,settings=None,provider=None,store=None):
         self.settings=settings or Settings();self.store=store or Store(self.settings.data_dir)
+        from .redaction import Redactor
+        self.redactor=Redactor.configured(self.settings.api_token)
+        self.store.redactor=self.redactor
         self.provider=provider or make_provider(self.settings)
         from .personal import PersonalStore
         from .admin import AdminStore
@@ -84,6 +87,7 @@ class Agent:
         if contains_enrollment_secret(self.store,text):raise ValueError('Keep authenticator enrollment secrets out of model prompts')
         mode=response_mode or self.settings.response_mode
         if not text or len(text)>12000:raise ValueError('Message must contain 1 to 12000 characters')
+        self.redactor.require_clean(text)
         if parse_skill_command(text) is not None or text.split()[0].casefold() == '/admin':
             raise ValueError('Send skill commands through the command interface; they are not model prompts')
         if mode not in {'fast','thorough'}:raise ValueError('Choose fast or thorough response mode')
@@ -106,6 +110,7 @@ class Agent:
                 yield {'type':'start','response_mode':mode,'skill':skill,'reply_style':plan.requested_style,'output_token_limit':plan.max_new_tokens}
                 if restricted:self.skills.require(skill,user_id,login_token)
                 messages,sources=self._messages(text,session_id,user_id,instruction,plan)
+                messages,sources=self.redactor.value(messages),self.redactor.value(sources)
                 if privacy_filter:
                     messages=privacy_filter(messages);sources=privacy_filter(sources)
                 if self.settings.provider == 'reasoning':self.provider.set_sources(sources)
@@ -116,6 +121,8 @@ class Agent:
                 if quality['method']=='validation-threshold-abstention':
                     direct={'text':"I don't have enough validated confidence to answer reliably under this evaluation profile. Please request human review or provide better evidence.",'abstained':True,'method':quality['method']}
                 pieces=[];used=messages;size=0
+                from .redaction import RedactingStream
+                output_filter=RedactingStream(self.redactor)
                 if restricted:self.skills.require(skill,user_id,login_token)
                 with provider_limits(self.provider,plan.max_new_tokens):
                     if direct:
@@ -139,8 +146,15 @@ class Agent:
                             if not chunk:continue
                             size+=len(chunk)
                             if size>150000:raise RuntimeError('The answer exceeded the bounded output size')
+                            safe_chunk=output_filter.feed(chunk)
+                            if safe_chunk:
+                                if first_token is None:first_token=round((time.perf_counter()-started)*1000,2)
+                                pieces.append(safe_chunk);yield {'type':'delta','text':safe_chunk}
+                        final_chunk=output_filter.finish()
+                        if final_chunk and not lease.cancel.is_set():
+                            if restricted:self.skills.require(skill,user_id,login_token)
                             if first_token is None:first_token=round((time.perf_counter()-started)*1000,2)
-                            pieces.append(chunk);yield {'type':'delta','text':chunk}
+                            pieces.append(final_chunk);yield {'type':'delta','text':final_chunk}
                     finally:
                         lease.cancel.set()
                         if callable(getattr(provider_stream,'close',None)):provider_stream.close()
@@ -151,17 +165,20 @@ class Agent:
                 trace=None if direct else getattr(self.provider,'last_deliberation',None)
                 if not isinstance(trace,dict):trace=None
                 if privacy_filter and trace:trace=privacy_filter(trace)
+                trace=self.redactor.value(trace)
+                used=self.redactor.value(used);sources=self.redactor.value(sources)
                 label=getattr(self.provider,'last_model_label',None)
                 model='Zenith built-in checks' if direct else label if isinstance(label,str) and label else self.settings.model_name
+                model=self.redactor.text(model)
                 usage={'input_tokens':0,'output_tokens':0,'total_tokens':0,'model_calls':0,'source':'model-not-called','finish_reason':'stop'} if direct else reported_usage(getattr(self.provider,'last_usage',None))
                 performance.update(usage=usage,elapsed_ms=round((time.perf_counter()-started)*1000,2),first_text_ms=first_token,
                                    history_turns_sent=max(0,(len(used)-2)//2))
                 if restricted:self.skills.require(skill,user_id,login_token)
                 turn_id=self.store.add(session_id,text,response,used,model,deliberation=trace,sources=sources,quality=quality,performance=performance)
                 status='completed'
-                yield {'type':'result','result':{'id':turn_id,'response':response,'model':model,'deliberation':trace,
+                yield {'type':'result','result':self.redactor.value({'id':turn_id,'response':response,'model':model,'deliberation':trace,
                     'sources':sources,'quality':quality,'response_mode':mode,'skill':skill,
-                    'latency_ms':performance['elapsed_ms'],'time_to_first_text_ms':first_token,'performance':performance}}
+                    'latency_ms':performance['elapsed_ms'],'time_to_first_text_ms':first_token,'performance':performance})}
             except Exception:
                 status='failed';raise
             finally:

@@ -1,0 +1,17 @@
+{
+  "actual_loopback_chromium": true,
+  "model": "explicit fixture; no neural quality claim",
+  "raw_access_key_absent_from_storage_dom_and_output": true,
+  "httponly_grant_survived_reload": true,
+  "html_svg_and_stored_display_name_did_not_execute": true,
+  "unsafe_link_rejected": true,
+  "inline_script_blocked_by_csp": true,
+  "owner_help_requires_owner_elevation": true,
+  "late_owner_response_discarded_after_account_switch": true,
+  "disconnect_cleared_credentials": true,
+  "disconnect_cleared_private_conversation_titles": true,
+  "native_bearer_compatibility": true,
+  "external_requests": 0,
+  "javascript_errors": [],
+  "production_state_modified": false
+}

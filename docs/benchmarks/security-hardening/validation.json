@@ -1,0 +1,64 @@
+{
+  "baseline_commit": "8c28d2b8f3e2f47da1ab448de85bcb0c435d89c3",
+  "baseline_root": {
+    "tests": 390,
+    "skipped": 1,
+    "seconds": 67.673,
+    "passed": true
+  },
+  "updated_root": {
+    "tests": 407,
+    "skipped": 1,
+    "seconds": 74.294,
+    "passed": true
+  },
+  "integration_suites": [
+    {
+      "name": "runtime_bridge",
+      "tests": 33,
+      "seconds": 5.143,
+      "passed": true
+    },
+    {
+      "name": "inference_service",
+      "tests": 13,
+      "seconds": 1.6,
+      "passed": true
+    },
+    {
+      "name": "trading_service",
+      "tests": 7,
+      "seconds": 1.165,
+      "passed": true
+    }
+  ],
+  "new_focused_security_tests": 17,
+  "environment": {
+    "python": "3.12",
+    "platform": "Linux",
+    "gpu": false,
+    "cpu_quota": 2,
+    "ram_gib": 8,
+    "browser_sdk": "Playwright 1.64.1"
+  },
+  "measured_scope": "Source/HTTP/SQLite/stream regressions, real isolated Chromium and actual unchanged local-model smoke. No public service, live broker or arbitrary remote target accessed.",
+  "limitations": [
+    "Suite wall times are not inference performance claims.",
+    "Local service contract tests do not establish full native upstream runtime parity.",
+    "One root test skipped for its existing runtime dependency condition."
+  ],
+  "installed_wheel_outside_checkout_passed": true,
+  "installed_version": "0.17.5",
+  "installed_dependency_check_passed": true,
+  "pre_review_focused_tests": {
+    "tests": 67,
+    "seconds": 8.433,
+    "passed": true
+  },
+  "review_regression_tests": {
+    "tests": 33,
+    "seconds": 11.645,
+    "passed": true,
+    "coverage": "Punctuation-bearing credentials in streaming and task persistence; real Chromium private conversation title removal."
+  }
+}

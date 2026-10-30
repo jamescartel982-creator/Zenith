@@ -2,7 +2,8 @@
 const $ = id => document.getElementById(id);
 let session = sessionStorage.getItem('zenith_session') || crypto.randomUUID();
 sessionStorage.setItem('zenith_session', session);
-$('token').value = sessionStorage.getItem('zenith_token') || '';
+sessionStorage.removeItem('zenith_token'); // One-time removal of legacy raw credentials.
+$('token').value = '';
 let busy = false;
 let chatController = null;
 let showingServerMetrics = false;
@@ -26,17 +27,19 @@ let importedSkillRequest = 0;
 let importedSkillCursor = null;
 let analysisRequest = 0;
 let importedSkillTimer = null;
+let accountEpoch = 0, adminEpoch = 0, adminLoadRequest = 0;
+let adminAuthority = '';
 
 function showError(message) {
   $('error').textContent = message;
   $('error').hidden = !message;
 }
 async function api(path, options = {}) {
+  const account = accountEpoch, authority = adminEpoch;
   const headers = {'Content-Type': 'application/json'};
-  const token = sessionStorage.getItem('zenith_token');
-  if (token) headers.Authorization = `Bearer ${token}`;
-  const response = await fetch(path, {...options, headers});
+  const response = await fetch(path, {...options, headers, credentials: 'same-origin'});
   const data = await response.json();
+  if (account !== accountEpoch || (path.startsWith('/api/admin/') && authority !== adminEpoch)) throw new Error('Account or owner authority changed. Discarded the earlier response.');
   if (!response.ok) {
     if (response.status === 401 && data.detail?.includes('server access token')) $('access').open = true;
     throw new Error(typeof data.detail === 'string' ? data.detail : 'Request rejected. Check your input.');
@@ -48,6 +51,12 @@ function element(tag, className, text) {
   if (className) node.className = className;
   if (text !== undefined) node.textContent = text;
   return node;
+}
+function safeLinkURL(value) {
+  if (typeof value !== 'string' || value.length > 4096 || /[\u0000-\u0020\u007f]/.test(value)) throw new Error('Unsafe source URL');
+  const url = new URL(value);
+  if (!['http:', 'https:'].includes(url.protocol) || url.username || url.password) throw new Error('Unsafe source URL');
+  return url;
 }
 function sourceName(source) { return source === 'huggingface' ? 'Hugging Face' : source === 'github' ? 'GitHub' : String(source || 'Unknown source'); }
 function displayValue(value, fallback = 'Not recorded') {
@@ -157,7 +166,7 @@ function renderSources(turn) {
     const item = element('li');
     const link = element('a', '', source.source_id || source.id || 'Imported document');
     try {
-      const url = new URL(source.url);
+      const url = safeLinkURL(source.url);
       if (url.protocol === 'https:' || url.protocol === 'http:') { link.href = url.href; link.target = '_blank'; link.rel = 'noopener noreferrer'; }
     } catch (_) { /* Preserve source text without linking unsupported URLs. */ }
     item.append(link);
@@ -255,7 +264,7 @@ function renderCatalogEntry(entry) {
   const heading = element('div', 'catalog-entry-heading');
   const link = element('a', '', entry.name || entry.id);
   try {
-    const url = new URL(entry.url);
+    const url = safeLinkURL(entry.url);
     if (url.protocol === 'https:' || url.protocol === 'http:') { link.href = url.href; link.target = '_blank'; link.rel = 'noopener noreferrer'; }
   } catch (_) { /* An invalid source URL remains unlinked text. */ }
   heading.append(link, element('span', 'source-tag', sourceName(entry.source)));
@@ -338,16 +347,27 @@ async function connect() {
     $('provider').textContent = health.provider === 'huggingface' ? 'Hugging Face · local inference' : health.provider === 'tiny' ? 'Zenith Tiny · experimental' : health.provider === 'ensemble' ? 'Model team · combined answers' : health.provider === 'localserver' ? 'Local model server · no API key' : 'Ollama · local inference';
     $('status').textContent = health.provider === 'localserver' ? '● Local runtime · check with doctor' : health.model_loaded ? '● Model loaded' : '● Ready · loads on first message';
     if (health.counts) renderCatalogCounts(health.counts);
-    if (health.authentication_required && !sessionStorage.getItem('zenith_token')) {
-      $('access').open = true; $('status').textContent = 'Access token required'; return;
-    }
     await loadAccount();
     await Promise.all([loadHistory(), loadTeam(), loadConversations(), loadAdmin()]);
     $('access').open = false;
     catalogLoaded = false;
   } catch (error) { showError(error.message); $('status').textContent = 'Connection needs attention'; }
 }
-$('connect').addEventListener('click', () => {sessionStorage.setItem('zenith_token', $('token').value.trim()); connect();});
+$('connect').addEventListener('click', async () => {
+  const token = $('token').value.trim(); $('token').value = '';
+  try {
+    if (token) await api('/api/access', {method: 'POST', body: JSON.stringify({token})});
+    await connect();
+  } catch (error) {showError(error.message);}
+});
+$('clear-access').addEventListener('click', async () => {
+  chatController?.abort();
+  try {
+    await api('/api/access', {method: 'DELETE'});
+    await loadAccount({user: null, greeting: 'Welcome to Zenith.'}); adminState = null; renderAdmin(); showWelcome();
+    $('access').open = true; $('status').textContent = 'Disconnected';
+  } catch (error) {showError(error.message);}
+});
 $('new-chat').addEventListener('click', () => {
   if (busy) return;
   switchConversation(crypto.randomUUID());
@@ -399,7 +419,9 @@ $('composer').addEventListener('submit', async event => {
         await api('/api/admin/lock', {method: 'POST'}); await loadAdmin();
       } else if (text.toLowerCase() === '/admin unlock') {
         if (!activeUser) {openAccount(); return;}
-        await loadAdmin(); $('admin-dialog').showModal();
+        await loadAdmin();
+        if (!adminState?.eligible) {showError('This account is not the configured owner.'); return;}
+        $('admin-dialog').showModal();
       } else showError('Use /admin unlock or /admin lock. Enter your private code only in the masked Admin field.');
     } catch (error) {showError(error.message);}
     return;
@@ -447,7 +469,7 @@ function inlineText(parent, text) {
       const cut = value.indexOf('](');
       const link = element('a', '', value.slice(1, cut));
       try {
-        const url = new URL(value.slice(cut + 2, -1));
+        const url = safeLinkURL(value.slice(cut + 2, -1));
         link.href = url.href; link.target = '_blank'; link.rel = 'noopener noreferrer'; parent.append(link);
       } catch (_) {parent.append(document.createTextNode(value));}
     }
@@ -494,11 +516,13 @@ async function switchConversation(identifier) {
   session = identifier; rememberConversation(); showWelcome(); showError('');
   try {await Promise.all([loadHistory(), loadConversations(), loadSkills()]);} catch (error) {showError(error.message);}
 }
-async function loadAccount() {
-  const data = await api('/api/account');
+async function loadAccount(data = null) {
+  data = data || await api('/api/account');
   const previous = activeUser?.id;
   activeUser = data.user;
   if (previous !== activeUser?.id) {
+    accountEpoch += 1; adminLoadRequest += 1; chatController?.abort();
+    $('conversation-list').replaceChildren();
     savedPreferences = {}; preferenceLoadRequest += 1;
     analysisRequest += 1; importedSkillRequest += 1;
     $('imported-skill-results')?.replaceChildren(); $('skills-results').replaceChildren(); $('skills-taxonomy').replaceChildren();
@@ -599,7 +623,7 @@ $('open-packs').addEventListener('click', async () => {
       card.append(element('h3', '', pack.name), element('p', '', pack.runtime_requirements));
       card.append(element('p', '', `${pack.file_count} inventoried files · ${(pack.total_bytes / 2**30).toFixed(1)} GiB for every variant · ${pack.license}`));
       card.append(element('pre', '', 'zenith packs files ' + pack.id + '\nzenith packs download ' + pack.id + (pack.recommended_file ? '' : ' --all')));
-      const source = element('a', '', 'Source and attribution'); source.href = pack.source_url; source.target = '_blank'; source.rel = 'noopener noreferrer';
+      const source = element('a', '', 'Source and attribution'); try {source.href = safeLinkURL(pack.source_url).href;} catch (_) {source.textContent = 'Source URL unavailable';} source.target = '_blank'; source.rel = 'noopener noreferrer';
       card.append(source, element('small', '', 'Pinned integration; this model has not been benchmarked in Zenith. Full variants need substantial disk space.')); list.append(card);
     }
   } catch (error) {list.append(element('p', '', error.message));}
@@ -685,7 +709,7 @@ function renderSkillLibrary() {
     const resources = element('ul', 'skill-references');
     for (const reference of skillLibrary.resources.filter(item => skill.resource_ids.includes(item.id))) {
       try {
-        const url = new URL(reference.url); if (url.protocol !== 'https:' || url.username || url.password) continue;
+        const url = safeLinkURL(reference.url); if (url.protocol !== 'https:') continue;
         const item = element('li'); const link = element('a', '', reference.title); link.href = url.href;
         link.target = '_blank'; link.rel = 'noopener noreferrer';
         item.append(link, element('small', '', `${reference.publisher} · ${reference.verification.status === 'retrieved' ? 'retrieved' : 'retrieval unconfirmed'} ${reference.verification.checked_on}`));
@@ -716,6 +740,13 @@ $('response-mode').addEventListener('change', () => localStorage.setItem(respons
 $('reply-style').addEventListener('change', () => localStorage.setItem(responseKey('zenith_reply_style'), $('reply-style').value));
 function renderAdmin() {
   const elevated = !!adminState?.elevated;
+  const authority = JSON.stringify([activeUser?.id, !!adminState?.eligible, elevated, adminState?.expires_at, !!adminState?.mfa_verified]);
+  if (authority !== adminAuthority) {adminAuthority = authority; adminEpoch += 1;}
+  $('open-admin').hidden = !adminState?.eligible;
+  if (!elevated) {
+    $('owner-help-text').textContent = ''; $('owner-help-text').hidden = true;
+    $('admin-tool-result').textContent = ''; $('admin-tool-text').value = ''; $('admin-review-list').replaceChildren();
+  }
   $('server-metrics').hidden = !elevated;
   if (!elevated && showingServerMetrics) {$('performance-summary').replaceChildren(); $('performance-scope').textContent = 'Admin locked. Refresh to view your account totals.'; $('performance-note').textContent = ''; showingServerMetrics = false;}
   $('admin-controls').hidden = !elevated; $('admin-unlock').hidden = elevated;
@@ -730,20 +761,28 @@ function renderAdmin() {
   if (adminState?.expires_at) adminExpiry = setTimeout(() => loadAdmin(), Math.max(1000, adminState.expires_at * 1000 - Date.now() + 300));
 }
 async function loadAdmin() {
+  const owner = activeUser?.id, request = ++adminLoadRequest;
   if (!activeUser) {adminState = null; renderAdmin(); await loadSkills(); return;}
-  try {adminState = await api('/api/admin/status');} catch (_) {adminState = null;}
+  try {
+    const data = await api('/api/admin/status');
+    if (owner !== activeUser?.id || request !== adminLoadRequest) return;
+    adminState = data;
+  } catch (_) {if (owner !== activeUser?.id || request !== adminLoadRequest) return; adminState = null;}
   renderAdmin();
   if (adminState?.elevated) { try { await refreshExecution(); } catch (error) { $('admin-error').textContent = error.message; } }
   await loadSkills();
 }
 async function unlockAdmin(code, otp = '') {
-  adminState = await api('/api/admin/unlock', {method: 'POST', body: JSON.stringify({code,otp})});
+  const owner = activeUser?.id, request = ++adminLoadRequest;
+  const data = await api('/api/admin/unlock', {method: 'POST', body: JSON.stringify({code,otp})});
+  if (owner !== activeUser?.id || request !== adminLoadRequest) return;
+  adminState = data;
   renderAdmin(); $('admin-error').textContent = ''; await refreshExecution(); await loadSkills();
 }
 $('open-admin').addEventListener('click', async () => {
   if (busy) return;
   if (!activeUser) {openAccount(); return;}
-  await loadAdmin(); $('admin-dialog').showModal();
+  await loadAdmin(); if (adminState?.eligible) $('admin-dialog').showModal();
 });
 $('admin-unlock').addEventListener('submit', async event => {
   event.preventDefault(); const code = $('admin-code').value; $('admin-code').value = '';
@@ -756,6 +795,15 @@ $('devil-mode').addEventListener('change', async () => {
 });
 $('lock-admin').addEventListener('click', async () => {
   try {await api('/api/admin/lock', {method: 'POST'}); await loadAdmin();} catch (error) {$('admin-error').textContent = error.message;}
+});
+$('owner-help').addEventListener('click', async () => {
+  const owner = activeUser?.id;
+  try {
+    const result = await api('/api/admin/help');
+    if (owner !== activeUser?.id || !adminState?.elevated) return;
+    $('owner-help-text').textContent = result.notice + '\n\n' + result.commands.join('\n') + '\n\n' + result.scope;
+    $('owner-help-text').hidden = false;
+  } catch (error) {if (owner === activeUser?.id) $('admin-error').textContent = error.message;}
 });
 $('admin-tool-form').addEventListener('submit', async event => {
   event.preventDefault(); $('admin-error').textContent = ''; const button = event.currentTarget.querySelector('button'); button.disabled = true;
@@ -786,14 +834,16 @@ $('refresh-admin-reviews').addEventListener('click', async () => {
 });
 
 async function streamChat(body, onText, signal) {
+  const ownerEpoch = accountEpoch;
   const headers = {'Content-Type': 'application/json', 'Accept': 'text/event-stream'};
-  const token = sessionStorage.getItem('zenith_token'); if (token) headers.Authorization = 'Bearer ' + token;
-  const response = await fetch('/api/chat/stream', {method: 'POST', headers, body: JSON.stringify(body), signal});
+  const response = await fetch('/api/chat/stream', {method: 'POST', headers, body: JSON.stringify(body), signal, credentials: 'same-origin'});
+  if (ownerEpoch !== accountEpoch) throw new Error('Account changed. The earlier stream was discarded.');
   if (!response.ok) {const data = await response.json(); throw new Error(typeof data.detail === 'string' ? data.detail : 'Chat request was rejected.');}
   if (!response.body) throw new Error('Streaming is unavailable in this browser.');
   const reader = response.body.getReader(); const decoder = new TextDecoder(); let pending = ''; let result = null;
   try {
     for (;;) {
+      if (ownerEpoch !== accountEpoch) throw new Error('Account changed. The earlier stream was discarded.');
       const item = await reader.read(); pending += decoder.decode(item.value || new Uint8Array(), {stream: !item.done});
       const frames = pending.split('\n\n'); pending = frames.pop();
       for (const frame of frames) {

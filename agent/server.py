@@ -12,6 +12,8 @@ from fastapi import Depends, FastAPI, Header, HTTPException, Query, Request, Res
 from fastapi.responses import FileResponse,StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.exceptions import RequestValidationError
+from starlette.exceptions import HTTPException as StarletteHTTPException
+from starlette.responses import JSONResponse
 from pydantic import BaseModel, Field
 
 from .config import Settings
@@ -71,6 +73,10 @@ class RegisterRequest(LoginRequest):
     display_name: str = Field(min_length=1, max_length=60)
 
 
+class AccessRequest(BaseModel):
+    token: str = Field(min_length=1, max_length=4096)
+
+
 class MemoryRequest(BaseModel):
     content: str = Field(min_length=1, max_length=500)
 
@@ -125,7 +131,14 @@ class HumanResolution(BaseModel):
 def create_app(settings=None, agent=None, catalog=None):
     settings = settings or Settings()
     agent = agent or Agent(settings)
-    app = FastAPI(title='Zenith', version=__version__, docs_url=None, redoc_url=None)
+    from .redaction import Redactor
+    redactor = Redactor((*Redactor.configured(settings.api_token).secrets, *agent.redactor.secrets))
+    agent.redactor = agent.store.redactor = redactor
+    class PrivateJSONResponse(JSONResponse):
+        def render(self, content):
+            return super().render(redactor.value(content))
+    app = FastAPI(title='Zenith', version=__version__, docs_url=None, redoc_url=None,
+                  openapi_url=None, default_response_class=PrivateJSONResponse)
     from .http_security import RequestSecurityMiddleware
     app.add_middleware(RequestSecurityMiddleware, allowed_hosts=settings.allowed_hosts)
 
@@ -135,10 +148,14 @@ def create_app(settings=None, agent=None, catalog=None):
         # Framework defaults echo rejected inputs, including passwords and OTPs.
         errors = [{key: error[key] for key in ('type', 'loc', 'msg') if key in error}
                   for error in exc.errors()[:24]]
-        return JSONResponse({'detail': errors}, status_code=422)
+        return PrivateJSONResponse({'detail': errors}, status_code=422)
+
+    @app.exception_handler(StarletteHTTPException)
+    async def request_error(request, exc):
+        return PrivateJSONResponse({'detail': exc.detail}, status_code=exc.status_code, headers=exc.headers)
     app.state.agent = agent
     app.state.catalog = catalog
-    app.state.discovery = Discovery()
+    app.state.discovery = Discovery(redactor=redactor)
     attempts = {}
     attempt_lock = Lock()
 
@@ -147,9 +164,11 @@ def create_app(settings=None, agent=None, catalog=None):
             app.state.catalog = Catalog()
         return app.state.catalog
 
-    def authenticate(authorization: str = Header(default='')):
-        if settings.api_token and not hmac.compare_digest(
-            authorization.encode(), f'Bearer {settings.api_token}'.encode()
+    def authenticate(request: Request, authorization: str = Header(default='')):
+        from .browser_access import COOKIE, valid
+        if settings.api_token and not (
+            hmac.compare_digest(authorization.encode(), f'Bearer {settings.api_token}'.encode())
+            or (not authorization and valid(request.cookies.get(COOKIE, ''), settings.api_token))
         ):
             raise HTTPException(401, 'Enter the server access token to continue', headers={'WWW-Authenticate': 'Bearer'})
 
@@ -195,21 +214,24 @@ def create_app(settings=None, agent=None, catalog=None):
                             secure=request.url.scheme == 'https', samesite='strict', path='/')
         return {'user': user, 'greeting': 'Welcome back, ' + user['display_name'] + '.'}
 
-    @app.middleware('http')
-    async def security_headers(request, call_next):
-        origin = request.headers.get('origin')
-        if request.method in {'POST', 'PUT', 'PATCH', 'DELETE'} and origin and origin != str(request.base_url).rstrip('/'):
-            from fastapi.responses import JSONResponse
-            return JSONResponse({'detail': 'Cross-site changes are not allowed'}, status_code=403)
-        response = await call_next(request)
-        response.headers['X-Content-Type-Options'] = 'nosniff'
-        response.headers['Referrer-Policy'] = 'no-referrer'
-        response.headers['Content-Security-Policy'] = (
-            "default-src 'self'; script-src 'self'; style-src 'self'; "
-            "connect-src 'self'; img-src 'self' data:; frame-ancestors 'none'; base-uri 'self'"
-        )
-        response.headers['Cache-Control'] = 'no-store'
-        return response
+    @app.post('/api/access')
+    def browser_connect(body: AccessRequest, request: Request, response: Response):
+        from .browser_access import COOKIE, LIFETIME, issue
+        limit_login(request)
+        if not settings.api_token or not hmac.compare_digest(body.token.encode(), settings.api_token.encode()):
+            raise HTTPException(401, 'Server access token was not accepted')
+        response.set_cookie(COOKIE, issue(settings.api_token), max_age=LIFETIME,
+                            httponly=True, secure=request.url.scheme == 'https', samesite='strict', path='/')
+        return {'connected': True, 'expires_in_seconds': LIFETIME}
+
+    @app.delete('/api/access')
+    def browser_disconnect(request: Request, response: Response):
+        from .browser_access import COOKIE
+        token = request.cookies.get('zenith_login', '')
+        agent.admin.lock(token); agent.personal.logout(token)
+        response.delete_cookie(COOKIE, path='/')
+        response.delete_cookie('zenith_login', path='/')
+        return {'connected': False}
 
     @app.get('/')
     def index():
@@ -246,7 +268,8 @@ def create_app(settings=None, agent=None, catalog=None):
 
     @app.post('/api/account/logout', dependencies=[Depends(authenticate)])
     def logout(request: Request, response: Response):
-        agent.personal.logout(request.cookies.get('zenith_login', ''))
+        token = request.cookies.get('zenith_login', '')
+        agent.admin.lock(token); agent.personal.logout(token)
         response.delete_cookie('zenith_login', path='/')
         return {'signed_out': True}
 
@@ -356,6 +379,14 @@ def create_app(settings=None, agent=None, catalog=None):
     def admin_status(request: Request, user=Depends(signed_in)):
         return agent.admin.status(user['id'],request.cookies.get('zenith_login',''))
 
+    @app.get('/api/admin/help', dependencies=[Depends(authenticate)])
+    def owner_help(user=Depends(administrator)):
+        return {'notice': 'Local owner procedures. Never put credentials in prompts or command arguments.',
+                'commands': ['zenith admin init --username YOUR_USERNAME --rotate',
+                             'zenith admin reset-mfa --username YOUR_USERNAME --confirm-reset',
+                             'zenith admin stop-tools --username YOUR_USERNAME'],
+                'scope': 'Trusted server terminal only. Web requests cannot bootstrap or transfer ownership.'}
+
     @app.post('/api/admin/unlock', dependencies=[Depends(authenticate)])
     def admin_unlock(body: AdminUnlockRequest, request: Request, user=Depends(signed_in)):
         limit_login(request)
@@ -401,7 +432,9 @@ def create_app(settings=None, agent=None, catalog=None):
         limit_login(request)
         if agent.personal.login(user['username'],body.password) is None:
             raise HTTPException(403,'Reauthentication failed')
-        try:return agent.admin.mfa.begin(user['id'],user['username'])
+        # Explicit one-time owner enrollment intentionally returns this secret.
+        # The response remains owner-protected and no-store.
+        try:return JSONResponse(agent.admin.mfa.begin(user['id'],user['username']))
         except ValueError as exc:raise HTTPException(400,str(exc)) from exc
 
     @app.post('/api/admin/mfa/confirm', dependencies=[Depends(authenticate)])
@@ -477,6 +510,7 @@ def create_app(settings=None, agent=None, catalog=None):
         from .assurance import normalize_input
         try:
             resolution=normalize_input(body.resolution)
+            redactor.require_clean(resolution)
             resolved=agent.personal.resolve_review(str(review_id),resolution)
         except ValueError as exc:raise HTTPException(400,str(exc)) from exc
         if not resolved:raise HTTPException(404,'Review request not found')
@@ -539,7 +573,7 @@ def create_app(settings=None, agent=None, catalog=None):
         except HTTPException:
             raise
         except Exception as exc:
-            logger.exception('Model generation failed')
+            logger.error('Model generation failed; exception details withheld to protect credentials')
             raise HTTPException(503, 'Model unavailable. Check server logs, model download, and provider settings.') from exc
 
     @app.post('/api/chat/stream', dependencies=[Depends(authenticate)])
@@ -566,7 +600,7 @@ def create_app(settings=None, agent=None, catalog=None):
             except SkillAccessDenied:
                 yield 'data: '+json.dumps({'type':'error','message':'Admin access expired or was locked. Unlock Admin and activate the security skill again. Incomplete text was not saved.'})+'\n\n'
             except Exception:
-                logger.exception('Streaming generation failed')
+                logger.error('Streaming generation failed; exception details withheld to protect credentials')
                 yield 'data: '+json.dumps({'type':'error','message':'Generation interrupted. Partial text was not saved; check model settings and retry.'})+'\n\n'
             finally:
                 with anyio.CancelScope(shield=True):await anyio.to_thread.run_sync(stream.close)
@@ -629,11 +663,11 @@ def main():
         print('Model warmed. Starting the local server.',flush=True)
     import uvicorn
     if not args.open_browser:
-        uvicorn.run(app, host=args.host, port=args.port, workers=1)
+        uvicorn.run(app, host=args.host, port=args.port, workers=1, access_log=False)
         return
     from threading import Event, Thread
     from .browser import open_when_ready
-    server = uvicorn.Server(uvicorn.Config(app, host=args.host, port=args.port, workers=1))
+    server = uvicorn.Server(uvicorn.Config(app, host=args.host, port=args.port, workers=1, access_log=False))
     stopped = Event()
     browser_host = '[::1]' if args.host == '::1' else '127.0.0.1'
     url = f'http://{browser_host}:{args.port}'

@@ -13,6 +13,7 @@ from urllib.parse import parse_qs, quote, urlsplit
 
 import requests
 from .paths import zenith_home
+from .redaction import Redactor
 
 ID = re.compile(r'[A-Za-z0-9][A-Za-z0-9_.-]*/[A-Za-z0-9][A-Za-z0-9_.-]*\Z')
 LIMIT = 2 * 1024 * 1024
@@ -54,7 +55,8 @@ def _number(value):
 
 class Discovery:
     """Bounded requests to fixed upstream endpoints, with short-lived LRU caching."""
-    def __init__(self):
+    def __init__(self, redactor=None):
+        self.redactor = redactor or Redactor.configured()
         self._cache = OrderedDict()
         self._lock = Lock()
         self._slots = BoundedSemaphore(2)
@@ -146,6 +148,8 @@ class Discovery:
             raise ValueError('Invalid discovery query or page')
         if not isinstance(cursor, str) or len(cursor) > 4096:
             raise ValueError('Invalid discovery cursor')
+        self.redactor.require_clean(q)
+        self.redactor.require_clean(cursor)
         if source == 'huggingface':
             path = '/api/models' if kind == 'model' else '/api/datasets'
             params = {'search': q, 'sort': 'downloads', 'direction': -1, 'limit': page_size, 'full': 'true'}
@@ -189,8 +193,9 @@ class Discovery:
                 'source': source, 'kind': kind, 'notice': notice}
 
     def add(self, source, identifier):
-        if source not in {'huggingface', 'github'} or not ID.fullmatch(identifier) or len(identifier) > 200:
+        if source not in {'huggingface', 'github'} or not isinstance(identifier, str) or not ID.fullmatch(identifier) or len(identifier) > 200:
             raise ValueError('Use a canonical owner/name model identifier and a supported source')
+        self.redactor.require_clean(identifier)
         url = ('https://huggingface.co/api/models/' if source == 'huggingface' else 'https://api.github.com/repos/') + quote(identifier, safe='/')
         raw, _ = self._json(url)
         entry = self._entry(source, 'model', raw)

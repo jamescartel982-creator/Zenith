@@ -217,7 +217,10 @@ class StreamingTests(unittest.TestCase):
 
     def test_stream_protocol_commits_only_complete_answers(self):
         session=str(uuid4());events=list(self.agent.stream_answer('Hello',session))
-        self.assertEqual([e['type'] for e in events],['start','delta','result'])
+        self.assertEqual(events[0]['type'],'start')
+        self.assertEqual(events[-1]['type'],'result')
+        self.assertTrue(all(e['type']=='delta' for e in events[1:-1]))
+        self.assertEqual(''.join(e['text'] for e in events[1:-1]),'Fixture response')
         self.assertEqual(len(self.agent.store.history(session)),1)
         self.assertIsNotNone(events[-1]['result']['time_to_first_text_ms'])
         self.assertFalse(self.agent.lock.locked())

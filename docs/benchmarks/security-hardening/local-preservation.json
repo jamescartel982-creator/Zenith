@@ -1,0 +1,46 @@
+{
+  "baseline_commit": "8c28d2b8f3e2f47da1ab448de85bcb0c435d89c3",
+  "database_integrity_ok": true,
+  "existing_table_content_unchanged": true,
+  "existing_tables_checked": 31,
+  "private_backup_created": true,
+  "configuration_bytes_unchanged": true,
+  "owner_configured": false,
+  "secure_delete_enabled": true,
+  "defensive_sqlite_enabled": true,
+  "local_permissions": [
+    {
+      "kind": "config",
+      "mode": "0o600",
+      "same_os_owner": true,
+      "symlink": false
+    },
+    {
+      "kind": "data",
+      "mode": "0o700",
+      "same_os_owner": true,
+      "symlink": false
+    },
+    {
+      "kind": "zenith.sqlite3",
+      "mode": "0o600",
+      "same_os_owner": true,
+      "symlink": false
+    },
+    {
+      "kind": "zenith.sqlite3-wal",
+      "mode": "0o600",
+      "same_os_owner": true,
+      "symlink": false
+    },
+    {
+      "kind": "zenith.sqlite3-shm",
+      "mode": "0o600",
+      "same_os_owner": true,
+      "symlink": false
+    }
+  ],
+  "tracked_text_files_scanned": 732,
+  "configured_literal_key_matches": [],
+  "scan_limitations": "Known configured literal keys of at least 16 characters only; excludes binary and >4 MiB files. No claim to detect unknown/obfuscated secrets."
+}

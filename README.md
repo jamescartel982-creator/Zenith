@@ -9,7 +9,7 @@ license: apache-2.0
 
 A local AI workspace for conversations, coding, research, and reviewed learning. Zenith brings open model runtimes, private memory, streamed responses, and evaluation tools into a single application for Windows, Linux, and supported Macs.
 
-**Release 0.17.4** · [Changelog](CHANGELOG.md) · [Installation](docs/local-installation.md) · [Model discovery](docs/model-discovery.md) · [Validation](docs/validation.md) · [Security](SECURITY.md)
+**Release 0.17.5** · [Changelog](CHANGELOG.md) · [Installation](docs/local-installation.md) · [Model discovery](docs/model-discovery.md) · [Validation](docs/validation.md) · [Security](SECURITY.md)
 
 ## Install
 
@@ -212,13 +212,7 @@ To upgrade, stop Zenith, activate `.venv`, run `git pull --ff-only`, then `pytho
 
 Profiles and application data live under `%LOCALAPPDATA%\Zenith` on Windows or `~/.local/share/zenith` on Linux. `ZENITH_HOME` selects another location. Cached Hugging Face models support `HF_HUB_OFFLINE=1`; `ZENITH_DISCOVERY_OFFLINE=1` disables online discovery. Online search sends the query to the selected source; external model servers receive the context supplied to them.
 
-Create a browser account, then configure the owner from your activated terminal:
-
-```text
-zenith admin init --username YOUR_USERNAME
-```
-
-The unique code is created locally and kept out of model prompts and Git. Sign in as the owner and unlock Admin before explicitly activating a protected security profile. Logout, locking, code rotation, and expiry revoke that access. See [administration](docs/admin.md), [skills](docs/skills.md), and [memory](docs/memory.md). Shared deployments require the authentication and network controls in [deployment](docs/deployment.md).
+Privileged operations require the configured owner account and server-side authorization. Owner procedures are available in the authenticated owner workspace and trusted local terminal help. Credentials remain outside model prompts and Git. Logout, locking, credential rotation and expiry revoke privileged access. See [memory](docs/memory.md) and the [security policy](SECURITY.md). Shared deployments require the authentication and network controls in [deployment](docs/deployment.md).
 
 ## Continued training and execution controls
 

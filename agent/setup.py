@@ -1,5 +1,7 @@
 """Save a portable per-user configuration without overwriting existing settings."""
 import argparse
+import os
+import tempfile
 from pathlib import Path
 from .paths import config_file, zenith_home
 
@@ -10,7 +12,7 @@ def write_configuration(mode='local', path=None, overwrite=False):
     path = Path(path or config_file())
     if path.exists() and not overwrite:
         return path, False
-    path.parent.mkdir(parents=True, exist_ok=True)
+    path.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
     provider = {'local': 'huggingface', 'ensemble': 'ensemble', 'ollama': 'ollama', 'localserver': 'localserver'}[mode]
     content = (
         '# Zenith user configuration. Environment variables and a checkout .env take precedence.\n'
@@ -25,12 +27,13 @@ def write_configuration(mode='local', path=None, overwrite=False):
     )
     # Deliberately omit tokens and relative data paths. Fresh installs use the
     # stable user data directory; existing checkout .env/data stays in control.
-    with path.open('w', encoding='utf-8', newline='\n') as handle:
-        handle.write(content)
+    descriptor, temporary = tempfile.mkstemp(prefix='.zenith-config-', dir=path.parent)
     try:
-        path.chmod(0o600)
-    except OSError:
-        pass  # Windows ACLs govern access instead of POSIX mode bits.
+        with os.fdopen(descriptor, 'w', encoding='utf-8', newline='\n') as handle:
+            handle.write(content)
+        os.replace(temporary, path)
+    finally:
+        Path(temporary).unlink(missing_ok=True)
     return path, True
 
 
