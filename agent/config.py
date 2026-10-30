@@ -49,12 +49,15 @@ class Settings:
     allowed_hosts: tuple[str, ...] = field(default_factory=lambda: tuple(
         host.strip().lower() for host in os.getenv('ZENITH_ALLOWED_HOSTS', 'localhost,127.0.0.1,::1').split(',') if host.strip()))
     kv_cache_mb: int = field(default_factory=lambda: int(os.getenv('ZENITH_KV_CACHE_MB','64')))
+    public_chat: bool = field(default_factory=lambda: os.getenv('ZENITH_PUBLIC_CHAT', '').lower() in {'1', 'true', 'yes'})
 
     def __post_init__(self):
         if type(self.kv_cache_mb) is not int or not 0<=self.kv_cache_mb<=512:
             raise ValueError('ZENITH_KV_CACHE_MB must be 0–512 MiB (0 disables reuse)')
         from .http_security import LOCAL_HOSTS, validate_hosts
         validate_hosts(self.allowed_hosts)
+        if self.public_chat and len(self.api_token) < 32:
+            raise ValueError('Public chat requires a private ZENITH_API_TOKEN of at least 32 characters')
         if any(host not in LOCAL_HOSTS for host in self.allowed_hosts) and len(self.api_token) < 32:
             raise ValueError('Non-loopback allowed hosts require ZENITH_API_TOKEN of at least 32 characters')
         from .task_router import MODES

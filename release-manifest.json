@@ -76,8 +76,8 @@
     },
     {
       "path": ".github/workflows/productivity.yml",
-      "size": 2359,
-      "sha256": "09c35e715f7610973794b2f97ee70fb4ac54339968ed9325d12f6a3d27e6fc22",
+      "size": 2590,
+      "sha256": "a0464d9a8e17805e0f80babb8adfebb802a22cd929ec63b521a831c67f7d7b99",
       "normalization": "lf"
     },
     {
@@ -310,8 +310,8 @@
     },
     {
       "path": "agent/config.py",
-      "size": 7506,
-      "sha256": "acab50ed502c56d06419f00a17a75ebc89a0bb925da8ef80f1d1fd55f43930e8",
+      "size": 7793,
+      "sha256": "cb05b5ac993297553a7e1f948a5a94bdfa4370bea400a4443b83bf53dd6e3444",
       "normalization": "lf"
     },
     {
@@ -615,6 +615,12 @@
       "normalization": "lf"
     },
     {
+      "path": "agent/public_chat.py",
+      "size": 2478,
+      "sha256": "d88db37ac3d5b0033315073deea86ad3ce285a240d20fd82fb1a7ac54228eb42",
+      "normalization": "lf"
+    },
+    {
       "path": "agent/quality.py",
       "size": 14360,
       "sha256": "473d5c8b1faa2e8e0db6f93762485301ab6568ddc3991908b3d9fcdc7d3e9cee",
@@ -712,8 +718,8 @@
     },
     {
       "path": "agent/server.py",
-      "size": 35293,
-      "sha256": "795b5de941cd98c6ca481e656e8eaa8720c8c7528c56325a032ffb7b5cc661aa",
+      "size": 37892,
+      "sha256": "db5f447e0507df531020b8f0bb25f1430e807f45de98da940cadf7a41af2751b",
       "normalization": "lf"
     },
     {
@@ -814,14 +820,14 @@
     },
     {
       "path": "agent/web/app.js",
-      "size": 70420,
-      "sha256": "338475424cf980af0cbdc763348c20127aa85b6cb6eefea5094d6b61359f11f2",
+      "size": 70948,
+      "sha256": "1cd2ba4337eb70298af2032ea6162a11c9c6900d8ce8df1362f91e2162b917e5",
       "normalization": "lf"
     },
     {
       "path": "agent/web/index.html",
-      "size": 22137,
-      "sha256": "880fb8960eb631830384376ea5091514dd9c6fa79edfe5accf41931640981878",
+      "size": 22145,
+      "sha256": "cea9789932fe71b4d17391646ec5bd24b3f31b8ac6116ab4e5676a1cfa9e6d43",
       "normalization": "lf"
     },
     {
@@ -1768,8 +1774,8 @@
     },
     {
       "path": "docs/cloudflare-deployment.md",
-      "size": 14720,
-      "sha256": "a76e6fec74014f300528774984f06e36deca7d9b65130fc2c432aba1a205fcea",
+      "size": 15421,
+      "sha256": "c63c01e3325e6b86267f85cbdda6083d1d7b9f7167c44e16cb87d45117e983cb",
       "normalization": "lf"
     },
     {
@@ -2406,6 +2412,12 @@
       "path": "docs/provider-reliability.md",
       "size": 3915,
       "sha256": "8cf8293b3d8ffed1cc330268666ad6eb85b1474894548a098ef187746f13436b",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/public-chat.md",
+      "size": 2327,
+      "sha256": "4abd2c5eceb63bdd01e9c15e5a928d410b5094725ce8499809453e6c911747d0",
       "normalization": "lf"
     },
     {
@@ -4029,6 +4041,12 @@
       "normalization": "lf"
     },
     {
+      "path": "scripts/smoke_public_chat_ui.py",
+      "size": 6437,
+      "sha256": "e41c839d6dc004c5cec72dd8311a5666f96168c6041a6b5a913c577b713d50fb",
+      "normalization": "lf"
+    },
+    {
       "path": "scripts/smoke_quickstart.py",
       "size": 1444,
       "sha256": "511612f56aad95c37ccdf16bef16bb4a9fcd5c3a814752c5a322db64c98b6a32",
@@ -4260,6 +4278,12 @@
       "path": "tests/test_provider_transport.py",
       "size": 13454,
       "sha256": "ad278358d576c2dd6345d3cef835ba278aaeeb94478dde69d652f264135e8f95",
+      "normalization": "lf"
+    },
+    {
+      "path": "tests/test_public_chat.py",
+      "size": 8108,
+      "sha256": "83ac5eebcb3c8e8c620e3fb5d36c81a919e334321e6864e5cf6c4b53ebe48102",
       "normalization": "lf"
     },
     {

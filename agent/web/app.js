@@ -8,6 +8,7 @@ let busy = false;
 let chatController = null;
 let showingServerMetrics = false;
 let activeUser = null;
+let publicChat = false;
 let registering = false;
 let adminState = null;
 let adminExpiry = null;
@@ -215,34 +216,36 @@ function addMessage(role, text, turn = null) {
     if (deliberation) article.append(deliberation);
     const sources = renderSources(turn);
     if (sources) article.append(sources);
-    const details = element('details', 'review');
-    const summary = element('summary', '', turn.approved ? 'Approved for training · edit review' : turn.rating ? 'Review saved · edit review' : 'Review this answer');
-    const select = element('select');
-    select.setAttribute('aria-label', 'Answer rating');
-    for (const [value, label] of [['good', 'Good answer'], ['bad', 'Needs improvement']]) {
-      const option = element('option', '', label); option.value = value; select.append(option);
+    if (!publicChat || activeUser) {
+      const details = element('details', 'review');
+      const summary = element('summary', '', turn.approved ? 'Approved for training · edit review' : turn.rating ? 'Review saved · edit review' : 'Review this answer');
+      const select = element('select');
+      select.setAttribute('aria-label', 'Answer rating');
+      for (const [value, label] of [['good', 'Good answer'], ['bad', 'Needs improvement']]) {
+        const option = element('option', '', label); option.value = value; select.append(option);
+      }
+      select.value = turn.rating || 'good';
+      const correction = element('textarea');
+      correction.placeholder = 'Optional: write a corrected answer for training';
+      correction.setAttribute('aria-label', 'Corrected answer');
+      correction.rows = 3; correction.maxLength = 24000; correction.value = turn.correction || '';
+      const approve = element('input'); approve.type = 'checkbox'; approve.checked = !!turn.approved;
+      const label = element('label'); label.append(approve, document.createTextNode('Approve this answer and its context for training'));
+      const save = element('button', '', 'Save review'); save.type = 'button';
+      const saved = element('span', 'saved'); saved.setAttribute('role', 'status');
+      save.addEventListener('click', async () => {
+        save.disabled = true; saved.textContent = '';
+        try {
+          await api('/api/feedback', {method: 'POST', body: JSON.stringify({session_id: session, turn_id: turn.id, rating: select.value, approved: approve.checked, correction: correction.value || null})});
+          saved.textContent = 'Saved'; summary.textContent = approve.checked ? 'Approved for training · edit review' : 'Review saved · edit review';
+          showError('');
+        } catch (error) { showError(error.message); }
+        finally { save.disabled = false; }
+      });
+      const row = element('div', 'actions'); row.append(select, label);
+      const controls = element('div', 'actions'); controls.append(save, saved);
+      details.append(summary, row, correction, controls); article.append(details);
     }
-    select.value = turn.rating || 'good';
-    const correction = element('textarea');
-    correction.placeholder = 'Optional: write a corrected answer for training';
-    correction.setAttribute('aria-label', 'Corrected answer');
-    correction.rows = 3; correction.maxLength = 24000; correction.value = turn.correction || '';
-    const approve = element('input'); approve.type = 'checkbox'; approve.checked = !!turn.approved;
-    const label = element('label'); label.append(approve, document.createTextNode('Approve this answer and its context for training'));
-    const save = element('button', '', 'Save review'); save.type = 'button';
-    const saved = element('span', 'saved'); saved.setAttribute('role', 'status');
-    save.addEventListener('click', async () => {
-      save.disabled = true; saved.textContent = '';
-      try {
-        await api('/api/feedback', {method: 'POST', body: JSON.stringify({session_id: session, turn_id: turn.id, rating: select.value, approved: approve.checked, correction: correction.value || null})});
-        saved.textContent = 'Saved'; summary.textContent = approve.checked ? 'Approved for training · edit review' : 'Review saved · edit review';
-        showError('');
-      } catch (error) { showError(error.message); }
-      finally { save.disabled = false; }
-    });
-    const row = element('div', 'actions'); row.append(select, label);
-    const controls = element('div', 'actions'); controls.append(save, saved);
-    details.append(summary, row, correction, controls); article.append(details);
   }
   $('messages').append(article);
   $('messages').scrollTop = $('messages').scrollHeight;
@@ -343,6 +346,9 @@ async function connect() {
   showError('');
   try {
     const health = await api('/healthz');
+    publicChat = health.public_chat === true;
+    $('access').hidden = publicChat;
+    if (publicChat) {$('access').open = false; $('token').value = '';}
     $('model').textContent = health.display_name || 'Zenith';
     $('provider').textContent = health.provider === 'huggingface' ? 'Hugging Face · local inference' : health.provider === 'tiny' ? 'Zenith Tiny · experimental' : health.provider === 'ensemble' ? 'Model team · combined answers' : health.provider === 'localserver' ? 'Local model server · no API key' : 'Ollama · local inference';
     $('status').textContent = health.provider === 'localserver' ? '● Local runtime · check with doctor' : health.model_loaded ? '● Model loaded' : '● Ready · loads on first message';
@@ -520,6 +526,10 @@ async function loadAccount(data = null) {
   data = data || await api('/api/account');
   const previous = activeUser?.id;
   activeUser = data.user;
+  if (data.guest_session && sessionStorage.getItem('zenith_guest_session') !== data.guest_session) {
+    sessionStorage.setItem('zenith_guest_session', data.guest_session);
+    session = crypto.randomUUID(); rememberConversation(); showWelcome();
+  }
   if (previous !== activeUser?.id) {
     accountEpoch += 1; adminLoadRequest += 1; chatController?.abort();
     $('conversation-list').replaceChildren();
