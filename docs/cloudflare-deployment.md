@@ -67,14 +67,23 @@ and the `agent.cloudflare_origin` entry point described below. An unwrapped
 Do not fix this by disabling the origin secret, exposing an unauthenticated
 backend, switching model providers or putting the API credential in the Worker.
 
-Investigation of source `713e53695c3e5eb5a95b09d536353517b5cd137e`
-on 2026-10-30 confirmed that the GitHub-connected Worker deploy succeeded,
-but found no running Python backend in this execution workspace. The Railway
-connection requires reauthentication, and no reachable production backend URL
-or authorized Cloudflare runtime-configuration access was available. Therefore
-**public backend availability and inference remain unverified**. A stopped or
-expired execution workspace is not permanent backend hosting. Provision or
-reconnect the actual host before supplying its URL; do not invent a URL in Git.
+The initial investigation on 2026-10-30 found a deployed Worker but no reachable
+backend. The Railway Dockerfile validation issue has since been fixed, and the
+preserved trained Zenith checkpoint and private SQLite state have been deployed
+to `https://zenith-production-5ee4.up.railway.app`. Authenticated backend health,
+actual model inference and database history surviving replacement with an
+ordinary source image were verified. Direct unauthenticated origin access is
+denied. Inference also passed with the model hub offline and the persistent
+cache mounted; temporary migration credentials have been removed.
+
+At the last public check the Worker still returned the configuration error.
+**Public Worker inference remains unverified** until its runtime bindings are
+configured and a real request through the public URL succeeds. Set
+`ZENITH_BACKEND_URL` to that Railway HTTPS root and privately copy the matching
+`ZENITH_ORIGIN_SECRET` from Railway into a Worker Secret, then deploy settings.
+No Cloudflare runtime-configuration credentials are available in this workspace.
+A stopped execution workspace is not permanent backend hosting; Railway plan
+capacity and billing still determine service availability.
 
 Official configuration references:
 [runtime variables](https://developers.cloudflare.com/workers/configuration/environment-variables/)
