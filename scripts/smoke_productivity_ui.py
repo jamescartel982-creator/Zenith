@@ -91,6 +91,11 @@ def run(generated=False):
                     page.locator('#prompt').fill('Explain this example briefly.')
                     page.locator('#composer').evaluate('(form) => form.requestSubmit()')
                     expect(page.locator('#messages')).to_contain_text('Fixture answer.')
+                    # The final text can render before stream cleanup/history
+                    # refresh completes. Account switching is intentionally
+                    # guarded until the composer returns to its idle state.
+                    expect(page.locator('#send')).to_be_visible()
+                    expect(page.locator('#send')).to_be_enabled()
                     assert 'French' in provider.messages[-1][0]['content']
                     assert 'untrusted task guidance' in provider.messages[-1][0]['content']
                     if generated:
