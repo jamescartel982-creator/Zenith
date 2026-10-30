@@ -14,7 +14,7 @@ jobs:
       matrix:
         dockerfile: [Dockerfile, deploy/railway/Dockerfile]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - run: docker build -f '${{ matrix.dockerfile }}' -t zenith:ci .
       - run: docker run --rm --entrypoint zenith zenith:ci verify --json
       - run: docker run --rm --entrypoint python zenith:ci -m scripts.smoke_server
@@ -38,7 +38,7 @@ jobs:
     env:
       ZENITH_HOME: ${{ github.workspace }}/.zenith-tests
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
@@ -70,7 +70,7 @@ jobs:
       OMP_NUM_THREADS: "2"
       ZENITH_CPU_THREADS: "2"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           path: Zenith workspace
       - uses: actions/setup-python@v5
