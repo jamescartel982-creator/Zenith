@@ -56,7 +56,7 @@ class CloudflareOrigin:
         return await self.app(trusted, receive, send)
 
 
-def create_origin(settings=None, agent=None, secret=None):
+def create_origin(settings=None, agent=None, secret=None, require_checkpoint=False):
     from .config import Settings
     from .server import create_app
     settings = settings or Settings()
@@ -67,6 +67,14 @@ def create_origin(settings=None, agent=None, secret=None):
         raise ValueError('Origin and server access secrets must be different')
     # Validate before opening the app/database or creating any state.
     CloudflareOrigin(None, secret, settings.allowed_hosts)
+    if require_checkpoint:
+        try:
+            if settings.provider != 'huggingface' or not settings.adapter or not settings.checkpoint_receipt:
+                raise ValueError('Missing trained checkpoint selection')
+            from .deployment import validate_activation
+            validate_activation(settings)
+        except (OSError, ValueError, KeyError, TypeError):
+            raise ValueError('Restore and verify the existing trained checkpoint before hosting') from None
     app = create_app(settings, agent)
     from .redaction import Redactor
     app.state.agent.redactor.secrets = Redactor((*app.state.agent.redactor.secrets, secret)).secrets
@@ -77,9 +85,10 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--host', default='127.0.0.1')
     parser.add_argument('--port', type=int, default=int(os.getenv('PORT', '7860')))
+    parser.add_argument('--require-checkpoint', action='store_true', help='Refuse missing, changed or unapproved trained state before opening the app')
     args = parser.parse_args()
     if not 1 <= args.port <= 65535: parser.error('Port must be 1–65535')
-    try: app = create_origin()
+    try: app = create_origin(require_checkpoint=args.require_checkpoint)
     except ValueError as exc: parser.error(str(exc))
     import uvicorn
     # Forwarded values are validated by the authenticated wrapper, not by

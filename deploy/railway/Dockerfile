@@ -36,5 +36,5 @@ RUN pip install 'torch>=2.6,<3' --index-url https://download.pytorch.org/whl/cpu
 USER zenith
 EXPOSE 7860
 HEALTHCHECK --interval=30s --timeout=5s --start-period=30s --retries=3 \
-    CMD python -c "import os,urllib.request; urllib.request.urlopen('http://127.0.0.1:'+os.getenv('PORT','7860')+'/healthz',timeout=4)"
+    CMD python -c "import os,urllib.request; h={'X-Zenith-Origin-Secret':os.environ['ZENITH_ORIGIN_SECRET'],'X-Zenith-Public-Origin':os.environ['ZENITH_PUBLIC_ORIGIN']} if os.getenv('ZENITH_ORIGIN_SECRET') else {}; r=urllib.request.Request('http://127.0.0.1:'+os.getenv('PORT','7860')+'/healthz',headers=h); urllib.request.urlopen(r,timeout=4)"
 CMD ["sh", "-c", "exec zenith serve --host 0.0.0.0 --port ${PORT:-7860}"]
