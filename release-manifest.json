@@ -820,8 +820,8 @@
     },
     {
       "path": "agent/web/app.js",
-      "size": 70804,
-      "sha256": "4166bde30588c678e0e633b36e057f51c3287fa1cddcfb8d55a4650fff58a400",
+      "size": 70948,
+      "sha256": "1cd2ba4337eb70298af2032ea6162a11c9c6900d8ce8df1362f91e2162b917e5",
       "normalization": "lf"
     },
     {
@@ -4042,8 +4042,8 @@
     },
     {
       "path": "scripts/smoke_public_chat_ui.py",
-      "size": 4598,
-      "sha256": "348d10b1ad9d34eb9ce74c23a0a8b5dbbf3a557b2eb6a377b9d124e70b3d258a",
+      "size": 6437,
+      "sha256": "e41c839d6dc004c5cec72dd8311a5666f96168c6041a6b5a913c577b713d50fb",
       "normalization": "lf"
     },
     {

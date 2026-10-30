@@ -47,6 +47,7 @@ def run():
                     page.locator('#composer').evaluate('(form) => form.requestSubmit()')
                     expect(page.locator('#messages')).to_contain_text('Public chat fixture answer.')
                     expect(page.locator('#send')).to_be_visible(); expect(page.locator('#send')).to_be_enabled()
+                    expect(page.locator('#messages details.review')).to_have_count(0)
                     session = page.evaluate("sessionStorage.getItem('zenith_session')")
                     assert key not in page.content()
                     assert 'zenith_guest' not in page.evaluate('document.cookie')
@@ -63,10 +64,30 @@ def run():
                     page.wait_for_function('() => skillStateReady')
                     expect(page.locator('#open-admin')).to_be_hidden()
                     assert context.request.get(origin + '/api/admin/help').status == 403
+                    user_id = page.evaluate('activeUser.id')
+                    page.locator('#prompt').fill('Explain the account-owned example.')
+                    page.locator('#composer').evaluate('(form) => form.requestSubmit()')
+                    expect(page.locator('#messages')).to_contain_text('Public chat fixture answer.')
+                    expect(page.locator('#send')).to_be_visible(); expect(page.locator('#send')).to_be_enabled()
+                    expect(page.locator('#messages details.review')).to_have_count(1)
+                    account_session = page.evaluate("sessionStorage.getItem('zenith_session')")
+                    page.locator('#open-account').click(); page.locator('#logout').click()
+                    expect(page.locator('#open-account')).to_have_text('Sign in')
+                    page.wait_for_function('() => skillStateReady')
+                    assert page.evaluate('(key) => localStorage.getItem(key)', 'zenith_last_' + user_id) == account_session
+                    page.locator('#open-account').click()
+                    page.locator('#username').fill('public_reader')
+                    page.locator('#password').fill('temporary public chat fixture password')
+                    page.locator('#account-submit').click()
+                    expect(page.locator('#greeting')).to_contain_text('Public Reader')
+                    page.wait_for_function('() => skillStateReady')
+                    expect(page.locator('#messages')).to_contain_text('Public chat fixture answer.')
+                    assert page.evaluate("sessionStorage.getItem('zenith_session')") == account_session
                     assert not errors, errors
                     return {'real_chromium':True, 'model':'explicit fixture', 'token_entry_required':False,
                             'server_access_prompt_hidden':True, 'chat_and_reload':True,
                             'guest_browser_isolation':True, 'account_registration_without_server_key':True,
+                            'guest_review_controls_hidden':True, 'account_conversation_restored_after_logout':True,
                             'admin_denied':True, 'no_javascript_errors':True}
                 finally: browser.close()
         finally: server.should_exit = True; thread.join(15)
