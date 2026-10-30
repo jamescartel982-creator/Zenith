@@ -2410,8 +2410,8 @@
     },
     {
       "path": "docs/railway-deployment.md",
-      "size": 4114,
-      "sha256": "dad102d0097c2e6e13531efb2b00d41a20d09fcaeca8deadaef039a3b6cac348",
+      "size": 4418,
+      "sha256": "d3969b319f55ef8b35fb472ca1bea81743fb41401a1c2909edfb790de8046d95",
       "normalization": "lf"
     },
     {
@@ -3594,12 +3594,6 @@
       "path": "quickstart.py",
       "size": 8558,
       "sha256": "430773c950bba7a6d4f76a9d7d100567bd1ceb84fbfb2e769ae8a5e96c3fc103",
-      "normalization": "lf"
-    },
-    {
-      "path": "railway.json",
-      "size": 267,
-      "sha256": "a45017c0d52bd1ac788351f4bc2fd0d2cea4033c4a2bdadf97b7df2a5ca02902",
       "normalization": "lf"
     },
     {

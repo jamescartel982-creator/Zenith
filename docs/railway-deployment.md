@@ -5,7 +5,7 @@ managed build proxy CA. Railway rejected that instruction before installing
 dependencies: `other mount types are not supported` at line 27. Removing TLS
 verification or putting credentials in build arguments is not a fix.
 
-`railway.json` selects `deploy/railway/Dockerfile`, an equivalent CPU/non-root
+`deploy/railway/Dockerfile` provides an equivalent CPU/non-root
 image without the optional secret mount or proxy-specific CA configuration.
 Build context remains the repository root. The original Dockerfile remains
 available for ordinary Docker and managed environments. GitHub CI builds and
@@ -14,9 +14,14 @@ The Railway image also maps the original workspace profile path
 `/home/agent/.local/share/zenith` to `/app/data/profile`, preserving references
 in immutable approval receipts while keeping the restored state on one volume.
 
-For an existing service, set its Dockerfile path to
-`deploy/railway/Dockerfile`, and ensure it deploys a commit containing that file
-and `railway.json`. Do not select `agent/web` as a static deployment directory.
+For an existing service, set the service variable
+`RAILWAY_DOCKERFILE_PATH=deploy/railway/Dockerfile` and its Dockerfile path to
+`deploy/railway/Dockerfile`. Ensure it deploys a commit containing that file.
+This uses the provider's documented
+[custom Dockerfile selection](https://docs.railway.com/builds/dockerfiles#custom-dockerfile-path)
+without adding a legacy `railway.json` file. The current CLI warns that legacy
+config-as-code files stop working after 2026-12-01. Do not select `agent/web` as
+a static deployment directory.
 
 ## Preserve the actual deployment state
 
