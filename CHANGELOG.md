@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.17.5 — Browser, credential and local-state security
+
+- Replace raw browser API-key storage with expiring HttpOnly access grants while retaining native Bearer clients. Add explicit disconnect and discard stale account/owner responses.
+- Apply CSP, clickjacking, MIME, origin, cache and HTTPS transport headers to successful and rejected responses. Suppress raw exception details and default URL access logs.
+- Filter configured/pattern credentials before model context, streamed output and persistence; reject credentials in persistent user input, discovery queries and instruction packs.
+- Strengthen SQLite deletion/defensive settings, existing MFA key reads and atomic private configuration writes. Preserve database contents and model identity.
+- Remove owner commands from the public quickstart/page and expose their reference only after server-side owner elevation. Add adversarial HTTP/database tests and real Chromium acceptance checks.
+- See [the measured security report](docs/security-hardening.md) for scope, remaining limitations, migration and rollback.
+
 ## 0.17.4 — macOS installation and four-runtime audit
 
 - Select native PyPI CPU/MPS wheels on Apple Silicon instead of the Linux/Windows CPU index; reject unsupported native Intel/Rosetta installs without downgrading or changing models.

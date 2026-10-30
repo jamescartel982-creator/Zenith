@@ -8,7 +8,7 @@ version = "0.3.0"
 requires-python = ">=3.12,<3.13"
 description = "Isolated authenticated runtime control plane for Zenith"
 license = "Apache-2.0"
-dependencies = ["zenith-local==0.17.4", "httpx>=0.28.1,<1", "jsonschema>=4.26,<5"]
+dependencies = ["zenith-local==0.17.5", "httpx>=0.28.1,<1", "jsonschema>=4.26,<5"]
 
 [project.optional-dependencies]
 native = ["websockets==15.0.1"]

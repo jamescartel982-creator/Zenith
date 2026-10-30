@@ -17,7 +17,8 @@ def local_key(store,name='owner-mfa.key',create=True):
         descriptor=os.open(path,os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600)
     except FileExistsError:
         for _ in range(50):
-            value=path.read_bytes()
+            from .private_files import read_private
+            value=read_private(path, maximum=44)
             if len(value)==44:return value
             time.sleep(0.02)
         raise ValueError('MFA encryption key is incomplete; local recovery is required')

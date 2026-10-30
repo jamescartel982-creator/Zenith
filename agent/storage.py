@@ -11,6 +11,8 @@ from uuid import uuid4
 
 class Store:
     def __init__(self, data_dir="data"):
+        from .redaction import Redactor
+        self.redactor = Redactor.configured()
         Path(data_dir).mkdir(parents=True, exist_ok=True, mode=0o700)
         if os.name == 'posix':
             directory = Path(data_dir).stat()
@@ -74,12 +76,20 @@ class Store:
         db = sqlite3.connect(self.path, timeout=30)
         db.row_factory = sqlite3.Row
         try:
+            db.execute('PRAGMA secure_delete=ON')
+            if hasattr(db, 'setconfig') and hasattr(sqlite3, 'SQLITE_DBCONFIG_DEFENSIVE'):
+                db.setconfig(sqlite3.SQLITE_DBCONFIG_DEFENSIVE, True)
             with db:
                 yield db
         finally:
             db.close()
 
     def add(self, session_id, prompt, response, messages, model, deliberation=None, sources=None, quality=None, performance=None):
+        self.redactor.require_clean(prompt)
+        response = self.redactor.text(response)
+        messages, model = self.redactor.value(messages), self.redactor.text(model)
+        deliberation, sources = self.redactor.value(deliberation), self.redactor.value(sources)
+        quality, performance = self.redactor.value(quality), self.redactor.value(performance)
         turn_id = str(uuid4())
         with self.connect() as db:
             db.execute("""INSERT INTO turns
@@ -107,6 +117,10 @@ class Store:
         return result
 
     def review(self, session_id, turn_id, rating, approved=False, correction=None):
+        if correction:
+            from .assurance import normalize_input
+            correction = normalize_input(correction)
+            self.redactor.require_clean(correction)
         from .admin import contains_admin_code
         if correction and contains_admin_code(correction):
             raise ValueError('Never save an owner code in a review or training example')
@@ -154,6 +168,7 @@ class Store:
             if db.execute("SELECT 1 FROM sqlite_master WHERE name='generation_metrics'").fetchone():
                 db.execute('DELETE FROM generation_metrics WHERE session_id=?',(session_id,))
     def add_document(self, source_id, url, text):
+        for value in (source_id, url, text): self.redactor.require_clean(value)
         import hashlib
         from urllib.parse import urlparse
         text = text.strip()

@@ -120,6 +120,7 @@ class PersonalStore:
     def remember(self, user_id, content):
         from .assurance import normalize_input
         content = normalize_input(content)
+        self.store.redactor.require_clean(content)
         from .owner_mfa import contains_enrollment_secret
         if contains_enrollment_secret(self.store,content):raise ValueError('Authenticator secrets cannot be saved as memories')
         if not 1 <= len(content) <= 500:

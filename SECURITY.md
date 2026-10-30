@@ -5,6 +5,13 @@ expiring sessions, owner TOTP MFA, scoped execution grants, an emergency stop,
 and optional offline container execution. Model text cannot grant permissions.
 These protections reduce risk; they are not a guarantee against compromise.
 
+The [0.17.5 security report](docs/security-hardening.md) records the source audit,
+local adversarial tests, real-browser checks and unchanged-model verification.
+The public README and login page no longer publish owner command instructions.
+The command reference in the owner workspace requires a signed-in configured
+owner with current server-side elevation. Public source and Git history remain
+readable; command names are not secrets or authentication factors.
+
 ## Run privately
 
 Keep the default `127.0.0.1` binding. Do not forward port 7860 directly to the
@@ -35,6 +42,21 @@ to same-origin checks on writes. Put connection limits, request-rate limits
 and TLS termination at the proxy for public deployments; app limits do not
 protect against volumetric DDoS or a compromised host.
 
+Version 0.17.5 replaces browser `sessionStorage` API keys with host-only HttpOnly,
+SameSite=Strict grants that expire after one hour; HTTPS adds Secure. Re-enter
+the access key once after upgrading. Disconnect clears browser access and revokes
+that account session; rotating the server key revokes all browser access grants.
+Native Bearer authentication remains supported. Use HTTPS for remote clients.
+
+App HTTP responses, including rejected requests and handled internal errors,
+get a restrictive same-origin CSP, no-store, nosniff, clickjacking protection,
+no-referrer, cross-origin isolation and permissions headers. HSTS is emitted only
+when the trusted ASGI scheme is HTTPS. No third-party browser scripts are needed.
+Configured literal keys and common credential formats are filtered before chat
+delivery/persistence; this cannot detect every unknown or encoded secret. CLI
+server access logs omit request URLs by default. Configure proxy, SDK and service
+logs separately and rotate any credentials already exposed in old logs or data.
+
 ## Protect local state and tools
 
 Run Zenith as an ordinary dedicated OS account. On POSIX, new data directories
@@ -46,6 +68,12 @@ Docker volume or configuring the real private directory instead of a symlink.
 Existing database contents and schemas are preserved. Existing parent-directory
 permissions are not changed automatically. On Windows, restrict the data/profile
 directory using NTFS ACLs; POSIX mode bits do not implement Windows account ACLs.
+
+SQLite connections enable secure deletion and, where supported by Python/SQLite,
+defensive mode. These settings do not encrypt the database or guarantee removal
+from WAL pages, FTS indexes, snapshots or backups. Use OS disk encryption and
+private encrypted backups. New configuration files are written through private
+temporary files and atomically replaced; existing configuration bytes are kept.
 
 Keep encrypted MFA material and its local key private. Back up the data/profile
 directory to encrypted, access-controlled storage and test restoration. Backups,

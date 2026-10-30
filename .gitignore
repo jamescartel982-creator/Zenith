@@ -1,6 +1,9 @@
 # Secrets and local environment
 .env
 .env.*
+*.env
+config.env
+.zenith-config-*
 !.env.example
 *.pem
 *.key

@@ -113,6 +113,7 @@ class SkillCatalog:
             if source != 'local-authored' and (url.scheme != 'https' or not url.hostname or url.username or url.password or url.query or url.fragment or url.port not in (None, 443) or any(c.isspace() for c in source)):
                 raise ValueError('Record a credential-free HTTPS source or local-authored')
             from .curriculum import SECRET_PATTERN
+            self.store.redactor.require_clean(json.dumps(manifest))
             if SECRET_PATTERN.search(json.dumps(manifest)):
                 raise ValueError('Remove credential-like material from pack provenance')
             db.execute('BEGIN IMMEDIATE')
@@ -150,6 +151,7 @@ class SkillCatalog:
                 if not value['id'].startswith('x-' + pack + '-'):
                     raise ValueError('Imported identifiers must start with x-PACKID-')
                 encoded = json.dumps(value, ensure_ascii=False)
+                self.store.redactor.require_clean(encoded)
                 if SECRET_PATTERN.search(encoded):
                     raise ValueError('Remove credential-like material before importing')
                 if len(imported_instruction(value)) > 2400:
