@@ -3,7 +3,6 @@ from contextlib import closing
 
 import requests
 from .policy import AUTHORITY_POLICY
-from .identity import IDENTITY_POLICY
 
 from .transport import (
     ProviderProtocolError, delta_text, final_text, json_object,
@@ -11,7 +10,7 @@ from .transport import (
 )
 
 SYSTEM_PROMPT = (
-    "You are Zenith, an independent AI assistant. Be thoughtful, warm, and precise. " + IDENTITY_POLICY + AUTHORITY_POLICY +
+    "You are Zenith, an independent AI assistant. Be thoughtful, warm, and precise. " + AUTHORITY_POLICY +
     "Answer the user's actual question directly, then explain when useful. "
     "Use readable paragraphs and Markdown when appropriate. Follow explicit output-format requests; "
     "return raw JSON or code without wrappers when requested. "

@@ -15,8 +15,11 @@ Clear, bounded identity questions now use reviewed application metadata and the
 configured backend description in both response modes. The interface labels this
 `Application identity · configured model provenance` and records zero model calls;
 this is an application fact, not a new learned capability or confidence score.
-Both model prompt styles also receive consistent project identity and configured
-provenance for follow-up questions. Unknown model authorship is explicitly
+Both model prompt styles receive consistent project identity and configured
+provenance only when the question references the assistant's identity. Unrelated
+questions retain their previous system prompts; a global prompt expansion caused
+French-preference and diagnostic regressions during CI and was removed before
+deployment. Unknown model authorship is explicitly
 unverified; private checkpoint paths and credentials are not disclosed.
 
 Matching is anchored to direct identity questions. Questions about other people,

@@ -322,8 +322,8 @@
     },
     {
       "path": "agent/core.py",
-      "size": 14408,
-      "sha256": "0a05a92e0bcb99ab6712e55e9c0ade228998905b962cf7da8acca53609ffb84d",
+      "size": 14517,
+      "sha256": "66ce86dd6f031588725371c660b4e8fbe94479b54011c06817b166680735ed24",
       "normalization": "lf"
     },
     {
@@ -358,8 +358,8 @@
     },
     {
       "path": "agent/efficiency.py",
-      "size": 3892,
-      "sha256": "8caac11d09ae1051ec7c2537f517371ed29e67ff74ee0444eeb6103473c07990",
+      "size": 3836,
+      "sha256": "07576613ee4b70985d3ab55fd9385a4695f58dfc6bcef0f773654426631de62c",
       "normalization": "lf"
     },
     {
@@ -424,8 +424,8 @@
     },
     {
       "path": "agent/identity.py",
-      "size": 3195,
-      "sha256": "d52642d4447e9cbc8d25d8f3b221120890d21ac6c570816a51c88a899da6d569",
+      "size": 3742,
+      "sha256": "8c7865962a85a77f80d34f6e589de172e5f774b949ebb9acd3aee67335778597",
       "normalization": "lf"
     },
     {
@@ -616,8 +616,8 @@
     },
     {
       "path": "agent/providers.py",
-      "size": 21448,
-      "sha256": "f928d52d570c522394ee4182e283c97540c2d360de43b2362128a9005dc74b94",
+      "size": 21392,
+      "sha256": "6766e89a30fa8414975b4b5c01dae921910767f2eefb1d01c9f8625abd5fa9dc",
       "normalization": "lf"
     },
     {
@@ -628,8 +628,8 @@
     },
     {
       "path": "agent/quality.py",
-      "size": 14699,
-      "sha256": "5e3c224d934fbe4640357f962ccf5210470a6ea8963533d90086540b00487463",
+      "size": 14827,
+      "sha256": "2282b4efed3c2489c99348a478268211ade8fdfdc86314199f94044eb722b325",
       "normalization": "lf"
     },
     {
@@ -964,8 +964,8 @@
     },
     {
       "path": "docs/assistant-identity.md",
-      "size": 2255,
-      "sha256": "aabed0de475725630d6d88933fe9cf719d72f7f2925716faa9b9ab6690890cd7",
+      "size": 2466,
+      "sha256": "1b251a0ac5ec42f69e5ff8fba8e3f424900d79a78fa697392ae1e3772749f062",
       "normalization": "lf"
     },
     {
@@ -4114,8 +4114,8 @@
     },
     {
       "path": "tests/test_assistant_identity.py",
-      "size": 6444,
-      "sha256": "43987ed634608067ec4d61f5a429dd4e72e75b48cd9eda1c9890c6fbb134f012",
+      "size": 6978,
+      "sha256": "0840dd6b970a7e1ee9ad4e6bb73c575cb5281c254be605465b6bf8425da7b7d5",
       "normalization": "lf"
     },
     {

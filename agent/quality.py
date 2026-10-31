@@ -28,8 +28,9 @@ def configuration_signature(settings,mode=None,reply_style=None):
     fields.update(device=settings.device,cpu_threads=settings.cpu_threads)
     from .providers import SYSTEM_PROMPT
     from .efficiency import COMPACT_SYSTEM
-    from .identity import model_provenance
-    policy={'system':SYSTEM_PROMPT,'compact':COMPACT_SYSTEM,'provenance':model_provenance(settings)}
+    from .identity import IDENTITY_POLICY, SELF_REFERENCE, model_provenance
+    policy={'system':SYSTEM_PROMPT,'compact':COMPACT_SYSTEM,'provenance':model_provenance(settings),
+            'identity_policy':IDENTITY_POLICY,'identity_context_match':SELF_REFERENCE.pattern}
     fields['application_policy_sha256']=hashlib.sha256(json.dumps(policy,sort_keys=True).encode()).hexdigest()
     if settings.provider in {'orchestrated', 'reasoning'}:
         import os

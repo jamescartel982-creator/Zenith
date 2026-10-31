@@ -20,6 +20,19 @@ SELF_QUESTION = re.compile(
     r"are you (?:zeno|zenith|qwen|chatgpt|claude)|introduce yourself|"
     r"what is your name and who (?:created|made|developed) you)\Z"
 )
+SELF_REFERENCE = re.compile(
+    r"\b(?:who (?:created|made|built|developed|designed) (?:you|zenith)|"
+    r"your (?:name|creator|creators|developer|developers|foundation model)|"
+    r"what model (?:are you|do you use)|(?:are|were) you (?:zeno|zenith|qwen|chatgpt|claude))\b"
+)
+
+
+def needs_identity_context(text):
+    if not isinstance(text, str) or '```' in text:
+        return False
+    if re.match(r'\s*(?:translate|rewrite|paraphrase|quote|extract)\b',text,re.I):
+        return False
+    return bool(SELF_REFERENCE.search(text.casefold()))
 
 
 def model_provenance(settings):

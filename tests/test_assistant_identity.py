@@ -85,11 +85,19 @@ class AssistantIdentityTests(unittest.TestCase):
 
     def test_both_prompt_styles_have_the_same_identity_and_configured_provenance(self):
         for style in ('brief','full'):
-            self.agent.answer('Describe this example.',str(uuid4()),reply_style=style)
+            self.agent.answer('Explain who created you; answer in JSON.',str(uuid4()),reply_style=style)
             system=self.provider.generate.call_args.args[0][0]['content']
             self.assertIn('maintained by n8storm',system)
             self.assertIn('configured foundation model',system)
             self.assertIn("Alibaba Cloud's Qwen team",system)
+
+    def test_unrelated_questions_do_not_receive_identity_prompt_expansion(self):
+        for style in ('brief','full'):
+            for question in ['Give a greeting in French.', 'Translate "Who created you" into Spanish.']:
+                self.agent.answer(question,str(uuid4()),reply_style=style)
+                system=self.provider.generate.call_args.args[0][0]['content']
+                self.assertNotIn('maintained by n8storm',system)
+                self.assertNotIn('Configured model provenance:',system)
 
     def test_calibration_fingerprint_changes_with_identity_policy(self):
         from agent.quality import configuration_signature

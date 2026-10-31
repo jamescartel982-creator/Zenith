@@ -55,8 +55,9 @@ class Agent:
         sources=self.store.search_documents(text,plan.knowledge_limit)
         for source in sources:source['excerpt']=source['excerpt'][:plan.excerpt_chars]
         system=(COMPACT_SYSTEM if plan.concise else SYSTEM_PROMPT)+'\nSelected skill: '+instruction
-        from .identity import model_provenance
-        system += '\nConfigured model provenance: ' + model_provenance(self.settings)
+        from .identity import IDENTITY_POLICY, model_provenance, needs_identity_context
+        if needs_identity_context(text):
+            system += '\n' + IDENTITY_POLICY + 'Configured model provenance: ' + model_provenance(self.settings)
         if plan.concise:system+='\nReply in 1–3 short sentences unless the user requires a different format. Avoid preambles, repetition, and restating the question.'
         if user_id:
             from .preferences import style_instruction
