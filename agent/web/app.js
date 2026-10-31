@@ -200,7 +200,7 @@ function addMessage(role, text, turn = null) {
     }
     if (turn.quality) {
       const q = turn.quality;
-      const label = q.verification === 'deterministic' ? 'Verified arithmetic' : q.abstained ? 'Evidence unavailable · abstained' : q.calibration === 'validation-method-group' ? 'Model answer · validation group estimate; individual confidence unknown' : 'Model answer · confidence not calibrated';
+      const label = q.verification === 'application-metadata' ? 'Application identity · configured model provenance' : q.verification === 'deterministic' ? 'Verified arithmetic' : q.abstained ? 'Evidence unavailable · abstained' : q.calibration === 'validation-method-group' ? 'Model answer · validation group estimate; individual confidence unknown' : 'Model answer · confidence not calibrated';
       const note = element('p', 'quality-note', label + (turn.latency_ms !== undefined ? ` · ${(turn.latency_ms / 1000).toFixed(2)}s` : '') + (q.needs_human_review ? ' · human review recommended' : ''));
       article.append(note);
     }

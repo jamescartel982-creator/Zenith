@@ -226,8 +226,8 @@
     },
     {
       "path": "agent/assurance.py",
-      "size": 5635,
-      "sha256": "05d329e5758a842181663075365ddeec3707092c83eb8561d32044b792ed73d1",
+      "size": 6051,
+      "sha256": "0ac2706ab938b8c26f8742c3437e31cf6f1014499513131aec245b1936958c26",
       "normalization": "lf"
     },
     {
@@ -322,8 +322,8 @@
     },
     {
       "path": "agent/core.py",
-      "size": 14001,
-      "sha256": "e00a343c5f3efce2a8efb9857a566382e02f8deec1a22a978e8eea93b3850e6e",
+      "size": 14517,
+      "sha256": "66ce86dd6f031588725371c660b4e8fbe94479b54011c06817b166680735ed24",
       "normalization": "lf"
     },
     {
@@ -420,6 +420,12 @@
       "path": "agent/http_security.py",
       "size": 8062,
       "sha256": "807b61fdc40637e7479c62c47a8104562f0ac48d1d37e2befebed26ea4ee6e93",
+      "normalization": "lf"
+    },
+    {
+      "path": "agent/identity.py",
+      "size": 3742,
+      "sha256": "8c7865962a85a77f80d34f6e589de172e5f774b949ebb9acd3aee67335778597",
       "normalization": "lf"
     },
     {
@@ -622,8 +628,8 @@
     },
     {
       "path": "agent/quality.py",
-      "size": 14360,
-      "sha256": "473d5c8b1faa2e8e0db6f93762485301ab6568ddc3991908b3d9fcdc7d3e9cee",
+      "size": 14827,
+      "sha256": "2282b4efed3c2489c99348a478268211ade8fdfdc86314199f94044eb722b325",
       "normalization": "lf"
     },
     {
@@ -820,8 +826,8 @@
     },
     {
       "path": "agent/web/app.js",
-      "size": 70948,
-      "sha256": "1cd2ba4337eb70298af2032ea6162a11c9c6900d8ce8df1362f91e2162b917e5",
+      "size": 71048,
+      "sha256": "b2e16001fb894b3a6a2c46e0fcbb303560e3837394c3ef259ea0fa701557f108",
       "normalization": "lf"
     },
     {
@@ -954,6 +960,12 @@
       "path": "docs/admin.md",
       "size": 4622,
       "sha256": "8558573ac5153123687f4a36f7d614c099981a14356bf611c7e8c85dca0cd97b",
+      "normalization": "lf"
+    },
+    {
+      "path": "docs/assistant-identity.md",
+      "size": 2466,
+      "sha256": "1b251a0ac5ec42f69e5ff8fba8e3f424900d79a78fa697392ae1e3772749f062",
       "normalization": "lf"
     },
     {
@@ -4042,8 +4054,8 @@
     },
     {
       "path": "scripts/smoke_public_chat_ui.py",
-      "size": 6437,
-      "sha256": "e41c839d6dc004c5cec72dd8311a5666f96168c6041a6b5a913c577b713d50fb",
+      "size": 7011,
+      "sha256": "d146685d845e9d205d28547e4be2895305f33ed42db97fa899e4372828600c33",
       "normalization": "lf"
     },
     {
@@ -4098,6 +4110,12 @@
       "path": "start.sh",
       "size": 201,
       "sha256": "4ae98ac9ecb6717ba6e7051dd1cc16632ee7e21f1609756617a894e4587db942",
+      "normalization": "lf"
+    },
+    {
+      "path": "tests/test_assistant_identity.py",
+      "size": 6978,
+      "sha256": "0840dd6b970a7e1ee9ad4e6bb73c575cb5281c254be605465b6bf8425da7b7d5",
       "normalization": "lf"
     },
     {
