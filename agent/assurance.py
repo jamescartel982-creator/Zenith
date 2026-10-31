@@ -15,7 +15,11 @@ def normalize_input(text):
     return text.strip()
 
 
-def direct_answer(text, fast=True):
+def direct_answer(text, fast=True, settings=None):
+    from .identity import identity_answer
+    identity = identity_answer(text, settings)
+    if identity is not None:
+        return identity
     words=text.casefold()
     devil=re.search(r'\bdevil\s*mode\b',words)
     if (devil and (re.search(r'\b(?:activate|unlock|enable|admin|administrator|permission|permissions|typing|chat|switch)\b',words) or words.strip()=='devil mode')) or (re.search(r'\b(?:typing|type|chat|prompt)\b',words) and re.search(r'\b(?:admin|administrator|privileges|elevation)\b',words)):
@@ -38,10 +42,12 @@ def direct_answer(text, fast=True):
 
 def assurance(text, method='model', abstained=False, sources=0):
     human_review=bool(re.search(r'\b(?:invest|investment|trading|trade|medical|diagnos|legal|penetration|exploit|malware)\w*\b',text.casefold()))
-    return {'method':method,'verification':'deterministic' if method=='verified-arithmetic' else 'not-verified',
+    verification = 'deterministic' if method=='verified-arithmetic' else 'application-metadata' if method=='application-identity' else 'not-verified'
+    return {'method':method,'verification':verification,
             'abstained':abstained,'confidence':None,'calibration':'not-estimated',
             'needs_human_review':human_review,'retrieved_sources':sources,
-            'note':'No calibrated confidence probability is available. Retrieved text and model agreement do not prove correctness.'}
+            'note':('Reviewed project identity and configured backend metadata; no model inference or confidence estimate.'
+                    if method=='application-identity' else 'No calibrated confidence probability is available. Retrieved text and model agreement do not prove correctness.')}
 
 
 def calibrated_assurance(settings, quality, mode, reply_style=None):

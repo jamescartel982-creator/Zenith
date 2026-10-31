@@ -55,6 +55,8 @@ class Agent:
         sources=self.store.search_documents(text,plan.knowledge_limit)
         for source in sources:source['excerpt']=source['excerpt'][:plan.excerpt_chars]
         system=(COMPACT_SYSTEM if plan.concise else SYSTEM_PROMPT)+'\nSelected skill: '+instruction
+        from .identity import model_provenance
+        system += '\nConfigured model provenance: ' + model_provenance(self.settings)
         if plan.concise:system+='\nReply in 1–3 short sentences unless the user requires a different format. Avoid preambles, repetition, and restating the question.'
         if user_id:
             from .preferences import style_instruction
@@ -114,9 +116,13 @@ class Agent:
                 if privacy_filter:
                     messages=privacy_filter(messages);sources=privacy_filter(sources)
                 if self.settings.provider == 'reasoning':self.provider.set_sources(sources)
-                direct=direct_answer(text,fast=mode=='fast')
+                direct=direct_answer(text,fast=mode=='fast',settings=self.settings)
+                if direct and direct['method']=='application-identity':
+                    sources=[]
                 quality=calibrated_assurance(self.settings,assurance(text,method=direct['method'] if direct else 'model',
                     abstained=bool(direct and direct['abstained']),sources=len(sources)),mode,plan.requested_style)
+                if direct and direct['method']=='application-identity':
+                    quality['application_identity_source']=direct['source']
                 method=quality['method']
                 if quality['method']=='validation-threshold-abstention':
                     direct={'text':"I don't have enough validated confidence to answer reliably under this evaluation profile. Please request human review or provide better evidence.",'abstained':True,'method':quality['method']}

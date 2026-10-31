@@ -56,6 +56,11 @@ def run():
                     page.reload(); page.wait_for_function('() => skillStateReady')
                     expect(page.locator('#messages')).to_contain_text('Public chat fixture answer.')
                     expect(page.locator('#access')).to_be_hidden()
+                    page.locator('#prompt').fill('Who created you')
+                    page.locator('#composer').evaluate('(form) => form.requestSubmit()')
+                    expect(page.locator('#messages')).to_contain_text("I'm Zenith, maintained by n8storm")
+                    expect(page.locator('#messages')).to_contain_text('Application identity · configured model provenance')
+                    expect(page.locator('#send')).to_be_visible(); expect(page.locator('#send')).to_be_enabled()
                     page.locator('#open-account').click(); page.locator('#toggle-register').click()
                     page.locator('#username').fill('public_reader'); page.locator('#display-name').fill('Public Reader')
                     page.locator('#password').fill('temporary public chat fixture password')
@@ -88,6 +93,7 @@ def run():
                             'server_access_prompt_hidden':True, 'chat_and_reload':True,
                             'guest_browser_isolation':True, 'account_registration_without_server_key':True,
                             'guest_review_controls_hidden':True, 'account_conversation_restored_after_logout':True,
+                            'application_identity_and_provenance':True,
                             'admin_denied':True, 'no_javascript_errors':True}
                 finally: browser.close()
         finally: server.should_exit = True; thread.join(15)
